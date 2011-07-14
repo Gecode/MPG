@@ -1,0 +1,324 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Locating warehouses}
+\label{chap:c:warehouses}
+
+%% FILES: CHAPTERONLY
+
+This chapter demonstrates the warehouse location problem. It
+shows how to use \?element?, global counting (\?count?), and
+\?linear?  constraints.
+
+\section{Problem}
+\label{sec:c:warehouses:problem}
+
+The problem is taken from~\cite[Chapter~10]{OPL:1999}, see also
+\CSPLIB{34}.  A company needs to construct warehouses to supply
+stores with goods. Each candidate warehouse has a certain
+capacity defining how many stores it can supply. Each store shall
+be supplied by exactly one warehouse. Maintaining a warehouse
+incurs a fixed cost. Costs for transportation from warehouses to
+stores depend on the locations of warehouses and stores.
+
+We want to determine which warehouses should be opened (that is,
+supply to at least one store) and which warehouse should supply
+which store such that the overall cost (transportation costs plus
+fixed maintenance costs) is smallest.
+
+In the following problem instance, the fixed maintenance cost
+\?c_fixed? for a warehouse is $30$.  There are five candidate
+warehouses $w_0, \ldots, w_4$ and ten stores $s_0, \ldots,
+s_{9}$. The candidate warehouses have the following \?capacity?:
+\begin{center}\footnotesize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$w_0$&$w_1$&$w_2$&$w_3$&$w_4$\\\hline\hline
+1&4&2&1&3\\\hline
+\end{tabular}
+\end{center}
+
+The costs to supply a store by a candidate warehouse are defined by a
+matrix $\mathtt{c\_supply}_{i,j}$ ($0\leq i<10$, $0\leq j < 5$) as follows:
+\begin{center}\footnotesize
+\begin{tabular}{|c||c|c|c|c|c|}
+\hline
+        &$w_0$&$w_1$&$w_2$&$w_3$&$w_4$\\\hline\hline
+$s_0$   &20&24&11&25&30\\\hline
+$s_1$   &28&27&82&83&74\\\hline
+$s_2$   &74&97&71&96&70\\\hline
+$s_3$   & 2&55&73&69&61\\\hline
+$s_4$   &46&96&59&83& 4\\\hline
+$s_5$   &42&22&29&67&59\\\hline
+$s_6$   & 1& 5&73&59&56\\\hline
+$s_7$   &10&73&13&43&96\\\hline
+$s_8$   &93&35&63&85&46\\\hline
+$s_9$   &47&65&55&71&95\\\hline
+\end{tabular}
+\end{center}
+
+
+\section{Model}
+\label{sec:c:warehouses:model}
+
+\begin{figure}
+\insertlitcode{warehouses}
+\caption{A script for locating warehouses}
+\label{fig:c:warehouses:script}
+\end{figure}
+
+The outline for the script implementing our model is shown in
+\autoref{fig:c:warehouses:script}. The data definitions are
+as described in the previous section.
+
+As we need to minimize the total cost, the script inherits from
+the class \?MinimizeScript? which is a driver-defined subclass
+(similar to \?Script? and \?Space?) of \?MinimizeSpace? (see
+\autoref{sec:m:minimodel:optimize}), see
+\autoref{sec:m:driver:script}. This in particular means that the
+class must define a virtual \?cost()? function, see below.
+
+\paragraph{Variables.}
+
+The script declares the following variables:
+\insertlitcode{warehouses:variables}
+where:
+\begin{itemize}
+\item for each store $s$, there is a variable $\mathtt{supplier}_s$  
+  such that
+  $\mathtt{supplier}_s=w$ if warehouse $w$ supplies store
+  $s$;
+\item for each warehouse $w$, there is a Boolean variable $\mathtt{open}_w$ 
+  which equals one, if the warehouse $w$ supplies at least one
+  store; 
+\item for each store $s$, there is a variable $\mathtt{c\_store}_s$ which
+  defines the cost for $s$ to be supplied by warehouse
+  $\mathtt{supplier}_s$;
+\item a variable \?c_total? which defines the total cost.
+\end{itemize}
+
+\tip{Choose variables to avoid constraints}{ 
+\label{tip:c:warehouses:varchoice}%
+  Just by the choice of \?supplier? variables where
+  $\mathtt{supplier}_s=w$ if warehouse $w$ supplies store $s$,
+  the problem constraint that each store shall be supplied by exactly one
+  warehouse is enforced. Hence, no explicit constraints must be
+  posted in our model. After all, no \?supplier? variable can
+  take on two different values!
+
+  This is good modeling practice: choosing variables such that
+  some of the problem constraints are automatically
+  enforced.
+}
+
+The variables are initialized as follows:
+\insertlitcode{warehouses:variable initialization}
+
+We only declare but do not initialize the cost variables
+\?c_store? and \?c_total?, as we will assign them by results
+obtained by posting expressions, see
+\autoref{sec:m:minimodel:exprrel}. The difference between
+declaring variables and initializing them such that new
+variables are created is explained in detail in
+\autoref{sec:m:integer:create}.
+
+\paragraph{Constraints.}
+
+For a given warehouse $w$ the following must hold: the number
+of stores $s$ supplied by $w$ is not allowed to exceed the
+capacity of $w$. This can be expressed by a counting
+constraint \?count? (see \autoref{sec:m:integer:count}) as
+follows:
+\insertlitcode{warehouses:do not exceed capacity}
+Here, the array of integer sets \?c? defines how many stores can
+be supplied by a warehouse, where $\mathtt{c}_w$ contains every
+legal number of occurrences of $w$ in \?supplier?. To achieve
+strong propagation for the \?count? constraint, we choose domain
+propagation by providing the additional argument \?ICL_DOM? (see
+\autoref{sec:m:integer:icl}).
+
+For a given warehouse $w$ the following must hold: if the
+number of stores $s$ supplied by $w$ is at least one, then
+$\mathtt{open}_w$ equals one. That is,
+$\mathtt{open}_{\mathtt{supplier}_s}$ must be \?1? for all stores
+$s$. This is expressed by using \?element? constraints (see
+\autoref{sec:m:integer:element}) as follows:
+\insertlitcode{warehouses:open warehouses}
+
+\paragraph{Cost computation.}
+
+The cost $\mathtt{c\_store}_s$ for each store $s$ is computed by an
+\?element? constraint (see
+\autoref{sec:m:integer:element}), mapping the warehouse supplying
+$s$ to the appropriate cost:
+\insertlitcode{warehouses:cost for each warehouse}
+
+The total cost \?c_total? is defined by the cost of open
+warehouses (that is, the sum of $\mathtt{open}_w$ for all
+warehouses $w$ multiplied with the fixed maintenance cost for a
+warehouse) and the cost of stores (that is, the sum of the
+$\mathtt{c\_store}_s$ for all stores $s$):
+\insertlitcode{warehouses:total cost}
+Note that the linear expression posted for defining the total
+cost mixes integer and Boolean variables and is automatically
+decomposed into the appropriate \?linear? constraints, see
+\autoref{sec:m:minimodel:exprrel}. 
+
+\tip{Small variable domains are still beautiful}{
+\label{tip:c:warehouses:beautifuldomains}%
+As mentioned in \autoref{tip:m:integer:beautifuldomains},
+initializing variable domains to be small makes sense. 
+
+Here we choose to post expressions (see
+\autoref{sec:m:minimodel:exprrel}) via the \?expr()? function that
+returns an integer variable. The integer variable returned by
+\?expr()? has automatically computed and reasonable bounds.
+
+A different choice would be to initialize the variables
+\?c_store? and \?c_total? in the constructor of the script and
+constrain them explicitly (for example, via the \?rel()? function
+where the expression for \?expr()? is turned into an equality relation).
+But that would mean that we either have to compute some estimates
+for the bounds used for initializing the variables or resort ---
+without real necessity --- to the largest possible integer value.  
+}
+
+\paragraph{Branching.}
+
+The branching proceeds in two steps, implemented by two different
+branchings. The first branching assigns values to the variables
+$\mathtt{c\_store}_s$ and follows the strategy of maximal regret:
+select the variable for which the difference between the smallest
+value and the next larger value is maximal (see
+\autoref{sec:m:search:branch:int}). The second branching makes
+sure that all stores are being assigned a warehouse. This
+branching is necessary as supplying a store could have the same
+cost for several different warehouses (depending on the data used
+for the model). Hence, even though all variables in \?c_store?
+are assigned, not all variables in \?supplier? must be assigned
+and hence the total cost is also not assigned. The branchings are
+posted in the appropriate order as follows:
+\insertlitcode{warehouses:branching}
+
+\paragraph{Cost function.}
+
+The cost function \?cost()? to be used by the search engine is
+defined to return the total cost \?c_total?:
+\insertlitcode{warehouses:cost function}
+
+\section{More information}
+\label{sec:c:warehouses:info}
+
+This problem is also available as a Gecode example, see
+\gecoderef[example]{warehouses}. The model presented in 
+\cite[Chapter~10]{OPL:1999} proposes a better branching than the
+branching shown in the previous section.
+
+\begin{litcode}{warehouses}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+const int n_warehouses = 5;
+const int n_stores = 10;
+const int capacity[n_warehouses] = {
+  1, 4, 2, 1, 3
+};
+const int c_fixed = 30;
+const int c_supply[n_stores][n_warehouses] = {
+  \begin{litblock}{anonymous}
+  {20, 24, 11, 25, 30},
+  {28, 27, 82, 83, 74},
+  {74, 97, 71, 96, 70},
+  { 2, 55, 73, 69, 61},
+  {46, 96, 59, 83,  4},
+  {42, 22, 29, 67, 59},
+  { 1,  5, 73, 59, 56},
+  {10, 73, 13, 43, 96},
+  {93, 35, 63, 85, 46},
+  {47, 65, 55, 71, 95}
+  \end{litblock}
+};
+
+class Warehouses : public MinimizeScript {
+protected:
+  \begin{litblock}{variables}
+  IntVarArray  supplier;
+  BoolVarArray open;
+  IntVarArray  c_store;
+  IntVar       c_total;
+  \end{litblock}
+public:
+  Warehouses(const Options&)
+    \begin{litblock}{variable initialization}
+    : supplier(*this, n_stores, 0, n_warehouses-1),
+      open(*this, n_warehouses, 0, 1),
+      c_store(*this, n_stores)
+    \end{litblock}
+  {
+    {
+      \begin{litblock}{do not exceed capacity}
+      IntSetArgs c(n_warehouses);
+      for (int w=0; w<n_warehouses; w++)
+        c[w] = IntSet(0,capacity[w]);
+      count(*this, supplier, c, ICL_DOM);
+      \end{litblock}
+    }
+    \begin{litblock}{open warehouses}
+    for (int s=0; s<n_stores; s++)
+      element(*this, open, supplier[s], 1);
+    \end{litblock}
+    \begin{litblock}{cost for each warehouse}
+    for (int s=0; s<n_stores; s++) {
+      IntArgs c(n_warehouses, c_supply[s]);
+      c_store[s] = expr(*this, element(c, supplier[s]));
+    }
+    \end{litblock}
+    \begin{litblock}{total cost}
+    c_total = expr(*this, c_fixed*sum(open) + sum(c_store));
+    \end{litblock}
+    \begin{litblock}{branching}
+    branch(*this, c_store, INT_VAR_REGRET_MIN_MAX, INT_VAL_MIN);
+    branch(*this, supplier, INT_VAR_NONE, INT_VAL_MIN);
+    \end{litblock}
+  }
+  \begin{litblock}{cost function}
+  virtual IntVar cost(void) const {
+    return c_total;
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  // Constructor for cloning \a s
+  Warehouses(bool share, Warehouses& s) : MinimizeScript(share,s) {
+    supplier.update(*this, share, s.supplier);
+    open.update(*this, share, s.open);
+    c_store.update(*this, share, s.c_store);
+    c_total.update(*this, share, s.c_total);
+  }
+  // Copy during cloning
+  virtual Space* copy(bool share) {
+    return new Warehouses(share,*this);
+  }
+  // Print solution
+  virtual void print(std::ostream& os) const {
+    os << "\tSupplier:        " << supplier << std::endl
+       << "\tOpen warehouses: " << open << std::endl
+       << "\tStore cost:      " << c_store << std::endl
+       << "\tTotal cost:      " << c_total << std::endl
+       << std::endl;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+int main(int argc, char* argv[]) {
+  Options opt("Warehouses");
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  MinimizeScript::run<Warehouses,BAB,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}

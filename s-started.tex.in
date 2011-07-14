@@ -1,0 +1,689 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Getting started}
+\label{chap:s:started}
+
+This chapters presents how to implement simple search engines.
+The focus is on understanding the basic operations available on
+spaces to implement search engines. None of the engines presented
+here is realistic as they do not use recomputation. The full
+picture is developed in \autoref{chap:s:re} and
+\autoref{chap:s:engine}.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:s:started:space} sets the stage by explaining
+space operations for programming search engines. A 
+depth-first search engine that makes the simplifying assumption
+that all choices explored during search are binary is shown in
+\autoref{sec:s:started:dfsbin}. The next section,
+\autoref{sec:s:started:dfs}, shows depth-first search for choices
+with an arbitrary number of alternatives. How best solution
+search can be programmed from spaces is exemplified by a simple
+branch-and-bound search engine in \autoref{sec:s:started:bab}.
+
+
+
+\section{Space-based search}
+\label{sec:s:started:space}
+
+Search engines compute with spaces: a space implements a
+constraint model and exploration of its search space is
+implemented by operation on spaces. The operations on spaces
+include: computing the status of a space by the \?status()?
+function, creating a clone of a space by the \?clone()? function,
+and committing to an alternative of a choice by the \?commit()?
+function. To commit to an alternative, a space provides the
+function \?choice()? that returns a choice defining how the space
+can be committed to one of its alternatives. Another operation
+required to program exploration is the function \?alternatives()?
+defined by a choice that returns the number of alternatives of a
+choice.
+
+Spaces implement also a \?constrain()? function for best solution
+search. Its discussion is postponed to
+\autoref{sec:s:started:bab}.
+
+This section reviews the above operations from the perspective of a
+search engine, the perspective how branchers are controlled by
+these operations is detailed in
+\autoref{sec:b:started:overview}. Gecode's architecture for
+search is designed such that a search engine does not need to
+know \emph{which} problem is being solved by a search engine: any
+problem implemented with spaces can be solved by a search engine,
+and different search engines can be used for solving the same
+problem. The basic idea of this factorization is due to
+\cite{Schulte:LNAI:2002}. 
+
+Note that here and in the following, spaces and choices are
+always assumed to be \emph{pointers} to the respective objects.
+Pointers are necessary as search engines dynamically create and
+delete spaces and choices.
+
+\paragraph{Status computation.}
+
+A search engine needs to decide how to proceed during search by
+computing the \emph{status} of a space by invoking its
+\?status()? function. The \?status()? function performs
+constraint propagation (see \autoref{sec:p:started:solving})
+followed by determining the next brancher for branching, if
+possible (see \autoref{sec:b:started:overview}). Depending on the
+result of constraint propagation and brancher selection, the
+\?status()? function returns one of the following values of the
+type \?SpaceStatus? (see \gecoderef[group]{TaskSearch}):
+\begin{itemize}
+\item \?SS_FAILED?: the space is \emph{failed}. The search engine
+  needs to backtrack and revisit other spaces encountered
+  during exploration.
+
+  An important responsibility of a search engine is to perform
+  resource management for spaces. In the case of failure, the
+  typical action is to delete the failed space.
+\item \?SS_SOLVED?: the space is \emph{solved}. Hence the search
+  engine has found a solution and typically returns the
+  solution. 
+  
+  For most engines, the responsibility for deleting a solution
+  lies with the user of a search engine.
+
+  Following the discussion in \autoref{par:b:started:gc}, calling
+  the \?choice()? function of a solved space performs garbage
+  collection for branchers that are not any longer
+  needed. \autoref{sec:s:started:dfsbin} shows an example search
+  engine that performs garbage collection on solved spaces.
+\item \?SS_BRANCH?: the space requires branching for search to
+  proceed. 
+  
+  The first step in branching is to compute a choice by calling
+  the \?choice()? function of a space. The returned choice can be
+  used for committing to alternatives of a space. In particular,
+  a choice returned by the \?choice()? function provides a
+  function \?alternatives()?  that returns how many alternatives
+  the choice has.
+  
+  The pointer to the choice that is returned by the \?choice()?
+  function of a space \?s? is \?const?. That is, the following
+  code:
+\begin{smallcode}
+const Choice* ch = s->choice();
+\end{smallcode}
+gets a \?const? pointer to a choice (the choice cannot be
+modified). Note that it is the obligation of the search engine to
+eventually delete the choice by
+\begin{smallcode}
+delete ch;
+\end{smallcode}
+\end{itemize}
+
+\paragraph{Cloning spaces.}
+
+A central requirement for a search engine is that it can return
+to a previous state: as spaces constitute the nodes of the search
+tree, a previous state is nothing but a space again.  Returning
+to a previous space might be necessary because an alternative
+suggested by a branching did not lead to a solution, or, even if
+a solution has been found, more solutions might be requested.
+
+As propagation and branching modify spaces, provisions must be
+taken that search can actually return to the clone of a previous space. This
+is provided by the \?clone()? function of a space: it returns a
+clone of a space. This clone can be stored by a search engine
+such that the engine can return to a previous state. Spaces that are
+clones of each other are \emph{equivalent}: space operations will
+have exactly the same effect on equivalent spaces.
+
+The \?clone()? function of a space can only be called on a space
+that is stable and not failed (that is, the \?status()? function
+on a space must return \?SS_SOLVED? or \?SS_BRANCH?). Otherwise,
+Gecode throws an exception of type
+\gecoderef[class]{SpaceNotStable} if the space is not stable and
+of type \gecoderef[class]{SpaceFailed} if the space is failed.
+
+
+\paragraph{Committing to alternatives.}
+
+Given a space \?s? and a choice \?ch? (assumed to be a \?const?
+pointer), the space \?s? can be committed to the \?i?-th
+alternative by calling the \?commit()?  function of a space as
+follows:
+\begin{code}
+s->commit(*ch,i);
+\end{code}
+The choice \?ch? must be \emph{compatible} with the space \?s?.
+Before defining when a choice is compatible with a space, let us
+look at two examples. 
+
+Suppose a search engine has invoked \?status()? on a space \?s?
+which returned \?SS_BRANCH?. The next step is to obtain a
+choice \?ch? for \?s? and a clone \?c? of \?s? by:
+\begin{code}
+const Choice* ch = s->choice();
+Space* c = s->clone();
+\end{code}
+Further assume that the choice is binary (that is,
+\?ch->alternatives()? returns \?2?). A search engine can explore
+both alternatives (typically, the search engine performs the
+\?commit()? for the second\footnote{Even though the alternatives are
+  numbered starting from \?0? we refer to the alternative
+  with number \?0? as the first alternative and the alternative
+  with number \?1? as the second alternative.} alternative much
+later) by:
+\begin{code}
+s->commit(*ch,0);
+c->commit(*ch,1);
+\end{code}
+That is, a choice \?ch? is compatible with the space \?s? from
+which it has been computed and with the clone \?c? of \?s?.
+
+A search engine for best solution search performs slightly
+different operations. Let us follow an example scenario. First,
+the search engine starts exploring the first
+alternative by:
+\begin{code}
+s->commit(*ch,0);
+\end{code}
+Then search continues with \?s?. Let us assume that the search engine
+finds a better solution when continuing search from \?s?. Hence,
+the search engine adds additional constraints to the clone \?c?
+to make sure that exploration from \?c? yields a better solution
+(the constraints are added by calling the \?constrain()?
+function of a space, see \autoref{sec:s:started:bab}). And only
+then the search engine commits the clone \?c? to the second
+alternative by:
+\begin{code}
+c->commit(*ch,1);
+\end{code}
+That is, a choice \?ch? is also compatible with the clone \?c? of
+\?s?, even though additional constraints have been added to \?c?
+after it had been created by cloning.
+
+In fact, the relation that a choice is compatible with a space is
+quite liberal. The full notion of compatibility is needed for
+recomputation and is discussed in 
+\autoref{sec:s:re:compatible}. 
+
+
+\paragraph{Parallel search.}
+
+Gecode's kernel is constructed such it does not need to know
+anything about parallelism: it performs no
+synchronization\footnote{That is a slight over-simplification.
+  Gecode's kernel performs just enough synchronization to
+  maintain global information such as AFC (see
+  \autoref{sec:m:search:branch:int}).} in order to keep
+propagation and search simple and efficient.
+
+By default, a space or clones of a space can only be used by a
+single thread. However, one can request clones that can be used
+by different threads as they are created independently. This is
+achieved by providing \?false? as an additional argument to the
+\?clone()?  member function as follows:
+\begin{code}
+Space* c = s->clone(false);
+\end{code}
+The additional argument requests that a non-shared clone is
+created (in fact, it requests that non-shared copies of data
+structures used by the space \?s? are created, see
+\autoref{sec:p:memory:shared} for details). The spaces \?s? and
+\?c? can now be used by different threads in parallel.
+
+\paragraph{Statistics support.}
+
+The three main space operations (\?status()?, \?clone()?, and
+\?commit()?) provide support for execution
+statistics. For example, statistics from
+the execution of \?status()? on a space \?s? can be collected in
+the object \?stat? by:
+\begin{code}
+StatusStatistics stat;
+s->status(stat);
+\end{code}
+The classes for the statistics correspond to the space
+operations:
+\begin{center}
+\begin{tabular}{l@{\qquad}l}
+\?status()? & \gecoderef[class]{StatusStatistics}\\
+\?clone()? & \gecoderef[class]{CloneStatistics}\\
+\?commit()? & \gecoderef[class]{CommitStatistics}\\
+\end{tabular}
+\end{center}
+
+Statistics information is collected by accumulation. That is, for spaces
+\?s1? and \?s2?, the following:
+\begin{code}
+StatusStatistics stat;
+s1->status(stat);
+s2->status(stat);
+\end{code}
+collects the combined statistics of performing \?status()? on
+\?s1? and \?s2?. 
+
+\begin{samepage}
+The statistics classes also implement addition operators. The
+following is equivalent to the previous example:
+\begin{code}
+StatusStatistics stat;
+{
+  StatusStatistics a, b;
+  s1->status(a);
+  s2->status(b);
+  stat = a + b;
+}
+\end{code}
+\end{samepage}
+which is also equivalent to:
+\begin{code}
+StatusStatistics stat;
+{
+  StatusStatistics a, b;
+  s1->status(a); stat += a;
+  s2->status(b); stat += b;
+}
+\end{code}
+
+
+
+\section{Binary depth-first search}
+\label{sec:s:started:dfsbin}
+
+This section shows a simple search engine that performs left-most
+depth-first search. It makes the additional simplification that
+all choices are binary, the general case is
+discussed in \autoref{sec:s:started:dfs}.
+
+\begin{figure}
+\insertlitcode{dfs binary}
+\caption{Depth-first search for binary choices}
+\label{fig:s:started:dfsbin}
+\end{figure}
+
+\autoref{fig:s:started:dfsbin} shows the definition of the function
+\?dfs()? that implements the search engine. It takes a space as
+input and returns a space as a solution or \?NULL? if no
+solution exists. The resource policy it implements is that it
+takes responsibility for deleting the space \?s? with which
+\?dfs()? is called initially. The solution it returns must
+eventually be deleted by the caller of \?dfs()?  (if
+the initial space happens to be a solution, the engine does not
+delete it).
+The search engine starts by executing the \?status()?  function
+on \?s? and hence triggers propagation and possibly brancher
+selection.
+
+In this chapter and in \autoref{chap:s:re} we use recursive
+functions to implement exploration during search. This is rather
+inefficient with respect to both runtime and space in \CPP{}. A
+more realistic implementation uses an explicit stack, for an
+example see \autoref{chap:s:engine}.
+
+\paragraph{Failure and solutions.}
+
+In case the space \?s? is failed, the search engine deletes the space
+and returns \?NULL? as specified:
+\insertlitcode{dfs binary:failed}
+
+\begin{samepage}
+If the space \?s? is solved, the search engine triggers garbage
+collection of remaining branchers as mentioned in
+\autoref{sec:s:started:space} and returns the solution:
+\insertlitcode{dfs binary:solved}
+\end{samepage}
+
+\paragraph{Branching.}
+
+Following the discussion in \autoref{sec:s:started:space}, before
+the search engine can start committing to alternatives and perform
+recursive search, it needs to compute a choice for committing and
+a clone for backtracking:
+\insertlitcode{dfs binary:prepare for branching}
+
+The search engine tries the first alternative by committing the
+space \?s? to it and continues search recursively:
+\insertlitcode{dfs binary:first alternative}
+If the recursive call to \?dfs()? returns a solution (that is,
+\?t? is different from \?NULL? and hence the condition of the \?if?
+statement is \?true?) the engine deletes both choice and clone and returns
+the solution~\?t?.
+
+\paragraph{Saving memory.}
+
+It is \emph{absolutely essential} that the search engine uses the
+original space \?s? for further exploration and stores the clone
+\?c? for backtracking. Exchanging the roles of \?s? and
+\?c? by:
+\begin{code}
+c->commit(*ch,0);
+if (Space* t = dfs(c)) {
+  delete ch; delete s;
+  return t;
+}
+\end{code}
+would also find the same solution. However, this search engine
+would most likely need
+more memory. Spaces that already have been used for
+propagation (such as \?s?) typically require more memory than a
+pristine clone (see also \autoref{sec:p:memory:state}). 
+Hence, any search engine should maintain the invariant that it
+stores pristine clones for backtracking, but never spaces that
+have been used for propagation.
+
+If the first alternative did not lead to a solution, search
+commits the clone \?c? to the second alternative,
+deletes the now unneeded choice, and recursively continues search:
+\insertlitcode{dfs binary:second alternative}
+
+
+\section{Depth-first search}
+\label{sec:s:started:dfs}
+
+This section demonstrates how left-most depth-first search with
+choices having an arbitrary number of alternatives can be
+implemented. By this, the section presents the general version of
+the search engine from \autoref{sec:s:started:dfsbin}.
+
+\begin{figure}
+\insertlitcode{dfs}
+\caption{Depth-first search}
+\label{fig:s:started:dfs}
+\end{figure}
+
+\autoref{fig:s:started:dfs} outlines the depth-first search
+engine, where computing the space status and handling failed and
+solved spaces is the same as in
+\autoref{sec:s:started:dfsbin}. If the search engine needs to
+branch, it computes the choice \?ch? for branching and the number
+of alternatives \?n?.
+
+Choices can actually have a single alternative, for example for
+assigning variables (see
+\autoref{sec:m:search:branch:assign}). This special case should
+be optimized as in fact no clone needs to be stored for
+backtracking. Hence:
+\insertlitcode{dfs:single alternative}
+
+\begin{samepage}
+If the choice has more than a single alternative, a clone \?c? is
+created and a loop iterates over all alternatives:
+\insertlitcode{dfs:several alternatives}
+\end{samepage}
+If the loop terminates, no solution has been found and hence
+\?NULL? is returned.
+
+When trying the \?a?-th alternative, the search engine
+determines which space \?e? to choose to continue
+exploration:
+\insertlitcode{dfs:space to explore}
+The choice of \?e? avoids the creation of an unnecessary clone
+for the last alternative.
+
+After committing the space to explore the \?a?-th alternative,
+search continues recursively. If a solution \?t? has been found,
+it is returned after the search engine deletes the clone (unless it
+has already been used for the last alternative) and the choice:
+\insertlitcode{dfs:recursive search}
+
+
+\section{Branch-and-bound search}
+\label{sec:s:started:bab}
+
+This section shows how to program a best solution search
+engine. It chooses branch-and-bound search as an example where
+choices are again assumed to binary for simplicity. The
+non-binary case can be programmed similar to
+\autoref{sec:s:started:dfs}.
+
+\paragraph{Constraining spaces.}
+
+A space to be used for best solution search must implement a
+\?constrain()? function as discussed in
+\autoref{sec:m:started:search-best}. The key aspect of a best
+solution search engine is that it must be able to add constraints
+to a space such that the space can only lead to solutions that
+are better than a previously found solution.
+
+Assume that a best solution search engine has found a so-far best
+solution \?b? (a space). Then, by
+\begin{code}
+s->constrain(*b);
+\end{code}
+the engine can add constraints to the space \?s? that guarantee
+that only solutions that are better than \?b? are found by search
+starting from \?s?.
+
+The \gecoderef[class]{Space} class actually already implements a
+\?constrain()? function which throws the exception
+\gecoderef[class]{SpaceConstrainUndefined}. That is, a space to
+be used with a best solution search engine must redefine the
+default \?constrain()? function by inheritance.
+
+\paragraph{Search engine.}
+
+\begin{figure}
+\insertlitcode{bab}
+\caption{Branch-and-bound search}
+\label{fig:s:started:bab}
+\end{figure}
+
+The basic structure of the branch-and-bound search engine is
+shown in \autoref{fig:s:started:bab}. A user of the search engine
+calls the function \?bab()?  taking a single space as
+argument. The function either returns the best solution or
+\?NULL? if no solution exists.
+
+The function \?bab()? that takes three arguments implements the
+actual exploration. The space \?s? is the space that is currently
+being explored, the unsigned integer \?n? counts the number of
+solutions found so far, and the space \?b? is the so-far best
+solution. Note that both \?n? and \?b? are passed by reference
+and hence the variables are shared between all recursive
+invocations of the search engine. The number of solutions \?n?
+is used for deciding when a space must be constrained to yield
+better solutions.
+
+The single argument \?bab()? function initializes \?n? and \?b?
+to capture that no solution has been found yet. After executing
+the \?bab()? search engine, \?b? refers to the best solution (or
+is \?NULL?) and is returned after garbage collecting remaining
+branchers.
+
+\paragraph{Finding a solution.}
+
+The search engine is constructed such that every solution found
+is better than the previous. Hence, when a solution is found, the
+previous so-far best solution is deleted\footnote{Actually, \?b?
+  is \?NULL? for the first solution found. However, it is legal
+  in \CPP{} to invoke the \?delete? operator on a \?NULL?-pointer.}
+and is updated to the newly found solution. As a new solution is
+found also the number of solutions \?n? is incremented:
+\insertlitcode{bab:solved}
+The search engine first garbage collects branchers (by calling
+\?choice()?) and remembers a pristine clone of the solution
+found.
+
+\paragraph{Branching.}
+
+Exploring the first alternative differs considerably from
+exploring the second alternative of a choice. When exploring the
+first alternative, it is guaranteed that the current space \?s?
+can only lead to better solutions. If a solution is found by
+exploring the first alternative (or if several solutions are found),
+then a constraint must be added to the clone \?c? such that only
+better solutions can be found when continuing exploration with
+\?c? for the second alternative. To detect whether a solution has been found when exploring
+the first alternative, the search engine remembers the number of
+solutions \?m?  before starting to explore the first alternative
+as follows:
+\insertlitcode{bab:remember number of solutions}
+
+Exploring the first alternative is as to be expected:
+\insertlitcode{bab:explore first alternative}
+
+Before exploring the second alternative, the engine checks
+whether new solutions have been found during the exploration of
+the first alternative. If new solutions have been found, the
+clone \?c? is constrained to yield better solutions:
+\insertlitcode{bab:constrain clone}
+
+\begin{samepage}
+The second alternative is explored as follows:
+\insertlitcode{bab:explore second alternative}
+\end{samepage}
+
+Note that execution of the \?constrain()? function might
+constrain some variables and possibly add new propagators (even
+new variables). Even though \?c? might not be any longer an
+identical clone of \?s?, the choice \?ch? is still compatible
+with the space \?c? (see \autoref{sec:s:started:space}).
+
+
+
+
+\begin{litcode}{dfs binary}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/kernel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+Space* dfs(Space* s) {
+  switch (s->status()) {
+  case SS_FAILED:
+    \begin{litblock}{failed}
+    delete s; return NULL;
+    \end{litblock}
+  case SS_SOLVED:
+    \begin{litblock}{solved}
+    (void) s->choice(); return s;
+    \end{litblock}
+  case SS_BRANCH:
+    { 
+      \begin{litblock}{prepare for branching}
+      const Choice* ch = s->choice();
+      Space* c = s->clone();
+      \end{litblock}
+      \begin{litblock}{first alternative}
+      s->commit(*ch,0);
+      if (Space* t = dfs(s)) {
+        delete ch; delete c;
+        return t;
+      }
+      \end{litblock}
+      \begin{litblock}{second alternative}
+      c->commit(*ch,1);
+      delete ch;
+      return dfs(c);
+      \end{litblock}
+    }
+  }
+}
+\end{litcode}
+
+
+\begin{litcode}{dfs}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/kernel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+Space* dfs(Space* s) {
+  switch (s->status()) {
+  \begin{litblock}{anonymous}
+  case SS_FAILED:
+    delete s; return NULL;
+  case SS_SOLVED:
+    (void) s->choice(); return s;
+  \end{litblock}
+  case SS_BRANCH:
+    {
+      const Choice* ch = s->choice();
+      unsigned int n = ch->alternatives();
+      \begin{litblock}{single alternative}
+      if (n == 1) {
+        s->commit(*ch,0);
+        delete ch;
+        return dfs(s);
+      }
+      \end{litblock}
+      \begin{litblock}{several alternatives}
+      Space* c = s->clone();
+      for (unsigned int a=0; a<n; a++) {
+        \begin{litblock}{space to explore}
+        Space* e;
+        if (a == 0)
+          e = s;
+        else if (a == n-1)
+          e = c;
+        else
+          e = c->clone();
+        \end{litblock}
+        \begin{litblock}{recursive search}
+        e->commit(*ch,a);
+        if (Space* t = dfs(e)) {
+          if (a != n-1) delete c;
+          delete ch;
+          return t;
+        }
+        \end{litblock}
+      }
+      delete ch;
+      return NULL;
+      \end{litblock}
+    }
+    break;
+  }
+}
+\end{litcode}
+
+
+\begin{litcode}{bab}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/kernel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+void bab(Space* s, unsigned int& n, Space*& b) {
+  switch (s->status()) {
+  \begin{litblock}{anonymous}
+  case SS_FAILED:
+    delete s;
+    break;
+  \end{litblock}
+  case SS_SOLVED:
+    \begin{litblock}{solved}
+    n++;
+    delete b; 
+    (void) s->choice(); b = s->clone(); delete s;
+    \end{litblock}
+    break;
+  case SS_BRANCH:
+    {
+      const Choice* ch = s->choice();
+      Space* c = s->clone();
+      \begin{litblock}{remember number of solutions}
+      unsigned int m=n;
+      \end{litblock}
+      \begin{litblock}{explore first alternative}
+      s->commit(*ch,0);
+      bab(s,n,b);
+      \end{litblock}
+      \begin{litblock}{constrain clone}
+      if (n > m)
+        c->constrain(*b);
+      \end{litblock}
+      \begin{litblock}{explore second alternative}
+      c->commit(*ch,1);
+      bab(c,n,b);
+      \end{litblock}
+      delete ch;
+    }
+    break;
+  }
+}
+
+Space* bab(Space* s) {
+  unsigned int n = 0; Space* b = NULL;
+  bab(s,n,b);
+  return b;
+}
+\end{litcode}

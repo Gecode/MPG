@@ -1,0 +1,256 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Photo alignment}
+\label{chap:c:photo}
+
+%% FILES: CHAPTERONLY
+
+This chapter shows how to use reified constraints for solving
+an overconstrained problem.
+
+\section{Problem}
+
+Betty, Chris, Donald, Fred, Gary, Mary, Paul, Peter, and Susan
+want to align in a row for taking a photo. They have the
+following preferences:
+\begin{enumerate}
+  \item Betty wants to stand next to Donald, Gary, and Peter.
+  \item Chris wants to stand next to Gary and Susan.
+  \item Donald wants to stand next to Fred and Gary.
+  \item Fred wants to stand next to Betty and Gary.
+  \item Gary wants to stand next to Mary and Betty.
+  \item Mary wants to stand next to Betty and Susan.
+  \item Paul wants to stand next to Donald and Peter.
+  \item Peter wants to stand next to Susan and Paul.
+\end{enumerate}
+
+These preferences are obviously not satisfiable all at once (e.g., Betty 
+cannot possibly stand next to three people at once). The
+problem is \emph{overconstrained}.  To solve an overconstrained
+problem, we turn it into an optimization problem: The task is to
+find an alignment that violates as few preferences as possible.
+
+
+\section{Model}
+
+We model the photo alignment as an array of integer variables
+\?pos? such that \?pos[p]? represents the position of person \?p?
+in the final left-to-right order. The outline of a script for this problem is
+shown in \autoref{fig:c:photo:script}.
+
+The \?cost()? function as required by the class \?MinimizeScript?
+(see \autoref{sec:m:driver:script}) just returns the number of
+violations.
+
+\begin{figure}
+\insertlitcode{photo}
+\caption{A script for the photo alignment problem}
+\label{fig:c:photo:script}
+\end{figure}
+
+There are only two hard constraints for this model: no person can be in more 
+than one place, and no two persons can stand in the same place. The first 
+constraint is enforced automatically by the choice of variables, as each 
+\?pos? variable represents the unique position of a person (see
+also \autoref{tip:c:warehouses:varchoice}). For the second 
+constraint, the variables in the \?pos? array
+must be pairwise distinct (see \autoref{sec:m:integer:distinct}): 
+\insertlitcode{photo:constrain positions}
+We choose the bounds consistent variant of \?distinct? (by giving
+the extra argument \?ICL_BND?, see \autoref{sec:m:integer:icl})
+as also the other propagators perform only bounds reasoning.
+
+The remaining constraints implement the preferences and turn them
+into a measure of \emph{violation}, which expresses how many
+preferences are not fulfilled in a solution. A preference $(i,j)$
+is not fulfilled if the distance between the positions of person
+$i$ and person $j$ is greater than one. This can be implemented
+using a linear constraint, an absolute value constraint, and a
+reified constraint for each preference, as well as one linear
+constraint that constrains the sum of the violations:
+\insertlitcode{photo without modeling support}
+
+Using the MiniModel library (see \autoref{fig:m:minimodel:bool}
+and \autoref{sec:m:minimodel:exprrel}) yields more
+compact and readable code:
+\insertlitcode{photo:compute violations}
+
+We can observe that this problem has a symmetry, as reversing a
+solution yields again a solution. Symmetric solutions like this
+can be ruled out by arbitrarily picking two persons, and always placing one somewhere to the left of the other. For example, let us always place Betty somewhere to the left of Chris:
+\insertlitcode{photo:symmetry breaking}
+
+\section{More information}
+This case study is also available as a Gecode example, see
+\gecoderef[example]{photo}.
+
+\begin{litcode}{photo}{tack}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+using namespace Gecode;
+
+const char* names[] = 
+  {"Betty","Chris","Donald","Fred","Gary",
+   "Mary","Paul","Peter","Susan"};
+\end{litblock}
+enum {
+  Betty, Chris, Donald, Fred, Gary,
+  Mary, Paul, Peter, Susan
+};
+const int n = 9;
+const int n_prefs = 17;
+int spec[n_prefs][2] = {
+  {Betty,Donald}, {Betty,Gary}, {Betty,Peter},
+  {Chris,Gary}, {Chris,Susan},
+  {Donald,Fred}, {Donald,Gary},
+  {Fred,Betty}, {Fred,Gary},
+  {Gary,Mary}, {Gary,Betty},
+  {Mary,Betty}, {Mary,Susan},
+  {Paul,Donald}, {Paul,Peter},
+  {Peter,Susan}, {Peter,Paul}
+};
+
+class Photo : public MinimizeScript {
+  IntVarArray pos;
+  IntVar      violations;
+public:
+  Photo(const Options& opt)
+    : pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
+    \begin{litblock}{constrain positions}
+    distinct(*this, pos, ICL_BND);
+    \end{litblock}
+    \begin{litblock}{compute violations}
+    BoolVarArgs viol(n_prefs);
+    for (int i=0; i<n_prefs; i++) {
+      viol[i] = expr(*this, abs(pos[spec[i][0]]-pos[spec[i][1]]) > 1);
+    }
+    rel(*this, violations == sum(viol));
+    \end{litblock}
+    \begin{litblock}{symmetry breaking}
+    rel(*this, pos[Betty] < pos[Chris]);
+    \end{litblock}
+    \begin{litblock}{anonymous}
+    branch(*this, pos, INT_VAR_NONE, INT_VAL_MIN);
+    \end{litblock}
+  }
+  virtual IntVar cost(void) const {
+    return violations;
+  }  
+  \begin{litblock}{anonymous}
+  Photo(bool share, Photo& p) : MinimizeScript(share,p) {
+    pos.update(*this, share, p.pos);
+    violations.update(*this, share, p.violations);
+  }
+  virtual Space* copy(bool share) {
+    return new Photo(share,*this);
+  }
+  virtual void print(std::ostream& os) const {
+    if (pos.assigned()) {
+      os << "\tOrder: ";
+      int order[n];
+      for (int i=0; i<n; i++)
+        order[pos[i].val()] = i;
+      for (int i=0; i<n; i++)
+        os << names[order[i]] << " ";
+    } else {
+      os << "\tPositions: " << pos;
+    }
+    os << std::endl << "\tViolations: " << violations << std::endl;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  Options opt("Photo");
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  MinimizeScript::run<Photo,BAB,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{photo without modeling support}{tack}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+using namespace Gecode;
+
+const char* names[] = 
+  {"Betty","Chris","Donald","Fred","Gary",
+   "Mary","Paul","Peter","Susan"};
+enum {
+  Betty, Chris, Donald, Fred, Gary,
+  Mary, Paul, Peter, Susan
+};
+const int n = 9;
+const int n_prefs = 17;
+int spec[n_prefs][2] = {
+  {Betty,Donald}, {Betty,Gary}, {Betty,Peter},
+  {Chris,Gary}, {Chris,Susan},
+  {Donald,Fred}, {Donald,Gary},
+  {Fred,Betty}, {Fred,Gary},
+  {Gary,Mary}, {Gary,Betty},
+  {Mary,Betty}, {Mary,Susan},
+  {Paul,Donald}, {Paul,Peter},
+  {Peter,Susan}, {Peter,Paul}
+};
+
+class Photo : public MinimizeScript {
+  IntVarArray pos;
+  IntVar      violations;
+public:
+  Photo(const Options& opt)
+    : pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
+    distinct(*this, pos, ICL_BND);
+\end{litblock}
+    BoolVarArgs viol(*this,n_prefs,0,1);
+    for (int i=0; i<n_prefs; i++) {
+      IntVar distance(*this,0,n), diff(*this,-n,n);
+      linear(*this, IntArgs(2, 1,-1),
+             IntVarArgs() << pos[spec[i][0]] << pos[spec[i][1]],
+             IRT_EQ, diff);
+      abs(*this, diff, distance);
+      rel(*this, distance, IRT_GR, 1, viol[i]);
+    }
+    linear(*this, viol, IRT_EQ, violations);
+\begin{litblock}{anonymous}
+    rel(*this, pos[Betty] < pos[Chris]);
+    branch(*this, pos, INT_VAR_NONE, INT_VAL_MIN);
+  }
+  virtual IntVar cost(void) const {
+    return violations;
+  }  
+  Photo(bool share, Photo& p) : MinimizeScript(share,p) {
+    pos.update(*this, share, p.pos);
+    violations.update(*this, share, p.violations);
+  }
+  virtual Space* copy(bool share) {
+    return new Photo(share,*this);
+  }
+  virtual void print(std::ostream& os) const {
+    if (pos.assigned()) {
+      os << "\tOrder: ";
+      int order[n];
+      for (int i=0; i<n; i++)
+        order[pos[i].val()] = i;
+      for (int i=0; i<n; i++)
+        os << names[order[i]] << " ";
+    } else {
+      os << "\tPositions: " << pos;
+    }
+    os << std::endl << "\tViolations: " << violations << std::endl;
+  }
+};
+int main(int argc, char* argv[]) {
+  Options opt("Photo");
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  MinimizeScript::run<Photo,BAB,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+

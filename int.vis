@@ -1,0 +1,34 @@
+[General]
+Name:        Int
+Namespace:   MPG::Int
+[ModEvent]
+Name:        FAILED=FAILED
+[ModEvent]
+Name:        NONE=NONE
+[ModEvent]
+Name:        VAL=ASSIGNED
+Combine:     VAL=VAL, MIN=VAL, MAX=VAL, BND=VAL
+[ModEvent]
+Name:        BND=SUBSCRIBE
+Combine:     VAL=VAL, MIN=BND, MAX=BND, BND=BND
+[ModEvent]
+Name:        MIN
+Combine:     VAL=VAL, MIN=MIN, MAX=BND, BND=BND
+[ModEvent]
+Name:        MAX
+Combine:     VAL=VAL, MIN=BND, MAX=MAX, BND=BND
+[PropCond]
+Name:        NONE=NONE
+[PropCond]
+Name:        VAL=ASSIGNED
+ScheduledBy: VAL
+[PropCond]
+Name:        BND
+ScheduledBy: VAL, BND, MIN, MAX
+[PropCond]
+Name:        MIN
+ScheduledBy: VAL, BND, MIN
+[PropCond]
+Name:        MAX
+ScheduledBy: VAL, BND, MAX
+[End]

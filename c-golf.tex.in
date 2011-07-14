@@ -1,0 +1,210 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Social golfers}
+\label{chap:c:golf}
+
+%% FILES: CHAPTERONLY
+
+This chapter presents a case study on modeling problems using set
+variables and constraints.
+
+\section{Problem}
+\label{sec:c:golf:problem}
+
+The social golfers' problem (\CSPLIB{10}) requires finding a schedule for a golf tournament. There are $g\cdot s$ golfers who want to play a tournament in $g$ groups of $s$ golfers each over $w$ weeks, such that no two golfers play against each other more than once during the tournament.
+
+Here is a solution for the instance $w=4$, $g=3$, and $s=3$, where the players are numbered from 0 to 8:
+
+\begin{center}
+\begin{tabular}{l|ccc|ccc|ccc|}
+&\multicolumn{3}{c|}{\emph{Group 0}}&\multicolumn{3}{c|}{\emph{Group 1}}&\multicolumn{3}{c|}{\emph{Group 2}}\\
+\hline
+\emph{Week 0} & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\\hline
+\emph{Week 1} & 0 & 3 & 6 & 1 & 4 & 7 & 2 & 5 & 8\\\hline
+\emph{Week 2} & 0 & 4 & 8 & 1 & 5 & 6 & 2 & 3 & 7\\\hline
+\emph{Week 3} & 0 & 5 & 7 & 1 & 3 & 8 & 2 & 4 & 6\\
+\hline
+\end{tabular}  
+\end{center}
+
+
+\section{Model}
+\label{sec:c:golf:model}
+
+The model for the social golfers' problem closely follows the
+above problem description. Its outline is shown in
+\autoref{fig:c:golf:script}. The script defines an array of set
+variables \?groups? of size $\mathtt g\cdot \mathtt w$, where
+each group can contain the players $0\dots \mathtt g\cdot
+\mathtt s-1$ and has cardinality $\mathtt s$ (see
+\autoref{sec:m:set:var}).
+
+The script also defines a matrix \?schedule? with $g$ columns and $w$ rows on top of the variable array, such that \?schedule(i,j)? is the set of
+members of group $\mathtt i$ in week $\mathtt j$.
+
+The constraints are straightforward. For each week, the union of
+all groups must be disjoint and contain all players. This can be
+expressed directly using a disjoint union constraint (see
+\autoref{sec:m:minimodel:exprrel}) on the rows of the \?schedule?:
+\insertlitcode{golf:groups in a week}
+
+Each group can have at most one player in common with any other
+group. This can be expressed by a constraint that states that the
+cardinality of the intersection between any two groups must be at most $1$:
+\insertlitcode{golf:overlap between groups}
+
+\begin{figure}
+\insertlitcode{golf}
+\caption{A script for the social golfers' problem}
+\label{fig:c:golf:script}
+\end{figure}
+
+\paragraph{Symmetry breaking.}
+
+Using set variables to model the groups already avoids introducing symmetry among the players in a group. For example, if we had modeled each group as $s$ integer variables, any permutation of these variables would produce an equivalent solution.
+
+But there are more symmetries in this problem, and some of them can be avoided easily by introducing additional \emph{symmetry breaking constraints}.
+
+Within a week, the order of the groups is irrelevant. Therefore,
+we can impose a static order requiring that all minimal elements
+of each group are ordered increasingly (see \autoref{m:set:set_int} for the minimal
+element constraint, \autoref{sec:m:minimodel:exprrel} for the
+MiniModel support, and \autoref{sec:m:integer:rel:int} for
+ordering integer variables):
+\insertlitcode{golf:break group symmetry}
+
+Similarly to the group symmetry, the order of the weeks is
+irrelevant. Again, the symmetry can be broken by imposing an
+order on the group elements. The previous constraint made sure
+that player \?0? will always be in \?schedule(0,j)? for any
+week \?j?. So imposing an order on the second smallest element of
+\?schedule(0,j)? will do the trick:
+\insertlitcode{golf:break week symmetry}
+
+Finally, the players can be permuted arbitrarily. For example, swapping the numbers $2$ and $6$ in the initial example produces a symmetric solution:
+\begin{center}
+\begin{tabular}{l|ccc|ccc|ccc|}
+&\multicolumn{3}{c|}{\emph{Group 0}}&\multicolumn{3}{c|}{\emph{Group 1}}&\multicolumn{3}{c|}{\emph{Group 2}}\\
+\hline
+\emph{Week 0} & 0 & 1 & {\color{GecodeRed}6} & 3 & 4 & 5 & {\color{GecodeRed}2} & 7 & 8\\\hline
+\emph{Week 1} & 0 & 3 & {\color{GecodeRed}2} & 1 & 4 & 7 & {\color{GecodeRed}6} & 5 & 8\\\hline
+\emph{Week 2} & 0 & 4 & 8 & 1 & 5 & {\color{GecodeRed}2} & {\color{GecodeRed}6} & 3 & 7\\\hline
+\emph{Week 3} & 0 & 5 & 7 & 1 & 3 & 8 & {\color{GecodeRed}6} & 4 & {\color{GecodeRed}2}\\
+\hline
+\end{tabular}  
+\end{center}
+
+This symmetry can be broken using the \?precede? constraint (see \autoref{sec:m:set:precede}):
+\insertlitcode{golf:break player symmetry}
+It enforces for any pair of players $s$ and $t$ that $t$ can only appear in a group without $s$ if there is an earlier group where $s$ appears without $t$. This establishes an order that breaks the value symmetry between the players. In the example above, the constraint rules out that $6$ appears in group 0, week 0, because that would require $2$ to appear in an earlier group. The only solution that remains after symmetry breaking is the one in the initial table in \autoref{sec:c:golf:problem}.
+
+Note that these symmetry breaking constraints do not necessariyl break all symmetries of the problem completely. We mainly discussed them as additional examples of modeling with set variables and constraints.
+
+\section{More information}
+\label{sec:c:golf:info}
+
+The case study is also available as a Gecode example, see
+\gecoderef[example]{golf}. You can find a discussion of the
+symmetry breaking constraints presented here and a number of
+additional implied constraints
+in~\cite{Barnier:2005:KirkmansSchoolgirlProblem}.
+
+\begin{litcode}{golf}{tack}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/set.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+\end{litblock}
+class GolfOptions : public Options {
+\begin{litblock}{anonymous}
+protected:
+  Driver::IntOption _w; // Number of weeks
+  Driver::IntOption _g; // Number of groups
+  Driver::IntOption _s; // Number of players per group
+public:
+  /// Constructor
+  GolfOptions(void)
+    : Options("Golf"),
+      _w("-w","number of weeks",9),
+      _g("-g","number of groups",8),
+      _s("-s","number of players per group",4) {
+    add(_w); add(_g); add(_s);
+  }
+  int w(void) const { return _w.value(); }
+  int g(void) const { return _g.value(); }
+  int s(void) const { return _s.value(); }
+\end{litblock}
+};
+
+class Golf : public Script {
+  int g, s, w;
+  SetVarArray groups;
+public:
+  Golf(const GolfOptions& opt)
+  : g(opt.g()), s(opt.s()), w(opt.w()),
+    groups(*this,g*w,IntSet::empty,0,g*s-1,s,s) {
+    Matrix<SetVarArray> schedule(groups,g,w);
+    \begin{litblock}{groups in a week}
+    SetVar allPlayers(*this, 0,g*s-1, 0,g*s-1);
+    for (int i=0; i<w; i++)
+      rel(*this, setdunion(schedule.row(i)) == allPlayers);
+    \end{litblock}
+    \begin{litblock}{overlap between groups}
+    for (int i=0; i<groups.size()-1; i++)
+      for (int j=i+1; j<groups.size(); j++)
+        rel(*this, cardinality(groups[i] & groups[j]) <= 1);
+    \end{litblock}
+    \begin{litblock}{break group symmetry}
+    for (int j=0; j<w; j++) {
+      IntVarArgs m(g);
+      for (int i=0; i<g; i++)
+        m[i] = expr(*this, min(schedule(i,j)));
+      rel(*this, m, IRT_LE);
+    }
+    \end{litblock}
+    \begin{litblock}{break week symmetry}
+    IntVarArgs m(w);
+    for (int j=0; j<w; j++)
+      m[j] = expr(*this, min(schedule(0,j)-IntSet(0,0)));
+    rel(*this, m, IRT_LE);
+    \end{litblock}
+    \begin{litblock}{break player symmetry}
+    precede(*this, groups, IntArgs::create(groups.size(),0));
+    \end{litblock}
+    branch(*this, groups, SET_VAR_MIN_MIN, SET_VAL_MIN_INC);
+  }
+  \begin{litblock}{anonymous}
+  virtual void
+  print(std::ostream& os) const {
+    os << "Tournament plan" << std::endl;
+    Matrix<SetVarArray> schedule(groups,g,w);
+    for (int j=0; j<w; j++) {
+      os << "Week " << j << ": " << std::endl << "    ";
+      os << schedule.row(j) << std::endl;
+    }
+  }
+
+  /// Constructor for copying \a s
+  Golf(bool share, Golf& s) : Script(share,s), g(s.g), s(s.s), w(s.w) {
+    groups.update(*this, share, s.groups);
+  }
+  /// Copy during cloning
+  virtual Space*
+  copy(bool share) {
+    return new Golf(share,*this);
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+int
+main(int argc, char* argv[]) {
+  GolfOptions opt;
+  opt.parse(argc,argv);
+  Script::run<Golf,DFS,GolfOptions>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}

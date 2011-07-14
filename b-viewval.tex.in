@@ -1,0 +1,498 @@
+% -*- mode: LaTeX; -*- 
+\chapter{View-value branchers}
+\label{chap:b:viewval}
+
+This chapter gives an overview of the predefined view-value
+brancher pattern that is generic with respect to how views and
+values for branching are selected.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:b:viewval:use} demonstrates how the
+view-value pattern for branchers can be used to straightforwardly
+implement common branchings. Additional support for view-value
+branchers is summarized in \autoref{sec:b:viewval:support}.
+
+
+\section{Using view-value branchers}
+\label{sec:b:viewval:use}
+
+A \emph{view-value brancher} follows a pattern for conveniently
+programming branchers that selects a view from an array of views
+for branching and then creates a choice that involves a single
+value from the selected view's domain. The view-value pattern is
+implemented by the class \gecoderef[class]{ViewValBrancher} which
+is a template expecting two types: the first type must be a view
+selector that describes how views are selected, whereas the
+second type must be a value selector that describes how values are
+selected for branching.
+
+A \emph{view selector} must inherit from the class
+\gecoderef[class]{ViewSelBase} which itself is a template
+expecting a variable view type as its argument type. A
+\emph{value selector} must inherit from the class
+\gecoderef[class]{ValSelBase} which, again, itself is a template
+expecting a variable view type and a value type as its argument
+types. 
+
+Even though a single view-value brancher uses a view selector as
+well as a value selector, the view types for view selector and
+value selector can actually differ.  However, a view-value
+brancher for integer views can only combine integer views and
+minus views (these are the only views that are actually
+meaningful for branchers on integer views, see \autoref{sec:b:started:views}).
+
+\subsection{Implementing \?sizemin?}
+\label{sec:b:viewval:use:sizemin}
+
+\begin{figure}
+\insertlitcode{view val size min}
+\caption{Using view-value brancher for \?sizemin?}
+\label{fig:b:viewval:sizemin}
+\end{figure}
+
+\mbox{}\autoref{fig:b:viewval:sizemin} shows how the \?sizemin?
+branching (see \autoref{sec:b:started:sizemin}) can be
+implemented by a view-value brancher. The \?sizemin()? function
+creates a view selector \?sm? of type \?SizeMin? and a value
+selector \?vm? of type \?ValueMin? and then posts a view-value
+brancher with the view and value selectors.
+
+\paragraph{View selectors.}
+
+\begin{figure}
+\insertlitcode{view val size min:view selection}
+\caption{View selection for \?sizemin?}
+\label{fig:b:viewval:sizemin:view}
+\end{figure}
+
+The view selector \?SizeMin? is shown in
+\autoref{fig:b:viewval:sizemin:view}. Every view selector must
+inherit from the class \gecoderef[class]{ViewSelBase}. It must
+implement the following constructor and functions:
+\begin{itemize}
+\item A constructor that initializes the view selector. The
+  constructor takes a home space and an object of class
+  \gecoderef[class]{VarBranchOptions} as arguments (to be
+  discussed in \autoref{sec:b:viewval:support:options}).
+
+  This constructor is used for initializing data that is used
+  throughout the entire lifetime of the view-value brancher. As
+  an example, think of a random view selector. Then the
+  constructor would initialize the random number generator.
+\item A function \?init()? that returns a view selection status
+  of type \?ViewSelStatus? (see
+  \gecoderef[group]{TaskBranchViewVal}). The initialization
+  function is called for a view \?x? (the first unassigned view
+  of the view-value brancher) and should initialize the data
+  structures that are required to select the appropriate view. In
+  our case, the size is initialized to the so-far smallest domain
+  size of a view (which, of course, is \?x.size()?).
+  
+  The init function must return either \?VSS_BETTER? or
+  \?VSS_BEST?. In case the \?size? of \?x? is two, it is clear
+  that \?x? is a best view to be selected (as no view can have
+  domain size \?0? and as views for selection are not assigned).
+
+\item A selection function \?select()?. The purpose of the
+  selection function becomes clear when looking at the
+  example. 
+  
+  If the view \?x? passed as argument has a domain of smaller
+  size, the \?size? member is updated, and \?VSS_BETTER?  or
+  \?VSS_BEST?  is returned (the view \?x? is better than the
+  previously selected view or even a best view). If \?x? has a
+  domain of larger size, \?VSS_WORSE? is returned. If the domain
+  size of \?x? agrees with the so-far smallest domain size
+  \?size?, the selection function returns \?VSS_TIE?. 
+  
+  In the case of ties, tie-breaking can be used for combining
+  several view selectors, see
+  \autoref{sec:b:viewval:support:ties} for details. Tie-breaking
+  also interprets \?VSS_BEST? as \?VSS_BETTER? such that even
+  several best views are considered for tie-breaking.
+  
+  The function \?select()? is called for all unassigned views but
+  the first one (for which \?init()? is called) of a view-value
+  brancher and hence implements the actual view selection.
+\item If needed, a view selector can also implement a
+  destructor.
+\end{itemize}
+
+The default constructor is not really needed but is implemented
+to avoid compiler warnings.
+
+Note that the view type used for \?init()? and \?select()? must
+coincide with the view type used for instantiating
+\gecoderef[class]{ViewSelBase}.
+
+\paragraph{Value selectors.}
+
+\begin{figure}
+\insertlitcode{view val size min:value selection}
+\caption{Value selection for \?sizemin?}
+\label{fig:b:viewval:sizemin:value}
+\end{figure}
+
+The value selector \?ValMin? is shown in
+\autoref{fig:b:viewval:sizemin:value}.  Every value selector must
+inherit from the class \gecoderef[class]{ValSelBase}. It must
+implement the following constructor and functions:
+\begin{itemize}
+\item A constructor that initializes the value selector. The
+  constructor takes a home space and an object of class
+  \gecoderef[class]{ValBranchOptions} as argument (to be
+  discussed in \autoref{sec:b:viewval:support:options}).
+  
+  The constructor serves the same purpose as the constructor for
+  a view selector.
+\item A value function \?val()? that returns the value to be used
+  for branching.
+\item A tell function \?tell()? that performs a modification
+  operation on the view \?x? with respect to the selected value
+  \?n? for the alternative \?a?. The \?tell()? function must
+  return the modification event of the performed modification
+  operation. 
+  
+  A view-value brancher is only interested in whether the
+  modification operation failed or not. Hence, if several
+  modification operations are executed in the \?tell()? function
+  it is sufficient to report failure by an appropriate
+  modification event (for example, \?ME_INT_FAILED?). The details
+  of non-failed modification events are of no concern to a
+  view-value brancher.
+\end{itemize}
+
+Again, the default constructor is defined to avoid compiler
+warnings.
+
+The view type and value type used for \?val()? and \?tell()? must
+coincide with the view type and value type used for instantiating
+\gecoderef[class]{ValSelBase}.
+
+For an example that implements a custom branching using a value
+selector, please see \gecoderef[example]{bacp}.
+
+
+\subsection{Implementing \?nonemin?}
+\label{sec:b:viewval:use:nonemin}
+
+\begin{figure}[p]
+\insertlitcode{view val none min}
+\caption{Using view-value brancher for \?nonemin?}
+\label{fig:b:viewval:nonemin}
+\end{figure}
+
+Implementing the \?nonemin? branching (see
+\autoref{sec:b:started:nonemin}) by a view-value brancher is
+straightforward. \autoref{fig:b:viewval:nonemin} shows the view
+selector \?None?, the value selector is the same (\?ValMin?) as
+in \autoref{sec:b:viewval:use:sizemin}. Both the \?init()? and
+\?select()? functions of \?None? immediately report that the view \?x? is a
+best one. Note that \?select()? will actually never be called
+unless \?None? is used in tie-breaking (which would render \?None? useless
+in the first place).
+
+\subsection{Implementing \?assignmin?}
+\label{sec:b:viewval:use:assignmin}
+
+\begin{figure}[p]
+\insertlitcode{view val assign min}
+\caption{Using view-value brancher for \?assignmin?}
+\label{fig:b:viewval:assignmin}
+\end{figure}
+
+Even assignment branchings can be obtained from view-value
+branchers. \autoref{fig:b:viewval:assignmin} shows how to define
+a value selector with a single alternative only. The definition
+of \?ValMin? is the same as in
+\autoref{sec:b:viewval:use:sizemin} and
+\autoref{sec:b:viewval:use:nonemin} but with a redefinition of
+the number of alternatives.
+
+
+
+\section{Support for view-value branchers}
+\label{sec:b:viewval:support}
+
+This section provides a brief overview of additional
+functionality that supports the construction of view-value
+branchers.
+
+\subsection{Tie-breaking}
+\label{sec:b:viewval:support:ties}
+
+A common need is to combine several view selectors for
+tie-breaking. For example, assume that you want to a select a
+view first by largest degree (see
+\autoref{sec:m:search:branch:int}) and then by smallest domain
+size. That is, among the views with largest degree, a view with
+smallest domain size is selected.
+
+Gecode provides two approaches for combining view selectors for
+tie-breaking. The class \gecoderef[class]{ViewSelTieBreakStatic}
+statically combines two view selectors into a new view selector
+using tie-breaking. The static combination is resolved at compile
+time and hence does not incur any runtime overhead. The class
+\gecoderef[class]{ViewSelTieBreakDynamic} provides dynamic
+tie-breaking that defines a view selector that implements
+tie-breaking over an array of view selectors.
+
+\subsection{Predefined view selectors}
+\label{sec:b:viewval:support:viewsel}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{generic (template with view type)}}\\
+\gecoderef[class]{ViewSelNone} & first\\
+\gecoderef[class]{ViewSelDegreeMin} & smallest degree\\
+\gecoderef[class]{ViewSelDegreeMax} & largest degree\\
+\gecoderef[class]{ViewSelAfcMin} & smallest AFC\\
+\gecoderef[class]{ViewSelAfcMax} & largest AFC\\
+\gecoderef[class]{ViewSelRnd} & random\\
+\\
+\multicolumn{2}{c}{\textbf{integer views}}\\
+\gecoderef[class]{Int::Branch::ByMinMin} & smallest minimum\\
+\gecoderef[class]{Int::Branch::ByMinMax} & largest minimum\\
+\gecoderef[class]{Int::Branch::ByMaxMin} & smallest maximum\\
+\gecoderef[class]{Int::Branch::ByMaxMax} & largest maximum\\
+\gecoderef[class]{Int::Branch::BySizeMin} & smallest domain size\\
+\gecoderef[class]{Int::Branch::BySizeMax} & largest domain size\\
+\gecoderef[class]{Int::Branch::BySizeDegreeMin} & smallest domain size
+divided by degree\\
+\gecoderef[class]{Int::Branch::BySizeDegreeMax} & largest domain size
+divided by degree\\
+\gecoderef[class]{Int::Branch::BySizeAfcMin} & smallest domain size
+divided by AFC\\
+\gecoderef[class]{Int::Branch::BySizeAfcMax} & largest domain size
+divided by AFC\\
+\gecoderef[class]{Int::Branch::ByRegretMinMin} & smallest minimum-regret\\
+\gecoderef[class]{Int::Branch::ByRegretMinMax} & largest minimum-regret\\
+\gecoderef[class]{Int::Branch::ByRegretMaxMin} & smallest maximum-regret\\
+\gecoderef[class]{Int::Branch::ByRegretMaxMax} & largest maximum-regret\\
+\\
+\multicolumn{2}{c}{\textbf{set views}}\\
+\gecoderef[class]{Set::Branch::ByMinMin} & smallest minimum element\\
+\gecoderef[class]{Set::Branch::ByMinMax} & largest minimum element\\
+\gecoderef[class]{Set::Branch::ByMaxMin} & smallest maximum element\\
+\gecoderef[class]{Set::Branch::ByMaxMax} & largest maximum element\\
+\gecoderef[class]{Set::Branch::BySizeMin} & smallest domain size\\
+\gecoderef[class]{Set::Branch::BySizeMax} & largest domain size\\
+\gecoderef[class]{Set::Branch::BySizeDegreeMin} & smallest domain size
+divided by degree\\
+\gecoderef[class]{Set::Branch::BySizeDegreeMax} & largest domain size
+divided by degree\\
+\gecoderef[class]{Set::Branch::BySizeAfcMin} & smallest domain size
+divided by AFC\\
+\gecoderef[class]{Set::Branch::BySizeAfcMax} & largest domain size
+divided by AFC\\
+\end{tabular}
+\end{center}
+\caption{Predefined view selectors}
+\label{fig:b:viewval:viewsel}
+\end{figure}
+
+Gecode offers a plethora of predefined view selectors, a summary
+is given in \autoref{fig:b:viewval:viewsel}. For more information
+on the different view selectors, please consult
+\autoref{sec:m:search:branch:int}. 
+
+The view selectors that are generic (that is, not specific to a
+particular view type) are templates expecting a variable view
+type as its template argument and can be used with integer,
+Boolean, and set views.
+
+The integer and set view selectors are specific to integer and
+set views and hence are not available as templates.
+
+\subsection{Predefined value selectors}
+\label{sec:b:viewval:support:valsel}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{integer views (template with view type)}}\\
+\gecoderef[class]{Int::Branch::ValMin} & minimum\\
+\gecoderef[class]{Int::Branch::ValMed} & median\\
+\gecoderef[class]{Int::Branch::ValSplitMin} & split according to median\\
+\gecoderef[class]{Int::Branch::ValRangeMin} & split according to ranges\\
+\gecoderef[class]{Int::Branch::ValRnd} & random\\
+\\
+\multicolumn{2}{c}{\textbf{set views (template with Boolean value)}}\\
+\gecoderef[class]{Set::Branch::ValMin} & minimum\\
+\gecoderef[class]{Set::Branch::ValMed} & median\\
+\gecoderef[class]{Set::Branch::ValMax} & maximum\\
+\gecoderef[class]{Set::Branch::ValRnd} & random\\
+\end{tabular}
+\end{center}
+\caption{Predefined value selectors}
+\label{fig:b:viewval:valsel}
+\end{figure}
+
+Gecode offers a plethora of predefined value selectors, a summary
+is given in \autoref{fig:b:viewval:valsel}. For more information
+on the different value selectors, please consult
+\autoref{sec:m:search:branch:int}. 
+
+The value selectors for integer views are templates where the
+argument can either be an integer view \?Int::IntView? or a minus
+integer view \?Int::MinusView?. 
+
+The value selectors for set views are templates requiring a
+Boolean value as template argument. The Boolean argument defines
+whether the integer value chosen for branching is first included
+(the argument must be \?true?) or excluded (the argument must be
+\?false?).
+
+
+\subsection{Variable and value branch options}
+\label{sec:b:viewval:support:options}
+
+Branch options for both view selectors (see
+\gecoderef[class]{VarBranchOptions}) and value selectors (see
+\gecoderef[class]{ValBranchOptions}) support passing seed values
+for random view and value selectors. For details, see the
+individual classes.
+
+
+
+
+\begin{litcode}{view val size min}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+\begin{litblock}{view selection}
+class SizeMin : public ViewSelBase<Int::IntView> {
+protected:
+  unsigned int size;
+public:
+  SizeMin(void) : size(0U) {}
+  SizeMin(Space& home, const VarBranchOptions& vbo) 
+    : ViewSelBase<Int::IntView>(home,vbo) {}
+  ViewSelStatus init(Space& home, Int::IntView x) {
+    size = x.size(); 
+    return (size == 2) ? VSS_BEST : VSS_BETTER;
+  }
+  ViewSelStatus select(Space& home, Int::IntView x) {
+    if (x.size() < size) {
+      size = x.size(); 
+      return (size == 2) ? VSS_BEST : VSS_BETTER;
+    } else if (x.size() > size) {
+      return VSS_WORSE;
+    } else {
+      return VSS_TIE;
+    }
+  }
+};
+\end{litblock}
+\begin{litblock}{value selection}
+class ValMin : public ValSelBase<Int::IntView,int> {
+public:
+  ValMin(void) {}
+  ValMin(Space& home, const ValBranchOptions& vbo)
+    : ValSelBase<Int::IntView,int>(home,vbo) {}
+  int val(Space& home, Int::IntView x) const {
+    return x.min();
+  }
+  ModEvent tell(Space& home, unsigned int a, Int::IntView x, int n) {
+    return (a == 0) ? x.eq(home,n) : x.gr(home,n);
+  }
+};
+\end{litblock}
+void sizemin(Home home, const IntVarArgs& x) {
+  if (home.failed()) return;
+  ViewArray<Int::IntView> y(home,x);
+  SizeMin sm; ValMin vm;
+  ViewValBrancher<SizeMin,ValMin>::post(home,y,sm,vm);
+}
+\end{litcode}
+
+
+\begin{litcode}{view val none min}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class None : public ViewSelBase<Int::IntView> {
+public:
+  None(void) {}
+  None(Space& home, const VarBranchOptions& vbo) 
+    : ViewSelBase<Int::IntView>(home,vbo) {}
+  ViewSelStatus init(Space& home, Int::IntView x) {
+    return VSS_BEST;
+  }
+  ViewSelStatus select(Space& home, Int::IntView x) {
+    return VSS_BEST;
+  }
+};
+\begin{litblock}{anonymous}
+class ValMin : public ValSelBase<Int::IntView,int> {
+public:
+  ValMin(void) {}
+  ValMin(Space& home, const ValBranchOptions& vbo)
+    : ValSelBase<Int::IntView,int>(home,vbo) {}
+  int val(Space& home, View x) const {
+    return x.min();
+  }
+  ModEvent tell(Space& home, unsigned int a, Int::IntView x, int n) {
+    return (a == 0) ? x.eq(home,n) : x.gr(home,n);
+  }
+};
+void nonemin(Home home, const IntVarArgs& x) {
+  if (home.failed()) return;
+  ViewArray<Int::IntView> y(home,x);
+  None n; ValMin vm;
+  ViewValBrancher<None,ValMin>::post(home,y,n,vm);
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{view val assign min}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+class None : public ViewSelBase<Int::IntView> {
+public:
+  None(void) {}
+  None(Space& home, const VarBranchOptions& vbo) 
+    : ViewSelBase<Int::IntView>(home,vbo) {}
+  ViewSelStatus init(Space& home, Int::IntView x) {
+    return VSS_BEST;
+  }
+  ViewSelStatus select(Space& home, Int::IntView x) {
+    return VSS_BEST;
+  }
+};
+\end{litblock}
+class ValMin : public ValSelBase<Int::IntView,int> {
+public:
+  static const unsigned int alternatives = 1;
+  \begin{litblock}{anonymous}
+  ValMin(void) {}
+  ValMin(Space& home, const ValBranchOptions& vbo)
+    : ValSelBase<Int::IntView,int>(home,vbo) {}
+  int val(Space& home, View x) const {
+    return x.min();
+  }
+  ModEvent tell(Space& home, unsigned int a, Int::IntView x, int n) {
+    return (a == 0) ? x.eq(home,n) : x.gr(home,n);
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+void assignmin(Home home, const IntVarArgs& x) {
+  if (home.failed()) return;
+  ViewArray<Int::IntView> y(home,x);
+  None n; ValMin vm;
+  ViewValBrancher<None,ValMin>::post(home,y,n,vm);
+}
+\end{litblock}
+\end{litcode}

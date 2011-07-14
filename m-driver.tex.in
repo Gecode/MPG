@@ -1,0 +1,156 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Script commandline driver}
+\label{chap:m:driver}
+
+The commandline driver (see \gecoderef[group]{TaskDriver})
+provides support for passing common commandline options to
+programs and a sub-class for spaces called \?Script? that can
+take advantage of the options.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:driver:options} summarizes the commandline
+options supported by the commandline driver. The base classes for
+scripts that work together with the commandline driver are
+sketched in \autoref{sec:m:driver:script}.
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/driver.hh>
+\end{code}
+to your program when you want to use the script commandline
+driver.
+\end{important}
+
+\section{Commandline options}
+\label{sec:m:driver:options}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+option & type & explanation \\
+\hline\multicolumn{3}{c}{}\\
+\hline
+\multicolumn{3}{|c|}{propagation options}\\
+\hline
+\texttt{-icl} &
+$\{\mathtt{def},\mathtt{val},\mathtt{bnd},\mathtt{dom}\}$ &
+integer consistency level\\
+\hline
+\multicolumn{3}{c}{}\\\hline
+\multicolumn{3}{|c|}{search options}\\\hline
+\texttt{-solutions} & \?unsigned int? & how many solutions ($0$ for all)\\
+\texttt{-threads} & \?double? & how many threads \\
+\texttt{-c-d} (\?c_d?) & \?unsigned int? & commit recomputation distance\\
+\texttt{-a-d} (\?a_d?) & \?unsigned int? & adaptive recomputation distance\\
+\texttt{-node} & \?unsigned int? & cutoff for number of nodes\\
+\texttt{-fail} & \?unsigned int? & cutoff for number of failures\\
+\texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\
+\texttt{-interrupt} & $\{\mathtt{false},\mathtt{true}\}$ & whether driver catches Ctrl-C\\\hline
+\multicolumn{3}{c}{}\\\hline
+\multicolumn{3}{|c|}{execution options}\\\hline
+\texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},\mathtt{gist}\}$ & script mode to run\\
+\texttt{-samples} & \?unsigned int? & how many samples\\
+\texttt{-iterations} & \?unsigned int? & how many iterations per
+sample\\\hline
+\multicolumn{3}{c}{}\\\hline
+\multicolumn{3}{|c|}{user-definable options}\\\hline
+\texttt{-branching} & string & branching options\\
+\texttt{-model} & string & general model options\\
+\texttt{-propagation} & string & propagation options\\
+\texttt{-symmetry} & string & symmetry breaking options\\
+\texttt{-search} & string &  search options\\\hline
+\end{tabular}
+\end{center}
+\caption{Predefined commandline options}
+\label{fig:m:driver:options}
+\end{figure}
+
+The commandline driver provides classes
+\gecoderef[class]{Options}, \gecoderef[class]{SizeOptions}, and
+\gecoderef[class]{InstanceOptions} that support parsing
+commandline options. All classes support the options as
+summarized in \autoref{fig:m:driver:options}. Here, for a
+commandline option with name \?-name?, the option classes provide
+two functions with name \?name()?: one that takes no argument and
+returns the current value of the option, and one that takes an
+argument of the listed type and sets the option to that value.
+The only exceptions are \texttt{-c-d} and \texttt{-a-d} where the
+member functions are named \?c_d()? and \?a_d()?.
+
+The values for \?-threads? are interpreted as described in
+\autoref{sec:m:search:options}.
+
+The only option for which no value exists is \texttt{-help}: it
+prints some configuration information and a help text for the
+options and stops program execution.
+
+The class \gecoderef[class]{SizeOptions} accepts an unsigned
+integer as the last value on the commandline (of course, without
+an option). The value can be retrieved or set by member functions
+\?size()?.
+
+The class \gecoderef[class]{InstanceOptions} accepts a string
+as the last value on the commandline (of course, without
+an option). The value can be retrieved or set by member functions
+\?instance()?.
+
+\begin{samepage}
+The different modes passed as argument for the option \?-mode?
+have the following meaning:
+\begin{itemize}
+\item \texttt{solution} prints solutions together with some
+  runtime statistics.
+\item \texttt{time} can be used for benchmarking: average runtime
+  and coefficient of deviation is printed, where the example is
+  run \texttt{-samples} times. For examples with short runtime,
+  \texttt{-iterations} can be used to repeat the example several
+  times before measuring runtime. Note that the runtime includes
+  also setup time (the creation of the space for the model).
+\item \texttt{stat} prints short execution statistics.
+\item \texttt{gist} runs Gist rather than search engines that
+  print information. Gist is put into depth-first mode, when a
+  non best solution search engine is used (that is, \?DFS?), and
+  into branch-and-bound mode otherwise (that is, \?BAB? and
+  \?Restart?).
+  
+  If Gecode has not been compiled with support for Gist (see
+  \autoref{tip:m:comfy:conf} for how to find out about Gecode's
+  configuration), the mode \texttt{gist} will be ignored and the
+  mode \texttt{solution} is used instead.
+\end{itemize}
+\end{samepage}
+
+For an example, in particular, how to use the user-defined
+options, see \autoref{sec:m:comfy:driver}. As all examples that
+come with Gecode use the script commandline driver, a plethora of
+examples is available (see \gecoderef[group]{Example}).
+
+\paragraph{Gist inspectors and comparators.}
+
+The driver options can pass inspectors and comparators (see
+\autoref{sec:m:gist:inspecting_nodes}) to Gist. To register an
+inspector \?i?, use the \?inspect.click(&i)?,
+\?inspect.solution(&i)?, or \?inspect.move(&i)?  methods of the
+option object, for a comparator \?c?, use \?inspect.compare(&c)?.
+
+\section{Scripts}
+\label{sec:m:driver:script}
+
+Scripts (see \gecoderef[group]{TaskDriverScript}) are subclasses
+of \?Space? that are designed to work together with option
+objects of class \gecoderef[class]{Options} and
+\gecoderef[class]{SizeOptions}. 
+
+In particular, the driver module defines scripts
+\?MinimizeScript? and \?MaximizeScript? that can be used for
+finding best solutions based on a virtual \?cost()?  function,
+see also \autoref{sec:m:comfy:cost} and \autoref{sec:m:minimodel:optimize}.
+
+As scripts are absolutely straightforward, all can be understood
+by following some examples. For an example see
+\autoref{sec:m:comfy:driver} or all examples that
+come with Gecode, see \gecoderef[group]{Example}.
+

@@ -1,0 +1,392 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Introduction}
+
+This document provides an introduction to modeling and programming
+with Gecode, an open, free, portable, accessible, and efficient
+environment for developing constraint-based systems and applications.
+
+The hands-on, tutorial-style approach will get you started very
+quickly. The focus is on giving an overview of the key concepts and
+ideas required to model and program with Gecode. Each concept is
+introduced using concrete \CPP\ code examples that are developed and
+explained step by step. This document is complemented by the complete
+\RURL{reference/index.html}{Gecode reference documentation}, as well
+as pointers to introductory and more advanced material throughout the
+text.
+
+The first part of this document (\autoref{part:m}) is about
+\emph{modeling} with Gecode. It explains modeling and solving
+constraint problems, and how to program, compile, link, and
+execute these models.  This is complemented by a collection of
+interesting case studies of how to model with Gecode
+(\autoref{part:c}).  The remaining, more advanced parts are about
+\emph{programming} with Gecode: they explain how to use Gecode
+for implementing constraints (\autoref{part:p}), branchings
+(\autoref{part:b}), new
+variable types (\autoref{part:v}), and search engines (\autoref{part:s}).
+
+\section{What is Gecode?}
+
+Gecode is an open, free, portable, accessible, and efficient
+environment for developing constraint-based systems and
+applications. Gecode is:
+
+\begin{description}
+\item[open] Gecode is radically open for programming: it can be
+  easily interfaced to other systems. It supports the programming
+  of new propagators (as implementation of constraints),
+  branching strategies, and search engines. New variables can be
+  programmed at the same level of efficiency as integer and set
+  variables that ship with Gecode.
+  
+\item[free] Gecode is distributed under the
+  \AURL{http://www.gecode.org/license.html}{MIT license} and is
+  \AURL{http://directory.fsf.org/project/gecode/}{listed as free
+    software} by the FSF. All of its parts --- including
+  reference documentation, implementations of global constraints,
+  and examples --- are available as source code for download.
+  
+\item[portable] Gecode is implemented in \CPP{} that rigidly
+  follows the \CPP{} standard. It can be compiled with modern
+  \CPP{} compilers and runs on a wide range of platforms.
+  
+\item[accessible] Gecode comes with complete tutorial and
+  reference documentation that allows users to focus on different
+  programming tasks with Gecode.
+  
+\item[efficient] Gecode offers excellent performance with respect
+  to runtime, memory usage, and scalability. For example, Gecode won the 
+  MiniZinc Challenge in both 
+  \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2009/results2009.html}{2009} and
+  \AURL{http://www.g12.csse.unimelb.edu.au/minizinc/results.html}{2008}.
+  
+\item[parallel] Gecode complies with reality in that it exploits
+  the multiple cores of today's commodity hardware for parallel
+  search, giving an already efficient base system an additional
+  edge.
+
+\item[alive] Gecode has a sizeable user community and is being
+  actively developed and maintained. In order to give you an
+  idea: there has been a release every two to three month since
+  the first release in December 2005.
+\end{description}
+
+\section{What is this document?}
+
+We do not want to disappoint our readers, so let us get this out
+of the way as early as possible -- here is \emph{what this
+  document is not}. This document is very definitely neither
+\begin{itemize}
+\item an introduction to constraint programming or modeling
+  techniques, nor
+\item a collection of interesting implementations of constraints,
+  nor
+\item an introduction to the architecture of constraint solvers,
+  nor
+\item a reference documentation of the Gecode API.
+\end{itemize}
+%
+The reader is therefore expected to have some background
+knowledge in constraint programming.
+
+Furthermore, the document describes the \CPP\ interface to
+Gecode, it is not about modeling with any of the available
+\AURL{http://www.gecode.org/interfaces.html}{interfaces to Gecode}.
+
+\paragraph{Keeping it simple.}
+
+Throughout this document, we will use simple examples to explain
+the concepts you have to understand in order to model and program
+with Gecode. However, these simple examples demonstrate the
+\emph{complete array of techniques} that are sufficient to
+implement complex models, constraints, branchings, variables, and
+search engines. In fact, Gecode itself is based on the very same
+techniques -- you will learn how to develop code that is just as
+good as (or maybe better than?) what Gecode itself provides.
+
+\paragraph{Gecode architecture.}
+
+This document follows the general architecure of Gecode,
+containing one part for each major component.
+\autoref{fig:intro:gecode_architecture} gives an overview of the
+Gecode architecture. The kernel provides common functionality,
+upon which the modules for integer and set constraints as well as
+the search engines are built. The colored boxes refer to the
+topics covered in this document.
+
+\begin{figure}
+\begin{pspicture}(16,8)
+%\psgrid
+\fcframe{GecodeGreen}{(4,6)(16,8)}
+\put(10,7){\makebox(0,0){Modeling (\autoref{part:m})}}
+\fcbwframe(4,0)(16,2)
+\put(10,1){\makebox(0,0){Gecode kernel}}
+
+\fcframe{GecodeBlue}{(0,3)(8,5)}
+\put(0.2,4.3){\makebox(0,.5)[l]{\footnotesize Programming}}
+\put(0.2,3.7){\makebox(0,.5)[l]{\footnotesize propagators (\autoref{part:p})}}
+\put(0.2,3.2){\makebox(0,.5)[l]{\footnotesize and branchers (\autoref{part:b})}}
+
+\fcbwframe(4.3,1.8)(5.8,6.2)
+\put(5.05,4.3){\makebox(0,0){\?Int?}}
+\put(5.05,3.8){\makebox(0,0){module}}
+
+\fcbwframe(6.3,1.8)(7.8,6.2)
+\put(7.05,4.3){\makebox(0,0){\?Set?}}
+\put(7.05,3.8){\makebox(0,0){module}}
+
+\fcbwframe(8.3,1.8)(9.8,6.2)
+\put(9.05,4.3){\makebox(0,0){\?Search?}}
+\put(9.05,3.8){\makebox(0,0){module}}
+
+\fcframe{GecodeRed}{(13.3,1.8)(15.8,6.2)}
+\put(14.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
+\put(14.55,4.0){\makebox(0,0){{\footnotesize search}}}
+\put(14.55,3.5){\makebox(0,0){{\footnotesize engines}}}
+\put(14.55,3.0){\makebox(0,0){{\footnotesize (\autoref{part:s})}}}
+
+\fcframe{GecodeOrange}{(10.3,1.8)(12.8,6.2)}
+\put(11.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
+\put(11.55,4.0){\makebox(0,0){{\footnotesize variables}}}
+\put(11.55,3.5){\makebox(0,0){{\footnotesize (\autoref{part:v})}}}
+
+\end{pspicture}  
+\caption{Gecode architecture}
+\label{fig:intro:gecode_architecture}
+\end{figure}
+
+\paragraph{Modeling.}
+
+The modeling part (\autoref{part:m}) of this document assumes
+some basic knowledge of modeling and solving constraint problems,
+as well as some basic \CPP\ skills. The document restricts itself
+to simple and well known problems as examples. A constraint
+programming novice should have no difficulty to concentrate on
+the how-to-model with Gecode in particular, rather than the
+how-to-model with constraint programming in general.
+
+The modeling part starts with a very simple constraint model that
+already touches on all the important concepts used in Gecode. There
+are detailed instructions how to compile and link the example code, so
+that you can get started right away. After that, the different
+variable types, the most important classes of constraints, and the
+infrastructure provided by Gecode (such as search engines) are
+presented.
+
+\paragraph{Case studies.}
+
+This document includes a collection of case studies in
+\autoref{part:c}. The case studies mix modeling and programming
+with Gecode. Some case studies are just interesting constraint
+models. Other case studies are constraint models that include the
+programming of new constraints and/or branchings.
+
+\paragraph{Programming.}
+
+The programming parts of this document require the same knowledge
+as the modeling part, plus some additional basic knowledge
+of how constraint propagation is organized.
+\autoref{sec:p:started:back} provides pointers to recommended
+background reading.
+
+The programming parts of this document cover the following
+topics:
+\begin{description}
+\item[programming propagators] \autoref{part:p} describes in
+  detail how new propagators (as implementations of constraints)
+  can be programmed using Gecode. The part gives a fairly
+  complete account of concepts and techniques for programming
+  propagators.
+\item[programming branchers] \autoref{part:b} describes how new
+  branchers (as implementations of branchings for search) can be
+  programmed using Gecode. This part is short and straightforward.
+\item[programming variables] Gecode supports the addition of new
+  variables types: the modules for integer, Boolean and set
+  variables use exactly the same programming interface as is
+  available to any user. This interface is described in
+  \autoref{part:v}.
+\item[programming search] \autoref{part:s} describes how to
+  program new search engines (Gecode comes with the most
+  important search engines). The programming interface is simple
+  yet very powerful as it is based on concurrency-enabled
+  techniques such as recomputation and cloning.
+\end{description}
+
+
+\section{How to read this document?}
+\label{sec:intro:how}
+
+\begin{figure}
+\newcommand{\depentry}[3]{%
+\rput(#1,#2){%
+\psframe[cornersize=absolute,linearc=0.05,linecolor=GecodeOrange,linewidth=0.01pt,opacity=0.50,fillcolor=GecodeOrange,fillstyle=solid](-5,-2.2)(5,2.2)}
+\rput(#1,#2){\makebox(0,0){\footnotesize #3}}}
+\centering
+\psset{xunit=0.38,yunit=0.18}
+\begin{pspicture}(5,0)(45,55)
+\rput(10,50){\makebox(0,0){\textbf{Modeling}}}%
+\rput(25,50){\makebox(0,0){\textbf{Programming}}}%
+\psline[linecolor=GecodeBlue,linewidth=2pt,opacity=0.1]{-}(17.5,5)(17.5,45)
+\depentry{10}{40}{Modeling (\autoref{part:m})}
+\depentry{10}{10}{Case studies (\autoref{part:c})}
+\depentry{25}{30}{Propagators (\autoref{part:p})}
+\depentry{25}{20}{Branchers (\autoref{part:b})}
+\depentry{25}{10}{Variables (\autoref{part:v})}
+\depentry{40}{30}{Search engines (\autoref{part:s})}
+\psline[linecolor=gray,linestyle=dashed,linewidth=1.5pt]{->}(19.5,30)(10,13)
+\psline[linecolor=gray,linestyle=dashed,linewidth=1.5pt]{->}(19.5,20)(10,13)
+\psline[linecolor=black,linewidth=1.5pt]{->}(10,45)(10,43)
+\psline[linecolor=black,linewidth=1.5pt]{->}(10,37)(10,13)
+\psline[linecolor=black,linewidth=1.5pt]{->}(15.5,40)(25,33)
+\psline[linecolor=black,linewidth=1.5pt]{->}(25,27)(25,23)
+\psline[linecolor=black,linewidth=1.5pt]{->}(25,17)(25,13)
+\psline[linecolor=black,linewidth=1.5pt]{->}(15.5,40)(40,33)
+\end{pspicture}
+\caption{Dependencies among different parts of this document}
+\label{fig:intro:dep}
+\end{figure}
+
+The dependencies among the different parts of this document are
+sketched in \autoref{fig:intro:dep}. Every part starts with a
+short overview section and sketches what constitutes the basic
+material of a part. A part only requires the basic material of
+the parts it depends on.
+
+The dashed arrows from programming propagators (\autoref{part:p})
+and programming branchers (\autoref{part:b}) capture that some
+but not all case studies require knowledge on how to program
+propagators and branchers. The individual case studies provide
+information on the required prerequisites.
+
+\paragraph{Downloading example programs.}
+
+All example program code used in this document is available for
+download, just click the download link in the upper right corner
+of an example. 
+
+Note that the code available for download is licensed under the
+\AURL{http://www.gecode.org/license.html}{same license as Gecode}
+and not under the same license as this document. By this, you can
+use an example program as a starting point for your own programs.
+
+If you prefer to download all example programs at once, you can
+do so here:
+\begin{itemize}
+\item \RURL{MPG.tar.gz}{example programs as gzipped tar archive}
+\item \RURL{MPG.7z}{example programs as 7z archive}
+\end{itemize}
+
+
+\section{Do I need to be a \texorpdfstring{\CPP{}}{C++} wizard?}
+
+You very definitely do not have to be a \CPP{} wizard to program
+Gecode models, some basic \CPP{} knowledge will do. Modeling
+constraint problems typically involves little programming and
+tends to follow a common and simple structure that is presented
+in this document.  It should be sufficient to have a general idea
+of programming and object-oriented programming.
+
+Even programming with Gecode requires only basic \CPP{}
+knowledge. The implementation of propagators, branchings,
+variables, and search engines follows simple and predictable
+recipes. However, this estimate refers to the aspects of using
+the concepts and techniques provided by Gecode. Of course,
+implementing truly advanced propagation algorithms inside a
+propagator will be challenging!
+
+If you want to brush up your \CPP{} knowledge, then brushing up
+your knowledge about the following topics might be most rewarding
+when using Gecode:
+\begin{itemize}
+\item Classes and objects, inheritance, virtual member functions:
+  models are typically implemented by inheritance from a
+  Gecode-provided base class.
+\item Overloading and operator overloading: post functions for
+  constraints and support for posting symbolic expressions and
+  relations rely on overloading (several functions with different
+  argument types share the same function name).
+\item Exceptions: Gecode throws exceptions if post functions are
+  used erroneously, for example, when numerical overflow could
+  occur or when parameters are used inconsistently.
+\item Templates: while the modeling layer uses only few generic
+  classes implemented as templates, programming with Gecode
+  requires some basic knowledge about how to program with
+  templates in \CPP.
+\end{itemize}
+Any textbook covering these topics should be well suited, for
+example, \cite{LippmanLajoieMoo:2005} for a general introduction
+to \CPP, and \cite{Weiss:2004} for an introduction to
+\CPP{} for Java programmers.
+
+
+\section{Can you help me?}
+
+Gecode has a lively and sizeable user community that can be
+tapped for help. You can ask questions about Gecode on the
+mailing list
+\AURL{http://www.gecode.org/contact.html}{\texttt{users@gecode.org}}.
+But, please make sure to not waste your time and the time of
+others:
+\begin{itemize}
+\item Please check this document and the
+  \RURL{reference/index.html}{Gecode reference documentation}
+  before asking a question.
+\item Please check the
+  \AURL{http://news.gmane.org/gmane.comp.lib.gecode.user}{archive
+    of the Gecode users mailing list} as to whether a similar
+  question has been asked before (note that the archive can be
+  searched) before asking a question.
+\item Please focus on questions specific to Gecode. For general
+  questions about constraint programming more suitable forums
+  exist.
+\item Please provide sufficient detail: describe your platform
+  (operating system, compiler, Gecode version) and your problem
+  (what does not work, what do you want to do, what is the
+  problem you observe) as accurately as you can.
+\item Please do not contact the developers for general Gecode
+  questions, we will not answer. First, we insist on the benefit
+  to the entire user community to see questions and answers (and
+  the contribution to the mailing list archive). Second, more
+  importantly, our users are known to have very good answers
+  indeed. Remember, they -- in contrast to the developers --
+  might be more familiar with your user perspective on Gecode.
+\item Never ask for solutions to homework. The only more
+  offensive thing you could do is to provide a solution on the
+  mailing list if someone has violated the no homework policy!
+\end{itemize}
+
+\section{Does Gecode have bugs?}
+
+Yes, of course! But, Gecode is very thoroughly tested (tests
+cover almost 100\%) and extensively used (several thousand
+users). If something does not work, we regret to inform you that
+this is most likely due to your program and not Gecode. Again,
+this does not mean that Gecode has no bugs. But it does mean that
+it might be worth searching for errors in \emph{your} program
+first. 
+
+Likewise, all major program fragments in this document
+(those that can be downloaded) have been carefully tested as
+well.
+
+And, yes. Please take our apologies in advance if that somewhat
+bold claim does turn out to be false... If you have accepted our
+apologies, you can submit your bug report
+\AURL{http://www.gecode.org/bugs.html}{here}.
+
+\section{How to refer to this document?}
+
+We kindly ask you to refer to the individual parts of this
+document with their respective authors (each part has a dedicated
+set of authors). \textsc{Bib}\TeX{} entries for the individual
+parts are \RURL{MPG.bib}{available here}.
+
+If you refer to concepts introduced in Gecode, we kindly ask you
+to refer to the relevant academic publications.
+
+\section{Do you have comments?}
+
+If you have comments, suggestions, bug reports, wishes, or any
+other feedback for
+this document, please send a mail with your feedback to
+\AURL{mailto:mpg@gecode.org}{\texttt{mpg@{}gecode.org}}.

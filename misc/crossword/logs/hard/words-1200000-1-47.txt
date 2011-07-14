@@ -1,0 +1,39 @@
+Crossword
+	malabar*seagate*bailiff
+	isadore*albania*algeria
+	strobes*learner*rioters
+	fog*snub*abba*mater*lit
+	ires*alumnae*salon*lane
+	tills*trio*dvorak*songs
+	saying*nero*elks*amidst
+	***pollen*muses*bear***
+	ash*wear*bests*canceled
+	stammer*bales*derek*ace
+	samoa*dieter*diana*roll
+	inland*sect*peas*specie
+	glen*reach*cornea*adopt
+	net*sarah*beebe*papoose
+	systemic*panty*hebe*ned
+	***haas*cacti*fedora***
+	locals*back*char*severs
+	axons*teresa*uses*depot
+	monk*ceded*darting*rite
+	ann*crass*idol*nora*saw
+	riotous*secured*rosetta
+	cathode*electro*eviller
+	kneeled*disease*deafest
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      24.100 (24100.000000 ms)
+	solutions:    1
+	propagations: 1685317
+	nodes:        10193
+	failures:     4974
+	peak depth:   186
+	peak memory:  143586 KB

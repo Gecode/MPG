@@ -1,0 +1,11 @@
+Crossword
+
+	propagators: 753
+	branchers:   1
+	runtime:      3.884 (3884.000000 ms)
+	solutions:    1
+	propagations: 28860
+	nodes:        238
+	failures:     10
+	peak depth:   157
+	peak memory:  130013 KB

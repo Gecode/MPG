@@ -1,0 +1,11 @@
+export PATH="./x64:$PATH"
+export THREADS=1
+export TIMEOUT=1200000
+
+for d in uk words; do
+  for ((i=10; i<50; i++)); do
+    ./x64/crossword.exe \
+	-time $TIMEOUT -threads $THREADS -branching letters \
+	-file words/$d.txt $i | tee logs/$THREADS/stat-$d-$i.txt
+  done
+done

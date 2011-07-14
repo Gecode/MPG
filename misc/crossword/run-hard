@@ -1,0 +1,14 @@
+export PATH="./x64:$PATH"
+export THREADS=4
+export TIMEOUT=1200000
+#export TIMEOUT=3600000
+#export TIMEOUT=7200000
+#export TIMEOUT=14400000
+export TRY=1
+
+for i in 19 39 47 45 49; do
+  ./x64/crossword.exe \
+	-time $TIMEOUT -threads $THREADS -branching letters \
+	-file words/words.txt $i | tee logs/hard/words-$TIMEOUT-$TRY-$i.txt
+done
+

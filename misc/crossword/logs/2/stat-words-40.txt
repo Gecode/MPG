@@ -1,0 +1,4 @@
+Crossword
+Exception: IntVar::init: Attempt to create variable with empty domain.
+Stopping...
+nodes: 0

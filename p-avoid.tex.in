@@ -1,0 +1,920 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Avoiding execution}
+\label{chap:p:avoid}
+
+This chapter serves two purposes. First, it discusses techniques
+for avoiding propagator execution. Second, the examples used in
+this chapter introduce view arrays for propagators and Boolean
+views.
+
+\paragraph{Overview.}
+
+Fixpoint reasoning as an important technique for avoiding
+propagator execution is discussed in detail in
+\autoref{sec:p:avoid:eqbnd} (we already briefly touched on this
+subject in \autoref{sec:p:started:better}). The following section
+(\autoref{sec:p:avoid:ortrue}) presents an example propagator for
+Boolean disjunction introducing Boolean variable views and view
+arrays for propagators with arbitrarily many views. The Boolean
+disjunction propagator is used in \autoref{sec:p:avoid:dynamic}
+as an example for dynamic subscriptions (a propagator only
+subscribes to a subset of its views and the subscriptions change
+while the propagator is being executed) as another technique to
+avoid propagator execution.
+
+
+
+\section{Fixpoint reasoning reconsidered}
+\label{sec:p:avoid:eqbnd}
+
+In this section, we develop a propagator for equality $x=y$ that
+performs bounds reasoning to further discuss how a propagator can
+do fixpoint reasoning. A stronger domain propagator for equality
+is discussed in \autoref{chap:p:domain}. Background information
+on fixpoint reasoning can be found
+in~\cite[Section~4]{SchulteStuckey:TOPLAS:2008}.
+
+\paragraph{A naive propagator.}
+
+\begin{figure}
+\insertlitcode{equal naive}
+\caption{A naive equality bounds propagator}
+\label{fig:p:avoid:equal:naive}
+\end{figure}
+
+The \?propagate()? member function of an equality propagator
+\?Equal? is shown in \autoref{fig:p:avoid:equal:naive}. The
+remaining functions are as to be expected.
+
+The propagation rules implemented by \?Equal? is that the values
+of both \?x0? and \?x1? must be greater or equal than
+\?std::max(x0.min(),x1.min())? and less or equal than
+\?std::min(x0.max(),x1.max())?. The above implementation follows
+these rules even though it avoids the computation of \?std::min?
+and \?std::max?. Let us look to the adjustment of the lower
+bounds of \?x0? and \?x1? (the upper bounds are analogous):
+\begin{itemize}
+\item If \?x0.min()==x1.min()?, nothing is pruned.
+\item If \?x0.min()<x1.min()?, then \?x0? is pruned. 
+\item If \?x0.min()>x1.min()?, then \?x1? is pruned. 
+\end{itemize}
+
+As can be seen, the propagator does not perform any fixpoint
+reasoning, it always returns \?ES_NOFIX? (unless it is
+subsumed or failed).
+
+The propagator might actually sometimes compute a fixpoint and
+sometimes not. Consider $\mathtt{x0}\in\{1,2,3,4\}$ and
+$\mathtt{x1}\in\{0,1,2,5\}$. Then \?Equal? propagates that
+$\mathtt{x0}\in\{1,2,3,4\}$ and $\mathtt{x1}\in\{1,2\}$ which
+happens to be not a fixpoint. The reason (which is common when
+performing bounds propagation) is that a bounds modification
+(here \?x1.lq(home,4)?) has resulted in an even smaller upper
+bound (or an even larger lower bound when the lower bound is
+modified). In a way, the modification operation updating the
+bound fell into a hole in the variable domain.
+
+\paragraph{Reporting fixpoints.}
+
+\begin{figure}
+\insertlitcode{equal}
+\caption{An equality bounds propagator with fixpoint reasoning}
+\label{fig:p:avoid:equal}
+\end{figure}
+
+The above example shows that the equality propagator computes a
+fixpoint if and only if, after propagation, \?x0.min()==x1.min()?
+and \?x0.max()==x1.max()?. \autoref{fig:p:avoid:equal} shows the
+\?propagate()? member function of an improved \?Equal? propagator
+that takes advantage of fixpoint reasoning.
+
+\paragraph{An idempotent propagator.}
+
+\begin{figure}
+\insertlitcode{equal idempotent}
+\caption{An idempotent equality bounds propagator}
+\label{fig:p:avoid:equal:idempotent}
+\end{figure}
+
+The previous propagator reports when it computes a fixpoint.
+However, we can change any propagator so that it always computes
+a fixpoint. Propagators which always compute a fixpoint (unless
+they are subsumed) are known as \emph{idempotent} propagators.
+The idea to turn an arbitrary propagator into an idempotent
+propagator is simple: repeat propagation until it has computed a
+fixpoint.  \autoref{fig:p:avoid:equal:idempotent} shows the
+\?propagate()?  member function of an idempotent equality
+propagator.
+
+The idempotent propagator always computes a fixpoint. That means
+that it does not need to use the generic mechanisms provided by
+the Gecode kernel for scheduling and executing propagators in
+order to compute a fixpoint. Instead, a tight inner loop inside
+the \?propagate()? function computes the fixpoint. If the
+propagator is cheap (which it is in our example) it might be
+better to make the propagator idempotent and hence avoid the
+overhead of the Gecode kernel (even though the Gecode kernel is
+very efficient as it comes to scheduling and executing
+propagators).
+
+\paragraph{An idempotent propagator using modification events.}
+
+\begin{figure}
+\insertlitcode{equal idempotent using modification events}
+\caption{An idempotent equality bounds propagator using
+  modification events}
+\label{fig:p:avoid:equal:modevent}
+\end{figure}
+
+The idempotent propagator shown above tests a propagator-specific
+criterion to determine whether a fixpoint has been computed. With
+the help of modification events there is a generic approach to
+computing a fixpoint within the \?propagate()? member function of a
+propagator.  \autoref{fig:p:avoid:equal:modevent} shows the
+\?propagate()?  member function where the Boolean variable \?nafp?
+(for: \?n?ot \?a?t \?f?ix\?p?oint) tracks whether the propagator
+has computed a fixpoint. The function \?me_modified(me)? checks
+whether the modification event \?me? does not signal failure or that
+the view did change (that is, for integer views, \?me? is
+different from \?Int::ME_INT_FAILED? and \?Int::ME_INT_NONE?).
+Whenever a view is modified, \?nafp? is accordingly set to
+\?true?. The remaining modification operations are
+omitted as they are analogous.
+
+\tip{Understanding \?ES_NOFIX?}{
+The above technique for making a propagator idempotent is based
+on the idea of repeating propagation until no more views are
+modified.
+
+Unfortunately, we have seen (more than once) a similar but not very
+good idea in propagators for finding out whether a propagator is
+at fixpoint.  The idea can be sketched as follows: record in a
+Boolean flag \?modified? whether a modification operation
+actually modified a view during propagation. For our bounds
+equality propagator the idea can be sketched as follows:
+\begin{code}
+virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+  bool modified = false;
+
+  ModEvent me = x0.gq(home,x1.min());
+  if (me_failed(me)) 
+    return ES_FAILED;
+  else if (me_modified(me)) 
+    modified = true;
+  ...
+  if (x0.assigned() && x1.assigned())
+    return home.ES_SUBSUMED(*this);
+  else
+    return modified ? ES_NOFIX : ES_FIX;
+}
+\end{code}
+
+That means, if \?modified? is \?true? the propagator might not be
+at fixpoint and hence \?ES_NOFIX? is returned. This makes not
+much sense: \?ES_NOFIX? means \emph{that a propagator is not
+  considered to be at fixpoint if it has modified a view!}. If no
+view has been modified the propagator must be at fixpoint and
+just returning \?ES_NOFIX? does the trick.
+
+This not-so-hot idea can be summarized as: achieving nothing with
+quite some effort!
+}
+
+For the equality constraint, checking the propagator-specific
+fixpoint condition is simple enough. For more involved
+propagators, the generic approach using modification events
+always works and is to be preferred. As the generic approach is
+so useful, a macro \?GECODE_ME_CHECK_MODIFIED? is available. With
+this macro, the loop insided the \?propagate()? function can be
+expressed as:
+\begin{code}
+while (nafp) {
+  nafp = false;
+  GECODE_ME_CHECK_MODIFIED(nafp,x0.gq(home,x1.min()));
+  GECODE_ME_CHECK_MODIFIED(nafp,x1.gq(home,x0.min()));
+  GECODE_ME_CHECK_MODIFIED(nafp,x0.lq(home,x1.max()));
+  GECODE_ME_CHECK_MODIFIED(nafp,x1.lq(home,x0.max()));
+}
+\end{code}
+
+
+
+\section{A Boolean disjunction propagator}
+\label{sec:p:avoid:ortrue}
+
+Before we demonstrate dynamic subscriptions in the next section,
+we discuss a propagator for Boolean disjunction. The propagator
+is rather simple, but we use it as an example for Boolean views,
+arrays of views, and several other aspects.
+
+\begin{figure}
+\insertlitcode{or true}
+\caption{Naive Boolean disjunction}
+\label{fig:p:avoid:or:naive}
+\end{figure}
+
+\autoref{fig:p:avoid:or:naive} shows the \?OrTrue? propagator
+that propagates that an array of Boolean views \?x? is \?1? (that
+is, the Boolean disjunction on \?x? is true). That is, at least one of the views in \?x? must be
+\?1?. The propagator uses an array \gecoderef[class]{ViewArray}
+of Boolean views (a \gecoderef[class]{ViewArray} is generic with respect to the
+views it stores). Similar to views, view arrays have
+\?subscribe()?  and \?cancel()? functions for subscriptions,
+where the operations are applied to all views in the view array.
+
+\tip{View arrays also provide STL-style iterators}{
+View arrays also support STL-style (Standard Template Library)
+iterators, similar to other arrays provided by Gecode, see
+\autoref{sec:m:integer:stl}.
+}
+
+\paragraph{Constraint post function.}
+
+The constraint post function \?dis()? constrains the disjunction of
+the Boolean variables in \?x? to be equal to the integer \?n?:
+$$\bigvee_{i=0}^{|\mathtt{x}|-1} \mathtt{x}_i=\mathtt{n}$$
+
+The constraint post function checks that the value for \?n? is
+legal. If \?n? is neither \?0? nor \?1?, the constraint post
+function throws an exception. Here, we use an appropriate
+Gecode-defined exception, but any exception of course works.
+
+If \?n? is \?0?, all variables in \?x? must be \?0? as well:
+rather than posting a propagator to do that, we assign the views
+immediately in the constraint post function. Note that we have to
+get an integer view to be able to assign \?x[i]? to zero as only
+views provide modification operations.
+
+Otherwise, a view array \?y? is created (newly allocated in the
+space \?home?) and its fields are initialized to views that
+correspond to the respective integer variables in \?x?. Then,
+posting the \?OrTrue? propagator is as expected.
+
+A more general case of Boolean disjunction, where \?n? is an
+integer variable instead of an integer value is discussed in
+\autoref{sec:p:advisors:or}. 
+
+\paragraph{Propagation.}
+
+\begin{figure}
+\insertlitcode{or true:propagation}
+\caption{Propagation for naive Boolean disjunction}
+\label{fig:p:avoid:ortrue:prop}
+\end{figure}
+
+
+Propagation for Boolean disjunction is straightforward: first,
+all views are inspected whether they are assigned to \?1? (in
+which case the propagator is subsumed) or to \?0? (in which case
+the assigned view is eliminated from the view array). If no views
+remain, the propagator is failed. If a single (by elimination,
+an unassigned view) remains, it is assigned to \?1?. This can be
+implemented as shown in \autoref{fig:p:avoid:ortrue:prop}.
+
+
+The operation \?x.move_lst(i)? of a view array \?x? moves the
+last element of \?x? to position \?i? and shrinks the array by
+one element. Shrinking from the end is in particular simple if
+the array elements are iterated backwards as in our example. The
+class \gecoderef[class]{ViewArray} provides several operations to
+shrink view arrays. Note that \?x.move_lst(i)? requires that the
+view at position \?i? is actually assigned or has no
+subscription, otherwise the subscription for \?x[i]? needs to be
+canceled before \?x[i]? is overwritten. View arrays also provide
+operations for simultaneously moving elements and canceling
+subscriptions.
+
+\tip{View arrays have non-copying copy constructors}{
+The constructor for posting in \autoref{fig:p:avoid:or:naive}
+uses the copy constructor of \gecoderef[class]{ViewArray} to
+initialize the member \?x?. The copy constructor does \emph{not}
+copy a view array. Instead, after its execution both original and
+copy have shared access to the same views.
+}
+
+\paragraph{Using propagator patterns.}
+
+\begin{figure}
+\insertlitcode{or true concise}
+\caption{Naive Boolean disjunction using a propagator pattern}
+\label{fig:p:avoid:or:concise}
+\end{figure}
+
+How to use a propagator pattern with an array of views
+is shown in \autoref{fig:p:avoid:or:concise} for Boolean
+disjunction.
+
+\paragraph{Boolean views.}
+
+A Boolean view \gecoderef[class]{Int::BoolView} provides
+operations for testing whether it is assigned to \?1? (\?one()?)
+or \?0? (\?zero()?), or whether it is not assigned yet
+(\?none()?). As modification operations Boolean views offer
+\?one(home)?  and \?zero(home)?. Also, Boolean views only support
+\?PC_BOOL_NONE? and \?PC_BOOL_VAL? as propagation conditions and
+\?ME_BOOL_NONE?, \?ME_BOOL_FAILED?, and \?ME_BOOL_VAL? as
+modification events.
+
+Boolean views (variables and variable implementations likewise)
+are not related to integer views by design: the very point is
+that Boolean variable implementations have a specially optimized
+implementation that is in fact not related to the 
+implementation of integer variables.
+
+Boolean views also implement all operations that
+integer views implement and integer propagation conditions can
+also be used with Boolean views. \?PC_INT_DOM?, \?PC_INT_BND?,
+and \?PC_INT_VAL? are mapped to the single Boolean propagation
+condition \?PC_BOOL_VAL?. Having the same interface for integer
+and Boolean views is essential: \autoref{sec:p:views:inttobool}
+shows how integer propagators can be reused as Boolean
+propagators without requiring any modification.
+
+
+\section{Dynamic subscriptions}
+\label{sec:p:avoid:dynamic}
+
+The previous section has been nothing but a warm-up to the
+presentation of dynamic subscriptions as another technique to
+avoid propagator execution.
+
+\paragraph{Watched literals.}
+
+The naive propagator presented above is disastrous: every time
+the propagator is executed, it checks all of its views to determine
+whether a view has been assigned to \?0? or \?1?.  Worse yet,
+pretty much all of the propagator executions are entirely
+pointless for propagation (but not for determining subsumption as
+is discussed below).
+
+One idea would be to only check until two unassigned views have
+been encountered. In this case, it is clear that the propagator
+cannot perform any propagation. Of course, this might prevent the
+propagator from detecting subsumption as early as possible: as it
+does not scan all views but stops scanning after two unassigned
+views, it might miss out on a view already assigned to \?1?.
+
+The idea to stop scanning after two unassigned views have been
+encountered can be
+taken even further. A well-known technique for the efficient
+implementation of Boolean SAT (satisfiability) solvers are
+\emph{watched literals}~\cite{chaff}: it is sufficient to
+subscribe to two Boolean views for propagating a Boolean
+disjunction to be satisfied. Subscribing to a single Boolean
+view is not enough: if all views but the subscription view are
+assigned to \?0? the subscription view must be assigned to \?1?
+to perform propagation, however the propagator will not be
+scheduled as the single subscription view is not assigned. More
+than two subscriptions are not needed for propagation, as the
+propagator can only propagate if a single unassigned view
+remains. It might be the case that a view to which the propagator
+has not subscribed is assigned to \?1?.  That means that the
+propagator is not subsumed as early as possible but that does not
+affect propagation.
+
+\begin{figure}
+\insertlitcode{or true with dynamic subscriptions}
+\caption{Boolean disjunction with dynamic subscriptions}
+\label{fig:p:avoid:or:dynamic}
+\end{figure}
+
+\paragraph{The propagator.}
+
+The propagator using dynamic subscriptions maintains exactly two
+subscriptions to its Boolean views.
+\autoref{fig:p:avoid:or:dynamic} shows the \?OrTrue?  propagator
+with dynamic subscriptions. It inherits from the
+\?BinaryPropagator? pattern and the views \?x0? and \?x1? of the
+pattern are exactly the two views with subscriptions. All
+remaining views without subscriptions are stored in the view
+array \?x?. The operation \?drop_fst(n)? for an integer \?n?
+drops the first \?n?  elements of a view array and shortens the
+array by \?n? elements accordingly (that is, \?drop_fst()? is dual
+to \?drop_lst()? as used in the previous section). Note that the
+propagator must define a \?dispose()? member function: this is
+needed not because \?dispose()?  must cancel additional
+subscriptions (the very point is that \?x?  has no subscriptions)
+but that it must return the correct size of \?OrTrue?.
+
+\tip{\?drop_fst()? and \?drop_lst()? are efficient}{ Due to the very
+  special memory allocation policy used for view arrays (their
+  memory is allocated in a space and is never freed as they only
+  can shrink, see \autoref{chap:p:memory}), both \?drop_fst()? and
+  \?drop_lst()? have constant time complexity.  }
+
+
+\paragraph{Propagation.}
+
+The idea of how to perform propagation is fairly simple: if one
+of the views with subscriptions is assigned to \?1?, the
+propagator is subsumed. If one of the subscription views is
+assigned to \?0?, say \?x0?, a function \?resubscribe()? tries to
+find a yet unassigned view to subscribe to it and store it as
+\?x0?. If there is no such view but there is a view assigned to
+\?1?, the propagator is subsumed. If there is no such view, then
+the propagator tries to assign \?1? to \?x1?, and, if successful,
+the propagator is also subsumed. The implementation is as
+follows:
+
+\insertlitcode{or true with dynamic subscriptions:propagation}
+
+\paragraph{Resubscribing.}
+
+\begin{figure}
+\insertlitcode{or true with dynamic subscriptions:resubscribe}
+\caption{Resubscribing for Boolean disjunction with dynamic subscriptions}
+\label{fig:p:avoid:ortrue:re}
+\end{figure}
+
+The function \?resubscribe()? implements the search for a yet
+unassigned view for subscription and is shown in
+\autoref{fig:p:avoid:ortrue:re}. 
+
+\paragraph{Copying.}
+
+The assigned views in \?x? do not really matter much: all views
+assigned to \?0? can be discarded. If there is a view assigned to
+\?1? all other views can be discarded (of course, a single view
+assigned to \?1? must be kept for correctness). Hence a good idea
+for copying is: copy only those views that still matter. This
+leads to a smaller view array requiring less memory. We decide to
+discard assigned views as much as we can in the \?copy()? function
+rather than in the constructor used for copying. By this, also
+the original and not only the copy profits from fewer views.
+While the copy benefits because there are less views to be
+stored, the original propagator benefits because \?resubscribe()?
+does not have to scan assigned views as they already have been
+eliminated. Following this discussion, the \?copy()? function can
+be implemented as: 
+\insertlitcode{or true with dynamic subscriptions:copy}
+
+
+There is another optimization during copying that looks
+promising. If all views in \?x? are eliminated, a propagator
+without the view array \?x? is sufficient as a copy. If there is a
+view assigned to \?1?, then a propagator should be created that
+is subsumed. How this can be achieved is discussed in
+\autoref{sec:p:reified:or}. 
+
+
+
+
+\begin{litcode}{equal naive}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  \begin{litblock}{anonymous}
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    GECODE_ME_CHECK(x0.gq(home,x1.min()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.lq(home,x0.max()));
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_NOFIX;
+  }
+};
+\begin{litblock}{anonymous}
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+  
+
+\begin{litcode}{equal}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+\end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    GECODE_ME_CHECK(x0.gq(home,x1.min()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.lq(home,x0.max()));
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else if ((x0.min() == x1.min()) &&
+             (x0.max() == x1.max()))
+      return ES_FIX;
+    else
+      return ES_NOFIX;
+  }
+\begin{litblock}{anonymous}
+};
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+  
+
+\begin{litcode}{equal idempotent}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+\end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    do { 
+      GECODE_ME_CHECK(x0.gq(home,x1.min()));
+      GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    } while (x0.min() != x1.min());
+    do {
+      GECODE_ME_CHECK(x0.lq(home,x1.max()));
+      GECODE_ME_CHECK(x1.lq(home,x0.max()));
+    } while (x0.max() != x1.max());
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+  }
+\begin{litblock}{anonymous}
+};
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+  
+\begin{litcode}{equal idempotent using modification events}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+\end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    bool nafp = true;
+    while (nafp) {
+      nafp = false;
+      ModEvent me = x0.gq(home,x1.min());
+      if (me_failed(me)) 
+        return ES_FAILED;
+      else if (me_modified(me)) 
+        nafp = true;
+      \begin{litblock}{anonymous}
+      me = x1.gq(home,x0.min());
+      if (me_failed(me)) 
+        return ES_FAILED;
+      else if (me_modified(me)) 
+        nafp = true;
+      me = x0.lq(home,x1.max());
+      if (me_failed(me)) 
+        return ES_FAILED;
+      else if (me_modified(me)) 
+        nafp = true;
+      me = x1.lq(home,x0.max());
+      if (me_failed(me)) 
+        return ES_FAILED;
+      else if (me_modified(me)) 
+        nafp = true;
+      \end{litblock}
+    }
+    \begin{litblock}{anonymous}
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+    \end{litblock}
+  }
+\begin{litblock}{anonymous}
+};
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+  
+
+\begin{litcode}{or true}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class OrTrue : public Propagator {
+protected:
+  ViewArray<Int::BoolView> x;
+public:
+  OrTrue(Home home, ViewArray<Int::BoolView>& y) 
+    : Propagator(home), x(y) {
+    x.subscribe(home,*this,Int::PC_BOOL_VAL);
+  }
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, ViewArray<Int::BoolView>& x) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return ES_OK;
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    x.unique(home);
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+    } else {
+      (void) new (home) OrTrue(home,x);
+    }
+    return ES_OK;
+  }
+  virtual size_t dispose(Space& home) {
+    x.cancel(home,*this,Int::PC_BOOL_VAL);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  OrTrue(Space& home, bool share, OrTrue& p) 
+    : Propagator(home,share,p) {
+    x.update(home,share,p.x);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) OrTrue(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::linear(PropCost::LO,x.size());
+  }
+  \end{litblock}
+  \begin{litblock}{propagation}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return home.ES_SUBSUMED(*this);
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+      return home.ES_SUBSUMED(*this);
+    }
+    return ES_FIX;
+  }
+  \end{litblock}
+};
+
+void dis(Home home, const BoolVarArgs& x, int n) {
+  if ((n != 0) && (n != 1))
+    throw Int::NotZeroOne("dis");
+  if (home.failed()) return;
+  if (n == 0) {
+    for (int i=x.size(); i--; )
+      GECODE_ME_FAIL(Int::BoolView(x[i]).zero(home));
+  } else {
+    ViewArray<Int::BoolView> y(home,x);
+    GECODE_ES_FAIL(OrTrue::post(home,y));
+  }
+}
+\end{litcode}
+  
+
+\begin{litcode}{or true concise}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class OrTrue : 
+  public NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL> {
+public:
+  OrTrue(Home home, ViewArray<Int::BoolView>& x) 
+    : NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,x) {}
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, ViewArray<Int::BoolView>& x) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return ES_OK;
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    x.unique(home);
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+    } else {
+      (void) new (home) OrTrue(home,x);
+    }
+    return ES_OK;
+  }
+  \end{litblock}
+  OrTrue(Space& home, bool share, OrTrue& p) 
+    : NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {}
+  \begin{litblock}{anonymous}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) OrTrue(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return home.ES_SUBSUMED(*this);
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+      return home.ES_SUBSUMED(*this);
+    }
+    return ES_FIX;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+void dis(Home home, const BoolVarArgs& x, int n) {
+  if ((n != 0) && (n != 1))
+    throw Int::NotZeroOne("dis");
+  if (home.failed()) return;
+  if (n == 0) {
+    for (int i=x.size(); i--; ) {
+      Int::BoolView xi(x[i]);
+      GECODE_ME_FAIL(xi.zero(home));
+    }
+  } else {
+    ViewArray<Int::BoolView> y(home,x);
+    GECODE_ES_FAIL(OrTrue::post(home,y));
+  }
+}
+\end{litblock}
+\end{litcode}
+  
+
+\begin{litcode}{or true with dynamic subscriptions}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class OrTrue : 
+  public BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL> {
+protected:
+  ViewArray<Int::BoolView> x;
+public:
+  OrTrue(Home home, ViewArray<Int::BoolView>& y) 
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>
+      (home,y[0],y[1]), x(y) {
+    x.drop_fst(2);
+  }
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, ViewArray<Int::BoolView>& x) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return ES_OK;
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    x.unique(home);
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+    } else {
+      (void) new (home) OrTrue(home,x);
+    }
+    return ES_OK;
+  }
+  \end{litblock}
+  virtual size_t dispose(Space& home) {
+    (void) BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>
+      ::dispose(home);
+    return sizeof(*this);
+  }
+  \begin{litblock}{anonymous}
+  OrTrue(Space& home, bool share, OrTrue& p) 
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {
+    x.update(home,share,p.x);
+  }
+  \end{litblock}
+  \begin{litblock}{copy}
+  virtual Propagator* copy(Space& home, bool share) {
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        x[0]=x[i]; x.size(1); break;
+      } else if (x[i].zero()) {
+        x.move_lst(i);
+      }
+    return new (home) OrTrue(home,share,*this);
+  }
+  \end{litblock}
+  \begin{litblock}{resubscribe}
+  ExecStatus resubscribe(Space& home, 
+                         Int::BoolView& y, Int::BoolView z) {
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        return home.ES_SUBSUMED(*this);
+      } else if (x[i].zero()) {
+        x.move_lst(i);
+      } else {
+        y=x[i]; x.move_lst(i);
+        y.subscribe(home,*this,Int::PC_BOOL_VAL);
+        return ES_FIX;
+      }
+    GECODE_ME_CHECK(z.one(home));
+    return home.ES_SUBSUMED(*this);
+  }
+  \end{litblock}
+  \begin{litblock}{propagation}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (x0.one() || x1.one())
+      return home.ES_SUBSUMED(*this);
+    if (x0.zero())
+      GECODE_ES_CHECK(resubscribe(home,x0,x1));
+    if (x1.zero())
+      GECODE_ES_CHECK(resubscribe(home,x1,x0));
+    return ES_FIX;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+void dis(Home home, const BoolVarArgs& x, int n) {
+  if ((n != 0) && (n != 1))
+    throw Int::NotZeroOne("dis");
+  if (home.failed()) return;
+  if (n == 0) {
+    for (int i=x.size(); i--; ) {
+      Int::BoolView xi(x[i]);
+      GECODE_ME_FAIL(xi.zero(home));
+    }
+  } else {
+    ViewArray<Int::BoolView> y(home,x);
+    GECODE_ES_FAIL(OrTrue::post(home,y));
+  }
+}
+\end{litblock}
+\end{litcode}
+  
+

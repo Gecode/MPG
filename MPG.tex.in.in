@@ -1,0 +1,434 @@
+% -*- mode: LaTeX; -*- 
+\newcommand{\GecodeVersion}{@VERSION@}
+
+\newcommand{\PDFTITLE}{Modeling and Programming with Gecode}
+\newcommand{\PDFAUTHOR}{Christian Schulte, Guido Tack, Mikael Z. Lagerkvist}
+\newcommand{\PDFSUBJECT}{Constraint programming}
+\newcommand{\PDFKEYWORDS}{Gecode, constraint programming, constraint solving, modeling, constraints, search, propagators, branchers}
+
+
+\input macros
+\input titles
+
+\sloppy
+
+\begin{document}
+
+
+\pagestyle{empty}
+
+\vspace*{1in}
+
+\begin{raggedleft}
+\includegraphics[scale=.8]{images/gecode-logo.eps}
+
+\vspace*{1.5in}
+
+{\MyBigTitle\textbf{\PDFTITLE}}
+
+\vspace*{3em}
+
+\AURL{mailto:schulte@gecode.org}{Christian Schulte}
+
+\medskip
+
+\AURL{mailto:tack@gecode.org}{Guido Tack}
+
+\medskip
+
+\AURL{mailto:lagerkvist@gecode.org}{Mikael Z.\ Lagerkvist}
+
+
+\end{raggedleft}
+
+\newpage
+
+\vspace*{1in}
+
+This document was published on \today. It corresponds to Gecode \GecodeVersion.
+
+\vspace*{1in}
+
+\textcopyright{} Christian Schulte, Guido Tack, Mikael Z.\ Lagerkvist,
+  2008--@YEAR@.
+
+\vspace*{1in}
+
+\phantomsection
+\pdfbookmark{License information}{licenseinformation}
+\subsection*{License information}
+
+% This document is provided under the terms of the Creative Commons License Attribution-Noncommercial-No Derivative Works 3.0.
+
+This document is provided under the terms of the
+\begin{center}
+\AURL{http://creativecommons.org/licenses/by-nc-nd/3.0/}{Creative
+  Commons License Attribution-Noncommercial-No Derivative Works
+  3.0} 
+\end{center}
+The complete license text can be found at the end of this
+document.
+
+We kindly ask you to not make this document available on the
+Internet such that it might be indexed by a search engine.
+We insist that search engines should point to a single and
+up-to-date version of this document. 
+
+The location of this document is:
+\begin{center}
+\AURL{http://www.gecode.org/doc/\GecodeVersion/MPG.pdf}{\texttt{http://www.gecode.org/doc/\GecodeVersion/MPG.pdf}}
+\end{center}
+
+The location of this document corresponding to the latest Gecode
+version is:
+\begin{center}
+\AURL{http://www.gecode.org/doc-latest/MPG.pdf}{\texttt{http://www.gecode.org/doc-latest/MPG.pdf}}
+\end{center}
+
+\phantomsection
+\pdfbookmark{Acknowledgments}{acknowledgments}
+\subsection*{Acknowledgments}
+
+We thank the following people for helpful comments:
+\input acks
+
+\cleardoublepage
+
+\pagenumbering{Roman}
+\pagestyle{plain}
+
+\phantomsection
+\pdfbookmark{Contents}{contents}
+\makeatletter
+\renewcommand*{\@pnumwidth}{2em}
+\makeatother
+\tableofcontents
+
+\cleardoublepage
+
+\renewcommand{\listfigurename}{Figures}
+\makeatletter
+\renewcommand*{\l@figure}{\@dottedtocline{1}{1.5em}{3em}}
+\makeatother
+\phantomsection
+\pdfbookmark{Figures}{figures}
+\listoffigures
+
+\cleardoublepage
+
+\renewcommand{\listtablename}{Tips}
+\makeatletter
+\renewcommand*{\l@table}{\@dottedtocline{1}{1.5em}{3em}}
+\makeatother
+\phantomsection
+\pdfbookmark{Tips}{tips}
+\listoftables
+
+\cleardoublepage
+
+\pagestyle{plain}
+
+\pagenumbering{arabic}
+
+\include{intro}
+
+\renewcommand{\partauthors}
+{Christian Schulte, Guido Tack, Mikael Z.\@ Lagerkvist}
+\renewcommand{\partblurb}{
+\label{part:m}
+{\parindent 0em
+This part explains modeling and solving
+constraint problems, and how to program, compile, link, and
+execute constraint models.}
+
+\paragraph{Basic material.} 
+
+The basic material needed for modeling with Gecode is as follows:
+\begin{itemize}
+\item \tcmstarted{} provides an overview of how to program,
+  compile, link, and execute a constraint model in Gecode.
+\item \tcmcomfy{} discusses functionality in Gecode that
+  makes modeling and execution of models more convenient.
+\item The three first sections of \tcmint{} explain integer and
+  Boolean variables \ptsmintegervar{}, variable and argument
+  arrays \ptsmintegerproper{}, and how constraints are posted
+  \ptsmintegergeneric{}.
+\item The first section of \tcmset{} gives an overview of set
+  variables \ptsmsetvar{}.
+\item The first section of \tcmsearch{} explains branchings for
+  modeling \ptsmsearchbranch{}. Even though not strictly necessary
+  for modeling, it is recommended to also read
+  \tsmsearchre{} and \tsmsearchparallel{} that explain how search
+  (and in particular parallel search) works in Gecode.
+\end{itemize}
+\autoref{part:c} features a collection of example models
+for Gecode as further reading.
+
+\paragraph{Overview material.}
+
+The remaining chapters and sections provide an overview of the
+available functionality for modeling and solving:
+\begin{itemize}
+\item Constraints on integer and Boolean variables
+  are summarized in \tsmintegerpost{} and \tsmintegerexec{} of \tcmint{}.
+\item \tsmsetpost{} and \tsmsetexec{} of \tcmset{} summarize
+  constraints on set variables.
+\item \tcmminimodel{} provides an overview of modeling
+  convenience implemented by MiniModel.
+\item \tsmsearchsimple{} of \tcmsearch{} summarizes how to use
+  search engines.
+\item \tcmgist{} summarizes how to use Gist as a graphical and
+  interactive search tool for developing constraint models.
+\item \tcmdriver{} summarizes the commandline driver for Ge\-code
+  models.
+\end{itemize}
+}
+\mypart{12}{Modeling}
+
+\include{m-started}
+\include{m-comfy}
+\include{m-integer}
+\include{m-set}
+\include{m-minimodel}
+\include{m-search}
+\include{m-gist}
+\include{m-driver}
+
+
+
+
+\renewcommand{\partauthors}
+{Christian Schulte, Guido Tack, Mikael Z.\@ Lagerkvist}
+\renewcommand{\partblurb}{
+\label{part:c}
+
+{\parindent 0em This part presents a collection of modeling case
+  studies. The case studies are ordered (roughly) according to
+  their complexity.  
+}
+
+\paragraph{Basic models.} 
+
+The basic models use classic constraint programming problems in
+order to demonstrate how typical modeling tasks are done with
+Gecode. The basic models are:
+\begin{itemize}
+\item \tccgolomb{} shows a simple problem with a single
+  \?distinct?  constraint and a few \?rel? constraints. As the
+  problem is so well known, it might serve as an initial case
+  study of how to model with Gecode.
+\item \tccmagicsequence{} shows how to use counting constraints
+  (\?count?).
+\item \tccphoto{} shows how to use reified constraints for
+  solving an overconstrained problem.
+\item \tccwarehouses{} shows how to use \?element?, \?linear?,
+  and global
+  counting (\?count?)  constraints.
+\item \tccnonogram{} shows how to use regular expressions and
+  extensional constraints.
+\item \tccgolf{} presents a case study on modeling problems using
+  set variables and constraints.
+\end{itemize}
+
+\paragraph{Advanced models.}
+
+The following models are slightly more advanced:
+\begin{itemize}
+\item \tccknights{} demonstrates a problem-specific brancher
+  inspired by a classic heuristic for a classic problem. 
+\item \tccbpp{} also demonstrates a problem-specific brancher
+  including techniques for breaking symmetries during branching.
+\item \tcckakuro{} presents a model that employs user-defined
+  constraints implemented as \?extensional? constraints using
+  tuple set specifications. Interestingly, the tuple set
+  specifications are computed by solving a simple constraint
+  problem.
+\item \tcccrossword{} presents a simple model using nothing but
+  \?distinct? and \?element?  constraints. The simple model is
+  shown to work quite well compared to a dedicated
+  problem-specific constraint solver. This underlines that an
+  efficient general-purpose constraint programming system
+  actually can go a long way.
+\end{itemize}
+Note that the first two
+  case studies require knowledge on programming branchers,
+  see \autoref{part:b}.
+\vfill
+\paragraph{Acknowledgments.}
+We thank Pierre Flener and Håkan Kjellerstrand for numerous
+detailed and helpful comments on the case studies. Their comments
+have considerably improved the presentation of the case studies.
+}
+\mypart{2}{Case studies}
+
+\include{c-golomb}
+\include{c-magic-sequence}
+\include{c-photo}
+\include{c-warehouses}
+\include{c-nonogram}
+\include{c-golf}
+
+\include{c-knights}
+\include{c-bin-packing}
+\include{c-kakuro}
+\include{c-crossword}
+
+
+
+\renewcommand{\partauthors}
+{Christian Schulte, Guido Tack}
+\renewcommand{\partblurb}{
+\label{part:p}
+{\parindent 0em
+This part explains how to program propagators as implementations
+of constraints.
+}
+
+\paragraph{Basic material.}
+
+\mbox{}\tcpstarted{} shows how to implement simple propagators
+for simple constraints over integer variables. It introduces the
+basic concepts and techniques that are necessary for any
+propagator. 
+
+\paragraph{Programming techniques.}
+
+The bulk of this part describes a wide range of techniques for
+programming efficient propagators:
+\begin{itemize}
+\item \tcpavoid{} discusses techniques for avoiding propagator
+  execution. The examples used in this chapter introduce view
+  arrays for propagators and Boolean views.
+\item \tcpreified{} discusses how to implement propagators for
+  reified constraints and how to optimize constraint propagation
+  by propagator rewriting.
+\item \tcpdomain{} explains various programming techniques for
+  propagators that perform domain propagation. The chapter also
+  describes modification event deltas as information available to
+  propagators and staging as a technique for speeding up domain
+  propagation.
+\item \tcpadvisors{} is concerned with advisors for efficient
+  incremental propagation. Advisors can be used to provide
+  information to a propagator which of its views have changed and
+  how they have changed.
+\item \tcpviews{} shows how to straightforwardly and efficiently
+  reuse propagators for implementing several different
+  constraints by using views. As it comes to importance, this
+  chapter ranks second after \autoref{chap:p:started}. However,
+  it comes rather late to be able to draw on the example
+  propagators presented in the previous chapters.
+\end{itemize}
+
+\paragraph{Overview material.}
+
+\mbox{}\tcpsets{} summarizes how to implement propagators for constraints
+over set variables. An overview of memory management for
+propagators (and branchers, see \autoref{part:b}) is provided by
+\tcpmemory{}. 
+}
+\mypart{15}{Programming propagators}
+
+\include{p-started}
+\include{p-avoid}
+\include{p-reified}
+\include{p-domain}
+\include{p-advisors}
+\include{p-views}
+\include{p-sets}
+\include{p-memory}
+
+
+
+
+\renewcommand{\partauthors}{Christian Schulte}
+\renewcommand{\partblurb}{
+\label{part:b}
+{\parindent 0em 
+This part presents how to program branchers as
+implementations of branchings.
+}
+
+\tcbstarted{} shows how to implement branchers.  An overview of
+the predefined view-value brancher pattern is given in
+\tcbviewval{}.}
+\mypart{1}{Programming branchers}
+
+\include{b-started}
+\include{b-viewval}
+
+
+
+\renewcommand{\partauthors}{Christian Schulte}
+\renewcommand{\partblurb}{
+\label{part:v}
+{\parindent 0em
+This part explains how new variable types can be programmed
+with Gecode.
+}
+
+In order to be able to program variables, all chapters in this
+part should be read.  The chapters capture the following:
+\begin{itemize}
+\item \tcvstarted{} outlines how a new variable type can be
+  programmed for Gecode.
+\item \tcvvarimp{} shows how the kernel-specific and variable
+  domain-specific aspects of a variable implementation are
+  specified and programmed.
+\item \tcvvar{} shows how variables and variable arrays for
+  modeling are programmed for a given variable implementation.
+\item \tcvview{} shows how views for programming propagators and
+  branchers are programmed for a given variable implementation.
+\item \tcvall{} finally explains how a new variable type can be
+  used with Gecode.
+\end{itemize}
+
+\begin{important}
+  Programming variables requires to configure and recompile
+  Gecode from its source code. Using one of the pre-compiled
+  packages is not sufficient. More details can be found in
+  \autoref{chap:v:all}.
+\end{important}
+}
+\mypart{21}{Programming variables}
+
+\include{v}
+
+
+\renewcommand{\partauthors}{Christian Schulte}
+\renewcommand{\partblurb}{
+\label{part:s}
+{\parindent 0em
+This part shows how to program search engines in Gecode.
+}
+
+\tcsstarted{} presents how to implement simple search engines,
+where the focus is on understanding the basic operations
+available on spaces to implement search engines.  \tcsre{} explains recomputation as the most essential
+technique for efficient search in Gecode. 
+\tcsengine{} puts all techniques for search and recomputation
+from \autoref{chap:s:started} and \autoref{chap:s:re} together
+and presents a realistic search engine.
+}
+
+\mypart{18}{Programming search engines}
+
+\include{s-started}
+\include{s-recomputation}
+\include{s-engine}
+
+
+\bibliographystyle{plain}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{references}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Changelog}
+\include{changelog}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{License}
+\include{license}
+
+\end{document}

@@ -1,0 +1,2385 @@
+% -*- mode: LaTeX; -*- 
+%% FILES: PARTONLY
+
+%% Additional files to be included:
+%% \litfile{a}{a}{template.vis}\\
+
+\chapter{Getting started}
+\label{chap:v:started}
+
+This chapter outlines how a new variable type can be programmed
+with Gecode. The chapter (and the entire part on programming
+variables) chooses integer interval variables as its running
+example.
+
+\paragraph{Overview.}
+
+An overview of what needs to be designed and programmed is
+presented in \autoref{sec:v:started:overview}. The structure of
+how the implementation of a variable type is organized is
+presented in \autoref{sec:v:started:structure}.
+
+\begin{important}
+  Programming variables requires to configure and recompile
+  Gecode from its source code. Using one of the pre-compiled
+  packages is not sufficient. More details can be found in
+  \autoref{chap:v:all}.
+\end{important}
+
+
+\section{Overview}
+\label{sec:v:started:overview}
+
+We are going to use \emph{integer interval variables} as the
+running example for the entire part on programming variables.
+Integer interval variables take integer values (like the integer
+variables that come pre-defined with Gecode do) but their domain
+is defined by a lower and an upper bound only. That is, the
+domain is always an interval. This is in contrast to the integer
+variables that come with Gecode, where their domain can be any
+finite set of integer values.
+
+The focus of this part is on understanding what needs to be done
+for implementing new variables, so we deliberately choose very
+simple variables together with very few operations on them as an
+example.
+
+Even though integer interval variables seem not very interesting,
+variants of them could in fact be interesting. For
+example, the integer values used for the lower and upper bound
+could be integers of arbitrary precision, or instead of integer
+values one could choose floating point values.
+
+\paragraph{What must be programmed.}
+
+Programming variables includes the following programming tasks:
+\begin{itemize}
+\item \emph{Variable implementations} (\autoref{chap:v:varimp}):
+  Programming a variable implementation consists of two tasks:
+\begin{enumerate}
+\item The first task is to specify domain-independent
+  aspects of a variable implementation. This includes
+  specifying a name for the variable implementation type, scope
+  information, modification events, and propagation conditions.
+  From a simple specification file containing this information a
+  domain-independent base class for a variable implementation and
+  the corresponding \CPP{} definitions of modification events and
+  propagation conditions is generated.
+  
+  The generated base class together with the definition of
+  modification events and propagation conditions actually become
+  part of Gecode's kernel. The kernel needs these definitions to
+  schedule propagators that have subscribed to a variable
+  implementation and to maintain these subscriptions during
+  cloning.
+\item The second task consists of programming the
+  domain-dependent operations of a variable implementation. This
+  is achieved by defining a class for a variable implementation
+  that inherits from the generated, domain-independent base class
+  and defines the respective domain operations.
+\end{enumerate}
+
+\item \emph{Variables} and \emph{variable arrays}
+  (\autoref{chap:v:var}): As a variable is nothing but a simple
+  and read-only interface to a variable implementation, a
+  variable is obtained by inheriting from a base class for
+  variables that depends on the variable implementation type. The
+  actual programming amounts to defining read-only variable
+  operations that invoke the corresponding operations on the
+  variable's variable implementation.
+
+  Variable arrays and variable argument arrays are, as variables,
+  needed for modeling. Their programming requires the definition
+  of several traits classes so that the defined arrays can be
+  used with Gecode-provided functionality (for example, with the
+  matrix interface for arrays, see
+  \autoref{sec:m:minimodel:matrix}).
+\item \emph{Views} (\autoref{chap:v:view}): Programming a view
+  depends on the type of the view: whether the view is a direct
+  interface to a variable implementation (a \emph{variable
+    implementation view}), whether it is a \emph{constant view},
+  or whether it is derived (a \emph{derived view}) from some
+  other view. As examples, we are going to implement an integer
+  view as a variable implementation view, minus and offset views
+  as derived views, and an integer constant view as a constant
+  view.
+  
+  In addition to the classes for views, some additional functions
+  on views must be defined for testing in which order views are
+  and whether two views are shared or the same (see
+  \autoref{par:p:views:sameshared}).
+\end{itemize}
+
+\paragraph{Putting everything together.}
+
+Even though we are presenting the implementation of integer
+interval variables only as an example, \autoref{chap:v:all} shows
+how everything is put together. This includes examples of
+propagators, branchers, post functions using various views, and a
+simple script (Golomb rulers, see \autoref{chap:c:golomb}) using
+integer interval variables.
+
+More importantly, it also shows how Gecode must be configured and
+compiled such that integer interval variables are supported by
+Gecode's kernel.
+
+
+\section{Structure}
+\label{sec:v:started:structure}
+
+\begin{figure}[p]
+\insertlitcode{int.hh}
+\caption{The header file for integer interval variables}
+\label{fig:v:started:header}
+\end{figure}
+
+The implementation of integer interval variables is contained in
+a single header file \DOWNLOAD{int.hh}{\texttt{int.hh}}, which is
+shown in \autoref{fig:v:started:header}. 
+
+\paragraph{Namespaces.}
+
+The implementation is contained in the namespace \?MPG? (for
+\?M?odeling and \?P?rogramming with \?G?ecode) to avoid
+name-clashes with functionality provided by Gecode. To keep the
+implementation of integer interval variables concise, some important
+definitions in the \?Gecode? namespace are made available by
+\?using? declarations (see \autoref{fig:v:started:header}).
+
+Similar to the organization of namespaces in Gecode, definitions
+that are used for modeling (variables and variable arrays) are
+contained in the namespace \?MPG?, while definitions that are
+used for programming (variable implementations, views, and
+additional support) are in the namespace \?MPG::Int?. As the
+structure of namespaces matters (part of the support for variable
+arrays must be defined inside the \?Gecode? namespace), each
+program fragment is shown in its appropriate
+namespace.
+
+As an example, consider the definition of two exceptions that are
+thrown by the constructor creating a new integer interval
+variable, in case the variable domain is ill-specified:
+\insertlitcode{int.hh:exceptions}
+
+As discussed above, \?Exception? is \?Gecode::Exception? (see
+\gecoderef[class]{Exception}) and has been introduced by a
+\?using?  declaration.
+
+\paragraph{Naming scheme.}
+
+The naming scheme follows the same naming scheme for integer
+variables as defined by Gecode (albeit defined in the
+namespace \?MPG? instead of \?Gecode?):
+
+\begin{itemize}
+\item Variable implementations: The base class is named
+  \?IntVarImpBase? whereas the variable implementation class is
+  named \?IntVarImp?. The names of modification events start with
+  \?ME_INT_? whereas the names of propagation conditions start
+  with \?PC_INT_?. As mentioned above, these classes and
+  identifiers are defined within the namespace \?MPG::Int?.
+\item Variables and variable arrays: Integer interval variables
+  are implemented by the class \?IntVar?. Variable arrays of
+  integer interval variables are implemented by the class
+  \?IntVarArray?, whereas the corresponding variable argument
+  array is implemented by the class \?IntVarArgs?. These classes
+  are defined in the namespace \?MPG?.
+\item Views: the respective views are implemented by classes
+  \?IntView?, \?ConstIntView?, \?MinusView?, and \?OffsetView?.
+  They are all defined within the namespace \?MPG::Int?.
+\end{itemize}
+
+
+
+
+\chapter{Variable implementations}
+\label{chap:v:varimp}
+
+This chapter describes how variable implementations can be
+programmed with Gecode. The chapter uses integer interval variables
+as introduced in \autoref{chap:v:started} as its running example.
+
+\paragraph{Overview.}
+
+The design of integer interval variables is detailed in
+\autoref{sec:v:varimp:design}. After having finalized the design,
+\autoref{sec:v:varimp:spec} explains how the domain-independent
+base class for the variable implementation together with
+definitions of modification events and propagation conditions
+can be generated from a simple specification.
+\autoref{sec:v:varimp:varimp} shows how the actual variable
+implementation is programmed from the generated base class for a
+variable implementation.  \autoref{sec:v:varimp:add} provides an
+overview of additional options for generating a variable
+implementation base class from its specification.
+
+
+\section{Design decisions}
+\label{sec:v:varimp:design}
+
+Before starting with the description of the implementation of
+integer interval variables, let us detail their design. This
+includes the design of the variable domain including access and
+modification operations, deltas for advisors (see
+\autoref{chap:p:advisors}), modification events, and propagation
+conditions.
+
+\paragraph{Variable domain and operations.}
+
+Unsurprisingly, the variable domain of an integer variable
+implementation is represented by two integers \?l? (lower bound)
+and \?u? (upper bound). The variable implementation provides
+access operations \?min()? and \?max()? that return these
+integers.
+
+To modify an integer interval variable implementation, the
+operation \?gq(home,n)? modifies the domain such that its values
+must be greater or equal to~\?n?, whereas the operation \?lq(home,n)?
+modifies the domain such that its values must be less or equal
+to~\?n?.
+
+The values \?l? and \?u? can only be initialized (when creating a
+new variable, see \autoref{sec:v:var:var}) and modified such that
+they obey the following invariants:
+\begin{enumerate}
+\item The domain is never empty, that is,
+  $\mathtt{l}\leq\mathtt{u}$.
+\item The domain values never exceed the limits defined by
+  (\?INT_MAX? is the largest possible value for an \?int?):
+  \insertsmalllitcode{int.hh:limits} 
+  That is,
+  $\mathtt{Int::Limits::min}\leq \mathtt l\leq \mathtt u\leq\mathtt{Int::Limits::max}$.
+\end{enumerate}
+
+The choice of values for \?Limits::min? and \?Limits::max?  are
+motivated by simplicity only. To keep the example propagators
+used in \autoref{chap:v:all} simple, the limits are chosen such
+that the addition and subtraction of two integer values within
+the limits do not lead to numerical overflow.  A real-life
+variable implementation would try to make as many values as
+possible available for a variable domain, see for example
+\autoref{sec:m:integer:limits}.
+
+\tip{Correctness matters}{ While the decision to restrict the
+  possible values of a variable implementation is motivated by
+  simplicity, the decision for a real-life variable
+  implementation is absolutely essential.
+  
+  Being unclear about which values can correctly be maintained by
+  a variable implementation, not ensuring that no numerical
+  overflow occurs, or not checking for the necessary invariants
+  when a new variable is created, renders the very idea of
+  constraint programming obsolete: that whenever a solution is
+  found by Gecode, it \emph{actually happens to be a solution}.
+  Hence correctness does not only matter for implementing
+  propagators and branchers but also for getting the basic design
+  of variables right.  
+}
+
+\paragraph{Assigned variables.}
+
+An integer interval variable is assigned iff $\mathtt l=\mathtt
+u$.
+
+\paragraph{Deltas for advisors.}
+
+We design the delta information for an advisor computed by a
+modification operation on the variable implementation to be an
+interval as well. The interval defines the values that are
+removed by a modification operation. Due to the nature of the
+modification operations \?lq()? and \?gq()?, the removed values
+always form an interval.
+
+The design of deltas to be used by advisors for a variable
+implementation depends directly on the design of the modification
+operations provided by a variable implementation. For example, if
+our integer interval variable implementation also featured an
+operation \?eq()? to assign a variable implementation to a value,
+then one also would have to choose a different design for the
+delta information. Assume a variable implementation with domain
+$\range{\mathtt{l}}{\mathtt{u}}$ and that the modification
+operation \?eq(home,n)? is executed where $\mathtt{l}<\mathtt
+n<\mathtt u$. Then one could design the delta information to
+either accurately represent the set of removed values
+$\range{\mathtt{l}}{\mathtt{n-1}}\cup\range{\mathtt{n+1}}{\mathtt{u}}$
+or to provide support for signaling that the domain has changed
+arbitrarily (this is the design chosen for integer variables in
+Gecode, see \autoref{par:p:advisors:delta}).
+
+\paragraph{Modification events.}
+
+Any variable implementation must support the mandatory events for
+no modification (to be implemented as \?ME_INT_NONE?), for
+failure (to be implemented as \?ME_INT_FAILED?), and for
+assignment to a value (to be implemented as \?ME_INT_VAL?).
+
+The additional events must be chosen such that they take the
+following two aspects into account:
+\begin{itemize}
+\item The modification operations should return meaningful
+  values that describe how the domain of a variable
+  implementation has changed. They must return \?ME_INT_VAL? if
+  the variable implementation becomes assigned. Otherwise, we choose
+  to return \?ME_INT_MIN? if the lower bound changes
+  and to return \?ME_INT_MAX? if the upper bound changes. 
+\item When a new propagator is posted and the propagator subscribes to some
+  views (and hence to some variable implementations), the
+  propagator must be scheduled with respect to some
+  modification event. This modification event should capture that
+  ``somehow the variable has changed for the propagator''. In
+  case an integer interval variable implementation is not yet
+  assigned (otherwise the propagator will be scheduled with the
+  modification event \?ME_INT_VAL? anyway), we use an additional
+  modification event \?ME_INT_BND? capturing that one or both of
+  the bounds have changed.
+\end{itemize}
+
+Again, there is quite some degree of freedom in the choice of
+modification events. Another design would be to only provide the
+modification event \?ME_INT_BND? instead (apart from the mandatory
+modification events).  An important aspect in which design to
+choose is the relation between modification events and
+propagation conditions to be discussed below.
+
+\paragraph{Propagation conditions.}
+\label{par:v:varimp:design:pc}
+
+To make our example variable implementations sufficiently
+interesting, we design the propagation conditions such that they
+can take full advantage of the modification events.
+
+That is, apart from the mandatory propagation condition for not
+creating any subscription (to be implemented as \?PC_INT_NONE?) and the
+mandatory propagation condition for an assigned variable
+implementation (to be implemented as \?PC_INT_VAL?), we have
+three propagation conditions as follows:
+\begin{itemize}
+\item \?PC_INT_MIN?: schedule a propagator if the lower bound of
+  a variable implementation changes.
+\item \?PC_INT_MAX?: schedule a propagator if the upper bound
+  changes.
+\item \?PC_INT_BND?: schedule a propagator if lower or upper
+  bound changes.
+\end{itemize}
+This design can also be reformulated in terms of modification events
+that are generated by a modification operation:
+\begin{itemize}
+\item \?PC_INT_MIN?: schedule a propagator for \?ME_INT_VAL?,
+  \?ME_INT_MIN?, and \?ME_INT_BND?.
+\item \?PC_INT_MAX?: schedule a propagator for \?ME_INT_VAL?,
+  \?ME_INT_MAX?, and \?ME_INT_BND?.
+\item \?PC_INT_BND?: schedule a propagator for \?ME_INT_VAL?,
+  \?ME_INT_MIN?, \?ME_INT_MAX?, and \?ME_INT_BND?.
+\end{itemize}
+
+A simpler design would be to have the single non-mandatory propagation
+condition \?PC_INT_BND?. The decision which design is best is not
+straightforward, as the tradeoff between the cost for additional
+propagation conditions (see below) and the gain from avoiding
+propagator executions depends on many different aspects. For a
+discussion and an evaluation in the context of Gecode's integer
+variables, see~\cite[Section~5]{SchulteStuckey:TOPLAS:2008}.
+
+\paragraph{Costs and limits for modification events and
+  propagation conditions.}
+\label{par:v:varimp:design:cost}
+
+The cost per each individual modification event and propagation
+condition is as follows:
+\begin{itemize}
+\item Assume that a variable implementation uses $n$ different
+  modification events (including the mandatory ones). The size of
+  $n$ does not affect efficiency. To represent these modification
+  events, the Gecode kernel reserves $\lceil\log_2 (n-1)\rceil$
+  bits in each propagator for maintaining modification event
+  deltas, see \autoref{sec:p:domain:med}. 
+  
+  The totally available number of bits for all variable
+  implementation types used by Gecode is~$32$ (independent of
+  whether Gecode is run on a $32$~bit or $64$~bit platform). That
+  is, if we assume less than ten modification events per variable
+  implementation type, the Gecode kernel can support at least ten
+  different variable implementation types.\footnote{If you ever
+    exceed this limit, please let us know.  Adding more bits is
+    easy, even though we do not expect that to happen anytime
+    soon.}
+  
+\item The number of different propagation conditions $m$ per
+  variable implementation type is only limited by the largest
+  value of an unsigned integer in \CPP. 
+  
+  For each propagation condition, every variable implementation
+  needs a $32$-bit word, that is a variable implementation
+  requires at least $O(m)$ space (which is typically dwarfed by
+  the space consumed for actually storing the subscriptions of a
+  propagator or an advisor to a variable implementation).
+  
+  Subscribing to a variable implementation requires $O(m)$ time.
+  Canceling a subscription with propagation condition $p$
+  requires $O(m+k)$ time, where $k$ is the number of
+  subscriptions with propagation condition $p$.
+\end{itemize}
+
+
+\section{Base definitions}
+\label{sec:v:varimp:spec}
+
+The variable implementation base class together with definitions
+of modification events and propagation conditions are not
+programmed but are generated from a simple specification file.
+The specification contains three sections: a general
+section for naming, a section for modification events, and a
+section for propagation conditions. 
+
+In the following we describe how to turn the parts of the design
+from the previous section that is concerned with modification
+events and propagation conditions into the specification. The
+member functions of the generated base class are used and
+explained in the next section.
+
+\paragraph{General section.}
+
+\begin{figure}
+\litcmdblock{
+\noindent\litfile{variable implementation specification}{variable implementation specification}{int.vis}\\
+\lits\lits{}\litkw{[General]}\\
+\lits\lits{}Name:\lits\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}Int\\
+\lits\lits{}Namespace:\lits\lits{}\lits{}MPG::Int\\
+\lits\lits{}\litref{lit:vis:modevent}{modification\lits{}events}\\
+\lits\lits{}\litref{lit:vis:propcond}{propagation\lits{}conditions}\\
+\lits\lits{}\litkw{[End]}
+}
+\caption{Variable implementation specification}
+\label{fig:v:varimp:vis}
+\end{figure}
+
+The specification file (named \texttt{int.vis}, where \?vis?
+stands for \?v?ariable \?i?mplementation \?s?pecification;
+however the file extension does not matter) is
+shown in \autoref{fig:v:varimp:vis}. The specification file must
+start with \litkw{[General]} defining the start of the general
+section and must end with a line \litkw{[End]}. The \?Name? option defines the names of the entities to
+be generated. In our example, a variable implementation base
+class \?IntVarImpBase? (that is, the specified name is prepended
+to \?VarImpBase?) generated, the identifiers for
+modification events start with \?ME_INT_? (that is, the specified
+name is put after the \?ME_? in capital letters), and the
+identifiers for propagation conditions start with \?PC_INT_?. All
+these definitions are contained within the namespace as defined
+by the \?Namespace? option.
+
+The general section (and also the other sections discussed below)
+supports additional specification options, see
+\autoref{sec:v:varimp:add} for a summary and a specification file
+template for download.
+
+\paragraph{Modification event section.}
+
+\begin{figure}
+\litcmdblock{%
+\noindent\litlabel{lit:vis:modevent}{modification events}\\
+\lits\lits{}\litkw{[ModEvent]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}FAILED=FAILED\\
+\lits\lits{}\litkw{[ModEvent]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}NONE=NONE\\
+\lits\lits{}\litkw{[ModEvent]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}VAL=ASSIGNED\\
+\lits\lits{}Combine:\lits{}\lits{}\lits{}\lits{}\lits{}VAL=VAL,\lits{}MIN=VAL,\lits{}MAX=VAL,\lits{}BND=VAL\\
+\lits\lits{}\litkw{[ModEvent]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}BND=SUBSCRIBE\\
+\lits\lits{}Combine:\lits{}\lits{}\lits{}\lits{}\lits{}VAL=VAL,\lits{}MIN=BND,\lits{}MAX=BND,\lits{}BND=BND\\
+\lits\lits{}\litkw{[ModEvent]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}MIN\\
+\lits\lits{}Combine:\lits{}\lits{}\lits{}\lits{}\lits{}VAL=VAL,\lits{}MIN=MIN,\lits{}MAX=BND,\lits{}BND=BND\\
+\lits\lits{}\litkw{[ModEvent]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}MAX\\
+\lits\lits{}Combine:\lits{}\lits{}\lits{}\lits{}\lits{}VAL=VAL,\lits{}MIN=BND,\lits{}MAX=MAX,\lits{}BND=BND}
+\caption{Modification event section}
+\label{fig:v:varimp:vis:me}
+\end{figure}
+
+Every modification event requires a definition that is
+preceded by a line containing \litkwt{[ModEvent]} as shown in
+\autoref{fig:v:varimp:vis:me}. The option \?Name? defines the
+name of the modification event (in fact, just the part after
+\?ME_INT_? for our example). The values on the right-hand
+side of \?=? specify that some modification events are special:
+\begin{itemize}
+\item The modification events named \?FAILED? (that is,
+  \?ME_INT_FAILED?) and \?NONE? (that is, \?ME_INT_NONE?)
+  are defined to be the events for failure (\?=FAILED?) and no
+  change (\?=NONE?).
+\item The modification event named \?VAL? is defined to be the
+  event when a variable implementation becomes assigned
+  (\?=ASSIGNED?) to a
+  value.
+\item The modification event named \?BND? is defined to be used
+  for scheduling a propagator when the propagator subscribes to a
+  non-assigned variable implementation (\?=SUBSCRIBE?).
+\end{itemize}
+
+Any variable implementation must define special events with
+\?=NONE?, \?=FAILED?, and \?=ASSIGNED?.
+
+The section for modification events also defines how
+modification events are combined with a \?Combine?
+option. The combination of modification events is needed for the
+correctness of scheduling propagators and also for
+modification event deltas, see \autoref{sec:p:domain:med}.  An
+entry $l=r$ for the modification event $m$ defines that $m$
+combined with $l$ is $r$. 
+
+The definition of the combination of modification events can be
+expressed as a table:
+\begin{center}\ttfamily
+\begin{tabular}{c||c|c|c|c|}
+   &VAL&MIN&MAX&BND\\\hline\hline
+VAL&VAL&VAL&VAL&VAL\\\hline
+MIN&VAL&MIN&BND&BND\\\hline
+MAX&VAL&BND&MAX&BND\\\hline
+BND&VAL&BND&BND&BND\\\hline
+\end{tabular}
+\end{center}
+This table is exactly what is specified by the \?Combine?
+options. The special modification events \?NONE? and
+\?FAILED? do not have a \?Combine? option.
+
+We will not present the full mathematical detail of the
+properties that must hold for the combination of modification
+events, the theory is presented
+in~\cite[Section~5.5]{Tack:PhD:2009}.
+
+\paragraph{Propagation condition section.}
+
+\begin{figure}
+\litcmdblock{%
+\noindent\litlabel{lit:vis:propcond}{propagation conditions}\\
+\lits\lits{}\litkw{[PropCond]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}NONE=NONE\\
+\lits\lits{}\litkw{[PropCond]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}VAL=ASSIGNED\\
+\lits\lits{}ScheduledBy:\lits{}VAL\\
+\lits\lits{}\litkw{[PropCond]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}BND\\
+\lits\lits{}ScheduledBy:\lits{}VAL,\lits{}BND,\lits{}MIN,\lits{}MAX\\
+\lits\lits{}\litkw{[PropCond]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}MIN\\
+\lits\lits{}ScheduledBy:\lits{}VAL,\lits{}BND,\lits{}MIN\\
+\lits\lits{}\litkw{[PropCond]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}MAX\\
+\lits\lits{}ScheduledBy:\lits{}VAL,\lits{}BND,\lits{}MAX}
+\caption{Propagation condition section}
+\label{fig:v:varimp:vis:pc}
+\end{figure}
+
+Every propagation condition requires a definition that is
+preceded by a line containing \litkwt{[PropCond]} as shown in
+\autoref{fig:v:varimp:vis:pc}. The option \?Name? defines the
+name of the propagation condition (in fact, just the part after
+\?PC_INT_? for our example). The values on the right-hand
+side of \?=? specify that some propagation conditions are special:
+\begin{itemize}
+\item The propagation condition named \?NONE? (that is, \?PC_INT_NONE?)
+  is defined to be the propagation condition for not creating any
+  subscription (\?=NONE?).
+\item The propagation condition named \?VAL? (that is,
+  \?PC_INT_VAL?) is defined to be the condition when a propagator
+  wants to subscribe to the event that a variable implementation
+  becomes assigned (\?=ASSIGNED?).
+\end{itemize}
+
+Any variable implementation must define the special propagation conditions 
+\?=NONE? and \?=ASSIGNED?.
+
+For each propagation condition (but for \?=NONE?), it must be
+defined by a \?ScheduledBy? option which modification events
+schedule a propagator for execution. That is, when defining a
+propagation condition $p$, an entry $m$ in the list of
+modification events defines the following: a propagator
+subscribed to a variable implementation $x$ with propagation
+condition $p$ is scheduled for execution when a modification
+operation on $x$ returns the modification event $m$.  The
+modification events in our example correspond to the design
+presented in \autoref{par:v:varimp:design:pc}.
+
+
+\section{Variable implementation}
+\label{sec:v:varimp:varimp}
+
+
+\begin{figure}
+\insertlitcode{int.hh:variable implementation}
+\caption{Variable implementation}
+\label{fig:v:varimp:varimp}
+\end{figure}
+
+The variable implementation for integer interval variables is
+shown in \autoref{fig:v:varimp:varimp}. As discussed in the
+previous sections, the variable implementation inherits from the
+generated base class \?IntVarImpBase? and implements a lower
+bound \?l? and an upper bound \?u?.
+
+\paragraph{Access operations.}
+
+Every variable implementation must implement a member function
+\?assigned()? that tests whether the variable is assigned to a
+value:
+\insertlitcode{int.hh:varimp:assignment test}
+
+The test for assignment is used in the implementation of other member
+functions of the variable implementation. Furthermore, variables
+and views automatically provide implementations of a member
+function \?assigned()? that calls the \?assigned()?
+function of their variable implementation.
+
+\begin{samepage}
+The access operations for the lower and upper bound are
+straightforward. Here, and in the following, we only show
+one of the operations, the operation for the other bound is
+analogous:
+\insertlitcode{int.hh:varimp:access operations}
+\end{samepage}
+
+\paragraph{Modification operations.}
+
+The modification operations must notify the Gecode kernel if a
+variable implementation is modified. As a description how a
+variable implementation changes, they must
+pass a modification event and
+delta information for advisors to a member function \?notify()?.
+The \?notify()? function executes subscribed advisors and
+schedules subscribed propagators (depending on the passed
+modification event and the propagators' propagation conditions).
+The \?notify()? function is inherited from the generated variable
+implementation base class and depends on the specified
+modification events and propagation conditions.
+
+The delta information is implemented as discussed in
+\autoref{sec:v:varimp:design} as an interval with lower and upper
+bound:
+\insertlitcode{int.hh:varimp:delta for advisors}
+
+The actual modification operations first test whether the
+variable implementation does not require modification or whether
+the operation fails and only then perform the actual modification.
+Before updating the upper bound \?u? to \?n?, the
+\?lq()?  operation creates the delta information \?d? that describes
+that values between \?n+1? and \?u? are being removed. 
+
+The \?notify()?  function is given the \?home? space, a
+modification event, and the variable delta \?d? as argument. The
+modification event passed to \?notify()? must capture how the
+domain has changed.  In particular, it must reflect whether the
+variable implementation has been assigned. The \?notify()?
+function executes the advisors subscribed to this variable
+implementation and schedules all subscribed propagators with
+appropriate propagation conditions. Note that the \?notify()?
+function returns a modification event. In case an advisor reports
+failure after its execution, \?notify()? returns \?ME_INT_FAILED?. Otherwise it
+returns the modification event that has been passed as argument:
+\insertlitcode{int.hh:varimp:modification operations}
+
+\tip{Variable implementations must always be consistent}{
+Even if a modification operation fails, the data structures for
+the variable implementation must be still consistent. That is,
+all operations must still work. See also
+\autoref{sec:m:integer:empty}.
+}
+
+\paragraph{Delta information access.}
+
+The variable implementation must also implement functions that
+provide access to the delta information:
+\insertlitcode{int.hh:varimp:delta information}
+
+This construction appears nonsensical at first sight, however
+there are two good reasons why a variable implementation
+interprets the information stored in the delta information (of
+course, in that case one would have to declare the operation as
+\?const? but not \?static?).  First, the variable implementation
+can change the information based on its own state. Second, the
+very same idea is needed for views (see
+\autoref{sec:v:view:offset} for an example) and hence this design
+keeps the interfaces of views and variable implementations as
+similar as possible.
+
+\paragraph{Subscriptions.}
+
+A variable implementation must implement \?subscribe()? and
+\?cancel()? operations for both propagators and advisors. The
+implementation of these operations always follow the
+same structure as shown below. 
+
+The reason why these functions have to be implemented in the variable
+implementation class even though they are (in slightly different
+form) already defined in the variable implementation base class
+is that they require information about whether
+a variable implementation is assigned. The
+definitions are as follows:
+\insertlitcode{int.hh:varimp:subscriptions}
+
+\paragraph{Copying during cloning.}
+
+Copying a variable implementation during cloning is implemented
+by a constructor and a \?copy()? function. The constructor is
+straightforward and the \?copy()? function only creates a new
+variable implementation if the variable implementation has not been copied before. If it
+has been copied before (that is, \?copied()?  returns \?true?),
+the \?copy()? function must return the forwarding pointer to the
+previously created copy as follows:
+\insertlitcode{int.hh:varimp:copying}
+
+\paragraph{Additional inherited member functions.}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{access operations}}\\
+\?degree()? & returns degree (number of subscriptions)\\
+\?afc()? & returns accumulated failure count\\
+\\
+\multicolumn{2}{c}{\textbf{scheduling support}}\\
+\?schedule()? & schedule propagator\\
+\\
+\multicolumn{2}{c}{\textbf{modification event deltas}}\\
+\?me()? & extract modification event\\
+\?med()? & construct modification event delta\\
+\\
+\multicolumn{2}{c}{\textbf{delta information access}}\\
+\?modevent()? & return modification event from delta\\
+\end{tabular}
+\end{center}
+\caption{Summary of member functions predefined by variable implementations}
+\label{fig:v:varimp:inherited}
+\end{figure}
+
+In addition to the constructor and the member functions defined
+and used by our variable implementation, several other member
+functions are typically just inherited and are defined by the
+class \gecoderef[class]{VarImp}. The most important inherited
+member functions are summarized in
+\autoref{fig:v:varimp:inherited}.  For an explanation of degree
+and accumulated failure count, see
+\autoref{sec:m:search:branch:int}.
+
+
+\section{Additional specification options}
+\label{sec:v:varimp:add}
+
+This section provides an overview of additional specification
+options not discussed in \autoref{sec:v:varimp:spec}.
+
+\paragraph{Comments.}
+
+Any line starting with \?#? is discarded and hence can serve as a
+comment in the specification file.
+
+\paragraph{Generating headers, footers, and comments.}
+
+Any text after the options for a \litkwt{[ModEvent]} and
+\litkwt{[PropCond]} definition until the next definition is added
+to the generated \CPP-code before the generated identifier
+definition. This can be used for defining comments to be added to
+the generated \CPP-code. For example, by
+\litcmdblock{%
+\lits\lits{}\litkw{[PropCond]}\\
+\lits\lits{}Name:\lits{}\lits{}\lits{}\lits{}\lits{}\lits{}NONE=NONE\\
+\lits\lits{}// Propagation condition to be ignored\\
+\lits\lits{}\litkw{[PropCond]}\\
+\lits\lits{}\litanon}
+the comment
+\begin{code}
+// Propagation condition to be ignored
+\end{code}
+is put before the definition of the generated
+propagation condition.
+
+Related support exists for putting a header before (or a footer
+after) all generated definitions for modification events and
+propagation conditions: The text following
+\litkwt{[ModEventHeader]}, \litkwt{[ModEventFooter]},
+\litkwt{[PropCondHeader]}, and \litkwt{[PropCondFooter]} is
+inserted at the respective places in the generated code.
+
+\paragraph{Conditional compilation.}
+
+Giving an option \texttt{Ifdef} in the general section
+followed by some \CPP-preprocessor identifier \?IDENT? wraps the
+entire generated code in preprocessor directives as follows:
+\begin{code}
+#ifdef IDENT
+  ...
+#endif
+\end{code}
+By this, the Gecode kernel can be compiled with or without a
+particular variable type without being forced to reconfigure the
+Gecode kernel, see also \autoref{sec:v:all:conf}.
+
+\paragraph{Explicitly disposing variable implementations.}
+
+Our example variables are entirely space-allocated and do not
+require external memory or other resources. However, for some
+variable types, the variable implementation might use external
+resources or memory that is not space-allocated and must
+explicitly be freed. 
+
+For an example, suppose the integer interval variables had been
+implemented by using arbitrary precision integers for the lower
+and upper bound and that these bounds must explicitly be freed.
+
+By specifying in the general section
+\litcmdblock{%
+\lits\lits{}Dispose:\lits{}true
+}
+and implementing in the variable implementation class a 
+\?dispose(Space& home)? member function, all variable
+implementations are disposed by calling their \?dispose()?
+functions. The variable implementations are disposed when their
+home space is deleted.
+
+\paragraph{Reserving bits.}
+
+A limited number of bits $b$ can be reserved within each variable
+implementation by specifying in the general section
+\litcmdblock{%
+\lits\lits{}Bits:\lits{}$b$
+}
+Then, the variable implementation can get a reference to a value
+of type \?unsigned int? by calling the member function \?bits()?
+where the least $b$ bits can be used freely. However, the maximal
+number of subscriptions (both propagators and advisors) for that
+variable implementation type is reduced from $2^{31}-1$ to
+$2^{31-b}-1$. Furthermore, any attempt to use more than the
+specified number of bits will crash Gecode in a truly
+spectacular fashion!
+
+\paragraph{Specification file template.}
+
+The \DOWNLOAD{template.vis}{specification template} contains all
+possible specification options to assist in defining your own
+variable types.
+
+
+\chapter[Variables and variable arrays]{Variables and\\variable arrays}
+\label{chap:v:var}
+
+This chapter describes how variables can be programmed from
+variable implementations and how variable arrays and variable argument
+arrays can be programmed. The chapter uses integer interval
+variables as introduced in \autoref{chap:v:started} together with
+their implementations as defined in \autoref{chap:v:varimp} as
+its running example.
+
+\paragraph{Overview.}
+
+How integer interval variables are implemented is detailed in
+\autoref{sec:v:var:var}. Variable arrays and variable argument
+arrays are discussed in \autoref{sec:v:var:array}.
+
+
+\section{Variables}
+\label{sec:v:var:var}
+
+\begin{figure}
+\insertlitcode{int.hh:var:variable}
+\caption{Variable programmed from a variable implementation}
+\label{fig:v:var:var}
+\end{figure}
+
+As a variable is just a read-only interface to a variable
+implementation, its implementation is straightforward.
+The definition of integer variables is shown in
+\autoref{fig:v:var:var}. The copy constructor uses the
+member function \?varimp()? that returns the pointer to the
+variable's variable implementation.
+
+Note that within the class \?IntVar?, a pointer to the
+corresponding variable implementation is available as protected
+member \?x?  (see \autoref{tip:p:views:using} for information on
+\?using?).
+
+One also must define an output operator \?<<? for a variable as
+shown in \autoref{fig:v:var:var}.
+
+It is important to remember that variables are defined in the
+namespace \?MPG?. This is in contrast to
+variable implementations, which are defined in the namespace
+\?MPG::Int?. 
+
+\paragraph{Variable creation.}
+
+Creating a new variable is done with the following constructor
+that creates a new variable implementation as follows:
+\insertlitcode{int.hh:var:variable creation}
+
+Note that the constructor ensures the invariants for the lower
+and upper bound of a variable as discussed in
+\autoref{sec:v:varimp:design} by possibly throwing exceptions.
+
+\paragraph{Access operations.}
+
+In addition to constructors, variables typically implement the
+same access operations as their corresponding variable
+implementation:
+\insertlitcode{int.hh:var:access operations}
+
+
+\paragraph{Additional inherited member functions.}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{access operations}}\\
+\?varimp()? & returns pointer to variable implementation\\
+\?assigned()? & whether variable is assigned\\
+\?degree()? & returns degree (number of subscriptions)\\
+\?afc()? & returns accumulated failure count\\
+\\
+\multicolumn{2}{c}{\textbf{update during cloning}}\\
+\?update()? & updates variable during cloning\\
+\end{tabular}
+\end{center}
+\caption{Summary of member functions predefined by variables}
+\label{fig:v:var:inherited}
+\end{figure}
+
+In addition to the constructor and member functions defined by
+our variables, several other member functions are typically just
+inherited and are defined by the class \gecoderef[class]{VarImpVar}.
+The most important inherited member functions are summarized in
+\autoref{fig:v:var:inherited}.  For an explanation of degree and
+accumulated failure count, see \autoref{sec:m:search:branch:int}.
+
+
+
+\section{Variable arrays and variable argument arrays}
+\label{sec:v:var:array}
+
+Defining variable arrays and variable argument arrays (see also
+\autoref{sec:m:integer:proper}) requires the implementation of
+the arrays proper together with some traits. The traits classes
+for variable arrays and variable argument arrays ensure that
+Gecode-provided functionality for arrays can be used with the
+newly defined arrays.
+
+\paragraph{Array traits.}
+
+\begin{figure}
+\insertlitcode{int.hh:array traits}
+\caption{Array traits for variable arrays}
+\label{fig:v:var:traits}
+\end{figure}
+
+The definition of the array traits classes is shown in
+\autoref{fig:v:var:traits}. The definition is done in two
+steps. The first step provides forward declarations of the array
+types \?IntVarArgs? and \?IntVarArray? in the namespace \?MPG?
+(because that is where these arrays will be defined). 
+
+The second step requires to define traits for these two array
+types. The trait classes must be defined in the namespace
+\?Gecode?. For each array type, two traits classes are needed:
+one for the base class (for example, \?Gecode::VarArray<MPG::IntVar>?)
+and one for the class to be implemented (for example,
+\?MPG::IntVarArray?). The definitions for the array type and its
+base class must be identical and follow the examples shown in
+\autoref{fig:v:var:traits}.
+
+\paragraph{Variable arrays.}
+
+\begin{figure}
+\insertlitcode{int.hh:variable arrays}
+\caption{Variable arrays}
+\label{fig:v:var:array}
+\end{figure}
+
+The implementation of variable arrays and variable argument
+arrays typically only require the implementation of various
+constructors when inheriting from the base classes
+\gecoderef[class]{VarArray} and \gecoderef[class]{VarArgArray}.
+The minimal set of constructors such that the arrays are
+compatible to arrays as used by Gecode is shown in
+\autoref{fig:v:var:array}.
+
+
+
+
+\chapter{Views}
+\label{chap:v:view}
+
+This chapter describes how views as needed for programming
+propagators and branchers can be programmed. The chapter uses
+integer interval variables as introduced in
+\autoref{chap:v:started} together with their implementations as
+defined in \autoref{chap:v:varimp} as its running example.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:v:view:types} provides an overview of the
+different types of views available in Gecode. The remaining
+sections provide examples for each different view type:
+\autoref{sec:v:view:varview} shows how an integer view \?IntView?
+is constructed as a variable implementation view;
+\autoref{sec:v:view:const} shows how a constant integer view
+\?ConstIntView? is programmed as a constant view;
+\autoref{sec:v:view:derived} shows how a minus view \?MinusView?
+and an offset view \?OffsetView? are programmed as derived views.
+
+
+\section{View types}
+\label{sec:v:view:types}
+
+Gecode provides three different types of views:
+\begin{itemize}
+\item \emph{Variable implementation views}: a variable
+  implementation view is nothing but a direct interface to a
+  variable implementation. A variable implementation view must
+  inherit from \gecoderef[class]{VarImpView}. The class
+  \gecoderef[class]{VarImpView} is parametric with respect to a
+  variable and \emph{not a variable implementation} (as one might
+  expect). This is due to the fact that the type of the variable
+  implementation can be obtained automatically from the type of a
+  variable. Making a variable implementation view parametric with
+  respect to a variable type has the advantage that information
+  on both the variable type and variable implementation type
+  become available.
+\item \emph{Constant views}: a constant view must implement the
+  same interface and must perform the same operations as some
+  assigned variable implementation view. This particular variable
+  implementation view is called the \emph{corresponding} variable
+  implementation view.  A constant view must inherit from
+  \gecoderef[class]{ConstView} which is parametric with respect
+  to the corresponding variable implementation view.
+\item \emph{Derived views}: a derived view is a view that is
+  implemented in terms of some other view (all view types are
+  possible: variable implementation, constant, and derived). The
+  view from which the derived view is derived, is called
+  the \emph{base} view. A
+  derived view must inherit from \gecoderef[class]{DerivedView}
+  which is parametric with respect to the base view.
+\end{itemize}
+
+\paragraph{Predefined member functions.}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{access operations}}\\
+\?varimp()? & returns pointer to variable implementation\\
+\?assigned()? & whether variable is assigned\\
+\?degree()? & returns degree (number of subscriptions)\\
+\?afc()? & returns accumulated failure count\\
+\\
+\multicolumn{2}{c}{\textbf{subscriptions}}\\
+\?subscribe()? & subscribe propagator/advisor\\
+\?cancel()? & cancel propagator/advisor\\
+\\
+\multicolumn{2}{c}{\textbf{scheduling support}}\\
+\?schedule()? & schedule propagator\\
+\\
+\multicolumn{2}{c}{\textbf{modification event deltas}}\\
+\?me()? & extract modification event\\
+\?med()? & construct modification event delta\\
+\\
+\multicolumn{2}{c}{\textbf{delta information access}}\\
+\?modevent()? & return modification event from delta\\
+\\
+\multicolumn{2}{c}{\textbf{update during cloning}}\\
+\?update()? & updates view during cloning\\
+\end{tabular}
+\end{center}
+\caption{Summary of member functions predefined by views}
+\label{fig:v:view:predefined}
+\end{figure}
+
+The classes \gecoderef[class]{VarImpView},
+\gecoderef[class]{ConstView}, and \gecoderef[class]{DerivedView}
+define already many member functions that simplify the
+implementation of new views. The most important predefined member
+functions are summarized in \autoref{fig:v:view:predefined}.
+
+Note that the \?varimp()? function for a constant view or for a
+view derived from a constant view returns \?NULL?, as no variable
+implementation exists.
+
+\paragraph{View test functions.}
+
+There are three different functions predefined for views:
+\begin{itemize}
+\item The function \?shared(x,y)? returns \?true?, if both views
+  \?x? and \?y? share a common variable implementation (see
+  \autoref{par:p:views:sameshared}). Typically, the definition
+  of \?shared()? does not need to be overloaded for newly defined views.
+\item The function \?same(x,y)? returns \?true?, if both views
+  \?x? and \?y? are identical (see
+  \autoref{par:p:views:sameshared}). In some cases, the definition
+  of \?same()? must be overloaded for newly defined views (see
+  \autoref{sec:v:view:const} and \autoref{sec:v:view:offset} for
+  examples). 
+\item The function \?before(x,y)? returns \?true?, if \?x? comes
+  before \?y? in some arbitrary total and strict order for
+  ordering views. The function is mainly used for sorting arrays
+  of views into some order (in particular for detecting
+  duplicate views).  In some cases, the definition
+  of \?before()? must be overloaded for newly defined views (see
+  \autoref{sec:v:view:const} and \autoref{sec:v:view:offset} for
+  examples). 
+\end{itemize}
+
+\paragraph{Output operator.}
+
+For every view also an output operator \?<<? must be defined. We
+sketch this only for integer views in
+\autoref{sec:v:view:varview}, for all other views the definition
+is analogous.
+
+\section{Variable implementation views: integer view}
+\label{sec:v:view:varview}
+
+\begin{figure}
+\insertlitcode{int.hh:integer view}
+\caption{Integer view}
+\label{fig:v:view:int}
+\end{figure}
+
+\autoref{fig:v:view:int} shows the definition of the class
+\?IntView? for integer views from the class
+\gecoderef[class]{VarImpView} for variable implementation
+views. Please remember that a variable implementation view is
+parametric with respect to a variable type (\?IntVar? in our
+example, such that \?IntView? uses the same variable
+implementation type \?IntVarImp? as \?IntVar? does).
+
+Similar to variables obtained from variable implementations, a
+variable implementation view has a protected member \?x? that is
+a pointer to its variable implementation (see
+\autoref{tip:p:views:using} for information on \?using?).  A
+variable implementation view must implement at least the shown
+constructors such that it can be initialized both from the
+corresponding variable type and from the corresponding variable
+implementation type.
+
+The remaining implementation tasks for variable implementation
+views are straightforward: all operations that are specific to a
+variable type (in our case, specific to integer interval
+variables) must be implemented. The implementation is 
+straightforward as only the corresponding operations of the
+variable implementation are invoked:
+\begin{itemize}
+\item The access operations must be implemented:
+\insertsmalllitcode{int.hh:intview:access operations}
+\item 
+\begin{samepage}
+The modification operations must be implemented:
+\insertsmalllitcode{int.hh:intview:modification operations}
+\end{samepage}
+\item Finally, the operations for accessing delta information must
+be implemented:
+\insertsmalllitcode{int.hh:intview:delta information}
+\end{itemize}
+
+\section{Constant views: constant integer view}
+\label{sec:v:view:const}
+
+\begin{figure}
+\insertlitcode{int.hh:constant integer view}
+\caption{Constant integer view}
+\label{fig:v:view:const}
+\end{figure}
+
+\autoref{fig:v:view:const} shows the implementation of a constant
+integer view with \?IntView? as the corresponding variable
+implementation view. A constant integer view \?ConstIntView?
+stores an integer value \?x? and must implement all
+variable-specific operations that are implemented by the
+corresponding \?IntView? class (as shown in
+\autoref{fig:v:view:const}).
+
+Slightly less obvious is the implementation of operations that
+access delta information. While these operations must be implemented such that
+constant integer views can be used instead of integer views, they
+will never be executed (by definition, a constant view can
+never change). Hence we use the macro
+\?GECODE_NEVER? (see \autoref{tip:b:started:never}) to clarify
+that the delta information operations are never executed:
+\insertlitcode{int.hh:constintview:delta information}
+
+\paragraph{Update during cloning.}
+
+The definition of the \?update()? member function of
+\gecoderef[class]{ConstView} does not take care of the integer
+value \?x?. Hence we need to provide a new \?update()? function
+that updates the value of \?x? as follows:
+\insertlitcode{int.hh:constintview:update during cloning}
+
+\paragraph{View tests.}
+
+Also the default definitions of the view test functions \?same()?
+and \?before()? for constant views do not take the integer value \?x?
+of the view into account. Overloaded versions for
+constant integer views are as follows:
+\insertlitcode{int.hh:constintview:view tests}
+
+
+\section{Derived views}
+\label{sec:v:view:derived}
+
+This section exemplifies two different derived views: minus views
+and offset views. Why these views are useful and what their
+semantics is can be seen in \autoref{sec:p:views:int:minus} for
+minus views and in \autoref{sec:p:views:int:offset} for offset
+views.
+
+\subsection{Minus view}
+\label{sec:v:view:minus}
+
+\begin{figure}
+\insertlitcode{int.hh:minus view}
+\caption{Minus view}
+\label{fig:v:view:minus}
+\end{figure}
+
+\autoref{fig:v:view:minus} shows that a minus view is derived
+from an integer view \?IntView?. The protected member \?x?
+refers to the base view, that is the integer view from which the
+minus view is derived (see \autoref{tip:p:views:using} for
+information on \?using?).
+
+\begin{samepage}
+\paragraph{Access operations.}
+
+The access operations are as to be expected for a minus view.
+That is, the lower bound of the derived view is the negation of
+the upper bound of the base view:
+\insertlitcode{int.hh:minusview:access operations}
+\end{samepage}
+
+\paragraph{Modification operations.}
+
+\begin{figure}
+\insertlitcode{int.hh:minusview:modification events and propagation conditions}
+\caption{Negation of modification events and propagation conditions}
+\label{fig:v:view:minusmepc}
+\end{figure}
+
+The modification operations are slightly more involved than the
+access operations as they return a modification event. If the
+modification event of the base view is \?ME_INT_MAX? (the upper
+bound of the base view has changed), then the modification event
+for the derived view must be \?ME_INT_MIN? (the lower bound of
+the derived view has changed).
+
+\autoref{fig:v:view:minusmepc} shows functions \?minusme()? and
+\?minuspc()? that return the negation of modification events and
+propagation conditions (to be discussed later).
+
+\begin{samepage}
+Using the function \?minusme?, the modification operations can be
+defined as follows:
+\insertlitcode{int.hh:minusview:modification operations}
+\end{samepage}
+
+\paragraph{Accessing delta information.}
+
+Accessing delta information must also take into account that the
+modification event stored in a delta must be converted with
+\?minusme()?. Also the other operations for
+accessing delta information must be adopted accordingly:
+\insertlitcode{int.hh:minusview:delta information}
+
+\paragraph{Additional operations.}
+
+Any operation that is concerned with either modification events
+or propagation conditions must be implemented to take the switch
+between lower bound and upper bound into account. These operations
+include the operations for handling subscriptions of propagators
+(the function \?minuspc()? is defined analogously to
+\?minusme()? in \autoref{fig:v:view:minusmepc}):
+\insertlitcode{int.hh:minusview:subscriptions}
+
+Note that the operations that subscribe and cancel advisors must
+be re-implemented even though they are unchanged. This is due to
+inheritance in \CPP: as the overloaded functions for propagators
+are redefined, also the functions for advisors are considered to
+be redefined.
+
+\begin{samepage}
+The remaining operations to be implemented are support operations:
+\insertlitcode{int.hh:minusview:support operations}
+\end{samepage}
+
+
+
+\subsection{Offset view}
+\label{sec:v:view:offset}
+
+\begin{figure}
+\insertlitcode{int.hh:offset view}
+\caption{Offset view}
+\label{fig:v:view:offset}
+\end{figure}
+
+\autoref{fig:v:view:offset} shows that an offset view is derived
+from an integer view \?IntView? and stores an additional integer
+value \?c? for the offset. The protected member \?x?
+refers to the base view, that is the integer view from which the
+offset view is derived (see \autoref{tip:p:views:using} for
+information on \?using?). The access, modification, and delta
+information access operations of an offset view are as
+to be expected.
+
+The \?update()? function must also update the integer offset \?c?
+as follows:
+\insertlitcode{int.hh:offsetview:update during cloning}
+
+Likewise, the view test functions \?same()? and \?before()? must
+take into account the integer offset \?c?:
+\insertlitcode{int.hh:offsetview:view tests}
+
+
+\chapter{Putting everything together}
+\label{chap:v:all}
+
+This chapter finally explains how integer interval variables can
+be used with Gecode. 
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:v:all:golomb} sketches an example script
+together with implementations of constraints and branchings using
+integer interval variables. The following section,
+\autoref{sec:v:all:conf}, shows how Gecode can be configured to
+use integer interval variables and how to compile and run the
+example script.
+
+\begin{important}
+  Please make sure to carefully read
+  \autoref{sec:m:started:compile}, before reading any further in
+  this chapter!
+\end{important}
+
+\section{Golomb rulers à la integer interval variables}
+\label{sec:v:all:golomb}
+
+\begin{figure}
+\insertlitcode{putting everything together}
+\caption{Golomb rulers à la integer interval variables}
+\label{fig:v:all:golomb}
+\end{figure}
+
+\autoref{fig:v:all:golomb} shows the top-level structure of a
+single \CPP-file containing a script together
+with all required implementations of post functions, propagators,
+and branchers. The example script implements a naive version of
+the Golomb ruler model presented in \autoref{chap:c:golomb}. The
+reason to package everything into a single \CPP-file is to
+simplify compiling the example.
+
+The implementations of the constraints in the \CPP-file are
+carefully constructed to exercise most of the functionality
+described in the previous chapters in this part. In particular,
+some constraints have a slightly non-standard implementation to
+exercise all views presented in \autoref{chap:v:view}.
+
+\section{Configuring and compiling Gecode}
+\label{sec:v:all:conf}
+
+The following steps configure and compile Gecode with integer
+interval variables:
+\begin{enumerate}
+\item Start a shell.
+\item Create a new directory, say \texttt{MPG}, and make it
+  the current directory:
+\begin{smallcmd}
+mkdir MPG; cd MPG
+\end{smallcmd}
+\item Download a Gecode~\GecodeVersion{} source package or
+  check-out Gecode~\GecodeVersion{} from \texttt{svn}. We assume
+  that the Gecode source code is contained in a directory named
+  \texttt{gecode-\GecodeVersion}.
+\item If you have not yet done so, download and copy all files
+  required for integer interval variables and the example into
+  the current directory:
+  \begin{itemize}
+  \item The header file \DOWNLOAD{int.hh}{\texttt{int.hh}} containing
+    the implementation of integer interval variables.
+  \item The variable implementation specification file
+    \DOWNLOAD{int.vis}{\texttt{int.vis}}.
+  \item The file
+    \DOWNLOAD{putting-everything-together.cpp}{\texttt{putting-everything-together.cpp}}
+    from the previous section.
+  \end{itemize}
+\item Configure Gecode to incorporate integer interval variables:
+\smalllitcmdblock{\ttfamily
+cd gecode-\GecodeVersion\\
+./configure -{}-with-vis=../int.vis
+}
+After this step, Gecode has been configured to incorporate the
+generated definitions as described by the specification file
+\texttt{int.vis}. If you need to pass other options to
+\?configure? to successfully build Gecode, please do so.
+\item Compile Gecode and leave the directory
+\smalllitcmdblock{\ttfamily
+make;cd ..
+}
+\item 
+\begin{samepage}
+  Set the \texttt{PATH} environment variable to point to the
+  just compiled Gecode installation: \smalllitcmdblock{\ttfamily export
+    PATH="gecode-\GecodeVersion:\$PATH" }
+\end{samepage}
+Depending on the platform you use, you might also have to set the
+environment variable \texttt{LD\_LIBRARY\_PATH} accordingly.
+\end{enumerate}
+
+Finally: compile, link, and run the example script
+\texttt{putting-everything-together.cpp} as described in
+\autoref{sec:m:started:run}, where you need to make sure that the
+directory for include files and library files is
+\texttt{gecode-\GecodeVersion}.
+
+
+
+\begin{litcode}{int.hh}{schulte}
+#ifndef __MPG_INT_HH__
+#define __MPG_INT_HH__
+\begin{litblock}{anonymous}
+#include <iostream>
+#include <sstream>
+#include <climits>
+
+\end{litblock}
+#include <gecode/kernel.hh>
+
+using Gecode::Advisor;
+\begin{litblock}{anonymous}
+using Gecode::ConstView;
+using Gecode::Delta;
+using Gecode::DerivedView;
+using Gecode::Exception;
+using Gecode::ModEvent;
+using Gecode::ModEventDelta;
+using Gecode::PropCond;
+using Gecode::Propagator;
+using Gecode::Space;
+using Gecode::VarArgArray;
+using Gecode::VarArray;
+using Gecode::VarImpVar;
+using Gecode::VarImpView;
+
+\end{litblock}
+
+\begin{litblock}{exceptions}
+namespace MPG { namespace Int {
+
+  class OutOfLimits : public Exception {
+  public:
+    OutOfLimits(const char* l)
+      : Exception(l,"Number out of limits") {}
+    };
+
+  class VariableEmptyDomain : public Exception {
+    \begin{litblock}{anonymous}
+  public:
+    VariableEmptyDomain(const char* l)
+      : Exception(l,"Attempt to create variable with empty domain") {}
+    \end{litblock}
+  };
+
+}}
+\end{litblock}
+
+\begin{litblock}{variable implementation}
+namespace MPG { namespace Int {
+
+  \begin{litblock}{limits}
+  namespace Limits {
+    const int max = (INT_MAX / 2) - 1;
+    const int min = -max;
+  }
+  \end{litblock}
+  \begin{litblock}{varimp:delta for advisors}
+  class IntDelta : public Delta {
+  private:
+    int l, u;
+  public:
+    IntDelta(int min, int max) : l(min), u(max) {}
+    int min(void) const {
+      return l;
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return u;
+    }
+    \end{litblock}
+  };
+  \end{litblock}
+  
+  class IntVarImp : public IntVarImpBase {
+  protected:
+    int l, u;
+  public:
+    IntVarImp(Space& home, int min, int max)
+      : IntVarImpBase(home), l(min), u(max) {}
+    \begin{litblock}{varimp:access operations}
+    int min(void) const {
+      return l;
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return u;
+    }
+    \end{litblock}
+    \end{litblock}
+    \begin{litblock}{varimp:assignment test}
+    bool assigned(void) const {
+      return l == u;
+    }
+    \end{litblock}
+    \begin{litblock}{varimp:modification operations}
+    ModEvent lq(Space& home, int n) {
+      if (n >= u) return ME_INT_NONE;
+      if (n < l) return ME_INT_FAILED;
+      IntDelta d(n+1,u); u = n;
+      return notify(home, assigned() ? ME_INT_VAL : ME_INT_MAX, d);
+    }
+    \begin{litblock}{anonymous}
+    ModEvent gq(Space& home, int n) {
+      if (n <= l) return ME_INT_NONE;
+      if (n > u) return ME_INT_FAILED;
+      IntDelta d(l,n-1); l = n;
+      return notify(home, assigned() ? ME_INT_VAL : ME_INT_MIN, d);
+    }
+    \end{litblock}
+    \end{litblock}
+    \begin{litblock}{varimp:subscriptions}
+    void subscribe(Space& home, Propagator& p, PropCond pc, 
+                   bool schedule=true) {
+      IntVarImpBase::subscribe(home,p,pc,assigned(),schedule);
+    }
+    void subscribe(Space& home, Advisor& a) {
+      IntVarImpBase::subscribe(home,a,assigned());
+    }
+    void cancel(Space& home, Propagator& p, PropCond pc) {
+      IntVarImpBase::cancel(home,p,pc,assigned());
+    }
+    void cancel(Space& home, Advisor& a) {
+      IntVarImpBase::cancel(home,a,assigned());
+    }
+    \end{litblock}
+    \begin{litblock}{varimp:copying}
+    IntVarImp(Space& home, bool share, IntVarImp& y)
+      : IntVarImpBase(home,share,y), l(y.l), u(y.u) {}
+    IntVarImp* copy(Space& home, bool share) {
+      if (copied()) 
+        return static_cast<IntVarImp*>(forward());
+      else
+        return new (home) IntVarImp(home,share,*this);
+    }
+    \end{litblock}
+    \begin{litblock}{varimp:delta information}
+    static int min(const Delta& d) {
+      return static_cast<const IntDelta&>(d).min();
+    }
+    \begin{litblock}{anonymous}
+    static int max(const Delta& d) {
+      return static_cast<const IntDelta&>(d).max();
+    }
+    \end{litblock}
+    \end{litblock}
+  };
+
+}}
+\end{litblock}
+
+\begin{litblock}{var:variable}
+namespace MPG {
+
+  class IntVar : public VarImpVar<Int::IntVarImp> {
+  protected:
+    using VarImpVar<Int::IntVarImp>::x;
+  public:
+    IntVar(void) {}
+    IntVar(const IntVar& y)
+      : VarImpVar<Int::IntVarImp>(y.varimp()) {}
+    \begin{litblock}{var:variable creation}
+    IntVar(Space& home, int min, int max)
+      : VarImpVar<Int::IntVarImp>
+          (new (home) Int::IntVarImp(home,min,max)) {
+      if ((min < Int::Limits::min) || (max > Int::Limits::max))
+        throw Int::OutOfLimits("IntVar::IntVar");
+      if (min > max)
+        throw Int::VariableEmptyDomain("IntVar::IntVar");
+    }
+    \end{litblock}
+    \begin{litblock}{var:access operations}
+    int min(void) const {
+      return x->min();
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return x->max();
+    }
+    \end{litblock}
+    \end{litblock}
+  };
+
+  template<class Char, class Traits>
+  std::basic_ostream<Char,Traits>&
+  operator <<(std::basic_ostream<Char,Traits>& os, const IntVar& x) {
+    \begin{litblock}{anonymous}
+    std::basic_ostringstream<Char,Traits> s;
+    s.copyfmt(os); s.width(0);
+    if (x.assigned())
+      s << x.min();
+    else
+      s << '[' << x.min() << ".." << x.max() << ']';
+    return os << s.str();
+    \end{litblock}
+  }
+
+}
+\end{litblock}
+\begin{litblock}{array traits}
+namespace MPG {
+  class IntVarArgs; class IntVarArray;
+}
+
+namespace Gecode {
+
+  template<>
+  class ArrayTraits<Gecode::VarArray<MPG::IntVar> > {
+  public:
+    typedef MPG::IntVarArray  StorageType;
+    typedef MPG::IntVar       ValueType;
+    typedef MPG::IntVarArgs   ArgsType;
+  };
+  template<>
+  class ArrayTraits<MPG::IntVarArray> {
+    \begin{litblock}{anonymous}
+  public:
+    typedef MPG::IntVarArray  StorageType;
+    typedef MPG::IntVar       ValueType;
+    typedef MPG::IntVarArgs   ArgsType;
+    \end{litblock}
+  };
+  template<>
+  class ArrayTraits<Gecode::VarArgArray<MPG::IntVar> > {
+  public:
+    typedef MPG::IntVarArgs   StorageType;
+    typedef MPG::IntVar       ValueType;
+    typedef MPG::IntVarArgs   ArgsType;
+  };
+  template<>
+  class ArrayTraits<MPG::IntVarArgs> {
+    \begin{litblock}{anonymous}
+  public:
+    typedef MPG::IntVarArgs  StorageType;
+    typedef MPG::IntVar      ValueType;
+    typedef MPG::IntVarArgs  ArgsType;
+    \end{litblock}
+  };
+
+}
+\end{litblock}
+\begin{litblock}{variable arrays}
+namespace MPG {
+
+  class IntVarArgs : public VarArgArray<IntVar> {
+  public:
+    IntVarArgs(void) {}
+    explicit IntVarArgs(int n) : VarArgArray<IntVar>(n) {}
+    IntVarArgs(const IntVarArgs& a) : VarArgArray<IntVar>(a) {}
+    IntVarArgs(const VarArray<IntVar>& a) : VarArgArray<IntVar>(a) {}
+    IntVarArgs(Space& home, int n, int min, int max)
+      : VarArgArray<IntVar>(n) {
+      for (int i=0; i<n; i++)
+        (*this)[i] = IntVar(home,min,max);
+    }
+  };
+
+  class IntVarArray : public VarArray<IntVar> {
+  public:
+    IntVarArray(void) {}
+    IntVarArray(const IntVarArray& a)
+      : VarArray<IntVar>(a) {}
+    IntVarArray(Space& home, int n, int min, int max)
+      \begin{litblock}{anonymous}
+      : VarArray<IntVar>(home,n) {
+      for (int i=0; i<n; i++)
+        (*this)[i] = IntVar(home,min,max);
+      \end{litblock}
+    }
+  };
+
+}
+\end{litblock}
+
+\begin{litblock}{integer view}
+namespace MPG { namespace Int {
+
+  class IntView : public VarImpView<IntVar> {
+  protected:
+    using VarImpView<IntVar>::x;
+  public:
+    IntView(void) {}
+    IntView(const IntVar& y)
+      : VarImpView<IntVar>(y.varimp()) {}
+    IntView(IntVarImp* y)
+      : VarImpView<IntVar>(y) {}
+    \begin{litblock}{intview:access operations}
+    int min(void) const {
+      return x->min();
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return x->max();
+    }
+    \end{litblock}
+    \end{litblock}
+    \begin{litblock}{intview:modification operations}
+    ModEvent lq(Space& home, int n) {
+      return x->lq(home,n);
+    }
+    \begin{litblock}{anonymous}
+    ModEvent gq(Space& home, int n) {
+      return x->gq(home,n);
+    }
+    \end{litblock}
+    \end{litblock}
+    \begin{litblock}{intview:delta information}
+    int min(const Delta& d) const {
+      return IntVarImp::min(d);
+    }
+    \begin{litblock}{anonymous}
+    int max(const Delta& d) const {
+      return IntVarImp::max(d);
+    }
+    \end{litblock}
+    \end{litblock}
+  };
+
+  template<class Char, class Traits>
+  std::basic_ostream<Char,Traits>&
+  operator<<(std::basic_ostream<Char,Traits>& os, const IntView& x) {
+    \begin{litblock}{anonymous}
+    std::basic_ostringstream<Char,Traits> s;
+    s.copyfmt(os); s.width(0);
+    if (x.assigned())
+      s << x.min();
+    else
+      s << '[' << x.min() << ".." << x.max() << ']';
+    return os << s.str();
+    \end{litblock}
+  }
+
+}}
+\end{litblock}
+\begin{litblock}{constant integer view}
+namespace MPG { namespace Int {
+
+  class ConstIntView : public ConstView<IntView> {
+  protected:
+    int x;
+  public:
+    ConstIntView(void) : x(0) {}
+    ConstIntView(int n) : x(n) {}
+
+    int min(void) const {
+      return x;
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return x;
+    }
+    \end{litblock}
+    ModEvent lq(Space& home, int n) {
+      return (x <= n) ? ME_INT_NONE : ME_INT_FAILED;
+    }
+    \begin{litblock}{anonymous}
+    ModEvent gq(Space& home, int n) {
+      return (x >= n) ? ME_INT_NONE : ME_INT_FAILED;
+    }
+    \end{litblock}
+    \begin{litblock}{constintview:delta information}
+    int min(const Delta& d) const {
+      GECODE_NEVER; return 0;
+    }
+    \begin{litblock}{anonymous}
+    int max(const Delta& d) const {
+      GECODE_NEVER; return 0;
+    }
+    \end{litblock}
+    \end{litblock}
+    \begin{litblock}{constintview:update during cloning}
+    void update(Space& home, bool share, ConstIntView& y) {
+      ConstView<IntView>::update(home,share,y);
+      x = y.x;
+    }
+    \end{litblock}
+  };
+  \begin{litblock}{constintview:view tests}
+  inline bool same(const ConstIntView& x, const ConstIntView& y) {
+    return x.min() == y.min();
+  }
+  inline bool before(const ConstIntView& x, const ConstIntView& y) {
+    return x.min() < y.min();
+  }
+  \end{litblock}
+
+  \begin{litblock}{anonymous}  
+  template<class Char, class Traits>
+  std::basic_ostream<Char,Traits>&
+  operator <<(std::basic_ostream<Char,Traits>& os, const ConstIntView& x) {
+    return os << x.min();
+  }
+  \end{litblock}
+
+}}
+\end{litblock}
+\begin{litblock}{minus view}
+namespace MPG { namespace Int {
+
+  class MinusView : public DerivedView<IntView> {
+  protected:
+    using DerivedView<IntView>::x;
+    \begin{litblock}{minusview:modification events and propagation conditions}
+    static ModEvent minusme(ModEvent me) {
+      switch (me) {
+      case ME_INT_MIN: return ME_INT_MAX;
+      case ME_INT_MAX: return ME_INT_MIN;
+      default: return me;
+      }
+    }
+    static PropCond minuspc(PropCond pc) {
+      \begin{litblock}{anonymous}
+      switch (pc) {
+      case PC_INT_MIN: return PC_INT_MAX;
+      case PC_INT_MAX: return PC_INT_MIN;
+      default: return pc;
+      }
+      \end{litblock}
+    }
+    \end{litblock}
+  public:
+    MinusView(void) {}
+    explicit MinusView(const IntView& y) 
+      : DerivedView<IntView>(y) {}
+    \begin{litblock}{minusview:access operations}
+    int min(void) const {
+      return -x.max();
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return -x.min();
+    }
+    \end{litblock}
+    \end{litblock}
+    \begin{litblock}{minusview:modification operations}
+    ModEvent lq(Space& home, int n) {
+      return minusme(x.gq(home,-n));
+    }
+    \begin{litblock}{anonymous}
+    ModEvent gq(Space& home, int n) {
+      return minusme(x.lq(home,-n));
+    }
+    \end{litblock}    
+    \end{litblock}    
+    \begin{litblock}{minusview:support operations}
+    static void schedule(Space& home, Propagator& p, ModEvent me) {
+      return IntView::schedule(home,p,minusme(me));
+    }
+    static ModEvent me(const ModEventDelta& med) {
+      return minusme(IntView::me(med));
+    }
+    static ModEventDelta med(ModEvent me) {
+      return IntView::med(minusme(me));
+    }
+    \end{litblock}    
+    \begin{litblock}{minusview:subscriptions}
+    void subscribe(Space& home, Propagator& p, PropCond pc, 
+                   bool schedule=true) {
+      x.subscribe(home,p,minuspc(pc),schedule);
+    }
+    void subscribe(Space& home, Advisor& a) {
+      x.subscribe(home,a);
+    }
+    \begin{litblock}{anonymous}
+    void cancel(Space& home, Propagator& p, PropCond pc) {
+      x.cancel(home,p,minuspc(pc));
+    }
+    void cancel(Space& home, Advisor& a) {
+      x.cancel(home,a);
+    }
+    \end{litblock}    
+    \end{litblock}
+    \begin{litblock}{minusview:delta information}
+    static ModEvent modevent(const Delta& d) {
+      return minusme(IntView::modevent(d));
+    }
+    int min(const Delta& d) const {
+      return -x.max(d);
+    }
+    \begin{litblock}{anonymous}
+    int max(const Delta& d) const {
+      return -x.min(d);
+    }
+    \end{litblock}
+    \end{litblock}
+  };
+
+  \begin{litblock}{anonymous}
+  template<class Char, class Traits>
+  std::basic_ostream<Char,Traits>&
+  operator <<(std::basic_ostream<Char,Traits>& os, const MinusView& x) {
+    std::basic_ostringstream<Char,Traits> s;
+    s.copyfmt(os); s.width(0);
+    if (x.assigned())
+      s << x.min();
+    else
+      s << '[' << x.min() << ".." << x.max() << ']';
+    return os << s.str();
+  }
+  \end{litblock}
+
+}}
+\end{litblock}
+\begin{litblock}{offset view}
+namespace MPG { namespace Int {
+
+  class OffsetView : public DerivedView<IntView> {
+  protected:
+    using DerivedView<IntView>::x;
+    int c;
+  public:
+    OffsetView(void) {}
+    OffsetView(const IntView& y, int d)
+      : DerivedView<IntView>(y), c(d) {}
+
+    int offset(void) const {
+      return c;
+    }
+    int min(void) const {
+      return x.min()+c;
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return x.max()+c;
+    }
+
+    \end{litblock}
+    ModEvent lq(Space& home, int n) {
+      return x.lq(home,n-c);
+    }
+    \begin{litblock}{anonymous}
+    ModEvent gq(Space& home, int n) {
+      return x.gq(home,n-c);
+    }
+
+    \end{litblock}
+    int min(const Delta& d) const {
+      return x.min(d)+c;
+    }
+    \begin{litblock}{anonymous}
+    int max(const Delta& d) const {
+      return x.max(d)+c;
+    }
+
+    \end{litblock}
+    \begin{litblock}{offsetview:update during cloning}
+    void update(Space& home, bool share, OffsetView& y) {
+      x.update(home,share,y.x);
+      c=y.c;
+    }
+    \end{litblock}
+  };
+  \begin{litblock}{offsetview:view tests}
+  inline bool same(const OffsetView& x, const OffsetView& y) {
+    return same(x.base(),y.base()) && (x.offset() == y.offset());
+  }
+  inline bool before(const OffsetView& x, const OffsetView& y) {
+    return before(x.base(),y.base())
+      || (same(x.base(),y.base()) && (x.offset() < y.offset()));
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+
+  template<class Char, class Traits>
+  std::basic_ostream<Char,Traits>&
+  operator <<(std::basic_ostream<Char,Traits>& os, const OffsetView& x) {
+    std::basic_ostringstream<Char,Traits> s;
+    s.copyfmt(os); s.width(0);
+    if (x.assigned())
+      s << x.min();
+    else
+      s << '[' << x.min() << ".." << x.max() << ']';
+    return os << s.str();
+  }
+  
+  \end{litblock}
+}}
+\end{litblock}
+
+#endif
+\end{litcode}
+
+
+\begin{litcode}{putting everything together}{schulte}
+#include "int.hh"
+
+#include <gecode/search.hh>
+
+using namespace MPG;
+
+\begin{litblock}{anonymous}
+/*
+ * Propagator definitions
+ *
+ */
+
+// Propagator for less than or equal
+template<class V0, class V1>
+class LeEq : public Gecode::Propagator {
+protected:
+  V0 x0; V1 x1;
+public:
+  LeEq(Gecode::Home home, V0 y0, V1 y1) 
+    : Gecode::Propagator(home), x0(y0), x1(y1) {
+    x0.subscribe(home,*this,Int::PC_INT_MIN);
+    x1.subscribe(home,*this,Int::PC_INT_MAX);
+  }
+  static Gecode::ExecStatus post(Gecode::Home home, 
+                                 V0 x0, V1 x1) {
+    if (Gecode::same(x0,x1))
+      return Gecode::ES_FAILED;
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    if (x0.max() > x1.min())
+      (void) new (home) LeEq(home,x0,x1);
+    return Gecode::ES_OK;
+  }
+  virtual size_t dispose(Gecode::Space& home) {
+    x0.cancel(home,*this,Int::PC_INT_MIN);
+    x1.cancel(home,*this,Int::PC_INT_MAX);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  LeEq(Gecode::Space& home, bool share, LeEq& p) 
+    : Gecode::Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+  }
+  virtual Gecode::Propagator* copy(Gecode::Space& home, bool share) {
+    return new (home) LeEq(home,share,*this);
+  }
+  virtual Gecode::PropCost cost(const Gecode::Space&, 
+                                const Gecode::ModEventDelta&) const {
+    return Gecode::PropCost::binary(Gecode::PropCost::LO);
+  }
+  virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
+                                       const Gecode::ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    if (x0.max() <= x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return Gecode::ES_FIX;
+  }
+};
+
+// Propagator for disequality
+class Disequal : public Gecode::Propagator {
+protected:
+  Int::IntView x0, x1;
+public:
+  Disequal(Gecode::Home home, Int::IntView y0, Int::IntView y1) 
+    : Gecode::Propagator(home), x0(y0), x1(y1) {
+    x0.subscribe(home,*this,Int::PC_INT_BND);
+    x1.subscribe(home,*this,Int::PC_INT_BND);
+  }
+  static Gecode::ExecStatus post(Gecode::Home home, 
+                                 Int::IntView x0, Int::IntView x1) {
+    if (Gecode::same(x0,x1))
+      return Gecode::ES_FAILED;
+    (void) new (home) Disequal(home,x0,x1);
+    return Gecode::ES_OK;
+  }
+  virtual size_t dispose(Gecode::Space& home) {
+    x0.cancel(home,*this,Int::PC_INT_BND);
+    x1.cancel(home,*this,Int::PC_INT_BND);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  Disequal(Gecode::Space& home, bool share, Disequal& p) 
+    : Gecode::Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+  }
+  virtual Gecode::Propagator* copy(Gecode::Space& home, bool share) {
+    return new (home) Disequal(home,share,*this);
+  }
+  virtual Gecode::PropCost cost(const Gecode::Space&, 
+                                const Gecode::ModEventDelta&) const {
+    return Gecode::PropCost::binary(Gecode::PropCost::LO);
+  }
+  virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
+                                       const Gecode::ModEventDelta&)  {
+    if ((x0.max() < x1.min()) || (x0.min() > x1.max()))
+      return home.ES_SUBSUMED(*this);
+    if (x0.assigned()) {
+      if (x0.min() == x1.min()) {
+        GECODE_ME_CHECK(x1.gq(home,x0.min()+1));
+        return home.ES_SUBSUMED(*this);
+      } else if (x0.min() == x1.max()) {
+        GECODE_ME_CHECK(x1.lq(home,x0.min()-1));
+        return home.ES_SUBSUMED(*this);
+      }
+    } else if (x1.assigned()) {
+      if (x1.min() == x0.min()) {
+        GECODE_ME_CHECK(x0.gq(home,x1.min()+1));
+        return home.ES_SUBSUMED(*this);
+      } else if (x1.min() == x0.max()) {
+        GECODE_ME_CHECK(x0.lq(home,x1.min()-1));
+        return home.ES_SUBSUMED(*this);
+      }
+    }
+    return Gecode::ES_FIX;
+  }
+};
+
+// Propagator for ternary plus
+template<class V0, class V1, class V2>
+class Plus : public Gecode::Propagator {
+protected:
+  V0 x0; V1 x1; V2 x2;
+public:
+  Plus(Gecode::Home home, V0 y0, V1 y1, V2 y2) 
+    : Gecode::Propagator(home), x0(y0), x1(y1), x2(y2) {
+    x0.subscribe(home,*this,Int::PC_INT_BND);
+    x1.subscribe(home,*this,Int::PC_INT_BND);
+    x2.subscribe(home,*this,Int::PC_INT_BND);
+  }
+  static Gecode::ExecStatus post(Gecode::Home home, 
+                                 V0 x0, V1 x1, V2 x2) {
+    (void) new (home) Plus(home,x0,x1,x2);
+    return Gecode::ES_OK;
+  }
+  virtual size_t dispose(Gecode::Space& home) {
+    x0.cancel(home,*this,Int::PC_INT_BND);
+    x1.cancel(home,*this,Int::PC_INT_BND);
+    x2.cancel(home,*this,Int::PC_INT_BND);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  Plus(Gecode::Space& home, bool share, Plus& p) 
+    : Gecode::Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+    x2.update(home,share,p.x2);
+  }
+  virtual Gecode::Propagator* copy(Gecode::Space& home, bool share) {
+    return new (home) Plus(home,share,*this);
+  }
+  virtual Gecode::PropCost cost(const Gecode::Space&, 
+                                const Gecode::ModEventDelta&) const {
+    return Gecode::PropCost::ternary(Gecode::PropCost::LO);
+  }
+  virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
+                                       const Gecode::ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.lq(home,x2.max()-x1.min()));
+    GECODE_ME_CHECK(x0.gq(home,x2.min()-x1.max()));
+    GECODE_ME_CHECK(x1.lq(home,x2.max()-x0.min()));
+    GECODE_ME_CHECK(x1.gq(home,x2.min()-x0.max()));
+    GECODE_ME_CHECK(x2.lq(home,x0.max()+x1.max()));
+    GECODE_ME_CHECK(x2.gq(home,x0.min()+x1.min()));
+    if (x0.assigned() && x1.assigned() && x2.assigned())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return Gecode::ES_NOFIX;
+  }
+};
+
+
+
+/*
+ * Constraint post functions
+ *
+ */
+
+// Constrain x to be equal to n
+void equal(Gecode::Space& home, IntVar x, int n) {
+  Int::IntView y(x);
+  GECODE_ME_FAIL(y.gq(home,n));
+  GECODE_ME_FAIL(y.lq(home,n));
+}
+
+// Constrain x to be less than n
+void less(Gecode::Space& home, IntVar x, int n) {
+  Int::IntView y(x);
+  GECODE_ME_FAIL(y.lq(home,n-1));
+}
+
+// Constrain x0 to be less than or equal to x1
+void leeq(Gecode::Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL((LeEq<Int::IntView,Int::IntView>::post(home,x0,x1)));
+}
+
+// Constrain x1 to be less than x1
+void less(Gecode::Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  Int::OffsetView y0(x0,1);
+  GECODE_ES_FAIL((LeEq<Int::OffsetView,Int::IntView>::post(home,y0,x1)));
+}
+
+// Constrain x0 to be different from x1
+void disequal(Gecode::Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Disequal::post(home,x0,x1));
+}
+
+// Constrain x2 to x0 + x1
+void plus(Gecode::Home home, IntVar x0, IntVar x1, IntVar x2) {
+  if (home.failed()) return;
+  if (x0.assigned()) {
+    Int::ConstIntView y0(x0.min());
+    GECODE_ES_FAIL((Plus<Int::ConstIntView,Int::IntView,Int::IntView>
+                    ::post(home,y0,x1,x2)));
+  } else if (x1.assigned()) {
+    Int::ConstIntView y1(x1.min());
+    GECODE_ES_FAIL((Plus<Int::IntView,Int::ConstIntView,Int::IntView>
+                    ::post(home,x0,y1,x2)));
+  } else {
+    GECODE_ES_FAIL((Plus<Int::IntView,Int::IntView,Int::IntView>
+                    ::post(home,x0,x1,x2)));
+  }
+}
+
+// Constrain x2 to x0 - x1
+void minus(Gecode::Home home, IntVar x0, IntVar x1, IntVar x2) {
+  if (home.failed()) return;
+  if (x0.assigned()) {
+    Int::ConstIntView y0(x0.min());
+    Int::MinusView y1(x1);
+    GECODE_ES_FAIL((Plus<Int::ConstIntView,Int::MinusView,Int::IntView>
+                    ::post(home,y0,y1,x2)));
+  } else if (x1.assigned()) {
+    Int::ConstIntView y1(-x1.min());
+    GECODE_ES_FAIL((Plus<Int::IntView,Int::ConstIntView,Int::IntView>
+                    ::post(home,x0,y1,x2)));
+  } else {
+    Int::MinusView y1(x1);
+    GECODE_ES_FAIL((Plus<Int::IntView,Int::MinusView,Int::IntView>
+                    ::post(home,x0,y1,x2)));
+  }
+}
+
+
+/*
+ * Value selection classes
+ *
+ */
+
+// Select smallest value
+class ValMin : public Gecode::ValSelBase<Int::IntView,int> {
+public:
+  ValMin(void) {}
+  ValMin(Gecode::Space& home, const Gecode::ValBranchOptions& vbo)
+    : Gecode::ValSelBase<Int::IntView,int>(home,vbo) {}
+  int val(Gecode::Space& home, View x) const {
+    return x.min();
+  }
+  ModEvent tell(Gecode::Space& home, unsigned int a, Int::IntView x, int n) {
+    return (a == 0) ? x.lq(home,n) : x.gq(home,n+1);
+  }
+};
+
+
+/*
+ * Branching post function
+ *
+ */
+
+// Branch by selecting the first unassigned variable, assigning its smallest value first
+void branch(Gecode::Home home, const IntVarArgs& x) {
+  if (home.failed()) return;
+  Gecode::ViewArray<Int::IntView> y(home,x);
+  Gecode::ViewSelNone<Int::IntView> sn; ValMin vm;
+  Gecode::ViewValBrancher<Gecode::ViewSelNone<Int::IntView>,ValMin>::post(home,y,sn,vm);
+}
+
+
+/*
+ * The Golomb ruler script
+ *
+ */
+\end{litblock}
+
+class GolombRuler : public Gecode::Space {
+  \begin{litblock}{anonymous}
+protected:
+  static const int n = 8;
+  IntVarArray m;
+public:
+  GolombRuler(void)
+    : m(*this,n,0,Int::Limits::max) {
+
+    // Assume first mark to be zero
+    equal(*this, m[0], 0);
+
+    // Order marks
+    for (int i=1; i<n; i++)
+      less(*this, m[i-1], m[i]);
+
+    // Number of differences
+    const int n_d = (n*n-n)/2;
+
+    // Array of differences
+    IntVarArgs d(*this, n_d, 0, Int::Limits::max);
+
+    // Setup difference constraints
+    for (int k=0, i=0; i<n-1; i++)
+      for (int j=i+1; j<n; j++, k++)
+        minus(*this, m[j], m[i], d[k]);
+
+    // All differences must be pairwise different
+    for (int i=0; i<n_d; i++)
+      for (int j=i+1; j<n_d; j++)
+        disequal(*this, d[i], d[j]);
+
+    // Symmetry breaking
+    if (n > 2)
+      less(*this, d[0], d[n_d-1]);
+
+    branch(*this, m);
+  }
+  virtual void constrain(const Gecode::Space& b) {
+    less(*this, m[n-1], static_cast<const GolombRuler&>(b).m[n-1].min());
+  }
+  void print(void) const {
+    std::cout << "\tm[" << m.size() << "] = " << m << std::endl;
+  }
+  GolombRuler(bool share, GolombRuler& s)
+    : Gecode::Space(share,s) {
+    m.update(*this, share, s.m);
+  }
+  virtual Space* copy(bool share) {
+    return new GolombRuler(share,*this);
+  }
+  \end{litblock}
+};
+
+int main(int argc, char* argv[]) {
+  \begin{litblock}{anonymous}
+  GolombRuler* g = new GolombRuler();
+  Gecode::BAB<GolombRuler> e(g);
+  delete g;
+  
+  while (Gecode::Space* s = e.next()) {
+    static_cast<GolombRuler*>(s)->print();
+    delete s;
+  }
+  return 0;
+  \end{litblock}
+}
+\end{litcode}

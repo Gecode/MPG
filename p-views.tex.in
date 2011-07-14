@@ -1,0 +1,576 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Views}
+\label{chap:p:views}
+
+This chapter should come as a welcome diversion from the previous
+chapters in this part. Instead of introducing more concepts and
+techniques for programming propagators, it shows how to
+straightforwardly and efficiently reuse propagators for
+implementing several different constraints. In a way, the chapter
+tells you how to cache in on all the effort that goes into
+developing a propagator.
+
+The idea is to make a propagator generic with respect to the
+views the propagator computes with. As we are talking \CPP,
+generic propagators will be nothing but templates where the
+template arguments happen to be view types. Then, by
+instantiating the template propagator, one can obtain
+implementations for several constraints from a single
+propagator. More on views (a concept
+introduced by Gecode) can be found
+in~\cite{SchulteTack:CCoR:2009} and~\cite{SchulteTack:Advances:2006}.
+
+As it comes to importance, this chapter should be the second
+in this part. However, the chapter comes rather late to be able
+to draw on the example propagators presented in the previous
+chapters.
+
+\paragraph{Overview.}
+
+Integer variable views are discussed in
+\autoref{sec:p:views:int} and Boolean variable views are
+discussed in \autoref{sec:p:views:bool}. How integer propagators
+can be reused for Boolean views is presented in
+\autoref{sec:p:views:inttobool}. 
+
+\section{Integer views}
+\label{sec:p:views:int}
+
+Assume that we need an implementation for the \?min? constraint.
+Of course, we could implement a \?Min? propagator analogous to
+the \?Max? propagator from \autoref{sec:p:reified:max}. But let
+us assume that we need to be lazy in that we do not have the time
+to implement \?Min? (after all, there are more interesting
+constraints out there that we want to implement).
+
+What we could do to implement
+$\min(\mathtt{x},\mathtt{y})=\mathtt{z}$ is to introduce three
+new variables $\mathtt{x}'$, $\mathtt{y}'$, and $\mathtt{z}'$,
+post three constraints such that $\mathtt{x}=-\mathtt{x}'$,
+$\mathtt{y}=-\mathtt{y}'$, and $\mathtt{z}=-\mathtt{z}'$, and
+finally post a \?max? constraint instead:
+$\max(\mathtt{x}',\mathtt{y}')=\mathtt{z}'$. While the strength
+of propagation is uncompromised, efficiency is poor: three
+additional variables and three additional propagators are needed.
+
+\subsection{Minus views}
+\label{sec:p:views:int:minus}
+
+Minus views can do exactly what we discussed above but without
+creating additional variables or propagators. Assume that we have
+an integer view $\mathtt{x}$ that serves as an interface to a
+variable implementation $v$. Then, a \emph{minus integer view}
+$\mathtt{m}$ for $v$ is also an interface to $v$, however the
+interface implements operations such that $\mathtt{m}$ is an
+interface to $-v$.
+
+For example, assume that the domain of $\mathtt{x}$ is
+$\{-1,1,3,4,6\}$ (which also means that $v\in\{-1,1,3,4,6\}$).
+Then, the domain for \?m? is $\{-6,-4,-3,-1,1\}$. For example,
+\?m.min()?  returns $-6$ (which, of course, is nothing but
+\?-x.max()?) and the modification operation \?m.gq(home,-3)?
+results in domains $\mathtt{m}\in\{-3,-1,1\}$ and
+$\mathtt{x}\in\{-1,1,3\}$ (which, of course, is the same as
+\?x.lq(home,-(-3))? and hence as \?x.lq(home,3)?). 
+
+The very point of this exercise is: a minus view is just a
+different interface to an \emph{existing} variable implementation
+and does not require a \emph{new} variable implementation.
+Moreover, the operations performed by the minus view interface
+are optimized away at compile time.
+
+
+\begin{figure}
+\insertlitcode{min and max}
+\caption{Minimum and maximum constraints implemented by a \?Max? propagator}
+\label{fig:p:views:minmax}
+\end{figure}
+
+\autoref{fig:p:views:minmax} shows how to obtain both \?min? and
+\?max? constraints from the very same \?Max? propagator using
+\gecoderef[class]{Int::IntView} and
+\gecoderef[class]{Int::MinusView} views. The only change needed
+compared to the \?Max? propagator from
+\autoref{sec:p:reified:max} is that the propagator does not
+hardwire its view type. Instead, the propagator is generic by
+being implemented as a template over the view type \?View? it uses. The
+constraint post functions then just instantiate the \?Max?
+propagator with the appropriate view types.
+
+\tip{Using \?using? clauses}{
+\label{tip:p:views:using}%
+Note the \?using? clauses in \autoref{fig:p:views:minmax}. They
+make \?x0?, \?x1?, and \?x2? visible for the \?Max?  propagator.
+This is necessary in \CPP{} as \?Max? inherits from a base class
+that itself depends on the template argument \?View? of
+\?Max?. There are other possibilities to refer to members
+  such as \?x0? that also work, for example by writing
+  \?this->x0? instead of just \?x0?. We choose the variant with
+  \?using? clauses to keep the code of the propagator
+  uncluttered.}.
+
+
+\subsection{Offset views}
+\label{sec:p:views:int:offset}
+
+\begin{figure}
+\insertlitcode{domain equal with and without offset}
+\caption{Domain equality with and without offset}
+\label{fig:p:views:equal}
+\end{figure}
+
+An \emph{offset view} \?o? with offset \?c? (an integer value) for a variable
+implementation $v$ provides operations such that \?o? behaves as
+$v+\mathtt c$. 
+
+\autoref{fig:p:views:equal} shows how a domain equality
+constraint (see \autoref{sec:p:domain:iter}) and a domain
+equality constraint with offset (see
+\autoref{sec:p:domain:iterators}) can be obtained from the same
+domain equality propagator \?Equal?. \?Equal? has two
+template arguments \?View0? and \?View1? for its views \?x0? and
+\?x1?  respectively. With two view template arguments, the
+propagator can be instantiated with different view types for
+\?x0? and \?x1?. Therefore, the propagator uses
+\gecoderef[class]{MixBinaryPropagator} as base class as it
+supports different view types as well.
+
+\paragraph{\?shared? versus \?same?.}
+\label{par:p:views:sameshared}%
+
+The domain modification operations \?inter_r? and \?narrow_r?
+used in the \?Equal? propagator from \autoref{sec:p:domain:iter}
+are used such that the operations perform a more efficient
+in-place update of the view domain (with an additional Boolean
+value \?false? as last and optional argument).  This is only
+legal because the range iterator passed as argument to the
+modification operations does not depend on the view being
+modified. The post function of \?Equal? ensures this by only
+posting the propagator if the two views \?x0? and \?x1? are not
+referring to the very same variable implementation (that is,
+\?same(x0,x1)? is false).
+
+With arbitrary views, the situation becomes a little bit more
+involved. Assume that \?x0? is an integer view referring to the
+variable implementation $v$ and that \?x1? is an offset integer
+view for the same variable implementation $v$ and an integer
+value $c\neq 0$. In this case, the views \?x0? and \?x1?  share
+the same variable implementation $v$ but are \emph{not} the same.
+
+The function \?shared()? tests whether two views share the
+same variable implementation. Hence, the use of domain modification
+operations in \?Equal? have to be modified as follows:
+\insertlitcode{domain equal with and without offset:domain propagation}
+
+Now, the more efficient in-place operations are used only if \?x0?
+and \?x1? do not share the same variable implementation.
+
+
+\subsection{Constant and scale views}
+\label{sec:p:views:int:constantscale}
+
+In addition to minus and offset views, Gecode offers \emph{scale
+  views} and \emph{constant views} for integer variable
+implementations. 
+
+A scale view for a variable implementation $v$ with an integer
+scale factor $a$ where $a>0$ implements operations for $a\cdot
+v$. Scale views exist in two variants differing in the precision
+of multiplication: \?IntScaleView? performs multiplication over
+integers, whereas \?DoubleScaleView? performs multiplication over
+doubles (see \gecoderef[group]{TaskActorIntView} and
+\gecoderef[class]{Int::ScaleView}).
+
+An integer constant view \gecoderef[class]{Int::ConstIntView}
+provides an integer view interface to an integer constant \?c?.
+With other words, an integer constant view for the integer \?c?
+behaves as an integer view assigned to the value \?c?.
+
+
+\section{Boolean views}
+\label{sec:p:views:bool}
+
+\begin{figure}
+\insertlitcode{or and and from or}
+\caption{Disjunction and conjunction from same propagator}
+\label{fig:p:views:orand}
+\end{figure}
+
+For Boolean views, the view resembling a minus view over integers
+is a view for negation. For example, with Boolean negation views
+\gecoderef[class]{Int::NegBoolView} both disjunction and
+conjunction constraints can be obtained from a propagator for
+disjunction (see \autoref{fig:p:views:orand}).
+
+
+\section{Integer propagators on Boolean views}
+\label{sec:p:views:inttobool}
+
+As has been discussed in \autoref{sec:p:avoid:ortrue}, Boolean
+views feature all operations available on integer views (such as
+\?lq()? or \?gr()?) in addition to the dedicated Boolean
+operations (such as \?one()? or \?zero()?). Due to the
+availability of integer operations on Boolean views, integer
+propagators can be used to implement Boolean constraints.
+
+\begin{figure}
+\insertlitcode{less for integer and Boolean variables}
+\caption{Less constraints for both integer and Boolean variables}
+\label{fig:p:views:intbool}
+\end{figure}
+
+\autoref{fig:p:views:intbool} shows how the propagator \?Less?
+can be used to implement the \?less? constraint for both integer
+and Boolean variables.
+
+\tip{Boolean variables are not integer variables}{
+The above example uses a template to obtain an implementation of
+a constraint on both integer and Boolean variables. This is
+necessary as Boolean variables are not integer variables (in the
+sense that \?BoolVar? is not a subclass of \?IntVar?). The same
+holds true for their views and variable implementations.
+
+This is by design: Boolean variables are not integer variables as
+they have a specially optimized implementation (taking advantage
+of the limited possible variable domains and that only
+\?PC_BOOL_VAL? as propagation condition is needed).  }
+
+
+\begin{litcode}{min and max}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+template<class View>
+class Equal : public BinaryPropagator<View,Int::PC_INT_BND> {
+protected:
+    using BinaryPropagator<View,Int::PC_INT_BND>::x0;
+    using BinaryPropagator<View,Int::PC_INT_BND>::x1;
+public:
+  Equal(Home home, View x0, View x1) 
+    : BinaryPropagator<View,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         View x0, View x1) {
+    (void) new (home) Equal<View>(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal<View>& p) 
+    : BinaryPropagator<View,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal<View>(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    GECODE_ME_CHECK(x0.gq(home,x1.min()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.lq(home,x0.max()));
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_NOFIX;
+  }
+};
+\end{litblock}
+template<class View>
+class Max : public TernaryPropagator<View,Int::PC_INT_BND> {
+protected:
+    using TernaryPropagator<View,Int::PC_INT_BND>::x0;
+    using TernaryPropagator<View,Int::PC_INT_BND>::x1;
+    using TernaryPropagator<View,Int::PC_INT_BND>::x2;
+  \begin{litblock}{anonymous}
+public:
+  Max(Home home, View x0, View x1, View x2) 
+    : TernaryPropagator<View,Int::PC_INT_BND>(home,x0,x1,x2) {}
+  static ExecStatus post(Home home, 
+                         View x0, View x1, View x2) {
+    (void) new (home) Max<View>(home,x0,x1,x2);
+    return ES_OK;
+  }
+  Max(Space& home, bool share, Max<View>& p) 
+    : TernaryPropagator<View,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Max<View>(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    GECODE_ME_CHECK(x2.lq(home,std::max(x0.max(),x1.max())));
+    GECODE_ME_CHECK(x2.gq(home,std::max(x0.min(),x1.min())));
+    GECODE_ME_CHECK(x0.lq(home,x2.max()));
+    GECODE_ME_CHECK(x1.lq(home,x2.max()));
+    if ((x1.max() <= x0.min()) || (x1.max() < x2.min()))
+      GECODE_REWRITE(*this,Equal<View>::post(home(*this),x0,x2));
+    if ((x0.max() <= x1.min()) || (x0.max() < x2.min()))
+      GECODE_REWRITE(*this,Equal<View>::post(home(*this),x1,x2));
+    if (x0.assigned() && x1.assigned() && x2.assigned())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_NOFIX;
+  }
+  \end{litblock}
+};
+
+void min(Home home, IntVar x0, IntVar x1, IntVar x2) {
+  if (home.failed()) return;
+  Int::MinusView y0(x0), y1(x1), y2(x2);
+  GECODE_ES_FAIL(Max<Int::MinusView>::post(home,y0,y1,y2));
+}
+void max(Home home, IntVar x0, IntVar x1, IntVar x2) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Max<Int::IntView>::post(home,x0,x1,x2));
+}
+\end{litcode}
+  
+
+\begin{litcode}{less for integer and Boolean variables}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+template<class View>
+class Less : public BinaryPropagator<View,Int::PC_INT_BND> {
+protected:
+  \begin{litblock}{anonymous}
+    using BinaryPropagator<View,Int::PC_INT_BND>::x0;
+    using BinaryPropagator<View,Int::PC_INT_BND>::x1;
+public:
+  Less(Home home, View x0, View x1) 
+    : BinaryPropagator<View,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, View x0, View x1) {
+    if (same(x0,x1))
+      return ES_FAILED;
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() >= x1.min())
+      (void) new (home) Less<View>(home,x0,x1);
+    return ES_OK;
+  }
+  Less(Space& home, bool share, Less<View>& p) 
+    : BinaryPropagator<View,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Less<View>(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() < x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+  \end{litblock}
+};
+
+void less(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Less<Int::IntView>::post(home,x0,x1));
+}
+void less(Home home, BoolVar x0, BoolVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Less<Int::BoolView>::post(home,x0,x1));
+}
+\end{litcode}
+
+
+\begin{litcode}{domain equal with and without offset}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+template<class View0, class View1>
+class Equal 
+  : public MixBinaryPropagator<View0,Int::PC_INT_DOM,
+                               View1,Int::PC_INT_DOM> {
+  \begin{litblock}{anonymous}
+protected:
+    using MixBinaryPropagator<View0,Int::PC_INT_DOM,
+                              View1,Int::PC_INT_DOM>::x0;
+    using MixBinaryPropagator<View0,Int::PC_INT_DOM,
+                              View1,Int::PC_INT_DOM>::x1;
+public:
+  Equal(Home home, View0 x0, View1 x1) 
+    : MixBinaryPropagator<View0,Int::PC_INT_DOM,
+                          View1,Int::PC_INT_DOM>(home,x0,x1) {}
+  static ExecStatus post(Home home, View0 x0, View1 x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal<View0,View1>& p) 
+    : MixBinaryPropagator<View0,Int::PC_INT_DOM,
+                          View1,Int::PC_INT_DOM>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal<View0,View1>(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, 
+                        const ModEventDelta& med) const {
+    if (Int::IntView::me(med) != Int::ME_INT_DOM)
+      return PropCost::binary(PropCost::LO);
+    else
+      return PropCost::binary(PropCost::HI);
+  }
+  virtual ExecStatus propagate(Space& home, 
+                               const ModEventDelta& med) {
+    if (Int::IntView::me(med) != Int::ME_INT_DOM) {
+      do { 
+        GECODE_ME_CHECK(x0.gq(home,x1.min()));
+        GECODE_ME_CHECK(x1.gq(home,x0.min()));
+      } while (x0.min() != x1.min());
+      do {
+        GECODE_ME_CHECK(x0.lq(home,x1.max()));
+        GECODE_ME_CHECK(x1.lq(home,x0.max()));
+      } while (x0.max() != x1.max());
+      if (x0.assigned() && x1.assigned())
+        return home.ES_SUBSUMED(*this);
+      if (x0.range() && x1.range())
+        return ES_FIX;
+      return home.ES_FIX_PARTIAL
+        (*this,Int::IntView::med(Int::ME_INT_DOM));
+    }
+    \begin{litblock}{domain propagation}
+    Int::ViewRanges<View0> r0(x0);
+    GECODE_ME_CHECK(x1.inter_r(home,r0,shared(x0,x1)));
+    Int::ViewRanges<View1> r1(x1);
+    GECODE_ME_CHECK(x0.narrow_r(home,r1,shared(x0,x1)));
+    \end{litblock}
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+  }
+  \end{litblock}
+};
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL((Equal<Int::IntView,Int::IntView>
+                  ::post(home,x0,x1)));
+}
+void equal(Home home, IntVar x0, IntVar x1, int c) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL((Equal<Int::IntView,Int::OffsetView>
+                  ::post(home,x0,Int::OffsetView(x1,c))));
+}
+\end{litcode}
+
+
+\begin{litcode}{or and and from or}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+template<class View>
+class OrTrue : 
+  public BinaryPropagator<View,Int::PC_BOOL_VAL> {
+  \begin{litblock}{anonymous}
+protected:
+    using BinaryPropagator<View,Int::PC_BOOL_VAL>::x0;
+    using BinaryPropagator<View,Int::PC_BOOL_VAL>::x1;
+protected:
+  ViewArray<View> x;
+public:
+  OrTrue(Home home, ViewArray<View>& y) 
+    : BinaryPropagator<View,Int::PC_BOOL_VAL>
+      (home,y[0],y[1]), x(y) {
+    x.drop_fst(2);
+  }
+  static ExecStatus post(Home home, ViewArray<View>& x) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return ES_OK;
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    x.unique(home);
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+    } else {
+      (void) new (home) OrTrue<View>(home,x);
+    }
+    return ES_OK;
+  }
+  virtual size_t dispose(Space& home) {
+    (void) BinaryPropagator<View,Int::PC_BOOL_VAL>
+      ::dispose(home);
+    return sizeof(*this);
+  }
+  OrTrue(Space& home, bool share, OrTrue<View>& p) 
+    : BinaryPropagator<View,Int::PC_BOOL_VAL>(home,share,p) {
+    x.update(home,share,p.x);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        x[0]=x[i]; x.size(1); break;
+      } else if (x[i].zero()) {
+        x.move_lst(i);
+      }
+    return new (home) OrTrue<View>(home,share,*this);
+  }
+  ExecStatus resubscribe(Space& home, View& y, View z) {
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        return home.ES_SUBSUMED(*this);
+      } else if (x[i].zero()) {
+        x.move_lst(i);
+      } else {
+        y=x[i]; x.move_lst(i);
+        y.subscribe(home,*this,Int::PC_BOOL_VAL);
+        return ES_FIX;
+      }
+    GECODE_ME_CHECK(z.one(home));
+    return home.ES_SUBSUMED(*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (x0.one() || x1.one())
+      return home.ES_SUBSUMED(*this);
+    if (x0.zero())
+      GECODE_ES_CHECK(resubscribe(home,x0,x1));
+    if (x1.zero())
+      GECODE_ES_CHECK(resubscribe(home,x1,x0));
+    return ES_FIX;
+  }
+  \end{litblock}
+};
+
+void dis(Home home, const BoolVarArgs& x, int n) {
+  \begin{litblock}{anonymous}
+  if ((n != 0) && (n != 1))
+    throw Int::NotZeroOne("dis");
+  if (home.failed()) return;
+  if (n == 0) {
+    for (int i=x.size(); i--; ) {
+      Int::BoolView xi(x[i]);
+      GECODE_ME_FAIL(xi.zero(home));
+    }
+  } else {
+    ViewArray<Int::BoolView> y(home,x);
+    GECODE_ES_FAIL(OrTrue<Int::BoolView>::post(home,y));
+  }
+  \end{litblock}
+}
+
+void con(Home home, const BoolVarArgs& x, int n) {
+  \begin{litblock}{anonymous}
+  if ((n != 0) && (n != 1))
+    throw Int::NotZeroOne("con");
+  if (home.failed()) return;
+  if (n == 1) {
+    for (int i=x.size(); i--; ) {
+      Int::BoolView xi(x[i]);
+      GECODE_ME_FAIL(xi.one(home));
+    }
+  \end{litblock}
+  } else {
+    ViewArray<Int::NegBoolView> y(home,x.size());
+    for (int i=x.size(); i--; )
+      y[i]=Int::NegBoolView(x[i]);
+    GECODE_ES_FAIL(OrTrue<Int::NegBoolView>::post(home,y));
+  }
+}
+\end{litcode}

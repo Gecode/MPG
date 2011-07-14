@@ -1,0 +1,39 @@
+Crossword
+	chaps*ababa*halve*scrap
+	helen*dirac*adieu*phase
+	orono*opera*nadir*lanka
+	softwares*dad*slesinger
+	entailed*ceres*skinners
+	***gems*camelot*ante***
+	across*doria*lap*gelled
+	chant*della*dales*reese
+	hems*nabla*heretic*data
+	eva*aorta*son*salad*den
+	dynamo*statute*lacrosse
+	***rand*erasure*skew***
+	suicidal*entreat*lanced
+	and*natal*zoe*raped*lee
+	bias*yucatan*inked*sara
+	ether*memos*creep*resin
+	reopen*dan*shorn*senses
+	***aces*remains*mass***
+	sparking*damns*saltiest
+	totalling*sea*videotape
+	adobe*doris*meier*risen
+	mills*emile*arena*event
+	pales*redly*nasas*rests
+
+
+
+Initial
+	propagators: 905
+	branchers:   1
+
+Summary
+	runtime:      34.970 (34970.000000 ms)
+	solutions:    1
+	propagations: 1007352
+	nodes:        5255
+	failures:     2567
+	peak depth:   205
+	peak memory:  49866 KB

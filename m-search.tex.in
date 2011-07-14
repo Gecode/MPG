@@ -1,0 +1,1342 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Search}
+\label{chap:m:search}
+
+This chapter discusses how search is used for solving Gecode
+models. Search involves two techniques: \emph{branching} and
+\emph{exploration}. Branching defines the shape of the search
+tree. Exploration defines a strategy how to explore parts of the
+search tree and how to possibly modify the tree's shape during
+exploration (for example, during branch-and-bound best solution
+search by adding new constraints). This chapter restricts itself
+to simple search engines to find solutions, Gist as an
+interactive and graphical search engine is discussed in
+\autoref{chap:m:gist}.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:search:branch} explains important
+details of how branching in Gecode can be used for modeling and
+solving problems. This section belongs to the basic reading
+material of \autoref{part:m}.
+
+\autoref{sec:m:search:re} explains how search in Gecode makes use
+of hybrid recomputation and why it is efficient. Even though this
+section does not belong to the basic reading material, you are
+highly encouraged to read it. 
+
+\autoref{sec:m:search:parallel} explains how parallel search can
+be used in Gecode and what can be expected of parallel search in
+principle. How search engines can be used is explained in
+\autoref{sec:m:search:simple}.
+
+\begin{convention}
+  Note that the same conventions hold as in \autoref{chap:m:int}.
+\end{convention}
+
+\section{Branching}
+\label{sec:m:search:branch}
+
+A space in Gecode can have \emph{several} branchers posted on
+behalf of a \emph{branching} that are
+executed in order of creation. Assume that in
+\begin{code}
+branch(home, x, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+...
+branch(home, y, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+\end{code}
+both calls to \?branch? create a brancher. Search branches first
+on the variables \?x? and then on the variables \?y?. Here, it
+does not matter whether propagators are created in between the
+creation of branchers.
+
+\subsection{Branching on integer and set variables}
+\label{sec:m:search:branch:int}
+\label{sec:m:search:branch:set}
+
+
+\begin{important}
+\begin{samepage}
+Do not forget to add
+\begin{code}
+#include <gecode/int.hh>
+\end{code}
+\end{samepage}
+to your program when you want to branch on integer and
+Boolean variables. Likewise, do not forget to add
+\begin{code}
+#include <gecode/set.hh>
+\end{code}
+for branching on set variables.
+\end{important}
+
+Gecode offers predefined \emph{variable-value branching}: when
+calling \?branch? to post a branching, the third argument defines
+which variable is selected for branching, whereas the forth
+argument defines which values are selected for branching. For
+example, for an array of integer or Boolean variables \?x? the
+following call to branch
+\begin{code}
+branch(home, x, INT_VAR_MIN_MIN, INT_VAL_SPLIT_MIN);
+\end{code}
+selects a variable $y$ with the smallest minimum value (in case
+of ties, the first such variable in \?x? is selected) and creates
+a choice with two alternatives $y\leq n$ and $y>n$ where
+$$n=\left\lfloor\frac{\min(y)+\max(y)}{2}\right\rfloor$$ 
+The posted brancher assigns all
+variables and then ceases to exist. If more branchers exist,
+search continues with the next brancher.
+
+\begin{figure}
+\begin{center}
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?INT_VAR_NONE? & first unassigned\\
+\?INT_VAR_RND? & randomly\\
+\?INT_VAR_DEGREE_MIN? & smallest degree\\
+\?INT_VAR_DEGREE_MAX? & largest degree\\
+\?INT_VAR_AFC_MIN? & smallest accumulated failure count (AFC)\\
+\?INT_VAR_AFC_MAX? & largest accumulated failure count (AFC)\\
+\?INT_VAR_MIN_MIN? & smallest minimum value\\
+\?INT_VAR_MIN_MAX? & largest minimum value\\
+\?INT_VAR_MAX_MIN? & smallest maximum value\\
+\?INT_VAR_MAX_MAX? & largest maximum value\\
+\?INT_VAR_SIZE_MIN? & smallest domain size\\
+\?INT_VAR_SIZE_MAX? & largest domain size\\
+\?INT_VAR_SIZE_DEGREE_MIN? & smallest domain size divided by degree\\
+\?INT_VAR_SIZE_DEGREE_MAX? & largest domain size divided by degree\\
+\?INT_VAR_SIZE_AFC_MIN? & smallest domain size divided by AFC\\
+\?INT_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC\\
+\?INT_VAR_REGRET_MIN_MIN? & smallest minimum-regret\\
+\?INT_VAR_REGRET_MIN_MAX? & largest minimum-regret\\
+\?INT_VAR_REGRET_MAX_MIN? & smallest maximum-regret\\
+\?INT_VAR_REGRET_MAX_MAX? & largest maximum-regret
+\end{tabular}}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?INT_VAL_MIN? & smallest value\\
+\?INT_VAL_MED? & greatest value not greater than the median\\
+\?INT_VAL_MAX? & largest value\\
+\?INT_VAL_RND? & random value\\
+\?INT_VAL_SPLIT_MIN? & values not greater than mean of smallest
+  and largest value\\
+\?INT_VAL_SPLIT_MAX? & values greater than mean of smallest
+  and largest value\\
+\?INT_VAL_RANGE_MIN? & values from smallest range, if domain has
+several ranges;\\
+& otherwise, values not greater than mean of smallest\\&
+  and largest value\\
+\?INT_VAL_RANGE_MAX? & values from largest range, if domain has
+several ranges;\\
+& otherwise, values greater than mean of smallest
+  and largest value\\
+\?INT_VALUES_MIN? & all values starting from smallest\\
+\?INT_VALUES_MAX? & all values starting from largest
+\end{tabular}}
+
+\end{center}
+\caption{Integer and Boolean variable and value selection}
+\label{fig:m:search:int}
+\end{figure}
+
+For integer and Boolean variables, variable selection is defined
+by a value of type \?IntVarBranch? and value selection is defined
+by a value of type \?IntValBranch?  (see
+\gecoderef[group]{TaskModelIntBranch}). For an overview of the
+available value and variable selection strategies, see
+\autoref{fig:m:search:int}. 
+
+The degree of a variable is the number of propagators depending
+on the variable (useful as an approximate measure of how
+constrained a variables is).  The accumulated failure count (AFC)
+of a variable is the sum of the AFCs of all propagators depending
+on the variable plus its degree (to give a good initial value if
+the AFCs of all propagators are still zero). The AFC of a
+propagator counts how often the propagator has failed during
+search.  The AFC is also known as the weighted degree of a
+variable~\cite{AFC}.
+
+The minimum-regret is the difference between the smallest and
+second smallest value in the domain of a variable (maximum-regret
+is analogous).
+
+\tip{Variables are re-selected during branching}{
+\label{tip:m:search:reselected}
+A variable-value branching selects a variable for each choice
+it creates. Consider as an example a script using an integer
+variable array \?x? with three variables and domains
+$\range{1}{4}$ created by
+\begin{code}
+IntVarArray x(home, 3, 1, 4);
+\end{code}
+
+\begin{samepage}
+Let us assume that no constraints are posted on the variables in
+\?x? and that a branching is posted by
+\begin{code}
+branch(home, x, INT_VAR_SIZE_MAX, INT_VAL_SPLIT_MIN);
+\end{code}
+\end{samepage}
+
+The branching starts by selecting \?x[0]? as the first variable with the
+largest domain in the array \?x? and creates the choice
+$$
+(\mbox{\?x[0]?}\leq 2)\vee
+(\mbox{\?x[0]?}> 2)
+$$
+
+Now assume that search explores the first alternative which
+results in the domain $\{1,2\}$ for \?x[0]?. When search continues,
+the branching again selects the first variable with a largest
+domain: hence \?x[1]? is selected and \emph{not} \?x[0]?.
+
+In other words, a variable-value branching does not stick to a
+selected variable until the variable becomes assigned. Instead, a
+variable-value branching re-selects a variable for each choice it
+creates.  }
+
+\tip{Do not try all values}{%
+  Note that for \?INT_VALUES_MIN? and \?INT_VALUES_MAX?, a
+  variable-value branching creates a choice for each selected
+  variable with one alternative per value of the variable. This
+  is typically a poor choice, as none of the alternatives can
+  benefit from propagation that arises when other values of the
+  same variable are tried. These branchings exist for
+  instructional purposes (well, they do create beautiful
+  trees in Gist). }
+
+\begin{figure}
+\begin{center}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?SET_VAR_NONE? & first unassigned\\
+\?SET_VAR_RND? & randomly\\
+\?SET_VAR_DEGREE_MIN? & smallest degree\\
+\?SET_VAR_DEGREE_MAX? & largest degree\\
+\?SET_VAR_AFC_MIN? & smallest accumulated failure count (AFC)\\
+\?SET_VAR_AFC_MAX? & largest accumulated failure count (AFC)\\
+\?SET_VAR_MIN_MIN? & smallest minimum unknown element\\
+\?SET_VAR_MIN_MAX? & largest minimum unknown element\\
+\?SET_VAR_MAX_MIN? & smallest maximum unknown element\\
+\?SET_VAR_MAX_MAX? & largest maximum unknown element\\
+\?SET_VAR_SIZE_MIN? & smallest unknown set\\
+\?SET_VAR_SIZE_MAX? & largest unknown set\\
+\?SET_VAR_SIZE_DEGREE_MIN? & smallest domain size divided by degree\\
+\?SET_VAR_SIZE_DEGREE_MAX? & largest domain size divided by degree\\
+\?SET_VAR_SIZE_AFC_MIN? & smallest domain size divided by AFC\\
+\?SET_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC
+\end{tabular}}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?SET_VAL_MIN_INC? &include smallest element\\
+\?SET_VAL_MIN_EXC? &exclude smallest element\\
+\?SET_VAL_MED_INC? &include median element (rounding downwards)\\
+\?SET_VAL_MED_EXC? &exclude median element (rounding downwards)\\
+\?SET_VAL_MAX_INC? &include largest element\\
+\?SET_VAL_MAX_EXC? &exclude largest element\\
+\?SET_VAL_RND_INC? &include random element\\
+\?SET_VAL_RND_EXC? &exclude random element
+\end{tabular}}
+
+\end{center}
+\caption{Set variable and value selection}
+\label{fig:m:search:set}
+\end{figure}
+
+Likewise, for set variables, variable selection is defined by a
+value of type \?SetVarBranch? and value selection is defined by a
+value of type \?SetValBranch?  (see
+\gecoderef[group]{TaskModelSetBranch}).  For an overview of the
+available value and variable selection strategies, see
+\autoref{fig:m:search:set}.
+
+
+\subsection{Random variable and value selection}
+\label{sec:m:search:branch:rnd}
+
+One particular strategy for variable and value selection is by
+random. For integer and Boolean variables, \?INT_VAR_RND?
+selects a random variable and \?INT_VAL_RND? selects a random
+value.  For set variables, \?SET_VAR_RND? selects a random
+variable and \?SET_VAL_RND_INC? and \?SET_VAL_RND_EXC? include
+and exclude a random value from a set variable.
+
+The random number generators used for random variable and value
+selection follow a uniform distribution and can be initialized by
+a seed value. In order to pass seed values, variable-value
+branching accepts optional arguments of type
+\gecoderef[class]{VarBranchOptions} and
+\gecoderef[class]{ValBranchOptions} (see
+\gecoderef[group]{TaskModelBranch}). These classes feature a
+member \?seed? that defines the seed value used for the random
+number generator.
+
+Both classes support the generation of seed values based on the
+current time. The following selects both variables and values
+randomly and uses the current time as seed for both variable and
+value selection.
+\begin{code}
+branch(home, x, INT_VAR_RND, INT_VAL_RND,
+                VarBranchOptions::time(),
+                ValBranchOptions::time());
+\end{code}
+
+\subsection{Tie-breaking}
+\label{sec:m:search:branch:tie}
+
+The default behavior for tie-breaking during variable selection
+is that the first variable (that is the variable with the lowest
+index in the array) satisfying the selection criteria is
+selected. For many applications that is not sufficient.
+
+A typical example for integer variables is to select a most
+constrained variable first (the variable most propagators depend
+on, that is, with largest degree). Then, among the most
+constrained variables select the variable with the smallest
+domain. This can be achieved by using a \?tiebreak?  function:
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_DEGREE_MAX, INT_VAR_SIZE_MIN),
+                INT_VAL_MIN);
+\end{code}
+The overloaded function \?tiebreak?  (see
+\gecoderef[group]{TaskModelBranchTieBreak}) takes up to four
+variable selection values.
+
+Random selection is particularly interesting for tie-breaking. For
+example, breaking ties by first selecting a variable with
+smallest domain and then selecting a random variable among those
+with smallest domain:
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN, INT_VAR_RND),
+                INT_VAL_MIN);
+\end{code}
+
+\begin{samepage}
+To be able to pass seed values to a particular variable selection
+in tie-breaking, the
+\?tiebreak? function is also overloaded for the class
+\gecoderef[class]{VarBranchOptions}. For example,
+\begin{code}
+VarBranchOptions o;
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN, INT_VAR_RND),
+                INT_VAL_MIN,
+                tiebreak(o, VarBranchOptions::time()));
+\end{code}
+\end{samepage}
+passes a seed value based on the current time to the random
+variable selection used for tie-breaking. The same can also be achieved by
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN, INT_VAR_RND),
+                INT_VAL_MIN,
+                tiebreak(VarBranchOptions:def, 
+                         VarBranchOptions::time()));
+\end{code}
+
+
+\subsection{Using branch filter functions}
+\label{sec:m:search:branch:filter}
+
+By default, a variable-value branching continues to branch until
+all variables passed to the branching are assigned. This behavior
+can be changed by using a \emph{branch filter function}.
+
+A branch filter function is called during branching for each
+variable to be branched on. If the filter function returns
+\?true?, the variable is considered for branching. Otherwise, the
+variable is simply ignored.
+
+A branch filter function can be specified when a branching is
+posted. The filter function to be used by a branching can be
+passed by creating an object of class
+\gecoderef[class]{VarBranchOptions} (see
+\gecoderef[group]{TaskModelBranch}) and passing that object to
+the \?branch()? function.
+
+A branch filter function is of type \?BranchFilter? (see
+\gecoderef[group]{TaskModelBranch}) defined as
+\begin{code}
+typedef bool (*BranchFilter)(const Space& home, int i, const Var& y);
+\end{code}
+That is, a branch filter function takes the \?home? space and the
+position \?i? of the variable \?y? as argument. The position \?i?
+refers to the position of the variable \?y? in the array of
+variables used for posting the branching.
+
+\begin{litcode}[texonly]{branch filter function sketch}
+class Model : public Space {
+protected:
+  IntVarArray x;
+public:
+  Model(void) : ... {
+    \begin{litblock}{anonymous}
+    \end{litblock}
+    \begin{litblock}{post branching}
+    VarBranchOptions o(&filter);
+    branch(home, x, ..., ..., o);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  \end{litblock}
+  \begin{litblock}{define filter function}
+  static bool filter(const Space& home, int i, const Var& y) {
+    return static_cast<const IntVar&>(y).size() >= 4;
+  }
+  \end{litblock}
+};
+\end{litcode}
+
+\begin{figure}
+\insertlitcode{branch filter function sketch}
+\caption{Model sketch for branch filter function}
+\label{fig:m:search:branch:filter:sketch}
+\end{figure}
+
+Assume, for example, that we want to branch only on variables from
+a variable array \?x? for branching with a domain size of at
+least \?4?. Consider the sketch of a model shown in
+\autoref{fig:m:search:branch:filter:sketch}. 
+
+The branch filter function can be defined as a static member
+function of the class \?Model? as follows:
+\insertlitcode{branch filter function sketch:define filter function}
+Note that the variable \?y? must first be cast to the variable
+type used for branching (\gecoderef[class]{IntVar} in our case).
+
+Specifying that the branching should use the filter function is done
+as follows:
+\insertlitcode{branch filter function sketch:post branching}
+
+One could also use the member \?bf? of a variable branch option
+to set a branch filter function:
+\begin{code}
+VarBranchOptions o;
+o.bf = &filter;
+branch(home, x, ..., ..., o);
+\end{code}
+
+In many cases it can be more convenient to perform the actual
+filtering in a \?const? member function, say \?filter()?, that
+has access to all members of the script \?Model?. Then, the
+\?filter()? member function can be called by some other static
+member function:
+\begin{code}
+bool filter(int i, const IntVar& y) const {
+  ...
+}
+static bool trampoline(const Space& home, int i, const Var& y) {
+  return static_cast<const Model&>(home)
+           .filter(i,static_cast<const IntVar&>(y));
+}
+\end{code}
+where the function \?trampoline()? now serves as branch filter
+function. 
+
+\paragraph{Branch filter functions and tie-breaking.}
+
+Tie-breaking requires that several objects of class
+\gecoderef[class]{VarBranchOptions} are combined via the
+\?tiebreak()? function (see
+\autoref{sec:m:search:branch:tie}). However, the branch filter
+function (if defined) is always taken from the first object. That
+is, when defining option objects by
+\begin{code}
+VarBranchOptions o1(&f1), o2(&f2);
+\end{code}
+and passing them by
+\begin{code}
+branch(home, x, tiebreak(..., ...), ...,
+                tiebreak(o1,o2));
+\end{code}
+the branch filter function \?f1()? is used.
+
+
+\subsection{Assigning integer and set variables}
+\label{sec:m:search:branch:assign}
+
+A special variant of branching is \emph{assigning} variables: for
+a not yet assigned variable the branching creates a single
+alternative which assigns the variable a value. The effect of
+assigning is that assignment is interleaved with constraint
+propagation. That is, after an assignment has been done, the next
+assignment will be done only after the effect of the previous
+assignment has been propagated.
+
+\begin{figure}
+\begin{center}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?INT_ASSIGN_MIN? & smallest value\\
+\?INT_ASSIGN_MED? & median value (rounding downwards)\\
+\?INT_ASSIGN_MAX? & maximum value\\
+\?INT_ASSIGN_RND? & random value\\
+\end{tabular}}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?SET_ASSIGN_MIN_INC? & include smallest element\\
+\?SET_ASSIGN_MIN_EXC? & exclude smallest element\\
+\?SET_ASSIGN_MED_INC? & include median element (rounding downwards)\\
+\?SET_ASSIGN_MED_EXC? & exclude median element (rounding downwards)\\
+\?SET_ASSIGN_MAX_INC? & include largest element\\
+\?SET_ASSIGN_MAX_EXC? & exclude largest element\\
+\?SET_ASSIGN_RND_INC? & include random element\\
+\?SET_ASSIGN_RND_EXC? & exclude random element\\
+\end{tabular}}
+
+\end{center}
+\caption{Value selection for assigning variables}
+\label{fig:m:search:assign}
+\end{figure}
+
+For example, the next code fragment assigns all integer variables
+in \?x?  their smallest possible value:
+\begin{code}
+assign(home, x, INT_ASSIGN_MIN);
+\end{code}
+The strategy to select the value to be assigned is defined by a
+value of type \?IntAssign?  (see
+\gecoderef[group]{TaskModelIntAssign}) for integer and Boolean
+variables and by a value of type \?SetAssign?  (see
+\gecoderef[group]{TaskModelSetAssign}).
+\autoref{fig:m:search:assign} summarizes the value selection
+strategies for assigning integer, Boolean, and set variables.
+
+Assignments also support random value selection and hence also
+accept an optional argument of type
+\gecoderef[class]{ValBranchOptions}.
+
+\subsection{Branching on and assigning single variables}
+\label{sec:m:search:single}
+
+In addition to branching on an array of variables or assigning an
+array of variables, Gecode also supports branching on and
+assigning a single variable.
+
+For example, if \?x? is an integer variable of type \?IntVar?,
+then
+\begin{code}
+branch(home, x, INT_VAL_MIN);
+\end{code}
+branches on the single variable \?x? by first trying the smallest
+value of \?x?.
+
+Assume that \?x? is an array of integer variables. Then the
+following code
+\begin{code}
+for (int i=0; i<x.size(); i++)
+  branch(home, x[i], INT_VAL_MIN);
+\end{code}
+is equivalent, albeit considerably less efficient, to
+\begin{code}
+branch(home, x, INT_VAR_NONE, INT_VAL_MIN);
+\end{code}
+
+\subsection{Executing code between branchers}
+\label{sec:m:search:branch:code}
+
+\begin{litcode}[texonly]{exec}
+class Model : public Space {
+public:
+  Model(void) : ... {
+    \begin{litblock}{anonymous}
+    \end{litblock}
+    \begin{litblock}{post branchings}
+    branch(home, x, INT_VAR_NONE, INT_VAL_MIN);
+    branch(home, &Model::post);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  \end{litblock}
+  \begin{litblock}{define functions}
+  void more(void) {
+    ...
+  }
+  static void post(Space& home) {
+    static_cast<Model&>(home).more();
+  }
+  \end{litblock}
+};
+\end{litcode}
+
+A common scenario is to post some constraints only after part of
+the branching has been executed. This is supported in Gecode by a
+brancher (see \gecoderef[group]{TaskModelBranchExec}) that
+executes a function (either a function or a static member
+function but not a member function). Suppose the following code
+fragment defining a model \?Model?:
+\insertlitcode[direct]{exec} 
+where the constructor posts two branchers 
+\insertlitcode{exec:post branchings}
+The second branching takes a function pointer to the static
+member function \?Model::post? which is defined as
+\insertlitcode{exec:define functions}
+
+As soon as the first branching is finished, the second branching
+is executed. This branching provides just a single alternative
+that calls the function \?Model::post? with the current space as
+its argument. Then, the function casts the \?home? to \?Model&?
+and calls \?more? on \?home?. While one could post the additional
+constraints and/or branchings in \?Model::post? directly, the
+member function \?Model::more? is more convenient to use.
+
+\tip{Propagation is still explicit}{%
+  It is tempting to believe that the variables in \?x? in the
+  above example are all assigned when \?more()?  is executed.
+  This is not necessarily true.
+
+It will be true for the first time \?more()? is executed. But
+\?more()? will be executed possibly quite often during
+recomputation (see the following Section). And then, the only
+guarantee one can rely on is that the brancher has created
+enough alternatives to guarantee that the variables in \?x? are
+assigned \emph{but only after constraint propagation has been
+  performed} (see \autoref{tip:m:started:status}).  
+}
+
+\section{Hybrid recomputation}
+\label{sec:m:search:re}
+
+A central requirement for search is that it can return to
+previous states: as spaces constitute nodes of the search tree, a
+previous state is nothing but a space. Returning to a previous
+space might be necessary because an alternative suggested by a
+branching did not lead to a solution, or even if a solution has
+been found more solutions might be requested.  As propagation and
+branching change spaces, provisions must be taken that search can
+actually return to a previous space, or an equivalent version of
+that space.
+
+Two space are \emph{equivalent} if propagation and branching and
+hence search behaves exactly the same on both spaces. Equivalent
+spaces can be different, for example, they contain different yet
+equivalent propagators, or are allocated at a different memory
+area.
+
+Gecode employs a hybrid of two techniques for restoring spaces:
+\emph{recomputation} and \emph{cloning}.  
+
+If you want to know how search engines can be programmed in
+Gecode, please consult \autoref{part:s}.
+
+\subsection{Cloning}
+
+Cloning creates a clone of a space (this is supported by the
+virtual \?copy?  member function as discussed in
+\autoref{chap:m:started}). A clone and the original space are of
+course equivalent. Restoration with cloning is straightforward:
+before following a particular alternative during search, a clone
+of the space is made and used later if necessary.
+
+\subsection{Recomputation}
+\label{sec:m:search:recomp}
+
+Recomputation remembers what has happened during branching:
+rather than storing an entire clone of a space just enough
+information to redo the effect of a brancher is stored. The
+information stored is called a \emph{choice} in
+Gecode.  Redoing the effect is called to \emph{commit} a space:
+given a space and a choice committing reexecutes
+the brancher as described by the choice and the
+alternative to be explored (for example, left or right).
+
+Consider the following part of a model, which constrains both
+the sum and the product of \?x[0]? and \?x[1]? to be equal to
+\?x[2]?:
+\begin{code}
+IntVarArray x(home, 3, 1, 6);
+rel(home, x[0] + x[1] == x[2]);
+mult(home, x[0], x[1], x[2]);
+branch(home, x, INT_VAR_NONE, INT_VAL_MIN);
+\end{code}
+
+\begin{figure}
+\newcommand{\domINC}[2]{\{\mathtt{#1},\ldots,\mathtt{#2}\}}
+\begin{center}
+\begin{tabular}{c@{\qquad\qquad}c}
+\begin{tabular}[c]{c}
+\psset{xunit=0.04,yunit=0.04,runit=0.04}
+\begin{pspicture}(96,152)(0,30)
+\DefineNode{32}{143}{n1u}
+\DefineNode{32}{133}{n1c}
+ \DefineNode{48}{105}{n12u}
+ \DefineNode{48}{95}{n12c}
+  \DefineNode{64}{67}{n122u}
+  \DefineNode{64}{57}{n122c}
+   \DefineNode{80}{27}{n1222u}
+   \DefineNode{80}{19}{n1222c}
+   \DefineLink{n122c}{n1222u}
+   \HiddenLinkL{n122c}{n1222c}{\footnotesize\quad$\mathtt{x[0]} \neq \mathtt 3$}
+   \DefineNode{48}{27}{n1221u}
+   \DefineNode{48}{19}{n1221c}
+   \DefineLink{n122c}{n1221u}
+   \HiddenLinkR{n122c}{n1221c}{\footnotesize$\mathtt{x[0]} = \mathtt 3$\quad}
+  \DefineLink{n12c}{n122u}
+  \HiddenLinkL{n12c}{n122c}{\footnotesize\quad$\mathtt{x[0]} \neq \mathtt 2$}
+  \DefineNode{32}{67}{n121u}
+  \DefineNode{32}{57}{n121c}
+  \DefineLink{n12c}{n121u}
+  \HiddenLinkR{n12c}{n121c}{\footnotesize$\mathtt{x[0]} = \mathtt 2$\quad}
+ \DefineLink{n1c}{n12u}
+ \HiddenLinkL{n1c}{n12c}{\footnotesize\quad$\mathtt{x[0]} \neq \mathtt 1$}
+ \DefineNode{16}{103}{n11u}
+ \DefineNode{16}{95}{n11c}
+ \DefineLink{n1c}{n11u}
+ \HiddenLinkR{n1c}{n11c}{\footnotesize$\mathtt{x[0]} = \mathtt 1$\quad}
+\ChoiceNodeI{32}{133}{1}
+ \ChoiceNodeI{48}{95}{3}
+  \ChoiceNodeI{64}{57}{5}
+   \FailedNodeI{80}{19}{7}
+   \FailedNodeI{48}{19}{6}
+  \SolvedNodeI{32}{57}{4}
+ \FailedNodeI{16}{95}{2}
+\end{pspicture}
+\end{tabular}
+&
+\begin{tabular}[c]{|c||c|c|c|}
+\hline
+\textbf{node} & $\mathtt{x[0]}$ & $\mathtt{x[1]}$ & $\mathtt{x[2]}$ 
+\\\hline\hline
+1 & $\domINC{1}{5}$ & $\domINC{1}{5}$ & $\domINC{2}{6}$ 
+\\\hline
+3 & $\domINC{2}{5}$ & $\domINC{1}{3}$ & $\domINC{3}{6}$
+\\\hline
+4 & $\mathtt 2$             & $\mathtt 2$             & $\mathtt 4$
+\\\hline
+5 & $\domINC{3}{5}$ & $\domINC{1}{2}$ & $\domINC{4}{6}$
+\\\hline
+\end{tabular}
+\end{tabular}
+\end{center}
+
+\caption{Example search tree}
+\label{fig:m:search:tree}
+\end{figure}
+
+The corresponding search tree is shown in
+\autoref{fig:m:search:tree}. A red box corresponds to a failed
+node, a green diamond to a solution, and a blue circle to a
+choice node (a node that has a not-yet finished brancher left).
+An example choice for node~3 is
+$\left(\mathtt{x[0]} = \mathtt 2\right) \vee \left(\mathtt{x[0]}
+  \neq \mathtt 2\right)$ where the left alternative (or the
+$0$-th alternative) is $\mathtt{x[0]} = \mathtt 2$ and the right
+alternative ($1$-st alternative) is $\mathtt{x[0]} \neq \mathtt
+2$.  Committing a space for node~3 to the $1$-st alternative
+posts the constraint $\mathtt{x[0]} \neq \mathtt 2$.
+     
+More precisely, a choice does not store the actual
+variables but the position among the variables of the brancher
+(storing \?0? rather than \?x[0]?). By that, a choice can be used with an equivalent yet different space.
+This is essential as the space used during recomputation will be
+different from the space for which the choice has
+been created.
+
+\tip{Search is indeterministic}{
+\label{tip:m:search:wmp}%
+Gecode has been carefully designed to support non-monotonic
+propagators: they are essential for example for randomized or
+approximation propagation algorithms. A propagator in Gecode must
+be \emph{weakly} monotonic: essentially, a propagator must be
+correct but it does not need to always prune exactly the same
+way. A consequence of this is that search is indeterministic: it
+might be that two different searches find solutions in a
+different order (possibly returning a different first solution)
+or that the number of explored nodes is different. However,
+search is always sound and complete: it never misses any
+solution, it does not duplicate solutions, nor does it report
+non-solutions as solutions.
+
+If you want to know more about weakly monotonic propagators and
+their interaction with search, we recommend to
+consult~\cite{SchulteTack:CP:2009}.
+}
+
+\subsection{Hybrid recomputation}
+
+The hybrid of recomputation and cloning works as follows. For
+each new choice node, a choice is stored. Then,
+every now and then search also stores a clone of a space (say,
+every eight steps). Now, restoring a space at a certain position
+in the search tree traverses the path in the tree upwards until a
+clone $c$ is found on the path. Then recomputation creates a
+clone $c'$ of $c$ (in certain cases, recomputation might use $c$
+directly as an optimization). Then all choices on
+the path are committed on $c'$ yielding an equivalent space.
+
+\begin{figure}
+\begin{center}
+\psset{xunit=0.04,yunit=0.04,runit=0.04}
+\begin{pspicture}(240,152)
+\DefineNode{64}{143}{n1u}
+\DefineNode{64}{133}{n1c}
+\DefineNode{48}{105}{n2u}
+\DefineNode{48}{95}{n2c}
+\DefineNode{32}{67}{n3u}
+\DefineNode{32}{57}{n3c}
+\DefineNode{16}{27}{n4u}
+\DefineNode{16}{19}{n4c}
+\DefineNode{48}{27}{n5u}
+\DefineNode{48}{19}{n5c}
+\DefineLink{n1c}{n2u}
+\DefineLink{n2c}{n3u}
+\DefineLink{n3c}{n4u}
+\DefineFatLink{n3c}{n5u}
+   \ChoiceNodeI{64}{133}{1}
+  \UChoiceNodeI{48}{95}{2}
+ \UChoiceNodeI{32}{57}{3}
+\FailedNodeI{16}{19}{4}
+\GuessNode{48}{19}
+\DefineNode{120}{133}{t1}
+\DefineNode{120}{95}{t2}
+\DefineNode{120}{57}{t3}
+\DefineNode{120}{19}{t4}
+\rput(120,133){\makebox(0,0)[l]{space $\mathtt c$ and choice
+    $\mathtt{ch1}$}}
+\rput(120,95){\makebox(0,0)[l]{choice $\mathtt{ch2}$}}
+\rput(120,57){\makebox(0,0)[l]{choice $\mathtt{ch3}$}}
+\ncline[nodesep=15]{->}{t1}{n1c}
+\ncline[nodesep=15]{->}{t2}{n2c}
+\ncline[nodesep=15]{->}{t3}{n3c}
+\end{pspicture}
+\end{center}
+
+\caption{Hybrid recomputation}
+\label{fig:m:search:hybrid}
+\end{figure}
+
+To recompute the node \texttt{?} for the example shown in
+\autoref{fig:m:search:hybrid}, the following operations are
+executed:
+\begin{code}
+Space* s = c->clone();
+s->commit(ch1, 0);
+s->commit(ch2, 0);
+s->commit(ch3, 1);
+\end{code}
+
+\subsection{Why recomputation is almost for free}
+
+An absolutely fundamental property of the above hybrid is that an
+equivalent space is computed without performing any constraint
+propagation! Remember: committing just reposts constraints but
+does not perform constraint propagation.
+
+Reconsider the example from \autoref{fig:m:search:hybrid}.
+Search has just failed at node~4 and must compute a space for
+node \texttt{?}.
+
+Suppose that only cloning but no recomputation is used. Then, a
+clone of the space for node~3 is created (from the clone that is
+stored in node~3) and that clone is committed to the first
+alternative of $\mathtt{d3}$ (this corresponds to the slightly
+thicker edge in \autoref{fig:m:search:hybrid}).  After that,
+constraint propagation is performed (by executing the \?status()?
+function of a space, see also \autoref{tip:m:started:status}) to
+find out if and how search must continue. That is: there is one
+\?clone?  operation, one \?commit? operation, and one \?status?
+operation to perform constraint propagation.
+
+With hybrid recomputation, one \?clone? operation, three
+\?commit? operations, and one \?status? operation to perform
+constraint propagation are needed (as shown above). The good news
+is that \?commit? operations are very cheap (most often, just
+modifying a single variable or posting a constraint). What is
+essential is that in both cases only a \emph{single} \?status?
+operation is executed. Hence, the cost for constraint propagation
+during hybrid recomputation turns out to be not much higher than
+the cost without recomputation.
+
+For hybrid recomputation, some additional propagation might have
+to be done compared to cloning. As it turns out, the additional
+cost is rather small. This is due to the fact that constraint
+propagation executes all propagators that might be able to remove
+values for variables until no more propagation is possible (a
+fixpoint for the propagators is computed). Due to the
+approximative nature of ``might be able to remove values'' the
+additional propagation tends to show only a very small increase
+in runtime.
+
+
+\subsection{Adaptive recomputation}
+
+Consider the case that a search engine finds a failed node. That
+means that some brancher has made an erroneous decision and now
+search has to recover from that decision. It is quite likely that
+not only the last decision is wrong but that the decision that
+lead to failure is somewhere higher up in the search tree. With
+other words, it is quite likely that search following a
+depth-first left-most strategy must explore an entire failed
+subtree to recover from the erroneous decision.  In that case it
+would be better for hybrid recomputation if there was a clone
+close to the failed node rather than far away.
+
+To optimize recomputation in this example scenario, Gecode uses
+\emph{adaptive recomputation}: if a node must be recomputed,
+adaptive recomputation creates an additional clone in the middle
+of the recomputation path. A clone created during adaptive
+recomputation is likely to be a good investment.  Most likely, an
+entire failed subtree will be explored. Hence, the clone will be
+reused several times for reducing the amount of constraint
+propagation during recomputation.
+
+More information about search based on recomputation (although
+not using choices) can be found in~\cite{Schulte:LNAI:2002}.
+Search using choices has been inspired by batch
+recomputation~\cite{components} and decomposition-based
+search~\cite{DecoSearch}. For an empirical evaluation of
+different techniques for search,
+see~\cite{ReischukSchulteEa:CP:2009}. 
+
+\subsection{Controlling recomputation}
+
+Hybrid and adaptive recomputation can be easily controlled by two
+integers $c_d$ (\emph{commit distance})
+and $a_d$ (\emph{adaptive distance}).  The value for $c_d$ controls how
+many clones are created during exploration: a search engine
+creates clones during exploration to ensure that recomputation
+executes at most $c_d$ commit operations. The value for $a_d$
+controls adaptive recomputation: only if the clone for
+recomputation is more than $a_d$ commit operations away from the
+node to be recomputed, adaptive recomputation is used. 
+
+Values for $c_d$ and $a_d$ are used to configure the behavior of
+search engines using hybrid and adaptive recomputation, see more
+in the next Section.
+
+The number of commit operations as distance measure is
+approximately the same as the length of a path in the search
+tree. It is only an approximation as search engines use
+additional techniques to avoid some unused clone and commit
+operations.
+
+\tip{Values for $c_d$ and $a_d$}{ 
+  If $c_d=1$, recomputation is never used (you might not want
+  to try that for any other reason but curiosity; it takes too
+  much memory to be useful). Likewise, to switch off cloning, you
+  can use a value for $c_d$ that is larger than the expected
+  depth of the search tree. If $a_d\geq c_d$, adaptive
+  recomputation is never used.
+}
+
+
+\section{Parallel search}
+\label{sec:m:search:parallel}
+
+Parallel search has but one motivation: try to make search more
+efficient by employing several threads (or workers) to explore
+different parts of the search tree in parallel.
+
+Gecode uses a standard work-stealing architecture for parallel
+search: initially, all work (the entire search tree to be
+explored) is given to a single worker for exploration, making the
+worker busy. All other workers are initially idle, and try to
+steal work from a busy worker.  Stealing work means that part of
+the search tree is given from a busy worker to an idle worker
+such that the idle worker can become busy itself. If a busy
+worker becomes idle, it tries to steal new work from a busy
+worker.
+
+As work-stealing is indeterministic (depending on how threads are
+scheduled, machine load, and other factors), the work that is
+stolen varies over different runs for the very same problem: an
+idle worker could potentially steal different subtrees from
+different busy workers. As different subtrees contain different
+solutions, it is indeterministic which solution is found first.
+
+When using parallel search one needs to take the following facts
+into account (note that some facts are not particular to
+parallel search, check \autoref{tip:m:search:wmp}: they are just
+more likely to occur):
+\begin{itemize}
+\item The order in which solutions are found might be different
+  compared to the order in which sequential search finds
+  solutions. Likewise, the order in which solutions are found
+  might differ from one parallel search to the next. This is just
+  a direct consequence of the indeterministic nature of parallel
+  search.
+\item Naturally, the amount of search needed to find a first
+  solution might differ both from sequential search and among
+  different parallel searches. Note that this might actually lead
+  to super-linear speedup (for $n$ workers, the time to find a
+  first solution is less than $1/n$ the time of sequential
+  search) or also to real slowdown.
+\item For best solution search, the number of solutions until a
+  best solution is found as well as the solutions found are
+  indeterministic. First, any better solution is legal (it does
+  not matter which one) and different runs will sometimes be
+  lucky (or not so lucky) to find a good solution rather quickly.
+  Second, as a better solution prunes the remaining search space
+  the size of the search space depends crucially on how quickly
+  good solutions are found.
+\item As a corollary to the above items, the deviation in runtime
+  and number of nodes explored for parallel search can be quite
+  high for different runs of the same problem.
+\item Parallel search needs more memory. As a rule of thumb, the
+  amount of memory needed scales linearly with the number of
+  workers used.
+\item For parallel search to deliver some speedup, the search
+  tree must be sufficiently large. Otherwise, not all threads
+  might be able to find work and idle threads might slow down
+  busy threads by the overhead of unsuccesful work-stealing.
+\item From all the facts listed, it should be clear that for
+  depth-first left-most search for just a single solution it is
+  notoriously difficult to obtain consistent speedup. If the
+  heuristic is very good (there are almost no failures), sequential
+  left-most depth-first search is optimal in exploring the single
+  path to the first solution. Hence, all additional work will be
+  wasted and the work-stealing overhead might slow down the
+  otherwise optimal search.
+\end{itemize}
+
+\tip{Be optimistic about parallel search}{%
+  After reading the above list of facts you might have come to
+  the conclusion that parallel search is not worth it as it does
+  not exploit the parallelism of your computer very well. Well,
+  why not turn the argument upside down: your machine will almost
+  for sure have more than a single processing unit and maybe
+  quite some. With sequential search, all units but one will be
+  idle anyway.
+  
+  The point of parallel search is to make search go faster.  It
+  is not to perfectly utilize your parallel hardware.  Parallel
+  search makes good use (and very often excellent use for large
+  problems with large search trees) of the additional processing
+  power your computer has anyway.
+
+\begin{figure}
+\begin{cmd}
+GolombRuler
+        m[12] = {0, 1, 3, 7, 12, 20, 30, 44, 65, 80, 96, 122}
+        ... (additional solutions omitted)
+        m[12] = {0, 2, 6, 24, 29, 40, 43, 55, 68, 75, 76, 85}
+
+Initial
+        propagators: 67
+        branchers:   1
+
+Summary
+        runtime:      15.349 (15349.000000 ms)
+        solutions:    17
+        propagations: 584967706
+        nodes:        3708507
+        failures:     1854221
+        peak depth:   52
+        peak memory:  1636 KB
+\end{cmd}
+\caption{Output for golomb rulers with eight workers}
+\label{fig:m:search:out:8}
+\end{figure}
+
+
+
+  For example, on my machine with eight cores and using Gecode 3.4.0, running
+  \gecoderef[example]{golomb-ruler} for size $12$ as follows
+\begin{cmd}
+golomb-ruler.exe -threads 8 12
+\end{cmd}
+  prints something like shown in \autoref{fig:m:search:out:8}.
+
+\begin{figure}
+\begin{cmd}
+GolombRuler
+        m[12] = {0, 1, 3, 7, 12, 20, 30, 44, 65, 80, 96, 122}
+        ... (additional solutions omitted)
+        m[12] = {0, 2, 6, 24, 29, 40, 43, 55, 68, 75, 76, 85}
+
+Initial
+        propagators: 67
+        branchers:   1
+
+Summary
+        runtime:      1:52.336 (112336.000000 ms)
+        solutions:    16
+        propagations: 813022663
+        nodes:        5313357
+        failures:     2656663
+        peak depth:   57
+        peak memory:  262 KB
+\end{cmd}
+\caption{Output for golomb rulers with one worker}
+\label{fig:m:search:out:1}
+\end{figure}
+
+Compared to sequential search where one gets something like shown
+in \autoref{fig:m:search:out:1} one gets a speedup of $7.3$.  }
+
+Parallel search is controlled by the number of threads (or
+workers) used for search. If a single worker is requested,
+sequential search is used. The number of threads to be used for
+search is controlled by the search options passed to a search
+engine, see the following section for details.
+
+\tip{Do not optimize by branching alone}{%
+\label{tip:m:search:parbab}%
+\begin{samepage}
+  A common modeling technique for optimization problems that does
+  not work for parallel search is the following. Suppose, one has
+  a variable \?c? for the cost of a problem and one wants to
+  minimize the cost. Then, one could use the following code
+  fragment
+\begin{code}
+branch(home, c, INT_VAL_MIN);
+\end{code}
+which will try the values for \?c? in increasing order.
+\end{samepage}
+
+With sequential search, searching for the first solution with a
+standard depth-first left-most search engine will deliver a
+best solution, that is, a solution with least cost for \?c?.
+
+With parallel search, the first solution found might of course
+not be a best one. Hence, instead of using plain left-most
+depth-first search, one should use best solution search with a
+proper constrain function that guarantees that \?c? will be
+minimized. This will as always guarantee that the last solution
+found is the best.
+
+For an example, see the naive model for the bin packing case
+study in \autoref{sec:c:bpp:naive} where a branching first
+branches on the number of required bins.
+}
+
+
+
+\section{Search engines}
+\label{sec:m:search:simple}
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/search.hh>
+\end{code}
+to your program when you want to use search engines.
+\end{important}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{member} & 
+\multicolumn{1}{c|}{type} & 
+\multicolumn{1}{c|}{meaning} \\
+\hline\hline
+\?propagate? & \?unsigned long int? & propagators executed\\
+\hline
+\?fail? & \?unsigned long int? & failed nodes explored\\
+\?node? & \?unsigned long int? & nodes explored\\
+\hline
+\?depth? & \?unsigned long int? & maximal depth of explored tree\\
+\hline
+\?memory? & \?size_t? & peak memory allocated\\
+\hline
+\end{tabular}
+\end{center}
+\caption[Search statistics]{Search statistics (partial)}
+\label{fig:m:search:statistics}
+\end{figure}
+
+All search engines in Gecode are parametric (are templates) with
+respect to a subclass \?T? of \gecoderef[class]{Space} (for
+example, \?SendMoreMoney? in \autoref{sec:m:started:first}).
+Moreover, all search engines share the same interface:
+\begin{itemize}
+\item The search engine is initialized by a constructor taking a
+  pointer to an instance of the space subclass \?T? as argument.
+  By default, the search engine takes a clone of the space
+  passed. 
+  
+  This behavior can be changed, as can be other aspects of a
+  search engine, see \autoref{sec:m:search:options}.
+\item A next solution can be requested by a \?next()? member
+  function. If no more solutions exist, \?next()? returns
+  \?NULL?. Otherwise, the engine returns a solution which again
+  is an instance of \?T?. The client of the search engine is
+  responsible for deleting solutions.
+\item A search engine can be asked for statistics information by
+  the \?statistics()? member function. The function returns an
+  object of type \gecoderef[class]{Search::Statistics}. The
+  statistics information provided is partially summarized in
+  \autoref{fig:m:search:statistics}.
+\item A search engine can be queried by \?stopped()? whether the
+  search engine has been stopped by a \emph{stop object}. Stop
+  objects are discussed in \autoref{sec:m:search:stop}.
+\item The destructor deletes all resources used by the search
+  engine.
+\end{itemize}
+
+Note that search engines use pointers to objects rather than
+references to objects. The reason is that some pointers might be
+\?NULL?-pointers (for example, if \?next()? fails to find a
+solution) and that users of search engines have to think about
+deleting solutions computed by search engines.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|l|c|c|}
+\hline
+\multicolumn{1}{|c|}{engine} & 
+\multicolumn{1}{c|}{shortcut} & 
+\multicolumn{1}{c|}{exploration} & 
+best solution &
+parallel \\
+\hline\hline
+\?DFS? & \?dfs? & depth-first left-most & & \YES\\
+\hline
+\?BAB? & \?bab? & branch-and-bound & \YES & \YES\\
+\?Restart? & \?restart? & depth-first left-most restart & \YES& \YES\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Available search engines}
+\label{fig:m:search:engine}
+\end{figure}
+
+For each search engine there also exists a convenient shortcut
+function (of the same name but entirely in lowercase letters)
+that returns either the first solution or, in the case of best
+solution search, the last (and hence best) solution. The
+available search engines are summarized in
+\autoref{fig:m:search:engine}. 
+
+\?BAB? continues search when a solution is found by adding a
+constraint (through the \?constrain()? function as discussed in
+\autoref{sec:m:started:search-best}) to search for a better
+solution to all remaining nodes of the search tree. \?Restart?
+restarts the search after the constraint has been added to the
+root node of the search tree (again, by using the \?constrain()?
+function).
+
+
+
+\subsection{Search options}
+\label{sec:m:search:options}
+
+All search engines can take a default option value of type 
+\gecoderef[class]{Search::Options} when being created. The
+options are summarized in \autoref{fig:m:search:options}.
+The default values for the options are defined in the namespace
+\gecoderef[namespace]{Search::Config}. 
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{member} & 
+\multicolumn{1}{c|}{type} & 
+\multicolumn{1}{c|}{meaning} \\
+\hline\hline
+\?threads? & \?double? & number of parallel threads to use\\
+\hline
+\?c_d? & \?unsigned int? & commit recomputation distance\\
+\?a_d? & \?unsigned int? & adaptive recomputation distance\\
+\hline
+\?clone? & \?bool? & whether engine uses a clone when created\\
+\hline
+\?stop? & \?Search::Stop*? & stop object (\?NULL? if none)\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Search options}
+\label{fig:m:search:options}
+\end{figure}
+
+The meaning of the values for the search options are
+straightforward but for \?threads?. Assume that your computer has
+$m$ processing units\footnote{This is a very rough
+  characterization: a processing unit could be a CPU, a processor
+  core, or a multi-threading unit. If you want to find out how
+  many processing units Gecode believes your machine has, invoke
+  the configuration summary as described in
+  \autoref{tip:m:comfy:conf}.} and that the value for \?threads? is
+$n$.
+\begin{itemize}
+\item If $n=0$, then $m$ threads are used (as many as available
+  processing units).
+\item If $n\geq 1$, then $n$ threads are used (absolute number
+  of threads to be used).
+\item If $n\leq -1$, then $m+n$ threads are used (absolute
+  number of processing units not to be used). For example, when
+  $n=-6$ and $m=8$, then $2$ threads are used.
+\item If $0<n<1$, then $n\cdot m$ threads are used (relative
+  number of processing units to be used). For example, when
+  $n=0.5$ and $m=8$, then $4$ threads are used.
+\item If $-1<n<0$, then $(1+n)\cdot m$ threads are used
+  (relative number of processing units not to be used). For
+  example, when $n=-0.25$ and $m=8$, then $6$ threads are used.
+\end{itemize}
+Note that all values are of course rounded and that at least one
+thread will be used.
+
+
+\subsection{Stop objects}
+\label{sec:m:search:stop}
+
+A stop object (a subclass of \gecoderef[class]{Search::Stop})
+implements a single virtual member function \?stop()? that takes
+two arguments, the first of type
+\gecoderef[class]{Search::Statistics} and the second of type
+\gecoderef[class]{Search::Options},
+and returns either \?true?  or \?false?. If a stop object is passed
+to a search engine (by passing it as \?stop? member of a search
+option), the search engine calls the \?stop()? function of the
+stop object before every exploration step and passes the current
+statistics as argument.  If the \?stop()? function returns true,
+the search engine stops its execution.
+
+When a search engine is stopped its \?next()? function returns
+\?NULL? as solution. To find out whether a search engine has been
+stopped or whether there are no more solutions, the \?stopped()?
+member function of a search engine can be used. Search can be
+resumed by calling \?next()? again after the stop object has been
+modified (for example, by increasing the node or time limit).
+
+Note that when using several threads for parallel search, each
+thread checks whether it is stopped independently using the very
+same stop object. If one thread is stopped, then the entire
+search engine is stopped. 
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{class} & 
+\multicolumn{1}{c|}{description} \\
+\hline\hline
+\gecoderef[class]{Search::MemoryStop} & memory limit exceeded\\
+\hline
+\gecoderef[class]{Search::NodeStop} & node limit exceeded\\
+\hline
+\gecoderef[class]{Search::FailStop} & failure limit exceeded\\
+\hline
+\gecoderef[class]{Search::TimeStop} & time limit exceeded\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Predefined stop objects}
+\label{fig:m:search:stop}
+\end{figure}
+
+
+Gecode provides several predefined stop objects, see
+\gecoderef[group]{TaskModelSearchStop}. For an overview see
+\autoref{fig:m:search:stop}.
+
+
+\tip{Number of threads for stop objects}{%
+As mentioned above, each thread in parallel search uses the very same
+stop object. For example, when using the predefined
+\gecoderef[class]{Search::NodeStop} stop object with a node limit
+of $n$, then each thread can explore up to $n$ nodes.
+
+If you want to have finer control (say, only allow each thread to
+explore up to $n/m$ nodes where  $m$ is the number of threads)
+you can use the search option argument that is passed as the
+second argument to the \?stop? member function to scale the node
+limit according to the number of available threads.
+}
+
+

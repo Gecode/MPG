@@ -1,0 +1,39 @@
+Crossword
+	viner*abac*labia*alban*
+	elide*bach*abaft*seaoak
+	eighteenmo*massaranduba
+	nae**makepeace*band*dop
+	adlitem**casa*capa*babu
+	***das*kahn**dal**hadst
+	babar*paco*agar*dial***
+	amah*julep*baba*endarch
+	ebro*abed*flo*phage*aha
+	lob*ines*leal*nada*dday
+	**aegis*fact*aula*chard
+	middlec*ickiest*saharan
+	adieu*ebbs*tais*araks**
+	gean*gnar*mica*adam*cam
+	man*cacao*ooh*blob*bora
+	assuage*masu*lauda*apay
+	***eras*aces*lalo*ameba
+	abaya**ate**fala*abb***
+	dabs*gala*naan**braided
+	ala*helm*sedgewren**ire
+	mitteleuropa*laudations
+	snowed*gulag*lala*antes
+	*grads*scale*iced*ukase
+
+
+
+Initial
+	propagators: 880
+	branchers:   1
+
+Summary
+	runtime:      4.060 (4060.000000 ms)
+	solutions:    1
+	propagations: 41530
+	nodes:        380
+	failures:     83
+	peak depth:   224
+	peak memory:  120912 KB

@@ -1,0 +1,39 @@
+Crossword
+	rabanna*stasima*amtrack
+	euouaes*triadic*byreman
+	artform*airiest*bricole
+	lah*skoals*casimere*sos
+	ilia*adnate*swoosh*sirs
+	slept*engels*ones*satie
+	mystique*syker*deselect
+	***eras*estella*saam***
+	tetrad*aperiodic*bhopal
+	apsidiole*ani*rationale
+	pique*glial*nailing*rag
+	scum*churl***inkle*lame
+	tea*gharial*dated*cozen
+	enrheumed*use*arachnoid
+	reebok*dabchicks*zigans
+	***odal*earache*yale***
+	chimeras*semee*aardvark
+	hobbs*rami*arrack*eager
+	ares*ackack*sobeit*lima
+	par*gneissic*kurtas*tit
+	etiolin*alnager*oxidase
+	siamese*daddies*relater
+	sonsier*against*isopods
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      59.090 (59090.000000 ms)
+	solutions:    1
+	propagations: 454417
+	nodes:        2804
+	failures:     1351
+	peak depth:   142
+	peak memory:  215945 KB

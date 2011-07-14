@@ -1,0 +1,37 @@
+Crossword
+	caesar*abomasa*ablest
+	abrade*minicam*bailee
+	baobab*artdeco*eadish
+	act*remblai*regal*ate
+	laic*cheep*babar*knee
+	ascot*old*salad*basts
+	***oaf***bab***ban***
+	bauera*challah*alnage
+	landor*aureate*asanas
+	arc*caprid*hare*adams
+	gore*debt***laer*albe
+	unapt*ciao*sauria*oon
+	either*dibutyl*alegge
+	scerne*entreat*lapses
+	***aid***add***spa***
+	aasia*belie*rad*acock
+	naam*milan*serac*thae
+	ary*caboc*ichabod*die
+	thetas*hulsean*bedell
+	tushes*inulase*resale
+	astone*maratha*adored
+
+
+
+Initial
+	propagators: 741
+	branchers:   1
+
+Summary
+	runtime:      4.010 (4010.000000 ms)
+	solutions:    1
+	propagations: 31242
+	nodes:        266
+	failures:     60
+	peak depth:   165
+	peak memory:  118506 KB

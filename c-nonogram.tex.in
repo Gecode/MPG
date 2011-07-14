@@ -1,0 +1,276 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Nonogram}
+\label{chap:c:nonogram}
+
+%% FILES: CHAPTERONLY
+
+This chapter shows how to use regular expressions and extensional
+constraints for solving nonogram puzzles.
+
+\section{Problem}
+
+Nonograms (\CSPLIB{12}) are popular puzzles in which the puzzler
+shades squares in a matrix. Each instance of the puzzle has
+constraints on the rows and columns of the matrix, specifying the
+number and length of the groups of consecutive marks in that row
+or column.  For example, a row that in the solution has the marks
+$$
+\square\square\blacksquare\blacksquare\square\square\blacksquare\blacksquare\blacksquare\square\blacksquare\square\square\square
+$$
+has the \emph{hint} \verb+2 3 1+, indicating that there are three
+separate groups of marks, with lengths 2, 3, and 1. Given two groups of
+marks, there must be at least one empty square in between. An example
+nonogram is given in \autoref{fig:c:nonogram:ex} and its solution is
+shown in \autoref{fig:c:nonogram:ex-sol}. The general nonogram problem
+is NP-complete, as shown in \cite{Ueda:1996}.
+
+\begin{figure}
+  \renewcommand{\arraystretch}{1.3}%
+  \centering
+    \begin{tabular}{ccc|c|c|c|c|c|c|c|c|c|}
+        &   &   &   & 2 & 2 & 2 & 2 & 2 & 2 & 2 &   \\
+        &   &   & 3 & 3 & 2 & 2 & 2 & 2 & 2 & 3 & 3 \\ \hline
+        & 2 & 2 & $\phantom{\blacksquare}$  &   &   &   &   &   &   &   &   \\ \hline
+        & 4 & 4 &   & $\phantom{\blacksquare}$  &   &   &   &   &   &   &   \\ \hline
+      1 & 3 & 1 &   &   & $\phantom{\blacksquare}$  &   &   &   &   &   &   \\ \hline
+      2 & 1 & 2 &   &   &   & $\phantom{\blacksquare}$  &   &   &   &   &   \\ \hline
+        & 1 & 1 &   &   &   &   & $\phantom{\blacksquare}$  &   &   &   &   \\ \hline
+        & 2 & 2 &   &   &   &   &   & $\phantom{\blacksquare}$  &   &   &   \\ \hline
+        & 2 & 2 &   &   &   &   &   &   & $\phantom{\blacksquare}$  &   &   \\ \hline
+        &   & 3 &   &   &   &   &   &   &   & $\phantom{\blacksquare}$  &   \\ \hline
+        &   & 1 &   &   &   &   &   &   &   &   & $\phantom{\blacksquare}$  \\ \hline
+    \end{tabular}
+  \caption{Example nonogram puzzle}
+  \label{fig:c:nonogram:ex}
+\end{figure}
+
+\begin{figure}
+  \renewcommand{\arraystretch}{1.3}%
+  \centering
+    \begin{tabular}{ccc|c|c|c|c|c|c|c|c|c|}
+        &   &   &   & 2 & 2 & 2 & 2 & 2 & 2 & 2 &   \\
+        &   &   & 3 & 3 & 2 & 2 & 2 & 2 & 2 & 3 & 3 \\ \hline
+        & 2 & 2 &   & $\blacksquare$  & $\blacksquare$  &   &   &   & $\blacksquare$  &  $\blacksquare$ &   \\ \hline
+        & 4 & 4 & $\blacksquare$  & $\blacksquare$  & $\blacksquare$  &  $\blacksquare$ &   & $\blacksquare$  &  $\blacksquare$ & $\blacksquare$  & $\blacksquare$  \\ \hline
+      1 & 3 & 1 & $\blacksquare$  &   &   & $\blacksquare$  & $\blacksquare$  & $\blacksquare$  &   &   &  $\blacksquare$ \\ \hline
+      2 & 1 & 2 & $\blacksquare$  & $\blacksquare$  &   &   &  $\blacksquare$ &   &   & $\blacksquare$  &  $\blacksquare$ \\ \hline
+        & 1 & 1 &   &  $\blacksquare$ &   &   &   &   &   & $\blacksquare$  &   \\ \hline
+        & 2 & 2 &   & $\blacksquare$  & $\blacksquare$  &   &   &   & $\blacksquare$  &  $\blacksquare$ &   \\ \hline
+        & 2 & 2 &   &   & $\blacksquare$  &  $\blacksquare$ &   &  $\blacksquare$ & $\blacksquare$  &   &   \\ \hline
+        &   & 3 &   &   &   & $\blacksquare$  & $\blacksquare$  & $\blacksquare$  &   &   &   \\ \hline
+        &   & 1 &   &   &   &   & $\blacksquare$  &   &   &   &   \\ \hline
+    \end{tabular}
+  \caption{Solution to the example puzzle}
+  \label{fig:c:nonogram:ex-sol}
+\end{figure}
+
+
+
+
+\section{Model}
+
+The model follows naturally from the constraints of the problem. The
+variables needed are a matrix $x_{ij}$ of \?0?-\?1? variables, representing
+the squares to shade. For the hint \verb+2 3 1+ on row $i$, we
+post the following \?extensional? constraint (see
+\autoref{sec:m:integer:extensional}):
+$$
+  \mathtt{extensional}(x_{i\bullet}, 0^*1^20^+1^30^+10^*)
+$$
+The regular expression starts and ends with zero or more zeroes. Each group is
+represented by as many ones as the group length. In between the
+groups, one or more zeroes are placed. Using this construction, we get
+one constraint per row and column of the matrix. The outline of the
+script is shown in \autoref{fig:c:nonogram}.
+
+\begin{figure}
+\insertlitcode{nonogram}
+\caption{A script for solving nonogram puzzles}
+\label{fig:c:nonogram}
+\end{figure}
+
+
+\paragraph{Puzzle specification.}
+
+The puzzle is specified by an array of integers.  The first two
+integers specify the width and the height of the grid. These are
+followed first by the column and then the row hints.  Each hint specifies the number of groups and
+the length of each group. For example, the hint used as an
+example above
+is specified as \?3, 2, 3, 1?. The puzzle from
+\autoref{fig:c:nonogram:ex} is written as follows.
+\insertlitcode{nonogram:puzzle}
+
+\paragraph{Line function.}
+
+For the hint that starts at \?p? (that is, \?p? points to a
+position in the array of integers \?spec[]? where a hint starts),
+the following code constructs a regular expression (see
+\autoref{sec:m:minimodel:reg}) that matches that hint.
+\insertlitcode{nonogram:line function}
+
+The variables \?r0? and \?r1?  represent the constants \?0? and
+\?1? (this is a slight optimization to construct a regular
+expression for the constants \?0? and \?1? just once). The
+variables \?border? and \?separator? represent sequences of
+zeroes at the borders and between marks. The loop adds all
+hints (as repeated \?r1?s) to the \?result? expression with
+\?separator?s in between. Note that if the hint is just \?0?
+(representing an empty line with no mark), then the \?result?
+will be just the same as a \?border+border?, which is 
+$\mathtt{0}^*\mathtt{0}^*=\mathtt{0}^*$.
+
+\paragraph{Constraints.}
+
+Given the \?line()? function, posting the appropriate constraints
+is as follows. The pointer~\?p? is initialized to point to the
+first hint: 
+\insertlitcode{nonogram:intialize hint pointer} 
+
+Two
+loops go through all the hints, get the regular expression for the
+line, and post the constraints for the appropriate
+variables. First, the column constraints are posted:
+\insertlitcode{nonogram:column constraints} 
+followed by the row constraints:
+\insertlitcode{nonogram:row constraints} 
+
+
+
+\paragraph{Branching.}
+
+Choosing a branching for nonograms is not obvious. For many nonogram
+puzzles, using an AFC-based branching (see
+\autoref{sec:m:search:branch:int}) is a good idea:
+\insertlitcode{nonogram:branching}
+
+The choice to use \?INT_VAL_MAX? is because most puzzles will have
+fewer marks than empty spaces. For the example puzzle from
+\autoref{fig:c:nonogram:ex}, propagation alone solves the puzzle. To
+solve really hard puzzles, a custom branching may be needed.
+
+\section{More information}
+
+The nonogram puzzle is also included as a Gecode example, see
+\gecoderef[example]{nonogram}. The example in particular features
+several grids to try the model on.
+
+Despite its simplicity, the program for solving nonograms works
+amazingly well. Extensive information on nonogram puzzles and a
+comparison of different nonogram solvers (including the model
+described in this chapter) is
+\AURL{http://webpbn.com/survey/}{Survey of Paint-by-Number Puzzle
+  Solvers}.
+
+
+\begin{litcode}{nonogram}{lagerkvist}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+\end{litblock}
+\begin{litblock}{puzzle}
+const int spec[] =
+  { 9, 9,
+    // Column hints
+    1, 3,
+    2, 2, 3,
+    \begin{litblock}{anonymous}
+    2, 2, 2,
+    2, 2, 2,
+    2, 2, 2,
+    2, 2, 2,
+    2, 2, 2,
+    2, 2, 3,
+    1, 3,
+    \end{litblock}
+    // Row hints
+    2, 2, 2,
+    \begin{litblock}{anonymous}
+    2, 4, 4,
+    3, 1, 3, 1,
+    3, 2, 1, 2,
+    2, 1, 1,
+    2, 2, 2,
+    2, 2, 2,
+    1, 3,
+    1, 1
+    \end{litblock}
+  };
+\end{litblock}
+class Nonogram : public Script {
+  int width, height;
+  BoolVarArray b;
+
+  DFA line(const int*& p) {
+    \begin{litblock}{line function}
+    int nhints = *p++;
+    REG r0(0), r1(1);
+    REG border = *r0;
+    REG separator = +r0;
+    REG result = border;
+    if (nhints > 0) {
+      result += r1(*p,*p);
+      p++;
+      for (int i=nhints-1; i--; p++)
+        result += separator + r1(*p,*p);
+    }
+    return result + border;
+    \end{litblock}
+  }
+public:
+  Nonogram(const Options& opt)
+    : width(spec[0]), height(spec[1]),
+      b(*this,width*height,0,1) {
+    Matrix<BoolVarArray> m(b, width, height);
+    \begin{litblock}{intialize hint pointer}
+    const int* p = spec+2;
+    \end{litblock}
+    \begin{litblock}{column constraints}
+    for (int w=0; w<width; w++)
+      extensional(*this, m.col(w), line(p));
+    \end{litblock}
+    \begin{litblock}{row constraints}
+    for (int h=0; h<height; h++)
+      extensional(*this, m.row(h), line(p));
+    \end{litblock}
+    \begin{litblock}{branching}
+    branch(*this, b, INT_VAR_AFC_MAX, INT_VAL_MAX);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  Nonogram(bool share, Nonogram& s) 
+    : Script(share,s), width(s.width), height(s.height) {
+    b.update(*this, share, s.b);
+  }
+  virtual Space* copy(bool share) {
+    return new Nonogram(share,*this);
+  }
+  virtual void
+  print(std::ostream& os) const {
+    Matrix<BoolVarArray> m(b, width, height);
+    for (int h = 0; h < height; ++h) {
+      os << "\t";
+      for (int w = 0; w < width; ++w)
+        if (m(w,h).assigned())
+          os << ((m(w,h).val() == 1) ? '#' : ' ');
+        else
+          os << "?";
+      os << std::endl;
+    }
+    os << std::endl;
+  }
+  \end{litblock}
+};
+
+int main(int argc, char* argv[]) {
+  \begin{litblock}{anonymous}
+  Options opt("Nonogram");
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  Script::run<Nonogram,DFS,Options>(opt);
+  return 0;
+  \end{litblock}
+}
+\end{litcode}

@@ -1,0 +1,334 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Golomb rulers}
+\label{chap:c:golomb}
+
+%% FILES: CHAPTERONLY
+
+This chapter studies a simple problem that is commonly used as an
+example for constraint programming. The model uses nothing but a
+single \?distinct? constraint, a few \?rel? constraints, and posts
+linear expressions. As the problem is so well known, it might
+serve as an initial case study of how to model with Gecode.
+
+
+\section{Problem}
+\label{sec:c:golomb:problem}
+
+The problem is to find an optimal \emph{Golomb ruler} (see
+\CSPLIB{6}) of size $n$. A Golomb ruler has $n$ marks
+$0=\mathtt{m}_0<\mathtt{m}_1<\cdots<\mathtt{m}_{n-1}$
+such that the distances
+$\mathtt{d}_{i,j}=\mathtt{m}_j-\mathtt{m}_i$ for $0\leq i<j<n$
+are pairwise distinct. An optimal Golomb ruler is of minimal length
+(that is, $\mathtt{m}_{n-1}$ is minimal).
+\autoref{fig:c:golomb:example} shows an optimal Golomb ruler with
+$6$ marks.
+
+\begin{figure}[h]
+\centering
+\psset{unit=5mm}%
+\begin{pspicture}(0,0.2)(17,2.7)
+\psframe[fillstyle=solid,fillcolor=GecodeBlue,opacity=0.3,dimen=middle](0,1)(17,2)%
+\multiput(0,0)(1,0){17}{\psframe[linecolor=black,dimen=middle,linestyle=dotted](0,1)(1,2)}
+\newcommand{\grmark}[2]{
+\rput(#1,0){\psframe[linecolor=black,dimen=middle](0,1)(#2,2)}%
+\rput(#1,0.5){\makebox(0,0){\footnotesize $#1$}}%
+}
+\grmark{0}{1}\grmark{1}{3}\grmark{4}{6}\grmark{10}{2}\grmark{12}{5}
+\rput(17,0.5){\makebox(0,0){\footnotesize $17$}}%
+\end{pspicture}
+\caption{An optimal Golomb ruler with $6$ marks}
+\label{fig:c:golomb:example}
+\end{figure}
+
+In the model for Golomb rulers, we are going to use the following
+construction for a Golomb ruler (a non-optimal ruler, though) as
+it provides upper bounds on the values for the marks of a
+ruler. The upper bounds improve the efficiency of our model,
+see below for more details.
+
+Assume that the distance between marks $i$ and $i+1$ is
+$m_{i+1}-m_i=2^{i+1}$ (that is, for example, $m_1-m_0=1$,
+$m_2-m_1=2$, $m_3-m_2=4$, and so on). Then the marks are
+$$m_i=\sum_{k=1}^i 2^{k-1}=2^{i}-1.$$
+\autoref{fig:c:golomb:constructed} shows a Golomb ruler with
+$6$ marks following this construction.
+
+\begin{figure}[h]
+\centering
+\psset{unit=5mm}%
+\begin{pspicture}(0,0.2)(31,2.7)
+\psframe[fillstyle=solid,fillcolor=GecodeBlue,opacity=0.3,dimen=middle](0,1)(31,2)%
+\multiput(0,0)(1,0){31}{\psframe[linecolor=black,dimen=middle,linestyle=dotted](0,1)(1,2)}
+\newcommand{\grmark}[2]{
+\rput(#1,0){\psframe[linecolor=black,dimen=middle](0,1)(#2,2)}%
+\rput(#1,0.5){\makebox(0,0){\footnotesize $#1$}}%
+}
+\grmark{0}{1}\grmark{1}{2}\grmark{3}{4}\grmark{7}{8}\grmark{15}{16}
+\rput(31,0.5){\makebox(0,0){\footnotesize $31$}}%
+\end{pspicture}
+\caption{A constructed Golomb ruler with $6$ marks}
+\label{fig:c:golomb:constructed}
+\end{figure}
+
+Now consider the bit representation of $m_i$: exactly the least
+$i$ bits are one. For the distances
+$$d_{i,j}=m_j-m_i=\sum_{k=1}^j 2^{k-1}-\sum_{k=1}^i 2^{k-1}$$
+we can easily see that in their bit representation the least $i$
+bits are zero, followed by $j-i$ ones. That means for $0\leq
+i<j<n$ the bit representations of the $d_{i,j}$ are
+pairwise distinct. In other words, we can always construct a
+Golomb ruler with $n$ marks of length $m_{n-1}=2^{n-1}-1$.
+
+\section{Model}
+\label{sec:c:golomb:model}
+
+\begin{figure}
+\insertlitcode{golomb}
+\caption{A script for computing Golomb rulers}
+\label{fig:c:golomb:script}
+\end{figure}
+
+\autoref{fig:c:golomb:script} shows the script for implementing
+the Golomb ruler model. The script stores a variable array \?m?
+for the marks. The largest possible value of a mark is set to
+$2^{n-1}-1$ according to the construction of a Golomb ruler in
+the previous section, provided that this value does not exceed
+the possible size limit of an integer (integers in Gecode are at
+least 32 bits, this is checked when Gecode is configured for
+compilation). If $n\geq 31$ we just choose the largest possible
+integer value for an integer variable (see
+\gecoderef[namespace]{Int::Limits}). 
+
+\tip{Small variable domains are still beautiful}{
+\label{tip:c:golomb:beautifuldomains}%
+As mentioned in \autoref{tip:m:integer:beautifuldomains},
+initializing variable domains to be small makes sense. For
+example, if we always chose \?Int::Limits::max? rather than the
+smaller upper bounds for Golomb rulers with $n< 31$, the
+propagators for \?linear? constraining the distances would have
+to resort to extended precision as the internal computations
+during propagation exceed the integer precision. That would mean
+that scripts for $n< 31$ would run approximately 15\% slower!
+}
+
+The script does not store a variable array for the distances
+(unlike the array for the marks), they are stored 
+in an integer variable argument array.  As the
+distances are only needed for posting constraints but not for
+printing the solution, it is more efficient to store them in an
+variable argument array but not in a variable array. More details
+on argument arrays and their relation to variable arrays can be
+found in \autoref{sec:m:integer:proper}.
+
+The \?cost()? function as required by the class \?MinimizeScript?
+(see \autoref{sec:m:driver:script}) just returns the largest mark
+on the ruler.
+
+\paragraph{Marks.}
+
+Assigning the first mark to zero and ordering the marks in
+increasing order is done by posting \?rel? constraints
+(see \autoref{sec:m:integer:rel:int}):
+\insertlitcode{golomb:constraining marks}
+
+\paragraph{Distances.}
+
+The number of marks \?n? and number of distances \?n_d? are
+initialized so that they can be used for posting constraints:
+\insertlitcode{golomb:number of marks and distances}
+
+As mentioned, the distances are stored in an integer
+variable argument array \?d?. The fields of the array \?d? are
+initialized by the variable returned by the \?expr()? function
+for linear expressions (see \autoref{sec:m:minimodel:exprrel}):
+\insertlitcode{golomb:posting distance constraints}
+
+One might be tempted to optimize the posting of distance constraints for
+$\mathtt{d}_{0,j}$ for $0<j<n$ as $\mathtt{m}_0=0$ and hence
+$\mathtt{d}_{0,j}=\mathtt{m}_j$ for $0<j<n$. Optimizing
+avoids to create new variables (that is, the variables
+$\mathtt{m}_j$ are stored as $\mathtt{d}_{0,j}$ for $0<j<n$)
+and posting propagators to implement the equality constraints
+$\mathtt{d}_{0,j}=\mathtt{m}_j$ for $0<j<n$.
+
+However, the \?expr()? function does this automatically. As
+$\mathtt{m}_0$ is already assigned by posting a \?rel?
+constraint, the \?expr()? function simplifies the posted expressions
+accordingly.
+
+Finally, all distances must be pairwise distinct (see
+\autoref{sec:m:integer:distinct}) where bounds propagation is
+requested (see \autoref{sec:m:integer:icl}):
+\insertlitcode{golomb:distances must be distinct}
+Intuitively, bounds propagation is sufficient as also the
+propagation for the distances is using bounds propagation.
+
+\paragraph{Implied constraints.}
+
+The following implied constraints are due to \cite{Golomb}. A
+distance $\mathtt{d}_{i,j}$ for $0\leq i<j<n$
+satisfies the property that it is equal to the sum of all
+distances between marks $\mathtt{m}_i$ and $\mathtt{m}_j$. That
+is
+$$
+\mathtt{d}_{i,j} =
+\mathtt{d}_{i,i+1} + 
+\mathtt{d}_{i+1,i+2} + \cdots +
+\mathtt{d}_{j-1,j}
+$$
+
+This can be verified as follows:
+\begin{eqnarray*}
+\mathtt{d}_{i,j} 
+&=&\mathtt{m}_j-\mathtt{m}_i\\
+&=&(\mathtt{m}_{j} - \mathtt{m}_{j-1})
+ + (\mathtt{m}_{j-1} - \mathtt{m}_{j-2})
+ + \cdots
+ + (\mathtt{m}_{i+1} - \mathtt{m}_{i})\\
+&=&
+\mathtt{d}_{j-1,j} + \mathtt{d}_{j-2,j-1} + \cdots +
+\mathtt{d}_{i,i+1}\\
+&=&
+\mathtt{d}_{i,i+1} + 
+\mathtt{d}_{i+1,i+2} + \cdots +
+\mathtt{d}_{j-1,j}
+\end{eqnarray*}
+
+As all distances $\mathtt{d}_{i,j}$ for $0\leq i<j<n$
+must be pairwise distinct, also the $j-i$ distances
+$$
+\mathtt{d}_{i,i+1}, 
+\mathtt{d}_{i+1,i+2}, \ldots,
+\mathtt{d}_{j-1,j}
+$$
+must be pairwise distinct and hence must be $j-i$ distinct integers. That
+means that 
+$$
+\mathtt{d}_{i,j} =
+\mathtt{d}_{i,i+1} + 
+\mathtt{d}_{i+1,i+2} + \cdots +
+\mathtt{d}_{j-1,j}
+$$
+must be at least the sum of the first $j-i$ integers:
+$$
+\mathtt{d}_{i,j} \geq \sum_{l=1}^{j-i} l=(j-i)(j-i+1)/2
+$$
+
+The implied constraints can be posted as a lower bound with a
+\?rel? constraint (see \autoref{sec:m:integer:rel:int}) for the
+distances as follows:
+\insertlitcode{golomb:implied constraints}
+
+Note that one could also combine the posting of the distance
+constraints with constraining the lower bounds of the distances
+for efficiency. However, we separate both for clarity. Anyway,
+the time spent on posting constraints is insignificant to the
+time spent on solving the model!
+
+\paragraph{Symmetry breaking.}
+
+Provided that the ruler has a sufficient number of marks (that
+is, $\mathtt{n}>2$) we can break (a few) symmetries by constraining
+the distance $\mathtt{d}_{0,1}$ (stored at the first position in the
+array \?d?) between the first and second mark to be smaller than
+the distance $\mathtt{d}_{\mathtt n-2,\mathtt n-1}$ (stored at
+the last position in the array \?d?) between the
+next to last and last mark as follows: 
+\insertlitcode{golomb:symmetry breaking}
+
+\paragraph{Branching.}
+
+The branching chooses the marks from left to right on the ruler
+and assigns the smallest possible value for a mark first:
+\insertlitcode{golomb:branching}
+
+\section{More information}
+\label{sec:c:golomb:info}
+
+This case study is also available as an example, see
+\gecoderef[example]{golomb-ruler}. For a detailed discussion of how to
+model the Golomb ruler problem, see~\cite{Golomb}.
+
+
+
+
+\begin{litcode}{golomb}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class GolombRuler : public MinimizeScript {
+protected:
+  IntVarArray m;
+public:
+  GolombRuler(const SizeOptions& opt)
+    : m(*this,opt.size(),0,
+        (opt.size() < 31) 
+          ? (1 << (opt.size()-1)) - 1 
+          : Int::Limits::max) {
+    \begin{litblock}{constraining marks}
+    rel(*this, m[0], IRT_EQ, 0);
+    rel(*this, m, IRT_LE);
+    \end{litblock}
+    \begin{litblock}{number of marks and distances}
+    const int n = m.size();
+    const int n_d = (n*n-n)/2;
+    \end{litblock}
+    \begin{litblock}{posting distance constraints}
+    IntVarArgs d(n_d);
+    for (int k=0, i=0; i<n-1; i++)
+      for (int j=i+1; j<n; j++, k++)
+        d[k] = expr(*this, m[j] - m[i]);
+    \end{litblock}
+    \begin{litblock}{implied constraints}
+    for (int k=0, i=0; i<n-1; i++)
+      for (int j=i+1; j<n; j++, k++)
+        rel(*this, d[k], IRT_GQ, (j-i)*(j-i+1)/2);
+    \end{litblock}
+    \begin{litblock}{distances must be distinct}
+    distinct(*this, d, ICL_BND);
+    \end{litblock}
+    \begin{litblock}{symmetry breaking}
+    if (n > 2)
+      rel(*this, d[0], IRT_LE, d[n_d-1]);
+    \end{litblock}
+    \begin{litblock}{branching}
+    branch(*this, m, INT_VAR_NONE, INT_VAL_MIN);
+    \end{litblock}
+  }
+  virtual IntVar cost(void) const {
+    return m[m.size()-1];
+  }
+  \begin{litblock}{anonymous}
+  /// Print solution
+  virtual void print(std::ostream& os) const {
+    os << m << std::endl;
+  }
+  // Constructor for cloning \a s
+  GolombRuler(bool share, GolombRuler& s)
+    : MinimizeScript(share,s) {
+    m.update(*this, share, s.m);
+  }
+  // Copy during cloning
+  virtual Space* copy(bool share) {
+    return new GolombRuler(share,*this);
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+int main(int argc, char* argv[]) {
+  SizeOptions opt("GolombRuler");
+  opt.solutions(0);
+  opt.size(10);
+  opt.parse(argc,argv);
+  MinimizeScript::run<GolombRuler,BAB,SizeOptions>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}

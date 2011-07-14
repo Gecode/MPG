@@ -1,0 +1,39 @@
+Crossword
+	amber*sage*pepsi*ideal*
+	berea*plea*atlas*torrid
+	adulterers*bhagavadgita
+	tin**macmillan*bald*stu
+	economy**neon*deny*leon
+	***ada*lied**hal**burnt
+	valid*ions*beau*thai***
+	emil*knots*lang*airship
+	ames*otto*has*halve*are
+	lou*ares*pace*tile*brat
+	**tiber*erik*bela*forte
+	stellar*forbear*hoosier
+	manly*offs*oaks*acres**
+	okay*agee*dare*used*beg
+	ken*franc*urn*ursa*sure
+	entreat*tend*alien*prim
+	***hebe*inks*bane*pages
+	cried**and**lane*her***
+	lana*borg*stan**sarcasm
+	ash*aura*bloodbath**leo
+	scatterbrain*organizers
+	saloon*lance*naur*carve
+	*lemma*ended*seek*enter
+
+
+
+Initial
+	propagators: 880
+	branchers:   1
+
+Summary
+	runtime:      4.420 (4420.000000 ms)
+	solutions:    1
+	propagations: 175141
+	nodes:        1384
+	failures:     643
+	peak depth:   143
+	peak memory:  35273 KB

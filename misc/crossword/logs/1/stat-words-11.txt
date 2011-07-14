@@ -1,0 +1,31 @@
+Crossword
+	assam*alfa*tits
+	retraction*howe
+	electromagnetic
+	ames*unpleasant
+	sad*odes*lie***
+	***dodd*del*era
+	breezy*gas*aviv
+	lapse*bad*alice
+	erik*cab*scalar
+	dec*fag*luis***
+	***dar*gild*age
+	antecedent*curs
+	countermeasures
+	tens*remunerate
+	alee*swap*allan
+
+
+
+Initial
+	propagators: 389
+	branchers:   1
+
+Summary
+	runtime:      5.870 (5870.000000 ms)
+	solutions:    1
+	propagations: 308307
+	nodes:        5521
+	failures:     2734
+	peak depth:   84
+	peak memory:  12966 KB

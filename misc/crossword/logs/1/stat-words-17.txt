@@ -1,0 +1,31 @@
+Crossword
+	aviv*baja*yalta
+	levi*aden*agers
+	eras*dark*genus
+	canto*miami*ice
+	***ada*cry*ones
+	meg*emphases***
+	ayes*boo*tacoma
+	mermaid*pirates
+	armada*dec*rink
+	***conjugal*sus
+	back*can*lab***
+	ale*decks*cabal
+	malta*oils*boca
+	brian*brae*kahn
+	image*skye*area
+
+
+
+Initial
+	propagators: 378
+	branchers:   1
+
+Summary
+	runtime:      0.290 (290.000000 ms)
+	solutions:    1
+	propagations: 13440
+	nodes:        130
+	failures:     35
+	peak depth:   80
+	peak memory:  15383 KB

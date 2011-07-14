@@ -1,0 +1,341 @@
+\documentclass[a4paper,twoside,12pt,openright]{report}
+
+\usepackage{ifthen}
+\usepackage{a4wide}
+\usepackage[charter]{mathdesign}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.88]{beramono}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage{pifont}
+\usepackage[dvips]{graphicx}
+\usepackage{pstricks}
+\usepackage{pstricks-add}
+\usepackage{pst-node}
+\usepackage{picinpar}
+\usepackage{subfigure}
+\usepackage{calc}
+\usepackage{colortbl}
+
+\definecolor{GecodeGreen}{rgb}{0.04314,0.46275,0.27451}
+\definecolor{GecodeBlue}{rgb}{0,0.36078,0.631273}
+\definecolor{GecodeRed}{rgb}{0.8549,0.1451,0.1137255}
+\definecolor{GecodeOrange}{rgb}{0.9216,0.537255,0.10588}
+
+\usepackage[ps2pdf,%
+            breaklinks=false,
+            hyperindex=true,
+            bookmarksnumbered=true,
+            colorlinks=true,
+            linkcolor=GecodeBlue,
+            pagecolor=GecodeBlue,
+            citecolor=GecodeBlue,
+            filecolor=GecodeGreen,
+            urlcolor=GecodeGreen,
+            pdftitle={\PDFTITLE},
+            pdfauthor={\PDFAUTHOR},
+            pdfsubject={\PDFSUBJECT},
+            pdfkeywords={\PDFKEYWORDS},
+            pdfcreator={},
+            pdfproducer={},
+            pdfdisplaydoctitle=true
+            ]{hyperref}
+
+% Redefine math tt alphabet to use beromono
+\SetMathAlphabet{\mathtt}{normal}{\encodingdefault}{\ttdefault}{m}{n}%
+\SetMathAlphabet{\mathtt}{bold}{\encodingdefault}{\ttdefault}{b}{n}%
+
+\theoremstyle{definition}
+\newtheorem{rawtip}{Tip}[chapter]
+
+\newcommand{\rawtipautorefname}{Tip}
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Section}
+\renewcommand{\chapterautorefname}{Chapter}
+
+\def\CPP{\leavevmode\textrm{\hbox{C\hskip
+-0.1ex\raise 0.5ex\hbox{\tiny ++}}}}
+
+%% Absolute URL
+\newcommand{\AURL}[2]{\href{#1}{#2}}
+%% Relative URL
+\newcommand{\RURL}[2]{\href{http://www.gecode.org/doc/\GecodeVersion/#1}{#2}}
+
+\renewcommand{\labelitemi}{\mbox{\raisebox{1.4pt}{\tiny\ding{110}}}}
+
+\newcommand{\DOWNLOAD}[2]{\RURL{MPG/#1}{#2}}
+
+\newcommand{\CppInline}[1]{\texttt{#1}}
+\newcommand{\litanon}{$\cdots$}
+\newcommand{\litkw}[1]{\textbf{#1}}
+\newcommand{\litkwt}[1]{\CppInline{\textbf{#1}}}
+\newcommand{\litc}[1]{\textit{#1}}
+\newcommand{\lits}{\mbox{ }}
+\newcommand{\litstr}[1]{\textcolor{GecodeGreen}{#1}}
+\newcommand{\litlabel}[2]{\hypertarget{#1}{\textcolor{GecodeRed}{\normalfont\bfseries\textsc{#2} $\equiv$}}}
+\newcommand{\litfile}[3]{\hypertarget{#1}{\textcolor{GecodeRed}{\normalfont\bfseries\textsc{#2}
+      $\equiv$}}\hfill% 
+\textcolor{GecodeBlue}{\normalfont\bfseries\textsc{%
+\DOWNLOAD{#3}{[download]}}}}
+\newcommand{\litref}[2]{\hyperlink{#1}{$\blacktriangleright$\,\normalfont\bfseries\textsc{#2}}}
+
+\newcommand{\fcbox}[2]{%
+\psframebox[cornersize=absolute,linearc=0.05,linecolor=#1,linewidth=0.01pt,opacity=0.20,fillcolor=#1,fillstyle=solid]{#2}}
+
+\newcommand{\litcmdblock}[1]{%
+\begin{center}\fcbox{GecodeRed}{\begin{minipage}{0.95\textwidth}\ttfamily #1%
+\end{minipage}}\end{center}}
+
+\newcommand{\smalllitcmdblock}[1]{%
+\begin{center}\fcbox{GecodeRed}{\begin{minipage}{0.9\textwidth}\ttfamily #1%
+\end{minipage}}\end{center}}
+
+\newcommand{\litcodeblock}[1]{%
+\begin{center}\fcbox{GecodeOrange}{\begin{minipage}{0.95\textwidth}\ttfamily #1%
+\end{minipage}}\end{center}}
+
+\newcommand{\smalllitcodeblock}[1]{%
+\begin{center}\fcbox{GecodeOrange}{\begin{minipage}{0.9\textwidth}\ttfamily #1%
+\end{minipage}}\end{center}}
+
+\newcommand{\litcodepage}[2]{%
+\fcbox{GecodeOrange}{\begin{minipage}{#2}\ttfamily #1\end{minipage}}}
+
+\newcommand{\gecodedocbaseref}[2]{\RURL{reference/#1}{#2}}
+\newcommand{\litdocref}[2]{\gecodedocbaseref{#1}{#2}}
+
+\newcommand{\otherref}[2]{\autoref{#1}~(#2)}
+
+\newcommand{\publink}[1]{\hfill\AURL{#1}{[download]}}
+
+\newcommand{\fixme}[1]{\textbf{Fixme:} #1}
+
+
+\newcommand{\tip}[2]{%
+\begin{rawtip}[#1]%
+\addcontentsline{lot}{table}
+{\protect\numberline{\therawtip}#1}%
+#2\hfill$\blacktriangleleft$\end{rawtip}%
+}
+
+\newenvironment{convention}%
+{\paragraph{Convention.}}{}
+\newenvironment{important}%
+{\paragraph{Important.}}{}
+
+\newcommand{\YES}{{\ding{51}}}
+
+\newcommand{\setc}[2]{\{#1\;|\;#2\}}
+
+\newcommand{\fcframe}[2]{%
+\psframe[cornersize=absolute,linearc=0.05,linecolor=white,linewidth=0.0,fillcolor=white,fillstyle=solid]#2%
+\psframe[cornersize=absolute,linearc=0.05,linecolor=#1,linewidth=0.01pt,opacity=0.50,fillcolor=#1,fillstyle=solid]#2%
+}
+\newcommand{\fcbwframe}{%
+\psframe[cornersize=absolute,linearc=0.05,linecolor=black,linewidth=0.25pt,fillcolor=white,fillstyle=solid]}
+\newcommand{\fccircle}[1]{%
+\pscircle[linecolor=#1,linewidth=0.01pt,opacity=0.50,fillcolor=#1,fillstyle=solid]}
+
+
+%%%
+%%% Chapter and part headings
+%%%
+\makeatletter
+
+\newcommand{\MyBigNumber}{\fontsize{1in}{1in}\selectfont}
+\newcommand{\MyBigTitle}{\fontsize{.45in}{.45in}\selectfont}
+
+\def\@part[#1]#2{%
+    \ifnum \c@secnumdepth >-2\relax
+      \refstepcounter{part}%
+      \addcontentsline{toc}{part}{\thepart\hspace{1em}#1}%
+    \else
+      \addcontentsline{toc}{part}{#1}%
+    \fi
+    \markboth{}{}%
+    \thispagestyle{empty}%
+    {\raggedleft
+     \interlinepenalty \@M
+     \normalfont
+     \ifnum \c@secnumdepth >-2\relax
+        \psframebox[linewidth=.1pt,linecolor=GecodeOrange,framearc=.05,framesep=.2in,fillcolor=GecodeOrange,opacity=0.2,fillstyle=solid,boxsep=false]{\bfseries\MyBigNumber\thepart}
+       \vskip 60\p@
+     \fi
+    \interlinepenalty\@M
+    {\raggedleft\MyBigTitle\bfseries #2}
+    \par\bigskip\par
+    {\raggedleft\large\bfseries\partauthors}
+    \par}%
+    \@endpart}
+\def\@spart#1{%
+    {\centering
+     \interlinepenalty \@M
+     \normalfont
+     \Huge \bfseries #1\par}%
+    \@endpart}
+\def\@endpart{\vfil\newpage
+              \if@twoside
+               \if@openright
+                \null
+                \thispagestyle{empty}%
+                \partblurb\newpage
+               \fi
+              \fi
+              \if@tempswa
+                \twocolumn
+              \fi}
+
+\newcommand{\partauthors}{}
+\newcommand{\partblurb}{}
+\newcommand{\partfooter}{}
+\renewcommand\thepart{\Alph{part}}
+\newcommand{\mypart}[2]{
+\setcounter{part}{#1}\part{#2}%
+}
+
+\newlength{\MyChapterNumberWidth}
+\newlength{\MyChapterRestWidth}
+
+\def\@makechapterhead#1{%
+  \vspace*{20\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \settowidth{\MyChapterNumberWidth}{\bfseries\MyBigNumber\thechapter}
+        \setlength{\MyChapterRestWidth}{\textwidth}
+        \addtolength{\MyChapterRestWidth}{-\MyChapterNumberWidth}
+        \addtolength{\MyChapterRestWidth}{-40pt}
+        \parbox[t]{\MyChapterNumberWidth}{\psframebox[linewidth=.1pt,linecolor=GecodeBlue,framearc=.05,framesep=.2in,fillcolor=GecodeBlue,opacity=0.2,fillstyle=solid,boxsep=false]{\bfseries\MyBigNumber\thechapter}}
+    \fi
+    \interlinepenalty\@M
+    \hfill\parbox[b]{\MyChapterRestWidth}{\raggedleft\MyBigTitle\bfseries #1}
+    \par\nobreak
+    \vskip 40\p@
+  }}
+
+\def\@makeschapterhead#1{%
+  \vspace*{20\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \MyBigTitle\bfseries  #1\par\nobreak
+    \vskip 40\p@
+  }}
+
+\makeatother
+
+\newenvironment{changelog}{\begin{itemize}\itemsep 0pt}{\end{itemize}}
+\newcommand{\cle}[3][none]{%
+\item #3 (#2\ifthenelse{\equal{#1}{none}}{}{, thanks to #1}).}
+
+
+%%% Node stuff
+
+\newcommand{\DefineNode}[3]{\pnode(#1,#2){#3}}
+
+\newcommand{\FailedNode}[2]{%
+\rput(#1,#2){\psframe[fillcolor=GecodeRed,fillstyle=solid](-8,-8)(8,8)}}
+\newcommand{\FailedNodeI}[3]{%
+\rput(#1,#2){\psframe[fillcolor=GecodeRed,fillstyle=solid](-8,-8)(8,8)\makebox(0,0){#3}}}
+\newcommand{\SolvedNode}[2]{%
+\rput(#1,#2){\pspolygon[fillcolor=GecodeGreen,fillstyle=solid](-10,0)(0,-10)(10,0)(0,10)}}
+\newcommand{\SolvedNodeI}[3]{%
+\rput(#1,#2){\pspolygon[fillcolor=GecodeGreen,fillstyle=solid](-10,0)(0,-10)(10,0)(0,10)\makebox(0,0){#3}}}
+
+\newgray{MyULG}{0.9}
+
+\newcommand{\ChoiceNode}[2]{%
+\rput(#1,#2){\pscircle[fillcolor=GecodeBlue,fillstyle=solid]{10}}}
+\newcommand{\ChoiceNodeI}[3]{%
+\rput(#1,#2){\pscircle[fillcolor=GecodeBlue,fillstyle=solid]{10}\makebox(0,0){#3}}}
+\newcommand{\UChoiceNode}[2]{%
+\rput(#1,#2){\pscircle[fillcolor=white,fillstyle=solid]{10}}%
+\rput(#1,#2){\pscircle[fillcolor=GecodeBlue,fillstyle=solid,opacity=0.4]{10}}}
+\newcommand{\UChoiceNodeI}[3]{%
+\rput(#1,#2){\pscircle[fillcolor=white,fillstyle=solid]{10}}%
+\rput(#1,#2){\pscircle[fillcolor=GecodeBlue,fillstyle=solid,opacity=0.4]{10}\makebox(0,0){#3}}}
+\newcommand{\RootNode}[2]{%
+\rput(#1,#2){\pscircle[fillcolor=GecodeOrange,fillstyle=solid]{10}}}
+\newcommand{\RootNodeI}[3]{%
+\rput(#1,#2){\pscircle[fillcolor=GecodeOrange,fillstyle=solid]{10}\makebox(0,0){#3}}}
+\newcommand{\GoneNode}[2]{%
+\rput(#1,#2){\pscircle[fillcolor=MyULG,fillstyle=solid]{10}}}
+
+
+\newcommand{\GuessNode}[2]{%
+\rput(#1,#2){\pscircle[fillcolor=MyULG,fillstyle=solid]{10}\makebox(0,0){?}}}
+
+
+\newcommand{\DefineLink}[2]{\ncline{-}{#1}{#2}}
+\newcommand{\DefineFatLink}[2]{\ncline[linewidth=3pt]{-}{#1}{#2}}
+\newcommand{\HiddenLinkL}[3]{\ncline[linewidth=0pt,linecolor=white]{-}{#1}{#2}\mput{\mbox{\strut\qquad\qquad #3}}}
+\newcommand{\HiddenLinkR}[3]{\ncline[linewidth=0pt,linecolor=white]{-}{#1}{#2}\mput{\mbox{\strut#3\qquad\qquad}}}
+\newcommand{\DefineLinkA}[2]{\ncline{->}{#1}{#2}}
+
+
+%% Macros for nonterminal and expressions, etc
+\newcommand{\NONTERM}[1]{\langle#1\rangle}
+\newcommand{\NINT}{\NONTERM{n}}
+\newcommand{\NVAR}{\NONTERM{x}}
+\newcommand{\NSET}{\NONTERM{s}}
+\newcommand{\NVARS}{\NONTERM{\overline x}}
+\newcommand{\NINTS}{\NONTERM{\overline n}}
+\newcommand{\NREL}{\NONTERM{r}}
+\newcommand{\NLE}{\NONTERM{\mathit{IntExpr}}}
+\newcommand{\NLR}{\NONTERM{\mathit{IntRel}}}
+\newcommand{\NBE}{\NONTERM{\mathit{BoolExpr}}}
+\newcommand{\NBR}{\NONTERM{\mathit{BoolRel}}}
+\newcommand{\NSE}{\NONTERM{\mathit{SetExpr}}}
+\newcommand{\NSR}{\NONTERM{\mathit{SetRel}}}
+
+
+\newcommand{\reify}[2]{#1\Leftrightarrow #2=\mathtt 1}
+
+\newcommand{\boundsz}{\ensuremath{\operatorname{bounds}(\mathbb{Z})}}
+\newcommand{\range}[2]{\left[#1\;..\;#2\right]}
+\newcommand{\ranges}[1]{\operatorname{ranges}(#1)}
+\newcommand{\seq}[1]{\left\langle#1\right\rangle}
+\newcommand{\seqc}[3]{\left\langle#1\right\rangle_{#2}^{#3}}
+\newcommand{\NN}{\ensuremath{\mathbb N}}
+\newcommand{\ZZ}{\ensuremath{\mathbb Z}}
+\newcommand{\RR}{\ensuremath{\mathbb R}}
+
+\newcommand{\rseqc}[3]{\seqc{\range{{#1}_{i}}{{#2}_{i}}}{i=0}{#3}}
+
+
+%% KNIGHTS board
+
+\newcommand{\knsolidfield}{%
+\psframe[fillstyle=solid,fillcolor=GecodeBlue,opacity=0.3,linecolor=GecodeBlue,linewidth=0pt,dimen=inner](0,0)(2,2)%
+}
+\newcounter{knsize}%
+\newcounter{knlines}%
+\newcounter{knrepeat}%
+\newcommand{\knboard}[1]{
+\setcounter{knsize}{#1*2}%
+\setcounter{knlines}{#1+1}%
+\setcounter{knrepeat}{#1/2}%
+\begin{pspicture}(0,0)(\value{knsize},\value{knsize})
+\multiput(0,0)(0,4){\value{knrepeat}}{%
+  \multiput(0,0)(4,0){\value{knrepeat}}{\knsolidfield}
+  \multiput(2,2)(4,0){\value{knrepeat}}{\knsolidfield}
+}
+\multiput(0,0)(2,0){\value{knlines}}{%
+\psline[linecolor=GecodeBlue,linewidth=1.5pt,dimen=inner](0,0)(0,\value{knsize})}
+\multiput(0,0)(0,2){\value{knlines}}{%
+\psline[linecolor=GecodeBlue,linewidth=1.5pt,dimen=inner](0,0)(\value{knsize},0)}
+}
+\newcounter{knx}\newcounter{kny}%
+\newcommand{\knfield}[4]{%
+\setcounter{knx}{2*#3+1}\setcounter{kny}{2*#4+1}%
+\rput(\value{knx},\value{kny}){\rnode{n#1}{%
+\textcolor{GecodeBlue}{#2}}}%
+}
+\newcommand{\knmove}[3]{%
+\ncline[linewidth=1.8pt,nodesep=3pt]{->}{n#2}{n#3}%
+}
+
+%% CSP lib
+
+\newcommand{\CSPLIB}[1]{Problem~#1 in
+  \AURL{http://www.csplib.org/}{CSPLib}}

@@ -1,0 +1,52 @@
+##
+## General settings
+##
+[General]
+Name:           <defines the name>
+Ifdef:          <only consider if the macro is defined, optional: none>
+Namespace:      <where varimp is generated, optional: none>
+Dispose:        <whether varimps must be disposed, optional: false>
+Bits:           <how many bits reserves, optional: 0>
+##
+## Definition of modification events
+##
+[ModEventHeader]
+        <text to precede definitions of modevents, optional: "">
+[ModEvent]
+Name:           FAILED=FAILED
+        <text to precede definition, optional>
+[ModEvent]
+Name:           NONE=NONE
+        <text to precede definition, optional>
+[ModEvent]
+Name:           VAL=ASSIGNED
+Combine:        VAL=VAL, ...
+        <text to precede definition, optional>
+[ModEvent]
+Name:           ...
+Combine:        ...
+        <text to precede definition, optional>
+[ModEventFooter]
+        <text after definitions of modevents, optional: "">
+##
+## Definition of propagation conditions
+##
+[PropCondHeader]
+        <text to precede definitions of modevents, optional: "">
+[PropCond]
+Name:           NONE=NONE
+        <text to precede definition, optional>
+[PropCond]
+Name:           VAL=ASSIGNED
+ScheduledBy:    VAL
+        <text to precede definition, optional>
+[PropCond]
+Name:           ...
+ScheduledBy:    ..., ...
+        <text to precede definition, optional>
+[PropCondFooter]
+        <text after definitions of modevents, optional: "">
+##
+## End of specification
+##
+[End]

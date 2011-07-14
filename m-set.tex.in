@@ -1,0 +1,542 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Set variables and constraints}
+\label{chap:m:set}
+
+This chapter gives an overview over set variables and set
+constraints in Gecode. Just like \autoref{chap:m:int} does for
+integer and Boolean variables, this chapter serves as a starting
+point for using set variables. For the reference documentation,
+see \gecoderef[group]{TaskModelSet}.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:set:var} details how set variables can be
+used for modeling.  The sections \autoref{sec:m:set:post} and
+\autoref{sec:m:set:exec} provide an overview of the constraints
+that are available for set variables in Gecode.
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/set.hh>
+\end{code}
+to your program when you want to use set variables. Note that
+the same conventions hold as in \autoref{chap:m:int}.
+\end{important}
+
+\section{Set variables}
+\label{sec:m:set:var}
+
+Set variables in Gecode model sets of integers and are instances
+of the class \gecoderef[class]{SetVar}.
+
+\tip{Still do not use views for modeling}{%
+  Just as for integer variables, you should not feel tempted to
+  use views of set variables (such as \?SetView?) for modeling.
+  Views can only be used for implementing propagators and
+  branchers, see \autoref{part:p} and \autoref{part:b}.
+}
+
+\paragraph{Representing set domains as intervals.}
+
+The domain of a set variable is a set of sets of integers (in
+contrast to a simple set of integers for an integer variable).
+For example, assume that the domain of the set variable $x$ is
+the set of subsets of $\{1,2,3\}$:
+$$\big\{\;\{\},\{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\},\{1,2,3\}\;\big\}$$
+
+Set variable domains can become very large -- the set
+of subsets of $\{1,\dots,n\}$ has $2^n$ elements. Gecode (like
+most constraint solvers) therefore approximates set variable
+domains by a set interval $\range{l}{u}$ of a lower bound $l$ and an
+upper bound $u$. The interval $\range{l}{u}$ denotes the set of sets
+$\setc{s}{l\subseteq s\subseteq u}$. The lower bound $l$
+(commonly referred to as greatest lower bound or \emph{glb})
+contains all elements that are \emph{known} to be included in the
+set, whereas the upper bound $u$ (commonly referred to as least
+upper bound or \emph{lub}) contains the elements that \emph{may
+  be} included in the set. As only the two interval bounds are
+stored, this representation is space-efficient. The domain of $x$
+from the above example can be represented as $\range{\{\}}{\{1,2,3\}}$.
+  
+Set intervals can only approximate set variable domains. For
+example, the domain
+$$\big\{\;\{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\}\;\big\}$$
+cannot be captured exactly by an interval. The closest interval
+would be $\range{\{\}}{\{1,2,3\}}$. In order to get a closer
+approximation of set variable domains, Gecode additionally stores
+cardinality bounds. We write $\#\range{i}{j}$ to express that the
+cardinality is at least $i$ and at most $j$. The set interval
+bounds $\range{\{\}}{\{1,2,3\}}$ together with cardinality bounds
+$\#\range{1}{2}$ represent the above example domain exactly.
+
+\paragraph{Creating a set variable.}
+
+New set variables are created using a constructor.
+A new set variable \?x? is created by
+\begin{code}
+SetVar x(home, IntSet::empty, IntSet(1, 3), 1, 2);
+\end{code}
+This declares a variable \?x? of type \?SetVar? in the space
+\?home?, creates a new set variable implementation with
+domain $\range{\{\}}{\{1,2,3\}},\#\range{1}{2}$, and makes \?x?  refer to the newly
+created set variable implementation.
+
+There are several overloaded versions of the constructor, you can
+for example omit the cardinality bounds if you do not want to
+restrict the cardinality. You find the full interface in the
+reference documentation of the class \gecoderef[class]{SetVar}.
+An attempt to create a set variable with an empty domain throws
+an exception of type \gecoderef[class]{Set::VariableEmptyDomain}.
+
+As for integer and Boolean variables, the default and copy constructors do not create new variable implementations. Instead, the
+variable does not refer to any variable implementation (default
+constructor) or to the same variable implementation (copy
+constructor). For example in
+\begin{code}
+SetVar x(home, IntSet::empty, IntSet(1, 3), 1, 2);
+SetVar y(x);
+SetVar z;
+z=y;
+\end{code}
+the variables \?x?, \?y?, and \?z? all refer to the same set variable
+implementation.
+
+\paragraph{Limits for set elements.}
+
+All set variable bounds are subsets of the \emph{universe}, defined as
+$$\range{\mathtt{Set::Limits::min}}{\mathtt{Set::Limits::max}}$$
+The universe is symmetric:
+$-\mbox{\?Set::Limits::min?}=\mbox{\?Set::Limits::max?}$.
+Furthermore, the cardinality of a set is limited to the unsigned integer interval
+$$\#\range{0}{\mathtt{Set::Limits::card}}$$
+The limits have been chosen
+such that an integer variable can hold the cardinality.
+This means that the maximal element of a set variable is
+$\mathtt{Int::Limits::max} / 2 - 1$. The limits are defined in
+the namespace \gecoderef[namespace]{Set::Limits}.
+
+Any attempt to create a set variable with values outside the defined
+limits throws an exception of type
+\gecoderef[class]{Set::OutOfLimits}.
+
+\tip{Small variable domains are still beautiful}{%
+  Just like integer variables (see \autoref{tip:m:integer:beautifuldomains}), set 
+  variables do not have a constructor that
+  creates a variable with the largest possible domain. And again, one has to
+  worry and the omission is deliberate to make you worry. So think about the 
+  initial domains carefully when modeling.
+}
+
+\paragraph{Variable access functions.}
+
+You can access the current domain of a set variable \?x? using member functions such as \?x.cardMax()?, returning the upper bound of the cardinality, or \?x.glbMin()?, returning the smallest element of the lower bound. Furthermore, you can print a set variable's domain using the standard output operator \?<<?.
+
+\paragraph{Iterating variable domain interval bounds.}
+
+For access to the interval bounds of a set variable, Gecode provides three value iterators and corresponding range iterators. For example, the
+following loop 
+\begin{code}
+for (SetVarGlbValues i(x); i(); ++i)
+  std::cout << i.val() << ' ';
+\end{code}
+uses the value iterator \?i? to print all values of the greatest lower
+bound of the domain of \?x? in increasing order. If \?x? is assigned, this of course corresponds to the value of \?x?. Similarly, the following loop 
+\begin{code}
+for (SetVarLubRanges i(x); i(); ++i)
+  std::cout << i.min() << ".." << i.max() << ' ';
+\end{code}
+uses the range iterator \?i? to print all ranges of the least upper bound of the domain of \?x?. The third kind of iterator, \gecoderef[class]{SetVarUnknownValues} or \gecoderef[class]{SetVarUnknownRanges}, iterate the values resp.\ ranges that are still unknown to be part or not part of the set, that is $u\setminus l$ for the domain $\range{l}{u}$.
+
+\paragraph{When to inspect a variable.}
+
+The same restrictions hold as for integer variables (see
+\autoref{sec:m:integer:inspect}). The important restriction is
+that one must not change the domain of a variable (for example,
+by posting a constraint on that variable) while an iterator for
+that variable is being used.
+
+\paragraph{Updating variables.}
+
+Set variables behave exactly like integer variables during cloning of a space. A set variable is updated by
+\begin{code}
+x.update(home, share, y);
+\end{code}
+where \?share? is the Boolean argument passed as argument to
+\?copy()? and \?y? is the variable from which \?x? is to be
+updated. While \?home? is the space \?x? belongs to, \?y? belongs
+to the space which is being cloned.
+
+\paragraph{Variable and argument arrays.}
+
+Set variable arrays can be allocated using the class
+\gecoderef[class]{SetVarArray}. The constructors of this class
+take the same arguments as the set variable constructors,
+preceded by
+the size of the array. For example,
+\begin{code}
+SetVarArray x(home, 4, IntSet::empty, IntSet(1, 3));
+\end{code}
+creates an array of four set variables, each with domain $\range{\{\}}{\{1,2,3\}}$.
+
+To pass temporary data structures as arguments, you can use the
+\?SetVarArgs? class (see \gecoderef[group]{TaskModelSetArgs}).
+Some set constraints are defined in terms of arrays of sets of
+integers. These can be passed using \?IntSetArgs? (see
+\gecoderef[group]{TaskModelSetArgs}). Set variable argument arrays 
+support the same operations introduced in 
+\autoref{sec:m:integer:args}.
+
+\section{Constraint overview}
+\label{sec:m:set:post}
+
+This section introduces the different groups of constraints over set variables
+available in Gecode. The section serves only as an overview. For the details and
+the full list of available post functions, the section refers to the relevant
+reference documentation.
+
+\paragraph{Reified constraints.}
+
+Several set constraints also exist as a reified variant. Whether a reified
+version exists for a given constraint can be found in the
+reference documentation. If a reified version does exist, the
+Boolean control variable is passed as the last non-optional
+argument.
+
+\tip{Reification by decomposition}{%
+\label{tip:m:set:rbd}%
+If your model requires reification of a constraint for which no reified version exists in the library, you can often \emph{decompose} the reification. For example, to reify the constraint $\mbox{\?x?}\cup\mbox{\?y?}=\mbox{\?z?}$ to a control variable \?b?, you can introduce an auxiliary variable $\mbox{\?z0?}$ and post the two constraints
+\begin{code}
+rel(home, x, SOT_UNION, y, SRT_EQ, z0);
+rel(home, z0, SRT_EQ, z, b);
+\end{code}
+}
+
+\subsection{Domain constraints}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l@{\qquad}l@{\quad}l}
+\?SRT_EQ? & equality ($=$) &
+\?SRT_NQ? & disequality ($\neq$) \\
+\?SRT_SUB? & subset ($\subseteq$) &
+\?SRT_SUP? & superset ($\supseteq$) \\
+\?SRT_DISJ? & disjointness ($\parallel$) &
+\?SRT_CMPL? & complement ($\;\overline{\cdot}\;$)
+\end{tabular}
+\end{center}
+\caption{Set relation types}
+\label{fig:m:set:srt}
+\end{figure}
+
+\gecoderef[group]{TaskModelSetDom} restrict the domain of a set variable using a
+set constant (given as a single integer, an interval of two integers or an
+\?IntSet?), depending on set relation types of type \?SetRelType? (see
+\gecoderef[group]{TaskModelSet}). \autoref{fig:m:set:srt} lists the available set
+relation types and their meaning.
+
+\begin{samepage}
+For example, the constraints
+\begin{code}
+dom(home, x, SRT_SUB, 1, 10);
+dom(home, x, SRT_SUP, 1, 3);
+dom(home, y, SRT_DISJ, IntSet(4, 6));
+\end{code}
+result in the set variable \?x? being a subset of
+$\{1,\dots,10\}$ and a superset of $\{1,2,3\}$, while $4$, $5$,
+and $6$ are not elements of the set $\mathtt{y}$. The domain constraints
+for set variables support reification.
+\end{samepage}
+
+In addition to the above constraints,
+\begin{code}
+cardinality(home, x, 3, 5);
+\end{code}
+restricts the cardinality of the set variable \?x? to be between $3$ and $5$.
+
+For examples using domain constraints, see
+\gecoderef[example]{crew}, as well as the redundant constraints
+in \gecoderef[example]{golf}.
+
+\subsection{Relation constraints}
+
+\gecoderef[group]{TaskModelSetRel} enforce relations between set variables and between set and integer variables, depending on the set relation types introduced above.
+
+For set variables \?x? and \?y?, the following constrains \?x? to
+be a subset of \?y?:
+\begin{code}
+rel(home, x, SRT_SUB, y);
+\end{code}
+
+If \?x? is a set variable and \?y? is an integer variable, then
+\begin{code}
+rel(home, x, SRT_SUP, y);
+\end{code}
+constrains \?x? to be a superset of the singleton set
+$\{\mathtt{y}\}$, which means that \?y? must be an element of \?x?.
+
+\begin{samepage}
+The last form of set relation constraint uses an integer relation
+type (see \autoref{fig:m:integer:irt}) instead of a set relation
+type. This constraint restricts \emph{all} elements of a set
+variable to be in the given relation to the value of an integer
+variable. For example,
+\begin{code}
+rel(home, x, IRT_GR, y);
+\end{code}
+\end{samepage}
+constrains all elements of the set variable \?x? to be strictly
+greater than the value of the integer variable \?y?.
+
+Gecode provides reified versions of all set relation constraints. For an
+example, see \gecoderef[example]{golf} and \autoref{chap:c:golf}.
+
+\subsection{Set operations}
+\label{m:set:set_operations}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l@{\qquad}l@{\quad}l}
+\?SOT_UNION? & union ($\cup$) &
+\?SOT_INTER? & intersection ($\cap$) \\
+\?SOT_DUNION? & disjoint union ($\uplus$) &
+\?SOT_MINUS? & set minus ($\setminus$)
+\end{tabular}
+\end{center}
+\caption{Set operation types}
+\label{fig:m:set:sot}
+\end{figure}
+
+\gecoderef[group]{TaskModelSetRelOp} perform set operations
+according to the type shown in \autoref{fig:m:set:sot} and relate
+the result to a set variable. For example,
+\begin{code}
+rel(home, x, SOT_UNION, y, SRT_EQ, z);
+\end{code}
+enforces the relation $\mathtt{x}\cup \mathtt{y}=\mathtt{z}$ for
+set variables \?x?, \?y?, and \?z?. For an array of set variables
+\?x?,
+\begin{code}
+rel(home, SOT_UNION, x, y);
+\end{code}
+enforces the relation
+$$\bigcup_{i=0}^{|\mathtt{x}|-1}\mathtt{x}_i=\mathtt{y}$$
+
+Instead of set variables, the relation constraints also accept
+\?IntSet?  arguments as set constants. There are no reified
+versions of the set operation constraints (you can decompose
+using reified relation constraints on the result, see
+\autoref{tip:m:set:rbd}).
+
+Set operation constraints are used in most examples that contain
+set variables, such as \gecoderef[example]{crew} or
+\gecoderef[example]{hamming}.
+
+\subsection{Element constraints}
+\label{m:set:element}
+
+\gecoderef[group]{TaskModelSetElement} generalize array access to
+set variables.  The simplest version of \?element? for set
+variables is stated as
+\begin{code}
+element(home, x, y, z);
+\end{code}
+for an array of set variables or constants \?x?, an integer
+variable \?y?, and a set variable \?z?. It constrains \?z? to be
+the element of array \?x? at index \?y? (where the index starts
+at \?0?).
+
+A further generalization uses a \emph{set variable} as the index,
+thus selecting several sets at once. The result variable is
+constrained to be the union, disjoint union, or intersection of
+the selected set variables, depending on the set operation type
+argument. For example,
+\begin{code}
+element(home, SOT_UNION, x, y, z);
+\end{code}
+for set variables \?y? and \?z? and an array of set variables
+\?x? enforces the following relation:
+$$\mathtt{z}=\bigcup_{i\in\mathtt{y}}\mathtt{x}_i$$
+
+Note that generalized element constraints follow the usual
+semantics of set operations if the index variable is the empty
+set: an empty union is the empty set, whereas an empty
+intersection is the full universe. Because of this semantics, the
+\?element? constraint has an optional set constant argument so
+that you can specify the universe (i.e., usually the full set of
+elements your problem deals with) explicitly. For an example of a
+set element constraint, see \gecoderef[example]{golf} and \autoref{chap:c:golf}.
+
+\subsection{Constraints connecting set and integer variables}
+\label{m:set:set_int}
+
+Most models that involve set variables also involve integer variables. In
+addition to the set relation constraints that accept integer variables
+(interpreting them as singleton sets), \gecoderef[group]{TaskModelSetConnect}
+provide the necessary interface for models that use both set variables and
+integer or Boolean variables.
+
+The most obvious constraint connecting integer and set variables
+is the cardinality constraint:
+\begin{code}
+cardinality(home, x, y);
+\end{code}
+It states that the integer variable \?y? is equal to the cardinality
+of the set variable \?x?.
+
+Gecode provides constraints for the minimal and maximal elements
+of a set. The following code
+\begin{code}
+min(home, x, y);
+\end{code}
+constrains the integer variable \?y? to be the minimum of the set \?x?. 
+
+For an example of constraints connecting integer and set
+variables, see \gecoderef[example]{steiner}.
+
+\paragraph{Weighted sets.}
+
+The \?weights? constraint assigns a weight to each possible
+element of a set variable \?x?, and then constrains an integer
+variable \?y? to be the sum of the weights of the elements of
+\?x?. The mapping is given using two integer arrays, \?e? and
+\?w?. For example,
+\begin{code}
+IntArgs e(6,   1, 3, 4, 5, 7, 9);
+IntArgs w(6,  -1, 4, 1, 1, 3, 3);
+weights(home, e, w, x, y);
+\end{code}
+enforces that \?x? is a subset of $\{1,3,4,5,7,9\}$ (the set of
+elements), and that \?y? is the sum of the weights of the
+elements in \?x?, where the weight of the element \?1? would be
+\?-1?, the weight of \?3? would be \?4? and so on. Assigning \?x?
+to the set $\{3,7,9\}$ would therefore result in \?y? being
+assigned to $4+3+3=10$.
+
+\paragraph{Channeling.}
+
+Finally, there are channeling constraints between set variables
+and integer and Boolean variables. For an array of integer
+variables \?x? and an array of set variables \?y?,
+\begin{code}
+channel(home, x, y);
+\end{code}
+posts the constraint
+$$
+\mathtt{x}_i=j \Leftrightarrow i\in \mathtt{y}_j
+\qquad\mbox{for }0\leq i,j<|\mathtt{x}|
+$$
+
+The channel between a set variable \?y? and an array of Boolean
+variables \?x?,
+\begin{code}
+channel(home, x, y);  
+\end{code}
+enforces the constraint
+$$
+\mathtt{x}_i=1 \Leftrightarrow i\in \mathtt{y}
+\qquad\mbox{for }0\leq i<|\mathtt{x}|
+$$
+
+An array of integer variables \?x? can be channeled to a set
+variable \?y? using
+\begin{code}
+rel(home, SOT_UNION, x, y);
+\end{code}
+which constrains \?y? to be the set $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$. An alias for this constraint is defined in the modeling convenience library, see \autoref{sec:m:minimodel:channel} and \autoref{sec:m:minimodel:setalias}.
+
+A specialized version of the previous constraint is
+\begin{code}
+channelSorted(home, x, y);
+\end{code}
+which constrains \?y? to be the set
+$\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$, and the
+integer variables in \?x? are sorted in increasing order
+($\mathtt{x}_i<\mathtt{x}_{i+1}$ for $0\leq i<|\mathtt{x}|$).
+
+\subsection{Convexity constraints}
+
+\gecoderef[group]{TaskModelSetConvex} enforce that set variables
+are convex, which means that the elements form an integer
+interval. For example, the set $\{1,2,3,4,5\}$ is convex, while
+$\{1,3,4,5\}$ is not, as it contains a hole. The \emph{convex
+  hull} of a set $s$ is the smallest convex set containing $s$
+($\{1,2,3,4,5\}$ is the convex hull of $\{1,3,4,5\}$).
+
+The constraint
+\begin{code}
+convex(home, x);
+\end{code}
+states that the set variable \?x? must be convex, and
+\begin{code}
+convex(home, x, y);
+\end{code}
+enforces that the set variable \?y? is the convex hull of the set
+variable \?x?.
+
+\subsection{Sequence constraints}
+
+\gecoderef[group]{TaskModelSetSequence} enforce an order among an
+array of set variables \?x?. Posting the constraint
+\begin{code}
+sequence(home, x);
+\end{code}
+results in the sets \?x? being pairwise disjoint, and furthermore
+$\max(\mathtt{x}_i)<\min(\mathtt{x}_{i+1})$ for all $0\leq
+i<|\mathtt{x}|-1$. Posting
+\begin{code}
+sequence(home, x, y);
+\end{code}
+additionally constrains the set variable \?y? to be the union of the \?x?.
+
+For an example of sequence constraints, see \gecoderef[example]{steiner}.
+
+\subsection{Value precedence constraints}
+\label{sec:m:set:precede}
+
+\gecoderef[group]{TaskModelSetPrecede} enforce that a value
+precedes another value in an array of set variables. By
+\begin{code}
+precede(home, x, s, t);
+\end{code}
+where \?x? is an array of set variables and both \?s? and
+\?t? are integers, the following is enforced: if there exists $j$
+($0\leq j<|\mathtt{x}|$) such that $s\notin\mathtt{x}_j$ and
+$t\in\mathtt{x}_j$, then there must exist $i$ with $i<j$ such that
+$s\in\mathtt{x}_i$ and $t\notin\mathtt{x}_i$.
+
+A generalization is available for precedences between several
+integer values. By
+\begin{code}
+precede(home, x, c);
+\end{code}
+where \?x? is an array of set variables and \?c? is an array
+of integers, it is enforced that $\mathtt{c}_i$ precedes
+$\mathtt{c}_{i+1}$ in \?x? for $0\leq i<|\mathtt c|-1$.
+
+The constraint is implemented by the propagator
+introduced in~\cite{Precede}, the paper also explains how to use
+the \?precede? constraint for breaking value symmetries.
+For an example, see \gecoderef[example]{golf} and \autoref{chap:c:golf}.
+
+\section{Synchronized execution}
+\label{sec:m:set:exec}
+
+Gecode offers support in
+\gecoderef[group]{TaskModelSetExec} for executing a function
+(either a function or a static member function but not a member
+function) when set variables become assigned. 
+
+Assume that a function \?c? (for continuation) is defined by
+\begin{code}
+void c(Space& home) { ... }
+\end{code}
+Then
+\begin{code}
+wait(home, x, &c);
+\end{code}
+posts a propagator that waits until the set
+variable \?x? (or, if \?x? is an array of variables: all variables in
+\?x?) is assigned. If \?x? becomes assigned, the function \?c? is
+executed with the current home space passed as argument.
+

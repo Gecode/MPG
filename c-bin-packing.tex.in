@@ -1,0 +1,1166 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Bin packing}
+\label{chap:c:bpp}
+
+%% FILES: CHAPTERONLY
+
+This chapter studies the classic bin packing problem.  Three
+models are presented: a first and naive model (presented in
+\autoref{sec:c:bpp:naive}) that suffers from poor propagation to
+be feasible. This is followed by a model
+(\autoref{sec:c:bpp:prop}) that uses the special \?binpacking?
+constraint to drastically improve constraint propagation. A final
+model improves the second model by a problem-specific branching
+(\autoref{sec:c:bpp:branch}) that also breaks many symmetries during
+search.
+
+\begin{important}
+  This case study requires knowledge on programming
+  branchers, see \autoref{part:b}.
+\end{important}
+
+\section{Problem}
+\label{sec:c:bpp:problem}
+
+The bin packing problem consists of packing $\mathtt{n}$ items of
+sizes $\mathtt{size}_i$ ($0\leq i<\mathtt{n}$) into the
+smallest number of bins such that the capacity $\mathtt{c}$ of
+each bin is not exceeded.
+
+\newcommand{\bppbin}[1]{
+\rput(#1,0){\psframe[linecolor=black,linewidth=1.5pt,dimen=outer](-0.2,-0.2)(2.2,10.2)}
+}
+\newcommand{\bppitem}[3]{
+\rput(#1,#2){%
+\psframe[fillstyle=solid,fillcolor=GecodeBlue,opacity=0.3,linecolor=GecodeBlue,linewidth=0.75pt,dimen=inner](0.15,0.15)(1.85,#3.85)%
+}}
+\newcommand{\bppmark}[3]{
+\rput(#1,#2){\makebox(0,0){\textbf{#3}}}
+}
+\begin{figure}
+\begin{center}
+\psset{unit=12pt}
+\begin{pspicture}(0,0)(11,10)
+\bppbin{0}\bppbin{3}\bppbin{6}\bppbin{9}%
+\bppitem{0}{0}{5}%
+\bppitem{0}{6}{2}%
+\bppitem{3}{0}{5}%
+\bppitem{3}{6}{1}%
+\bppitem{3}{8}{1}%
+\bppitem{6}{0}{5}%
+\bppitem{6}{6}{1}%
+\bppitem{6}{8}{1}%
+\bppitem{9}{0}{4}%
+\bppitem{9}{5}{2}%
+\bppitem{9}{8}{1}%
+\bppmark{1}{3}{0}%
+\bppmark{1}{7.5}{4}%
+\bppmark{4}{3}{1}%
+\bppmark{4}{7}{6}%
+\bppmark{4}{9}{7}%
+\bppmark{7}{3}{2}%
+\bppmark{7}{7}{8}%
+\bppmark{7}{9}{9}%
+\bppmark{10}{2.5}{3}%
+\bppmark{10}{6.5}{5}%
+\bppmark{10}{9}{10}%
+\end{pspicture}
+\end{center}
+\caption{An example optimal bin packing}
+\label{fig:c:bpp:optimal}
+\end{figure}
+
+
+For example, the $11$ items of sizes
+$$
+  6,6,6,5,3,3,2,2,2,2,2
+$$
+require at least four bins of capacity $10$ as shown in
+\autoref{fig:c:bpp:optimal} where the items are numbered starting
+from zero.
+
+
+
+\section{A naive model}
+\label{sec:c:bpp:naive}
+
+Before turning our attention to a naive model for the bin packing
+problem, this section discusses instance data for the bin
+packing problem and how to compute lower and upper bounds for the
+number of required bins.
+
+\paragraph{Instance data.}
+
+\begin{figure}
+\insertlitcode{bin packing naive:instance data}
+\caption{Instance data for a bin packing problem}
+\label{fig:c:bpp:data}
+\end{figure}
+
+\mbox{}\autoref{fig:c:bpp:data} shows an example instance of a
+bin packing problem, where \?n? defines the number of items, \?c?
+defines the capacity of each \?bin?, and the array \?size?
+defines the size of each item. For simplicity, we assume that the
+item size are ordered in decreasing order.
+
+The data corresponds to the instance \?N1C1W1_N? taken
+from~\cite{BISON:1997}. More information on other data instances
+can be found in \autoref{sec:c:bpp:info}.
+
+\paragraph{Computing a lower bound.}
+
+\begin{figure}
+\insertlitcode{bin packing naive:compute lower bound}
+\caption{Computing a lower bound for the number of bins}
+\label{fig:c:bpp:lower}
+\end{figure}
+
+\mbox{}A simple lower bound $L_1$ (following Martello and
+Toth~\cite{MartelloToth:1990}) for the number of bins required
+for a bin packing problem just considers the size of all items
+and the bin capacity as follows:
+$$
+L_1=\left\lceil\frac{1}{c}\sum_{i=0}^{\mathtt{n}-1} \mathtt{size}_i\right\rceil
+$$
+
+The computation of the lower bound $L_1$ is as to be expected and
+is shown in \autoref{fig:c:bpp:lower}. The ceiling
+operation is replaced by adding $\mathtt{c}-1$ followed by
+truncating integer division with~$\mathtt{c}$. 
+
+Note that more accurate lower bounds are known, see
+\autoref{sec:c:bpp:info} for more information.
+
+\paragraph{Computing an upper bound.}
+
+An obvious upper bound for the number of bins required is the
+number of items: each item is packed into a separate bin 
+(provided that no item size exceeds the bin capacity \?c?). A
+better upper bound can be computed by constructing a
+solution by packing items into bins following a first-fit
+strategy: pack all items into the first bin of sufficient free
+capacity. 
+
+\begin{figure}
+\insertlitcode{bin packing naive:compute upper bound}
+\caption{Computing an upper bound for the number of bins}
+\label{fig:c:bpp:upper}
+\end{figure}
+
+\autoref{fig:c:bpp:upper} shows the function \?upper()? that
+returns an upper bound for the number of bins. It initializes an
+array \?free? of \?n? integers with the bin capacity \?c?. The
+integer \?u? refers to the index of the last used bin (that is, a
+bin into which an item has been packed). The function returns the
+number of used bins (that is, the index \?u? plus one).
+
+Each item is packed into a bin with sufficient free capacity
+where \?j? refers to the next free bin:
+\insertlitcode{bin packing naive:pack items into free bins}
+
+The next free bin \?j? is searched for as follows:
+\insertlitcode{bin packing naive:find free bin}
+The loop always terminates as there is one bin for
+each item.
+
+Note that \?upper()? has $O(\mathtt{n}^2)$ complexity in the
+worst case but could be made more efficient by speeding up
+finding a fitting bin.
+
+\begin{figure}
+\begin{center}
+\psset{unit=12pt}
+\begin{pspicture}(0,0)(14,10)
+\bppbin{0}\bppbin{3}\bppbin{6}\bppbin{9}\bppbin{12}%
+\bppitem{0}{0}{5}%
+\bppitem{0}{6}{2}%
+\bppitem{3}{0}{5}%
+\bppitem{3}{6}{2}%
+\bppitem{6}{0}{5}%
+\bppitem{6}{6}{1}%
+\bppitem{6}{8}{1}%
+\bppitem{9}{0}{4}%
+\bppitem{9}{5}{1}%
+\bppitem{9}{7}{1}%
+\bppitem{12}{0}{1}%
+\bppmark{1}{3}{0}%
+\bppmark{1}{7.5}{4}%
+\bppmark{4}{3}{1}%
+\bppmark{4}{7.5}{5}%
+\bppmark{7}{3}{2}%
+\bppmark{7}{7}{6}%
+\bppmark{7}{9}{7}%
+\bppmark{10}{2.5}{3}%
+\bppmark{10}{6}{8}%
+\bppmark{10}{8}{9}%
+\bppmark{13}{1}{10}%
+\end{pspicture}
+\end{center}
+\caption{An non-optimal bin packing found during upper bound computation}
+\label{fig:c:bpp:greedy}
+\end{figure}
+
+The solution constructed during computation of \?upper()? is not
+necessarily optimal. As an example, consider the packing computed by \?upper()?
+for the example from \autoref{sec:c:bpp:problem} shown in
+\autoref{fig:c:bpp:greedy}: it takes five rather than four bins
+because one of the items~4 and~5 should be packed together with
+item~3 rather than
+with one of the items~0,~1, and~2.  
+
+If both lower and upper bound coincide the solution
+constructed is of course optimal and we are done solving the bin
+packing problem. For reasons of simplicity, our model just
+forsakes this opportunity and re-computes an optimal solution by
+constraint programming.
+
+\paragraph{Model proper.}
+
+\begin{figure}
+\insertlitcode{bin packing naive}
+\caption{A naive script for solving a bin packing problem}
+\label{fig:c:bpp:naive}
+\end{figure}
+
+\mbox{}\autoref{fig:c:bpp:naive} shows a script for the bin
+packing model. The script defines integers \?l? and \?u? that
+store the lower and upper bound as discussed above. A \emph{load
+  variable} $\mathtt{load}_i$ (taking values from
+$\range{0}{\mathtt{c}}$) defines the total size of all items
+packed into bin $i$. The script uses \?u? load
+variables as the upper bound guarantees that \?u? bins are
+sufficient to find an optimal solution. A \emph{bin variable}
+$\mathtt{bin}_i$ (taking values from $\range{0}{\mathtt{u}-1}$
+defines for each item $i$ into which bin it is packed. The variable
+\?bins? defines the number of \emph{used bins}. A bin is
+\emph{used} if at least one item is packed into it, otherwise it
+is an \emph{excess} bin.
+
+The integer \?s? is initialized as the size of all items and
+\?sizes? is initialized as an integer argument array of all sizes.
+
+The \?cost()? function as required by the class \?MinimizeScript?
+(see \autoref{sec:m:driver:script}) returns the number of
+\?bins?.
+
+\paragraph{Excess bins.}
+
+If the script finds a solution that uses less than \?u? bins, say
+\?k? (the value of the \?bins? variable), then
+$\mathtt{u}-\mathtt{k}$ of the load variables corresponding to
+excess bins are zero. To remove many symmetrical solutions that
+only differ in which bins are excess bins, the script constrains
+the excess bins to be the bins $\mathtt{k},\ldots,\mathtt{u}-1$:
+\insertlitcode{bin packing naive:excess bins}
+
+\paragraph{Constraining load and bin variables.}
+
+The sum of all load variables must be equal to the size of all
+items:
+\insertlitcode{bin packing naive:loads add up to item sizes}
+
+The load variable for a bin must be constrained according
+to which items are packed into the bin. A standard formulation of
+this constraint uses Boolean variables $\mathtt{x}_{i,j}$ which
+determine whether item $i$ has been packed into bin $j$. That is,
+for each item $0\leq i<\mathtt{n}$ the following constraint must
+hold:
+$$
+\mathtt{x}_{i,j}=1\iff \mathtt{bin}_i=j\qquad (0\leq
+j<\mathtt{u})
+$$
+
+A more efficient propagator for the very same constraint is
+available as a \?channel? constraint between an array of Boolean
+variables and a single integer variable, see
+\autoref{sec:m:integer:channel}. That is, for each item $0\leq
+i<\mathtt{n}$ the following constraint must hold:
+$$
+\mathtt{channel}(\langle
+\mathtt{x}_{i,0},\mathtt{x}_{i,1},\ldots,
+\mathtt{x}_{i,u-1}\rangle,\mathtt{bin}_i)
+$$
+Note that $\langle
+\mathtt{x}_{i,0},\mathtt{x}_{i,1},\ldots,
+\mathtt{x}_{i,u-1}\rangle$ corresponds to \?x.col(?$i$\?)?.
+
+Furthermore, the size of all items packed into a bin must equal
+the corresponding load variable.
+Both constraints are expressed as follows, using a matrix \?x? (see
+\autoref{sec:m:minimodel:matrix}) of
+Boolean variables \?_x?:
+\insertlitcode{bin packing naive:loads are equal to packed items}
+
+\paragraph{Symmetry breaking.}
+
+Items of the same size are equivalent as far as the model is
+concerned. To break symmetries, the bins for items of
+the same size are ordered:
+\insertlitcode{bin packing naive:symmetry breaking}
+The loop exploits that items are ordered according to
+size and hence items of the same size are adjacent.
+
+\paragraph{Pack items that require a bin.}
+
+If the size $s$ of an item exceeds $\lceil\frac{\mathtt{c}}{2}\rceil$
+(or, equivalently, $2s>\mathtt{c}$), the item cannot share a bin
+with any other item also exceeding half of the capacity. That is,
+items exceeding half of the capacity can be directly assigned to
+different bins:
+\insertlitcode{bin packing naive:pack items that require a bin}
+
+The assignment of items to bins is compatible with the
+symmetry breaking constraints discussed previously.
+
+\paragraph{Branching.}
+
+We choose a naive branching strategy that first branches on the number of
+required \?bins?, followed by trying to assign items to bins.
+\insertlitcode{bin packing naive:branching}
+
+Note that by choosing the \?bin? variables with order
+\?INT_VAR_NONE? assigns the largest item to a bin first as items
+are sorted by decreasing size.
+
+The script in \autoref{fig:c:bpp:naive} does not show that the
+script uses branch-and-bound search to find a best solution. Why
+depth-first search is not sufficient with parallel search is
+discussed in \autoref{tip:m:search:parbab}.
+
+\paragraph{Running the model.}
+
+When running the naive model\footnote{All measurements in this
+  chapter have been made on a laptop with an Intel i5 M430
+  processor (2.27 GHz, two cores, hyper-threading), 4~GB of main
+  memory, running Windows~7 x64, and using Gecode 3.4.3.}, it
+becomes apparent that the model is indeed naive. Finding the best
+solution takes $29.5$ seconds and $2\,451\,018$ failures.
+Clearly, that leaves ample room for improvement in the
+following sections!
+
+% Time: 29523.6ms
+
+
+\section{Improving propagation}
+\label{sec:c:bpp:prop}
+
+This section improves (and simplifies) the naive model from the
+previous section by using a dedicated \?binpacking? constraint.
+
+\begin{figure}
+\insertlitcode{bin packing propagation}
+\caption{A script with improved propagation for solving a bin packing problem}
+\label{fig:c:bpp:prop}
+\end{figure}
+
+\paragraph{Model.}
+
+The improved model is shown in \autoref{fig:c:bpp:prop}. Instead
+of using Boolean variables \?x?, \?linear? constraints, and
+\?channel? constraints it uses the \?binpacking? constraint (see
+also \autoref{sec:m:integer:bpp}). The constraint enforces that
+the packing of items as defined by the \?bin? variables
+corresponds to the \?load? variables.
+
+\paragraph{Running the model.}
+
+Finding a best solution using the model with improved propagation
+takes $1.5$ seconds and $64\,477$ failures. That is, this model
+runs almost $20$ times faster than the naive model and reduces
+the number of failures by a factor of $38$.
+
+%Time: 1488.7ms
+
+
+
+\section{Improving branching}
+\label{sec:c:bpp:branch}
+
+This section describes a problem specific branching to improve
+the model of the previous section even further.
+
+\paragraph{Complete decreasing best fit branching.}
+
+The improved branching for bin packing is called
+complete decreasing best-fit (CDBF) and is due to Gent and
+Walsh~\cite{CDBF}. The branching uses some additional
+improvements suggested by Shaw in~\cite{Shaw:CP:2004}.
+
+The branching tries to assign items to bins during search where
+the items are tried in order of decreasing size. The bin is
+selected according to a best fit strategy: try to put the item
+into a bin with sufficient but least free space. The space of the
+bin after packing an item is called the bin's \emph{slack}. If
+there is no bin with sufficient free space left, CDBF fails.
+
+Suppose that CDBF selects item \?i? and bin \?b?. Then the
+following actions are taken during branching:
+\begin{itemize}
+\item If there is a perfect fit (that is, the slack is zero),
+  branching assigns item \?i? to bin \?b?. This corresponds to a
+  branching with a single alternative.
+\item If all possible bins have the same slack, branching assigns
+  item \?i? to bin \?b?. Again, this corresponds to a
+  branching with a single alternative.
+\item Otherwise, CDBF tries two alternatives in the following order:
+\begin{itemize}
+\item Assign item \?i? to bin \?b?.
+\item Not only prune bin \?b? from the potential bins for item
+  \?i? but also prune all bins with the same slack as \?b? from the
+  potential bins for all items with the same size as \?i?.
+\end{itemize}
+\end{itemize}
+
+Note that the second alternative of CDBF performs symmetry
+breaking during search as it prunes also with respect to
+equivalent items and bins.
+
+\paragraph{Model.}
+
+\begin{figure}
+\insertlitcode{bin packing branching}
+\caption{A script with improved branching for solving a bin packing problem}
+\label{fig:c:bpp:branch}
+\end{figure}
+
+The only change to the model compared to \autoref{sec:c:bpp:prop}
+is that it uses the branching \?cdbf? for assigning items to bins
+during search.
+
+\paragraph{Brancher creation.}
+
+\begin{figure}
+\insertlitcode{bin packing branching:CDBF}
+\caption{CDBF brancher and branching}
+\label{fig:c:bpp:cdbf}
+\end{figure}
+
+The \?cdbf? branching takes load variables (for computing the
+free space of a bin), bin variables (to pack items into bins),
+and the item sizes (to compute how much space an item requires)
+as input and posts the \?CDBF? brancher as shown in
+\autoref{fig:c:bpp:cdbf}. 
+
+The branching post function \?cdbf()? creates view arrays for the
+respective variables, creates a shared integer array of type
+\?IntSharedArray? (see \autoref{tip:m:integer:sharedelement}) and
+posts a \?CDBF? brancher.
+The advantage of using a shared array is that the sizes are
+stored only once in memory and branchers in different spaces have
+shared access to the same memory area (see also
+\autoref{sec:p:memory:shared}). 
+
+The brancher \?CDBF? stores the load variables, bin variables,
+and item sizes together with an integer \?item?. The integer
+\?item? is used to find the next unassigned item. It is declared
+\?mutable? so that the \?const? \?status()? function (see below)
+can modify it. The brancher exploits that the items are sorted by
+decreasing size: by initializing \?item? to zero the brancher is
+trying to pack the largest item first.
+
+By default, the \?dispose()? member function of a brancher is not
+called when the brancher's home space is deleted. However, the
+\?dispose()?  function of the \?CDBF? brancher must call the
+destructor of the shared integer array \?size?. Hence, the
+constructor of \?CDBF?  calls the \?notice()? function of the
+home space so that the brancher's \?dispose()? function is called
+when home is deleted (see also \autoref{par:p:started:dispose}).
+Likewise, the \?dispose()? function calls the \?ignore()?
+function before the brancher is disposed.
+
+\paragraph{Status computation.}
+
+The \?status()? function tries to find a yet unassigned view for
+branching in the view array \?bin?. It starts inspecting the
+views at position \?item? and skips all already assigned
+views. If there is a not yet assigned view left, \?item? is
+updated to that unassigned view and \?true? is returned (that is,
+more branching is needed). Otherwise, the brancher returns
+\?false? as no more branching is needed:
+\insertlitcode{bin packing branching:status function}
+As the items are sorted by decreasing size, the integer \?item?
+refers to the largest not-yet packed item.
+
+\paragraph{Choice computation: initialization.}
+
+The \?choice()? function implements the actual heuristic. The
+function uses \?n? for the number of items, \?m? for the
+number of bins, and initializes a \?region? for managing
+temporary memory (see \autoref{par:p:memory:region}) as follows:
+\insertlitcode{bin packing branching:choice function}
+The \?choice()? function can rely on the fact that it is
+immediately executed after the \?status()? function has been
+executed. That entails that \?item? refers to the largest not-yet
+packed item.
+
+\begin{samepage}
+The function computes in \?free? the free space of each bin. From the maximal load the size of items that have
+already been packed (that is, the item's \?bin? variable is already
+assigned) is subtracted:
+\insertlitcode{bin packing branching:initialize free space in bins}
+\end{samepage}
+
+The \?choice()? function uses the integer \?slack? to track the
+slack of the so-far best fit (initialized with \?INT_MAX? such
+that any fit will be better). The integer \?n_possible? counts
+the number of possible bins for the item whereas \?n_same? counts
+the number of best fits. The array \?same? stores all bins with
+the same so-far smallest slack.
+\insertlitcode{bin packing branching:initialize bins with same slack}
+The array \?same? is initialized to contain the bin \?-1?: if no
+bin has sufficient space for the current item this will
+guarantee that the \?commit()? function (see below) leads to
+failure.
+
+\paragraph{Choice computation: create choice.}
+
+In order to find all best fits, all bins are examined. If the
+current item fits into a bin, the number of possible bins
+\?n_possible? is incremented and all best fits are remembered in
+the array \?same? as follows:
+\insertlitcode{bin packing branching:find best fit}
+Note that finding a better fit updates \?slack? and resets the
+bins stored in \?same?.
+
+\begin{samepage}
+Now, the \?choice()? function determines whether a special case
+needs to be dealt with:
+\begin{itemize}
+\item Is the best fit a perfect fit: that is,
+\?slack? is zero? 
+\item Are all fits a best fit: that is,
+\?n_same? is equal to \?n_possible?? 
+\item Is there no fitting bin: that is,
+\?n_possible? is zero? 
+\end{itemize}
+\end{samepage}
+In these cases a choice with a single
+alternative and otherwise a choice with two
+alternatives is created:
+\insertlitcode{bin packing branching:create choice}
+
+\begin{figure}
+\insertlitcode{bin packing branching:CDBF choice}
+\caption{CDBF choice}
+\label{fig:c:bpp:choice}
+\end{figure}
+
+The definition of the choice class is shown in
+\autoref{fig:c:bpp:choice}. The choice stores the current
+item and in the array \?same? all bins with the same slack. The
+choice does not need to store any information regarding items of
+same size as this information is available from the brancher.
+
+
+\paragraph{Commit function.}
+
+\begin{samepage}
+The \?commit()? function takes a choice of type \?CDBF::Choice?
+and the alternative \?a? (either \?0? or \?1?) as input:
+\insertlitcode{bin packing branching:commit function}
+\end{samepage}
+
+Committing to the first alternative tries to pack \?item? into
+the first bin stored in \?same? as follows:
+\insertlitcode{bin packing branching:commit to first alternative}
+
+Committing to the second alternative removes all \?n_same? bins
+stored in \?same? from all items that have the same size as
+\?item? as follows:
+\insertlitcode{bin packing branching:commit to second alternative}
+The iterator \gecoderef[class]{Iter::Values::Array} iterates over
+all values stored in an array (they must be in sorted order) and
+the operation \?minus_v()? prunes all values as defined by an
+iterator from a view, see \autoref{sec:p:domain:iter}.
+
+
+\paragraph{Running the model.}
+
+Finding a best solution using the model with improved propagation
+and improved branching
+takes $84$ milliseconds and $3\,098$ failures. That is, this model
+runs $352$ times faster than the naive model and reduces
+the number of failures by a factor of $791$.
+
+% Time: 83.8ms
+
+\section{More information}
+\label{sec:c:bpp:info}
+
+Bin packing featuring all models presented in this chapter is also
+available as a Gecode example, see
+\gecoderef[example]{bin-packing}. The example also makes use of a
+more accurate lower bound known as
+$L_2$~\cite{MartelloToth:1990}.
+
+
+\begin{litcode}{bin packing naive}{schulte}
+\begin{litblock}{anonymous}
+#include <algorithm>
+
+#include <gecode/driver.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+\end{litblock}
+\begin{litblock}{instance data}
+const int c = 100;
+const int n = 50;
+const int size[n] = {
+  99,98,95,95,95,94,94,91,88,87,86,85,76,74,73,71,68,60,55,54,51,
+  45,42,40,39,39,36,34,33,32,32,31,31,30,29,26,26,23,21,21,21,19,
+  18,18,16,15,5,5,4,1
+};
+\end{litblock}
+\begin{litblock}{compute lower bound}
+int lower(void) {
+  int s=0;
+  for (int i=0; i<n; i++)
+    s += size[i];
+  return (s + c - 1) / c;
+}
+\end{litblock}
+\begin{litblock}{compute upper bound}
+int upper(void) {
+  int* free = new int[n];
+  for (int i=0; i<n; i++)
+    free[i] = c;
+  int u=0;
+  \begin{litblock}{pack items into free bins}      
+  for (int i=0; i<n; i++) {
+    int j=0;
+    \begin{litblock}{find free bin}
+    while (free[j] < size[i])
+      j++;
+    free[j] -= size[i];
+    \end{litblock}
+    u = std::max(u,j);
+  }
+  \end{litblock}
+  delete [] free;
+  return u+1;
+}
+\end{litblock}
+class BinPacking : public MinimizeScript {
+protected:
+  const int l;
+  const int u;  
+  IntVarArray load;
+  IntVarArray bin;
+  IntVar bins;
+public:
+  BinPacking(const Options& opt) 
+    : l(lower()), u(upper()),
+      load(*this, u, 0, c), 
+      bin(*this, n, 0, u-1), bins(*this, l, u) {
+    \begin{litblock}{excess bins}
+    for (int i=1; i<=u; i++)
+      rel(*this, (bins < i) == (load[i-1] == 0));
+    \end{litblock}
+    int s=0;
+    for (int i=0; i<n; i++)
+      s += size[i];
+    IntArgs sizes(n, size);
+    \begin{litblock}{loads add up to item sizes}
+    linear(*this, load, IRT_EQ, s);
+    \end{litblock}
+    \begin{litblock}{loads are equal to packed items}
+    BoolVarArgs _x(*this, n*u, 0, 1);
+    Matrix<BoolVarArgs> x(_x, n, u);
+    for (int i=0; i<n; i++)
+      channel(*this, x.col(i), bin[i]);
+    for (int j=0; j<u; j++)
+      linear(*this, sizes, x.row(j), IRT_EQ, load[j]);
+    \end{litblock}
+    \begin{litblock}{symmetry breaking}
+    for (int i=1; i<n; i++)
+      if (size[i-1] == size[i])
+        rel(*this, bin[i-1] <= bin[i]);
+    \end{litblock}
+    \begin{litblock}{pack items that require a bin}
+    for (int i=0; (i < n) && (i < u) && (size[i] * 2 > c); i++)
+      rel(*this, bin[i] == i);
+    \end{litblock}
+    \begin{litblock}{branching}
+    branch(*this, bins, INT_VAL_MIN);
+    branch(*this, bin, INT_VAR_NONE, INT_VAL_MIN);
+    \end{litblock}
+  }
+  virtual IntVar cost(void) const {
+    return bins;
+  }
+  \begin{litblock}{anonymous}
+  // Constructor for cloning s
+  BinPacking(bool share, BinPacking& s) 
+    : MinimizeScript(share,s), l(s.l), u(s.u) {
+    load.update(*this, share, s.load);
+    bin.update(*this, share, s.bin);
+    bins.update(*this, share, s.bins);
+  }
+  // Copy during cloning
+  virtual Space* copy(bool share) {
+    return new BinPacking(share,*this);
+  }
+  // Print solution
+  virtual void print(std::ostream& os) const {
+    os << "Bins used: " << bins << " (from " << u << " bins)." << std::endl;
+    for (int j=0; j<u; j++) {
+      bool fst = true;
+      os << "\t[" << j << "]={";
+      for (int i=0; i<n; i++)
+        if (bin[i].assigned() && (bin[i].val() == j)) {
+          if (fst) {
+            fst = false;
+          } else {
+            os << ",";
+          }
+          os << i;
+        }
+      os << "} #" << load[j] << std::endl;
+    }
+    if (!bin.assigned()) {
+      os << std::endl 
+         << "Unpacked items:" << std::endl;
+      for (int i=0;i<n; i++)
+        if (!bin[i].assigned())
+          os << "\t[" << i << "] = " << bin[i] << std::endl;
+    }
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  Options opt("BinPacking");
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  MinimizeScript::run<BinPacking,BAB,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{bin packing propagation}{schulte}
+\begin{litblock}{anonymous}
+#include <algorithm>
+
+#include <gecode/driver.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+const int c = 100;
+const int n = 50;
+const int size[n] = {
+  99,98,95,95,95,94,94,91,88,87,86,85,76,74,73,71,68,60,55,54,51,
+  45,42,40,39,39,36,34,33,32,32,31,31,30,29,26,26,23,21,21,21,19,
+  18,18,16,15,5,5,4,1
+};
+// compute lower bound
+int lower(void) {
+  int s=0;
+  for (int i=0; i<n; i++)
+    s += size[i];
+  return (s + c - 1) / c;
+}
+// compute upper bound
+int upper(void) {
+  int* free = new int[n];
+  // initialize free capacity
+  for (int i=0; i<n; i++)
+    free[i] = c;
+  int u=0;
+  // pack items into free bins
+  for (int i=0; i<n; i++) {
+    int j=0;
+    // find free bin
+    while (free[j] < size[i])
+      j++;
+    free[j] -= size[i];
+    u = std::max(u,j);
+  }
+  delete [] free;
+  return u+1;
+}
+\end{litblock}
+class BinPacking : public MinimizeScript {
+  \begin{litblock}{anonymous}
+protected:
+  const int l;
+  const int u;  
+  IntVarArray load;
+  IntVarArray bin;
+  IntVar bins;
+  \end{litblock}
+public:
+  BinPacking(const Options& opt) 
+    \begin{litblock}{texonly}
+    : ... {
+    \end{litblock}
+    \begin{litblock}{anonymous}
+    : l(lower()), u(upper()),
+      load(*this, u, 0, c), 
+      bin(*this, n, 0, u-1), bins(*this, l, u) {
+    // excess bins
+    for (int i=1; i <= u; i++)
+      rel(*this, (bins < i) == (load[i-1] == 0));
+    \end{litblock}
+    IntArgs sizes(n, size);
+    binpacking(*this, load, bin, sizes);
+    \begin{litblock}{anonymous}
+    // symmetry breaking
+    for (int i=1; i<n; i++)
+      if (size[i-1] == size[i])
+        rel(*this, bin[i-1] <= bin[i]);
+    // pack items that require a bin
+    for (int i=0; (i < n) && (i < u) && (size[i] * 2 > c); i++)
+      rel(*this, bin[i] == i);
+    // branching
+    branch(*this, bins, INT_VAL_MIN);
+    branch(*this, bin, INT_VAR_NONE, INT_VAL_MIN);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  // Cost function
+  virtual IntVar cost(void) const {
+    return bins;
+  }
+  // Constructor for cloning s
+  BinPacking(bool share, BinPacking& s) 
+    : MinimizeScript(share,s), l(s.l), u(s.u) {
+    load.update(*this, share, s.load);
+    bin.update(*this, share, s.bin);
+    bins.update(*this, share, s.bins);
+  }
+  // Copy during cloning
+  virtual Space* copy(bool share) {
+    return new BinPacking(share,*this);
+  }
+  // Print solution
+  virtual void print(std::ostream& os) const {
+    os << "Bins used: " << bins << " (from " << u << " bins)." << std::endl;
+    for (int j=0; j<u; j++) {
+      bool fst = true;
+      os << "\t[" << j << "]={";
+      for (int i=0; i<n; i++)
+        if (bin[i].assigned() && (bin[i].val() == j)) {
+          if (fst) {
+            fst = false;
+          } else {
+            os << ",";
+          }
+          os << i;
+        }
+      os << "} #" << load[j] << std::endl;
+    }
+    if (!bin.assigned()) {
+      os << std::endl 
+         << "Unpacked items:" << std::endl;
+      for (int i=0;i<n; i++)
+        if (!bin[i].assigned())
+          os << "\t[" << i << "] = " << bin[i] << std::endl;
+    }
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  Options opt("BinPacking");
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  MinimizeScript::run<BinPacking,BAB,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{bin packing branching}{schulte}
+\begin{litblock}{anonymous}
+#include <algorithm>
+
+#include <gecode/driver.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+const int c = 100;
+const int n = 50;
+const int size[n] = {
+  99,98,95,95,95,94,94,91,88,87,86,85,76,74,73,71,68,60,55,54,51,
+  45,42,40,39,39,36,34,33,32,32,31,31,30,29,26,26,23,21,21,21,19,
+  18,18,16,15,5,5,4,1
+};
+// compute lower bound
+int lower(void) {
+  int s=0;
+  for (int i=0; i<n; i++)
+    s += size[i];
+  return (s + c - 1) / c;
+}
+// compute upper bound
+int upper(void) {
+  int* free = new int[n];
+  // initialize free capacity
+  for (int i=0; i<n; i++)
+    free[i] = c;
+  int u=0;
+  // pack items into free bins
+  for (int i=0; i<n; i++) {
+    int j=0;
+    // find free bin
+    while (free[j] < size[i])
+      j++;
+    free[j] -= size[i];
+    u = std::max(u,j);
+  }
+  delete [] free;
+  return u+1;
+}
+
+\end{litblock}
+\begin{litblock}{CDBF}
+class CDBF : public Brancher {
+protected:
+  ViewArray<Int::IntView> load;
+  ViewArray<Int::IntView> bin;
+  IntSharedArray size;
+  mutable int item;
+  \begin{litblock}{CDBF choice}
+  class Choice : public Gecode::Choice {
+  public:
+    int  item;
+    int* same;
+    int  n_same;
+    Choice(const Brancher& b, unsigned int a, int i, int* s, int n_s)
+      : Gecode::Choice(b,a), item(i), 
+        same(heap.alloc<int>(n_s)), n_same(n_s) {
+      for (int k=0; k<n_same; k++)
+        same[k] = s[k];
+    }
+    virtual size_t size(void) const {
+      return sizeof(Choice) + sizeof(int) * n_same;
+    }
+    virtual ~Choice(void) {
+      heap.free<int>(same,n_same);
+    }
+    virtual void archive(Archive& e) const {
+      Gecode::Choice::archive(e);
+      e << alternatives() << item << n_same;
+      for (int i=n_same; i--;) e << same[i];
+    }
+  };
+  \end{litblock}
+public:
+  CDBF(Home home, ViewArray<Int::IntView>& l, 
+                  ViewArray<Int::IntView>& b,
+                  IntSharedArray& s) 
+    : Brancher(home), load(l), bin(b), size(s), item(0) {
+    home.notice(*this,AP_DISPOSE);
+  }
+  static void post(Home home, ViewArray<Int::IntView>& l, 
+                              ViewArray<Int::IntView>& b,
+                              IntSharedArray& s) {
+    (void) new (home) CDBF(home, l, b, s);
+  }
+  \begin{litblock}{status function}
+  virtual bool status(const Space&) const {
+    for (int i = item; i < bin.size(); i++)
+      if (!bin[i].assigned()) {
+        item = i; return true;
+      }
+    return false;
+  }
+  \end{litblock}
+  \begin{litblock}{choice function}
+  virtual Gecode::Choice* choice(Space& home) {
+    int n = bin.size(), m = load.size();
+    Region region(home);
+    \begin{litblock}{initialize free space in bins}
+    int* free = region.alloc<int>(m);
+    for (int j=0; j<m; j++)
+      free[j] = load[j].max();
+    for (int i=0; i<n; i++)
+      if (bin[i].assigned())
+        free[bin[i].val()] -= size[i];
+    \end{litblock}
+    \begin{litblock}{initialize bins with same slack}
+    int slack = INT_MAX;
+    unsigned int n_possible = 0;
+    unsigned int n_same = 0;
+    int* same = region.alloc<int>(m+1);
+    same[n_same++] = -1;
+    \end{litblock}
+    \begin{litblock}{find best fit}
+    for (Int::ViewValues<Int::IntView> j(bin[item]); j(); ++j) 
+      if (size[item] <= free[j.val()]) {
+        n_possible++;
+        if (free[j.val()] - size[item] < slack) {
+          slack = free[j.val()] - size[item];
+          n_same = 0;
+          same[n_same++] = j.val(); 
+        } else if (free[j.val()] - size[item] == slack) {
+          same[n_same++] = j.val();
+        }
+      }
+    \end{litblock}
+    \begin{litblock}{create choice}
+    if ((slack == 0) || 
+        (n_same == n_possible) || 
+        (n_possible == 0))
+      return new Choice(*this, 1, item, same, 1);
+    else
+      return new Choice(*this, 2, item, same, n_same);
+    \end{litblock}
+  }
+  \end{litblock}
+  \begin{litblock}{commit function}
+  virtual ExecStatus commit(Space& home, const Gecode::Choice& _c, 
+                            unsigned int a) {
+    const Choice& c = static_cast<const Choice&>(_c);
+    if (a == 0) {
+      \begin{litblock}{commit to first alternative}
+      GECODE_ME_CHECK(bin[c.item].eq(home, c.same[0]));
+      \end{litblock}
+    } else {
+      \begin{litblock}{commit to second alternative}
+      int i = c.item;
+      do {
+        Iter::Values::Array same(c.same, c.n_same);
+        GECODE_ME_CHECK(bin[i++].minus_v(home, same));
+      } while ((i < bin.size()) && 
+               (size[i] == size[c.item]));
+      \end{litblock}
+    }
+    return ES_OK;
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  // Initialize brancher
+  CDBF(Space& home, bool share, CDBF& cdbf) 
+    : Brancher(home, share, cdbf), item(cdbf.item) {
+    load.update(home, share, cdbf.load);
+    bin.update(home, share, cdbf.bin);
+    size.update(home, share, cdbf.size);
+  }
+  // Copy brancher
+  virtual Actor* copy(Space& home, bool share) {
+    return new (home) CDBF(home, share, *this);
+  }
+  // Create choice from archive
+  virtual const Gecode::Choice*
+  choice(const Space& home, Archive& e) {
+    int alt, item, n_same;
+    e >> alt >> item >> n_same;
+    Region re(home);
+    int* same = re.alloc<int>(n_same);
+    for (int i=n_same; i--;) e >> same[i];
+    return new Choice(*this, alt, item, same, n_same);
+  }
+  // Delete brancher and return its size
+  \end{litblock}
+  virtual size_t dispose(Space& home) {
+    home.ignore(*this,AP_DISPOSE);
+    size.~IntSharedArray();
+    return sizeof(*this);
+  }
+};
+
+void cdbf(Home home, const IntVarArgs& l, const IntVarArgs& b,
+                     const IntArgs& s) {
+  if (b.size() != s.size())
+    throw Int::ArgumentSizeMismatch("cdbf");      
+  ViewArray<Int::IntView> load(home, l);
+  ViewArray<Int::IntView> bin(home, b);
+  IntSharedArray size(s);
+  CDBF::post(home, load, bin, size);
+}
+\end{litblock}
+
+class BinPacking : public MinimizeScript {
+  \begin{litblock}{anonymous}
+protected:
+  const int l;
+  const int u;  
+  IntVarArray load;
+  IntVarArray bin;
+  IntVar bins;
+  \end{litblock}
+public:
+  BinPacking(const Options& opt) 
+    \begin{litblock}{texonly}
+    : ... {
+    \end{litblock}
+    \begin{litblock}{anonymous}
+    : l(lower()), u(upper()),
+      load(*this, u, 0, c), 
+      bin(*this, n, 0, u-1), bins(*this, l, u) {
+    // excess bins
+    for (int i=1; i<=u; i++)
+      rel(*this, (bins < i) == (load[i-1] == 0));
+    IntArgs sizes(n, size);
+    binpacking(*this, load, bin, sizes);
+    // symmetry breaking
+    for (int i=1; i<n; i++)
+      if (size[i-1] == size[i])
+        rel(*this, bin[i-1] <= bin[i]);
+    // pack items that require a bin
+    for (int i=0; (i < n) && (i < u) && (size[i] * 2 > c); i++)
+      rel(*this, bin[i] == i);
+    // branching
+    \end{litblock}
+    branch(*this, bins, INT_VAL_MIN);
+    cdbf(*this, load, bin, sizes);
+  }
+  \begin{litblock}{anonymous}
+  // Cost function
+  virtual IntVar cost(void) const {
+    return bins;
+  }
+  // Constructor for cloning s
+  BinPacking(bool share, BinPacking& s) 
+    : MinimizeScript(share,s), l(s.l), u(s.u) {
+    load.update(*this, share, s.load);
+    bin.update(*this, share, s.bin);
+    bins.update(*this, share, s.bins);
+  }
+  // Copy during cloning
+  virtual Space* copy(bool share) {
+    return new BinPacking(share,*this);
+  }
+  // Print solution
+  virtual void print(std::ostream& os) const {
+    os << "Bins used: " << bins << " (from " << u << " bins)." << std::endl;
+    for (int j=0; j<u; j++) {
+      bool fst = true;
+      os << "\t[" << j << "]={";
+      for (int i=0; i<n; i++)
+        if (bin[i].assigned() && (bin[i].val() == j)) {
+          if (fst) {
+            fst = false;
+          } else {
+            os << ",";
+          }
+          os << i;
+        }
+      os << "} #" << load[j] << std::endl;
+    }
+    if (!bin.assigned()) {
+      os << std::endl 
+         << "Unpacked items:" << std::endl;
+      for (int i=0;i<n; i++)
+        if (!bin[i].assigned())
+          os << "\t[" << i << "] = " << bin[i] << std::endl;
+    }
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  Options opt("BinPacking");
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  MinimizeScript::run<BinPacking,BAB,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+

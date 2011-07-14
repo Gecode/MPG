@@ -1,0 +1,924 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Advisors}
+\label{chap:p:advisors}
+
+This chapter is concerned with advisors for efficient
+incremental propagation. Advisors can be used to provide
+information to a propagator which of its views have changed and
+how they have changed.
+
+\paragraph{Overview.}
+
+In \autoref{sec:p:advisors:advisors}, a motivation and a model
+for advisors is presented. The following two sections demonstrate
+advisors. \autoref{sec:p:advisors:samedom} shows an example
+propagator that exploits the information provided by an advisor
+about which view has changed. \autoref{sec:p:advisors:or} shows
+an example propagator that exploits information on how the domain
+of its views have changed. \autoref{sec:p:advisors:force}
+sketches how advisors can be used for forcing propagators to be
+rescheduled.
+
+
+\section{Advisors for incremental propagation}
+\label{sec:p:advisors:advisors}
+
+Consider the following, rather simple, example constraint. The
+constraint \?samedom? for an array of integer variables \?x? and
+an integer set \?d? holds, if and only if: 
+\begin{itemize}
+\item either all variables
+in \?x? take values from \?d? (that is, $\mathtt{x}_i\in\mathtt
+d$ for $0\leq i<|\mathtt{x}|$),
+\item or none of the \?x? take values in
+\?d? (that is, $\mathtt{x}_i\not\in\mathtt d$ for $0\leq
+  i<|\mathtt{x}|$).
+\end{itemize}
+
+\paragraph{More knowledge is needed.}
+
+Obviously, there are two different approaches to realize \?samedom?:
+\begin{description}
+\item[decomposition] We decompose the \?samedom? constraint as
+  follows. We create a Boolean variable $\mathtt{b}$ and post
+  reified \?dom? constraints (see
+  \gecoderef[group]{TaskModelIntDomain}) such that
+  $\reify{\mathtt{x}_i\in\mathtt{d}}{\mathtt{b}}$ (for $0\leq
+  i<|\mathtt{x}|$). As the single Boolean variable \?b? is the same
+  for all reified \?dom? constraints, \?samedom? is automatically
+  enforced.
+  
+\item[implementation] A different approach is to implement a
+  dedicated propagator for \?samedom?. Propagation is quite
+  simple: whenever the propagator is executed, try to find a view
+  among the $\mathtt{x}_i$ such that either
+  $\mathtt{x}_i\in\mathtt d$ or $\mathtt{x}_i\not\in\mathtt d$.
+  If there is no such $\mathtt{x}_i$, the propagator is at
+  fixpoint. Otherwise, the propagator constrains all
+  $\mathtt{x}_i$ accordingly.
+\end{description}
+
+Let us compare the individual merits of the two approaches (note
+that both achieve domain consistency).  Decomposition requires
+$O(|\mathtt x|)$ propagators consuming quite some memory.
+Implementation requires a single propagator only and hence has a
+lower overhead both for runtime (only a single propagator needs
+to be scheduled) and memory consumption.
+
+However, the implementation approach is dreadful and is in fact
+less efficient than decomposition! The problem is the ``try to
+find a view'' approach: each time the propagator is executed, it
+only knows that some of its views have changed since last time
+the propagator has been executed. It just does not know which
+views changed!  That is, each time the propagator is executed, it
+needs to scan all its views. For \?samedom?, the propagator takes
+$O(|\mathtt{x}|\cdot|\mathtt d|)$ runtime as scanning needs to inspect the entire domain of each view.  This is
+considerably worse than decomposition: when the domain of a
+$\mathtt{x}_i$ changes, only a single reified propagator for
+\?dom?  is executed with cost $O(|\mathtt d|)$.
+
+The problem is the little amount of information available to a
+propagator when it is executed. The propagator only knows that
+some of its views changed but not which views. Hence, just
+finding out which views have changed always incurs linear cost in
+the number of views. 
+
+For a simple constraint such as \?samedom?, the linear overhead
+is prohibitive. For more involved constraints, decomposition
+might be infeasible as it would compromise propagation (think of
+domain consistent \?distinct? as an example).
+
+\paragraph{Advisors.}
+
+Gecode provides \emph{advisors} to inform propagators about view
+changes. An advisor belongs to a propagator and can be defined
+(by inheriting from \gecoderef[class]{Advisor}) to store
+information as needed by its propagator. The sole purpose of an
+advisor is to subscribe to a view of its propagator: each time
+the view changes, an \?advise()? function of the advisor's
+propagator is executed with the advisor as argument (sometimes
+we will be a little sloppy by saying that the advisor is executed
+itself).
+
+In more detail:
+\begin{itemize}
+\item An advisor must inherit from the class
+  \gecoderef[class]{Advisor}.
+\item When an advisor is created, it is created with respect to
+  its propagator and a \emph{council} of advisors. Each advisor
+  belongs to a council and a propagator can have at most one
+  council. The sole purpose of a council is to manage its
+  advisors for cloning and disposal. In particular, when the
+  propagator is disposed, the council must be disposed as well.
+  
+  A council also provides access to all of its advisors (we will
+  exploit this in the following sections).
+\item An advisor can subscribe to views (and, hence, an advisor
+  subscription like any other subscription must eventually be
+  canceled). Unlike subscriptions of propagators to views,
+  subscriptions of advisors do not use propagation conditions: an
+  advisor is always executed when its subscription view changes.
+  
+  Also, an advisor is never executed when the subscription is
+  created, only when the subscription view changes.
+  
+\item An advisor is executed as follows: the \?advise()? function
+  of its propagator is executed. The function takes the advisor
+  as argument and an additional argument of type
+  \gecoderef[class]{Delta}. The \emph{delta} describes how the
+  domain of the view has changed. Clearly, which kind of
+  information a delta provides depends on the type of the view.
+  Deltas, in particular, provide access to the modification event
+  of the operation that triggered the advisor's execution.
+  
+  For integer and Boolean views, deltas provide some approximate
+  information about which values have been removed. For an
+  example, see \autoref{sec:p:advisors:or}.
+  
+\item The \?advise()? function is \emph{not} allowed to perform
+  propagation by executing modification operations on views. It
+  can change the state of the propagator and must return an
+  execution status: \?ES_FAILED? means that the propagator is
+  failed; \?ES_FIX? means that the propagator is at fixpoint
+  (hence, it is not scheduled); \?ES_NOFIX? means that the
+  propagator is not any longer at fixpoint (hence, it is
+  scheduled). That is, an advisor does exactly what its name
+  suggests as it provides advice to its propagator: when should
+  the propagator be executed and the advisor can also provide
+  information for the next propagator execution.
+  
+  The \?advise()? function can also return after calling the
+  functions \?ES_FIX_DISPOSE()? or \?ES_NOFIX_DISPOSE()? which
+  are analogous to \?ES_FIX? and \?ES_NOFIX? but also dispose the
+  advisor.
+  
+  There are two more functions that force the advisor's
+  propagator to be rescheduled. They are discussed in
+  \autoref{sec:p:advisors:force}.
+\end{itemize}
+
+Note that a propagator using advisors must make sure that its
+advisors schedule the propagator when it is not at fixpoint.
+Otherwise, it would not meet its ``subscription
+complete'' obligation (make sure to read
+\autoref{tip:p:advisors:started}). A propagator is free to mix
+subscriptions using advisors and subscriptions using propagation
+conditions, see \autoref{sec:p:advisors:or}.
+
+For more information on advisors including design and
+evaluation, see \cite{LagerkvistSchulte:CP:2007}.
+
+
+\section{The \?samedom? constraint}
+\label{sec:p:advisors:samedom}
+
+The idea how the \?SameDom? propagator implements the \?samedom?
+constraint is straightforward. The propagator creates an advisor
+for each of its views and as soon as the \?advise()? function
+decides for one of the views \?x? that either
+$\mathtt{x}\subseteq\mathtt{d}$ or
+$\mathtt{x}\cap\mathtt{d}=\emptyset$ holds, the propagator is
+informed what it has to do and is scheduled. Then, the propagator
+performs the required propagation and becomes subsumed. That is,
+a \?SameDom? propagator is executed at most once.
+
+\paragraph{Todo information.}
+
+\begin{samepage}
+A \?SameDom? propagator stores in \?todo? what it has to do when
+it is executed:
+\insertlitcode{samedom:todo information}
+\end{samepage}
+
+Initially, \?todo? is \?NOTHING?. When the propagator is
+scheduled on behalf of an advisor \?todo? is either \?INCLUDE?
+(that is, the propagator must propagate that
+$\mathtt{x}_i\subseteq\mathtt d$ for $0\leq i<|\mathtt{x}|$) or
+\?EXCLUDE? (that is, the propagator must propagate that
+$\mathtt{x}_i\cap\mathtt d=\emptyset$ for $0\leq
+i<|\mathtt{x}|$).
+
+\paragraph{View advisors.}
+
+Each advisor used by the \?SameDom? propagator stores the view it
+is subscribed to. By this, the \?advise()? function can use the
+view stored with an advisor to decide what the propagator needs to
+do. A view advisor is defined as follows:
+\insertlitcode{samedom:advisor}
+
+An advisor must implement a constructor for creation which takes
+the home space, the advisor's propagator, and the council of
+advisors as arguments. Additionally, a view advisor also takes
+the view as input and subscribes to the view.
+
+An advisor does neither have an \?update()? nor a \?copy()?
+function, a constructor for cloning with the typical arguments is
+sufficient. The \?dispose()?  function of an advisor does not
+have to report the advisor's size (in contrast to a propagator's
+\?dispose()?  function).
+
+The propagator maintains a council of view advisors \?c?. A
+council controls disposal and copying during cloning. Moreover, a
+council provides access to all advisors in the council (where
+already disposed advisors are excluded). The \?SameDom? propagator
+does not store its views explicitly in a view array. As the
+council provides access to its advisors, all views can be
+accessed from the council's advisors.
+
+\tip{Different types of advisors for the same propagator}{ Any
+  propagator that uses advisors must have exactly one council. As
+  the council depends on the advisor type, only one advisor type
+  per propagator is possible. 
+
+  This is not a real restriction. If several different types of
+  advisors are needed, one can either use advisors with virtual
+  member functions or encode the advisor's type by some member
+  stored by the advisor.}
+
+\paragraph{The propagator proper.}
+
+\begin{figure}
+\insertlitcode{samedom}
+\caption{A \?samedom? propagator using advisors}
+\label{fig:p:advisors:samedom}
+\end{figure}
+
+The \?SameDom? propagator is shown in
+\autoref{fig:p:advisors:samedom}. The function
+\?include(home,x,d)?  constrains the view \?x? to only take
+values from \?d?, whereas \?exclude(home,x,d)? constrains the
+view \?x? to not take any values from \?d?. The function
+\?dom(x,d)? returns whether the values for \?x?  are included in
+\?d? (\?INCLUDE? is returned) or whether values for \?x? are
+excluded from \?d? (\?EXCLUDE? is returned). All these functions
+are implemented with range iterators as discussed in
+\autoref{chap:p:domain}.
+
+\paragraph{Posting the propagator.}
+
+The propagator post function (not shown) makes sure that the
+propagator is only posted if for all views $\mathtt{x}_i$, it
+cannot be decided whether $\mathtt{x}_i\in\mathtt d$ or
+$\mathtt{x}_i\not\in\mathtt d$. If this is not the case, the post
+function already performs the necessary propagation. Note that
+the propagator post function by performing some propagation
+ensures the central invariant of the \?SameDom? propagator: the
+value of \?todo?  (which is \?NOTHING? initially) corresponds to
+the current domains of the propagator's views.
+
+The constructor for posting creates the required advisors as
+follows: 
+\insertlitcode{samedom:constructor for posting}
+
+\tip{Getting a propagator started with advisors}{ 
+\label{tip:p:advisors:started}%
+The \?SameDom?
+  propagator has the property that when it is posted, it is known
+  to be at fixpoint (the \?post()? function ensures this by
+  checking for each view $\mathtt{x}_i$ whether
+  $\mathtt{x}_i\in\mathtt d$ or $\mathtt{x}_i\not\in\mathtt d$).
+
+In general, it might not be true that a propagator using advisors
+is at fixpoint when it is posted. In that case, the constructor
+of the propagator must not only create advisors but also make
+sure that the propagator is scheduled for execution.
+
+A propagator can be scheduled by using the static \?schedule()? function
+of a view. For example, assume that the propagator to be
+scheduled should be scheduled because one of its integer views of
+type \?IntView? is
+assigned. This can be achieved by:
+\begin{code}
+IntView::schedule(home, *this, ME_INT_VAL);
+\end{code}
+where \?*this? refers to the current propagator. 
+
+Likewise,
+\begin{code}
+IntView::schedule(home, *this, ME_INT_BND);
+\end{code}
+schedules the propagator with the information that the bounds
+of some of its integer views have changed.
+}
+
+\paragraph{Mandatory propagator disposal.}
+
+The constructor also puts a notice on the propagator that it must
+always be disposed, even if the home space is deleted (as
+discussed in \autoref{sec:p:started:obligations}). Putting a
+notice is required because the integer set \?d?  of type
+\gecoderef[class]{IntSet} is a proper data structure and must
+hence be deleted when a \?SameDom? propagator is disposed.
+
+Accordingly, the \?dispose()? function deletes the integer set
+\?d? as follows:
+\insertlitcode{samedom:disposal}
+
+Disposing the council \?c? also disposes all view advisors. 
+Hence, also all subscriptions are canceled (as the \?dispose()?
+function of a \?ViewAdvisor? cancels its subscription).
+
+It is essential to ignore the notice in \?dispose()? by calling
+\?home.notice()?: otherwise Gecode might attempt to dispose a now
+already disposed propagator just over and over again!
+
+\paragraph{Propagation with advice.}
+
+The \?advise()? function is straightforward:
+\insertlitcode{samedom:advise function}
+
+If \?todo? is already different from \?NOTHING?, the propagator
+has already been scheduled, and the \?advise()?
+function returns \?ES_FIX? to signal that the propagator does not
+need to be scheduled again.\footnote{Actually, it would also be
+  okay to return \?ES_NOFIX?. Scheduling an already scheduled
+  propagator is okay.} Otherwise, depending on the result of
+\?dom()?, the \?advise()? function updates the \?todo? value of
+the propagator and returns \?ES_NOFIX? if the propagator needs
+scheduling (as \?todo? is different from \?NOTHING?).
+
+Note that the \?advise()? function of \?SameDom? ignores its
+\?Delta? argument. In the next section we will see a
+complementary design: the advisor does not carry any information,
+but only uses the information provided by the \?Delta?.
+
+The \?propagate()? member function is exactly as to be expected:
+\insertlitcode{samedom:propagation}
+
+The \?Advisors? class provides an iterator over all advisors in
+the council \?c?. As mentioned earlier, the iterator (and hence
+the council) provides sufficient information to retrieve all
+views of interest for propagation.
+
+\tip{Advisors and propagator obligations}{ The astute reader
+  might have wondered whether a \?SameDom?  propagator is
+  actually ``update complete'' in the sense of
+  \autoref{sec:p:started:obligations}. The answer is yes, because
+  the council copies all of its view advisors and each view
+  advisor updates its view in turn.  
+
+  Likewise, the obligations ``subscription complete'' and
+  ``subscription correct'' need to be satisfied regardless of
+  whether a propagator uses propagator condition-based or
+  advisor-based subscriptions to views.  }
+
+\paragraph{Advisor disposal.}
+
+The \?SameDom? propagator leaves the disposal of its advisors to
+its own \?dispose()? function. However, it could also request
+disposal of an advisor in the \?advise()? function itself. A
+different implementation of the advise function would be:
+\begin{code}
+if (todo != NOTHING)
+  return home.ES_FIX_DISPOSE(c,static_cast<ViewAdvisor&>(a));
+todo = dom(static_cast<ViewAdvisor&>(a).x,d);
+return (todo == NOTHING) ? ES_FIX : 
+  home.ES_NOFIX_DISPOSE(c,static_cast<ViewAdvisor&>(a));
+\end{code}
+
+With this design, all advisors would be disposed on behalf of the
+\?advise()? function and not by the propagator's \?dispose()?
+function. This is due to the following two facts:
+\begin{itemize}
+\item A single advisor finds out that \?todo? must be either
+  \?EXCLUDE? or \?INCLUDE?. This advisor returns
+  \?ES_NOFIX_DISPOSE()? and hence is disposed.
+\item All other advisors will be executed at the very latest when
+  the propagator performs propagation and are disposed as well.
+\end{itemize}
+
+\paragraph{Using predefined view advisors.}
+
+\begin{figure}
+\insertlitcode{samedom using predefined view advisors}
+\caption{A \?samedom? propagator using predefined view advisors}
+\label{fig:p:advisors:samedomview}
+\end{figure}
+
+Unsurprisingly, view advisors are a common abstraction for
+propagators using advisors. Hence, Gecode provides view advisors
+as predefined abstractions that are parametric with respect to
+their view type. \autoref{fig:p:advisors:samedomview} shows how
+\?SameDom? can be implemented using predefined view advisors.
+
+
+\section{General Boolean disjunction}
+\label{sec:p:advisors:or}
+
+Let us consider an efficient propagator \?Or? for implementing the Boolean
+disjunction 
+$$\bigvee_{i=0}^{|\mathtt{x}|-1} \mathtt{x}_i=\mathtt{y}$$
+where all
+$\mathtt{x}_i$ and $\mathtt y$ are Boolean views.  When \?y?
+becomes assigned, propagation is straightforward. If \?y? is
+assigned to \?0?, all $\mathtt{x}_i$ must be assigned to \?0? as
+well.  If \?y? is assigned to \?1?, \?Or? is rewritten into the
+propagator \?OrTrue? from \autoref{sec:p:avoid:dynamic}.
+
+As it comes to the $\mathtt{x}_i$, the \?Or? propagator uses
+a similar technique to the \?SameDom? propagator. It can use
+advisors to find out which view has been assigned
+instead of inspecting all $\mathtt{x}_i$. However, the propagator
+requires very little information: it does not need to know which
+view has changed, it only needs to know whether a view among
+the $\mathtt{x}_i$ has been assigned to \?0? or \?1?. Our \?Or?
+propagator uses the delta information passed to the
+\?advise()? function to determine the value to which a view has
+been assigned. The advantage is that the propagator only
+needs a single advisor instead of one advisor per view.
+
+\tip{Advisor space requirements}{ A subscription requires one
+  pointer, regardless of whether a propagator or an advisor
+  is subscribed to a view. Without any additional information stored
+  by an advisor, an advisor requires two pointers. Hence, it pays
+  off to use as few advisors as possible.  }
+
+\paragraph{The \?Or? propagator.}
+
+\begin{figure}
+\insertlitcode{or}
+\caption{A Boolean disjunction propagator using advisors}
+\label{fig:p:advisors:or}
+\end{figure}
+
+The \?Or? propagator inherits from the
+\gecoderef[class]{MixNaryOnePropagator} template (to increase
+readability, a base class \?OrBase? is defined as a type) and uses
+\?PC_BOOL_NONE? as propagation condition for the views in the
+view array \?x?. That actually means that no subscriptions are
+created for the views in \?x?. A subscription with
+propagation condition \?PC_BOOL_VAL? is created for the single
+Boolean view \?y?. The constructor for posting creates a single
+advisor which subscribes to all views in \?x?. In fact, the \?Or?
+propagator mixes advisors with normal subscriptions.
+
+The \?advise()? function uses the delta
+information to decide whether one of the views the advisor has
+subscribed to is assigned to \?0? (then \?Int::BoolView::zero()?
+returns true):
+\insertlitcode{or:advise}
+
+The advise function counts the number of views assigned to zero
+in \?n_zero?. It reports that the propagator must be scheduled,
+if all views have been assigned to zero (that is, \?n_zero?
+equals the number of views in \?x?) or if a view has been
+assigned to one. Note that the propagator post function makes
+sure that the propagator is only posted when none of the views in
+\?x? are assigned.
+
+The \?propagate()? function is straightforward:
+\insertlitcode{or:propagation}
+It first checks whether the propagator has been executed because
+\?y? has been assigned and propagates as sketched before. Then it
+uses the value of \?n_zero? to determine how to propagate.
+
+\paragraph{Delta information for integer views.}
+\label{par:p:advisors:delta}
+
+The delta information provided to the \?advise()?  function can
+be interpreted through the view the advisor has subscribed to.
+Boolean views provide static member functions \?zero()? and
+\?one()? to find out whether the view has been assigned to \?0?
+or \?1?.
+
+For integer views (and set views, see
+\autoref{sec:p:sets:propagation_conditions_etc}), one must use
+the view to which the advisor has subscribed to for accessing the
+delta. 
+
+\begin{samepage}
+For example, suppose that the advisor \?a? has subscribed
+to the view \?x? by
+\begin{code}
+x.subscribe(home,a);
+\end{code}
+\end{samepage}
+When the \?advise()? function is executed for the advisor
+\?a? with delta \?d?, the view \?x? provides access to the delta
+information (typically, this will mean that \?a? in fact stores
+the view \?x?).
+
+The modification event of the operation that modified the view
+\?x? is available by \?x.modevent(d)?. If \?x.any(d)? returns
+true, no further information about how the domain of \?x?
+has changed is available. Only if \?x.any(d)? is false,
+\?x.min(d)? returns the previously (that is, the value before the domain
+modification) smallest value of \?x? and \?x.max(d)? returns the
+previously largest value of \?x?. With other words, the delta \?d? only
+provides approximate information on how the old view domain has
+been changed.
+
+For Boolean views, one can rely on the fact that the delta
+information is always accurate. For integer views, it might be
+the case that \?x.any(d)? returns true even though only the
+bounds of \?x? have changed.
+
+
+\section{Forced propagator rescheduling}
+\label{sec:p:advisors:force}
+
+An advisor can force its propagator to be rescheduled even though
+the propagator's modification event delta has not changed. As
+discussed in \autoref{sec:p:domain:staging}, the \?cost()?
+function of a propagator is only recomputed when its modification
+event delta changes.
+
+When the \?advise()? of a propagator returns
+\?ES_NOFIX_FORCE? (or, the \?advise()? function calls
+\?ES_NOFIX_DISPOSE_FORCE()?), the propagator is rescheduled
+regardless of its current modification event delta. See also
+\gecoderef[group]{TaskActorStatus}.
+
+
+
+\begin{litcode}{samedom}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class SameDom : public Propagator {
+protected:
+  \begin{litblock}{todo information}
+  enum ToDo { INCLUDE, EXCLUDE, NOTHING };
+  ToDo todo;
+  \end{litblock}
+  \begin{litblock}{advisor}
+  class ViewAdvisor : public Advisor {
+  public:
+    Int::IntView x;
+    ViewAdvisor(Space& home, Propagator& p, 
+                Council<ViewAdvisor>& c, Int::IntView x0) 
+      : Advisor(home,p,c), x(x0) {
+      x.subscribe(home,*this);
+    }
+    ViewAdvisor(Space& home, bool share, ViewAdvisor& a)
+      : Advisor(home,share,a) {
+      x.update(home,share,a.x);
+    }
+    void dispose(Space& home, Council<ViewAdvisor>& c) {
+      x.cancel(home,*this);
+      Advisor::dispose(home,c);
+    }
+  };
+  Council<ViewAdvisor> c;
+  \end{litblock}
+  IntSet d;
+  static ModEvent include(Space& home, Int::IntView x, 
+                          const IntSet& d) {
+  \begin{litblock}{anonymous}
+    IntSetRanges isr(d);
+    return x.inter_r(home,isr,false);
+  }
+  \end{litblock}
+  static ModEvent exclude(Space& home, Int::IntView x, 
+                          const IntSet& d) {
+  \begin{litblock}{anonymous}
+    IntSetRanges isr(d);
+    return x.minus_r(home,isr,false);
+  }
+  \end{litblock}
+  static ToDo dom(Int::IntView x, const IntSet& d) {
+  \begin{litblock}{anonymous}
+    Int::ViewRanges<Int::IntView> vr(x);
+    IntSetRanges isr(d);
+    switch (Iter::Ranges::compare(vr,isr)) {
+    case Iter::Ranges::CS_SUBSET:   return INCLUDE;
+    case Iter::Ranges::CS_DISJOINT: return EXCLUDE;
+    case Iter::Ranges::CS_NONE:     break;
+    }
+    return NOTHING;
+  }
+  \end{litblock}
+public:
+  \begin{litblock}{constructor for posting}
+  SameDom(Home home, const IntVarArgs& x, const IntSet& d0) 
+    : Propagator(home), todo(NOTHING), c(home), d(d0) {
+    for (int i=x.size(); i--; )
+      (void) new (home) ViewAdvisor(home,*this,c,x[i]);
+    home.notice(*this,AP_DISPOSE);
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, 
+                         const IntVarArgs& x, const IntSet& d) {
+    for (int i=x.size(); i--; )
+      switch (dom(x[i],d)) {
+      case NOTHING: 
+        break;
+      case INCLUDE:
+        for (int j=x.size(); j--; )
+          GECODE_ME_CHECK(include(home,x[j],d));
+        return ES_OK;
+      case EXCLUDE:
+        for (int j=x.size(); j--; )
+          GECODE_ME_CHECK(exclude(home,x[j],d));
+        return ES_OK;
+      }
+    (void) new (home) SameDom(home,x,d);
+    return ES_OK;
+  }
+  \end{litblock}
+  \begin{litblock}{disposal}
+  virtual size_t dispose(Space& home) {
+    home.ignore(*this,AP_DISPOSE);
+    c.dispose(home);
+    d.~IntSet();
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  SameDom(Space& home, bool share, SameDom& p) 
+    : Propagator(home,share,p), todo(NOTHING) {
+    c.update(home,share,p.c);
+    d.update(home,share,p.d);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) SameDom(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::unary(PropCost::HI);
+  }
+  \end{litblock}
+  \begin{litblock}{advise function}
+  virtual ExecStatus advise(Space&, Advisor& a, const Delta&) {
+    if (todo != NOTHING)
+      return ES_FIX;
+    todo = dom(static_cast<ViewAdvisor&>(a).x,d);
+    return (todo == NOTHING) ? ES_FIX : ES_NOFIX;
+  }
+  \end{litblock}
+  \begin{litblock}{propagation}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (todo == INCLUDE)
+      for (Advisors<ViewAdvisor> a(c); a(); ++a)
+        GECODE_ME_CHECK(include(home,a.advisor().x,d));
+    \begin{litblock}{anonymous}
+    else
+      for (Advisors<ViewAdvisor> a(c); a(); ++a)
+        GECODE_ME_CHECK(exclude(home,a.advisor().x,d));
+    return home.ES_SUBSUMED(*this);
+    \end{litblock}
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+void samedom(Home home, const IntVarArgs& x, const IntSet& d) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(SameDom::post(home,x,d));
+}
+\end{litblock}
+\end{litcode}
+  
+
+\begin{litcode}{samedom using predefined view advisors}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class SameDom : public Propagator {
+protected:
+  \begin{litblock}{anonymous}
+  enum ToDo {
+    INCLUDE, EXCLUDE, NOTHING
+  };
+  ToDo todo;
+  \end{litblock}
+  Council<ViewAdvisor<Int::IntView> > c;
+  IntSet d;
+  \begin{litblock}{anonymous}
+  static ModEvent include(Space& home, Int::IntView x, 
+                          const IntSet& d) {
+    IntSetRanges isr(d);
+    return x.inter_r(home,isr,false);
+  }
+  static ModEvent exclude(Space& home, Int::IntView x, 
+                          const IntSet& d) {
+    IntSetRanges isr(d);
+    return x.minus_r(home,isr,false);
+  }
+  static ToDo dom(Int::IntView x, const IntSet& d) {
+    Int::ViewRanges<Int::IntView> vr(x);
+    IntSetRanges isr(d);
+    switch (Iter::Ranges::compare(vr,isr)) {
+    case Iter::Ranges::CS_SUBSET:   return INCLUDE;
+    case Iter::Ranges::CS_DISJOINT: return EXCLUDE;
+    case Iter::Ranges::CS_NONE:     break;
+    }
+    return NOTHING;
+  }
+  \end{litblock}
+public:
+  \begin{litblock}{anonymous}
+  SameDom(Home home, const IntVarArgs& x, const IntSet& d0) 
+    : Propagator(home), todo(NOTHING), c(home), d(d0) {
+    for (int i=x.size(); i--; )
+      (void) new (home) ViewAdvisor<Int::IntView>(home,*this,c,x[i]);
+    home.notice(*this,AP_DISPOSE);
+  }
+  static ExecStatus post(Home home, 
+                         const IntVarArgs& x, const IntSet& d) {
+    for (int i=x.size(); i--; )
+      switch (dom(x[i],d)) {
+      case NOTHING: 
+        break;
+      case INCLUDE:
+        for (int j=x.size(); j--; )
+          GECODE_ME_CHECK(include(home,x[j],d));
+        return ES_OK;
+      case EXCLUDE:
+        for (int j=x.size(); j--; )
+          GECODE_ME_CHECK(exclude(home,x[j],d));
+        return ES_OK;
+      }
+    (void) new (home) SameDom(home,x,d);
+    return ES_OK;
+  }
+  virtual size_t dispose(Space& home) {
+    home.ignore(*this,AP_DISPOSE);
+    c.dispose(home);
+    d.~IntSet();
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  SameDom(Space& home, bool share, SameDom& p) 
+    : Propagator(home,share,p), todo(NOTHING) {
+    c.update(home,share,p.c);
+    d.update(home,share,p.d);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) SameDom(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::unary(PropCost::HI);
+  }
+  \end{litblock}
+  virtual ExecStatus advise(Space&, Advisor& a, const Delta&) {
+    if (todo != NOTHING)
+      return ES_FIX;
+    todo = dom(static_cast<ViewAdvisor<Int::IntView>&>(a).view(),d);
+    return (todo == NOTHING) ? ES_FIX : ES_NOFIX;
+  }
+  \begin{litblock}{anonymous}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (todo == INCLUDE)
+      for (Advisors<ViewAdvisor<Int::IntView> > a(c); a(); ++a)
+        GECODE_ME_CHECK(include(home,a.advisor().view(),d));
+    else
+      for (Advisors<ViewAdvisor<Int::IntView> > a(c); a(); ++a)
+        GECODE_ME_CHECK(exclude(home,a.advisor().view(),d));
+    return home.ES_SUBSUMED(*this);
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+void samedom(Home home, const IntVarArgs& x, const IntSet& d) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(SameDom::post(home,x,d));
+}
+\end{litblock}
+\end{litcode}
+  
+
+\begin{litcode}{or}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+class OrTrue : 
+  public NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL> {
+public:
+  OrTrue(Home home, ViewArray<Int::BoolView>& x) 
+    : NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,x) {}
+  static ExecStatus post(Home home, ViewArray<Int::BoolView>& x) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return ES_OK;
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    x.unique(home);
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+    } else {
+      (void) new (home) OrTrue(home,x);
+    }
+    return ES_OK;
+  }
+  OrTrue(Space& home, bool share, OrTrue& p) 
+    : NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) OrTrue(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return home.ES_SUBSUMED(*this);
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+      return home.ES_SUBSUMED(*this);
+    }
+    return ES_FIX;
+  }
+};
+\end{litblock}
+typedef MixNaryOnePropagator<Int::BoolView,Int::PC_BOOL_NONE,
+                             Int::BoolView,Int::PC_BOOL_VAL>
+        OrBase;
+class Or : public OrBase {
+protected:
+  int n_zero;
+  Council<Advisor> c;
+public:
+  Or(Home home, ViewArray<Int::BoolView>& x, Int::BoolView y)
+    : OrBase(home,x,y), n_zero(0), c(home) {
+    x.subscribe(home,*new (home) Advisor(home,*this,c));
+  }
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, ViewArray<Int::BoolView>& x, Int::BoolView y) {
+    x.unique(home);
+    if (y.one())
+      return OrTrue::post(home,x);
+    if (y.zero()) {
+      for (int i=x.size(); i--; )
+        GECODE_ME_CHECK(x[i].zero(home));
+      return ES_OK;
+    }
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        GECODE_ME_CHECK(y.one(home));
+        return ES_OK;
+      } else if (x[i].zero()) {
+        x.move_lst(i);
+      }
+    if (x.size() == 0) {
+      GECODE_ME_CHECK(y.zero(home));
+    } else {
+      (void) new (home) Or(home,x,y);
+    }
+    return ES_OK;
+  }
+  virtual size_t dispose(Space& home) {
+    x.cancel(home,Advisors<Advisor>(c).advisor());
+    c.dispose(home);
+    (void) OrBase::dispose(home);
+    return sizeof(*this);
+  }
+  Or(Space& home, bool share, Or& p)
+    : OrBase(home,share,p), n_zero(p.n_zero) {
+    c.update(home,share,p.c);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Or(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::unary(PropCost::LO);
+  }
+  \end{litblock}
+  \begin{litblock}{advise}
+  virtual ExecStatus advise(Space&, Advisor&, const Delta& d) {
+    if (Int::BoolView::zero(d) && (++n_zero < x.size()))
+      return ES_FIX;
+    else
+      return ES_NOFIX;
+  }
+  \end{litblock}
+  \begin{litblock}{propagation}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (y.one())
+      GECODE_REWRITE(*this,OrTrue::post(home(*this),x));
+    if (y.zero()) {
+      for (int i = x.size(); i--; )
+        GECODE_ME_CHECK(x[i].zero(home));
+    } else if (n_zero == x.size()) {
+      GECODE_ME_CHECK(y.zero(home));
+    } else {
+      GECODE_ME_CHECK(y.one(home));
+    }
+    return home.ES_SUBSUMED(*this);
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+void dis(Home home, const BoolVarArgs& x, BoolVar y) {
+  if (home.failed()) return;
+  ViewArray<Int::BoolView> vx(home,x);
+  GECODE_ES_FAIL(Or::post(home,vx,y));
+}
+\end{litblock}
+\end{litcode}
+  
+

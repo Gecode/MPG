@@ -1,0 +1,2252 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Integer and Boolean variables and constraints}
+\label{chap:m:int}
+
+This chapter gives an overview of integer and Boolean variables
+and the constraints available for them in Gecode. The chapter
+focuses on variables and constraints, a discussion of branching
+for integer and Boolean variables can be found in
+\autoref{sec:m:search:branch}.
+
+The chapter does not make an attempt to duplicate the reference
+documentation (see \gecoderef[group]{TaskModelInt}). It is
+concerned with the most important ideas and principles underlying
+integer and Boolean variables and constraints. In particular, the
+chapter provides entry points into the reference documentation
+and points to illustrating examples.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:integer:var} details how integer and Boolean
+variables (and variables in general) can be used for modeling.
+Variable arrays and argument arrays are discussed in
+\autoref{sec:m:integer:proper}. Important aspects of how
+constraints are posted in Gecode are explained in
+\autoref{sec:m:integer:generic}.  These sections belong to the
+basic reading material of \autoref{part:m}.
+
+The remaining sections \autoref{sec:m:integer:post} and
+\autoref{sec:m:integer:exec} provide an overview of the
+constraints that are available for integer and Boolean variables
+in Gecode.
+
+\begin{important}
+  Do not forget to add
+\begin{code}
+#include <gecode/int.hh>
+\end{code}
+to your program when you want to use integer or Boolean variables
+and constraints.
+\end{important}
+
+\begin{convention}
+  All program fragments and references to classes, namespaces,
+  and other entities assume that declarations and definitions
+  from the \?Gecode?  namespace are visible: for example, by
+  adding
+\begin{code}
+using namespace Gecode;
+\end{code}
+to your program.
+
+The variable \?home? refers to a space reference (of type
+\?Space&?) and defines the home space in which new variables,
+propagators, and branchers are posted. Often (as in
+\autoref{chap:m:started} and \autoref{chap:m:comfy}) \?home? will
+be \?*this?, referring to the current space.
+\end{convention}
+
+\section{Integer and Boolean variables}
+\label{sec:m:integer:var}
+
+Variables in Gecode are for modeling. They provide operations for
+creation, access, and update during cloning. By design, the only
+way to modify (constrain) a variable is by post functions for
+constraints and branchers.
+
+Integer variables are instances of the class
+\gecoderef[class]{IntVar} while Boolean variables are instances
+of the class \gecoderef[class]{BoolVar}. Integer variables are
+\emph{not} related to Boolean variables. A Boolean variable is
+\emph{not} an integer variable with a domain that is included in
+$\{0,1\}$. The only way to get an integer variable that is equal
+to a Boolean variable is by posting a channeling constraint
+between them (see
+\autoref{sec:m:integer:channel}).
+
+\tip{Do not use views for modeling}{%
+  If you --- after some browsing of the reference documentation
+  --- should come across integer views such as \?IntView?, you
+  might notice that views have a richer interface than
+  integer variables. You might feel that this interface looks too
+  powerful to be ignored. Now, you really should put some trust in
+  this document: views are \emph{not} for modeling. 
+
+  The more powerful interface only works within propagators and
+  branchers, see \autoref{part:p} and \autoref{part:b}.  }
+
+\subsection{Creating integer variables}
+\label{sec:m:integer:create}
+
+A variable provides a read-only interface to a \emph{variable
+  implementation} where the same variable implementation can be
+referred to by arbitrarily many variables.
+
+New integer variables are created by using a constructor. A new integer variable \?x? is created
+by
+\begin{code}
+IntVar x(home, -4, 20);
+\end{code}
+This declares a variable \?x? of type \gecoderef[class]{IntVar}
+in the space \?home?, creates a new integer \emph{variable
+implementation} with domain $\{-4,\ldots,20\}$, and points \?x?
+to the newly created integer variable implementation.
+
+The domain of a variable can also be specified by an
+integer set \gecoderef[class]{IntSet}, for example by
+\begin{code}
+IntVar x(home, IntSet(-4, 20));
+\end{code}
+which creates a new variable with domain $\{-4,\ldots,20\}$.  An
+attempt to create an integer variable with an empty domain throws
+an exception of type \gecoderef[class]{Int::VariableEmptyDomain}.
+
+\tip{Initializing variables}{
+\label{tip:m:integer:init}%
+Variables do not have an initialization function. However, new
+variables can be also created by
+\begin{code}
+IntVar x;
+x = IntVar(home, -4, 20);
+\end{code}
+}
+
+The default or copy constructor of a variable does not create a
+new variable (that is, a new variable implementation). Instead,
+the variable does not refer to any variable implementation
+(default constructor) or to the same variable implementation
+(copy constructor). For example, in
+\begin{code}
+IntVar x(home, 1, 4);
+IntVar y(x);
+\end{code}
+both \?x? and \?y? refer to the same integer variable
+implementation. Using a default constructor and
+an assignment operator is equivalent:
+\begin{code}
+IntVar x(home, 1, 4);
+IntVar y;
+y=x;
+\end{code}
+
+\subsection{Limits for integer values}
+\label{sec:m:integer:limits}
+
+The set of values for an integer variable is a subset of the
+values of the type \?int?. The set of values is symmetric:
+$-\mbox{\?Int::Limits::min?}=\mbox{\?Int::Limits::max?}$ for the
+smallest possible integer variable value \?Int::Limits::min? and the
+largest possible integer variable value \?Int::Limits::max?.  Moreover,
+\?Int::Limits::max? is strictly smaller than the largest possible
+integer value \?INT_MAX? and \?Int::Limits::min? is strictly
+larger than the smallest possible integer value \?INT_MIN?. These
+limits are defined in the namespace \gecoderef[namespace]{Int::Limits}.
+
+Any attempt to create a variable with values outside the defined
+limits throws an exception of type
+\gecoderef[class]{Int::OutOfLimits}. The same holds true for any
+attempt to use an integer value outside the defined limits when
+posting a constraint or brancher.
+
+\subsection{Variable domains are never empty}
+\label{sec:m:integer:empty}
+
+An important invariant in Gecode is that the domain of a variable
+is never empty. When a variable domain should become empty during
+propagation, the space is failed but the variable's domain is
+kept.  In fact, this is the very reason why an attempt to create
+a variable with an empty domain, for example by
+\begin{code}
+IntVar x(home, 1, 0);
+\end{code}
+throws an exception of type
+\gecoderef[class]{Int::VariableEmptyDomain}.
+
+
+\tip{Small variable domains are beautiful}{%
+\label{tip:m:integer:beautifuldomains}%
+  It is not an omission that an integer variable has no
+  constructor that creates a variable with the largest possible
+  domain. One could argue that a constructor like that would come
+  in handy for creating temporary variables. After all, one would
+  not have to worry about the exact domain!
+  
+  Sorry, but one has to worry. The apparent omission is
+  deliberate to make you worry indeed. For many propagators
+  posted for a constraint a small domain is essential. For
+  example, when posting a \?linear?  constraint (as in
+  \autoref{sec:m:started:first}), variable domains that are too
+  large might result in an exception of type
+  \gecoderef[class]{Int::OutOfLimits} as during propagation
+  numerical overflow might occur (even if Gecode resorts to a
+  number type supporting larger numbers than \?int? for
+  propagating \?linear?). Moreover, the runtime of other
+  propagators (for example, many domain propagators
+  such as domain consistent \?distinct?) depend critically on the
+  size of a domain. Again, Gecode tries to be clever in most of
+  the cases. But, it is better to make it a habit to think about
+  initial variable domains carefully (please remember: better
+  safe than sorry).
+  
+  For examples where small variable domains matter, see
+  \autoref{tip:c:golomb:beautifuldomains} and
+  \autoref{tip:c:warehouses:beautifuldomains}.
+}
+
+\subsection{Creating Boolean variables}
+
+The only difference between integer and Boolean variables is that
+Boolean variables can only take the values \?0? or \?1?. Any
+attempt to create a Boolean variable with values different from
+\?0? or \?1? throws an exception of type
+\gecoderef[class]{Int::NotZeroOne}.
+
+\begin{convention}
+  If Boolean variables are not explicitly mentioned in the following, the
+  same functionality for integer variables is also available for
+  Boolean variables and has the same behavior.
+\end{convention}
+
+\subsection{Variable access functions}
+
+Variables provide member functions for access, such as \?x.min()?
+for the minimum value of the current domain for an integer or
+Boolean variable \?x?. In particular, the member function
+\?x.val()?  accesses the integer value of an already assigned
+variable (if the variable is not yet assigned, an exception of
+type \gecoderef[class]{Int::ValOfUnassignedVar} is thrown). In
+addition, variables can be printed by the standard output
+operator \?<<?.
+%>>
+
+\subsection{Iterating over integer variable domains}
+\label{sec:m:int:iter}
+
+The entire domain of an integer variable can be accessed by a
+\emph{value iterator} \gecoderef[class]{IntVarValues} or a
+\emph{range iterator} \gecoderef[class]{IntVarRanges}. For
+example, the loop
+\begin{code}
+for (IntVarValues i(x); i(); ++i)
+  std::cout << i.val() << ' ';
+\end{code}
+%>>
+uses the value iterator \?i? to print all values of the domain of
+the integer variable \?x?. The call operator \?i()? tests whether
+there are more values to iterate for \?i?, the prefix increment
+operator \?++i?  moves the iterator \?i? to the next value, and
+\?i.val()? returns the current value of the iterator \?i?. The
+values are iterated in strictly increasing order.
+
+Similarly, the following loop 
+\begin{code}
+for (IntVarRanges i(x); i(); ++i)
+  std::cout << i.min() << ".." << i.max() << ' ';
+\end{code}
+%>>
+uses the range iterator \?i? to print all \emph{ranges} of the
+integer variable \?x?. Given a finite set of integers $d$, the
+\emph{range sequence} of $d$ is the shortest (and unique) sequence of ranges
+(intervals)
+$$
+\langle\range{n_0}{m_0}\},\ldots,\range{n_k}{m_k}\}\rangle
+$$
+such that the sequence is ordered and non-adjacent
+($m_i+1<n_{i+1}$ for $0\leq i<k$). A range iterator iterates over
+the ranges in the range sequence of a variable's domain. Like a value
+iterator, a range iterator implements the call operator \?i()? to test
+whether there are more ranges to iterate for \?i? and the prefix
+increment operator \?++i? to move \?i? to the next range. As a
+range iterator \?i? iterates over ranges, it implements the
+member functions \?i.min()? and \?i.max()? for the minimal,
+respectively maximal, value of the current range.
+
+Iteration of values and ranges for Boolean variables is not
+available (as it is not needed).
+
+\subsection{When to inspect a variable}
+\label{sec:m:integer:inspect}
+
+Note that one must not change the domain of a variable (for
+example, by posting a constraint on that variable) while an
+iterator for that variable is still in use. This is the same as
+for most iterators, for example, for iterators in the \CPP{}
+Standard Template Library (STL).
+
+Otherwise, a variable can always be inspected: at any place (that
+is, not only in member functions of the variable's home) and at
+any time (regardless of the status of a space). If the variable's
+home is failed, the variable can still be inspected.  However, it
+might be the case that the variable domain has more values than
+expected. For example, after creating a variable \?x? with the
+singleton domain $\{0\}$ and posting the constraint that \?x?
+must be different from \?0? by (read \autoref{tip:m:started:status}
+about \?status()?):
+\begin{code}
+IntVar x(home, 0, 0);
+rel(home, x, IRT_NQ, 0);
+(void) home.status();
+\end{code}
+the space \?home? is failed but the variable \?x? still contains
+the value \?0? in its domain.
+
+
+
+\subsection{Updating variables}
+\label{sec:m:integer:update}
+
+As discussed in \autoref{sec:m:started:first}, a variable must be
+updated during cloning in the copy constructor used by a space's
+\?copy()? member function. For example, a variable \?x?  is updated
+by
+\begin{code}
+x.update(home, share, y);
+\end{code}
+where \?share? is the Boolean argument passed as argument to
+\?copy()? and \?y? is the variable from which \?x? is to be
+updated. While \?x? belongs to \?home?, \?y? belongs
+to the space being cloned.
+
+A space only needs to update the variables that are part of the
+solution, so that their values can be accessed after a solution
+space has been found. Temporary variables do not need to be
+copied. 
+
+Assume that we want to constrain the integer
+variable \?p? to be the product of \?x?, \?y?, and \?z?. Gecode
+only offers multiplication of two variable, hence a temporary
+variable \?t? is created (assume also that we know that the
+values for \?t? are between \?0? and \?1000?):
+\begin{code}
+IntVar t(home, 0, 1000);
+mult(home, x, y, t);
+mult(home, t, z, p);
+\end{code}
+Here, \?t? does not require updating. The multiplication
+propagators created by \?mult? take care of updating the variable
+implementation of \?t?.
+
+
+\section{Variable and argument arrays}
+\label{sec:m:integer:proper}
+
+
+Gecode has very few \emph{proper} data structures. The proper
+data structures for integer and Boolean variables are the
+variables themselves, integer sets, and arrays of variables.
+Proper means that these data structures can be updated and hence
+be stored in a space. Other proper data structures are
+DFAs (deterministic finite automata) and tuple sets used for
+extensional constraints. These data structures are discussed
+in \autoref{sec:m:integer:extensional}.
+
+Of course, data structures that themselves do not contain proper
+data structures can be stored in a space, such as integers,
+pointers, and strings.
+
+Gecode supports the programming of new proper data structures,
+this is discussed in \autoref{sec:p:memory:shared}.
+
+\subsection{Integer and Boolean variable arrays}
+\label{sec:m:integer:intvararray}
+
+Integer variable arrays of type \gecoderef[class]{IntVarArray}
+can be used like variables. For example,
+\begin{code}
+IntVarArray x(home, 4, -10, 10);
+\end{code}
+creates a new integer variable array with four variables
+containing newly created variables with domain
+$\{-10,\ldots,10\}$. Boolean variable arrays of type
+\gecoderef[class]{BoolVarArray} are analogous.
+
+Creation of a variable array allocates memory from the home
+space. The memory is freed when the space is deleted (not
+when the destructor of the variable array is called). Variable
+arrays can be created without creating new variables by just
+passing the size. That is,
+\begin{code}
+IntVarArray x(home, 4);
+for (int i=0; i<4; i++)
+  x[i] = IntVar(home, -10, 10);
+\end{code}
+is equivalent to the previous example.
+
+The other operations on variable arrays are as one would expect.
+For example, one can check whether all variables are assigned 
+using the \?assigned()? function. More importantly, variable arrays
+like variables have an update
+function and variable arrays must be updated during cloning. In
+the following, we will refer to the size of a variable array \?x?
+by $|\mathtt x|$ (which can be computed by \?x.size()?).
+
+\paragraph{Matrix interface.}
+
+Many models are naturally expressed by using matrices. Gecode
+offers support that superimposes a matrix interface for modeling
+on an array, see \autoref{sec:m:minimodel:matrix}.
+
+\subsection{Argument arrays}
+\label{sec:m:integer:args}
+
+As mentioned above, the memory allocated for a variable array is
+freed only when its home space is deleted. That makes variable
+arrays \emph{unsuited} for temporary variable arrays, in particular
+for arrays that are built dynamically or used as arguments for post 
+functions.
+
+For this reason, Gecode provides argument arrays: \?IntVarArgs? for
+integer variables, \?BoolVarArgs? for Boolean variables, 
+\?IntArgs? for integers, and \?IntSetArgs? for integer sets (see
+\gecoderef[group]{TaskModelIntArgs}). Internally, they allocate
+space from the heap\footnote{Actually, if an argument array has
+  few fields it uses some space that is part of the object
+  implementing the array rather than allocating memory from the
+  heap.  Hence, small argument arrays reside entirely on the
+  stack.} and the memory is freed when their destructor is
+executed. They are \emph{not} proper data structures as they
+cannot be updated.
+
+Argument arrays can be created empty:
+\begin{code}
+IntVarArgs x;
+\end{code}
+with a certain size but without initializing the elements:
+\begin{code}
+IntVarArgs x(5);
+\end{code}
+or fully initialized:
+\begin{code}
+IntVarArgs x(home,5,0,10);
+\end{code}
+
+For a typical example, consider \autoref{sec:m:started:first} where
+an integer argument array and an integer variable argument array
+are used to pass coefficients and variables to the \?linear? post
+function. 
+
+\paragraph{Dynamic argument arrays.}
+
+In contrast to variable arrays, argument arrays can grow dynamically by adding 
+elements or whole arrays using \?operator<<?:
+\begin{code}
+IntVarArgs x;
+x << IntVar(home,0,10);
+IntVarArgs y;
+y << IntVar(home,10,20);
+y << x;
+linear(home, IntVarArgs()<<x[0]<<x[1], IRT_EQ, 0);
+\end{code}
+Furthermore, argument arrays can be concatenated using \?operator+?:
+\begin{code}
+IntVarArgs z = x+y;
+\end{code}
+
+\paragraph{Slices.}
+
+It is sometimes necessary to post constraints on a subsequence of
+the variables in an array. This is made possible by the
+\?slice(start,inc,n)? method of variable and argument arrays. The
+\?start? parameter gives the starting index of the subsequence.
+The \?inc? optional parameter gives the increment, i.e., how to
+get from one element to the next (its default is $1$). The \?n?
+parameter gives the maximal length of the resulting array (its
+default is $-1$, meaning as long as possible). 
+
+The following examples should make this clearer. Assume that the
+integer variable argument array \?x? is initialized as
+follows:
+\begin{code}
+IntVarArgs x(home, 10, 0, 10);
+\end{code}
+
+Then the following calls of \?slice()? return:
+\begin{itemize}
+\item \?x.slice(5)? returns an array with elements \?x[5],x[6],...,x[9]?.
+\item \?x.slice(5,1,3)? returns \?x[5],x[6],x[7]?.
+\item \?x.slice(5,-1)? returns \?x[5],x[4],...,x[0]?.
+\item \?x.slice(3,3)? returns \?x[3],x[6],x[9]?.
+\item \?x.slice(8,-2)? returns \?x[8],x[6],x[4],x[2],x[0]?.
+\item \?x.slice(8,-2,3)? returns \?x[8],x[6],x[4]?.
+\end{itemize}
+
+\tip{Reversing argument arrays}{%
+The \?slice()? method can be used to compute an array with the
+elements of \?x? in reverse order like this:
+\begin{code}
+x.slice(x.size()-1,-1)
+\end{code}
+}
+
+\paragraph{Creating integer argument arrays.}
+
+Integer argument arrays with simple sequences of integers can be
+generated using the static method
+\?IntArgs::create(n,start,inc)?. The \?n? parameter gives the
+length of the generated array. The \?start? parameter is the
+starting value, and \?inc? determines the increment from one
+value to the next. 
+
+Here are a few examples:
+\begin{itemize}
+\item \?IntArgs::create(5,0)? creates an array with elements
+  \?0,1,2,3,4?.
+\item \?IntArgs::create(5,4,-1)? creates \?4,3,2,1,0?.
+\item \?IntArgs::create(3,2,0)? creates \?2,2,2?.
+\item \?IntArgs::create(6,2,2)? creates \?2,4,6,8,10,12?.
+\end{itemize}
+
+\begin{litcode}[texonly]{dynamic script}
+  class Script : public Space {
+    IntVarArray x;
+  public:
+    Script(void) {
+      \begin{litblock}{read data}
+      IntVarArgs _x;
+      while (...) {
+        ...
+        _x << IntVar(*this,...);
+      }
+      \end{litblock}
+      ...
+      \begin{litblock}{initialize variable array}
+      x = IntVarArray(*this,_x);
+      \end{litblock}
+    }
+    ...
+  }
+\end{litcode}
+
+\tip{Dynamically constructing models}{%
+  Sometimes the number of variables cannot be determined easily,
+  for example when it depends on data read from a file. 
+
+\begin{samepage}
+Suppose
+  the following script with a variable array \?x?:
+\insertlitcode{dynamic script}
+\end{samepage}
+
+  It is easy to use a variable argument array \?_x? for
+  collecting variables as follows:
+\insertlitcode{dynamic script:read data}
+and then initialize the variable array \?x?
+  using the argument array:
+\insertlitcode{dynamic script:initialize variable array}
+}
+
+In the following we do not distinguish between arrays and
+argument arrays unless operations require a certain type of
+array. In fact, all post functions for constraints and branchers
+only accept variable argument arrays. A variable array is
+automatically casted to a variable argument array if needed.
+
+
+\subsection{STL-style iterators}
+\label{sec:m:integer:stl}
+
+All arrays in Gecode (including variable arrays and argument
+arrays) also support STL-style (Standard Template Library) iterators. For example, assume
+that \?a? is an integer variable argument array. Then
+\begin{code}
+for (IntVarArgs::iterator i = a.begin(); i != a.end(); ++i) {
+   ...
+}
+\end{code}
+creates an iterator \?i? for the elements of \?a? and iterates
+from the first to the last element in~\?a?.
+
+More powerfully, iterators give you the ability to work with STL
+algorithms. Suppose that \?f()? is a function that takes an
+integer variable by reference such as in
+\begin{code}
+void f(IntVar& x) { ... }
+\end{code}
+and \?a? is an integer variable argument array. Then
+\begin{code}
+#include <algorithm>
+
+std::for_each(a.begin(), a.end(), f); 
+\end{code}
+applies the function \?f()? to each integer variable in \?a?.
+
+
+\section{Posting constraints}
+\label{sec:m:integer:generic}
+
+This section provides information about general principles for
+posting constraints over integer and Boolean variables.
+
+\paragraph{Post functions are clever.}
+
+A constraint post function carefully analyzes its
+arguments. Based on this analysis, the constraint post function
+chooses the best possible propagator for the constraint. 
+
+For
+example, when posting a \?distinct? constraint (see
+\autoref{sec:m:integer:distinct}) for the variable array \?x? by
+\begin{code}
+distinct(home, x);
+\end{code}
+where \?x? has two elements, the much more efficient propagator
+for disequality $\mathtt{x}_0 \neq \mathtt{x}_1$ is created.
+
+\paragraph{Everything is copied.}
+
+When passing arguments to a post function, all data structures
+that are needed for creating a propagator (or several
+propagators) implementing a constraint are copied. That is, none
+of the data structures that are passed as arguments are needed
+after a constraint has been posted.
+
+\paragraph{Reified constraints.}
+
+Many constraints also exist as a \emph{reified} variant: the
+validity of a constraint is reflected to a Boolean control
+variable (reified constraints are also known as meta-constraints).
+Whether a reified version exists for a given constraint can be
+found in the reference documentation. If a reified version does
+exist, the Boolean control variable is passed as the last
+non-optional argument.
+
+\paragraph{Selecting the consistency level.}
+\label{sec:m:integer:icl}
+
+For many constraints, Gecode provides different propagators with
+different levels of consistency. All constraint post functions take an
+optional argument of type \?IntConLevel? (see
+\gecoderef[group]{TaskModelInt}) controlling which propagator is
+chosen for a particular constraint.
+
+The different values for \?IntConLevel? have the following
+meaning:
+\begin{itemize}
+\item \?ICL_VAL?: perform value propagation. A typical example is
+  naive \?distinct?: wait until a variable becomes assigned to a
+  value $n$, then prune $n$ from all other variables.
+
+\item \?ICL_BND?: perform bounds propagation or achieve bounds
+  consistency. This captures both bounds consistency over the
+  integers (for example, for \?distinct?, see \autoref{sec:m:integer:distinct}) or bounds consistency
+  over the real numbers (for example, for \?linear?, see \autoref{sec:m:integer:linear}). For more
+  information on bounds consistency over integers or real
+  numbers, see~\cite{bounds-consistency}. 
+  
+  Some propagators that are selected might not even achieve
+  bounds consistency but the idea is that the propagator performs
+  propagation by reasoning on the bounds of variable domains.
+
+\item \?ICL_DOM?: perform domain propagation or achieve domain
+  consistency. Most propagators selected by \?ICL_DOM? achieve
+  domain consistency but some just perform propagation by taking
+  entire variable domains for propagation into account (for
+  example, \?circuit?, see \autoref{sec:m:integer:circuit}).
+
+\item \?ICL_DEF?: choose default consistency level for this
+  constraint.
+\end{itemize}
+
+Whether bounds or domain consistency is achieved and the default
+consistency level for a constraint are mentioned in the reference
+documentation for each post function.
+
+\tip{Different consistency levels have different costs}{
+Note that propagators of different consistency
+level for the very same constraint can have vastly different cost. In
+general, propagation for \?ICL_VAL? will be cheapest, while
+propagation for \?ICL_DOM? will be most expensive. 
+
+The reference documentation for a constraint lists whether propagation for a
+particular consistency level might have prohibitive cost for a
+large number of variables or a large number of values in the
+variables' domains. For example, for the \?linear? constraint
+with $n$ variables and at most $d$ values for each variable, the
+complexity to perform bounds propagation (that is, \?ICL_BND?) is
+$O(n)$ whereas the complexity for domain propagation (that is,
+\?ICL_DOM?) is $O(d^n)$.  }
+
+\paragraph{Exceptions.}
+
+Many post functions check their arguments for consistency before
+attempting to create a propagator. For each post function, the
+reference documentation lists which exceptions might be thrown.
+
+\paragraph{Unsharing arguments.}
+
+Some constraints can only deal with \emph{non-shared} variable
+arrays: a variable is not allowed to appear more than once in the
+array (more precisely: no unassigned variable implementation
+appears more than once in the array). An attempt to post one of these
+constraints with shared variable arrays will throw an exception
+of type \gecoderef[class]{Int::ArgumentSame}.
+
+To be able to post one of these constraints on shared variable
+arrays, Gecode provides a function \?unshare? (see
+\gecoderef[group]{TaskModelIntUnshare}) that takes a variable
+argument array \?x? as argument as in:
+\begin{code}
+unshare(home, x);
+\end{code}
+It replaces each but the first occurrence of a variable $y$ in
+\?x? by a new variable $z$, and creates a propagator $y=z$ for
+each new variable $z$.
+
+Note that \?unshare? requires a variable argument array and
+\emph{not} a variable array. If \?x?  is a variable array, the
+following
+\begin{code}
+IntVarArgs y(x);
+\end{code}
+creates a variable argument array \?y? containing the same
+variables as \?x?.
+
+\tip{Unsharing is expensive}{%
+  It is important to keep in mind that \?unshare? creates new
+  variables and propagators. This is also the reason why
+  unsharing is not done implicitly by a post function for a
+  constraint that does not accept shared variable arrays. 
+
+\begin{samepage}  
+  Consider the following example using \?extensional? constraints
+  for a variable argument array \?x?  possibly containing a
+  variable more than once, where \?a? and \?b? are two different
+  DFAs (see \autoref{sec:m:integer:extensional} for \?extensional?
+  constraints). By
+\begin{code}
+unshare(home, x);
+extensional(home, x, a);
+extensional(home, x, b);
+\end{code}
+\end{samepage}  
+multiple occurrences of the same variable in \?x? are unshared
+\emph{once} and the propagators for extensional can work on the
+same non-shared array.
+
+If unsharing were implicit, the following
+\begin{code}
+extensional(home, x, a);
+extensional(home, x, b);
+\end{code}
+would unshare \?x? twice and create many more (useless)
+propagators and variables.  Rather than implicitly unsharing the
+same array over and over again (and hence creating variables and
+propagators), unsharing is made explicit and should be done only
+once, if possible.
+}
+
+\section{Constraint overview}
+\label{sec:m:integer:post}
+
+This section provides an overview of the constraints and their
+post functions available for integer and Boolean variables.
+
+\subsection{Domain constraints}
+\label{sec:m:integer:dom}
+
+\gecoderef[group]{TaskModelIntDomain} constrain integer variables
+and variable arrays to values from a given domain. For example,
+by
+\begin{code}
+dom(home, x, 2, 12);
+\end{code}
+the values of the variable \?x? (or of all variables in a
+variable array \?x?) are constrained to be between $2$ and $12$.
+Domain constraints also take integers (assigning variables to the
+integer value) and integer sets of type
+\gecoderef[class]{IntSet}. For example,
+\begin{code}
+IntArgs a(4, 1,-3,5,-7)
+IntSet d(a);
+dom(home, x, d);
+\end{code}
+constrains the variable \?x? (or, the variables in \?x?) to take
+values from the set $\{-7,-3,1,5\}$.
+
+Note that there are no domain constraints for Boolean variables,
+please use relation constraints instead, see
+\autoref{sec:m:integer:rel:bool}.
+
+Domain constraints for a single variable also support
+reification. For examples using domain constraints, see
+\gecoderef[example]{knights:KnightsReified} and
+\gecoderef[example]{perfect-square}.
+
+
+\subsection{Simple relation constraints over integer variables}
+\label{sec:m:integer:rel:int}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l@{\qquad}l@{\quad}l}
+\?IRT_EQ? & equality ($=$) &
+\?IRT_NQ? & disequality ($\neq$) \\
+\?IRT_LE? & strictly less inequality ($<$) &
+\?IRT_LQ? & less or equal inequality ($\leq$) \\
+\?IRT_GR? & strictly greater inequality ($>$) &
+\?IRT_GQ? & greater or equal inequality ($\geq$)
+\end{tabular}
+\end{center}
+\caption{Integer relation types}
+\label{fig:m:integer:irt}
+\end{figure}
+
+\gecoderef[group]{TaskModelIntRelInt} enforce relations between
+integer variables and between integer variables and integer
+values. The relation depends on an integer relation type
+\?IntRelType?  (see \gecoderef[group]{TaskModelIntRelInt}).
+\autoref{fig:m:integer:irt} lists the available integer relation
+types and their meaning.
+
+\paragraph{Binary relation constraints.}
+
+Assume that \?x? and \?y? are integer variables. Then
+\begin{code}
+rel(home, x, IRT_LE, y);
+\end{code}
+constrains \?x? to be strictly less than \?y?. Similarly, by
+\begin{code}
+rel(home, x, IRT_NQ, 4);
+\end{code}
+\?x? is constrained to be different from \?4?. Both variants of
+\?rel? also support reification.
+
+\paragraph{Constraints between variable arrays and a single
+  variable.}
+
+If \?x? is an integer variable array and \?y? is an integer
+variable, then
+\begin{code}
+rel(home, x, IRT_LQ, y);
+\end{code}
+constrains all variables in \?x? to be less than or equal to
+\?y?. Likewise,
+\begin{code}
+rel(home, x, IRT_GR, 7);
+\end{code}
+constrains all variables in \?x? to be larger than \?7?. 
+
+\paragraph{Constraints between array elements.}
+
+If \?x? is an integer variable array, then
+\begin{code}
+rel(home, x, IRT_LQ);
+\end{code}
+constrains the variables in \?x? to be sorted in
+increasing order as follows:
+$$
+\mathtt{x}_0 \leq \mathtt{x}_1 \leq \cdots \leq
+\mathtt{x}_{|\mathtt x|-1}
+$$
+The integer relation type values for inequalities (that is,
+\?IRT_LE?, \?IRT_GQ?, and \?IRT_GR?) are analogous.  For an
+example, see \autoref{chap:c:golomb} and
+\gecoderef[example]{golomb-ruler}.
+
+\begin{samepage}
+By
+\begin{code}
+rel(home, x, IRT_EQ);
+\end{code}
+all variables in the integer variable array \?x? are constrained to be
+equal:
+$$
+\mathtt{x}_0 = \mathtt{x}_1 = \cdots =
+\mathtt{x}_{|\mathtt x|-1}
+$$
+\end{samepage}
+
+By
+\begin{code}
+rel(home, x, IRT_NQ);
+\end{code}
+the variables in \?x? are constrained to be not all equal:
+$$
+\neg\left(\mathtt{x}_0 = \mathtt{x}_1 = \cdots =
+\mathtt{x}_{|\mathtt x|-1}\right)
+$$
+For an example, see \gecoderef[example]{schurs-lemma}.
+
+\paragraph{Lexicographic constraints between variable arrays.}
+
+\begin{samepage}
+If \?x? and \?y? are integer variable arrays (where the sizes of
+\?x? and \?y? can be different),
+\begin{code}
+rel(home, x, IRT_LE, y);
+\end{code}
+\end{samepage}
+constrains \?x? and \?y? such that \?x? is lexicographically
+strictly smaller than \?y? (analogously for the other inequality
+relations). For \?IRT_EQ? and $|\mathtt
+x|=|\mathtt y|$, it is propagated that $\mathtt
+x_i=\mathtt y_i$ for $0\leq i<|\mathtt x|$. For \?IRT_NQ? and $|\mathtt
+x|=|\mathtt y|$, it
+is propagated that $\mathtt x_i\neq \mathtt y_i$ for at least one
+$i$ such that $0\leq
+i<|\mathtt x|$. If $|\mathtt
+x|\neq|\mathtt y|$, for \?IRT_EQ? the space \?home? is failed
+whereas for \?IRT_NQ? the constraint is ignored (it is subsumed). See \gecoderef[example]{bibd} for an example
+(albeit over Boolean variables).
+
+
+\subsection{Simple relation constraints over Boolean variables}
+\label{sec:m:integer:rel:bool}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l@{\qquad}l@{\quad}l}
+\?BOT_AND? & conjunction ($\wedge$) &
+\?BOT_OR?  & disjunction ($\vee$) \\
+\?BOT_IMP? & implication ($\rightarrow$) &
+\?BOT_EQV? & equivalence ($\leftrightarrow$) \\
+\?BOT_XOR? & exclusive or ($\nleftrightarrow$) 
+\end{tabular}
+\end{center}
+\caption{Boolean operation types}
+\label{fig:m:integer:bot}
+\end{figure}
+
+\gecoderef[group]{TaskModelIntRelBool} include the same post
+functions as simple relation constraints over integer variables.
+In addition, simple relation constraints over Boolean constraints
+provide support for the typical Boolean operations such as
+conjunction and disjunction. Boolean operations are defined by
+values of the type \?BoolOpType? (see
+\gecoderef[group]{TaskModelIntRelInt}).
+\autoref{fig:m:integer:bot} lists the available Boolean operation
+types.
+
+For example, for Boolean variables \?x?, \?y?, and \?z?,
+\begin{code}
+rel(home, x, BOT_AND, y, z);
+\end{code}
+posts the constraint
+$\mathtt{x}\wedge\mathtt{y}=\mathtt{z}$. Similarly,
+\begin{code}
+rel(home, x, BOT_OR, y, 1);
+\end{code}
+posts that $\mathtt{x}\vee\mathtt{y}$ must be true.  Note that
+the integer value must be either zero or one, otherwise an
+exception of type \gecoderef[class]{Int::NotZeroOne} is thrown.
+For an example, see \gecoderef[example]{bibd}.
+
+\tip{Boolean negation}{%
+Boolean negation can be easily obtained by using
+\?IRT_NQ? as relation type. The constraint
+$\mathtt{x}=\neg\mathtt{y}$ for Boolean variables \?x? and \?y?
+can be posted by
+\begin{code}
+rel(home, x, IRT_NQ, y);
+\end{code}
+}
+
+\begin{samepage}
+Additional constraints are available for Boolean variable arrays.
+For a Boolean variable array \?x? and a Boolean variable \?y?,
+\begin{code}
+rel(home, BOT_OR, x, y)
+\end{code}
+\end{samepage}
+posts the constraint
+$$\bigvee_{i=0}^{|\mathtt x|-1}\mathtt{x}_i=\mathtt{y}$$ 
+Again, \?y? can
+also be \?0? or \?1?.
+
+\begin{samepage}
+In order to avoid many propagators for negation, the clause
+constraint accepts both positive and negative Boolean variables.
+For Boolean variable arrays \?x? and \?y? and a Boolean variable
+\?z?  (again, \?z? can also be \?0? or \?1?)
+\begin{code}
+clause(home, BOT_AND, x, y, z);
+\end{code}
+\end{samepage}
+posts the constraint
+$$\bigwedge_{i=0}^{|\mathtt{x}|-1}\mathtt{x}_i\wedge
+\bigwedge_{i=0}^{|\mathtt{y}|-1}\neg\mathtt{y}_i=\mathtt z$$ 
+
+Note that only \?BOT_AND? and \?BOT_OR? as Boolean operation
+types are supported, other Boolean operations types throw an
+exception of type \gecoderef[class]{Int::IllegalOperation}. For an
+example, see \gecoderef[example]{sat}.
+
+
+\subsection{Arithmetic constraints}
+\label{sec:m:integer:arithmetic}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|c|c|}
+\hline
+\multicolumn{1}{|c|}{post function} &
+\multicolumn{1}{c|}{constraint posted} & 
+bounds & domain \\
+\hline\hline
+\?min(home, x, y, z);? & $\min(\mathtt x, \mathtt y)=\mathtt z$
+&\YES&\YES
+\\
+\?max(home, x, y, z);? & $\max(\mathtt x, \mathtt y)=\mathtt z$
+&\YES&\YES
+\\\hline
+\?abs(home, x, y);? & $|\mathtt x|=\mathtt y$
+&\YES&\YES
+\\\hline
+\?mult(home, x, y, z);? & $\mathtt x \cdot \mathtt y=\mathtt z$
+&\YES&\YES
+\\
+\?sqr(home, x, y);? & ${\mathtt x}^2=\mathtt y$
+&\YES&\YES
+\\
+\?sqrt(home, x, y);? & $\lfloor\sqrt{\mathtt x}\rfloor=\mathtt y$
+&\YES&\YES
+\\\hline
+\?div(home, x, y, z);? & $\mathtt{x} \div \mathtt{y}=\mathtt{z}$
+&\YES&
+\\
+\?mod(home, x, y, z);? & $\mathtt{x} \bmod \mathtt{y}=\mathtt{z}$
+&\YES&
+\\
+\?divmod(home, x, y, d, m);? & $\mathtt{x} \div \mathtt{y}=\mathtt{d}\wedge\mathtt{x} \bmod \mathtt{y}=\mathtt{m}$
+&\YES&
+\\\hline
+\end{tabular}
+\end{center}
+\caption[Arithmetic constraints]{Arithmetic constraints (\?x?, \?y?, \?z?,
+  \?d?, and \?m? are integer variables)}
+\label{fig:m:integer:arithmetic}
+\end{figure}
+
+\gecoderef[group]{TaskModelIntArith} exist only over integer
+variables. In addition to the constraints summarized in
+\autoref{fig:m:integer:arithmetic}, the minimum and maximum
+constraints are also available for integer variable arrays. That
+is, for an integer variable array \?x? and an integer variable
+\?y?
+\begin{code}
+min(home, x, y);
+\end{code}
+constrains \?y? to be the minimum of the variables in \?x?
+(\?max? is analogous). 
+
+
+\subsection{Linear constraints}
+\label{sec:m:integer:linear}
+
+\gecoderef[group]{TaskModelIntLI} and
+\gecoderef[group]{TaskModelIntLB} provide essentially the
+same post functions for integer and Boolean constraints (to be
+discussed below). The most general variant
+\begin{code}
+linear(home, a, x, IRT_EQ, c);
+\end{code}
+posts the linear constraint
+$$
+\sum_{i=0}^{|\mathtt x|-1} \mathtt{a}_i \cdot \mathtt{x}_i =
+\mathtt c
+$$
+with integer coefficients \?a? (of type \?IntArgs?), integer
+variables \?x?, and an integer constant \?c?. Note that \?a? and
+\?x? must have the same size. Of course, all other integer
+relation types are supported, see \autoref{fig:m:integer:irt} for a
+table of integer relation types. Multiple occurrences of the same
+variable in \?x? are explicitly allowed and common terms $a\cdot
+y$ and $b\cdot y$ for the same variable $y$ are rewritten to
+$(a+b)\cdot y$ to increase propagation. For an example, see
+\autoref{sec:m:started:first}.
+
+The array of coefficients can be omitted if all coefficients are
+one. That is,
+\begin{code}
+linear(home, x, IRT_GR, c);
+\end{code}
+posts the linear constraint
+$$
+\sum_{i=0}^{|\mathtt x|-1} \mathtt{x}_i > \mathtt c
+$$
+for a variable array \?x? and an integer \?c?.
+
+Instead of an integer constant \?c? as the right-hand side of the
+linear constraint, an integer variable can be used as well. This
+is true for linear constraints over both integer and Boolean
+variables: the right-hand side is always an integer value or an
+integer variable, even if the left-hand side involves Boolean
+variables.  For example, when assuming that \?x? is an array of
+Boolean variables,
+\begin{code}
+linear(home, x, IRT_GQ, y);
+\end{code}
+imposes the constraint that there are at least \?y? ones among
+the Boolean variables in \?x?.
+
+All variants of \?linear? support reification and exist in
+variants that perform both bounds propagation (the default) and
+domain propagation.
+
+
+\subsection{Distinct constraints}
+\label{sec:m:integer:distinct}
+
+The \?distinct? constraint (see
+\gecoderef[group]{TaskModelIntDistinct}) enforces that integer
+variables take pairwise distinct values (also known as
+\?alldifferent? constraint). Obviously, \?distinct? does not exist
+for Boolean variables.
+
+\begin{samepage}
+Posting
+\begin{code}
+distinct(home, x);
+\end{code}
+\end{samepage}
+constrains all variables in \?x? to be pairwise different.
+
+\begin{samepage}
+Posting
+\begin{code}
+distinct(home, c, x);
+\end{code}
+\end{samepage}
+for an array of integer values \?c? (of type \?IntArgs?) and an array
+of integer variables \?x? of same size, constrains the variables
+in \?x? such that
+$$\mathtt{x}_i+\mathtt{c}_i \neq\mathtt{x}_j+\mathtt{c}_j 
+\qquad\mbox{for }0\leq i,j< |\mathtt{x}|\mbox{ and }i\neq j
+$$
+
+Gecode offers value (the default), bounds (based
+on~\cite{distinctbnd}), and domain propagation (based
+on~\cite{Regin94}) for \?distinct?.
+
+For examples, see in particular \autoref{chap:c:golomb},
+\gecoderef[example]{queens}, and
+\gecoderef[example]{crowded-chess}.
+
+
+\subsection{Counting constraints}
+\label{sec:m:integer:count}
+
+\paragraph{Counting single values.}
+
+\gecoderef[group]{TaskModelIntCount} count how often values are
+taken by an array of integer variables. The simplest case is
+\begin{code}
+count(home, x, y, IRT_EQ, z);
+\end{code}
+which constrains \?z? to be equal (controlled by \?IRT_EQ?, all
+integer relation types are supported, see
+\autoref{fig:m:integer:irt}) to the number of integer variables in
+\?x? that are equal to \?y?. Here \?y? and \?z? can be
+integer variables as well as integer values.
+
+The following
+\begin{code}
+count(home, x, c, IRT_EQ, z);
+\end{code}
+where \?x? is an array of integer variables and \?c? is an array
+of integers (of type \?IntArgs?) with same size and \?z? is an
+integer variable or value, constrains \?z? to how often
+$\mathtt{x}_i=\mathtt{c}_i$, that is
+$$
+\mathtt{z}=\#\setc{i\in\{0,\ldots,|\mathtt{x}|-1\}}{\mathtt{x}_i=\mathtt{c}_i}
+$$
+Here, $\#s$ denotes the cardinality (number of elements) of a set
+$s$.
+
+\paragraph{Counting multiple values.}
+
+The \?count? constraint also supports counting multiple values
+(also known as gcc, or \emph{g}lobal \emph{c}ardinality
+\emph{c}onstraint). Suppose that \?x? and \?y? (the
+\emph{counting variables}) are two integer variable arrays (not
+necessarily of the same size). Then
+\begin{code}
+count(home, x, y);
+\end{code}
+posts the constraints that the number of variables in \?x? that
+are equal to a value $j$ is $\mathtt{y}_j$ (for $0\leq j<|\mathtt
+y|$):
+$$
+\#\setc{i\in\{0,\ldots,|\mathtt{x}|-1\}}{\mathtt{x}_i=j}=\mathtt{y}_j
+\qquad\mbox{for }0\leq j<|\mathtt{y}|
+$$
+and that no other values are taken by \?x?:
+$$
+\bigcup_{i=0}^{|\mathtt{x}|-1} \{\mathtt{x}_i\} =
+\{0,\ldots,|\mathtt y|-1\}
+$$
+Rather than using counting variables, one can also use an array
+of integer sets (\?IntSetArgs?). Then the number of values taken
+must be included in each individual set.
+
+A more general variant also takes into account that the values
+under consideration are non contiguous but are defined by an
+additional array of integer values. Suppose that \?x? and \?y?
+(the counting variables) are two integer variable arrays (not
+necessarily of the same size) and \?c? is an array of integers
+with the same size as \?y?. 
+
+\begin{samepage}
+Then,
+\begin{code}
+count(home, x, y, c);
+\end{code}
+posts the constraints that the number of variables in \?x? that
+are equal to the value $\mathtt{c}_j$ is $\mathtt{y}_j$ (for
+$0\leq j<|\mathtt y|$):
+$$
+\#\setc{i\in\{0,\ldots,|\mathtt{x}|-1\}}{\mathtt{x}_i=\mathtt{c}_j}
+=\mathtt{y}_j
+\qquad\mbox{for }0\leq j<|\mathtt{y}|
+$$
+and that no other values but those in \?c? are taken by \?x?:
+$$
+\bigcup_{i=0}^{|\mathtt{x}|-1} \{\mathtt{x}_i\} =
+\bigcup_{i=0}^{|\mathtt{c}|-1} \{\mathtt{c}_i\}
+$$
+Again, \?y? can also be an array of integer sets, where equality
+$=$ is replaced by set inclusion $\in$.
+\end{samepage}
+
+A slightly simpler variant replaces the cardinality variables by
+a single integer set. That is, for an array of integer variables
+\?x?, an integer set \?d?, and an array of integer values \?c?
+\begin{code}
+count(home, x, d, c);
+\end{code}
+posts the constraints that the number of variables in \?x? that
+are equal to the value $\mathtt{c}_j$ is included in $\mathtt{d}$
+(for $0\leq j<|\mathtt c|$):
+$$
+\#\setc{i\in\{0,\ldots,|\mathtt{x}|-1\}}{\mathtt{x}_i=\mathtt{c}_j}
+   \in\mathtt{d}
+\qquad\mbox{for }0\leq j<|\mathtt{c}|
+$$
+and that no other values but those in \?c? are taken by \?x?:
+$$
+\bigcup_{i=0}^{|\mathtt{x}|-1} \{\mathtt{x}_i\} =
+\bigcup_{i=0}^{|\mathtt{c}|-1} \{\mathtt{c}_i\}
+$$
+
+The last variant of \?count? clarifies that \?count? is a
+generalization of \?distinct? (see
+\autoref{sec:m:integer:distinct}): \?distinct? constrains a value
+to occur at most once, whereas \?count? offers more flexibility
+to constrain which values and how often these values can occur.
+
+\begin{samepage}
+For example, if we know that the variables in the variable array
+\?x? take values between \?0?  and \?n-1?, then
+\begin{code}
+count(home, x, IntSet(0,1), IntArgs::create(n,0,1));
+\end{code}
+\end{samepage}
+is equivalent to
+\begin{code}
+distinct(home, x);
+\end{code}
+
+
+Counting constraints only support integer variables, \?linear?
+constraints can be used for Boolean variables, see
+\autoref{sec:m:integer:linear}. For examples, see the
+case studies in \autoref{chap:c:magicsequence} and
+\autoref{chap:c:warehouses} or 
+the examples \gecoderef[example]{crowded-chess} and 
+\gecoderef[example]{magic-sequence}.
+
+
+Note that Gecode implements the semantics of the original paper
+on the global cardinality constraint by
+R{\'e}gin~\cite{DBLP:conf/aaai/Regin96}, where no other values
+except those specified may occur. This differs from the semantics
+in the Global Constraint Catalog~\cite{GlobalConstraintCatalog},
+where values that are not mentioned can occur arbitrarily often. 
+
+Gecode offers value (the default), bounds (based
+on~\cite{gccbnd}), and domain propagation (based
+on~\cite{DBLP:conf/aaai/Regin96}) for the global \?count?
+constraint.
+
+\subsection{Sequence constraints}
+\label{sec:m:integer:sequence}
+
+\gecoderef[group]{TaskModelIntSequence} constrain how often
+values are taken by repeated subsequences of variables in an
+array of integer or Boolean variables. By
+\begin{code}
+sequence(home, x, s, q, l, u);
+\end{code}
+where \?x? is an array of integer or Boolean variables, \?s? is an integer set, and \?q?, \?l?, and \?u? are integers, all
+subsequences of length \?q? in the variable array \?x?, that is,
+the sequences
+$$
+\begin{array}{c}
+\langle \mathtt{x}_0,\ldots,\mathtt{x}_{\mathtt{q}+0-1} \rangle\\
+\langle \mathtt{x}_1,\ldots,\mathtt{x}_{\mathtt{q}+1-1} \rangle\\
+\cdots\\
+\langle \mathtt{x}_{|\mathtt{x}|-\mathtt{q}},\ldots,\mathtt{x}_{|\mathtt{x}|-1} \rangle\\
+\end{array}
+$$
+are constrained such that at least \?l? and at most \?u?
+variables in each subsequence are assigned to values
+from the integer set \?s?.
+
+In more mathematical notation, the constraint enforces
+$$
+\bigwedge_{i=0}^{|\mathtt{x}|-\mathtt{q}} 
+       \operatorname{among}(\langle
+       \mathtt{x}_i,\ldots,\mathtt{x}_{i+\mathtt{q}-1}\rangle,
+       \mathtt{s},\mathtt{l},\mathtt{u})
+$$
+where the $\operatorname{among}$ constraint for the subsequence
+starting at position $i$ is defined as
+$$
+  l\leq\#\{j\in\{i,\ldots,i+\mathtt{q}-1\}\;|\;x_j\in \mathtt{s}\} \leq u
+$$
+
+The constraint is implemented by the domain consistent propagator
+introduced in~\cite{DBLP:journals/constraints/HoevePRS09}. For an
+example, see \gecoderef[example]{car-sequencing}.
+
+
+\subsection{Channel constraints}
+\label{sec:m:integer:channel}
+
+\gecoderef[group]{TaskModelIntChannel} channel Boolean to integer
+variables and integer variables to integer variables.
+
+\paragraph{Channeling integer variables.}
+
+For two integer variable arrays \?x? and \?y? of same size,
+\begin{code}
+channel(home, x, y);
+\end{code}
+posts the constraint
+$$\mathtt{x}_i=j\iff\mathtt{y}_j=i
+\qquad\mbox{for }0\leq i,j<|\mathtt x|
+$$
+The \?channel? constraint between two integer variable arrays
+also supports integer offsets. For integers \?n? and \?m?,
+\begin{code}
+channel(home, x, n, y, m);
+\end{code}
+posts the constraint
+$$\mathtt{x}_i-\mathtt n=j\iff\mathtt{y}_j-\mathtt m=i
+\qquad\mbox{for }0\leq i,j<|\mathtt x|
+$$
+For examples, see \gecoderef[example]{black-hole}
+and \gecoderef[example]{knights:KnightsReified}.
+
+
+\paragraph{Channeling between integer and Boolean variables.}
+
+As integer and Boolean variables are unrelated (see
+\autoref{sec:m:integer:var}), the only way to express that a
+Boolean variable \?x? is equal to an integer variable \?y? is by
+posting either
+\begin{code}
+channel(home, x, y);
+\end{code}
+\begin{samepage}
+or
+\begin{code}
+channel(home, y, x);
+\end{code}
+\end{samepage}
+
+The \?channel? constraint can also map an integer variable \?y?
+to an array of Boolean variables \?x?. The constraint
+$$\mathtt{x}_i=1 \iff \mathtt y = i\qquad\mbox{for }0\leq i<|x|$$
+is posted by
+\begin{code}
+channel(home, x, y);
+\end{code}
+Note that an optional offset argument is supported. The constraint
+$$\mathtt{x}_i=1 \iff \mathtt y = i+\mathtt n\qquad\mbox{for }0\leq i<|x|$$
+for an integer value \?n? is posted by
+\begin{code}
+channel(home, x, y, n);
+\end{code}
+For an example, see \gecoderef[example]{pentominoes}.
+
+
+
+
+\subsection{Element constraints}
+\label{sec:m:integer:element}
+
+\gecoderef[group]{TaskModelIntElement} generalize array access
+to integer variables. For example,
+\begin{code}
+IntArgs c(5, 1,4,9,16,25);
+element(home, c, x, y);
+\end{code}
+constrains the integer variable \?y? to be the element of the
+array \?c? at index \?x? (where the array starts at index \?0? as is
+common in \CPP{}).
+
+The index variable \?x? is always an integer variable, but the
+array \?c? can also be an array of integer variables, Boolean
+variables, or an array of integers between \?0? and \?1?. The
+result variable \?y? must be a Boolean variable or an integer
+between \?0? and \?1? if the array is an array of Boolean
+variables. It can be a Boolean variable if all integer values in
+the array are between \?0? and \?1?.
+
+Even if bounds propagation is requested for the \?element?
+constraint, the propagators for \?element? always perform domain reasoning
+on the index variable. For examples, see the case study in
+\autoref{chap:c:warehouses} or the examples
+\gecoderef[example]{steel-mill} and \gecoderef[example]{tsp}.
+
+\tip{Shared integer arrays}{
+\label{tip:m:integer:sharedelement}%
+When checking the documentation for
+\gecoderef[group]{TaskModelIntElement} it might come at a surprise that
+element constraints do not take integer argument arrays of type
+\?IntArgs?  but \emph{shared integer arrays} of type
+\?IntSharedArray? as argument. The reason is that the
+very same shared integer array can be used for several element
+constraints.
+
+Consider the following example
+\begin{code}
+IntArgs c(5, 1,4,9,16,25);
+element(home, c, x, y);
+element(home, c, a, b);
+\end{code}
+where \?x?, \?y?, \?a?, and \?b? are integer variables. Then,
+each time an element constraint is posted, a new shared integer
+array is created implicitly (that is, in the example above, two
+arrays are created). If the integer array is large or many
+element constraints are posted, it is beneficial to
+explicitly create a shared integer array, such as in:
+\begin{code}
+IntArgs c(5, 1,4,9,16,25);
+IntSharedArray cs(c);
+element(home, cs, x, y);
+element(home, cs, a, b);
+\end{code}
+Here only a single shared arrays is created and is used for both
+propagators created for posting the element constraints.
+
+What is also obvious from the first example is that integer
+argument arrays of type \?IntArgs? can automatically be coerced
+to integer shared arrays of type \?IntSharedArray?. Hence, if
+performance is not that important, you even do not need to know
+that shared integer arrays exist.
+
+For an example that uses shared integer arrays together with
+element constraints, see \autoref{chap:c:crossword} and
+\gecoderef[example]{crossword}.
+}
+
+\tip{Shared arrays also provide STL-style iterators}{
+Shared arrays also support STL-style (Standard Template Library)
+iterators, similar to other arrays provided by Gecode, see
+\autoref{sec:m:integer:stl}.
+}
+
+\subsection{Extensional constraints}
+\label{sec:m:integer:extensional}
+
+\gecoderef[group]{TaskModelIntExt} (also known as user-defined or
+ad-hoc constraints) provide constraints that are specified in
+\emph{extension}. The extension can be either defined by a
+\gecoderef[class]{DFA} (deterministic finite automaton) or a
+tuple set \gecoderef[class]{TupleSet}. DFAs can also be specified
+conveniently by regular expressions, see \autoref{sec:m:minimodel:reg}.
+
+Note that both DFAs and tuple sets are proper Gecode
+data structures. When storing a DFA or a tuple set as
+a space member, the member must be updated with an
+\?update? function during cloning exactly as described for
+variables in \autoref{sec:m:integer:update}.\footnote{In most cases,
+  the data structure is actually shared between spaces created by
+  cloning. Only when a non-shared clone is requested (for
+  parallel search), a copy of the data structure is created. This
+  is the reason why updating is required.}
+
+\paragraph{Deterministic finite automata.}
+
+Suppose we want to plan the activities of an evening that follows
+the Swedish drinking protocol: you may have as many drinks as you
+like, but now and then you sing a song after which you have to
+have a drink. We want to constrain an array of activities
+(Boolean or integer variables) such that the activities (drinking
+and singing) follow the protocol.
+
+\begin{figure}
+\newcommand{\STATE}[1]{\circlenode{#1}{$\strut #1$}}
+\newcommand{\ASTATE}[1]{\circlenode{#1}{$\strut$}}
+\newcommand{\FSTATE}[1]{\circlenode[doubleline=true]{#1}{$\strut #1$}}
+\newcommand{\AFSTATE}[1]{\circlenode[doubleline=true]{#1}{$\strut$}}
+\newcommand{\SSTATE}{\circlenode[linecolor=white]{start}{\white$\strut 0$}}
+\begin{center}
+\begin{tabular}{c@{\qquad}c@{\qquad\qquad}c}
+\\\\\\
+\SSTATE & \FSTATE{0} & \STATE{1}
+\\\\
+\end{tabular}
+\ncline[nodesep=2pt]{->}{start}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{0}{1}\Aput{\?1?}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{0}\Aput{\?0?}%
+\nccircle{->}{0}{.6}\Bput{\?0?}%
+\end{center}
+\caption{A DFA for the Swedish drinking protocol}
+\label{fig:m:integer:dfa}
+\end{figure}
+
+The DFA in \autoref{fig:m:integer:dfa} specifies legal sequences of
+activities according to the Swedish drinking protocol, where the
+state $0$ is the start state and also the final state. The
+symbol \?0? corresponds to drinking, whereas \?1? corresponds to
+singing. That is, the sequence of activities must be a string of
+\?0?s and \?1?s accepted by the DFA.
+
+\begin{samepage}
+The \gecoderef[class]{DFA} \?d? is initialized by
+\begin{code}
+DFA::Transition t[] = {{0, 0, 0}, {0, 1, 1},
+                       {1, 0, 0}, {-1, 0, 0}};
+int f[] = {0,-1};
+DFA d(0, t, f);
+\end{code}
+\end{samepage}
+The array of transitions \?t? is initialized by triples of
+integers (of type \gecoderef[class]{DFA::Transition}). A triple
+$\{a,s,b\}$ defines a transition from state $a$ to state $b$ with
+symbol $s$. States are denoted by non-negative integers and
+symbols are integer values (as always, restricted to integer
+values that can be taken on by an integer variable, see
+\autoref{sec:m:integer:limits}). A transition where $a$ is $-1$
+marks the last transition in a transition array. The array of
+final states \?f? lists all final states of the DFA, where the
+array is terminated by $-1$. The first argument of the
+constructor of the DFA defines the start state.
+
+Constraining an array of variables for four activities to the
+Swedish drinking protocol is done by
+\begin{code}
+BoolVarArray x(home, 4, 0, 1);
+extensional(home, x, d);
+\end{code}
+Note that the same DFA would also work with an array of integer
+variables.
+
+The propagator for the \?extensional? constraint is domain
+consistent and is based on~\cite{Pesant:CP:2004}.
+
+Examples that use regular expressions for defining DFAs can
+be found in \autoref{sec:m:minimodel:reg}.
+
+\paragraph{Tuple sets.}
+
+Constraints can also be defined by a list of tuples, where each
+tuple defines one solution of the extensional constraint. For
+example, the following defines the Swedish drinking protocol for
+three activities by a list of tuples:
+\begin{code}
+TupleSet t;
+t.add(IntArgs(3, 0,0,0));
+t.add(IntArgs(3, 0,1,0));
+t.add(IntArgs(3, 1,0,0));
+t.finalize();
+\end{code}
+Note that before a tuple set can be used by a post function, it
+must be finalized as shown above. If a not-yet finalized tuple
+set is used for posting a constraint, an exception of type
+\gecoderef[class]{Int::NotYetFinalized} is thrown.
+
+The propagators for the \?extensional? constraint are domain
+consistent and are based on~\cite{gacschema} and~\cite{gac2001}.
+
+Constraining a sequence of variables to the Swedish drinking
+protocol using a tuple set is done by
+\begin{code}
+BoolVarArray x(home, 3, 0, 1);
+extensional(home, x, t);
+\end{code}
+For examples of extensional constraints using tuple sets, see
+\autoref{chap:c:kakuro}, 
+\gecoderef[example]{black-hole}, and \gecoderef[example]{kakuro}.
+
+
+\subsection{Sorted constraints}
+\label{sec:m:integer:sorted}
+
+\begin{samepage}
+\gecoderef[group]{TaskModelIntSorted} relate an integer variable
+array to an array obtained by sorting the array. For example,
+\begin{code}
+sorted(home, x, y);
+\end{code}
+\end{samepage}
+constrains \?y? to be \?x? (of same size) sorted in increasing
+order. The more general variant features an additional integer
+variable array (again, of same size) \?z? as in
+\begin{code}
+sorted(home, x, y, z);
+\end{code}
+where \?z? defines the sorting permutation, that is
+$$
+\mathtt{x}_i=\mathtt{y}_{\mathtt{z}_i}
+\qquad\mbox{for }0\leq i<|\mathtt x|
+$$
+
+The propagator for \?sorted? is bounds consistent and is based
+on~\cite{MehlhornThiel:CP:2000}.
+
+\subsection{Bin-packing constraints}
+\label{sec:m:integer:bpp}
+
+\gecoderef[group]{TaskModelIntBinPacking} constrain how items
+can be packed into bins. The bin-packing constraint is posted as
+\begin{code}
+binpacking(home, l, b, s);
+\end{code}
+where \?l? is an array of integer variables (the \emph{load}
+variables), \?b? is an array of integer variables (the \emph{bin}
+variables), and \?s? is an array of integers (the item
+\emph{sizes}). 
+
+The load variables \?l? determine the load $\mathtt{l}_j$ of each
+bin~$j$ ($0\leq j<|\mathtt{l}|$) and the bin variables~\?b?
+determine for each item~$i$ ($0\leq i<|\mathtt{b}|$) into which
+bin~$\mathtt{b}_i$ it is packed. The size of an item~$i$ ($0\leq
+i<|\mathtt{b}|$) is defined by its item size $\mathtt{s}_i$.
+Naturally, the number of bin variables and item sizes must
+coincide ($|\mathtt{b}|=|\mathtt{s}|$).
+
+The bin-packing constraint enforces that
+all items are packed into bins
+$$
+\mathtt{b}_i\in\{0,\ldots,|\mathtt{l}|-1\}
+\qquad\mbox{for }0\leq i<|\mathtt{b}|
+$$
+and that the load of each bin corresponds to the items packed
+into it
+$$
+\mathtt{l}_j=\sum_{\setc{i\in\{0,\ldots,|\mathtt{b}|-1\}}%
+{\mathtt{b}_j=i}} \mathtt{s}_i
+\qquad\mbox{for }0\leq j<|\mathtt{l}|
+$$
+
+The constraint is implemented by the propagator introduced
+in~\cite{Shaw:CP:2004}. For an example using the bin-packing
+constraint and CDBF (complete decreasing best fit)~\cite{CDBF} as
+a specialized branching for bin-packing, see
+\autoref{chap:c:bpp} and
+\gecoderef[example]{bin-packing}.
+
+
+\subsection{Geometrical packing constraints}
+\label{sec:m:integer:geopacking}
+
+\gecoderef[group]{TaskModelIntGeoPacking} constrain how
+rectangles can be packed such that no two rectangles from a
+collection of rectangles overlap.
+
+If \?x? and \?y? are integer variable arrays and \?w? and \?h?
+are integer arrays (where all arrays must be of the same size),
+then
+\begin{code}
+nooverlap(home, x, w, y, h);
+\end{code}
+propagates that the rectangles defined by coordinates $\langle
+\mathtt x_i,\mathtt y_i\rangle$, widths $\mathtt w_i$, and
+heights $\mathtt h_i$ for $0\leq i<|\mathtt x|$ do not
+overlap. That is, the following constraint is enforced (see also
+\autoref{sec:m:minimodel:bool} for a picture):
+$$
+\left(\mathtt{x}_i+\mathtt{w}_i\leq \mathtt{x}_j\right) \vee
+\left(\mathtt{x}_j+\mathtt{w}_j\leq \mathtt{x}_i\right) \vee
+\left(\mathtt{y}_i+\mathtt{h}_i\leq \mathtt{y}_j\right) \vee
+\left(\mathtt{y}_j+\mathtt{h}_j\leq \mathtt{y}_i\right)
+$$
+
+Note that the width or the height of a rectangle can be zero. In
+this case, the rectangle does not occupy any space. However no
+other rectangle is allowed to be placed where the zero-sized
+rectangle is placed.
+
+Rectangles can also be modeled as optional through a Boolean
+variable $\mathtt o_i$ for each rectangle $i$. If the Boolean
+variable $\mathtt{o}_i$ is \?1? the rectangle is mandatory and
+considered by the packing constraint, if it is \?0?, the
+rectangle is ignored. 
+
+\begin{samepage}
+With an array of Boolean variables \?o? the
+constraint taking optional rectangles into account is posted by
+\begin{code}
+nooverlap(home, x, w, y, h, o);
+\end{code}
+\end{samepage}
+
+The arrays defining the dimensions (that is, \?w? and \?h? for
+rectangles) can also be arrays of integer variables, where its
+values are constrained to be non-negative. In this case, the
+constraint post functions expects both a start and end
+coordinate. That is, by posting
+\begin{code}
+nooverlap(home, x0, w, x1, y0, h, y1);
+\end{code}
+it is enforced that the rectangles defined by the start
+coordinate $\langle \mathtt{x0}_i,\mathtt{y0}_i\rangle$, the
+dimension $\langle \mathtt{w}_i,\mathtt{h}_i\rangle$, and the
+end coordinate $\langle \mathtt{x1}_i,\mathtt{y1}_i\rangle$ do
+not overlap. The end coordinates are \emph{not} constrained to
+be the sum of the start coordinates and dimensions. That is, one
+has to explicitly post the linear constraints such that
+$$
+\left(\mathtt{x0}_i+\mathtt{w}_i=\mathtt{x1}_i\right)\wedge
+\left(\mathtt{y0}_i+\mathtt{h}_i=\mathtt{y1}_i\right)
+$$
+
+The constraints are implemented by a naive propagator (considering
+pairwise no-overlap between rectangles including
+constructive disjunction), this will change in the future.  For
+an example using the no-overlap constraint, see
+\gecoderef[example]{perfect-square}.
+
+
+\subsection{Circuit and Hamiltonian path constraints}
+\label{sec:m:integer:circuit}
+
+\begin{figure}
+\begin{center}
+
+\subfigure[Before propagation]{
+\label{fig:m:integer:circuit:before}
+\begin{tabular}{c}\footnotesize
+\begin{tabular}{@{\quad}c@{\qquad\qquad}c@{\quad}}
+\circlenode{0}{$\mathtt{0}$} & 
+\circlenode{1}{$\mathtt{1}$}\\
+\\\\\\
+\circlenode{3}{$\mathtt{3}$} & 
+\circlenode{2}{$\mathtt{2}$}\\
+\\
+\ncarc[arcangleA=30,arcangleB=30]{->}{0}{1}%
+\ncline{->}{0}{2}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{2}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{2}{3}%
+\nccircle[angle=225]{->}{2}{.3}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{2}%
+\end{tabular}
+\\
+$
+\mathtt{x}_0\in\{1,2,3\},
+\mathtt{x}_1\in\{0,2\},
+\mathtt{x}_2\in\{2,3\},
+\mathtt{x}_3\in\{0,2\}
+$
+\\
+\\
+\end{tabular}
+}
+\subfigure[After propagation]{
+\label{fig:m:integer:circuit:after}
+\begin{tabular}{c}\footnotesize
+\begin{tabular}{@{\quad}c@{\qquad\qquad}c@{\quad}}
+\circlenode{0}{$\mathtt{0}$} & 
+\circlenode{1}{$\mathtt{1}$}\\
+\\\\\\
+\circlenode{3}{$\mathtt{3}$} & 
+\circlenode{2}{$\mathtt{2}$}\\
+\\
+\ncarc[arcangleA=30,arcangleB=30]{->}{0}{1}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{2}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{2}{3}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\end{tabular}
+\\
+$
+\mathtt{x}_0\in\{1\},
+\mathtt{x}_1\in\{2\},
+\mathtt{x}_2\in\{3\},
+\mathtt{x}_3\in\{0\}
+$
+\\
+\\
+\end{tabular}
+}
+\end{center}
+
+\caption{Representing edges and propagating \?circuit?}
+\label{fig:m:integer:circuit}
+\end{figure}
+
+The \?circuit? and \?path? constraints (see
+\gecoderef[group]{TaskModelIntGraph}) use values of
+variables in an integer variable array \?x? as edges: if
+$j\in\mathtt{x}_i$, the corresponding graph contains the
+edge $i\to j$ for $0\leq i,j<|\mathtt{x}|$. Obviously, the graph
+has the nodes $0$ to $|\mathtt{x}|-1$. 
+
+\paragraph{Circuit constraints.}
+
+Assume that \?x? is an integer variable array
+(\?circuit? does not support Boolean variables). Then,
+\begin{code}
+circuit(home, x);
+\end{code}
+constrains the values of \?x? such that their corresponding edges form
+a Hamiltonian circuit. For an example before and after
+propagation of \?circuit? see \autoref{fig:m:integer:circuit}.  For
+an example, see \autoref{chap:c:knights} and \gecoderef[example]{knights:KnightsCircuit}.
+
+Common applications of \?circuit? also require costs for the
+edges in the graph. Assume that the cost for an edge $i\to j$
+from node $i$ to node $j$ is defined by the
+following matrix:
+$$
+\begin{array}{|c|rrrr|}
+\hline
+i\to j&\cdot\to 0&\cdot\to 1&\cdot\to 2&\cdot\to 3\\
+\hline
+0\to\cdot & 0 & 3 & 5 & 7\\
+1\to\cdot & 4 & 0 & 9 & 6\\
+2\to\cdot & 2 & 1 & 0 & 5\\
+3\to\cdot & -7 & 8 & -2 & 0\\
+\hline
+\end{array}
+$$
+
+
+
+\begin{figure}
+\begin{center}
+
+\subfigure[Before propagation]{
+\label{fig:m:integer:costcircuit:before}
+\begin{tabular}{c}\footnotesize
+\begin{tabular}{@{\quad}c@{\qquad\qquad}c@{\quad}}
+\circlenode{0}{$\mathtt{0}$} & 
+\circlenode{1}{$\mathtt{1}$}\\
+\\\\\\
+\circlenode{3}{$\mathtt{3}$} & 
+\circlenode{2}{$\mathtt{2}$}\\
+\\
+\ncarc[arcangleA=30,arcangleB=30]{->}{0}{1}%
+\ncline{->}{0}{2}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{2}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{2}{3}%
+\nccircle[angle=225]{->}{2}{.3}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncline{->}{3}{1}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{2}%
+\end{tabular}
+\\
+$
+\mathtt{x}_0\in\{1,2,3\},
+\mathtt{x}_1\in\{0,2\},
+\mathtt{x}_2\in\{2,3\},
+\mathtt{x}_3\in\{0,1,2\}
+$
+\\
+$
+\mathtt{y}_i\in\{-100,\ldots,100\}\quad(0\leq i<4)
+$
+\\
+$
+\mathtt{z}\in\{-100,\ldots,100\},
+$
+\\
+\\
+\end{tabular}
+}
+\subfigure[After propagation]{
+\label{fig:m:integer:costcircuit:after}
+\begin{tabular}{c}\footnotesize
+\begin{tabular}{@{\quad}c@{\qquad\qquad}c@{\quad}}
+\circlenode{0}{$\mathtt{0}$} & 
+\circlenode{1}{$\mathtt{1}$}\\
+\\\\\\
+\circlenode{3}{$\mathtt{3}$} & 
+\circlenode{2}{$\mathtt{2}$}\\
+\\
+\ncarc[arcangleA=30,arcangleB=30]{->}{0}{1}%
+\ncline{->}{0}{2}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{2}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{1}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{2}{3}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncline{->}{3}{1}%
+\end{tabular}
+\\
+$
+\mathtt{x}_0\in\{1,2\},
+\mathtt{x}_1\in\{0,2\},
+\mathtt{x}_2\in\{3\},
+\mathtt{x}_3\in\{0,1\}
+$
+\\
+$
+\mathtt{y}_0\in\{3,5\},
+\mathtt{y}_1\in\{4,9\},
+\mathtt{y}_2\in\{5\},
+\mathtt{y}_3\in\{-7,8\}
+$
+\\
+$
+\mathtt{z}\in\{5,\ldots,27\},
+$
+\\
+\end{tabular}
+}
+\end{center}
+
+\caption{Representing edges and propagating \?circuit? with cost}
+\label{fig:m:integer:costcircuit}
+\end{figure}
+
+
+Then, by
+\begin{code}
+IntArgs c(4*4, 0, 3, 5, 7,
+               4, 0, 9, 6,
+               2, 1, 0, 5,
+              -7, 8,-2, 0);
+circuit(home, c, x, y, z);
+\end{code}
+the integer variables \?x? are constrained to the values forming
+the circuit as above, while the integer variables \?y? define the
+cost of the edge for each node (these variables can be omitted),
+and the integer variable \?z? defines the total cost of the edges
+in the circuit. Note that the matrix interface as described in
+\autoref{sec:m:minimodel:matrix} might come in handy for setting up
+the cost matrix.
+
+
+\autoref{fig:m:integer:costcircuit} shows a simple example for
+propagation \?circuit? with cost where the cost matrix from above
+is used.  For an example, see \gecoderef[example]{tsp}.
+
+\paragraph{Hamiltonian path constraints.}
+
+The \?path? constraint (see \gecoderef[group]{TaskModelIntGraph})
+is similar to the \?circuit? constraint and enforces that nodes
+in a graph from a Hamiltonian path. Assume that \?x? is an
+integer variable array (\?path? does not support Boolean
+variables) and \?s? (for start) and \?e? (for end) are integer
+variables. Then,
+\begin{code}
+path(home, x, s, e);
+\end{code}
+constrains the values of \?x?, \?s?, and \?e? such that their
+corresponding edges form a Hamiltonian path that starts at node
+$\mathtt{x}_{\mathtt{s}}$ and ends at node
+$\mathtt{x}_{\mathtt{e}}$ (the value of the variable
+$\mathtt{x}_{\mathtt{e}}$ is always $|\mathtt{x}|$).
+
+As an example, assume that the integer variable array \?x? has three
+elements (that is, $|\mathtt{x}|=3$) with values between $0$ and
+$3$. Then all solutions to 
+\begin{code}
+path(home, x, s, e);
+\end{code}
+are as follows:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\?x? & \?s? & \?e? \\
+\hline\hline
+$\langle\mathtt 1, \mathtt 2, \mathtt 3\rangle$ & $\mathtt 0$ & $\mathtt 2$
+\\\hline
+$\langle\mathtt 1, \mathtt 3, \mathtt 0\rangle$ & $\mathtt 2$ & $\mathtt 1$
+\\\hline
+$\langle\mathtt 2, \mathtt 0, \mathtt 3\rangle$ & $\mathtt 1$ & $\mathtt 2$
+\\\hline
+$\langle\mathtt 2, \mathtt 3, \mathtt 1\rangle$ & $\mathtt 0$ & $\mathtt 1$
+\\\hline
+$\langle\mathtt 3, \mathtt 0, \mathtt 1\rangle$ & $\mathtt 2$ & $\mathtt 0$
+\\\hline
+$\langle\mathtt 3, \mathtt 2, \mathtt 0\rangle$ & $\mathtt 1$ &
+$\mathtt 0$
+\\\hline
+\end{tabular}
+\end{center}
+
+The \?path? constraint provides, similar to \?circuit?, variants
+for costs for edges in a Hamiltonian path, see
+\gecoderef[group]{TaskModelIntGraph}.
+
+
+
+\subsection{Scheduling constraints}
+\label{sec:m:integer:scheduling}
+
+This section provides an overview of scheduling constraints.
+
+\begin{important}
+  The support for scheduling constraints is still experimental.
+  It is not yet complete, as it still lacks modeling abstractions
+  and specialized branchings. The existing code is tested and
+  efficient, but the interfaces may change in future
+  versions.
+\end{important}
+
+\subsubsection{Unary resource constraints}
+\label{sec:m:integer:unary}
+
+A unary resource constraint models that a number of tasks to be
+executed on a single resource do not overlap, where each task is
+defined by its start time (an integer variable), its duration
+(an integer or integer variable), and possibly its end time (if the duration 
+is a variable). Unary resource constraints are also known as
+disjunctive scheduling constraints.
+
+For example, assume that four tasks with durations \?2?, \?7?,
+\?4?, and \?11? are to be executed on the same resource where the
+start times are specified by an array of integer variables (of
+course, with four variables). Then, posting
+\begin{code}
+IntArgs d(4, 2,7,4,11);
+unary(home, s, d);
+\end{code}
+constrains the start times in \?s? such that the execution of
+none of the tasks overlaps in time (see
+\gecoderef[group]{TaskModelIntScheduling}).
+
+All propagators implementing the \?unary? constraint use
+overload-checking, detectable precedences, not-first-not-last,
+and edge-finding, following~\cite{Vilim:2007}.
+
+A common variant for unary resource constraints is where tasks
+can be optional: each task $t$ has a Boolean variable $b$
+attached to it. If $b=1$ then the task is \emph{mandatory} and
+is scheduled on the resource. If $b=0$ then the task is
+\emph{excluded} and is not scheduled. Otherwise, the task is said
+to be \emph{optional}. Assume that \?b? refers to an array of
+Boolean variables also of size \?4?, then
+\begin{code}
+IntArgs d(4, 2,7,4,11);
+unary(home, s, d, b);
+\end{code}
+posts a propagator that constrains the start times \?s? (of
+course, only if a task is mandatory) as well the Boolean
+variables in \?b? (if a task becomes excluded as otherwise no
+feasible schedule would exist).
+
+\paragraph{Tasks with flexible duration.}
+
+The duration of a task can also be given as an integer variable
+instead of a constant integer. In this case, we say that the
+tasks are \emph{flexible}. In addition to the flexible duration,
+the \?unary? constraint also requires variables for the end time
+of each task.
+
+Given variable arrays \?s?, \?d?, and \?e? for the start times,
+durations, and end times, a unary resource constraint is posted
+as
+\begin{code}
+unary(home, s, d, e);
+\end{code}
+However, the additional constraint for each task $i$ that
+$\texttt{s}[i]+\texttt{d}[i]=\texttt{e}[i]$ is not enforced
+automatically. Therefore, a model typically must contain
+additional constraints like
+\begin{code}
+for (int i=0; i<s.size(); i++)
+  post(home, s[i]+d[i]==e[i]);
+\end{code}
+
+The \?unary? post function also exists in a variant with
+flexible, optional tasks.
+
+\subsubsection{Cumulative scheduling constraints}
+\label{sec:m:integer:cumulatives}
+
+Gecode provides two generalizations of the unary resource
+scheduling constraint. The first one, called \?cumulative?,
+models a resource where tasks can overlap. The resource has a
+limited \emph{capacity}, and each task requires a certain
+\emph{resource usage}. At each point in time, the sum of the
+resource usages of all tasks running at that point must not
+exceed the capacity. The second generalization, called
+\?cumulatives?, deals with several cumulative resources at once.
+
+\paragraph{Cumulative single-resource constraint.}
+
+The single-resource constraint \?cumulative? has nearly the same
+interface as \?unary?. The only difference is a parameter \?c?
+specifying the resource capacity, and an additional integer array
+\?u? for the resource usage of each task. Assuming that \?s? and
+\?d? give the start times and durations as before, the following
+models a resource where two tasks can overlap, and the first
+three tasks require one unit of the resource, while the last task
+requires two:
+\begin{code}
+IntArgs u(4, 1,1,1,2);
+cumulative(home, 2, s, d, u);
+\end{code}
+The capacity can be an integer variable or a nonnegative integer.
+The resource usage must be stricly
+positive. As for unary, there exist versions with optional,
+flexible, and flexible and optional tasks.
+
+The propagators implementing the \?cumulative? constraint use
+time-tabling, overload checking~\cite{Vilim:CPAIOR:2009}, and
+edge-finding~\cite{Vilim:CP:2009}.
+
+
+\paragraph{Cumulative multi-resource constraint.}
+
+Given a \emph{set} of resources that have some specified
+usage limit and a set of tasks that must be placed on these
+resources according to start-times, durations, resource usage,
+and resource compatibility, the \?cumulatives? constraint (see
+\gecoderef[group]{TaskModelIntScheduling}) can be
+used for the placement of these tasks. The limit for the
+resources can be either a maximum or a minimum, and the resource
+usage of a task can be positive, negative, or zero. The limit is
+only valid over the intervals where there is at least one task
+assigned on that particular resource.
+
+Consider the following code.
+\begin{code}
+cumulatives(home, resource, start, duration, end, height, 
+            limit, atmost);
+\end{code}
+This code posts a constraint over a set of tasks $T$, where each
+task $T_i$
+is defined by $\langle \mathtt{resource}_i, \mathtt{start}_i,
+\mathtt{duration}_i, \mathtt{end}_i, \mathtt{height}_i \rangle$. The
+\?resource? component indicates the potential resources that the task can
+use; \?start?, \?duration?, and \?end? indicate when the task can occur; and
+finally the \?height? component indicates the amount of resource the
+task uses (or ``provides'' in the case of a negative value). The
+resource $R_i$ is defined by the limit $\mathtt{limit}_i$ and the
+parameter \?atmost?. The latter is common for all resources, and
+indicates whether the limits are maximum limits (\?atmost? is true) or
+minimum limits (\?atmost? is false).
+
+As for flexible tasks in \autoref{sec:m:integer:unary}, the \?cumulatives?
+constraint does not enforce that
+$\mathtt{start}_i+\mathtt{duration}_i=\mathtt{end}_i$. This additional
+constraint must be posted manually.
+
+The parameters \?start? and \?end? are always integer variable
+arrays; \?resource?, \?duration?, and \?height? can be either
+integer variable arrays or integer arrays; and \?limit? is always an
+array of integers.
+
+For an example using \?cumulatives? see
+\gecoderef[example]{perfect-square}, where the \?cumulatives?
+constraints is used to model packing a set of squares. For an
+insightful discussion of how to use \?cumulatives? for modeling,
+see~\cite{DBLP:conf/cp/BeldiceanuC02} (the propagator for
+\?cumulative? is implemented following this paper).
+
+\subsection{Value precedence constraints}
+\label{sec:m:integer:precede}
+
+\gecoderef[group]{TaskModelIntPrecede} enforce that a value
+precedes another value in an array of integer variables. By
+\begin{code}
+precede(home, x, s, t);
+\end{code}
+where \?x? is an array of integer variables and both \?s? and
+\?t? are integers, the following is enforced: if there exists $j$
+($0\leq j<|\mathtt{x}|$) such that $\mathtt{x}_j=\mathtt{t}$,
+then there must exist $i$ with $i<j$ such that
+$\mathtt{x}_i=\mathtt{s}$. This is equivalent to:
+\begin{enumerate}
+\item $\mathtt{x}_0 \neq \mathtt t$, and
+\item if $\mathtt{x}_j=\mathtt t$ then $\bigvee_{i=0}^{j-1}
+  \mathtt{x}_i=\mathtt s$ for $1\leq j<|\mathtt x|$.
+\end{enumerate}
+
+A generalization is available for precedences between several
+integer values. By
+\begin{code}
+precede(home, x, c);
+\end{code}
+where \?x? is an array of integer variables and \?c? is an array
+of integers, it is enforced that $\mathtt{c}_i$ precedes
+$\mathtt{c}_{i+1}$ in \?x? for $0\leq i<|\mathtt c|-1$. That is
+\begin{enumerate}
+\item $\mathtt{x}_0 \neq \mathtt{c}_k$ for $0\leq k<|\mathtt{c}|$, and
+\item if $\mathtt{x}_j=\mathtt{c}_{k+1}$ then $\bigvee_{i=0}^{j-1}
+  \mathtt{x}_i=\mathtt{c}_k$ for $1\leq j<|\mathtt x|$ and $0\leq
+  k<|\mathtt{c}|-1$.
+\end{enumerate}
+
+The constraint is implemented by the domain consistent propagator
+introduced in~\cite{Precede}, the paper also explains how to use
+the \?precede? constraint for breaking value symmetries.
+For an example, see \gecoderef[example]{schurs-lemma}.
+
+
+
+\section{Synchronized execution}
+\label{sec:m:integer:exec}
+
+Gecode offers support in
+\gecoderef[group]{TaskModelIntExec} for executing a function
+(either a function or a static member function but not a member
+function) when integer or Boolean variables become assigned. 
+
+\begin{samepage}
+Assume that a function \?c? (for continuation) is defined by
+\begin{code}
+void c(Space& home) { ... }
+\end{code}
+Then
+\begin{code}
+wait(home, x, &c);
+\end{code}
+posts a propagator that waits until the integer or Boolean
+variable \?x? (or, if \?x? is an array of variables: all variables in
+\?x?) is assigned. If \?x? becomes assigned, the function \?c? is
+executed with the current home space passed as argument.
+\end{samepage}
+
+\tip{Failing a space}{%
+If you want to fail a space \?home? (for example when executing a
+continuation function as discussed above), you can do that by
+\begin{code}
+home.fail();
+\end{code}
+}
+
+Assume that
+two functions \?t? (for then) and \?e? (for else) are defined by
+\begin{code}
+void t(Space& home) { ... }
+void e(Space& home) { ... }
+\end{code}
+Then
+\begin{code}
+when(home, x, &t, &e);
+\end{code}
+creates a propagator that will be run exactly once when the
+Boolean variable \?x?  becomes assigned. If \?x? becomes assigned
+to \?1?, the function \?t?  is executed. If \?x? becomes assigned
+to \?0?, the function \?e?  is executed. Both functions get the
+current home space of the propagator passed as argument. The
+else-function is optional and can be omitted.
+
+
+
+
+
+

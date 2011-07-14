@@ -1,0 +1,1630 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Getting started}
+\label{chap:p:started}
+
+This chapter shows how to implement simple propagators for
+simple constraints over integer variables. It introduces the
+basic concepts and techniques that are necessary for any
+propagator. 
+
+Here, and in the following chapters, the focus is on propagators
+over integer and Boolean variables. Part of the concepts
+introduced are specific to integer and Boolean propagators,
+however the techniques how to program efficient propagators are
+largely orthogonal to the type of variables. In
+\autoref{chap:p:sets}, the corresponding concepts for set
+variables are presented.
+
+\begin{important}
+  This chapter introduces concepts and techniques step-by-step,
+  starting with a naive and inefficient first version of a
+  propagator that then is stepwise refined. Even if you feel
+  compelled to start programming right after you have seen the
+  first, naive variant, you should very definitely read on until
+  having read the entire chapter.
+\end{important}
+
+
+\paragraph{Overview.}
+
+The first three sections set the stage for programming
+propagators. \autoref{sec:p:started:solving} sketches how
+propagators perform constraint propagation and is followed by an
+overview of some useful background reading material
+(\autoref{sec:p:started:back}). \autoref{sec:p:started:overview}
+provides an overview of what needs to be implemented for a
+constraint followed by the first naive implementation of a simple
+constraint (\autoref{sec:p:started:implement}). The naive
+implementation is improved in \autoref{sec:p:started:better} by
+both taking advantage of some predefined abstractions in Gecode
+and straightforward optimizations. This is followed by a
+discussion of propagation conditions as a further optimization to
+avoid redundant propagator executions
+(\autoref{sec:p:started:propcond}).  The next section
+(\autoref{sec:p:started:patterns}) presents a first reasonable
+propagator that takes advantage of predefined patterns to cut
+down on programming effort. The last two sections discuss the
+obligations a propagator must meet
+(\autoref{sec:p:started:obligations}) and how some of these
+obligations can be waived by a propagator
+(\autoref{sec:p:started:waive}).
+
+
+
+\section{Constraint propagation in a nutshell}
+\label{sec:p:started:solving}
+
+Constraints and variables are used for modeling constraint
+problems. However, the only reason for actually modeling a
+problem is to be able to solve it with constraint propagation by
+removing values from variables that are in conflict with a
+constraint. In order to implement constraint propagation, a
+constraint (typically) requires a \emph{propagator} (or several
+propagators) as its implementation.
+
+\paragraph{Views versus variables.}
+
+
+The essence of a propagator is to remove values from variables
+that are in conflict with the constraint the propagator
+implements. However, a propagator does not use variables directly
+as they only offer operations for accessing but not removing
+values. Instead, a propagator uses \emph{variable views} (or just
+views) as they offer operations for both value access and
+removal.
+
+Views and variables have a simple relationship in that they both
+offer interfaces to variable implementations. When a variable is
+created for modeling, also a \emph{variable implementation} is
+created. The variable serves as a read-only interface to the
+variable implementation. A view can be initialized from a
+variable: the view becomes just another interface to the
+variable's variable implementation. For more information on the
+relationship between variables, views, and variable
+implementations see \autoref{part:v}.
+
+In the following we often refer to the variables of a propagator
+as the variable implementations that the propagator refers to
+through views. That is, we will often not distinguish between
+variables, views, and variable implementations. There is little
+risk of confusion as propagators always compute with views and
+variable implementations are never exposed for programming
+propagators. Much more on the relationship between variables,
+views, and variable implementations can be found in
+\autoref{part:v}. 
+
+By the \emph{domain} of a variable (or a view, or a variable
+implementation) we refer to the set of values
+the variable still can take. We will often use notation such as
+$\mathtt{x}\in\{1,2,5\}$ which means that the domain of
+\?x? is $\{1,2,5\}$.
+
+\paragraph{Executing propagators.}
+
+A propagator is implemented in Gecode as a subclass of the class
+\gecoderef[class]{Propagator} where the different tasks a
+propagator must be able to perform are implemented as virtual
+member functions. Before we describe these functions and their
+purpose, we sketch how a propagator actually performs constraint
+propagation.
+
+\begin{figure}
+\center
+\begin{pspicture}(13,10)
+%\psgrid
+\psset{cornersize=absolute,linearc=0.05}
+\pcline{->}(5.5,10.5)(5.5,9.5)
+\put(5.7,10.2){\footnotesize{\texttt{status()}}}
+\fcbwframe(4,8.5)(7,9.5)
+\put(5.5,9){\makebox(0,0){\footnotesize\shortstack{select scheduled\\propagator}}}
+
+\pcline{->}(5.5,8.5)(5.5,7.5)
+\pcline{->}(7,9)(9.5,9)
+\lput*{:U}{\footnotesize none left}
+
+\fcbwframe(4,6.5)(7,7.5)
+\put(5.5,7){\makebox(0,0){\footnotesize\shortstack{make propagator\\idle}}}
+
+\pcline{->}(5.5,6.5)(5.5,5.5)
+
+\fcbwframe(3.5,2.5)(7.5,5.5)
+\put(5.5,4){\makebox(0,0){\footnotesize\shortstack{execute \texttt{propagate()}\\\\modify views\\\\schedule subscribed\\propagators}}}
+\pcline{->}(5.5,2.5)(4,1)
+\Bput*{\footnotesize\texttt{ES\_FIX}}
+\pcline{->}(5.5,2.5)(7,1)
+\Aput*{\footnotesize\texttt{ES\_SUBSUMED}}
+\pcline{-}(5.5,2.5)(5.5,0)
+\mput*{\footnotesize\texttt{ES\_NOFIX}}
+
+\fcbwframe(1,0.5)(4,1.5)
+\put(2.5,1){\makebox(0,0){\footnotesize\shortstack{make propagator\\idle}}}
+\psline(1,1)(0.5,1)
+
+\fcbwframe(7,0.5)(10,1.5)
+\put(8.5,1){\makebox(0,0){\footnotesize\shortstack{dispose\\propagator}}}
+\psline(10,1)(10.5,1)(10.5,0)(0.5,0)(0.5,10)(5.5,10)(5.5,9.5)
+
+\fcbwframe(9.5,8.5)(12.5,9.5)
+\put(11,9){\makebox(0,0){\footnotesize\shortstack{branching status\\see \autoref{chap:b:started}}}}
+
+\psellipse*[linecolor=GecodeRed,linewidth=0.01pt,opacity=0.20,fillcolor=GecodeRed,fillstyle=solid](11,7)(1.5,.55)
+\put(11,7){\makebox(0,0){\footnotesize failed}}
+\psline[arrows=->](7.5,4)(8.5,4)(8.5,7)(9.5,7)
+\put(8.5,5.5){\makebox(0,0){\psframebox*{\footnotesize\texttt{ES\_FAILED}}}}
+
+\end{pspicture}
+
+\caption{Scheduling and executing propagators}
+\label{fig:p:started:scheduling_propagators}
+\end{figure}
+
+As mentioned above, a propagator has several views on which it
+performs constraint propagation according to the constraint it
+implements. Like variables in modeling, propagators and views
+(more precisely, their variable implementations) belong to a
+\emph{home space} (or just \emph{home}). When a propagator is
+created, it \emph{subscribes} to some of its views: subscriptions
+control the execution of a propagator. As soon as a view changes
+(the only way how a view can change is that some of its values
+are removed), all propagators that are subscribed to the view are
+\emph{scheduled} for execution. Actually, subscriptions offer
+additional control in that only certain types of value removals
+schedule a propagator, this is discussed in
+\autoref{sec:p:started:propcond}. A propagator that is not
+scheduled, is called \emph{idle}. Scheduling and execution are
+sketched in \autoref{fig:p:started:scheduling_propagators}.
+
+Eventually, the space chooses a scheduled propagator for
+execution and executes it by running the \?propagate()? member
+function of the propagator. This function possibly removes values
+and by this might schedule more propagators for eventual
+execution (possibly re-scheduling the currently executing
+propagator itself). Besides removing values and scheduling
+propagators, the \?propagate()? member function reports about
+propagation. The details of what can be reported by a propagator
+are detailed in the following sections, but a particularly
+important report is: the propagator reports failure as it found
+out that the constraint it implements is unsatisfiable with the
+values left for the propagator's views (this is described by
+returning the value \?ES_FAILED?). The remaining return values are
+discussed in \autoref{sec:p:started:implement} and
+\autoref{sec:p:started:better}.
+
+To get the entire propagation process started, some but not
+necessary all propagators are scheduled as soon as they are
+created. Which propagators are scheduled initially is discussed
+in detail in \autoref{sec:p:started:propcond}.
+
+Propagation is interleaved in that a space executes only one
+propagator at a time. The process of choosing a scheduled
+propagator and executing it is repeated by the space until no
+more propagators are available for execution. If no more
+propagation is possible, a space is called \emph{stable}. This
+process implements constraint propagation and must be explicitly
+triggered by executing the \?status()? member function of a space
+(please consult \autoref{tip:m:started:status}). The \?status()?
+function is typically invoked by a search engine (see
+\autoref{part:s} for details).
+
+\paragraph{Space and propagator fixpoints.}
+
+We often refer to the fact that no more propagation is possible
+for a space by saying that the space is at \emph{fixpoint}.
+Likewise, we say that a propagator that cannot remove any more
+values is at \emph{fixpoint}. The term fixpoint is intuitive when
+one looks at typical models for constraint propagation:
+propagators are modeled as functions that take variables and
+their values as input and output, often referred to as stores or
+domains. A domain that is a fixpoint means that input and output
+for a propagator are the same and hence the propagator did not
+perform any propagation.
+
+
+\section{Background reading}
+\label{sec:p:started:back}
+
+This document does not present any formal or mathematical model
+of how propagation is organized and which properties propagation
+has. There are numerous publications that do that in more detail
+than is possible in this document:
+\begin{itemize}
+\item A general overview of how a constraint programming system
+  works can be found in~\cite{SchulteCarlsson:CPH:2006}.
+\item Realistic models that present many ideas that have been
+  developed in the context of Gecode can be found
+  in~\cite{SchulteStuckey:TOPLAS:2008}, \cite{SchulteStuckey:CP:2004},
+  and~\cite{Tack:PhD:2009}.
+\item A truly general model for propagation that is used in
+  Gecode is introduced in~\cite{SchulteTack:CP:2009}. This
+  publication is rather specialized and the generality of the
+  model will be only briefly discussed later
+  (see \autoref{sec:p:started:obligations} and \autoref{sec:s:re:invariants}).
+\end{itemize}
+
+It is highly recommended to read about the general setup of
+constraint propagation in one of these papers.  For more advanced
+ideas, we often refer to certain sections in the above
+publications or to further publications. Remember, one of the
+advantages of Gecode is that many of its key ideas have been
+introduced by Gecode and are backed by academic publications.
+
+
+\section{What to implement?}
+\label{sec:p:started:overview}
+
+Our first propagator implements the \?less? constraint $x<y$ for two
+integer variables $x$ and~$y$.
+
+\paragraph{Constraint post functions.}
+
+Before discussing what a propagator must do in detail, we need to
+discuss how to implement the function for our \?less? constraint
+that can be used for modeling. As known from \autoref{part:m},
+the function should have a declaration such as
+\begin{code}
+void less(Space& home, IntVar x0, IntVar x1);
+\end{code}
+We call a function implementing a constraint a \emph{constraint
+  post function}. The constraint post function \?less()? takes a
+space \?home? where to post the constraint (actually, where to
+post the propagator implementing the constraint) and variables
+\?x0? and \?x1?.\footnote{As we will discuss later (and as you
+  might have noticed when modeling with Gecode, see
+  \autoref{tip:m:started:home}), a constraint post function takes a
+  value of class \?Home? instead of \?Space&?. A value of type
+  \?Home?  includes a reference to a space together with
+  potentially additional information useful for posting. This
+  aspect is discussed in \autoref{sec:p:started:better} in more
+  detail.} The responsibilities of a constraint post function
+are straightforward: it checks whether its arguments are valid
+(and throws an exception otherwise), creates variable views for
+the variables passed to it, and then posts an appropriate
+propagator.  This is detailed below.
+
+\tip{Variables and views are passed by value}{As discussed
+  before, variables and views are nothing but different
+  interfaces to variable implementations. Their implementations
+  are hence strikingly simple: they just carry a pointer to a
+  variable implementation and their member functions just call
+  the appropriate member functions of the variable implementation
+  (some views might store an additional integer as well). For
+  that reason, it is sufficient to pass variables and views simply
+  by value rather than by reference.}
+
+\paragraph{What a propagator must do.}
+
+\begin{figure}
+\center
+
+\begin{pspicture}(16,9)
+%\psgrid
+
+\put(5.5,9){\makebox(0,0){\vphantom{()}\color{GecodeGreen}propagators}}
+\put(11,9){\makebox(0,0){\vphantom{()}\color{GecodeOrange}views}}
+\put(13.5,9){\makebox(0,0){\vphantom{()}\color{GecodeBlue}variable}}
+\put(13.5,8.5){\makebox(0,0){\vphantom{()}\color{GecodeBlue}implementations}}
+
+\fcframe{GecodeGreen}{(2,2)(3,3)}
+\put(2.5,2.5){\makebox(0,0){p}}
+\pcline{<->}(2.5,3)(2.5,3.5)
+\fcframe{GecodeGreen}{(2,3.5)(3,4.5)}
+\put(2.5,4){\makebox(0,0){p}}
+\pcline{<->}(2.5,4.5)(2.5,5)
+\fcframe{GecodeGreen}{(2,5)(3,6)}
+\put(2.5,5.5){\makebox(0,0){p}}
+\pcline{<->}(2.5,6)(2.5,6.5)
+\fcframe{GecodeGreen}{(2,6.5)(3,7.5)}
+\put(2.5,7){\makebox(0,0){p}}
+
+\fcframe{GecodeGreen}{(4,2)(5,3)}
+\put(4.5,2.5){\makebox(0,0){p}}
+\pcline{<->}(4.5,3)(4.5,3.5)
+\fcframe{GecodeGreen}{(4,3.5)(5,4.5)}
+\put(4.5,4){\makebox(0,0){p}}
+
+\fcframe{GecodeGreen}{(8,2)(9,3)}
+\put(8.5,2.5){\makebox(0,0){p}}
+\pcline{<->}(8.5,3)(8.5,3.5)
+\fcframe{GecodeGreen}{(8,3.5)(9,4.5)}
+\put(8.5,4){\makebox(0,0){p}}
+\pcline{<->}(8.5,4.5)(8.5,5)
+\fcframe{GecodeGreen}{(8,5)(9,6)}
+\put(8.5,5.5){\makebox(0,0){p}}
+
+\fccircle{GecodeOrange}(11,5.5){.5}
+\put(11,5.5){\makebox(0,0){\?x?}}
+\fccircle{GecodeOrange}(11,7){.5}
+\put(11,7){\makebox(0,0){\?x?}}
+\fccircle{GecodeOrange}(11,4){.5}
+\put(11,4){\makebox(0,0){\?x?}}
+
+\psset{linecolor=GecodeOrange,linewidth=1pt}
+\pcline{->}(9,5.5)(10.5,5.5)
+\pcline{->}(9,5.5)(10.5,7)
+\pcline{->}(9,5.5)(10.5,4)
+
+\fccircle{GecodeBlue}(13.5,5.5){.5}
+\put(13.5,5.5){\makebox(0,0){$v$}}
+\fccircle{GecodeBlue}(13.5,7){.5}
+\put(13.5,7){\makebox(0,0){$v$}}
+\fccircle{GecodeBlue}(13.5,4){.5}
+\put(13.5,4){\makebox(0,0){$v$}}
+
+
+\psset{linecolor=GecodeBlue,linewidth=1pt}
+\pcline{->}(11.5,5.5)(13,5.5)
+\pcline{->}(11.5,7)(13,7)
+\pcline{->}(11.5,4)(13,4)
+
+\psset{linecolor=GecodeGreen,linewidth=1pt}
+\psline(14,5.5)(14.5,5.5)(14.5,8)(6,8)
+\psline[arrows=->](6,8)(3,7.5)
+\psline[arrows=->](6,8)(3,5.5)
+\psline[arrows=->](6,8)(4.5,4.5)
+\psline[arrows=->](6,8)(8,5.5)
+\put(8,8){\makebox(0,0){\psframebox*{\color{GecodeGreen}{\footnotesize subscriptions}}}}
+
+\psset{linecolor=black,linewidth=1pt}
+\fcbwframe(1.7,.5)(9.3,1.5)
+\psline[arrows=->](2.5,1.4)(2.5,2)
+\psline[arrows=->](4.5,1.4)(4.5,2)
+\psline[arrows=->](6.5,1.4)(6.5,2)
+\psline[arrows=->](8.5,1.4)(8.5,2)
+\put(10.9,1){\makebox(0,0){\vphantom{()}priority queue}}
+\put(2.5,1){\makebox(0,0){\vphantom{()}\footnotesize idle}}
+\put(4.5,1){\makebox(0,0){\vphantom{()}\footnotesize low cost}}
+\put(6.5,1){\makebox(0,0){\vphantom{()}\footnotesize \ldots}}
+\put(8.5,1){\makebox(0,0){\vphantom{()}\footnotesize high cost}}
+
+\end{pspicture}
+
+\caption{Propagators, views, and variable implementations}
+\label{fig:p:started:propagators_views_varimp}
+\end{figure}
+
+The previous section focused on the execution of a propagator
+that then prunes variables. While performing propagation is
+typically the most involved part of a propagator, a propagator
+must also handle several other tasks: how to post and initialize
+it, how to dispose it, how to copy it during cloning for search,
+and when to execute it. How propagation is organized in Gecode is
+sketched in \autoref{fig:p:started:propagators_views_varimp},
+this paragraph will fill in the missing details.
+
+
+\begin{description}
+\item[posting] A constraint post function typically initiates the
+  posting of one or several propagators. Posting a propagator is
+  organized into two steps. The first step is implemented by a
+  \emph{propagator post function}, while the second is
+  implemented by the propagator's constructor.
+
+  Typical tasks in a propagator post function are as follows:
+  \begin{itemize}
+  \item Decide whether the propagator really needs to be
+    posted.
+  \item Decide whether a related, simpler, and hence more
+    efficient propagator should be posted instead.
+  \item Enforce certain invariants the propagator might require
+    (for example, restricting the values of variables so that the
+    propagator becomes simpler).
+  \item Perform some initial propagation such that variable
+    domains become reasonably small (for a discussion why small
+    variable domains are useful,
+    see~\autoref{tip:m:integer:beautifuldomains}).
+  \item Last but definitely not least, create an instance of the
+    propagator.
+  \end{itemize}
+  
+  The reason why posting requires a constraint post function as
+  well as a propagator post function is to separate concerns.  We
+  will see later that the propagator post function is typically
+  being reused by several constraints and also for propagator
+  rewriting, an important technique which is discussed in
+  \autoref{chap:p:reified}. The post function of a propagator is
+  conveniently implemented as a static member function \?post()?
+  of the propagator's class.
+  
+  The propagator's constructor initializes the propagator and
+  performs another essential task: it creates
+  \emph{subscriptions} to views for the propagator. Only if a
+  propagator \emph{subscribes} to a view (together with a
+  propagation condition which is ignored for the moment and
+  discussed later), the propagator is scheduled for execution
+  whenever the domain of the view changes. Subscribing also
+  automatically schedules the propagator for execution if needed
+  (detailed in \autoref{sec:p:started:propcond}).
+  
+\item[disposal] Gecode does not automatically garbage collect
+  propagators.\footnote{One of the key design principles of Gecode
+    is: \emph{no magic!} Whatever needs to be done must be done
+    explicitly.} Propagators must be explicitly disposed. 
+  When a propagator is disposed it must also explicitly
+  \emph{cancel} its subscriptions (the subscriptions the
+  propagator created in the constructor). 
+  
+  The only exception to this rule is that subscriptions on
+  assigned variables do not need to be canceled. In fact, as an
+  optimization, assigned variables do not maintain subscriptions:
+  subscribing to an assigned variable schedules the propagator
+  and canceling a subscription on an assigned variable does
+  nothing. Disposal must also free other resources
+  currently used by the propagator.
+  
+  Propagator disposal is implemented by a virtual member function
+  \?dispose()?. A propagator has no destructor, the dispose
+  function assumes this role instead. The reason to have a \?dispose()?
+  function rather than a destructor is that disposal requires the
+  home space of a propagator which is passed as an argument to
+  the \?dispose()? function (destructors cannot take arguments in
+  \CPP).
+  
+  Disposal might be triggered by the propagator itself (in fact,
+  this is the most common case) as we will see later. It is
+  important to understand that when the space of a propagator is
+  deleted, its propagators are \emph{not} being disposed by
+  default. A propagator can explicitly request to be disposed
+  when its home is deleted (see
+  \autoref{sec:p:started:obligations}). A typical case where this
+  is needed is when the propagator has allocated memory that is
+  not managed by the space being deleted. In
+  \autoref{chap:p:memory}, memory management is discussed in
+  detail.
+  
+\item[copying] Copying for propagators works exactly as does
+  copying for spaces: a virtual \?copy()? member function returns a
+  copy of a propagator during cloning and a copy constructor is
+  in charge of copying and updating the propagator's
+  data structures (in particular, its views).
+  
+\item[cost computation] Scheduling a propagator guarantees that
+  it is executed eventually but it does not specify when. When a
+  propagator is executed, is defined by its \emph{cost}.  The
+  cheaper it is to execute the propagator, the earlier the
+  propagator should be executed. This is based on the intuition
+  that a cheaper propagator might either already fail a space and
+  hence no expensive propagators must be executed, or that a
+  cheaper propagator might perform propagation from which a more
+  expensive propagator can take advantage. 
+  
+  As to be expected, every propagator must implement a virtual
+  \?cost()?  member function. This member function is called when
+  the propagator is scheduled. In fact, the \?cost()? function
+  might be called several times when certain information
+  (so-called modification event deltas) for a propagator changes.
+  We postpone a discussion of the details to
+  \autoref{sec:p:domain:staging}.
+  
+  The cost of executing a propagator is just an approximation
+  that helps propagation in Gecode to be fast and also to prevent
+  pathological behavior. Propagators of same cost are executed
+  according to a first scheduled, first executed policy
+  (basically, scheduling is organized fairly into queues of
+  propagators with similar cost). However, Gecode does not give
+  hard guarantees on the order of propagator execution: the cost
+  of a propagator should be understood as a suggestion and not a
+  requirement.
+
+  For the interested reader, the design of cost-based scheduling
+  for Gecode together with its evaluation can be found in
+  \cite[Section~6]{SchulteStuckey:TOPLAS:2008}. 
+\item[propagation] The core of a propagator is how it
+  performs propagation by removing values from its views that are
+  in conflict with the constraint it implements. This is
+  implemented by a virtual member function \?propagate()? that
+  returns an \emph{execution status}.
+
+  The execution status returned by the \?propagate()? function must
+  capture several important aspects:
+  \begin{itemize} 
+  \item As mentioned before, a propagator must report whether
+    failure occurred by returning an appropriate value for the
+    execution status. The propagator can either find out by some
+    propagation rules that failure must be reported. Or, when it
+    attempts to modify view domains, the \emph{modification operation}
+    reports that it failed (a so-called \emph{domain wipe-out}
+    occurred, as all values would have been
+    removed). Modification operations are also called \emph{tell
+      operations}.
+  \item A propagator must report when the propagator has become
+    \emph{subsumed} (also known as \emph{entailed}): that is,
+    when the propagator can never ever again perform any
+    propagation and should be disposed. 
+    
+    The requirement to report subsumption is rather weak in that
+    a propagator must at the very latest report subsumption if
+    all of its views are assigned (of course, it might report
+    subsumption earlier, as will be discussed in
+    \autoref{sec:p:started:better}). With other words, a
+    propagator must \emph{always} report subsumption but can wait
+    until all its views are assigned (unless it reports failure,
+    of course).
+  \item A propagator can characterize what it actually has
+    computed: either a fixpoint for itself or not. We ignore this
+    aspect for the time being and return to it in
+    \autoref{sec:p:started:better} and continue this discussion in
+    \autoref{sec:p:avoid:eqbnd}.
+  \end{itemize}
+\end{description}
+
+
+\paragraph{Obligations of a propagator.}
+
+What becomes quite clear is that a propagator has to meet certain
+obligations (disposing subscriptions, detecting failure,
+detecting subsumption, and so on).  Some obligations must be met
+in order to comply with Gecode's requirements of a well-behaved
+propagator, other obligations must be met so that a propagator
+becomes a faithful implementation of a constraint.
+\autoref{sec:p:started:obligations} provides an overview of all
+obligations a propagator must meet.
+
+
+\section{Implementing the \?less? constraint}
+\label{sec:p:started:implement}
+
+\begin{figure}
+\insertlitcode{less}
+\caption{A constraint and propagator for \?less?}
+\label{fig:p:started:less}
+\end{figure}
+
+\autoref{fig:p:started:less} shows the class definition \?Less?
+for our less propagator and the definition of the constraint post
+function. Unsurprisingly, the propagator \?Less? uses two views for
+integer variables of type \gecoderef[class]{Int::IntView} and
+propagates that the values for \?x0? must be less than the
+values for \?x1?.
+
+The \?Less? propagator inherits from the class
+\gecoderef[class]{Propagator} defined by the Gecode kernel (as
+any propagator must do) and stores two integer views which are
+defined by Gecode's integer module. Hence, we need to include
+\CppInline{\litstr{<gecode/int.hh>}}. Note that only the
+constraint post functions of the integer module are available in
+the \gecoderef[namespace]{Gecode} namespace. All other
+functionality, including \gecoderef[class]{Int::IntView}, is
+defined in the namespace \gecoderef[namespace]{Gecode::Int}.
+
+\paragraph{Constraint post function.}
+\label{par:p:started:post}
+
+The constraint post function is implemented as follows:
+\insertlitcode{less:constraint post function}
+
+The constraint post function creates two integer variable views
+\?y0? and \?y1? for its integer variable arguments and calls the
+static propagator post function as defined by the \?Less? class.
+A propagator post function also returns an execution status of
+type \?ExecStatus?  (see \gecoderef[group]{TaskActorStatus})
+where the only two values that can be returned by a propagator
+post function are \?ES_OK?  (posting was successful) and
+\?ES_FAILED? (the post function determined even without actually
+posting the propagator that the constraint \?Less? is
+unsatisfiable). In case \?ES_FAILED? is returned, the constraint
+post function \emph{must} mark the current space \?home? as
+failed (by using \?home.fail()?).
+
+\paragraph{Propagator posting.}
+
+The posting of the \?Less? propagator is defined by a constructor
+designed for initialization and a static post function returning
+an execution status as follows:
+
+\insertlitcode{less:posting}
+
+The constructor initializes its integer views and creates
+subscriptions to both \?x0? and \?x1?. Subscribing to an integer
+view takes the home space, the propagator as subscriber (as a
+reference), and a propagation condition of type \?PropCond?. We
+do not look any further into propagation conditions right here
+(\autoref{sec:p:started:propcond} does this in detail) but give
+two hints. First, the values for propagation conditions depend on
+the variable view as witnessed by the fact that the value
+\?Int::PC_INT_DOM? is declared in the namespace
+\gecoderef[namespace]{Gecode::Int}. Second, \?Int::PC_INT_DOM?
+creates a subscription such that the propagator is executed
+whenever the domain of \?x0? (respectively \?x1?) changes.
+
+The propagator post function is entirely naive in that it always
+creates a \?Less? propagator and always succeeds (and hence
+returns \?ES_OK?). Note that propagators can only be created in a
+space. Hence, the \?new? operator is used in a placement version
+with placement argument \?(home)? which allocates memory for the
+\?Less? propagator from \?home?.
+
+\paragraph{Disposal.}
+
+The virtual \?dispose()? function for the \?Less? propagator
+takes a home space as argument and returns the size of the just
+disposed propagator (as type \?size_t?).\footnote{Following the
+  discussion from above, the size of a disposed propagator must
+  be returned explicitly, as propagators do not use destructors
+  that implicitly handle size.}  Otherwise, the \?dispose()?
+function does exactly what has been described above: it cancels
+the subscriptions created by the constructor used for posting:
+
+\insertlitcode{less:disposal}
+
+Note that the arguments for canceling a subscription are (and
+must be) exactly the same as the arguments for creating a
+subscription.
+
+\paragraph{Copying.}
+
+The virtual \?copy()? function and the corresponding copy
+constructor are unsurprising in that they follow exactly
+the same structure as the corresponding function and constructor
+for spaces used for modeling:
+\insertlitcode{less:copying}
+
+The only aspect that deserves some attention is that a propagator
+must be created in a home space and hence a placement \?new?
+operator is used (analogous to propagator posting).
+
+\paragraph{Cost computation.}
+
+Cost values for propagators are defined by the class
+\gecoderef[class]{PropCost}. The class
+\gecoderef[class]{PropCost} defines several static member
+functions with which cost values can be created. For \?Less?, the
+\?cost()? function returns a cost value for a binary propagator
+with low cost (as we will see below, the \?propagate()? function is
+really cheap to execute):
+\insertlitcode{less:cost computation}
+
+Please ignore the additional argument of type \?ModEventDelta?
+to \?cost()? for now, see \autoref{sec:p:domain:med}.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{static cost functions}}\\
+\?unary? & propagator with single variable view\\
+\?binary? & propagator with two variable views\\
+\?ternary? & propagator with three variable view\\
+\\
+\multicolumn{2}{c}{\textbf{dynamic cost functions}}\\
+\?linear? & propagator with $\approx$ linear complexity (or $O(n \log
+n)$)\\
+\?quadratic? & propagator with $\approx$ quadratic complexity\\
+\?cubic? & propagator with $\approx$ cubic complexity\\
+\?crazy? & propagator with $\approx$ exponential (or large polynomial) complexity\\
+\end{tabular}
+\end{center}
+\caption{Summary of propagation cost functions}
+\label{fig:p:started:propcost}
+\end{figure}
+
+The static member functions provided by
+\gecoderef[class]{PropCost} are summarized in
+\autoref{fig:p:started:propcost}. Each function takes either the
+value \?PropCost::LO? (for low cost) or \?PropCost::HI? (for high
+cost). The dynamic cost functions take an additional integer (or
+unsigned integer) value defining how many views the propagator is
+computing with. 
+
+For example, a propagator with \?n? variables and
+complexity $O(\mathtt n \log \mathtt n)$ might return a cost
+value constructed by
+\begin{code}
+PropCost::linear(PropCost::HI,n);
+\end{code}
+
+As mentioned before, propagation cost is nothing but an
+approximation of the real cost of the next execution of the
+\?propagate()?  function of the propagator. The only hard fact
+you can rely on is that a propagator with a cost value using
+\?PropCost::HI? is never given preference over a propagator with
+a cost value using \?PropCost::LO?.
+
+\paragraph{Propagation proper.}
+
+Before starting with the code for propagation, we have to work
+out how the propagator should prune. This can be rather involved,
+leading to specialized \emph{pruning} or \emph{filtering}
+algorithms. For our \?Less? propagator, the filtering rules are
+simple:
+\begin{itemize}
+\item All values for \?x0? must be less than the largest possible
+  value of \?x1?.
+\item All values for \?x1? must be larger than the smallest
+  possible value of \?x0?.
+\end{itemize}
+
+These two rules can be directly implemented as follows (again,
+please ignore the additional argument of type \?ModEventDelta?
+to \?propagate()? for now):
+\insertlitcode{less:propagation} 
+
+The \?le()? modification operation applied to an integer view
+\?x?  takes a \?home?  space and an integer value \?n? and keeps
+only those values from the domain of \?x?  that are smaller than
+\?n? (\?gr()? is analogous). A view modification operation
+returns a modification event of type \?ModEvent? (see
+\gecoderef[group]{TaskVarMEPC} and
+\gecoderef[group]{TaskActorIntMEPC}). A modification event
+describes how the domain of a view has changed, in particular
+the value \?Int::ME_INT_FAILED? is returned if a domain wipe-out
+has occurred. In that case, the propagator has found out (just by
+attempting to perform a view modification operation) that the
+constraint it implements is unsatisfiable. In this case, a
+propagator immediately returns with the execution status
+\?ES_FAILED?. Naturally, the member functions \?min()? and
+\?max()? of an integer view \?x? just return the smallest and
+largest possible value of the domain of \?x?.
+
+If the propagator had not reported failure by returning
+\?ES_FAILED?  it would be faulty: it would incorrectly claim that
+values for the views are solutions of the constraint it
+implements. Being correct with respect to the constraint a
+propagator implements is one of the obligations of a propagator
+we will discuss in \autoref{sec:p:started:obligations}.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\?eq(home,n)? & assign to value \?n?\\
+\?nq(home,n)? & remove value \?n?\\
+\?le(home,n)? & restrict values to be less than \?n?\\
+\?lq(home,n)? & restrict values to be less or equal than \?n?\\
+\?gr(home,n)? & restrict values to be greater than \?n?\\
+\?gq(home,n)? & restrict values to be greater or equal than \?n?\\
+\end{tabular}
+\end{center}
+\caption{Value-based modification functions for integer variable views}
+\label{fig:p:started:modify}
+\end{figure}
+
+The modification operations for integer variable views taking a
+single integer value \?n? as argument are listed in
+\autoref{fig:p:started:modify}. Integer variable views also
+support modification operations that simultaneously can operate
+on sets of values. These operations are discussed in
+\autoref{chap:p:domain}.  
+
+The second part of the propagator is concerned with deciding
+subsumption: if both \?x0? and \?x1? are assigned, the propagator
+executes the function \?ES_SUBSUMED()?. The function \?ES_SUBSUMED()?
+disposes the propagator by calling its \?dispose()? member function
+and returns a value for \?ExecStatus? that signals that the
+propagator is subsumed. After returning, the memory for the
+propagator will be reused. It is important to understand that
+subsumption is not an optimization but a requirement: at the very
+latest when all of its views are assigned, a propagator
+must report subsumption! The propagator is of course free to
+report subsumption earlier as is exploited in
+\autoref{sec:p:started:better}. 
+
+In case the propagator is neither failed nor subsumed, it reports
+an execution status \?ES_NOFIX?. Returning the value \?ES_NOFIX?
+means that the propagator will be scheduled if one of its views
+(\?x0? and \?x1? in our example) have been modified. If none of
+its views have been modified, the propagator is not scheduled.
+This rather naive statement of what the propagator has computed
+is improved in \autoref{sec:p:started:better}.
+
+\tip{Immediately return after subsumption}{ As mentioned above,
+  the function \?ES_SUBSUMED()? disposes a propagator. To not crash
+  Gecode, you must immediately return after calling
+  \?ES_SUBSUMED()?. In particular, executing view modification
+  operations or creating subscriptions by a disposed propagator
+  will surely crash Gecode!}
+
+
+\section{Improving the \?Less? propagator}
+\label{sec:p:started:better}
+
+\begin{figure}
+\insertlitcode{less better}
+\caption{A better constraint and propagator for \?less?}
+\label{fig:p:started:less:better}
+\end{figure}
+
+\autoref{fig:p:started:less:better} shows an improved
+implementation of the \?Less? propagator together with the
+corresponding constraint post function \?less()?. The propagator
+features improved posting, improved propagation, and improved
+readability.
+
+A recurring theme in improving propagators in this and in the
+next section is not about sophisticated propagation rules
+(admittedly, \?Less? does not have much scope for cleverness). In
+contrast, all improvements will try to achieve the best of all
+optimizations: avoid executing the propagator in the first place!
+
+\paragraph{Improving posting.}
+\label{par:p:started:home}
+
+As mentioned above, all functions related to posting
+(constructor, propagator post function, and constraint post
+function) should take a value of type \gecoderef[class]{Home}
+rather than \?Space&?. The improved propagator honors this
+without any further changes (a \?Space? is automatically casted
+to a \?Home?  if needed, and vice-versa). An example of how
+passing a \?Home? value is actually useful can be found in
+\autoref{sec:p:reified:leeq}.
+
+The improved constraint post function is as follows:
+\insertlitcode{less better:constraint post function}
+
+The constraint post function features three improvements:
+\begin{itemize}
+\item The most obvious improvement: if the \?home? space is
+  already failed, no propagator is posted.
+\item The variable views are initialized implicitly. Note that the
+  propagator post function \?Less::post()? is called with integer
+  variables \?x0? and \?x1? which are automatically coerced to
+  integer views (as \gecoderef[class]{Int::IntView} has a
+  non-explicit constructor with argument type \gecoderef[class]{IntVar}).
+\item Instead of testing whether \?Less::post()? returns
+  \?ES_FAILED?, the constraint post function uses the macro
+  \?GECODE_ES_FAIL? for convenience (doing exactly the same as
+  shown before). Macros for checking and failing are summarized
+  below.
+\end{itemize}
+
+The improved post function is a little bit more sophisticated:
+\insertlitcode{less better:posting}
+
+It includes the following improvements:
+\begin{itemize}
+\item The propagator is not posted if \?x0? and \?x1? happen to
+  refer to the very same variable implementation. In that case,
+  of course, \?x0? can never be less than \?x1? and \?post()? can
+  immediately report failure.
+\item The propagator performs one initial round of propagation
+  already during posting. This yields small variable domains for
+  other propagators to be posted
+  (see~\autoref{tip:m:integer:beautifuldomains}).
+\item If all values of \?x0? are already less than all values of
+  \?x1? (that is, \?x0.max() < x1.min()?), then the constraint
+  that \?x0? is less than \?x1? already holds (it is subsumed).
+  Hence, no propagator needs to be posted.
+\end{itemize}
+
+\paragraph{Improving propagation.}
+
+\begin{samepage}
+The \?propagate()? function is improved as follows:
+\insertlitcode{less better:propagation}
+\end{samepage}
+with the following improvements:
+\begin{itemize}
+\item The checking macro \?GECODE_ME_CHECK? checks whether a
+  modification operation returns failure and then returns
+  \?ES_FAILED?.
+\item The propagator tries to detect subsumption early, it does not
+  wait until both \?x0? and \?x1? are assigned. It uses exactly
+  the same criterion that is used for avoiding posting of the
+  propagator in the first place. 
+
+  This is entirely legal: a propagator can report subsumption as
+  soon as the propagator will never propagate again (or, with
+  other words, the propagator will always be at fixpoint). The
+  obligation is: it must report subsumption (or failure) at the
+  very latest when all of its views are assigned. Early
+  subsumption means fewer propagator executions.
+
+\item If the propagator is not yet subsumed it returns \?ES_FIX?
+  instead of \?ES_NOFIX?. This means that the propagator tells
+  the Gecode kernel that what it has computed happens to be a
+  fixpoint for itself. 
+
+ This is easy enough to see for \?Less?: executing the
+  \?propagate()? function twice does not perform any propagation
+  in the second call to \?propagate()?. After all, only after
+  \?x0.min()? or \?x1.max()? change, the propagator can prune
+  again. As neither \?x0.min()? nor \?x1.max()? change (the
+  propagator might change \?x1.min()? or \?x0.max()?  instead),
+  the propagator should report that it has computed a fixpoint.
+  
+  The situation where returning \?ES_FIX? instead of \?ES_NOFIX?
+  differs, is when the propagator actually prunes the values for
+  \?x0? or \?x1?. If the propagator returns \?ES_NOFIX? it will
+  be scheduled in this situation. If it returns \?ES_FIX? it will
+  not be scheduled. The difference between \?ES_FIX? and
+  \?ES_NOFIX? is sketched in
+  \autoref{fig:p:started:scheduling_propagators}. Again, not
+  scheduling a propagator means fewer propagator executions.
+  \autoref{chap:p:avoid} takes a second look at fixpoint
+  reasoning for propagators.
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{check macros}}\\
+\?GECODE_ME_CHECK(me)? & Checks whether \?me? signals failure and\\&
+returns \?ES_FAILED?.\\
+\?GECODE_ES_CHECK(es)? & Checks whether \?es? signals failure or\\&
+subsumption and
+returns \?es?.\\
+\\
+\multicolumn{2}{c}{\textbf{fail macros}}\\
+\?GECODE_ME_FAIL(me)? & Checks whether \?me? signals failure, 
+fails \?home?, and returns.\\
+\?GECODE_ES_FAIL(es)? & Checks whether \?es? signals failure,
+fails \?home?, and returns.\\
+\end{tabular}
+\end{center}
+\caption{Check and fail macros}
+\label{fig:p:started:macros}
+\end{figure}
+
+\paragraph{Check and fail macros.}
+
+Check and fail macros available in Gecode are summarized in
+\autoref{fig:p:started:macros}. Note that a check macro can be
+used in a propagator post function or in a \?propagate()? function,
+whereas a fail macro can only be used in a constraint post
+function. Note also that both fail macros assume that the
+identifier \?home? refers to the current home space. For an
+example of how to use \?GECODE_ES_CHECK?,
+see~\autoref{sec:p:avoid:dynamic}. For an example of how to
+use \?GECODE_ME_FAIL?, see~\autoref{sec:p:avoid:ortrue}.
+
+In fact, explicitly testing whether a modification event returned
+by a view modification operation is equal to
+\?Int::ME_INT_FAILED? is highly discouraged. If not using
+\?GECODE_ME_CHECK?, the proper way to test for failure is as in:
+\begin{code}
+if (me_failed(x0.le(home,x1.max())))
+  return ES_FAILED;
+\end{code}
+Note that both \?GECODE_ME_CHECK? as well as \?me_failed? work
+for all variable views and not only for integer variable views.
+
+
+\section{Propagation conditions}
+\label{sec:p:started:propcond}
+
+This section discusses modification events and propagation
+conditions in more detail. A modification event describes how a
+modification operation has changed a view. A propagation
+condition describes when a propagator is scheduled depending
+on how the views it is subscribed to are modified.
+
+\paragraph{Modification events.}
+
+Modification operations on integer views might return the
+following values for \?ModEvent? (we assume that the view \?x?
+has the domain $\{\mathtt 0, \mathtt 2, \mathtt 3\}$):
+\begin{itemize}
+\item \?Int::ME_INT_NONE?: the view has not been changed. For
+  example, both \?x.le(home,5)? and \?x.nq(home,1)? return
+  \?Int::ME_INT_NONE?.
+\item \?Int::ME_INT_FAILED?: the values of a view have been wiped
+  out. For
+  example, both \?x.le(home,0)? and \?x.eq(home,1)? return
+  \?Int::ME_INT_FAILED?. 
+  
+  Note that when a modification operation signals failure, the
+  values of a view might change unpredictably, see also
+  \autoref{sec:m:integer:inspect}. For example, the values might
+  entirely remain or only part of the values are removed. This
+  also clarifies that a view (or its variable implementation)
+  does not maintain the information that a modification operation
+  on it failed. This also stresses that it is essential to check
+  the modification event returned by a modification operation for
+  failure.
+  
+\item \?Int::ME_INT_DOM?: an inner value (that is neither the
+  smallest nor the largest value) has been removed. For
+  example, \?x.nq(home,2)? ($\mathtt x\in\{\mathtt 0,\mathtt
+  3\}$) returns
+  \?Int::ME_INT_DOM?.
+\item \?Int::ME_INT_BND?: the smallest or largest value of a view
+  has changed but the view has not been assigned. For
+  example, both \?x.nq(home,0)? ($\mathtt x\in\{\mathtt 2,\mathtt
+  3\}$) and \?x.lq(home,2)? ($\mathtt x\in\{\mathtt 0,\mathtt
+  2\}$) return
+  \?Int::ME_INT_BND?.
+\item \?Int::ME_INT_VAL?: the view has been assigned to a single
+  value. For example, both \?x.le(home,2)? ($\mathtt x =\mathtt
+  0$) and \?x.gq(home,3)? ($\mathtt x =\mathtt 3$)
+  return \?Int::ME_INT_VAL?.
+\end{itemize}
+
+\begin{figure}
+\insertlitcode{less even better}
+\caption{An even better constraint and propagator for \?less?}
+\label{fig:p:started:less:best}
+\end{figure}
+
+
+\paragraph{Propagation conditions.}
+
+The propagation condition used in subscriptions determine, based
+on modification events, when a propagator is scheduled. Assume
+that a propagator \?p? subscribes to the integer view \?x? with
+one of the following propagation conditions:
+\begin{itemize}
+\item \?Int::PC_INT_DOM?: whenever the view \?x? is modified
+  (that is, for modification events \?Int::ME_INT_DOM?,
+  \?Int::ME_INT_BND?, and \?ME_INT_VAL? on \?x?), schedule \?p?.
+\item \?Int::PC_INT_BND?: whenever the bounds of \?x? are modified
+  (that is, for modification events \?Int::ME_INT_BND? and
+  \?Int::ME_INT_VAL? on \?x?), schedule \?p?.
+\item \?Int::PC_INT_VAL?: whenever \?x? becomes assigned (that
+  is, for modification event \?Int::ME_INT_VAL? on \?x?),
+  schedule \?p?.
+\end{itemize}
+
+
+For our \?Less? propagator, the right propagation condition for both
+views \?x0? and \?x1? is of course \?Int::PC_INT_BND?: the
+propagator can only propagate if either the lower bound of \?x0?
+or the upper bound of \?x1? changes. Otherwise, the propagator is
+at fixpoint.  Again, the very point of propagation conditions is
+to avoid executing a propagator that is known to be at fixpoint.
+An even better propagator for \?less? using the proper propagation
+conditions is shown in \autoref{fig:p:started:less:best}.
+
+The idea to avoid execution depending on how variables change is
+well known and typically realized through so-called
+\emph{events}. For an evaluation, see
+\cite[Section~5]{SchulteStuckey:TOPLAS:2008}. Distinguishing
+between modification events and propagation conditions has been
+introduced by Gecode, for a discussion
+see~\cite[Chapter~5]{Tack:PhD:2009}.
+
+The \?Less? propagator subscribes to both of its views (that is,
+\?x0? and \?x1?). For some propagators it is actually sufficient
+to only subscribe to some but not all of its views.
+\autoref{sec:p:avoid:dynamic} discusses partial and dynamically
+changing subscriptions for propagators.
+
+\paragraph{Scheduling when posting.}
+
+As mentioned earlier, a propagator also needs to be scheduled
+when it is created to get the process of constraint propagation
+started. More precisely, a propagator \?p? might be scheduled when
+it subscribes to a view \?x?. If \?x? is assigned, \?p? is always
+scheduled regardless of the propagation condition used for
+subscribing. If \?x? is not assigned, \?p? is only scheduled if
+the propagation condition is different from
+\?Int::PC_INT_VAL?. 
+
+\begin{figure}
+\insertlitcode{disequality}
+\caption{A propagator for disequality}
+\label{fig:p:started:nq}
+\end{figure}
+
+With other words: propagation conditions provide a guarantee a
+propagator can rely on. In particular, for the propagator
+condition \?Int::PC_INT_VAL?, the guarantee is that the
+propagator is only executed if a view is assigned. 
+
+Consider, for example, the implementation of the \?propagate()?
+method for a disequality propagator shown in
+\autoref{fig:p:started:nq}. The propagator waits until at least
+\?x0?  or \?x1? are assigned (due to the propagation condition
+\?PC_INT_VAL?). When its \?propagate()? method is executed, the
+propagator can exploit that at least one of the views \?x0? and
+\?x1? is assigned by testing only \?x0? for assignment.
+
+Scheduling when creating subscriptions can be avoided by giving
+\?false? as an optional last argument to \?subscribe()?. This
+is typically used when subscriptions are created during
+propagation, and the propagator does not need to be
+scheduled.
+
+
+\section{Using propagator patterns}
+\label{sec:p:started:patterns}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{single view patterns}}\\
+\gecoderef[class]{UnaryPropagator} & unary propagator with
+view \?x0?\\
+\gecoderef[class]{BinaryPropagator} & binary propagator with
+views \?x0? and \?x1?\\
+\gecoderef[class]{TernaryPropagator} & ternary propagator with
+views \?x0?, \?x1?, and \?x2?\\
+\gecoderef[class]{NaryPropagator} & $n$-ary propagator with
+view array \?x?\\
+\gecoderef[class]{NaryOnePropagator} & $n$-ary propagator with
+view array \?x? and view \?y?\\
+\\
+\multicolumn{2}{c}{\textbf{mixed view patterns}}\\
+\gecoderef[class]{MixBinaryPropagator} & binary propagator with
+views \?x0? and \?x1?\\
+\gecoderef[class]{MixTernaryPropagator} & ternary propagator with
+views \?x0?, \?x1?, and \?x2?\\
+\gecoderef[class]{MixNaryOnePropagator} & $n$-ary propagator with
+view array \?x? and view \?y?\\
+\end{tabular}
+\end{center}
+\caption{Propagator patterns}
+\label{fig:p:started:patterns}
+\end{figure}
+
+Gecode's kernel defines common propagator patterns (see
+\gecoderef[group]{TaskPropPat}) which are
+summarized in \autoref{fig:p:started:patterns}. The single view
+patterns are templates that require a view as first argument and
+a propagation condition as second argument. The mixed view
+patterns require for each view or view array a view argument and
+a propagation condition. The mixed view patterns are useful when
+different types of views and/or different propagation conditions
+for the views are needed (see \autoref{sec:p:views:int:offset}
+for an example).
+
+The propagator patterns accept also a value \?Int::PC_INT_NONE?
+for the propagation conditions that avoid creating subscriptions
+at all. This comes in handy when the propagator patterns are used
+in situations where no subscriptions are needed, see for example
+\autoref{sec:p:advisors:or}.
+
+The patterns define a constructor for creation (that also creates
+subscriptions to their views with the defined propagation
+conditions), a constructor for cloning, a \?dispose()? member
+function, and a \?cost()? member function where the cost value is
+always the \?PropCost::LO? variant of the corresponding cost
+function (that is, \?PropCost::unary()? for \?UnaryPropagator?,
+\?PropCost::linear()? for \?NaryPropagator? and
+\?NaryOnePropagator?, and so on). The integer module additionally
+defines patterns for reified propagators which are discussed in
+\autoref{sec:p:reified:leeq}.\footnote{As reified propagators
+  require Boolean views, reified patterns are provided by the
+  integer module and not by the kernel. The kernel
+  knows nothing about the different views programmed on top of
+  it.}
+
+\begin{figure}
+\insertlitcode{less concise}
+\caption{A concise constraint and propagator for \?less?}
+\label{fig:p:started:less:concise}
+\end{figure}
+
+\autoref{fig:p:started:less:concise} shows how to use the
+\?BinaryPropagator? pattern for the \?less? constraint. To give an
+impression of what needs to be implemented, the code for
+implementing the \?less? constraint is shown in full. Note that one
+must define a propagator post function and the virtual member
+functions \?copy()? and \?propagate()?. Of course, one could also
+choose to overwrite the virtual member functions \?dispose()? and
+\?cost()? if needed.
+
+
+\section{Propagator obligations}
+\label{sec:p:started:obligations}
+
+A propagator has to meet three different kinds of obligations:
+obligations towards the constraint it implements, obligations
+towards the amount of propagation it performs, and obligations
+that are Gecode specific. Some obligations can be waived by
+notifying the Gecode kernel that a propagator does not comply
+(see \autoref{sec:p:started:waive}).
+
+\paragraph{Constraint implementation.}
+
+A propagator must be
+\begin{description}
+\item[correct] A propagator must be correct in that it never
+  prunes values that can appear in a solution of the constraint
+  it implements.
+\item[checking] A propagator must be checking: at the very latest
+  when all views are assigned, the propagator must decide whether
+  the assignment is a solution of the constraint or not (in which
+  case the propagator must report failure).
+\end{description}
+
+\paragraph{Amount of propagation.}
+
+A propagator must be
+\begin{description}
+\item[contracting] A propagator is only allowed to remove values. The
+  modification operations we have been discussing so-far naturally
+  satisfy this property. For some operations that are discussed in
+  \autoref{sec:p:domain:iter} extra carefulness is required. 
+\item[monotonic] By default, a propagator must be monotonic: a
+  propagator is not allowed to perform more pruning when executed
+  for views with more values than when executed for views with
+  less values.
+  
+  Propagators are typically monotonic unless they use
+  randomization, approximation, or something similar. For more
+  details see below.  This obligation can be waived.
+\item[subscription complete] A propagator must create sufficient
+  subscriptions such that it is scheduled for execution when it
+  is not at fixpoint. 
+\item[fixpoint and subsumption honest] A propagator is not
+  allowed to claim that it has computed a fixpoint or is subsumed
+  if it is not (that is, it could still propagate).
+\end{description}
+
+\paragraph{Implementation specific obligations.}
+
+A propagator must be
+\begin{description}
+\item[subsumption complete] At the very latest, a propagator must
+  report subsumption if all views it has subscribed to are
+  assigned.
+\item[external resource free] By default, a propagator cannot
+  allocate memory from any other source (or any other resource)
+  but its home space as the \?dispose()? member function is not
+  automatically called when the propagator's home space is
+  deleted. This obligation can be waived.
+\item[update complete] All views a propagator subscribes to must
+  be updated during cloning (that is, a propagator can only
+  subscribe to views it actually stores).
+
+  The reason for this obligation is that a space does
+  not know its views (and variable implementations). It only gets
+  to know them during cloning when they are explicitly
+  updated. Having subscription information maintained by Gecode's
+  kernel without updating the corresponding variable
+  implementations will leave a space after cloning in an
+  inconsistent state (crashes are guaranteed).
+\item[cloning conservative] When a propagator is copied during
+  cloning, it is not allowed to perform any variable modification
+  operations nor is it allowed to change its subscriptions.
+\item[subscription correct] Any subscription to a view must
+  eventually be canceled (typically in the \?dispose()? member
+  function), unless the view is assigned.
+\end{description}
+
+\section{Waiving obligations}
+\label{sec:p:started:waive}
+
+A propagator can notify its home space about some of its
+properties (as defined by \?ActorProperty?, see
+\gecoderef[group]{TaskActor}) that relate to some of the
+obligations mentioned in the previous section.
+
+\paragraph{Weakly monotonic propagators.}
+\label{par:p:started:wmp}
+
+If a propagator \?p? intends to be non-monotonic, it can notify
+its \?home? space \?home? by
+\begin{code}
+home.notice(p,AP_WEAKLY);
+\end{code}
+It can revoke this notice later (it must revoke this at latest
+in its \?dispose()? function) by
+\begin{code}
+home.ignore(p,AP_WEAKLY);
+\end{code}
+This is typically done in the constructor of the propagator and
+means that the propagator intends to be only \emph{weakly
+  monotonic}: it is sufficient for the propagator to be checking
+and correct. For a discussion of weak monotonicity together with
+an example, see~\cite{SchulteTack:CP:2009}.
+
+\paragraph{Calling \?dispose()? during space deletion.}
+\label{par:p:started:dispose}
+
+If a propagator \?p? needs to use external resources or non-space
+allocated memory, it must inform its \?home? space during posting
+about this fact by:
+\begin{code}
+home.notice(p,AP_DISPOSE);
+\end{code}
+This will ensure that the \?dispose()? function of the propagator
+\?p? will be called when its home space is deleted.
+
+In its dispose function the propagator \?p? must revoke this
+notice by
+\begin{code}
+home.ignore(p,AP_DISPOSE);
+\end{code}
+
+For examples, see \autoref{sec:p:advisors:samedom} and
+\autoref{sec:c:bpp:branch}. In \autoref{chap:p:memory}, memory
+management is discussed in detail.
+
+
+\begin{litcode}{less}{schulte}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+class Less : public Propagator {
+protected:
+  Int::IntView x0, x1;
+public:
+  \begin{litblock}{posting}
+  Less(Space& home, Int::IntView y0, Int::IntView y1) 
+    : Propagator(home), x0(y0), x1(y1) {
+    x0.subscribe(home,*this,Int::PC_INT_DOM);
+    x1.subscribe(home,*this,Int::PC_INT_DOM);
+  }
+  static ExecStatus post(Space& home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Less(home,x0,x1);
+    return ES_OK;
+  }
+  \end{litblock}
+  \begin{litblock}{disposal}
+  virtual size_t dispose(Space& home) {
+    x0.cancel(home,*this,Int::PC_INT_DOM);
+    x1.cancel(home,*this,Int::PC_INT_DOM);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  \end{litblock}
+  \begin{litblock}{copying}
+  Less(Space& home, bool share, Less& p) 
+    : Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Less(home,share,*this);
+  }
+  \end{litblock}
+  \begin{litblock}{cost computation}
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::LO);
+  }
+  \end{litblock}
+  \begin{litblock}{propagation}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    if (x0.le(home,x1.max()) == Int::ME_INT_FAILED)
+      return ES_FAILED;
+    if (x1.gr(home,x0.min()) == Int::ME_INT_FAILED)
+      return ES_FAILED;
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_NOFIX;
+  }
+  \end{litblock}
+};
+
+void less(Space& home, IntVar x0, IntVar x1) {
+  \begin{litblock}{constraint post function}
+  Int::IntView y0(x0), y1(x1);
+  if (Less::post(home,y0,y1) != ES_OK)
+    home.fail();
+  \end{litblock}
+}
+\end{litcode}
+  
+
+\begin{litcode}{less better}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Less : public Propagator {
+  \begin{litblock}{anonymous}
+protected:
+  Int::IntView x0, x1;
+  \end{litblock}
+public:
+  Less(Home home, Int::IntView y0, Int::IntView y1) 
+    \begin{litblock}{anonymous}
+    : Propagator(home), x0(y0), x1(y1) {
+    x0.subscribe(home,*this,Int::PC_INT_DOM);
+    x1.subscribe(home,*this,Int::PC_INT_DOM);
+    \end{litblock}
+  }
+  \begin{litblock}{posting}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_FAILED;
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() >= x1.min())
+      (void) new (home) Less(home,x0,x1);
+    return ES_OK;
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  virtual size_t dispose(Space& home) {
+    x0.cancel(home,*this,Int::PC_INT_DOM);
+    x1.cancel(home,*this,Int::PC_INT_DOM);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  Less(Space& home, bool share, Less& p) 
+    : Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Less(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::LO);
+  }
+  \end{litblock}
+  \begin{litblock}{propagation}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() < x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+  \end{litblock}
+};
+
+\begin{litblock}{constraint post function}
+void less(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Less::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{disequality}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Disequal : public Propagator {
+  \begin{litblock}{anonymous}
+protected:
+  Int::IntView x0, x1;
+  \end{litblock}
+public:
+  Disequal(Home home, Int::IntView y0, Int::IntView y1) 
+    : Propagator(home), x0(y0), x1(y1) {
+    x0.subscribe(home,*this,Int::PC_INT_VAL);
+    x1.subscribe(home,*this,Int::PC_INT_VAL);
+  }
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_FAILED;
+    (void) new (home) Disequal(home,x0,x1);
+    return ES_OK;
+  }
+  virtual size_t dispose(Space& home) {
+    x0.cancel(home,*this,Int::PC_INT_VAL);
+    x1.cancel(home,*this,Int::PC_INT_VAL);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  Disequal(Space& home, bool share, Disequal& p) 
+    : Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Disequal(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::LO);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (x0.assigned())  
+      GECODE_ME_CHECK(x1.nq(home,x0.val()));
+    else
+      GECODE_ME_CHECK(x0.nq(home,x1.val()));
+    return home.ES_SUBSUMED(*this);
+  }
+};
+\begin{litblock}{anonymous}
+
+void disequal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Disequal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+  
+\begin{litcode}{less even better}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Less : public Propagator {
+  \begin{litblock}{anonymous}
+protected:
+  Int::IntView x0, x1;
+  \end{litblock}
+public:
+  Less(Home home, Int::IntView y0, Int::IntView y1) 
+    : Propagator(home), x0(y0), x1(y1) {
+    x0.subscribe(home,*this,Int::PC_INT_BND);
+    x1.subscribe(home,*this,Int::PC_INT_BND);
+  }
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_FAILED;
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() >= x1.min())
+      (void) new (home) Less(home,x0,x1);
+    return ES_OK;
+  }
+  \end{litblock}
+  virtual size_t dispose(Space& home) {
+    x0.cancel(home,*this,Int::PC_INT_BND);
+    x1.cancel(home,*this,Int::PC_INT_BND);
+    (void) Propagator::dispose(home);
+    return sizeof(*this);
+  }
+  \begin{litblock}{anonymous}
+  Less(Space& home, bool share, Less& p) 
+    : Propagator(home,share,p) {
+    x0.update(home,share,p.x0);
+    x1.update(home,share,p.x1);
+  }
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Less(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::LO);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() < x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+void less(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Less::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+  
+\begin{litcode}{less concise}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Less : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  Less(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_FAILED;
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() >= x1.min())
+      (void) new (home) Less(home,x0,x1);
+    return ES_OK;
+  }
+  Less(Space& home, bool share, Less& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Less(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() < x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+};
+
+void less(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Less::post(home,x0,x1));
+}
+\end{litcode}
+

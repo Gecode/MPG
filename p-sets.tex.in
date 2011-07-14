@@ -1,0 +1,337 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Propagators for set constraints}
+\label{chap:p:sets}
+
+This chapter shows how to implement propagators for constraints
+over set variables. We assume that you have worked through the
+chapters on implementing integer propagators, as most of the
+techniques readily carry over and are not explained again
+here.
+
+We also assume a basic knowledge of propagation for set
+constraints. To read more about this topic, please refer
+to~\cite{Gervet:1995:0:Finite, Tack:PhD:2009}.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:p:sets:simple_example} demonstrates a
+propagator that implements set interesection. 
+Set views and their related concepts are summarized in
+\autoref{sec:p:sets:propagation_conditions_etc}.
+
+
+\section{A simple example}
+\label{sec:p:sets:simple_example}
+
+\begin{figure}
+\insertlitcode{intersection}
+\caption{A constraint and propagator for set intersection}
+\label{fig:p:sets:intersection}
+\end{figure}
+
+\autoref{fig:p:sets:intersection} shows a propagator for the
+ternary intersection constraint
+$\mathtt{x}_0\cap\mathtt{x}_1=\mathtt{x}_2$ for three set
+variables $\mathtt{x}_0$, $\mathtt{x}_1$, and $\mathtt{x}_2$.
+
+As you can see, propagators for set constraints follow exactly
+the same structure as propagators for integer or Boolean
+constraints. The same propagator patterns can be used (see
+\autoref{sec:p:started:patterns}). The appropriate views and
+propagation conditions are defined in the namespace
+\gecoderef[namespace]{Gecode::Set}.
+
+In order to understand the \?propagate()? function, we have to look
+at how set variable domains are represented.
+
+\paragraph{The set bounds approximation.}
+
+We already saw in \autoref{chap:m:set} that set variable domains
+are represented as intervals in order to avoid an exponential
+representation. For example, recall that
+$$\big\{\;\{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\}\;\big\}$$ cannot
+be captured exactly by an interval, but is instead approximated by the
+smallest enclosing interval $\range{\{\}}{\{1,2,3\}}$.
+
+Set propagators therefore access and modify the interval bounds.
+Naturally, set-valued domain operations similar to the ones for
+integer variables (see \autoref{chap:p:domain}) play an important
+role for set propagators.
+
+For each set view, \gecoderef[class]{Set::GlbRanges} provides a
+range iterator for its lower bound, and
+\gecoderef[class]{Set::LubRanges} iterates the upper bound. The
+main iterator-based modification operations on set views are
+\?includeI? (adding a set to the lower bound), \?excludeI?
+(removing a set from the upper bound), and \?intersectI?
+(intersecting the upper bound with a set).
+
+\paragraph{Filtering rules.}
+
+
+Coming back to the example propagator for ternary intersection,
+we have to devise filtering rules that express the constraint in
+terms of the interval bounds. In the following, we write
+$\underline{x}$ and $\overline{x}$ for the lower bound resp.\ 
+upper bound of a view $x$. Then, ternary intersection can be
+propagated with the following rules and implemented with set
+domain operations:
+\begin{enumerate}
+  \item $\underline{\mathtt{x}_0}\cap\underline{\mathtt{x}_1}\subseteq\mathtt{x}_2$
+  \insertsmalllitcode{intersection:rule 1}
+  \item $\overline{\mathtt{x}_0}\cap\overline{\mathtt{x}_1}\supseteq\mathtt{x}_2$
+  \insertsmalllitcode{intersection:rule 2}
+  \item $\underline{\mathtt{x}_2}\subseteq\mathtt{x}_0$
+  \insertsmalllitcode{intersection:rule 3}
+  \item $\underline{\mathtt{x}_2}\subseteq\mathtt{x}_1$
+  \insertsmalllitcode{intersection:rule 4}
+  \item $\underline{\mathtt{x}_0}\setminus\overline{\mathtt{x}_2}\not\subseteq\mathtt{x}_1$
+  \insertsmalllitcode{intersection:rule 5}
+  \item $\underline{\mathtt{x}_1}\setminus\overline{\mathtt{x}_2}\not\subseteq\mathtt{x}_0$
+  \insertsmalllitcode{intersection:rule 6}
+\end{enumerate}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{integer-valued bounds operations}}\\
+\?glbMin()? / \?glbMax()? & Return minimum/maximum of lower bound\\
+\?lubMin()? / \?lubMax()? & Return minimum/maximum of upper bound\\
+\?glbSize()? / \?lubSize()? & Return size of lower/upper bound\\
+\?unknownSize()? & Return number of elements in upper but not in lower bound\\
+\?contains()? & test whether lower bound contains element\\
+\?notContains()? & test whether upper bound does not contain element\\
+\?include()? & add element (or range) to lower bound\\
+\?exclude()? & remove element (or range) from upper bound\\
+\?intersect()? & intersect upper bound with element or range\\
+\\
+\multicolumn{2}{c}{\textbf{set-valued bounds modifications}}\\
+\?includeI()? & add elements to lower bound\\
+\?excludeI()? & remove elements from upper bound\\
+\?intersectI()? & intersect upper bound with given set\\
+\\
+\multicolumn{2}{c}{\textbf{cardinality operations}}\\
+\?cardMin()? & Return/modify minimum cardinality\\
+\?cardMax()? & Return/modify maximum cardinality\\
+\end{tabular}
+\end{center}
+\caption{Set view operations}
+\label{fig:p:sets:view_operations}
+\end{figure}
+
+The first four rules should be self-explanatory. The last two
+rules state that anything that is in $\mathtt{x}_0$ but not in
+$\mathtt{x}_2$ cannot be in $\mathtt{x}_1$ (and the same for
+$\mathtt{x}_0$ and $\mathtt{x}_1$ swapped).  The full list of
+operations on set views appears in
+\autoref{fig:p:sets:view_operations}.
+
+
+\paragraph{Fixpoint.}
+
+Note how the propagator determines which execution status to
+return. Before applying any of the filtering rules, it checks
+whether all of the variables are already assigned. If they are, then
+propagation will compute a fixpoint and the propagator can return
+that it is subsumed after applying the filtering rules.
+Otherwise, it has not necessarily computed a fixpoint (e.g.\ 
+rule~6 may modify the upper bound of $\mathtt{x}_0$, making it
+necessary to apply rule~2 again).
+
+\paragraph{Cardinality.}
+
+In addition to the interval bounds, set variables store
+\emph{cardinality bounds}, that is, the minimum and maximum
+cardinality of the set variable. These bounds are stored and modified
+independently of the interval bounds, but of course modifications to these
+different bounds affect each other.
+
+For example, consider a set variable with a domain represented by the
+interval $\range{\{\}}{\{1,2\}}$ and the cardinality $\#\range{1}{2}$. Adding $1$ to
+the lower bound would result in the cardinality lower bound being
+increased to $1$. Removing $1$ from the upper bound would result in
+$2$ being added to the lower bound to satisfy the minimum cardinality
+of $1$.
+
+Using cardinality information, propagation for some set
+constraints can be strengthened. For the ternary intersection example,
+we can for instance add the following filtering rules:
+\insertlitcode{intersection:cardinality}
+
+When dealing with cardinality, it is important to
+handle overflow or signedness issues. In the above example, we
+have to check whether \?x0.cardMin()+x1.cardMin()>s?, because
+otherwise the expression \?x0.cardMin()+x1.cardMin()-s? may
+underflow (as we are dealing with unsigned integers here). This
+is not the case for the second cardinality rule. Here, we can be
+sure that the size of the union of the lower bounds is always
+greater than the sum of the maximum cardinalities.
+
+
+\section{Modification events, propagation conditions, views,
+   and advisors}
+\label{sec:p:sets:propagation_conditions_etc}
+
+This section summarizes how these concepts are
+specialized for set variables and propagators.
+
+\paragraph{Modification events and propagation conditions.}
+
+\begin{figure}[p]
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{set modification events}}\\
+\?Set::ME_SET_NONE? & the view has not been changed\\
+\?Set::ME_SET_FAILED? & the domain has become empty\\
+\?Set::ME_SET_VAL? & the view has been assigned to a single set\\
+\?Set::ME_SET_CARD? & the view has been assigned to a single set\\
+\?Set::ME_SET_LUB? & the upper bound has been changed\\
+\?Set::ME_SET_GLB? & the lower bound has been changed\\
+\?Set::ME_SET_BB? & both bounds have been changed\\
+\?Set::ME_SET_CLUB? & cardinality and upper bound have changed\\
+\?Set::ME_SET_CGLB? & cardinality and lower bound have changed\\
+\?Set::ME_SET_CBB? & cardinality and both bounds have changed\\
+\\
+\multicolumn{2}{c}{\textbf{set propagation conditions}}\\
+\?Set::PC_SET_VAL? & schedule when the view is assigned\\
+\?Set::PC_SET_CARD? & schedule when the cardinality changes\\
+\?Set::PC_SET_CLUB? & schedule when the cardinality or the upper bound changes\\
+\?Set::PC_SET_CGLB? & schedule when the cardinality or the lower bound changes\\
+\?Set::PC_SET_ANY? & schedule at any change\\
+\?Set::PC_SET_NONE? & do not schedule\\
+\end{tabular}
+\end{center}
+\caption{Set modification events and propagation conditions}
+\label{fig:p:sets:propagation_conditions}
+\end{figure}
+
+The modification events and propagation conditions for set
+propagators (see
+\autoref{fig:p:sets:propagation_conditions}) capture the
+parts of a set variable domain that can change.
+
+One could imagine a richer set, for example distinguishing
+between lower and upper bound changes of the cardinality, or
+separating the cardinality changes from the interval bound
+changes. However, the number of propagation conditions has a
+direct influence on the size of a variable, see
+\autoref{par:v:varimp:design:cost}. Just like for integer views,
+this set of modification events and propagation conditions has
+been chosen as a compromise between expressiveness on the one
+hand, and keeping the set small on the other.
+
+
+\paragraph{Set variable views.}
+
+In addition to the basic \gecoderef[class]{Set::SetView} class,
+there are five other set views:
+\gecoderef[class]{Set::ConstSetView},
+\gecoderef[class]{Set::EmptyView},
+\gecoderef[class]{Set::UniverseView},
+\gecoderef[class]{Set::SingletonView}, and
+\gecoderef[class]{Set::ComplementView}.
+
+The first three are constant views. A \?SingletonView? wraps an
+integer view $x$ in the interface of a set view, so that it
+acts like the singleton set $\{x\}$. A \?ComplementView? is like
+Boolean negation, it provides the set complement with respect to
+the global Gecode universe for set variables (defined as
+$\range{\mathtt{Set::Limits::min}}{\mathtt{Set::Limits::max}}$,
+see \gecoderef[namespace]{Set::Limits}).
+
+\paragraph{Advisors for set propagators.}
+
+Advisors for set constraints get informed about the domain
+modifications using a \gecoderef[class]{Set::SetDelta}. The set delta
+provides only information about the minimum and maximum values
+that were added to the lower bound and/or removed from the upper
+bound.
+
+\begin{litcode}{intersection}{tack}
+#include <gecode/set.hh>
+using namespace Gecode;
+  
+class Intersection
+  : public TernaryPropagator<Set::SetView,Set::PC_SET_ANY> {
+public:
+  Intersection(Home home, Set::SetView x0, Set::SetView x1,
+               Set::SetView x2)
+    : TernaryPropagator<Set::SetView,Set::PC_SET_ANY>(home,
+                                                      x0,x1,x2) {}
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, Set::SetView x0, Set::SetView x1,
+                         Set::SetView x2) {
+    (void) new (home) Intersection(home,x0,x1,x2);
+    return ES_OK;
+  }
+  Intersection(Space& home, bool share, Intersection& p)
+    : TernaryPropagator<Set::SetView,Set::PC_SET_ANY>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Intersection(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    using namespace Iter::Ranges; using namespace Set;
+    bool assigned = x0.assigned() && x1.assigned() && x2.assigned();
+    \begin{litblock}{rule 1}
+    { 
+      GlbRanges<SetView> x0lb(x0), x1lb(x1);
+      Inter<GlbRanges<SetView>, GlbRanges<SetView> > i(x0lb,x1lb);
+      GECODE_ME_CHECK(x2.includeI(home,i));
+    }
+    \end{litblock}
+    \begin{litblock}{rule 2}
+    { 
+      LubRanges<SetView> x0ub(x0), x1ub(x1);
+      Inter<LubRanges<SetView>, LubRanges<SetView> > i1(x0ub,x1ub);
+      GECODE_ME_CHECK(x2.intersectI(home,i1)); 
+    }
+    \end{litblock}
+    \begin{litblock}{rule 3}
+    { 
+      GlbRanges<SetView> x2lb(x2);
+      GECODE_ME_CHECK(x0.includeI(home,x2lb)); 
+    }
+    \end{litblock}
+    \begin{litblock}{rule 4}
+    { 
+      GlbRanges<SetView> x2lb(x2);
+      GECODE_ME_CHECK(x1.includeI(home,x2lb)); 
+    }
+    \end{litblock}
+    \begin{litblock}{rule 5}
+    { 
+      GlbRanges<SetView> x0lb(x0); LubRanges<SetView> x2ub(x2);
+      Diff<GlbRanges<SetView>, LubRanges<SetView> > diff(x0lb, x2ub);
+      GECODE_ME_CHECK(x1.excludeI(home,diff)); 
+    }
+    \end{litblock}
+    \begin{litblock}{rule 6}
+    { 
+      GlbRanges<SetView> x1lb(x1); LubRanges<SetView> x2ub(x2);
+      Diff<GlbRanges<SetView>, LubRanges<SetView> > diff(x1lb, x2ub);
+      GECODE_ME_CHECK(x0.excludeI(home,diff)); 
+    }
+    \end{litblock}
+    \begin{litblock}{cardinality}
+    LubRanges<SetView> x0ub(x0), x1ub(x1);
+    Union<LubRanges<SetView>, LubRanges<SetView> > u_lub(x0ub,x1ub);
+    unsigned int s_lub = size(u_lub);
+    if (x0.cardMin() + x1.cardMin() > s_lub)
+      GECODE_ME_CHECK(x2.cardMin(home, x0.cardMin()+x1.cardMin()-s_lub));
+    GlbRanges<SetView> x0lb(x0), x1lb(x1);
+    Union<GlbRanges<SetView>, GlbRanges<SetView> > u_glb(x0lb,x1lb);
+    unsigned int s_glb = size(u_glb);
+    GECODE_ME_CHECK(x2.cardMax(home,x0.cardMax()+x1.cardMax()-s_glb));
+    GECODE_ME_CHECK(x0.cardMin(home,x2.cardMin()));
+    GECODE_ME_CHECK(x1.cardMin(home,x2.cardMin()));
+    \end{litblock}
+    return assigned ? home.ES_SUBSUMED(*this) : ES_NOFIX;
+  }
+};
+
+void intersection(Home home, SetVar x0, SetVar x1, SetVar x2) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Intersection::post(home,x0,x1,x2));
+}
+\end{litcode}

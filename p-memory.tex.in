@@ -1,0 +1,454 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Managing memory}
+\label{chap:p:memory}
+
+This chapter provides an overview of memory management for
+propagators. In fact, the memory management aspects discussed
+here are also valid for branchers (\autoref{part:b}) and to some
+extent even for variables (\autoref{part:v}).
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:p:memory:areas} describes the different
+memory areas available in Gecode together with their allocation
+policies. The following section (\autoref{sec:p:memory:state})
+discusses how a propagator can efficiently manage its own state.
+\autoref{sec:p:memory:shared} discusses an abstraction for
+sharing data structures among all spaces for one thread, whereas
+\autoref{sec:p:memory:local} discusses an abstraction for sharing
+data structures among several propagators that belong to the same
+space.
+
+
+\section{Memory areas}
+\label{sec:p:memory:areas}
+
+Gecode manages several different memory areas with different
+allocation policies: \emph{spaces} provide access to space-allocated
+memory, \emph{regions} provide access to temporary memory with implicit
+deallocation, and \emph{space-allocated freelists} provide efficient
+access to small chunks of memory which require frequent
+allocation and deallocation. 
+
+All memory areas but freelists provide operations \?alloc()?,
+\?realloc()?, and \?free()? for allocation, reallocation, and
+deallocation of memory from the respective area. To provide a
+uniform interface, Gecode also defines a \?heap? object (see
+\gecoderef[group]{FuncMemHeap}) implementing the very same
+allocation functions. All memory-management related operations
+are documented in \gecoderef[group]{FuncMem}.
+
+\paragraph{Memory management functions.} 
+
+Let us consider allocation from the \?heap? as an example. By
+\begin{code}
+int* i = heap.alloc<int>(n);
+\end{code}
+a memory chunk for \?n? integers is allocated. Likewise, by
+\begin{code}
+heap.free<int>(i,n);
+\end{code}
+the memory is freed (for \?heap?, the memory is returned
+to the operating system). By
+\begin{code}
+int* j = heap.realloc<int>(i,n,m);
+\end{code}
+a memory chunk is allocated for \?m? integers. If possible, \?j?
+will refer to the same memory chunk as \?i? (but there is no
+guarantee, of course). 
+
+The memory management functions implement \CPP{} semantics:
+\?alloc()? calls the default constructor for each element
+allocated; \?realloc()? calls the destructor, default
+constructor, or copy constructor (depending on whether the
+memory area must shrink or grow); \?free()? calls the destructor
+for each element freed.
+
+\paragraph{Space.}
+
+Space-allocated memory (see \gecoderef[group]{FuncMemSpace}) is
+managed per each individual space. All space-allocated memory is
+returned to the operating system if a space is deleted. Freeing
+memory (via the \?free()? operation) enables the memory to be
+reused by later \?alloc()? operations.
+
+Spaces manage several blocks of memory allocated from the
+operating system, the block sizes are automatically chosen based
+on the recent memory allocations of a space (and, if a space has
+been created by cloning, the memory allocation history of the
+original space). The exact policies can be configured, see the
+namespace \gecoderef[namespace]{MemoryConfig}.
+
+Memory chunks allocated from the operating system for spaces are
+cached among all spaces for a single thread.  This cache for the
+current thread can be flushed by invoking the \?flush()?  member
+function of \gecoderef[class]{Space}.
+
+Variable implementations, propagators, branchers, view arrays,
+for example, are allocated from their \?home? space. An
+important characteristic is that all these data structures have
+fixed size throughout their lifetimes or even shrink. As
+space-allocated memory is managed for later reusal if it is
+freed, frequent allocation/reallocation/deallocation leads to
+highly fragmented memory with little chance of reusal. Hence,
+space-allocated memory is \emph{absolutely unsuited} for data
+structures that require frequent allocation/deallocation and/or
+resizing. For these data structures it is better to use the heap
+or freelists, if possible. See \autoref{sec:p:memory:state} for
+more information.
+
+Note that space-allocated memory is available with allocators
+compatible with the \CPP{} STL, see
+\gecoderef[group]{FuncMemAllocator}.
+
+\paragraph{Region.}
+\label{par:p:memory:region}
+
+All spaces for one thread share a chunk of memory for temporary
+data structures with very efficient allocation and deallocation
+(again, its exact size is defined in the namespace
+\gecoderef[namespace]{MemoryConfig}). Assume that \?home? refers
+to a space (say, during the execution of the \?propagate()?
+function of a propagator), then
+\begin{code}
+Region r(home);
+\end{code}
+creates a new region \?r? for memory management (see
+\gecoderef[group]{FuncMemRegion}). A region does not impose any
+size limit on the memory blocks allocated from it. If necessary,
+a region transparently falls back to heap-allocated memory.
+
+\begin{samepage}
+  Several regions for the same space can exist simultaneously.
+  For example,
+\begin{code}
+Region r1(home), r2(home);
+int* i = r1.alloc<int>(n);
+int* j = r2.alloc<int>(m);
+\end{code}
+\end{samepage}
+
+The specialty of a region is that it does not require \?free()?
+operations. If a region is destructed, all memory allocated from
+it is freed (unless several regions for the same space exist). If
+several regions for the same space are in use, the memory is
+entirely freed when all regions are destructed.
+
+Even though a region does not require \?free()? operations, it
+can profit from it: if the memory allocated last is freed first,
+the freed memory becomes immediately available for future
+allocation.
+
+
+
+\paragraph{Heap.}
+
+The \?heap? (a global variable, see
+\gecoderef[group]{FuncMemHeap}) is nothing but a \CPP-wrapper
+around \?malloc()? and \?free()? as provided by the underlying
+operating system. In case memory is exhausted, an exception of
+type \gecoderef[class]{MemoryExhausted} is thrown.
+
+
+\paragraph{Space-allocated freelists.}
+
+Freelists are allocated from space memory. Any object to be
+managed by a freelist must inherit from the class
+\gecoderef[class]{FreeList} which already defines a pointer to a
+next freelist element. The sizes for freelist objects are quite
+constrained, check the values \?fl_size_min? and \?fl_size_max?
+as defined in the namespace \gecoderef[namespace]{MemoryConfig}.
+
+Allocation and deallocation is available through the member
+functions \?fl_alloc()? and \?fl_dispose()? of the class
+\gecoderef[class]{Space}.
+
+
+\section{Managing propagator state}
+\label{sec:p:memory:state}
+
+Many propagators require sophisticated data structures to
+perform propagation. The data structures are typically kept
+between successive executions of a propagator.  There are two
+main issues for these data structures: \emph{where} to allocate
+them and \emph{when} to allocate them.
+
+\paragraph{Where to allocate.}
+
+Typically, the data structures used by a propagator are of
+dynamic size and hence cannot be stored in a simple member of the
+propagator.  This means that the propagator is free to allocate
+the memory from either its own space or from the heap. Allocation
+from the heap could also mean to use other operations to allocate
+and free memory, such as \?malloc()? and \?free()? provided by
+the operating system or \?new? and \?delete? provided by \CPP.
+
+In case the data structure does not change its size often, it is
+best to allocate from a space: allocation is more efficient and
+deallocation is automatic when the space is deleted.
+
+In case the data structure requires frequent reallocation
+operations, it is better to allocate from the heap. Then, the
+memory will not be automatically freed when a space is deleted.
+The memory must be freed by the propagator's \?dispose()?
+function. Furthermore, the Gecode kernel must be informed that
+the \?dispose()? function must be called when the propagator's home
+space is deleted, see \autoref{sec:p:started:waive}.
+
+\paragraph{Reporting allocated memory.}
+
+A propagator that has allocated non-space memory must implement
+the virtual member function \?allocated()? that returns the
+amount (as a value of type \?size_t?) of non-space memory
+allocated by the propagator. The function \?allocated()? is used
+by the function \?allocated()? for a space to compute the total
+amount of memory allocated by a space. Note that only propagators
+are considered that have registered for disposal with a space
+(only these propagators can have non-space memory allocated anyway).
+
+
+\paragraph{When to allocate.}
+
+An important fact on which search engines in Gecode rely (see
+\autoref{part:s}) is that they always store a space created by
+cloning for backtracking and never a space that has already been
+used for propagation. The reason is that in order to perform
+propagation, the propagators, variables, and branchers might
+require some additional memory. Hence, a space that has performed
+propagation is likely to require more memory
+than a pristine clone. As the spaces stored by a search engine
+define the total amount of memory allocated for solving a problem
+with Gecode, it pays to save memory by storing pristine clones.
+
+The most obvious policy is to allocate \emph{eagerly}: the data
+structures are allocated when the propagator is created and they
+are copied exactly when the propagator is copied.
+
+However, very often it is better to \emph{lazily} recompute the
+data structures as follows. The data structures are initialized
+and allocated the first time a propagator is executed. Likewise,
+the data structures are not copied and construction is again
+postponed until the propagator is executed again.  Creating and
+allocating data structures lazily is often as simple as creating
+them eagerly. The benefit is that clones of spaces on which no
+propagation has been performed yet require considerably less
+memory.
+
+Most propagators in Gecode that require involved data structures
+construct their data structures lazily (for example, the
+propagator for domain consistent \?distinct? using the algorithm
+from~\cite{Regin94}, see
+\gecoderef[class]{Int::Distinct::Dom}). Some use a hybrid
+approach where some data structures are created eagerly
+and others lazily (for example the propagator for \?extensional?
+for finite automata using the algorithm
+from~\cite{Pesant:CP:2004}, see
+\gecoderef[class]{Int::Extensional::LayeredGraph}).
+
+
+
+\section{Shared objects and handles}
+\label{sec:p:memory:shared}
+
+A common request for managing a data structure (we will refer to
+data structure here just as object) is that it is used and shared
+by several propagators from different spaces with the restriction
+that all spaces are used by a single thread. Gecode provides
+\emph{shared objects} and \emph{shared handles} for this form of
+sharing. Shared handles and objects are used to implement proper
+data structures as introduced in \autoref{sec:m:integer:proper}.
+
+A shared object is heap-allocated and is referred to by several
+shared handles. If the last shared handle is deleted, also the
+shared object is deleted (implemented by reference counting). In
+addition, shared handles provide an \?update()? function that
+creates a new copy of the shared object in case the copy is to be
+used by a different thread (that is, the Boolean \?share?
+argument is true).
+
+\begin{figure}
+\insertlitcode{shared object and handle}
+\caption{A simple shared object and handle}
+\label{fig:p:memory:shared}
+\end{figure}
+
+\autoref{fig:p:memory:shared} shows a simple example of a shared
+object and the shared handle using the object. A shared object
+\?SIO? (for \?S?hared \?I?nteger \?O?bject) stores a single
+integer \?data? to be shared (normally, this will be an
+interesting data structure). A shared object must inherit from
+\gecoderef[class]{SharedHandle::Object} and must implement a
+virtual \?copy()? function that returns a new shared object. If
+needed, a virtual destructor can be defined.
+
+The shared handle \?SI? (for \?S?hared \?I?nteger) is the only
+class that has access to a shared object of type \?SIO?. A shared
+handle must inherit from \gecoderef[class]{SharedHandle} and can
+use the \?object()?  member function to access and update its
+shared object.
+
+\begin{samepage}
+The most interesting members of \?SI? that are inherited are the
+following:
+\insertlitcode{shared object and handle:some inherited members}
+\end{samepage}
+
+Other inherited members include a copy constructor and an
+assignment operator.
+
+Shared integer arrays are an example for shared objects, see 
+\autoref{tip:m:integer:sharedelement}.
+
+\section{Local objects and handles}
+\label{sec:p:memory:local}
+
+For some applications, it is necessary to share data structures
+between different propagators (and/or branchers, see
+\autoref{part:b}) that belong to the same space. For example,
+several scheduling propagators might record precedences between
+tasks in a shared data structure. \emph{Local objects} and
+\emph{local handles} implement this form of sharing.
+
+A local object is space-allocated and is referred to by several
+local handles. A local object is deleted when its \?home? space
+is deleted. Local handles provide an \?update()? function that
+creates a new copy of the local object when the space is cloned
+(while maintaining the sharing of local objects within a space).
+
+\begin{figure}
+\insertlitcode{local object and handle}
+\caption{A simple local object and handle}
+\label{fig:p:memory:local}
+\end{figure}
+
+\autoref{fig:p:memory:local} shows a simple local object and
+handle. Similar to the shared integer objects from
+\autoref{fig:p:memory:shared}, the local integer objects here
+provide shared access to a single integer. However, this integer
+object is copied whenever the space is copied, so changes to the
+object are kept within the same space.
+
+\begin{figure}
+\insertlitcode{local object with external resources}
+\caption{A local object and handle with external resources}
+\label{fig:p:memory:local_res}
+\end{figure}
+
+If a local object additionally allocates external resources or
+non-space allocated memory, it must inform its \?home? space
+about this fact, very much like propagators (see
+\autoref{sec:p:started:waive}). \autoref{fig:p:memory:local_res}
+shows a local object and handle that implement an array of
+integers. In the constructor and the \?dispose? function, the
+local object registers and de-registers itself for disposal using
+\?AP_DISPOSE?.
+
+\begin{litcode}{shared object and handle}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/kernel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class SI : public SharedHandle {
+protected:
+  class SIO : public SharedHandle::Object {
+  public:
+    int data;
+    SIO(int d) : data(d) {}
+    SIO(const SIO& sio) : data(sio.data) {}
+    virtual Object* copy(void) const {
+      return new SIO(*this);
+    }
+    virtual ~SIO(void) {}
+  };
+public:
+  SI(int d) : SharedHandle(new SIO(d)) {}
+  int get(void) const {
+    return static_cast<SIO*>(object())->data;
+  }
+  void set(int d) {
+    static_cast<SIO*>(object())->data = d;
+  }
+  \begin{litblock}{some inherited members}
+  void update(Space& home, bool share, SharedHandle& sh) {
+    \begin{litblock}{anonymous}
+    SharedHandle::update(home,share,sh);
+    \end{litblock}
+  }
+  ~SI(void) {}
+  \end{litblock}
+};
+\end{litcode}
+
+\begin{litcode}{local object and handle}{tack}
+\begin{litblock}{anonymous}
+#include <gecode/kernel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class LI : public LocalHandle {
+protected:
+  class LIO : public LocalObject {
+  public:
+    int data;
+    LIO(Space& home, int d) : LocalObject(home), data(d) {}
+    LIO(Space& home, bool share, LIO& l)
+      : LocalObject(home,share,l), data(l.data) {}
+    virtual LocalObject* copy(Space& home, bool share) {
+      return new (home) LIO(home,share,*this);
+    }
+    virtual size_t dispose(Space&) { return sizeof(*this); }
+  };
+public:
+  LI(Space& home, int d) : LocalHandle(new (home) LIO(home,d)) {}
+  int get(void) const {
+    return static_cast<LIO*>(object())->data;
+  }
+  void set(int d) {
+    static_cast<LIO*>(object())->data = d;
+  }
+};
+\end{litcode}
+
+
+\begin{litcode}{local object with external resources}{tack}
+\begin{litblock}{anonymous}
+#include <gecode/kernel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class LI : public LocalHandle {
+protected:
+  class LIO : public LocalObject {
+  public:
+    int* data;
+    int n;
+    LIO(Space& home, int n0)
+     : LocalObject(home), data(heap.alloc<int>(n0)), n(n0) {
+      home.notice(*this,AP_DISPOSE);
+    }
+    LIO(Space& home, bool share, LIO& l)
+      : LocalObject(home,share,l), data(l.data) {}
+    virtual LocalObject* copy(Space& home, bool share) {
+      return new (home) LIO(home,share,*this);
+    }
+    virtual size_t dispose(Space& home) {
+      home.ignore(*this,AP_DISPOSE);
+      heap.free<int>(data,n);
+      return sizeof(*this);
+    }
+  };
+public:
+  LI(Space& home, int n) : LocalHandle(new (home) LIO(home,n)) {}
+  int operator [](int i) const {
+    return static_cast<const LIO*>(object())->data[i];
+  }
+  int& operator [](int i) {
+    return static_cast<LIO*>(object())->data[i];
+  }
+};
+\end{litcode}
+

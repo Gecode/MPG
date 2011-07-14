@@ -1,0 +1,39 @@
+Crossword
+	cestus*grappa*lad*masai
+	impale*racial*eremitism
+	spermatotheca*cabaletta
+	sar*isoptera*dynamo*arm
+	urman*lieus*retes*ratas
+	slab*panel*techier*mud*
+	**tawa*gneissoid*elands
+	egotism*sashays*cringle
+	locustae*nails*chaldaea
+	puerperal*ire*sheila***
+	agley*cravat*measle*eli
+	sees*wahwah*cadets*gman
+	ods*basons*gelati*crare
+	***merils*ren*naethings
+	lapidate*berob*essences
+	acerate*vacates*turdine
+	canada*bottlegas*beep**
+	*lug*hornmad*gutta*raca
+	relet*monal*sacra*aston
+	opt*apemen*parietal*ilk
+	whirligig*headswillroll
+	tamilnadu*osmose*beanie
+	heady*set*itemed*seised
+
+
+
+Initial
+	propagators: 932
+	branchers:   1
+
+Summary
+	runtime:      27.040 (27040.000000 ms)
+	solutions:    1
+	propagations: 231857
+	nodes:        1311
+	failures:     603
+	peak depth:   164
+	peak memory:  214027 KB

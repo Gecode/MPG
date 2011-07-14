@@ -1,0 +1,39 @@
+Crossword
+	araba*alban*penna*agami
+	laver*reade*rayon*euros
+	inert*coram*onend*rigol
+	cardigans*abc*sermonise
+	estacade*ctene*teaseled
+	***clue*cholent*anoa***
+	cached*kaids*ian*alpaca
+	akees*barca*banal*simon
+	rads*banda*keckled*graz
+	abe*bahai*era*aaron*ita
+	padnag*kannada*semantic
+	***ochs*caramba*dada***
+	dianodal*salaams*tibcat
+	ons*nabob*gen*aesir*aga
+	naif*drooped*adela*aval
+	undid*embed*deedy*edema
+	teered*sat*gadus*anorak
+	***egos*creates*fohn***
+	furcraea*ideas*tineidae
+	charabanc*bab*releasers
+	luged*niobe*avale*riles
+	erase*embar*simar*snide
+	fusts*debag*eases*egads
+
+
+
+Initial
+	propagators: 905
+	branchers:   1
+
+Summary
+	runtime:      15.555 (15555.000000 ms)
+	solutions:    1
+	propagations: 226927
+	nodes:        1734
+	failures:     773
+	peak depth:   230
+	peak memory:  168850 KB

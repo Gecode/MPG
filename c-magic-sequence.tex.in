@@ -1,0 +1,212 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Magic sequence}
+\label{chap:c:magicsequence}
+
+%% FILES: CHAPTERONLY
+
+This chapter shows how to use counting constraints for solving
+magic sequence puzzles.
+
+\section{Problem}
+
+The Magic Sequence puzzle (\CSPLIB{19}, first introduced as a constraint problem in \cite{Hentenryck:1989:0:Constraint}) requires finding a
+sequence of integers $x_0,\dots,x_{n-1}$ such that for all $0\leq
+i< n$, the number $i$ occurs exactly $x_i$ times in the sequence.
+For example, a magic sequence of length $n=8$ is
+$$\langle 4, 2, 1, 0, 1, 0, 0, 0\rangle$$
+
+\section{Model}
+
+The outline of the script for solving magic sequence puzzles is
+shown in \autoref{fig:c:magic_sequence}. It contains the integer
+variable array \?x? (see \autoref{sec:m:integer:intvararray}),
+which is initialized according to the problem specification.
+
+\begin{figure}
+\insertlitcode{magic sequence}
+\caption{A script for solving magic sequence puzzles}
+\label{fig:c:magic_sequence}
+\end{figure}
+
+\paragraph{Counting constraints.}
+
+The problem can be modeled directly using one counting constraint
+(see \autoref{sec:m:integer:count}) per variable. We will see later that there 
+is a global constraint that combines all these individual counting 
+constraints.
+
+\insertlitcode{magic sequence:counting constraints}
+
+\paragraph{Implied linear constraints.}
+
+The model as described so far completely captures the problem. Therefore, given enough time, Gecode will return all its solutions and only the solutions. However, it is sometimes useful to post additional, \emph{implied constraints}, which do not change the meaning of the model (they do not change the set of solutions), but which provide additional constraint propagation that results in a smaller search tree.
+
+The two implied constraints that we will use for the magic sequence problem result from the fact that any magic sequence of length $n$ satisfies the following two equations:
+\begin{align*}
+\sum_{i=0}^{n-1}\mathtt{x}_i &= n &
+\sum_{i=0}^{n-1}{(i-1)\cdot \mathtt{x}_i} &=0
+\end{align*}
+
+The first equation is true because the sum of all occurrences,
+i.e.\ the overall number of items in the sequence, must be equal
+to the length of the sequence.
+
+The second equation can be rewritten as 
+$$
+\sum_{i=0}^{n-1} i\cdot\mathtt{x}_i=
+\sum_{i=0}^{n-1}\mathtt{x}_i
+\iff
+\sum_{i=0}^{n-1} i\cdot\mathtt{x}_i=n$$
+So it remains to be
+shown that $\sum_{i=0}^{n-1}i\cdot \mathtt{x}_i$ is also equal to
+the length of the sequence. This follows from the fact that
+$\mathtt{x}_i$ is the number of times $i$ occurs in the sequence,
+so $i\cdot \mathtt{x}_i$ is the number of positions occupied by
+the sequence elements that are equal to $i$, and the sum over
+those must be equal to the length of the sequence.
+
+The two equations translate easily into linear constraints (see
+\autoref{sec:m:integer:linear}), using integer argument arrays of
+type \?IntArgs? (see \autoref{sec:m:integer:args}) to supply
+coefficients.
+
+\insertlitcode{magic sequence:implied constraints}
+
+You can do your own experiments, comparing runtime and search tree size of the model with and without implied constraints.
+
+\paragraph{Branching.}
+
+For large sequences, many variables in the sequence will be $0$ because the 
+overall sum is only $n$ (see previous paragraph on implied constraints). 
+Therefore, $\mathtt{x}_0$ should take a large value. We simply branch in the
+given order of the variables, starting with the largest values.
+
+\insertlitcode{magic sequence:branching}
+
+\paragraph{Global counting constraints.}
+
+The global counting constraint (also known as global cardinality
+constraint, see \autoref{sec:m:integer:count}) can express the
+combination of all the individual counting constraints, and
+yields stronger propagation. It also includes the propagation of
+the first of the two implied linear constraints. So, as an
+alternative to the $n$ counting constraints above, we can use the
+code in \autoref{fig:c:magic_sequence_gcc}.
+
+\section{More information}
+
+The magic sequence puzzle is also included as a Gecode example,
+see \gecoderef[example]{magic-sequence}. The example contains
+both the model using individual counting constraints and the one
+using a single global counting constraint.
+
+\begin{figure}
+\insertlitcode{magic sequence gcc}
+\caption{Magic sequence puzzles with a global counting constraint}
+\label{fig:c:magic_sequence_gcc}
+\end{figure}
+
+\begin{litcode}{magic sequence}{tack}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+using namespace Gecode;
+\end{litblock}
+class MagicSequence : public Script {
+  IntVarArray x;
+public:
+  MagicSequence(const SizeOptions& opt)
+    : x(*this,opt.size(),0,opt.size()-1) {
+    \begin{litblock}{counting constraints}
+    for (int i=0; i<x.size(); i++)
+      count(*this, x, i, IRT_EQ, x[i]);
+    \end{litblock}
+    \begin{litblock}{implied constraints}
+    linear(*this, x, IRT_EQ, x.size());
+    linear(*this, IntArgs::create(x.size(),-1,1), x, IRT_EQ, 0);
+    \end{litblock}
+    \begin{litblock}{branching}
+    branch(*this, x, INT_VAR_NONE, INT_VAL_MAX);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  MagicSequence(bool share, MagicSequence& e) : Script(share,e) {
+    x.update(*this, share, e.x);
+  }
+  virtual Space* copy(bool share) {
+    return new MagicSequence(share,*this);
+  }
+  virtual void print(std::ostream& os) const {
+    os << "\t";
+    for (int i=0; i<x.size(); i++) {
+      os << x[i] << ", ";
+      if ((i+1) % 20 == 0)
+        os << std::endl << "\t";
+    }
+    os << std::endl;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  SizeOptions opt("MagicSequence");
+  opt.solutions(0);
+  opt.size(500);
+  opt.parse(argc,argv);
+  Script::run<MagicSequence,DFS,SizeOptions>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{magic sequence gcc}{tack}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class MagicSequence : public Script {
+  IntVarArray x;
+public:
+  MagicSequence(const SizeOptions& opt)
+    : x(*this,opt.size(),0,opt.size()-1) {
+    // Global counting constraint
+    count(*this, x, x, opt.icl());
+    // Implied constraint
+    linear(*this, IntArgs::create(x.size(),-1,1), x, IRT_EQ, 0);
+    // Branching
+    branch(*this, x, INT_VAR_NONE, INT_VAL_MAX);
+  }
+  \begin{litblock}{anonymous}
+  MagicSequence(bool share, MagicSequence& e) : Script(share,e) {
+    x.update(*this, share, e.x);
+  }
+  virtual Space* copy(bool share) {
+    return new MagicSequence(share,*this);
+  }
+  virtual void print(std::ostream& os) const {
+    os << "\t";
+    for (int i=0; i<x.size(); i++) {
+      os << x[i] << ", ";
+      if ((i+1) % 20 == 0)
+        os << std::endl << "\t";
+    }
+    os << std::endl;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  SizeOptions opt("MagicSequence");
+  opt.solutions(0);
+  opt.size(500);
+  opt.parse(argc,argv);
+  Script::run<MagicSequence,DFS,SizeOptions>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}

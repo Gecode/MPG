@@ -1,0 +1,496 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Getting comfortable}
+\label{chap:m:comfy}
+
+This chapter provides an overview of some functionality in Gecode
+that makes modeling and execution of models more convenient. 
+
+\paragraph{Overview.}
+
+Expressions constructed from standard arithmetic operators for
+posting linear constraints are discussed in
+\autoref{sec:m:comfy:expr}, cost functions for best solution
+search are discussed in \autoref{sec:m:comfy:cost}, and a script
+commandline driver that supports the most common options for
+running models from the commandline is discussed in
+\autoref{sec:m:comfy:driver}.
+
+
+\section{Posting linear constraints de-mystified}
+\label{sec:m:comfy:expr}
+
+\begin{figure}[p]
+\insertlitcode{send more money de-mystified}
+\caption{A Gecode model for Send More Money using modeling support}
+\label{fig:m:comfy:smm-mm}
+\end{figure}
+
+As mentioned in the previous chapter, Gecode comes with simple
+modeling support for posting constraints defined by linear
+expressions and relations.  The parts of the program for Send
+More Money from \autoref{fig:m:started:smm} that change are shown
+in \autoref{fig:m:comfy:smm-mm}. In order to use the modeling
+support, we have to include the MiniModel header.
+
+The MiniModel module also supports Boolean expressions and
+relations, and much more, see \autoref{chap:m:minimodel} for more
+information. The module in itself does not implement any
+constraints. The function \?rel? takes the description of the
+linear constraint, analyzes it, and posts a linear constraint by
+using the same \?linear?  function we have been using in
+\autoref{sec:m:started:first}.
+
+
+
+\section{Using a cost function}
+\label{sec:m:comfy:cost}
+
+\begin{figure}[p]
+\insertlitcode{send most money with cost}
+\caption{A Gecode model for Send Most Money using a cost function}
+\label{fig:m:comfy:smm-best:minimodel}
+\end{figure}
+
+\autoref{fig:m:comfy:smm-best:minimodel} uses the class
+\?MaximizeSpace? for cost-based optimization for Send
+Most Money. The class \?MaximizeSpace?  is also
+included in Gecode's MiniModel module (see
+\autoref{sec:m:minimodel:optimize} and
+\gecoderef[group]{TaskModelMiniModelOptimize}).
+
+The \?MaximizeSpace? class is a sub-class of \?Space? that
+defines a \?constrain()? member function based on the cost of a
+space. Our model must implement a virtual \?cost()? function that
+returns a variable defining the cost (the function must be
+\?const?). In our example, we extend the model to maintain the
+cost (the amount of money) in a dedicated variable \?money? (note
+that this variable must also be updated during cloning).
+
+\begin{samepage}
+The cost function then just returns the amount of money as
+follows:
+\insertlitcode{send most money with cost:cost function}
+\end{samepage}
+
+
+\section{Using the script commandline driver}
+\label{sec:m:comfy:driver}
+
+In order to experiment from the commandline with different model
+variants, different search engines, and so on, it is convenient
+to have support for passing different option values on the
+commandline that then can be used by a model. Gecode comes with a
+simple commandline driver that defines \?Script? as a subclass of
+\?Space? for modeling and support for commandline
+options.\footnote{One might wonder why a commandline driver should
+  be part of Gecode but this is due to popular demand. The driver
+  functionality has been there for the examples that ship with
+  Gecode and everybody has been using it and got into trouble as
+  it was not available as a module that could be easily reused.
+  Here we are!}
+
+\paragraph{Defining a script class.}
+
+Suppose that we want to experiment with two different variants of
+Send Most Money with a cost function: the first variant uses the
+model from \autoref{sec:m:comfy:cost} and the second variant models
+the equation $SEND+MOST=MONEY$ by using carry variables.
+
+\begin{samepage}
+Using carry variables with several linear equations instead of a
+single linear equation is straightforward. A carry
+variable is an integer variable with value \?0? or \?1? and each
+column in the equation $SEND+MOST=MONEY$ is modeled by a linear
+equation involving the appropriate carry variable as follows:
+\insertlitcode{send most money with driver:using carries}
+\end{samepage}
+
+
+\begin{figure}
+\insertlitcode{send most money with driver}
+\caption{A Gecode model for Send Most Money using the script
+  commandline driver}
+\label{fig:m:comfy:driver}
+\end{figure}
+
+\autoref{fig:m:comfy:driver} shows a model for Send Most Money that
+uses the \?MaximizeScript? class as base class (see
+\gecoderef[group]{TaskDriverScript}) rather than \?MaximizeSpace?
+(likewise, the driver module also offers a \?Script? class to be
+used instead of \?Space?). There are two main differences between
+\?MaximizeScript? and \?MaximizeSpace? (\?Script? and \?Space?).
+First, the constructor must accept a constant argument of type
+\?Options?  (actually, it must accept a constant argument of the
+type that is specified for the \?run? member function to be
+explained below) that is used to pass values computed from options
+passed on the commandline. Second, a subclass of \?MaximizeSpace?
+must define a virtual print function that accepts a standard
+output stream as argument.
+
+Note that one has to include
+\CppInline{\litstr{<gecode/driver.hh>}} for a model that uses the
+script commandline driver. However, neither
+\CppInline{\litstr{<gecode/search.hh>}} nor
+\CppInline{\litstr{<gecode/gist.hh>}} need to be included as search is
+handled by the commandline driver.
+
+\tip{Linking against the driver}{%
+\label{tip:m:comfy:link-driver}%
+As discussed in \autoref{sec:m:started:run}, when you use the
+commandline driver on a
+platform (Linux and relatives) that requires to state all
+libraries to link against, you also have to link against the
+library for the commandline driver (that is, for Linux and relatives by adding
+\?-lgecodedriver? to the compiler options on the commandline).
+}
+
+The class \?SendMostMoney? defines an enumeration type with
+values \?MODEL_SINGLE? (for a model where a single linear
+equation is posted for $SEND+MOST=MONEY$) and \?MODEL_CARRY?
+(for a model where several linear equations using carry variables
+are posted for $SEND+MOST=MONEY$). The options object \?opt?  provides a
+member function \?model? that returns an enumeration
+value and posts the constraints accordingly.
+
+\paragraph{Defining commandline options.}
+
+The mapping between strings passed on the commandline and the
+values \?MODEL_SINGLE? and \?MODEL_CARRY? is established by
+configuring an object of class \gecoderef[class]{Options}
+accordingly as follows:
+\insertlitcode{send most money with driver:commandline options}
+
+This code creates a new \?Option? object \?opt? where the string
+\?"SEND + MOST = MONEY"? serves as identification (such as when
+requesting to print help about the available commandline
+options). 
+
+The first call to \?opt.model()? defines that \texttt{single} is a
+legal value for the option switch \texttt{-model}, that the
+string \texttt{use single linear equation} is the help text for
+the option value, and that the corresponding value (that is, the
+value returned by \?opt.model()?) is
+\?SendMostMoney::MODEL_SINGLE?. The last call to \?opt.model?
+defines the default value.
+
+As we are performing best solution search, we want to compute
+all possible solutions. This is done by setting \?opt.solutions?
+to \?0? (the default value is \?1? for searching for the first
+solution). Note that this default value can be changed on the
+commandline by passing an integer as value for the
+\texttt{-solutions} commandline option.  Parsing the commandline
+by \?parse?  now takes the configured values for the commandline
+options \texttt{-model} and \texttt{-solutions} into account.
+
+
+The \gecoderef[class]{Options} class supports most options that
+are useful for propagation, search, and so on similar to the
+\texttt{model} option. The full details are explained in
+\autoref{chap:m:driver}.
+
+The last piece of our model is calling the static \?run? method of the
+script class by passing as template arguments our script class
+type \?SendMostMoney?, \?BAB? as the search engine we would like
+to use, and the type of options \?Options? (as mentioned before,
+the constructor of the script must accept a single argument of
+this type).
+\insertlitcode{send most money with driver:run script}
+
+
+\paragraph{Running the script from the commandline.}
+
+Suppose that we have compiled our script example as the file
+\?send-most-money-with-driver.exe? (for some platforms, just drop
+\?.exe?). Then
+\begin{cmd}
+send-most-money-with-driver.exe
+\end{cmd}
+prints something along the lines
+\begin{cmd}
+SEND + MOST = MONEY
+{9, 3, 4, 2, 1, 0, 5, 7}
+{9, 3, 4, 2, 1, 0, 6, 8}
+{9, 4, 5, 2, 1, 0, 6, 8}
+{9, 5, 6, 3, 1, 0, 4, 7}
+{9, 6, 7, 2, 1, 0, 3, 5}
+{9, 6, 7, 3, 1, 0, 5, 8}
+{9, 7, 8, 2, 1, 0, 3, 5}
+{9, 7, 8, 2, 1, 0, 4, 6}
+
+Initial
+        propagators: 3
+        branchers:   1
+
+Summary
+        runtime:      0.024 (24.000000 ms)
+        solutions:    8
+        propagations: 109
+        nodes:        33
+        failures:     9
+        peak depth:   8
+        peak memory:  14 KB
+\end{cmd}
+
+If we want to try the model with carry variables we can do that
+by running
+\begin{cmd}
+send-most-money-with-driver.exe -model carry
+\end{cmd}
+
+We can also use Gist by giving a different mode of
+execution:
+\begin{cmd}
+send-most-money-with-driver.exe -mode gist
+\end{cmd}
+As we call \?run? with \?BAB? as type of search, Gist will
+automatically start in branch-and-bound mode. Other supported
+modes are \?solution? (the default mode shown above), \?time? for
+printing average runtimes, and \?stat? for just printing an
+execution statistics but no solutions.
+
+
+Another important commandline option is \?-help? which prints the
+options supported by the script together with some configuration
+information. The full details are explained
+in \autoref{chap:m:driver}.
+
+\tip{Aborting execution}{%
+In the \?solution? and \?stat? modes, the driver aborts the search gracefully
+if you send it a \?SIGINT? signal, for example by pressing Ctrl-C on the command
+line. So if your model runs a long time without returning solutions, you can
+press Ctrl-C and still see the statistics that tell you how deep the search
+tree was up to that point, or how many nodes the search has explored.
+
+When you press Ctrl-C twice, the process is interrupted immediately. This can be useful when debugging programs, e.g.\ if the process is stuck in an infinite loop. Alternatively, you can make the driver ignore Ctrl-C altogether, so that it immediately interrupts your program, using the command line option \texttt{-interrupt false}.
+}
+
+\tip{How Gecode has been configured}{%
+\label{tip:m:comfy:conf}
+Depending on the hardware and software platform on which Gecode has been
+compiled, some features (such as Gist or thread support for
+parallel search) might not be available. 
+For example, if Gist is not supported, the request for 
+\?-mode gist? 
+will be silently ignored and the normal mode 
+(\?-mode solution?) is used instead.
+
+To find out which features are available, just invoke a program
+using the commandline driver with the \?-help? option. At the
+beginning of the printed text, you will find a short
+configuration summary.
+
+Note that all features are enabled for the precompiled binaries
+that are available from the Gecode webpages.
+}
+
+
+
+\begin{litcode}{send more money de-mystified}{schulte}
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+#include <gecode/search.hh>
+\begin{litblock}{anonymous}
+
+using namespace Gecode;
+
+\end{litblock}
+class SendMoreMoney : public Space {
+protected:
+  IntVarArray l;
+public:
+  SendMoreMoney(void) : l(*this, 8, 0, 9) {
+    \begin{litblock}{anonymous}
+    IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]),
+           m(l[4]), o(l[5]), r(l[6]), y(l[7]);
+    rel(*this, s != 0);
+    rel(*this, m != 0);
+    distinct(*this, l);
+    \end{litblock}
+    rel(*this,             1000*s + 100*e + 10*n + d
+                         + 1000*m + 100*o + 10*r + e
+              == 10000*m + 1000*o + 100*n + 10*e + y);
+    \begin{litblock}{anonymous}
+    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
+    l.update(*this, share, s.l);
+  }
+  virtual Space* copy(bool share) {
+    return new SendMoreMoney(share,*this);
+  }
+  void print(void) const {
+    std::cout << l << std::endl;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+int main(int argc, char* argv[]) {
+  SendMoreMoney* m = new SendMoreMoney;
+  DFS<SendMoreMoney> e(m);
+  delete m;
+  while (SendMoreMoney* s = e.next()) {
+    s->print(); delete s;
+  }
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+  
+
+
+\begin{litcode}{send most money with cost}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+#include <gecode/search.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class SendMostMoney : public MaximizeSpace {
+protected:
+  IntVarArray l;
+  IntVar money;
+public:
+  SendMostMoney(void)
+    : l(*this, 8, 0, 9), money(*this,0,100000) {
+    \begin{litblock}{anonymous}
+    IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]), m(l[4]), 
+           o(l[5]), t(l[6]), y(l[7]);
+    rel(*this, s != 0);
+    rel(*this, m != 0);
+    distinct(*this, l);
+    rel(*this,             1000*s + 100*e + 10*n + d
+                         + 1000*m + 100*o + 10*s + t
+              == 10000*m + 1000*o + 100*n + 10*e + y);
+    \end{litblock}
+    rel(*this, money == 10000*m + 1000*o + 100*n + 10*e + y);
+    \begin{litblock}{anonymous}
+    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    \end{litblock}
+  }
+  SendMostMoney(bool share, SendMostMoney& s)
+    : MaximizeSpace(share, s) {
+    l.update(*this, share, s.l);
+    money.update(*this, share, s.money);
+  }
+  \begin{litblock}{anonymous}
+  virtual Space* copy(bool share) {
+    return new SendMostMoney(share,*this);
+  }
+  void print(void) const {
+    std::cout << l << std::endl;
+  }
+  \end{litblock}
+  \begin{litblock}{cost function}
+  virtual IntVar cost(void) const {
+    return money;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+int main(int argc, char* argv[]) {
+  SendMostMoney* m = new SendMostMoney;
+  BAB<SendMostMoney> e(m);
+  delete m;
+  while (SendMostMoney* s = e.next()) {
+    s->print(); delete s;
+  }
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+  
+\begin{litcode}{send most money with driver}{schulte}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+class SendMostMoney : public MaximizeScript {
+  \begin{litblock}{anonymous}
+protected:
+  IntVarArray l;
+  IntVar money;
+  \end{litblock}
+public:
+  enum {
+    MODEL_SINGLE, MODEL_CARRY
+  };
+  SendMostMoney(const Options& opt)
+    : l(*this, 8, 0, 9), money(*this,0,100000) {
+    \begin{litblock}{anonymous}
+    IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]), m(l[4]), 
+           o(l[5]), t(l[6]), y(l[7]);
+    rel(*this, s != 0);
+    rel(*this, m != 0);
+    distinct(*this, l);
+    \end{litblock}
+    switch (opt.model()) {
+    case MODEL_SINGLE:
+      \begin{litblock}{anonymous}
+      rel(*this,             1000*s + 100*e + 10*n + d
+                           + 1000*m + 100*o + 10*s + t
+                == 10000*m + 1000*o + 100*n + 10*e + y);
+      \end{litblock}
+      break;
+    case MODEL_CARRY:
+      \begin{litblock}{using carries}
+      {
+        IntVar c0(*this, 0, 1), c1(*this, 0, 1), 
+               c2(*this, 0, 1), c3(*this, 0, 1);
+        rel(*this,      d + t == y + 10 * c0);
+        rel(*this, c0 + n + s == e + 10 * c1);
+        rel(*this, c1 + e + o == n + 10 * c2);
+        rel(*this, c2 + s + m == o + 10 * c3);
+        rel(*this, c3         == m);
+      }
+      \end{litblock}
+      break;
+    }
+    \begin{litblock}{anonymous}
+    rel(*this, money == 10000*m + 1000*o + 100*n + 10*e + y);
+    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  SendMostMoney(bool share, SendMostMoney& s)
+    : MaximizeScript(share, s) {
+    l.update(*this, share, s.l);
+    money.update(*this, share, s.money);
+  }
+  virtual Space* copy(bool share) {
+    return new SendMostMoney(share,*this);
+  }
+  virtual IntVar cost(void) const {
+    return money;
+  }
+  \end{litblock}
+  virtual void print(std::ostream& os) const {
+    os << l << std::endl;
+  }
+};
+
+int main(int argc, char* argv[]) {
+  \begin{litblock}{commandline options}
+  Options opt("SEND + MOST = MONEY");
+  opt.model(SendMostMoney::MODEL_SINGLE, 
+            "single", "use single linear equation");
+  opt.model(SendMostMoney::MODEL_CARRY, 
+            "carry", "use carry");
+  opt.model(SendMostMoney::MODEL_SINGLE);
+  opt.solutions(0);
+  opt.parse(argc,argv);
+  \end{litblock}
+  \begin{litblock}{run script}
+  Script::run<SendMostMoney,BAB,Options>(opt);
+  \end{litblock}
+  return 0;
+}
+\end{litcode}
+  

@@ -1,0 +1,39 @@
+Crossword
+	swaps*aruba*clara*clods
+	paraphrased*haves*lucia
+	extraordinariness*oscar
+	neil*paint*andre*fatima
+	dread*gag*are*steak*dan
+	***yukon*brisk*sri*peg*
+	abe*nan*pretend*argonne
+	colony*rainy*orr*salter
+	crepe*verna*sweep*plato
+	rice*aided*pangaea*slid
+	actress*sleet*scala*ice
+	**rancid*ender*tropez**
+	ado*doted*arden*seepage
+	mimi*tobacco*gotos*stun
+	irene*rivet*latin*foist
+	decked*tit*cairn*demote
+	echelon*susanne*cat*nor
+	*tar*was*sores*comic***
+	son*peppy*bus*san*draco
+	tribal*eaves*marco*iran
+	racer*heterogeneousness
+	atari*odell*interrogate
+	pelts*essay*guard*beset
+
+
+
+Initial
+	propagators: 913
+	branchers:   1
+
+Summary
+	runtime:      48.828 (48828.000000 ms)
+	solutions:    1
+	propagations: 1766493
+	nodes:        9716
+	failures:     4819
+	peak depth:   165
+	peak memory:  41930 KB

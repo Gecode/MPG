@@ -1,0 +1,883 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Domain propagation}
+\label{chap:p:domain}
+
+The propagators in previous chapters use simple modification
+operations on variable views in that only a single integer
+defines how a view's domain is changed. When programming
+propagators that perform more elaborate domain reasoning, these
+modification operations are typically insufficient as they easily
+lead to incorrect and inefficient propagators.
+
+To conveniently program efficient propagators that perform domain
+reasoning, Gecode offers modification operations that take entire
+sets of integers as arguments. To be efficient, these sets are not
+implemented as a typical set data structure but as
+\emph{iterators}: the integers (or entire ranges of integers) can
+be iterated in increasing order (smallest first). 
+
+\paragraph{Overview.}
+
+This chapters motivates why special domain operations on variable
+views are needed (\autoref{sec:p:domain:crash}) and demonstrates
+how iterators are used for domain propagation
+(\autoref{sec:p:domain:iter} and
+\autoref{sec:p:domain:iterators}). \autoref{sec:p:domain:med} and
+\autoref{sec:p:domain:staging} describe modification event deltas
+and staging for efficiently combining bounds with domain
+propagation.
+
+
+\section{Why domain operations are needed}
+\label{sec:p:domain:crash}
+
+\begin{figure}
+\insertlitcode{incorrect domain equal}
+\caption{An incorrect propagator for domain equal}
+\label{fig:p:domain:incorrect}
+\end{figure}
+
+Let us consider an attempt to implement domain propagation for an
+equality constraint on views \?x0? and \?x1?. The idea for
+pruning is simple: only keep those values of \?x0?
+and \?x1? that are common to the domains of both \?x0? and \?x1?.
+This leads to a first version of a domain equality propagator as
+shown in \autoref{fig:p:domain:incorrect}. Beware, the ``propagator''
+is not only naive but also incorrect: it will crash Gecode!
+
+The propagator uses iterators of type \?Int::ViewValues? to
+iterate over the values of an integer view in increasing order
+(the template argument defines the type of the view to iterate
+on).  The increment operator \?++? moves the iterator to the next
+value, the application operator \?()? tests whether the iterator
+has more values to iterate, and the function \?val()? returns the
+iterator's current value.  The reason why the propagator will
+crash is simple: it uses the iterator \?i? for iterating over the
+values of \?x0? and modifies the domain of \?x0? while iterating!
+This is illegal: when using an iterator for a view, the view
+cannot be modified (or, in \CPP{} lingua: modifying the variable
+invalidates the iterator).
+
+One idea how to fix this problem is to use a temporary data
+structure in which the newly computed intersection domain is
+stored.  That is not very tempting: allocating and initializing
+an intermediate data structure is costly.
+
+But even then, the approach is flawed from the beginning: a
+single \?nq()? operation on a view has linear runtime in the size
+of the view's domain (actually, in the length of its range
+sequence, see below). As potentially a linear number of \?nq()?
+operations are executed, the propagator will have quadratic
+complexity even though it should have linear (as the values of
+the domains are available in strictly increasing order).
+
+
+
+\section{Iterator-based modification operations}
+\label{sec:p:domain:iter}
+
+\begin{figure}
+\insertlitcode{naive domain equal}
+\caption{A naive propagator for domain equal}
+\label{fig:p:domain:naive}
+\end{figure}
+
+\autoref{fig:p:domain:naive} shows a working, yet still naive,
+implementation of an equality propagator performing domain
+reasoning. Note that the \?cost()? function is overridden: even
+though the propagator is binary, it now incurs a higher cost due
+to the domain operations to be performed. The \?propagate()?
+function uses two \emph{range iterators} for iterating over the
+range sequence of the domains of \?x0? and \?x1?. For the
+definition of a range sequence, see \autoref{sec:m:int:iter}.
+
+A \emph{range iterator} for a range sequence $s=\rseqc{n}{m}{k}$
+is an object that provides iteration over $s$: each of the
+$\range{m_i}{n_i}$ can be obtained in sequential order but only
+one at a time. A range iterator provides the following
+operations: the application operator \?()? tests whether there
+are more ranges to iterate, the increment operator \?++? moves to
+the next range, the function \?min()? (\?max()?) returns the
+smallest (largest) value of the current range, and the function
+\?width()? returns the \emph{width} of the current range (that
+is, its number of elements) as an unsigned integer.
+
+The motivation to iterate over range sequences rather than
+individual values is efficiency: as there are typically less
+ranges than indvidual values, iteration over ranges can be more
+efficient. Moreover, many operations are sufficiently easy to
+express in terms of ranges rather than values (see
+\autoref{sec:p:domain:iterators} for an example).
+
+\paragraph{Iterator-based modification operations.}
+
+The propagator uses two modification operations for range
+iterators: \?x1.inter_r()? intersects the current domain of \?x1?
+with the set defined by the range iterator \?r0? for \?x0?. After
+this operation (provided no failure occurred), the view \?x1? has
+the correct domain: the intersection of the domains of \?x0? and
+\?x1?. The operation \?x0.narrow_r()? replaces the current domain
+of \?x0? by the set defined by the range iterator \?r1? (which
+iterates the intersection of the domains of \?x0? and \?x1?).
+
+A third operation available for range iterators is \?minus_r()?
+which removes the values as described by the range iterator
+passed as argument.
+
+Instead of using range iterators for modification operations, one
+can also use value iterators instead. Similarly, a view provides
+operations \?inter_v()?, \?narrow_v()?, and \?minus_v()? for
+intersecting, replacing, and removing values.
+
+\tip{Narrow is dangerous}{The \?narrow_r()? operation used in the
+  above example is dangerous (as is the \?narrow_v()? operation).
+  As discussed in \autoref{sec:p:started:obligations}, a
+  propagator must be contracting: the domain of a view is only
+  allowed to get smaller. If \?narrow_r()? is used incorrectly,
+  then one could actually replace the view's domain by a larger domain.
+
+In the above example, the propagator is contracting: \?r1?
+refers to the intersection of \?x0? and \?x1?, which of course
+has no more values than \?x0?.}
+
+\tip{Iterators must be increasing}{
+The range sequence iterated by a range iterator \emph{must} be
+sorted in increasing order and \emph{must} not overlap as
+described above. Otherwise, domain operations using range
+iterators become incorrect.
+
+For value iterators, the values must be increasing in value with
+iteration. But it is okay if the same value is iterated over
+multiply. That is, the values must be increasing but not
+necessarily strictly increasing.  }
+
+\paragraph{Avoiding shared iterators.}
+
+The problem that made our attempt to implement propagation for
+equality in \autoref{sec:p:domain:crash} incorrect is to use
+iterators for iterating over views that are simultaneously
+modified.
+
+Iterator-based modification operations automatically take care of
+potential sharing between the iterator they use and the view
+domain they update. By default, an iterator-based modification
+operation assumes that iterator and domain are shared. The
+operation first constructs a new domain and iterates to the end
+of the iterator.  Only then the old domain is replaced by the newly
+constructed domain. In many cases, however, there is no sharing
+between iterator and domain and the operations could be performed
+more efficiently by in-place update operations on the domain.
+
+\begin{figure}
+\insertlitcode{non-shared domain equal}
+\caption{A propagator for domain equal without sharing}
+\label{fig:p:domain:nonshared}
+\end{figure}
+
+In our example, there is no sharing if the views \?x0? and \?x1?
+do not refer to the very same variable implementation. If they
+do, the propagator should not even be posted as it is subsumed
+anyway (views of the same type referring to the same variable
+implementation are trivially equal).
+\autoref{fig:p:domain:nonshared} shows the propagator post
+function of an improved propagator for equality: the propagator
+is posted only if \?x0? and \?x1? do not refer to the same
+variable implementation.  The \?propagate()? function is improved
+by giving an additional \?false? argument to both \?inter_r()?
+and \?narrow_r()?. Hence, the two operations use more efficient
+operations performing in-place updates on domains.
+
+
+\section{Taking advantage of iterators}
+\label{sec:p:domain:iterators}
+
+This section shows how the combination of simple iterators can
+help in implementing domain propagation. 
+
+Suppose that we want to implement a close variant of the equality
+constraint, namely $x=y+c$ for integer variables $x$ and $y$ and
+some integer value $c$. It is easy to see that the new domain for
+$x$ must be all values of $x$ intersected with the values
+$\setc{n+c}{n\in y}$. Likewise, the new domain for $y$ must be
+all values of $y$ intersected with the values $\setc{n-c}{n\in
+  x}$. But how can we implement these simple
+propagation rules?
+
+\paragraph{Mapping range sequences.}
+
+Assume a range sequence $\seqc{\range{m_i}{n_i}}{i=0}{k}$ for the
+values in the domain of $y$. Then, what we want to compute is a
+range sequence $$\seqc{\range{m_i+c}{n_i+c}}{i=0}{k}.$$ With other
+words, we want to map the first into the second range sequence.
+Luckily, this is easy. Suppose that \?r? is a range iterator for
+the view \?y?. A range iterator for our desired
+range sequence can be constructed using the \?Iter::Range::Map?
+iterator and an object that describes how to map the ranges of
+\?r? to the desired ranges.
+
+For this, we define the following class:
+\insertlitcode{domain equal with offset:offset map}
+
+\?OffsetMap? defines to which values the minimum (\?min()?) and
+the maximum (\?max()?) of each input range must be mapped. Using
+\?OffsetMap?, we can construct a range iterator \?m? for our
+desired sequence by
+\begin{code}
+OffsetMap om(c);
+Iter::Ranges::Map<Int::View::Ranges<Int::IntView>,
+                  OffsetMap> m(r,om);
+\end{code}
+
+\begin{figure}
+\insertlitcode{domain equal with offset}
+\caption{A propagator for domain equal with offset}
+\label{fig:p:domain:offset}
+\end{figure}
+
+With the help of the map range iterator, propagation for
+\?OffsetEqual? as shown in \autoref{fig:p:domain:offset} is
+straightforward. Note that several functions need to be modified
+to deal with the additional integer constant \?c? used by the
+propagator (the details can be inspected by downloading
+the full program code). Further note that the constraint post
+function is slightly to liberal in that it does not check whether
+the values with the integer constant \?c? added exceed the limits
+for legal integer values.
+
+While the propagator is reasonably easy to construct using map
+iterators, \autoref{sec:p:views:int:offset} shows how to obtain
+exactly the same propagator without any programming effort but
+the implementation of an additional constraint post function.
+
+\paragraph{Using and defining iterators.}
+
+Gecode comes with a multitude of range and value iterators to
+transform range and value sequences of other iterators. These
+iterators are defined in the namespace
+\gecoderef[namespace]{Iter}. Range iterators are defined in
+the namespace \gecoderef[namespace]{Iter::Ranges} and value
+iterators in the namespace
+\gecoderef[namespace]{Iter::Values}. Example iterators include:
+iterators to convert value into range iterators and vice versa,
+iterators to compute the union and intersection, iterators to
+iterate over arrays and bitsets, just to name a few.
+
+But even if the predefined iterators are not sufficient, it is
+straightforward to implement new iterators: the only
+requirement is that they implement the appropriate interface
+mentioned above for range or value iterators. The namespace
+\gecoderef[namespace]{Iter} contains a multitude of simple and
+advanced examples.
+
+\paragraph{Benefits of iterators.}
+
+The true benefit of using iterators for performing value or range
+transformations is that the iterator-based domain modification
+operation with which an iterator is used is automatically
+specialized at compile time. Typically, no
+intermediate data structures are created and the modification
+operations are optimized at compile time for each individual
+iterator.\footnote{Some predefined iterators actually have to
+  resort to intermediate data structures. For example,
+  iterators that need to revert the order of its values or ranges
+  (think of a value iterator for values that are the
+  negation of values of some other value iterator).}
+
+A scenario where this in particular matters is when iterators are
+used as \emph{adaptors} of a propagator-specific data structure. Assume
+that a propagator uses a specific (typically, quite involved)
+data structure to perform propagation. Most often this data
+structure encodes in some form which views should take which
+values. Then, one can implement simple iterators that inspect the
+propagator-specific data structure and provide the information
+about values for views so that they can be used directly with
+iterator-based modification operations. Again, intermediate
+data structures are avoided by this approach.
+
+
+
+\section{Modification event deltas}
+\label{sec:p:domain:med}
+
+There is a rather obvious approach to improving the efficiency of
+domain operations performed by propagators: make the domains as
+small as possible! One typical approach to reduce the size of the
+domains is to perform bounds propagation first. After bounds
+propagation, the domains are likely to be smaller and hence the
+domain operations are likely to be more efficient.
+
+For propagating equality, the simplest idea is to first perform
+bounds propagation for equality as discussed in
+\autoref{sec:p:avoid:eqbnd}, directly followed by domain
+propagation. However, we can improve further by exploiting an
+additional token of information about the views of a propagator
+that is supplied to both the \?cost()? and \?propagate()?
+function of a propagator.
+
+The \?cost()? and \?propagate()? functions of a propagator take an
+additional \emph{modification event delta} value of type
+\?ModEventDelta? (see \gecoderef[group]{TaskActor}) as argument.
+Every propagator maintains a modification event delta that
+describes how its views have changed since the last time the
+propagator has been executed. For each view type
+(that is, integer, Boolean, set, $\ldots$) a modification event
+delta stores a modification event that can be extracted from the
+modification event delta: If \?med? is a modification event delta, then
+\?Int::IntView::me(med)? returns the modification event for
+integer views.
+
+The extracted modification event describes how all views of a
+certain view type have changed. For example, for integer
+views, the modification event \?Int::ME_INT_VAL? signals that
+there is at least one integer view that has been assigned
+since the propagator has been executed last (analogous for
+\?Int::ME_INT_BND? and \?Int::ME_INT_DOM?). Even the modification
+event \?Int::ME_INT_NONE? carries some information: none of the
+propagator's integer views have been modified (which, of
+course, can only happen if the propagator also uses views of
+some other type).
+
+\begin{figure}
+\insertlitcode{domain equal using bounds propagation}
+\caption{A propagator for domain equal using bounds propagation}
+\label{fig:p:domain:bounds}
+\end{figure}
+
+\autoref{fig:p:domain:bounds} shows a propagator that combines
+both bounds and domain propagation for propagating equality. It
+first extracts the modification event for integer views from the
+modification event delta \?med?. Only if the bounds (that is,
+modification events \?Int::ME_INT_VAL? or \?Int::ME_INT_BND?,
+hence different from \?Int::ME_INT_DOM?) have changed for at
+least one of the views \?x0? and \?x1?, the propagator performs
+bounds propagation.
+
+After performing bounds propagation, the propagator checks
+whether it is subsumed. Then it does some more fixpoint
+reasoning: if the domains of \?x0? and \?x1? are ranges (that is,
+they do not have holes), the propagator is at fixpoint.
+Otherwise, domain propagation is done as shown before.
+
+
+\section{Staging}
+\label{sec:p:domain:staging}
+
+Taking the perspective of a single propagator, first performing
+bounds propagation directly followed by domain propagation seems
+to be appropriate. However, when taking into account that some
+other cheap propagators (at least cheaper than performing domain
+propagation by this propagator) might already be able to take
+advantage of the results of bounds propagation, it might actually
+be better to postpone domain propagation and give cheaper
+propagators the opportunity to execute. This idea is known as
+\emph{staging} and has been introduced in
+Gecode~\cite[Section~7]{SchulteStuckey:TOPLAS:2008}.  Note that
+staging is not limited to bounds and domain propagation
+but captures any stages in propagation that differ in cost.
+
+Here, we focus on staging for first performing bounds
+propagation (stage ``bounds'') and then domain propagation (stage
+``domain'') for equality. Additionally, a propagator can be idle
+(stage ``idle''). The stage of a propagator is controlled by how
+its modification event delta changes:
+\begin{itemize}
+\item Initially, the propagator is idle, its modification event
+  delta is empty, and the propagator is in stage ``idle''.
+\item When the modification event delta for integer views changes
+  to \?Int::ME_INT_DOM? and the propagator is in stage ``idle'',
+  the propagator is put into stage ``domain'' with high
+  propagation cost.
+\item When the modification event delta for integer views changes
+  to \?Int::ME_INT_VAL? or \?Int::ME_INT_BND?, the propagator is
+  put into stage ``bounds'' with low propagation cost.
+  
+  Note that this in particular includes the case where the
+  modification event delta for integer views has been
+  \?Int::ME_INT_DOM? and where the propagator had already been in
+  stage ``domain''. As soon as the modification event delta
+  changes to \?Int::ME_INT_BND? or \?Int::ME_INT_VAL? the
+  propagator is put into stage ``bounds''.
+\end{itemize}
+
+By the very construction of modification event deltas, the
+modification event delta for integer views can neither change
+from \?Int::ME_INT_VAL? to \?Int::ME_INT_BND? nor from
+\?Int::ME_INT_BND? (or \?Int::ME_INT_VAL?) to \?Int::ME_INT_DOM?.
+That is, if the equality propagator using staging is in stage
+``bounds'' it stays in that stage until it is executed.
+
+\begin{figure}
+\center
+\newcommand{\boxit}[1]{%
+\rnode{#1}{\fcbox{GecodeRed}{\makebox[2cm][c]{$\strut$#1}}}}
+\begin{tabular}{c@{\qquad\qquad\qquad\qquad}c@{\qquad\qquad\qquad\qquad}c}
+\\\\\\
+\boxit{idle}&\boxit{domain}&\boxit{bounds}\\
+\\\\\\
+\end{tabular}
+\ncline[nodesep=3pt,linewidth=1.5pt,linecolor=GecodeBlue]{->}{idle}{domain}%
+\Aput{\texttt{DOM}}%
+\ncline[nodesep=3pt,linewidth=1.5pt,linecolor=GecodeBlue]{->}{domain}{bounds}%
+\Aput{\texttt{BND}, \texttt{VAL}}%
+\ncarc[nodesep=3pt,arcangle=25,linewidth=1.5pt,linecolor=GecodeBlue]{->}{idle}{bounds}%
+\Aput{\texttt{BND}, \texttt{VAL}}%
+\ncarc[nodesep=3pt,arcangle=25,linewidth=1.5pt,linecolor=GecodeGreen]{->}{bounds}{domain}%
+\Aput{\?propagate()?}%
+\ncarc[nodesep=3pt,arcangle=25,linewidth=1.5pt,linecolor=GecodeGreen]{->}{domain}{idle}%
+\Aput{\?propagate()?}%
+\caption{Stage transitions for the equality propagator}
+\label{fig:p:domain:transitions}
+\end{figure}
+
+When the propagator is executed, it can be either in stage
+``bounds'' or stage ``domain''. If it is executed in stage
+``bounds'', it performs bounds propagation and then returns that
+it wants to be put into stage ``domain''. The essential point is that
+the propagator does not continue with domain propagation but gives other
+propagators the opportunity to execute first. If the propagator is
+executed in stage ``domain'', it performs domain propagation and
+returns that it is at fixpoint (and hence the propagator is put
+into stage ``idle''). \autoref{fig:p:domain:transitions}
+summarizes the stage transitions, where a blue transition is
+triggered by a change in the modification event delta
+(\?Int::ME_INT_DOM? is abbreviated by \?DOM? and so on) and a green
+transition is performed be executing the propagator.
+
+\paragraph{Rescheduling propagators.}
+
+The cost of a propagator depends on its modification event delta.
+This connection goes even further: only if the modification event
+delta of a propagator changes, a propagator is rescheduled
+according to its cost by recomputing the \?cost()? function.
+
+Not recomputing cost each time a propagator might be scheduled is
+done for two reasons. First, the number of possibly expensive
+cost computations is reduced. Second, always rescheduling would
+also violate the fairness among all propagators already scheduled
+with same cost. If a propagator is scheduled often, it would be
+penalized as its execution would be deferred.
+
+\autoref{sec:p:advisors:force} discusses a technique to force
+rescheduling of a propagator, irrespective of its modification
+event delta.
+
+\paragraph{Controlling staging by modification event deltas.}
+
+\begin{figure}
+\insertlitcode{domain equal using staging}
+\caption{A propagator for domain equal using staging}
+\label{fig:p:domain:staging}
+\end{figure}
+
+The \?cost()? function and the essential parts of the \?propagate()?
+function of a propagator that uses staging to combine bounds and
+domain propagation for equality are shown in
+\autoref{fig:p:domain:staging}.
+
+The \?cost()? function returns the cost based on the modification
+event delta \?med?: if \?med? only includes \?Int::ME_INT_DOM?,
+then the propagator returns that next time it executes, it executes at
+high-binary cost (according to stage ``domain''). Otherwise, the
+propagator returns that next time it executes, it executes at low-binary
+cost (according to stage ``bounds'').
+
+The \?propagate()? function is almost identical to the function
+shown in the previous section. The only difference is that
+\?propagate()? returns after having performed bounds
+propagation. The call to \?ES_FIX_PARTIAL()? specifies that the
+current propagator \?*this? has computed a partial fixpoint for
+all modification events but \?Int::ME_INT_DOM?. The function
+\?Int::IntView::med? creates a modification event delta from a
+modification event for integer views. As an effect, the
+modification event delta of the current propagator is set to
+include nothing but \?Int::ME_INT_DOM? and the propagator is
+scheduled: as defined by the \?cost()? function, the propagator is
+scheduled for high binary cost. That means that other propagators
+of lower cost might be executed first.
+
+\paragraph{Constructing modification event deltas.}
+
+Every view type provides a static \?med()? function that translates a
+modification event of that view type into a modification event
+delta. Modification event deltas for different view types can be
+combined with the \?|? operator. For example, the following
+expression combines the modification event \?ME_INT_BND? for
+integer views with the modification event \?ME_BOOL_VAL? for
+Boolean views:
+\begin{code}
+Int::IntView::med(ME_INT_BND) | Int::BoolView::med(ME_BOOL_VAL) 
+\end{code}
+Note that only modification event deltas for different view types can
+be combined using \?|?.
+
+
+\begin{litcode}[texonly]{incorrect domain equal}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_DOM> {
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1) {}
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    Int::ViewValues<Int::IntView> i(x0), j(x1);
+    while (i() && j())
+      if (i.val() < j.val()) {
+        GECODE_ME_CHECK(x0.nq(home,i.val())); ++i;
+      } else if (j.val() < i.val()) {
+        GECODE_ME_CHECK(x1.nq(home,j.val())); ++j;
+      } else {
+        ++i; ++j;
+      }
+    while (i()) {
+      GECODE_ME_CHECK(x0.nq(home,i.val())); ++i;
+    }
+    while (j()) {
+      GECODE_ME_CHECK(x1.nq(home,j.val())); ++j;
+    }
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+  }
+};
+\begin{litblock}{anonymous}
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+
+
+\begin{litcode}{naive domain equal}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_DOM> {
+  \begin{litblock}{anonymous}
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+  \end{litblock}
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::HI);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    Int::ViewRanges<Int::IntView> r0(x0);
+    GECODE_ME_CHECK(x1.inter_r(home,r0));
+    Int::ViewRanges<Int::IntView> r1(x1);
+    GECODE_ME_CHECK(x0.narrow_r(home,r1));
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+  }
+};
+\begin{litblock}{anonymous}
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{domain equal with offset}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+\begin{litblock}{offset map}
+class OffsetMap {
+protected:
+  int o;
+public:
+  OffsetMap(int o0) : o(o0) {}
+  int min(int m) const { 
+    return m+o; 
+  }
+  int max(int m) const { 
+    return m+o; 
+  }
+};
+\end{litblock}
+class EqualOffset : 
+  public BinaryPropagator<Int::IntView,Int::PC_INT_DOM> {
+protected:
+  int c;
+  \begin{litblock}{anonymous}
+public:
+  EqualOffset(Home home, Int::IntView x0, Int::IntView x1, int c0) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1),
+      c(c0) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1, int c) {
+    if (same(x0,x1))
+      return (c == 0) ? ES_OK : ES_FAILED;
+    (void) new (home) EqualOffset(home,x0,x1,c);
+    return ES_OK;
+  }
+  virtual size_t dispose(Space& home) {
+    (void) BinaryPropagator<Int::IntView,Int::PC_INT_DOM>::dispose(home);
+    return sizeof(*this);
+  }
+  EqualOffset(Space& home, bool share, EqualOffset& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p),
+      c(p.c) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) EqualOffset(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::HI);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    Int::ViewRanges<Int::IntView> r0(x0);
+    OffsetMap om0(-c);
+    Iter::Ranges::Map<Int::ViewRanges<Int::IntView>,OffsetMap> 
+      mr0(r0,om0);
+    GECODE_ME_CHECK(x1.inter_r(home,mr0,false));
+    Int::ViewRanges<Int::IntView> r1(x1);
+    OffsetMap om1(c);
+    Iter::Ranges::Map<Int::ViewRanges<Int::IntView>,OffsetMap>
+      mr1(r1,om1);
+    GECODE_ME_CHECK(x0.narrow_r(home,mr1,false));
+    \begin{litblock}{anonymous}
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+    \end{litblock}
+  }
+};
+\begin{litblock}{anonymous}
+
+void equal(Home home, IntVar x0, IntVar x1, int c) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(EqualOffset::post(home,x0,x1,c));
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{non-shared domain equal}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_DOM> {
+  \begin{litblock}{anonymous}
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1) {}
+  \end{litblock}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (!same(x0,x1))
+      (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  \begin{litblock}{anonymous}
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::HI);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    Int::ViewRanges<Int::IntView> r0(x0);
+    GECODE_ME_CHECK(x1.inter_r(home,r0,false));
+    Int::ViewRanges<Int::IntView> r1(x1);
+    GECODE_ME_CHECK(x0.narrow_r(home,r1,false));
+    \begin{litblock}{anonymous}
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+    \end{litblock}
+  }
+};
+\begin{litblock}{anonymous}
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{domain equal using bounds propagation}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_DOM> {
+  \begin{litblock}{anonymous}
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (!same(x0,x1))
+      (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+  virtual PropCost cost(const Space&, const ModEventDelta&) const {
+    return PropCost::binary(PropCost::HI);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, 
+                               const ModEventDelta& med) {
+    if (Int::IntView::me(med) != Int::ME_INT_DOM) {
+      do { 
+        GECODE_ME_CHECK(x0.gq(home,x1.min()));
+        GECODE_ME_CHECK(x1.gq(home,x0.min()));
+      } while (x0.min() != x1.min());
+      do {
+        GECODE_ME_CHECK(x0.lq(home,x1.max()));
+        GECODE_ME_CHECK(x1.lq(home,x0.max()));
+      } while (x0.max() != x1.max());
+      if (x0.assigned() && x1.assigned())
+        return home.ES_SUBSUMED(*this);
+      if (x0.range() && x1.range())
+        return ES_FIX;
+    }
+    \begin{litblock}{anonymous}
+    Int::ViewRanges<Int::IntView> r0(x0);
+    GECODE_ME_CHECK(x1.inter_r(home,r0,false));
+    Int::ViewRanges<Int::IntView> r1(x1);
+    GECODE_ME_CHECK(x0.narrow_r(home,r1,false));
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+    \end{litblock}
+  }
+};
+\begin{litblock}{anonymous}
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+
+
+\begin{litcode}{domain equal using staging}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_DOM> {
+  \begin{litblock}{anonymous}
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (!same(x0,x1))
+      (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+  \end{litblock}
+  virtual PropCost cost(const Space&, 
+                        const ModEventDelta& med) const {
+    if (Int::IntView::me(med) != Int::ME_INT_DOM)
+      return PropCost::binary(PropCost::LO);
+    else
+      return PropCost::binary(PropCost::HI);
+  }
+  virtual ExecStatus propagate(Space& home, 
+                               const ModEventDelta& med) {
+    if (Int::IntView::me(med) != Int::ME_INT_DOM) {
+      \begin{litblock}{anonymous}
+      do { 
+        GECODE_ME_CHECK(x0.gq(home,x1.min()));
+        GECODE_ME_CHECK(x1.gq(home,x0.min()));
+      } while (x0.min() != x1.min());
+      do {
+        GECODE_ME_CHECK(x0.lq(home,x1.max()));
+        GECODE_ME_CHECK(x1.lq(home,x0.max()));
+      } while (x0.max() != x1.max());
+      if (x0.assigned() && x1.assigned())
+        return home.ES_SUBSUMED(*this);
+      if (x0.range() && x1.range())
+        return ES_FIX;
+      \end{litblock}
+      return home.ES_FIX_PARTIAL
+        (*this,Int::IntView::med(Int::ME_INT_DOM));
+    }
+    \begin{litblock}{anonymous}
+    Int::ViewRanges<Int::IntView> r0(x0);
+    GECODE_ME_CHECK(x1.inter_r(home,r0,false));
+    Int::ViewRanges<Int::IntView> r1(x1);
+    GECODE_ME_CHECK(x0.narrow_r(home,r1,false));
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else
+      return ES_FIX;
+    \end{litblock}
+  }
+};
+\begin{litblock}{anonymous}
+
+void equal(Home home, IntVar x0, IntVar x1) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Equal::post(home,x0,x1));
+}
+\end{litblock}
+\end{litcode}
+
+
+

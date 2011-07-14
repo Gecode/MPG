@@ -1,0 +1,1364 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Getting started}
+\label{chap:m:started}
+
+This chapter provides a basic overview of how to program,
+compile, link, and execute a constraint model in Gecode. The
+chapter restricts itself to the fundamental concepts available in
+Gecode, the following chapter presents functionality that makes
+programming models more comfortable.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:started:first} explains the basics of how a
+model is programmed in Gecode. This is followed in
+\autoref{sec:m:started:search} by a discussion of how search is
+used to find solutions of a model. How a model is compiled,
+linked, and executed is explained for several different operating
+systems in \autoref{sec:m:started:run}.
+\autoref{sec:m:started:gist} shows how Gist as a graphical and
+interactive search tool can be used for developing constraint
+models. Search for a best
+solution of a model is explained in \autoref{sec:m:started:search-best}.
+
+The chapter also includes an explanation of how to obtain Gecode
+in \autoref{sec:m:started:obtain} which covers both installation
+of binary packages available for some platforms and compilation
+of source packages. There is no need to say, that this section is
+very important reading!
+
+
+\section{A first Gecode model}
+\label{sec:m:started:first}
+
+Models in Gecode are implemented using \emph{spaces}. A space is
+\emph{home} to the \emph{variables}, \emph{propagators}
+(implementations of constraints), \emph{branchers}
+(implementations of branchings, describing
+the search tree's shape, also known as labelings), and --
+possibly -- an \emph{order} determining a best solution during
+search.
+
+Not surprisingly in an object-oriented language such as \CPP, an
+elegant approach to programming a model is by inheritance: a model
+inherits from the class \gecoderef[class]{Space} (implementing
+spaces) and the subclass constructor implements the model. In
+addition to the constructor, a model must implement a copy
+constructor and a copy function such that search for that model
+works (to be discussed later).
+
+\paragraph{Send More Money.}
+
+The model we choose as an example is Send More Money: find
+distinct digits for the letters $S$, $E$, $N$, $D$, $M$, $O$,
+$R$, and $Y$ such that the well-formed equation (no leading
+zeros) $SEND+MORE=MONEY$ holds.
+
+\begin{figure}
+\insertlitcode{send more money}
+\caption{A Gecode model for Send More Money}
+\label{fig:m:started:smm}
+\end{figure}
+
+The program (with some parts yet to be presented) is shown in
+\autoref{fig:m:started:smm}. Note that clicking a blue line
+starting with $\blacktriangleright$ jumps to the corresponding
+code. Clicking {\bfseries\textsc{[download]}} in the upper right
+corner of the program provides access to the complete program
+text.
+
+The program starts by including the relevant Gecode headers. To
+use integer variables and constraints, it includes
+\CppInline{\litstr{<gecode/int.hh>}} and to access search engines
+it includes \CppInline{\litstr{<gecode/search.hh>}}. All Gecode
+functionality is in the scope of the namespace
+\gecoderef[namespace]{Gecode}, for convenience the program makes
+all functionality of the Gecode namespace visible by 
+\?using namespace Gecode?.
+
+As discussed, the model is implemented as the class
+\?SendMoreMoney? inheriting from the class
+\gecoderef[class]{Space}. It declares an array \?l? of integer
+variables and initializes this array to have \?8? newly created
+integer variables as elements, where each variable in the array
+can take values from \?0? to \?9?.  Note that the constructor for
+the variable array \?l? takes the current space (that is,
+\?*this?)  as first argument. This is very common: any function
+that depends on a space takes the current space as argument
+(called \emph{home space})
+Examples are constructors for
+variables and variable arrays, functions that post constraints,
+and functions that post branchings.
+
+To simplify the posting of constraints, the constructor defines a
+variable of type \gecoderef[class]{IntVar} for each letter. Note
+the difference between creating a new integer variable (as done
+with creating the array of integer variables together with
+creating a new integer variable for each array element) and
+referring to the same integer variable through different \CPP{}
+variables of type \gecoderef[class]{IntVar}. This difference is
+discussed in more detail in \autoref{sec:m:integer:var}.
+
+\paragraph{Posting constraints.}
+
+For each constraint there is a \emph{constraint post function} that creates
+\emph{propagators} implementing the constraint (in the
+home space that is passed as argument). 
+
+\tip{\?Space&? versus \?Home?}{
+\label{tip:m:started:home}%
+Actually, when you check the
+  reference documentation, you will see that these functions do
+  not take an argument of type \?Space&? but of type \?Home?
+  instead. An object of type \?Home? actually stores a reference
+  to a space of type \?Space&? (and a reference
+  of type \?Space&? is automatically coerced to an object
+  of type \?Home?). Additionally, a \?Home? object might store
+  other information that is useful for posting propagators and
+  branchers. However, this is nothing you need to be concerned
+  with when modeling with Gecode. Just think that \?Home? reads as
+  \?Space&?. 
+  Using \?Home? is important when programming propagators and
+  branchers, see \autoref{par:p:started:home}.  }
+
+The first constraints to be posted enforce that the equation is
+well formed in that it has no leading zeros:
+\insertlitcode{send more money:no leading zeros}
+
+The family of \?rel? post functions (functions with
+name \?rel? overloaded with different argument types)
+implements simple relation constraints such as equality,
+inequalities, and disequality (see \autoref{sec:m:integer:rel:int}
+and \gecoderef[group]{TaskModelIntRelInt}). The constant
+\?IRT_NQ?  requests a disequality constraint.
+
+All letters are constrained to take pairwise distinct values by
+posting a \?distinct? constraint (also known
+as \?alldifferent? constraint):
+\insertlitcode{send more money:all letters distinct}
+See \autoref{sec:m:integer:distinct} and
+\gecoderef[group]{TaskModelIntDistinct} for more information on
+the \?distinct? constraint.
+
+The constraint that $SEND+MORE=MONEY$ is posted as a linear
+equation where the individual letters are scaled to their
+appropriate decimal positions:
+\insertlitcode{send more money:linear equation}
+
+The \?linear? constraint (which, again, exists in many
+overloaded variants) posts the linear equation (as
+instructed by \?IRT_EQ?)
+$$
+\sum_{i=0}^{|\mathtt{c}|-1} \mathtt{c}_i\cdot\mathtt{x}_i = 0
+$$
+with coefficients \?c?, integer variables \?x?, and right-hand
+side constant
+$0$ (see \autoref{sec:m:integer:linear} and
+\gecoderef[group]{TaskModelIntLI}). Here, $|\mathtt c|$
+denotes the size (the number of elements) of the array \?c?
+(which can be computed by \?c.size()?). Post functions are
+designed to be as general as possible, hence the variant of
+\?linear? that
+takes an array of coefficients and an array of integer variables
+as arguments. Other variants of \?linear? exist that do not take
+coefficients (all coefficients are one) or accept an integer
+variable as the right-hand side instead of an integer constant.
+
+\autoref{sec:m:comfy:expr} demonstrates additional support for
+posting linear expressions constructed from the usual arithmetic
+operators such as \?+?, \?-?, and \?*?.
+
+
+\paragraph{Posting branchings.}
+
+Branchings determine the shape of the search tree. Common
+branchings take a variable array of the variables to be assigned
+values during search, a variable selection strategy, and a value
+selection strategy. 
+
+Here, we select the
+variable with a smallest domain size first (\?INT_VAR_SIZE_MIN?) and
+assign the smallest value of the selected variable first
+(\?INT_VAL_MIN?):
+\insertlitcode{send more money:post branching}
+
+A \emph{branching} is implemented by a \emph{brancher} (like a
+constraint is implemented by a propagator). A brancher creates a number of \emph{choices} where each
+choice is defined by a number of \emph{alternatives}. For
+example, the brancher posted above will create as many choices
+as needed to assign all variables in the integer variable array
+\?l?. Each of the choices is based on the variable selected by
+the brancher, say $x$, and the value selected by the brancher,
+say $n$. Then the alternatives of a choice are $x=n$ and $x\neq
+n$ and are tried by search in that order.
+
+A space can have several branchers, where the brancher that is
+posted first is also used first for search. More information on
+branchings can be found in \autoref{sec:m:search:branch}.
+
+\paragraph{Search support.}
+
+As mentioned before, a space must implement an additional \?copy()?
+function that is capable of returning a fresh copy during search.
+Search in Gecode is based on a hybrid of \emph{recomputation} and
+\emph{cloning} (see \autoref{chap:m:search}). Cloning during search
+relies on the capability of a space to create a copy of itself.
+
+To avoid confusion, by \emph{cloning} we refer to the entire
+process of creating a clone of a space. By \emph{copying}, we
+refer to the creation of a copy of a particular object during
+cloning, for example, a variable or a space.
+
+\insertlitcode{send more money:search support}
+
+The actual \?copy()? function is straightforward and uses an
+additional copy constructor. The \?copy()? function is virtual
+such that cloning (used on behalf of a search engine) can create
+a copy of a space even though the space's exact subclass is not
+known to cloning. The Boolean argument \?share? defines whether a
+shared copy is constructed and is of no further interest
+here.\footnote{For the curious reader: a shared (\?share? is
+  \?true?) clone can only be used within the same thread. A clone
+  without sharing (\?share?  is \?false?)  creates a clone where
+  no data structures are shared between original and clone. Hence
+  both original and cloned space can be used in different threads
+  without problems. The appropriate value for \?share? is passed
+  to the \?clone()? member function of a space by a search
+  engine, see also \autoref{sec:s:started:space}.}
+
+The obligation of the copy constructor is that all data
+structures including variables must be copied. For
+\?SendMoreMoney? this amounts to updating the variable array.
+Please keep in mind that the copy constructor is run on the copy
+being created and is passed the space that needs to be copied as
+argument. Hence, updating the variable array \?l? in the copy
+copies the array \?s.l?  from the space \?s? being cloned
+(including all variables contained in the array). More on
+updating variables and variable arrays can be found in
+\autoref{sec:m:integer:update}.
+
+
+\paragraph{Printing solutions.}
+
+Finally, the following prints the
+variable array \?l?:
+\insertlitcode{send more money:print solution}
+
+In a real application, one would use the solution in
+some other parts of the program. The point is that the space acts
+as a \emph{closure} for the solution variables: the space maps
+member names to objects. The space for
+an actual solution is typically different from the space created
+initially.  This is due to the fact that search for a solution
+returns a space that has been obtained by constraint propagation
+and cloning. The space members that refer to the solution
+variables (the member \?l? in our example) provide the means to
+access a solution independent of a particular space.
+
+
+\section{Searching for solutions}
+\label{sec:m:started:search}
+
+Let us assume that we want to search for all solutions and that
+search is controlled by the main function of our program. Search
+consists of two parts:
+\begin{itemize}
+\item create a model and a search engine for that model; and
+\item use the search engine to find all solutions.
+\end{itemize}
+Hence, our main function looks as follows:
+\insertlitcode{send more money:main function}
+
+Creating a model is almost obvious: create an object of the
+subclass of \gecoderef[class]{Space} that implements the model.
+Then, create a search engine (we will be using a search engine
+\gecoderef[class]{DFS} for depth-first search) and initialize it
+with a model. Search engines are generic with respect to the type
+of model, implemented as a template in \CPP. Hence, we use a
+search engine of type \?DFS<SendMoreMoney>? for the model
+\?SendMoreMoney?. 
+
+When the engine is initialized, it takes a clone of the model
+passed to it (\?m? in our example). As the engine takes a clone,
+several engines can be used without recreating the model. As we
+are interested in a single engine, we immediately delete the
+model \?m? after the search engine has been initialized.
+
+\insertlitcode{send more money:create model and search engine}
+
+\tip{Propagation is explicit}{%
+\label{tip:m:started:status}
+\begin{samepage}
+A common misconception is that constraint propagation is
+performed as soon as a space is created or as soon as a
+constraint is posted. Executing the following code
+\begin{code}
+SendMoreMoney* m = new SendMoreMoney;
+m->print();
+\end{code}
+\end{samepage}
+\begin{samepage}
+prints
+\begin{cmd}
+{[1..9], [0..9], [0..9], [0..9], [1..9], [0..9], [0..9], [0..9]}
+\end{cmd}
+\end{samepage}
+That is, only very simple and cheap propagation (nothing but modifying the
+domain of some variables) has been performed.
+
+Constraint propagation is \emph{explicit} and must be requested
+by the \?status()? member function of a space (the function also
+returns information about the result of propagation but this is
+of no concern here). Requesting propagation by
+\begin{code}
+(void) m->status();
+m->print();
+\end{code}
+prints
+\begin{cmd}
+{9, [4..7], [5..8], [2..8], 1, 0, [2..8], [2..8]}
+\end{cmd}
+}
+
+A search engine first performs constraint propagation as only
+spaces that have been propagated can be cloned (so as to not
+duplicate propagation for the original and for the clone).
+
+The \?DFS<SendMoreMoney>? search engine has a simple interface:
+the engine features a \?next()? function that returns the next
+solution or \?NULL? if no more solutions exist. As we are
+interested in all solutions, a while loop iterates over all
+solutions that are found by the search engine:
+\insertlitcode{send more money:search and print all solutions}
+
+As you can see, a solution is nothing but a model again. A search
+engine ensures that constraint propagation is performed and that
+all variables are assigned as described by the branching(s) of
+the model passed to the search engine. When a search engine
+returns a model, the responsibility to delete the solution model is
+with the client of the search engine.
+
+It is straightforward to see how one would search for a single
+solution instead: replace \?while? by \?if?.
+\gecoderef[class]{DFS} is but one search engine and the behavior
+of a search engine can be configured (for example: how cloning or
+recomputation is used; how search can be interrupted) and it can
+be queried for statistical information. Search engines are
+discussed in more detail in \autoref{chap:m:search}.
+
+\tip{Catching Gecode exceptions}{%
+  Posting constraints, posting branchings, creating variables, and
+  so on with Gecode might throw exceptions (for example,
+  potential numerical overflow, illegal use of arguments). It is
+  good practice to construct your programs right from the start
+  to catch all these exceptions.
+
+  That is, you should wrap the entire body of the main function
+  but the \?return? statement into a \?try? statement as follows:
+\begin{code}
+try {
+  ...
+} catch (Exception e) {
+  std::cerr << "Gecode exception: " << e.what() << std::endl;
+  return 1;
+}
+return 0;
+\end{code}
+  Even though this is good practice, the example programs in this
+  document do not follow this advice, so as to keep the programs more
+  readable.
+}
+
+\section{Compiling, linking, and executing}
+\label{sec:m:started:run}
+
+This section assumes that you have Gecode with the right version
+(this document uses Gecode~\GecodeVersion) already installed on
+your computer. If that is not the case, you should visit the
+\AURL{http://www.gecode.org/download.html}{download section} on
+Gecode's website and read \autoref{sec:m:started:obtain} on how
+to install and/or compile Gecode. 
+
+Naturally, the following sections are platform-specific.
+
+\subsection{Microsoft Visual Studio}
+\label{sec:m:started:windows}
+
+Gecode uses a technique called auto-linking with Visual Studio:
+by including Gecode header files, the compiler/linker knows which
+library and DLL must be linked against. Hence, it is sufficient
+to provide information to the compiler where the libraries
+reside.
+
+The library and DLL names encode the Gecode version, the platform
+(\?x86?, \?x64?, or \?ia64?), and whether Gecode has been built
+as release (optimized) or debug. That has the advantage that a
+single set of header files can be shared among different
+platforms and builds and the appropriate libraries and DLLs are
+selected automatically.
+
+In the following we assume that you are using one of the pre-compiled
+Windows packages we provide (see \autoref{sec:m:started:install:windows}). The packages define the environment
+variable \?%GECODEDIR%? where Gecode has been installed, and 
+update the \?Path? environment variable so that Gecode DLLs are
+found for execution.
+
+\paragraph{Commandline.}
+
+In the following we assume that you use the Visual Studio Command
+Prompt.  When compiling and linking with \?cl?, you have to take
+the following into account:
+\begin{itemize}
+\item As Gecode uses exceptions, you have to add \?/EHsc? as
+  option on the commandline.
+\item You have to link dynamically against multithreaded
+  libraries. That is, you have to add to the commandline either
+  \?/MD? (release build) or \?/MDd? (debug build).
+\item If you want a release build, you need to switch off
+  assertions by defining \?/DNDEBUG?.
+\item You should instruct the compiler \?cl? to search for the
+  Gecode header
+  files by adding \?/I"%GECODEDIR%\include"? as an option.
+\item When using \?cl? for linking, you should add at
+  the very end of the commandline: \?/link /LIBPATH:"%GECODEDIR%\lib"?.
+\item By default, \?cl? warns if \?this? is used in an
+  initializer list (Gecode uses this for the initialization of
+  variables and variable arrays). You can suppress the warning by
+  passing \?/wd4355?.
+\end{itemize}
+
+The full command for compiling \?send-more-money.cpp? as a
+release build (including optimization with \?/Ox?) is
+\begin{cmd}
+cl /DNDEBUG /EHsc /MD /Ox /wd4355 -I"%GECODEDIR%\include" \
+  -c -Fosend-more-money.obj -Tpsend-more-money.cpp
+\end{cmd}
+where the \?\? at the end of a line means that the line actually
+continues on the next line. The following command links the
+program:
+\begin{cmd}
+cl /DNDEBUG /EHsc /MD /Ox /wd4355 -I"%GECODEDIR%\include" \
+  -Fesend-more-money.exe send-more-money.obj \
+  /link /LIBPATH:"%GECODEDIR%\lib"
+\end{cmd}
+
+\paragraph{Integrated development environment.}
+
+When your Microsoft Visual Studio solution uses Gecode, all
+necessary settings can be configured in the properties dialog of
+your solution. We assume that Gecode is installed in the default
+location \?"<GECODEDIR>"?.\footnote{Unfortunately, the development
+environment does
+not resolve \?%GECODEDIR%? automatically. So you have to replace
+\?"<GECODEDIR>"? in the following by the path where Gecode has
+been installed.}
+\begin{itemize}
+\item You must use dynamic linking against a multithreaded
+  library. That is, either \?/MD? (release build) or \?/MDd?
+  (debug build).  Depending on whether \?/MD? or \?/MDd? is used,
+  release or debug libraries and DLLs will be used automatically.
+\item As Gecode uses exceptions, you have to enable
+  \?/EHsc? as option (this is true by default).
+\item If you want a release build, you have to switch off
+  assertions by defining \?/DNDEBUG? (this is true by default).
+\item Configuration Properties, \CPP, General: set the
+  "Additional Include Directories" to include 
+  \?"<GECODEDIR>\include"? as the directory
+  containing the Gecode header files.
+\item Configuration Properties, Linker, General: set the
+  "Additional Library Directories" to 
+  \?"<GECODEDIR>\lib"? as the path containing the
+  libraries.
+\end{itemize}
+
+\tip{Cygwin with Microsoft Visual Studio}{%
+\label{tip:m:started:cygwin}%
+  A setup that works well for us is to install
+  \AURL{http://www.cygwin.com}{Cygwin} and Microsoft Visual
+  Studio (Microsoft distributes a free
+  \AURL{http://www.microsoft.com/Express/}{Express Edition}). 
+  
+  The easiest way to use the Microsoft Visual Studio \CPP{}
+  compiler (\?cl?) from Cygwin is to add a line that loads the
+  file \?vcvarsall.bat? to the
+  \?Cygwin.bat? file that starts Cygwin. The file  \?vcvarsall.bat? comes
+  with Microsoft Visual Studio (for example, it is used to start
+  the Visual Studio Command Prompt). On my machine using Visual
+  \CPP{} 2008 Express Edition, the added line is
+\begin{cmd}
+call "c:\Program Files\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+\end{cmd}
+ 
+  Or, you start the Visual Studio Command Prompt first, and then
+  start the bash shell by hand with
+\begin{cmd}
+chdir c:\Cygwin\bin
+bash --login -i
+\end{cmd}
+  provided that Cygwin is installed in \?c:\Cygwin?.
+}
+
+\subsection{Apple Mac OS}
+
+These compilation instructions assume that you use the Gecode binary package for Mac OS (see \autoref{sec:m:started:install:macos}). If you compiled and installed Gecode from the source package, please read \autoref{sec:m:started:linux}.
+
+\paragraph{Commandline.}
+
+When compiling your code using the \?gcc? compiler (invoking it as \?g++?),
+the Gecode header files are found automatically, they are on the default
+header search path. For linking against the Gecode framework, just add
+\?-framework gecode? as option. Note that only versions 4.2 or better of
+\?gcc? are supported.
+
+The following command compiles and links \?send-more-money.cpp? as a
+release build (including optimization):
+\begin{cmd}
+g++ -O3 -c send-more-money.cpp
+g++ -framework gecode -o send-more-money send-more-money.cpp
+\end{cmd}
+
+\paragraph{XCode.}
+
+You can easily use Gecode within the XCode development
+environment by choosing \emph{Add} $\rhd$ \emph{Existing Frameworks\dots} 
+from the context menu on your target. Then pick the \?gecode? framework from 
+the list. You may have to edit your project settings to choose \emph{Mac~OS~10.5} as the base SDK.
+
+\subsection{Linux and relatives}
+\label{sec:m:started:linux}
+
+On Linux (and similar operating systems), Gecode is installed as
+a set of shared libraries. The default installation directory is
+\?"/usr/local"?, which means that the header files can be found
+in \?"/usr/local/include"? and the libraries in
+\?"/usr/local/lib"?. Depending on your Linux distribution, a
+binary package may have been installed under the \?"/usr"? path
+instead. If you installed Gecode from the source package, you may
+have chosen a different installation directory. For now, assume
+that Gecode is installed in \?"<dir>"?.
+
+\paragraph{Commandline.}
+
+To compile your code using the \?gcc? compiler, you have to add
+the option \?-I<dir>/include? so that \?gcc? can find the header
+files. Note that only versions 4.2 or better of \?gcc? are supported.
+
+For linking, the path has to be given as \?-L<dir>/lib?, and
+in addition the individual Gecode libraries must be linked. You
+always have to link against the support and kernel libraries,
+using \?-lgecodesupport -lgecodekernel?. For the remaining
+libraries, the rule of thumb is that if you include a header file
+\CppInline{\litstr{<gecode/FOO.hh>}}, then \?-lgecodeFOO? must be
+given as a linker option. For instance, if you use integer
+variables and include \CppInline{\litstr{gecode/int.hh}}, you
+have to link using \?-lgecodeint?.
+
+Some linkers require the list of libraries to be sorted such that libraries
+appear before all libraries they depend on. In this case, use the following
+order (and omit libraries you don't use): \?-lgecodeflatzinc?,
+\?-lgecodedriver?, \?-lgecodegist?, \?-lgecodesearch?, \?-lgecodeminimodel?,
+\?-lgecodeset?, \?-lgecodeint?,
+\?-lgecodekernel?, \?-lgecodesupport?.
+
+A complete example for compiling and linking the file
+\?send-more-money.cpp? is as follows.
+
+\begin{cmd}
+g++ -I<dir>/include -c send-more-money.cpp
+g++ -o send-more-money -L<dir>/lib send-more-money.o \
+  -lgecodesearch -lgecodeint -lgecodekernel -lgecodesupport
+\end{cmd}
+The \?\? at the end of a line means that the line actually
+continues on the next line.
+
+In order to run programs that are linked against Gecode, the Gecode libraries must be found on the library path. They either have to be installed in one of the default locations (such as \?/usr/lib?), or the environment variable \?LD_LIBRARY_PATH? has to be set to include \?<dir>/lib?.
+
+\paragraph{Eclipse development environment.}
+
+If you use the \AURL{http://www.eclipse.org/}{Eclipse IDE} with
+the \AURL{http://www.eclipse.org/cdt/}{CDT} (C/\CPP\ development
+tools), you have to configure the paths to the Gecode header
+files and libraries.
+
+In the \emph{Project} menu, select the \emph{Properties} dialog. Under \emph{GCC
+\CPP{} Compiler}, add \?<dir>/include? to the \emph{Directories}. Under \emph{GCC
+\CPP{} Linker}, add \?<dir>/lib? to the \emph{Library search path}, and the Gecode
+libraries you have to link against to the \emph{Libraries} field.
+
+In order to run programs that link against Gecode from within the Eclipse CDT,
+select \emph{Open Run Dialog} from the \emph{Run} menu. Either add a new launch
+configuration, or modify your existing launch configuration. In the
+\emph{Environment} tab, add the environment variable
+\?LD_LIBRARY_PATH=<dir>/lib?.
+
+\tip{Eclipse on Windows and Mac OS}{%
+  If you use Eclipse on Windows or Mac OS, the procedure should
+  be similar, except that you do not have to add the environment
+  variable to the launch configuration, and on Windows you do not
+  need to specify the libraries to link against.
+}
+
+
+\section{Using Gist}
+\label{sec:m:started:gist}
+
+\begin{figure}
+\insertlitcode{send more money with gist}
+\caption{Using Gist for Send More Money}
+\label{fig:m:started:gist}
+\end{figure}
+
+When developing a constraint model, the usual outcome of a first
+modeling attempt is that the model has no solutions or
+searching for a solution takes too much time to be feasible. What one
+really needs in these situations is additional insight as to: why
+does
+the model have no solutions, why is propagation not sufficient, or
+why is the branching not appropriate for the problem?
+
+Gecode offers Gist as a graphical and interactive search tool
+with which you can explore any part of the search tree of a model
+step by step or automatically and inspect the nodes of the search
+tree.
+
+Using Gist is absolutely straightforward.
+\autoref{fig:m:started:gist} shows how Gist is used for the Send
+More Money problem. As before, a space \?m? for the model is
+created. This space is passed to Gist, where Gist is instructed
+to work in \?dfs? (depth-first search) mode. The call to
+\?Gecode::dfs? terminates only after Gist's window is closed.
+
+\begin{figure}
+
+{\parindent 0em\mbox{}\hfill
+\includegraphics[width=0.4\textwidth]{images/gist-1}\hfill
+\includegraphics[width=0.4\textwidth]{images/gist-2}\hfill
+\mbox{}}
+
+\caption{Gist screen shots}
+\label{fig:m:started:gist:shot}
+\end{figure}
+
+\autoref{fig:m:started:gist:shot} shows two screenshots of Gist.
+The left-hand side shows how Gist starts (with no node of the
+tree yet explored). The right-hand side shows the fully explored
+search tree of Send More Money.
+
+Gist is so intuitive that our recommendation is to just play a
+little with it. If you want to know more about Gist,
+consult \autoref{chap:m:gist}. 
+
+\begin{figure}
+\insertlitcode{send more money with gist inspection}
+\caption{Using Gist for Send More Money with node inspection}
+\label{fig:m:started:gist-inspect}
+\end{figure}
+
+One additional feature of Gist that comes in handy when
+developing constraint models is to inspect nodes of the search
+tree by double-clicking them.  \autoref{fig:m:started:gist-inspect}
+shows a modified program that instructs Gist to use the \?print()?
+function of \?SendMoreMoney?  whenever a node is double-clicked.
+Note that the print function has been changed to take a standard
+out-stream to print on as argument.
+
+\tip{Gist scales}{%
+Do not be afraid to use Gist even on large problems. You can
+expect that per Gigabyte of main memory, Gist can maintain around
+eight to ten million nodes. And the runtime overhead is low (in our 
+experiments, around 15\% compared to the commandline search engine
+using one thread). Just be sure to increase the display refresh rate
+for larger trees (see \autoref{sec:m:gist:preferences}).
+}
+
+\autoref{sec:m:comfy:driver} explains how to use a commandline
+driver that supports to execute the same constraint model with
+different search engines (for example, \?DFS? or \?Gist?) by
+passing options on the commandline.
+
+\tip{Linking against Gist}{%
+\label{tip:m:started:link-gist}%
+As discussed in \autoref{sec:m:started:run}, when you use Gist on a
+platform (Linux and relatives) that requires to state all
+libraries to link against, you also have to link against the
+library for Gist (that is, for Linux and relatives by adding
+\?-lgecodegist? to the compiler options on the commandline).
+}
+
+\section{Best solution search}
+\label{sec:m:started:search-best}
+
+The last aspect to be discussed in this chapter is how to search
+for a best solution. We are using a model for Send Most Money as
+an example: find distinct digits for the letters $S$, $E$, $N$,
+$D$, $M$, $O$, $T$, and $Y$ such that the well-formed equation
+(no leading zeros) $SEND+MOST=MONEY$ holds and that $MONEY$ is
+maximal.
+
+\begin{figure}[t]
+\insertlitcode{send most money}
+\caption{A Gecode model for Send Most Money finding a best solution}
+\label{fig:m:started:smm-best}
+\end{figure}
+
+Searching for a best solution requires a best solution search
+engine and a function that constrains a space to yield a better
+solution. A Gecode model for Send Most Money is shown in
+\autoref{fig:m:started:smm-best}. The model differs from Send More
+Money only by using a different linear equation and the
+additional \?constrain()? function.
+
+Assume a new solution, say \?b?, is found during best solution
+search: on the current search node \?s? (a space) the member
+function \?constrain()? is called and the so-far best solution \?b?
+is passed as argument (that is, \?s.constrain(b)? is executed).
+The \?constrain()? member function must add a constraint to \?s?
+such that \?s? can only yield a better solution than \?b? during
+search. For Send Most Money, the \?constrain()? member function is
+as follows:
+\insertlitcode{send most money:constrain function}
+
+First, the integer value of \?money? in the so-far best solution
+is computed from the values of the variables. Note that the
+search engine does not know what model it searches a solution
+for. The search engine passes a space \?_b? that the \?constrain?
+member function must cast into a \?SendMostMoney? space. Then the
+constraint is added that a better solution must yield more money.
+
+\paragraph{Using a best solution search engine.}
+
+The main function now uses a branch-and-bound search engine
+rather than a plain depth-first engine:
+\insertlitcode{send most money:main function}
+
+The loop that iterates over all solutions found by the
+branch-and-bound search engine is exactly the same as
+before. That means that solutions are found and printed
+with an increasing value of $MONEY$. The best solution is printed
+last.
+
+The branch-and-bound engine \gecoderef[class]{BAB} calls the
+\?constrain()? member function defined by the model. Note that
+every space defines a default \?constrain()? member function (to
+keep the design of models simple). If a model does not re-define
+the \?constrain()?  member function, the default function will be
+called which throws an exception of type
+\gecoderef[class]{SpaceConstrainUndefined} (as this is a modeling
+error).
+
+Using Gist for best solution search is straightforward. Instead
+of using \?Gist::dfs?, one uses \?Gist::bab? to put Gist into
+branch-and-bound mode.
+
+
+
+\section{Obtaining Gecode}
+\label{sec:m:started:obtain}
+
+This section explains how to obtain Gecode. There are two basic
+options: install Gecode as a binary package (explained in
+\autoref{sec:m:started:install}) or compile Gecode from its
+source (explained in \autoref{sec:m:started:compile} and
+\autoref{sec:m:started:compileadvanced}).
+
+We recommend to use the pre-compiled binaries we provide, unless
+you like to tinker. The advantage of the packages we provide is
+that required and additional software for those platforms not
+having automatic package management (for example, Microsoft
+Windows) and reference documentation in platform-specific format
+are already included.
+
+\subsection{Installing Gecode}
+\label{sec:m:started:install}
+
+Naturally the following sections are platform specific.
+
+\subsubsection{Installing Gecode on Windows}
+\label{sec:m:started:install:windows}
+
+The pre-compiled Gecode binaries available for download require
+Microsoft Visual Studio. Note that Visual Express
+Editions are available free of charge from 
+\AURL{http://www.microsoft.com/Express}{Microsoft}.
+
+Pre-compiled binaries are available for Microsoft Visual
+\CPP~2008 and~2010. The binary
+packages include everything needed (in particular, Qt for Gist).
+
+\tip{Compiling on Windows for \?x86? versus \?x64?}{
+\label{tip:m:started:x86x64}%
+The \AURL{http://www.gecode.org/download.html}{download section}
+on Gecode's website offers Windows packages for two different
+platforms: one for \?x86? (32~bit) and one for \?x64? (64~bit).
+When downloading and installing one of these packages you should
+make sure that the package's platform matches the compiler you are using
+(the Windows platform does not matter). The freely available
+Express Editions of Visual Studio only support \?x86?.
+}
+
+\subsubsection{Installing Gecode on Apple Mac OS}
+\label{sec:m:started:install:macos}
+
+The pre-compiled Gecode binaries for Mac OS require the XCode
+developer tools, version 3.1 or higher. XCode is available from
+the Mac OS install DVD, or from the
+\AURL{http://developer.apple.com/devcenter/mac/index.action}{Apple
+  Mac Dev Center}.
+
+Furthermore, you will have to install a binary package of the Qt
+library. There are pre-compiled packages of the open source
+version of Qt on the
+\AURL{http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x}{Nokia
+  Qt for Mac} web page. You should download and install the Cocoa
+version (you do not need the debug libraries).
+
+After installing these prerequisites, simply download and open
+the Gecode disk image for Mac OS, double-click the installer
+package, and follow the instructions.
+
+\subsubsection{Installing Gecode on Linux and relatives}
+
+The Debian and Ubuntu Linux distributions come with pre-compiled
+packages for Gecode. These packages (and all the packages they
+depend on) can be installed with the usual package management
+tools (for example, \texttt{apt-get}). Note that we do not maintain these
+packages, and that the repositories do not always provide the
+most up-to-date version.
+
+If the Linux distribution of your choice does not provide a
+binary package for Gecode, or does not contain the latest
+version, please refer to the next section for instructions how to
+compile Gecode from the source.
+
+
+\subsection{Compiling Gecode}
+\label{sec:m:started:compile}
+
+Gecode can be built on all recent versions of Windows, Linux, and
+MacOS X. Porting to other Unix flavors should be easy, if any
+change is necessary at all. The Gecode source code is available
+from the \AURL{http://www.gecode.org/download.html}{download
+  section} of the Gecode web site.
+
+\paragraph{Prerequisites.}
+
+In order to compile Gecode, you need a standard Unix toolchain
+including the following programs: a bash-compatible shell, GNU
+make, sed, cp, diff, tar, perl, grep.
+
+These are available in all standard installations of Linux. On
+MacOS X, you need to install the XCode developer tools, version
+3.1 or higher. XCode is available from the Mac OS install DVD, or
+from the
+\AURL{http://developer.apple.com/devcenter/mac/index.action}{Apple
+  Mac Dev Center}. For Windows, we require the
+\AURL{http://www.cygwin.com/}{Cygwin environment} that provides
+all necessary tools (see also \autoref{tip:m:started:cygwin}).
+
+We currently support:
+\begin{itemize}
+\item Microsoft Visual \CPP{} compilers for Windows. The Microsoft
+  Visual \CPP{} Express Edition is available free of charge
+  from \AURL{http://www.microsoft.com/Express}{Microsoft}.
+\item GNU Compiler Collection (gcc) for Windows and Unix flavors
+  such as Linux and MacOS X. The GNU gcc is open source software
+  and available from \AURL{http://gcc.gnu.org/}{the GCC home
+    page}. It is included in all Linux distributions and the
+  Apple MacOS X developer tools.  
+
+  \textbf{Important:} Gecode requires at least
+  version 4.2 of \texttt{gcc}.
+\item Intel \CPP{} compiler, although we do not test the binaries
+  produced by it.
+\end{itemize}
+
+\paragraph{Configuring the sources.}
+
+After unpacking the sources, you need to run the \?configure?
+script in the toplevel directory. This script (which uses GNU
+autoconf) acquires information about the system you try to
+compile Gecode on.
+
+To setup Gecode for your particular system, you may need to add
+one or more of the following options to \?configure?:
+
+\begin{itemize}
+\item When using the GNU compiler gcc on Windows instead of the Microsoft
+   compiler, add
+   \?CC=gcc CXX=g++? to your
+   invocation of \?configure?.
+\item To install Gecode somewhere else than the default
+   \?/usr/local?, please use the commandline \?--prefix=[...]? switch.
+\item You can enable and disable the individual modules Gecode consists of
+   by using \?--enable-[MODULE]? and \?--disable-[MODULE]?.
+\end{itemize}
+
+You can get a list of all supported configuration options by
+calling \?configure? with the \?--help? switch.
+\autoref{sec:m:started:compileadvanced} explains the
+configuration options in more detail, if the defaults do not work
+for you.
+
+\paragraph{Compiling the sources.}
+
+After successful configuration, simply invoking
+\begin{cmd}
+make
+\end{cmd}
+in the toplevel Gecode directory will compile the whole library
+and the examples.
+
+\paragraph{Installation.}
+
+After a successful compilation, you can install the Gecode library
+and all header files necessary for compiling against it by invoking
+\begin{cmd}
+make install
+\end{cmd}
+in the build directory.
+
+\tip{Do not forget the library path}{
+\label{tip:m:started:install:ld}%
+In order to run programs that are linked against Gecode (such as
+the Gecode examples), the libraries must be found on the library
+path. See \autoref{sec:m:started:linux} for details.
+}
+
+
+\paragraph{Running the examples.}
+
+After compiling the examples, they can be run directly from the command
+line. For instance, try the Golomb Rulers Problem:
+
+\begin{cmd}
+./examples/golomb
+\end{cmd}
+or (when running Windows):
+\begin{cmd}
+./examples/golomb.exe
+\end{cmd}
+
+On some platforms, you may need to set environment variables like
+\?LD_LIBRARY_PATH? (Linux) or \?DYLD_LIBRARY_PATH?  (Mac OS) to
+the toplevel compile directory or the installation directory
+(where the dynamic libraries are placed after compilation).
+
+\paragraph{Compilation with Gist.}
+
+The Gecode Interactive Search Tool (Gist) is a graphical search
+engine for Gecode, built on top of the
+\AURL{http://qt.nokia.com/}{Qt GUI toolkit}.
+
+In order to compile Gecode with Gist, you need an installation of
+the Qt library including the development header files. The Qt
+binary packages for Windows and Mac OS (available from
+\AURL{http://qt.nokia.com/}{the Nokia Qt web pages}) as well as
+the Qt packages in the usual Linux distributions contain
+everything that is necessary. You can however also compile Qt
+from its sources, \AURL{http://qt.nokia.com/}{available from
+  Nokia under both free and commercial licenses}.
+
+\textbf{Please note that if you develop closed-source software with Gecode and Gist, you will have to either comply with the LGPL, or obtain a commercial license for Qt from Nokia!}
+
+If you are developing on Windows using the Microsoft Visual \CPP{} compiler,
+make sure to compile the Qt library with the same compiler.
+
+After installing Qt, make sure that the \?qmake? tool is in your
+shell path. The Gecode \?configure? script will then detect the
+presence of Qt and automatically compile with support for Gist.
+
+\subsection{Advanced configuration and compilation}
+\label{sec:m:started:compileadvanced}
+
+If the instructions from the previous section do not work for
+your system, please have a look at the following example
+configurations and advanced options to configure Gecode to your
+needs.
+
+
+\subsubsection{Example configurations}
+
+To compile Gecode on a \textbf{Windows machine using the GNU compiler}, use
+
+\begin{cmd}
+./configure CC=gcc CXX=g++
+\end{cmd}
+
+\noindent To compile only the Gecode library \textbf{without examples} on a Unix machine, use
+
+\begin{cmd}
+./configure --disable-examples
+\end{cmd}
+
+\noindent To compile on a \textbf{Unix machine} using a different than the default
+\?gcc? compiler, and install under \?/opt/gecode?, use
+
+\begin{cmd}
+./configure --prefix=/opt/gecode CC=gcc-4.2 CXX=g++-4.2
+\end{cmd}
+
+\noindent To compile a \textbf{debug build} on Unix, turning on all assertions and not
+inlining anything, use
+
+\begin{cmd}
+./configure --enable-debug
+\end{cmd}
+
+\noindent To compile on \textbf{Cygwin}, but linking against the \textbf{Windows 
+libraries} instead of the Cygwin libraries, use
+
+\begin{cmd}
+./configure CC="gcc-4 -mno-cygwin" CXX="g++-4 -mno-cygwin"
+\end{cmd}
+Note that we only support building static libraries on Cygwin and that
+you cannot use the standard gcc that comes with Cygwin. 
+
+\noindent To compile on a system using a different than the default compiler,
+and a \?/bin/sh? that is not bash compatible (for example, on a
+\textbf{Solaris machine}), use
+
+\begin{cmd}
+./configure --with-host-os=linux \
+      CC="gcc-4.2" CXX="g++-4.2" \
+      SHELL="/bin/bash"
+make SHELL="/bin/bash"
+\end{cmd}
+
+\noindent You can compile as \textbf{universal binary} on a Mac OS
+machine. Configure with
+
+\begin{cmd}
+./configure --with-architectures=i386,ppc
+\end{cmd}
+
+\noindent For building universal binaries on a PowerPC machine, you have to supply the path to the universal SDK (which is the default on Intel based Macs):
+
+\begin{cmd}
+./configure --with-architectures=i386,ppc \
+      --with-sdk=/Developer/SDKs/MacOSX10.4u.sdk
+\end{cmd}
+
+\paragraph{Passing options for compilation.}
+
+Additional options for compilation can be passed to the compiler
+from the make commandline via the variable \?CXXUSR?. For
+example, to pass to \?gcc? the additional option \?-mtune=i686? the following
+can be used:
+
+\begin{cmd}
+make CXXUSR="-mtune=i686"
+\end{cmd}
+
+\paragraph{Compiling in a separate directory.}
+
+The Gecode library can be built in a separate directory. This is useful
+if you do not want to clutter the source tree with all the object files
+and libraries.
+
+Configuring Gecode in a separate directory is easy. Assume that the
+sources can be found in directory \?$GSOURCEDIR?, change to
+the directory where you want to compile Gecode and call
+
+\begin{cmd}
+$GSOURCEDIR/configure [options]
+\end{cmd}
+This will generate all necessary files in the new build directory.
+
+\paragraph{Dependency management.}
+
+The dependencies between source files are not handled automatically. If you
+are using a Gecode version from our subversion repository or if you
+modified any of the source files, you will have to call
+\?make depend? before compilation in order to determine the
+source dependencies.
+
+Dependency management is only needed for recompiling Gecode after changing
+something. In an unmodified version (or after a \?make clean?)
+all files are compiled anyway.
+
+\paragraph{Compiling for unsupported platforms.}
+
+If you want to try compiling Gecode on a platform that we do not
+mention, you can override the platform tests during
+\?configure?. There are two options to specify the type of
+platform:
+
+\begin{itemize}
+\item \?--with-host-os=[linux|darwin|windows]?
+\item \?--with-compiler-vendor=[gnu|microsoft]?
+\end{itemize}
+
+Using the first option, you can state that your platform should behave like
+Linux, Darwin (which is actually BSD), or Windows. This affects mainly
+the filenames and the tools used to generate shared and static libraries.
+
+The second option says
+that your compiler can be used very much like the gnu compiler
+\?gcc?, or the Microsoft compiler \?cl?.
+Please let us know of any successfull attempt at
+compiling Gecode on other platforms.
+
+\subsubsection{Useful Makefile targets}
+
+The main Gecode Makefile supports the following useful targets:
+
+\begin{itemize}
+\item \?all? compiles all parts of the library that were enabled
+                    during \?configure?, and the examples if
+                    enabled.
+\item \?install? installs library, headers and examples (if enabled)
+                        into the \?prefix? given at
+                        \?configure?.
+\item \?clean? removes object files.
+\item \?veryclean? removes object files, libraries, and all files 
+                          generated during \?make?.
+\item \?distclean? removes object files, libraries, and all
+                          generated files.
+\item \?depend? generates dependencies between source files.
+\item \?test? compiles the test suite.
+\item \?doc? generates the reference documentation using doxygen.
+\item \?installdoc? installs the documentation.
+\item \?dist? creates a source distribution as a tgz archive, not 
+   including the contributions found in the \?contribs? directory.
+\item \?distdir? creates a source distribution in a directory, not 
+   including the contributions found in the \?contribs? directory.
+\item \?distdoc? creates tgz and zip archives of the documentation.
+\end{itemize}
+
+\begin{litcode}{send more money}{schulte}
+#include <gecode/int.hh>
+#include <gecode/search.hh>
+
+using namespace Gecode;
+
+class SendMoreMoney : public Space {
+protected:
+  IntVarArray l;
+public:
+  SendMoreMoney(void) : l(*this, 8, 0, 9) {
+    IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]),
+           m(l[4]), o(l[5]), r(l[6]), y(l[7]);
+    \begin{litblock}{no leading zeros}
+    rel(*this, s, IRT_NQ, 0);
+    rel(*this, m, IRT_NQ, 0);
+    \end{litblock}
+    \begin{litblock}{all letters distinct}
+    distinct(*this, l);
+    \end{litblock}
+    \begin{litblock}{linear equation}
+    IntArgs c(4+4+5); IntVarArgs x(4+4+5);
+    c[0]=1000; c[1]=100; c[2]=10; c[3]=1;
+    x[0]=s;    x[1]=e;   x[2]=n;  x[3]=d;
+    c[4]=1000; c[5]=100; c[6]=10; c[7]=1;
+    x[4]=m;    x[5]=o;   x[6]=r;  x[7]=e;
+    c[8]=-10000; c[9]=-1000; c[10]=-100; c[11]=-10; c[12]=-1;
+    x[8]=m;      x[9]=o;     x[10]=n;    x[11]=e;   x[12]=y;
+    linear(*this, c, x, IRT_EQ, 0);
+    \end{litblock}
+    \begin{litblock}{post branching}
+    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    \end{litblock}
+  }
+  \begin{litblock}{search support}
+  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
+    l.update(*this, share, s.l);
+  }
+  virtual Space* copy(bool share) {
+    return new SendMoreMoney(share,*this);
+  }
+  \end{litblock}
+  \begin{litblock}{print solution}
+  void print(void) const {
+    std::cout << l << std::endl;
+  }
+  \end{litblock}
+};
+
+\begin{litblock}{main function}
+int main(int argc, char* argv[]) {
+  \begin{litblock}{create model and search engine}
+  SendMoreMoney* m = new SendMoreMoney;
+  DFS<SendMoreMoney> e(m);
+  delete m;
+  \end{litblock}
+  \begin{litblock}{search and print all solutions}
+  while (SendMoreMoney* s = e.next()) {
+    s->print(); delete s;
+  }
+  \end{litblock}
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+  
+\begin{litcode}{send more money with gist}{schulte}
+#include <gecode/int.hh>
+#include <gecode/gist.hh>
+
+using namespace Gecode;
+
+class SendMoreMoney : public Space {
+  \begin{litblock}{anonymous}
+protected:
+  IntVarArray l;
+public:
+  SendMoreMoney(void) : l(*this, 8, 0, 9) {
+    IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]),
+           m(l[4]), o(l[5]), r(l[6]), y(l[7]);
+    rel(*this, s, IRT_NQ, 0);
+    rel(*this, m, IRT_NQ, 0);
+    distinct(*this, l);
+    IntArgs c(4+4+5); IntVarArgs x(4+4+5);
+    c[0]=1000; c[1]=100; c[2]=10; c[3]=1;
+    x[0]=s;    x[1]=e;   x[2]=n;  x[3]=d;
+    c[4]=1000; c[5]=100; c[6]=10; c[7]=1;
+    x[4]=m;    x[5]=o;   x[6]=r;  x[7]=e;
+    c[8]=-10000; c[9]=-1000; c[10]=-100; c[11]=-10; c[12]=-1;
+    x[8]=m;      x[9]=o;     x[10]=n;    x[11]=e;   x[12]=y;
+    linear(*this, c, x, IRT_EQ, 0);
+    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+  }
+  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
+    l.update(*this, share, s.l);
+  }
+  virtual Space* copy(bool share) {
+    return new SendMoreMoney(share,*this);
+  }
+  void print(void) const {
+    std::cout << l << std::endl;
+  }
+  \end{litblock}
+};
+
+int main(int argc, char* argv[]) {
+  SendMoreMoney* m = new SendMoreMoney;
+  Gist::dfs(m);
+  delete m;
+  return 0;
+}
+\end{litcode}
+  
+\begin{litcode}{send more money with gist inspection}{schulte}
+#include <gecode/int.hh>
+#include <gecode/gist.hh>
+\begin{litblock}{anonymous}
+
+using namespace Gecode;
+
+\end{litblock}
+class SendMoreMoney : public Space {
+  \begin{litblock}{anonymous}
+protected:
+  IntVarArray l;
+public:
+  SendMoreMoney(void) : l(*this, 8, 0, 9) {
+    IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]),
+           m(l[4]), o(l[5]), r(l[6]), y(l[7]);
+    rel(*this, s, IRT_NQ, 0);
+    rel(*this, m, IRT_NQ, 0);
+    distinct(*this, l);
+    IntArgs c(4+4+5); IntVarArgs x(4+4+5);
+    c[0]=1000; c[1]=100; c[2]=10; c[3]=1;
+    x[0]=s;    x[1]=e;   x[2]=n;  x[3]=d;
+    c[4]=1000; c[5]=100; c[6]=10; c[7]=1;
+    x[4]=m;    x[5]=o;   x[6]=r;  x[7]=e;
+    c[8]=-10000; c[9]=-1000; c[10]=-100; c[11]=-10; c[12]=-1;
+    x[8]=m;      x[9]=o;     x[10]=n;    x[11]=e;   x[12]=y;
+    linear(*this, c, x, IRT_EQ, 0);
+    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+  }
+  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
+    l.update(*this, share, s.l);
+  }
+  virtual Space* copy(bool share) {
+    return new SendMoreMoney(share,*this);
+  }
+  \end{litblock}
+  void print(std::ostream& os) const {
+    os << l << std::endl;
+  }
+};
+
+int main(int argc, char* argv[]) {
+  SendMoreMoney* m = new SendMoreMoney;
+  Gist::Print<SendMoreMoney> p("Print solution");
+  Gist::Options o;
+  o.inspect.click(&p);
+  Gist::dfs(m,o);
+  delete m;
+  return 0;
+}
+\end{litcode}
+
+
+
+\begin{litcode}{send most money}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+#include <gecode/search.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class SendMostMoney : public Space {
+  \begin{litblock}{anonymous}
+protected:
+  IntVarArray l;
+public:
+  SendMostMoney(void) : l(*this, 8, 0, 9) {
+    IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]), m(l[4]), 
+           o(l[5]), t(l[6]), y(l[7]);
+    rel(*this, s, IRT_NQ, 0);
+    rel(*this, m, IRT_NQ, 0);
+    distinct(*this, l);
+    IntArgs c(4+4+5); IntVarArgs x(4+4+5);
+    c[0]=1000; c[1]=100; c[2]=10; c[3]=1;
+    x[0]=s;    x[1]=e;   x[2]=n;  x[3]=d;
+    c[4]=1000; c[5]=100; c[6]=10; c[7]=1;
+    x[4]=m;    x[5]=o;   x[6]=s;  x[7]=t;
+    c[8]=-10000; c[9]=-1000; c[10]=-100; c[11]=-10; c[12]=-1;
+    x[8]=m;      x[9]=o;     x[10]=n;    x[11]=e;   x[12]=y;
+    linear(*this, c, x, IRT_EQ, 0);
+    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+  }
+  SendMostMoney(bool share, SendMostMoney& s) : Space(share, s) {
+    l.update(*this, share, s.l);
+  }
+  virtual Space* copy(bool share) {
+    return new SendMostMoney(share,*this);
+  }
+  void print(void) const {
+    std::cout << l << std::endl;
+  }
+  \end{litblock}
+  \begin{litblock}{constrain function}
+  virtual void constrain(const Space& _b) {
+    const SendMostMoney& b = static_cast<const SendMostMoney&>(_b);
+    IntVar e(l[1]), n(l[2]), m(l[4]), o(l[5]), y(l[7]);
+    IntVar b_e(b.l[1]), b_n(b.l[2]), b_m(b.l[4]), 
+           b_o(b.l[5]), b_y(b.l[7]);
+    int money = (10000*b_m.val()+1000*b_o.val()+100*b_n.val()+
+                 10*b_e.val()+b_y.val());
+    IntArgs c(5); IntVarArgs x(5);
+    c[0]=10000; c[1]=1000; c[2]=100; c[3]=10; c[4]=1;
+    x[0]=m;     x[1]=o;    x[2]=n;   x[3]=e;  x[4]=y;
+    linear(*this, c, x, IRT_GR, money);
+  }
+  \end{litblock}
+};
+
+\begin{litblock}{main function}
+int main(int argc, char* argv[]) {
+  SendMostMoney* m = new SendMostMoney;
+  BAB<SendMostMoney> e(m);
+  \begin{litblock}{anonymous}
+  delete m;
+  while (SendMostMoney* s = e.next()) {
+    s->print(); delete s;
+  }
+  return 0;
+  \end{litblock}
+}
+\end{litblock}
+\end{litcode}
+  

@@ -1,0 +1,35 @@
+Crossword
+	ajar*alga*acne*chad
+	lobe*coin*cool*ainu
+	baud*toni*coal*rene
+	anthropomorphic*rat
+	***ears*ada**papa**
+	essays*old*disburse
+	acids*gas*face*scab
+	sam**ink*aries**hub
+	trudeau*guess*maids
+	**lean*array*marc**
+	later*bleak*jackass
+	ida**sages*dan**lac
+	lana*ulan*gab*helga
+	amenable*bad*bunyan
+	**odds**ail*dent***
+	abu*disambiguations
+	rash*dana*load*tree
+	ella*ends*erne*lace
+	amyl*days*eyed*elks
+
+
+
+Initial
+	propagators: 598
+	branchers:   1
+
+Summary
+	runtime:      0.820 (820.000000 ms)
+	solutions:    1
+	propagations: 35193
+	nodes:        300
+	failures:     94
+	peak depth:   144
+	peak memory:  17608 KB

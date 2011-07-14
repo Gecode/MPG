@@ -1,0 +1,657 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Modeling convenience: MiniModel}
+\label{chap:m:minimodel}
+
+This chapter provides an overview of modeling convenience
+implemented by MiniModel. MiniModel (see
+\gecoderef[group]{TaskModelMiniModel}) provides some little
+helpers to the constraint modeler. However, it does not offer any
+new constraints or branchers.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:minimodel:exprrel} surveys how constraints
+represented by integer, Boolean, and set expressions and
+relations can be posted. How matrix interfaces for arrays can be
+defined and used is discussed in
+\autoref{sec:m:minimodel:matrix}. Support for defining cost
+functions for cost-based optimization is presented in
+\autoref{sec:m:minimodel:optimize}. Regular expressions for
+expressing extensional constraints are discussed in
+\autoref{sec:m:minimodel:reg}. \autoref{sec:m:minimodel:channel}
+surveys channeling functions, whereas \autoref{sec:m:minimodel:intalias} and \autoref{sec:m:minimodel:setalias} discuss aliases for some commonly used constraints.
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/minimodel.hh>
+\end{code}
+to your program when you want to use MiniModel. Note that
+the same conventions hold as in \autoref{chap:m:int}.
+\end{important}
+
+\section{Expressions and relations}
+\label{sec:m:minimodel:exprrel}
+
+The main part of MiniModel consists of overloaded operators and
+functions that provide a more natural syntax for posting
+constraints. These operators can be used in two slightly
+different ways. You can post a relation, or create a new variable
+from an expression.
+
+For example, the following code creates a fresh integer variable
+\?z? that is costrained to be equal to the given
+\emph{expression} \?3*x-4*y+2?, where both \?x?
+and \?y? are integer variables:
+\begin{code}
+IntVar z=expr(home, 3*x-4*y+2);
+\end{code}
+An important aspect of posting an expression is that the returned
+variable is initialized with a reasonably small variable domain,
+see \autoref{tip:m:integer:beautifuldomains}.
+
+A \emph{relation} can be posted using the \?rel? function, which
+posts the corresponding constraints and consequently returns
+\?void?. Assume that \?z? is an integer variable, then
+\begin{code}
+rel(home, z == 3*x-4*y+2);
+\end{code}
+posts the same constraint as in the previous example.
+
+MiniModel provides syntax for expressions and relations over
+integer, Boolean, and set variables, which can be freely mixed.
+For example, the following code snippet returns a Boolean
+variable that is true if and only if $\{\mathtt x\}\subseteq
+\mathtt s$ and $|\mathtt s|=\mathtt y$, where $\mathtt x$ and
+$\mathtt y$ are integer variables, and $\mathtt s$ is a set
+variable:
+\begin{code}
+BoolVar b = expr(home, (singleton(x) <= s) && (cardinality(s) == y));
+\end{code}
+
+The rest of this section presents the different ways to construct expressions and relations, grouped by the type of the expressions.
+
+\subsection{Integer expressions and relations}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{rcl@{\quad}l}
+$\NLE$ & $::=$ & $\NINT$ & integer value\\
+       & $|$   & $\NVAR$ & integer or Boolean variable\\
+       & $|$   & $\operatorname{\texttt{-}}\NLE$ & unary minus \\
+       & $|$   & $\NLE \mathbin{\texttt{+}} \NLE$ & addition\\
+       & $|$   & $\NLE \mathbin{\texttt{-}} \NLE$ & subtraction\\
+       & $|$   & $\NLE \mathbin{\texttt{*}} \NLE$ & multiplication\\
+       & $|$   & $\texttt{sum(}\NVARS\texttt{)}$ & sum of integer
+       or Boolean variables\\
+       & $|$   & $\texttt{sum(}\NINTS\texttt{,}\NVARS\texttt{)}$ & sum of integer
+       or Boolean variables\\&&& with integer coefficients\\
+       & $|$   & $\operatorname{\texttt{min}}(\NLE,\NLE)$ & minimum\\
+       & $|$   & $\operatorname{\texttt{min}}(\NVARS)$ & minimum of integer variables\\
+       & $|$   & $\operatorname{\texttt{max}}(\NLE,\NLE)$ & maximum\\
+       & $|$   & $\operatorname{\texttt{max}}(\NVARS)$ & maximum of integer variables\\
+       & $|$   & $\operatorname{\texttt{abs}}(\NLE)$ & absolute value\\
+       & $|$   & $\operatorname{\texttt{sqr}}(\NLE)$ & square\\
+       & $|$   & $\operatorname{\texttt{sqrt}}(\NLE)$ & square root\\
+       & $|$   & $\NLE \operatorname{\texttt{/}} \NLE$ & integer division\\
+       & $|$   & $\NLE \operatorname{\texttt{\%}} \NLE$ & modulo\\
+       & $|$   & $\operatorname{\texttt{element}}(\NVARS,\NLE)$ & array element of integer variables\\
+       & $|$   & $\operatorname{\texttt{element}}(\NINTS,\NLE)$ & array element of integers\\
+       & $|$   & $\operatorname{\texttt{min}}(\NSE)$ & minimum of a set expression\\
+       & $|$   & $\operatorname{\texttt{max}}(\NSE)$ & maximum of a set expression\\
+       & $|$   & $\operatorname{\texttt{cardinality}}(\NSE)$ & cardinality of a set expression\\
+\\
+$\NLR$ & $::=$ & $\NLE \mathrel{\NREL} \NLE$ & relation\\
+\\
+$\NREL$ & $::=$ & 
+\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
+\texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
+\texttt{>} $\;|\;$ \texttt{>=}
+& relation symbol\\
+$\NVARS$ & $::=$ & \multicolumn{2}{l}{array of integer or Boolean variables}\\
+$\NINTS$ & $::=$ & \multicolumn{2}{l}{array of integers}\\
+\end{tabular}
+\end{center}
+\caption{Integer expressions and relations}
+\label{fig:m:minimodel:integer}
+\end{figure}
+
+Integer expressions (i.e., expressions that evaluate to an integer) are constructed according to the structure sketched in \autoref{fig:m:minimodel:integer}. We use the standard \CPP{}
+operators (for an example, see
+\autoref{sec:m:comfy:expr}), as well as several functions with intuitive names such as \?min? or \?max?. Integer expressions and relations can
+be constructed over integer, Boolean, and set variables. 
+In Gecode, integer expressions are of type \gecoderef[class]{LinExpr}, which
+are constructed using \gecoderef[group]{TaskModelMiniModelLin},
+\gecoderef[group]{TaskModelMiniModelArith}, and some
+\gecoderef[group]{TaskModelMiniModelSet}.
+
+Even arrays of variables (possibly with integer argument arrays
+as coefficients) can
+be used for posting some expressions and relations. For
+example, if \?x? and \?y? are integer variables and \?z? is an
+array of integer variables, then
+\begin{code}
+rel(home, x+2*sum(z) < 4*y);
+\end{code}
+posts a single linear constraint that involves all variables from
+the array \?z?.
+
+As long as an expression is \emph{linear} (i.e., it can be represented as $\sum a_i\cdot x_i$ where the $a_i$ are integers and $x_i$ are integer or Boolean variables), the constraint posted for the expression will be as few \?linear? constraints as possible (see \autoref{sec:m:integer:linear}) to ensure maximal constraint propagation.\footnote{In case a linear
+  expression has only integer variables or only Boolean
+  variables, a single \?linear? constraint is posted. If the
+  expression contains both integer and Boolean variables, two
+  \?linear? constraints are posted.}
+
+\emph{Non-linear} expressions, such as a multiplication of two variables, are handled by MiniModel using \emph{decomposition}. For example, posting the constraint
+\begin{code}
+rel(home, a+b*(c+d) == 0);
+\end{code}
+for integer variables \?a?, \?b?, \?c?, and \?d? is equivalent to the decomposition
+\begin{code}
+IntVar tmp0 = expr(home, c+d);
+IntVar tmp1 = expr(home, b*tmp0);
+rel(home, a+tmp1 == 0);
+\end{code}
+
+Like the post functions for integer and Boolean constraints
+presented in \autoref{sec:m:integer:post}, posting integer
+expressions and relations supports an optional argument of type
+\?IntConLevel? to select the consistency level. For more
+information, see \gecoderef[group]{TaskModelMiniModelPost} and 
+\autoref{sec:m:integer:generic}. 
+
+Using the \?expr? function, you can enforce a particular decomposition, and you can specify the consistency level for each subexpression. For example,
+\begin{code}
+rel(home, x+expr(home,y*z,ICL_DOM) == 0);
+\end{code}
+will propagate domain consistency for the multiplication, but bounds consistency (the default) for the sum.
+
+An \?element? expression such as \?element(x,e)?, where \?x? is an array of integers or integer variables, and \?e? is an integer expression, corresponds to an array access \?x[e]?, implemented using an \?element? constraint (see \autoref{sec:m:integer:element}).
+
+MiniModel provides three integer expressions whose arguments are set expressions: the minimum of a set, the maximum of a set, and a set's cardinality. We will see later how set expressions are constructed.
+
+For examples of integer expressions, see 
+\gecoderef[example]{alpha}, \gecoderef[example]{money}, \gecoderef[example]{grocery}, \autoref{chap:c:golomb},
+\autoref{chap:c:warehouses}, and \autoref{sec:m:comfy:expr}.
+
+\subsection{Boolean expressions and relations}
+\label{sec:m:minimodel:bool}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{rcl@{\quad}l}
+$\NBE$ & $::=$ & $\NVAR$ & Boolean variable\\
+       & $|$   & $\operatorname{\texttt{!}}\NBE$ & negation \\
+       & $|$   & $\NBE \mathbin{\texttt{\&\&}} \NBE$ & conjunction\\
+       & $|$   & $\NBE \mathbin{\texttt{||}} \NBE$ & disjunction\\
+       & $|$   & $\NBE \mathbin{\texttt{==}} \NBE$ & equivalence\\
+       & $|$   & $\NBE \mathbin{\texttt{!=}} \NBE$ & non-equivalence\\
+       & $|$   & $\NBE \mathbin{\texttt{>{}>{}}} \NBE$ & implication\\
+       & $|$   & $\NBE \mathbin{\texttt{<{}<{}}} \NBE$ & reverse implication\\
+       & $|$   & $\NBE \mathbin{\texttt{\^{}}} \NBE$ & exclusive or\\
+       & $|$   & $\operatorname{\texttt{element}}(\NVARS,\NLE)$ & array element of Boolean variables\\
+       & $|$   & $\NLR$ & reified integer relation\\
+       & $|$   & $\NSR$ & reified set relation
+\end{tabular}
+\end{center}
+\caption{Boolean expressions}
+\label{fig:m:minimodel:bool}
+\end{figure}
+
+\gecoderef[group]{TaskModelMiniModelBool} are constructed using
+standard \CPP{} operators according to the structure sketched in 
+\autoref{fig:m:minimodel:bool}.
+
+Again, the purpose of a Boolean expression or relation is to
+post a corresponding constraint for it
+(see \gecoderef[group]{TaskModelMiniModelPost}). Posting a Boolean
+expression returns a new Boolean variable that is
+constrained to the value of the expression. Several constraints
+might be posted for a single expression, however as few
+constraints as possible are posted. For example, all negation
+constraints are eliminated by rewriting the Boolean expression
+into NNF (negation normal form) and conjunction and
+disjunction constraints are combined whenever possible. 
+
+For example, the Boolean expression \?x && (y >> z)? (to be read
+as $\mathtt{x}\wedge(\mathtt{y}\to\mathtt{z})$) for Boolean
+variables \?x?, \?y?, and \?z? is posted by
+\begin{code}
+BoolVar b=expr(home, x && (y >> z));
+\end{code}
+
+\tip{Boolean precedences}{%
+  Note that the precedences of the Boolean connectives are
+  different from the usual mathematical notation. In \CPP{},
+  operator precedence cannot be changed, so the precedences are
+  as follows (high to low): \?!?, \?<<?, \?>>?,
+  \?==?, \?!=?, \?^?, \?&&?,
+  \?||?. For instance, this means that the expression $b_0
+  \mathbin{\texttt{==}} b_1 \mathbin{\texttt{>{}>{}}}b_2$ will be
+  interpreted as $(b_0\leftrightarrow b_1) \rightarrow b_2$
+  instead of the more canonical $b_0 \leftrightarrow
+  (b_1\rightarrow b_2)$. If in doubt, use parentheses!  
+}
+
+Any Boolean expression $e$ corresponds to the Boolean relation stating that 
+$e$ is true. Posting a Boolean relation posts the corresponding Boolean
+constraint. Using the Boolean expression from above,
+\begin{code}
+rel(home, x && (y >> z));
+\end{code}
+posts that $\mathtt{x}\wedge(\mathtt{y}\to\mathtt{z})$ must be
+true, whereas
+\begin{code}
+rel(home, !(x && (y >> z)));
+\end{code}
+posts that $\mathtt{x}\wedge(\mathtt{y}\to\mathtt{z})$ must be
+false.
+
+A Boolean \?element? expression such as \?element(x,e)?, where \?x? is an array of Boolean variables, and \?e? is an integer expression, corresponds to an array access \?x[e]?, implemented using an \?element? constraint (see \autoref{sec:m:integer:element}).
+
+Boolean expressions include reified integer relations. As an
+example consider the placement of two squares $s_1$ and $s_2$
+such that the squares do not overlap. A well known model for this
+constraint is
+$$\begin{array}{ccccc} 
+  \mathtt{x}_1+\mathtt{d}_1\leq \mathtt{x}_2 & \vee & 
+  \mathtt{x}_2+\mathtt{d}_2\leq \mathtt{x}_1 & \vee \\
+  \mathtt{y}_1+\mathtt{d}_1\leq \mathtt{y}_2 & \vee & 
+  \mathtt{y}_2+\mathtt{d}_2\leq \mathtt{y}_1\\
+\end{array}
+$$
+
+\begin{window}[0,r,{
+\psset{framearc=.0,xunit=16pt,yunit=16pt}%
+\vspace{25pt}%
+\begin{pspicture}(1.5,0)(9.5,8.5)\footnotesize%
+\psframe[fillstyle=solid,linewidth=.1pt,fillcolor=GecodeBlue,opacity=0.20](2,2)(5,5)%
+\psframe[fillstyle=solid,linewidth=.1pt,fillcolor=GecodeGreen,opacity=0.20](6,6)(8,8)%
+\rput(3.5,3.5){$s_1$}%
+\rput(7,7){$s_2$}%
+\rput(2.5,1.5){$\mathtt{x}_1$}\rput(6.5,5.5){$\mathtt{x}_2$}%
+\rput(1.5,2.5){$\mathtt{y}_1$}\rput(5.5,6.5){$\mathtt{y}_2$}%
+\psline{<->}(9,2)(9,5)\rput*(9,3.5){$\mathtt{d}_1$}%
+\psline{<->}(9,6)(9,8)\rput*(9,7){$\mathtt{d}_2$}%
+\end{pspicture}},{}]
+The meaning of the integer variables $\mathtt{x}_i$ and
+$\mathtt{y}_i$, and the integer values $\mathtt{d}_i$ is sketched
+to the right.  The squares do not overlap, if the relative
+position of $s_1$ with respect to $s_2$ is either left, right,
+above, or below.  As soon as one of the relationships is
+established, the squares do not overlap. Please also consult
+\autoref{sec:m:integer:geopacking} for geometrical packing constraints.
+
+\hspace*\parindent With Boolean relations using reified integer relations, the
+constraint that the squares $s_1$ and $s_2$ do not overlap can be
+posted as follows:
+\end{window}
+
+\begin{code}
+rel(home, (x1+d1 <= x2) || (x2+d2 <= x1) ||
+          (y1+d1 <= y2) || (y2+d2 <= y1));
+\end{code}
+
+Like the post functions for integer and Boolean variables
+presented above, posting Boolean
+expressions and relations supports an optional argument of type
+\?IntConLevel? to select the consistency level. For more
+information, see \autoref{sec:m:integer:generic}. 
+
+Boolean expressions also include reified set relations, which will be covered below.
+
+\tip{Reification of non-functional constraints}{%
+Reification of integer or set relations is mostly implemented through \emph{decomposition}. For example, given integer variables \?x?, \?y?, and \?z?, the reified division constraint
+\begin{code}
+rel(home, (x / y == z) == b);
+\end{code}
+is actually equivalent to
+\begin{code}
+IntVar tmp = expr(home, x / y);
+rel(home, (tmp == z) == b);
+\end{code}
+Some constraints, such as division above, are not simple functions but impose side constraints. In the case of the division above, the side constraint is that \?y? is not zero. It is important to understand the subtle semantics of decomposed reification here: If \?y? happens to be zero, we get failure instead of \?b? being constrained to false!
+
+There are several expressions that have non-functional semantics: division, modulo, element, and disjoint set union (introduced below).
+}
+
+For more examples using Boolean expressions and Boolean relations
+including reification, see \autoref{chap:c:photo}.
+
+\subsection{Set expressions and relations}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{rcl@{\quad}l}
+$\NSE$ & $::=$ & $\NVAR$ & set variable\\
+       & $|$   & $\NSET$ & set constant (\?IntSet?)\\
+       & $|$   & $\operatorname{\texttt{-}}\NSE$ & complement \\
+       & $|$   & $\NSE \mathbin{\texttt{\&}} \NSE$ & intersection\\
+       & $|$   & $\NSE \mathbin{\texttt{|}} \NSE$ & union\\
+       & $|$   & $\NSE \mathbin{\texttt{+}} \NSE$ & disjoint union\\
+       & $|$   & $\NSE \mathbin{\texttt{-}} \NSE$ & set difference\\
+       & $|$   & $\operatorname{\texttt{inter}}(\NVARS)$ & intersection of variables\\
+       & $|$   & $\operatorname{\texttt{setunion}}(\NVARS)$ & union of variables\\
+       & $|$   & $\operatorname{\texttt{setdunion}}(\NVARS)$ & disjoint union of variables\\
+       & $|$   & $\operatorname{\texttt{singleton}}(\NLE)$ & singleton given by integer expression\\
+\\
+$\NSR$ & $::=$ & $\NSE \mathbin{\texttt{==}} \NSE $ & expressions are equal\\
+       & $|$   & $\NSE \mathbin{\texttt{!=}} \NSE $ & expressions are not equal\\
+       & $|$   & $\NSE \mathbin{\texttt{<=}} \NSE $ & first is subset of second expression\\
+       & $|$   & $\NSE \mathbin{\texttt{>=}} \NSE $ & first is superset of second expression\\
+       & $|$   & $\NSE \mathbin{\texttt{||}} \NSE $ & expressions are disjoint\\
+\\
+$\NVARS$ & $::=$ & \multicolumn{2}{l}{array of set variables}\\
+\end{tabular}
+\end{center}
+\caption{Set expressions and relations}
+\label{fig:m:minimodel:set}
+\end{figure}
+
+\gecoderef[group]{TaskModelMiniModelSet} are constructed using
+the standard \CPP{} operators and the functions listed in
+\autoref{fig:m:minimodel:set}. Just like for integer and Boolean
+expressions, posting of a set expression returns a new set
+variable that is constrained to the value of the expression. 
+
+For
+example, the set expression \?x & (y | z)? (to be read as
+$\mathtt{x}\cap(\mathtt{y}\cup\mathtt{z})$) for set variables
+\?x?, \?y?, and \?z? is posted by
+\begin{code}
+SetVar s = expr(home, x & (y | z));
+\end{code}
+
+Posting a set relation posts the corresponding constraint. Given
+an existing set variable \?s?, the previous code fragment could
+therefore be written as
+\begin{code}
+rel(home, s == (x & (y | z)));
+\end{code}
+
+As noted above, set relations can be reified, turning them into Boolen expressions. The following code posts the constraint that \?b? is true if and only if \?x? is the complement of \?y?:
+\begin{code}
+BoolVar b = expr(home, (x == -y));
+\end{code}
+
+\begin{samepage}
+Intead of a set variable, you can always use a constant \?IntSet?, for example for reifying the fact that \?x? is empty:
+\begin{code}
+BoolVar b = expr(home, (x == IntSet::empty));
+\end{code}
+The subset relations can also be posted two-sided, such as
+\begin{code}
+rel(home, IntSet(0,10) <= x <= IntSet(0,20));
+\end{code}
+\end{samepage}
+
+\section{Matrix interface for arrays}
+\label{sec:m:minimodel:matrix}
+
+MiniModel provides a \gecoderef[class]{Matrix} support class for
+accessing an array as a two dimensional matrix. The following
+\begin{code}
+IntVarArgs x(n*m);
+...
+Matrix<IntVarArgs> mat(x, n, m);
+\end{code}
+declares an array of integer variables \?x? and superimposes a matrix
+interface to \?x? called \?mat? with width \?n? and height \?m?. Note
+that the first argument specifies the number of columns, and the
+second argument specifies the number of rows.
+
+\begin{samepage}
+The elements of the array can now be accessed at positions $\langle
+i,j\rangle$ in the matrix \?mat? (that is, the element in column $i$
+and row $j$) using
+\begin{code}
+IntVar mij = mat(i,j);
+\end{code}
+\end{samepage}
+Furthermore, the rows and columns of the matrix can be accessed using
+\?mat.row(i)? and \?mat.col(j)?. If a rectangular slice is required,
+the \?slice()? member function can be used. 
+
+A matrix interface can be declared for any standard array or argument
+array used in Gecode, such as \?IntVarArray? or \?IntSetArgs?. 
+
+As an example of how the \?Matrix? class can be used, consider
+the Sudoku problem (see \gecoderef[example]{sudoku}). Given that
+there is a member \?IntVarArray x? that contains $9\cdot 9$
+integer variables with domain $\{1,\ldots,9\}$, the following code
+posts constraints that implement the basic rules for a Sudoku.
+\begin{code}
+Matrix<IntVarArray> m(x, 9, 9);
+
+for (int i=0; i<9; i++)
+  distinct(home, m.row(i));
+for (int i=0; i<9; i++)
+  distinct(home, m.col(i));
+for (int i=0; i<9; i+=3)
+  for (int j=0; j<9; j+=3)
+    distinct(home, m.slice(i, i+3, j, j+3));
+\end{code}
+
+For more examples that use the \?Matrix? class, see
+\autoref{chap:c:crossword}, \autoref{chap:c:golf},
+\autoref{chap:c:kakuro}, \autoref{chap:c:nonogram},
+\gecoderef[example]{magic-square}, and
+\gecoderef[example]{nonogram}.
+
+\paragraph{Element constraints.}
+\label{par:m:minimodel:matrix:element}
+
+A matrix can also be used with an element constraint that
+propagates information about the row and column of matrix
+entries.
+
+For example, the following code assumes that \?x? is an integer
+array of type \?IntArgs? with \?12? elements.
+\begin{code}
+Matrix<IntArgs> m(x, 3, 4);
+IntVar r(home,0,1024), c(home,0,1024), v(home,0,1024);
+element(home, m, r, c, v);
+\end{code}
+constrains the variable \?v? to the value at position 
+$\langle \mathtt{r},\mathtt{c}\rangle$ of the matrix \?m?.
+
+\tip{Element for matrix can compromise propagation}{%
+  
+  Whenever it is possible one should use an array rather than a
+  matrix for posting \?element? constraints, as an \?element?
+  constraint for a matrix will provide rather weak propagation
+  for the row and column variables.
+
+  Consider the following array of integers \?x? together with its
+  matrix interface \?m?
+\begin{code}
+IntArgs x(4, 0,2,2,1);
+Matrix<IntArgs> m(x,2,2);
+\end{code}
+  That is, \?m? represents the matrix
+$$
+\left(
+\begin{array}{cc}0&2\\2&1\\\end{array}
+\right)
+$$
+
+Consider the following example using an \?element? constraint on
+an integer array:
+\begin{code}
+IntVar i(home,0,8), v(home,0,1);
+element(home, x, i, v);
+\end{code}
+After performing propagation, \?i? will be constrained to the set
+$\{0,3\}$ (as $2$ is not included in the values of \?v?).
+
+Compare this to propagating an \?element? constraint over the
+corresponding matrix as follows:
+\begin{code}
+IntVar r(home,0,8), c(home,0,8), v(home,0,1);
+element(home, m, r, c, v);
+\end{code}
+Propagation of \?element? will determine that only the fields
+$\langle 0,0\rangle$ and $\langle 1,1\rangle$ are still
+possible. But propagating this information to the row and
+column variables, yields the values $\{0,1\}$ for both
+\?r? and \?c?: each value for the coordinates is still possible
+even though some of their combinations are not.
+}
+
+\section{Support for cost-based optimization}
+\label{sec:m:minimodel:optimize}
+
+\gecoderef[group]{TaskModelMiniModelOptimize} provides two
+subclasses of \?Space?, \?MinimizeSpace? and \?MaximizeSpace? to
+search for a solution of minimal and maximal, respectively, cost.
+In order to use these abstract classes, a class inheriting from
+them must implement a virtual cost function of type
+\begin{code}
+virtual IntVar cost(void) const { ... }
+\end{code}
+The function must return an integer variable for the cost. 
+For an example, see \autoref{sec:m:comfy:cost}.
+
+\tip{Cost must be assigned for solutions}{%
+  In case the \?cost()? function is called on a \emph{solution},
+  the variable returned by \?cost()? \emph{must} be assigned. If
+  the variable is unassigned for a solution, an exception of type
+  \gecoderef[class]{Int::ValOfUnassignedVar} is thrown.
+}
+
+
+\section{Regular expressions for extensional constraints}
+\label{sec:m:minimodel:reg}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{operation} & 
+\multicolumn{1}{c|}{meaning}\\
+\hline\hline
+\?REG r? & 
+   initialize \?r? as $\epsilon$ (empty)\\
+\?REG r(4)? &
+   initialize \?r? as single integer (symbol) \?4?\\
+\?REG r(IntArgs(3, 0,2,4))? &
+   initialize \?r? as alternative of integers 
+   $\mathtt 0 | \mathtt 2 | \mathtt 4 $\\
+\hline
+\?r + s? & \?r? followed by \?s?\\
+\?r | s? & \?r? or \?s?\\
+\hline
+\?r += s? & efficient shortcut for \?r = r + s? \\
+\?r |= s? & efficient shortcut for \?r = r | s? \\
+\hline
+\?*r? & repeat \?r? arbitrarily often (Kleene star)\\
+\?+r? & repeat \?r? at least once\\
+\?r(n)? & repeat \?r? at least \?n? times\\
+\?r(n,m)? & repeat \?r? at least \?n? times, at most \?m? times\\
+\hline
+\end{tabular}
+\end{center}
+\caption[Constructing regular expressions]{Constructing regular
+  expressions (\?r? and \?s? are regular expressions, \?n? and
+  \?m? are integers)}
+\label{fig:m:minimodel:reg}
+\end{figure}
+
+Regular expressions are implemented as instances of the class
+\gecoderef[class]{REG} and provide an alternative, typically
+more convenient, interface for the specification of extensional
+constraints than DFAs do. The construction of regular expressions
+is summarized in \autoref{fig:m:minimodel:reg}.
+
+\begin{samepage}
+Let us reconsider the Swedish drinking protocol
+from \autoref{sec:m:integer:extensional}. The protocol can be
+described by a regular expression \?r? constructed by
+\begin{code}
+REG r = *REG(0) + *(REG(1) + +REG(0));
+\end{code}
+A sequence of activities \?x? (an integer or Boolean
+variable array) can be constrained by
+\begin{code}
+DFA d(r);
+extensional(home, x, d);
+\end{code}
+after a DFA for the regular expression has been computed.
+\end{samepage}
+
+\tip{Creating a DFA only once}{%
+Please make it a habit to create a DFA explicitly from a regular
+expression \?r? rather than implicitly by 
+\begin{code}
+extensional(home, x, r);
+\end{code}
+
+Both variants work, however the implicit variant disguises the
+fact that each time the code fragment is executed, a new DFA for
+the regular expression \?r? is computed (think about the code
+fragment being executed inside a loop and your \CPP{} compiler
+being not too smart about it)!\footnote{The integer module cannot know
+  anything about regular expressions. Hence, it is impossible in \CPP{}
+  to avoid the implicit conversion. This is due to the fact that
+  the conversion is controlled by a type operator (that must
+  reside in the MiniModel module) and not by a constructor that
+  could be made \?explicit?.}}
+
+For examples on using regular expressions for extensional
+constraints, see the nonogram case study in
+\autoref{chap:c:nonogram} or the examples
+\gecoderef[example]{domino}, \gecoderef[example]{nonogram}, and
+\gecoderef[example]{pentominoes}. The models are based on ideas
+described in \cite{LagerkvistPesant:BPPC:2008}, where regular
+expressions for extensional constraints nicely demonstrate their
+usefulness.
+
+
+\section{Channeling functions}
+\label{sec:m:minimodel:channel}
+
+\gecoderef[group]{TaskModelMiniModelChannel} are functions to
+channel a Boolean variable to an integer variable and vice versa, and to channel between integer variables and a set variable.
+For an integer variable \?x?,
+\begin{code}
+channel(home, x);
+\end{code}
+returns a new Boolean variable that is equal to \?x?. Likewise, for a
+Boolean variable \?x? an equal integer variable is returned.
+
+For an array of integer variables \?x?, \?channel(home, x)? returns a set variable equal to all the integers in \?x?.
+
+\section{Aliases for integer constraints}
+\label{sec:m:minimodel:intalias}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c|}{alias} &
+\multicolumn{1}{c|}{constraint posted} \\
+\hline\hline
+\?atmost(home, x, u, v);? & \?count(home, x, u, IRT_LQ, v);? 
+\\
+\?atleast(home, x, u, v);? & \?count(home, x, u, IRT_GQ, v);? 
+\\
+\?exactly(home, x, u, v);? & \?count(home, x, u, IRT_EQ, v);? 
+\\\hline
+\?lex(home, x, r, y);? & \?rel(home, x, r, y);?
+\\\hline
+\end{tabular}
+\end{center}
+\caption[Aliases for integer constraints]{Aliases for integer constraints (\?x? and \?y? are integer variable
+  arrays, \?u? and \?v? are integers or integer variables, \?r?
+  is an integer relation type)}
+\label{fig:m:minimodel:alias}
+\end{figure}
+
+\gecoderef[group]{TaskModelMiniModelIntAlias} provide some
+popular aliases. \autoref{fig:m:minimodel:alias} lists the
+aliases and their corresponding definitions.
+
+\section{Aliases for set constraints}
+\label{sec:m:minimodel:setalias}
+
+\?channel(home, x, y)? is an alias for \?rel(home, SOT_UNION, x, y)?, posting the constraint that \?y? is exactly the set of integers $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$.

@@ -1,0 +1,35 @@
+Crossword
+	abater*attic*aright
+	cabana*rhine*monroe
+	clinic*greta*manama
+	odd*defoe*islam*ham
+	sled*dana*mien*wage
+	tyson*indians*gamed
+	***gable*mcgowan***
+	enemies*spy*talents
+	donald*ear*shutdown
+	goa**dandelion**die
+	escaping*car*octane
+	detains*sip*snarled
+	***regents*weave***
+	labor*layered*eagan
+	anon*emil*utah*dade
+	not*maori*annal*she
+	diaper*ozone*mashed
+	innate*bends*ampere
+	styled*ideas*leased
+
+
+
+Initial
+	propagators: 621
+	branchers:   1
+
+Summary
+	runtime:      8.420 (8420.000000 ms)
+	solutions:    1
+	propagations: 358098
+	nodes:        2538
+	failures:     1230
+	peak depth:   123
+	peak memory:  33031 KB

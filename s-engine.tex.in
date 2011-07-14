@@ -1,0 +1,435 @@
+% -*- mode: LaTeX; -*- 
+\chapter{An example engine}
+\label{chap:s:engine}
+
+%% FILES: CHAPTERONLY
+
+This chapter puts all techniques for search and recomputation
+from \autoref{chap:s:started} and \autoref{chap:s:re} together.
+It presents a realistic search engine that can be used to search
+for several solutions.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:s:engine:design} sketches the design of the
+example depth-first search engine to be used in this chapter. How
+the engine is implemented is shown in \autoref{sec:s:engine:imp}.
+\autoref{sec:s:engine:explore} details how exploration is
+implemented, whereas \autoref{sec:s:engine:re} details how
+recomputation is implemented for the search engine.
+
+
+\section{Engine design}
+\label{sec:s:engine:design}
+
+The example engine to be developed in this chapter implements
+depth-first search using hybrid and adaptive recomputation with
+full last alternative optimization. It provides an interface
+similar to the interface of Gecode's pre-defined search engines:
+it is initialized with a space (even though the search engine
+presented here does not make a clone for simplicity) and provides
+a \?next()? function that returns a space for the next solution
+or returns \?NULL? if there are no more solutions.
+
+\begin{figure}
+\insertlitcode{dfs engine}
+\caption{Depth-first search engine}
+\label{fig:s:engine:design}
+\end{figure}
+
+The outline of the search engine is shown in
+\autoref{fig:s:engine:design}. To keep things simple, the values
+for the commit distance \?c_d? and adaptive distance \?a_d? are
+constants. Furthermore, the search engine uses an array of fixed
+size to implement the path of edges for recomputation. In case
+the size of the array is exceeded during exploration, an
+exception of type \?StackOverflow? is thrown. A real-life engine
+would of course use a dynamic data structure such as a \CPP{} vector.
+
+
+\section{Engine implementation}
+\label{sec:s:engine:imp}
+
+\begin{figure}
+\insertlitcode{dfs engine:search engine}
+\caption{Implementation of depth-first search engine}
+\label{fig:s:engine:engine}
+\end{figure}
+
+\autoref{fig:s:engine:engine} shows the class \?Engine?
+implementing depth-first search. The engine maintains a path \?p?
+of edges for recomputation (to be explained below), a current
+space \?s?, and a distance \?d?. The current space \?s? can be
+\?NULL?. If the current space \?s? is not \?NULL?, then the path
+\?p?  corresponds to \?s?. If the space is \?NULL?, the search
+engine uses recomputation to compute the next space needed for
+exploration.
+
+The distance \?d? describes the number of commit operations
+needed for recomputation. It is initialized to \?c_d? to force
+the immediate creation of a clone on the path (analogous to the
+search engine in \autoref{sec:s:re:hybrid}).
+
+\paragraph{Exploration mode.}
+
+The engine operates in two modes: \emph{exploration mode} and
+\emph{recomputation mode}. It operates in exploration mode while the
+current space \?s? is not \?NULL?. Exploration mode continues
+until the current space \?s? becomes failed or solved. In both cases,
+the current space is set to \?NULL?. 
+
+If the space \?s? becomes solved, it is returned as a solution
+by the \?next()?  function. If the \?next()? function is called
+again, then the situation is exactly the same as for failure: the
+current space is \?NULL? and the engine switches to recomputation
+mode. Exploration is detailed in \autoref{sec:s:engine:explore}. 
+
+\paragraph{Recomputation mode.}
+
+In recomputation mode, the engine tries to recompute the current
+space. The \?next()? function of the path \?p? moves the path to
+the next alternative. If there is a next alternative (the search
+space has not yet been completely explored), the \?next()?
+function of a path returns \?true?. The \?recompute()? function
+tries to recompute the current space \?s?  according to the path
+\?p?.  Due to adaptive recomputation, the \?recompute()? function
+might update the distance \?d? and might actually fail to
+recompute a space that corresponds to the current path (in which
+case it returns \?NULL?).  Recomputation is detailed in
+\autoref{sec:s:engine:re}.
+
+If no more alternatives are to be tried (that is, the \?next()?
+function of the path \?p? has returned \?false?), the \?next()?
+function of the search engine terminates by returning \?NULL?.
+
+
+\section{Exploration}
+\label{sec:s:engine:explore}
+
+\begin{figure}
+\insertlitcode{dfs engine:exploration}
+\caption{Implementation of exploration}
+\label{fig:s:engine:explore}
+\end{figure}
+
+The search engine continues in exploration mode while the current
+space \?s? is different from \?NULL? and executes the code shown in
+\autoref{fig:s:engine:explore}. In case the current space \?s? is
+failed, it is discarded, \?s? is set to \?NULL?, and the engine
+switches to recomputation mode. The same is true if the engine
+finds a solution, however it garbage collects branchers on the
+solution found and returns it. With another invocation of the
+\?next()? function, the engine will operate in recomputation
+mode.
+
+\paragraph{Edge implementation.}
+
+\begin{figure}
+\insertlitcode{dfs engine:edge}
+\caption{Implementation of edges}
+\label{fig:s:engine:edge}
+\end{figure}
+
+\mbox{}\autoref{fig:s:engine:edge} shows how an edge is
+implemented. The implementation is analogous to the edge classes
+used in \autoref{chap:s:re}. Edges support choices with an
+arbitrary number of alternatives, the test \?la()? whether an
+edge is at its last alternative takes the number of alternatives
+of the choice into account.
+
+Rather than having a default constructor and a destructor, edges
+use the \?init()? and \?reset()? functions. This is more
+convenient as edges are maintained in an array implementing a
+stack, see below for details.
+
+\paragraph{Path implementation.}
+
+\begin{figure}
+\insertlitcode{dfs engine:path}
+\caption{Implementation of path of edges}
+\label{fig:s:engine:path}
+\end{figure}
+
+\mbox{}\autoref{fig:s:engine:path} shows how a path of edges is
+implemented. The array \?e? stores the edges of the path. The
+array implements a stack of edges and the unsigned integer \?n?
+defines the number of edges that are currently on the stack. The
+edge at position \?n-1? of the array of edges \?e? corresponds to the
+top of the stack.
+
+\paragraph{Pushing edges on the path.}
+
+During exploration, the engine pushes new edges on the path \?p? as
+shown in \autoref{fig:s:engine:explore}. If the distance \?d? has
+reached the commit distance \?c_d?, the engine pushes an edge to
+the path that has an additional clone and resets the distance
+\?d? accordingly.
+
+Pushing an edge checks for stack overflow and initializes the
+field of the edge array that corresponds to the top of stack as follows:
+\insertlitcode{dfs engine:push edge}
+Note that the push operation also performs the \?commit()?
+operation on the current space \?s? that corresponds to the edge
+just pushed onto the path.
+
+
+\section{Recomputation}
+\label{sec:s:engine:re}
+
+In recomputation mode, the engine uses operations to move the
+engine to the next alternative and to perform recomputation of
+a space corresponding to the current path.
+
+\paragraph{Move to next alternative.}
+
+Moving to a next alternative discards all edges from the path
+that are already at their last alternative (that is, the function
+\?la()? returns true). If the engine finds an edge with remaining
+alternatives, it moves the edge to the next alternative. If no edges are
+left, the function \?next()? returns \?false? as follows:
+\insertlitcode{dfs engine:move to next alternative}
+
+\paragraph{Perform recomputation.}
+
+\begin{figure}
+\insertlitcode{dfs engine:perform recomputation}
+\caption{Implementation of recomputation}
+\label{fig:s:engine:re}
+\end{figure}
+
+The \?recompute()? function shown in \autoref{fig:s:engine:re}
+performs recomputation. LAO and adaptive recomputation are
+orthogonal optimizations and are discussed later. First, \?i?  is
+initialized such that it points to the closest edge on the path
+that has a clone. Then, \?s? is initialized to a clone of the
+edge's clone and the distance \?d? is updated accordingly.
+Finally, all \?commit()? operations between \?i? and \?n? are
+performed on \?s?.
+
+\paragraph{Last alternative optimization.}
+
+Before actually starting recomputation, the \?recompute()?
+function checks whether it can perform LAO. It checks whether the
+last edge of the path can perform LAO (in which case \?t? is
+different from NULL) as follows:
+\insertlitcode{dfs engine:path:perform lao}
+The edge is removed from the path and the distance \?d? is set to
+\?c_d? to force the immediate creation of a new clone when the engine
+continues in exploration mode.
+
+LAO for an edge checks whether the edge is at the latest alternative
+and whether the edge stores a clone:
+\insertlitcode{dfs engine:edge:perform lao}
+If this is the case, the clone from the edge is removed and is committed to the
+last alternative.
+
+
+\paragraph{Adaptive recomputation.}
+\begin{samepage}
+If the current distance \?d? reaches the adaptive distance
+\?a_d?, recomputation tries to perform adaptive recomputation as
+follows:
+\insertlitcode{dfs engine:perform adaptive recomputation}
+\end{samepage}
+
+The value of \?m? is the middle between the position of the clone
+\?i? and the position of the last edge on the path. The position
+\?m? is a candidate position where the additional clone might be
+stored. All commit operations for edges between the clone and
+edge at position \?m?  are executed.
+
+It is entirely pointless to store the additional clone at an edge
+that is already at its last alternative (this is what LAO is all
+about). Hence, adaptive recomputation skips over all edges that
+are already at their last alternative as follows:
+\insertlitcode{dfs engine:skip over last alternatives}
+
+An additional clone for an edge is only created if the edge is
+not already the topmost edge of the path:
+\insertlitcode{dfs engine:create additional clone}
+After storing the clone, the distance \?d? is adapted
+accordingly. 
+
+Before being able to create a clone, adaptive recomputation performs
+constraint propagation by executing the \?status()? function of
+the space \?s? as follows:
+\insertlitcode{dfs engine:perform propagation}
+
+If constraint propagation leads to a failed space (see
+\autoref{sec:s:re:wmp}), all edges below the failed space are
+discarded and recomputation returns \?NULL? to signal that
+recomputation did not succeed in recomputing a space for the
+current path.
+
+
+
+\begin{litcode}{dfs engine}{schulte}
+#include <gecode/kernel.hh>
+
+using namespace Gecode;
+
+const unsigned int c_d = 5;
+const unsigned int a_d = 2;
+
+const unsigned int n_stack = 1024;
+
+class StackOverflow : public Exception {
+public:
+  StackOverflow(const char* l)
+    : Exception(l,"Stack overflow") {}
+};
+
+\begin{litblock}{path}
+class Path {
+protected:
+  \begin{litblock}{edge}
+  class Edge {
+  protected:
+    const Choice* ch;
+    unsigned int a;
+    Space* c;
+  public:
+    void init(Space* s, Space* c0) {
+      ch = s->choice(); a = 0; c = c0;
+    }
+    Space* clone(void) const {
+      return c;
+    }
+    void clone(Space* s) {
+      c = s->clone();
+    }
+    void next(void) {
+      a++;
+    }
+    bool la(void) const {
+      return a+1 == ch->alternatives();
+    }
+    void commit(Space* s) {
+      s->commit(*ch,a);
+    }
+    \begin{litblock}{edge:perform lao}
+    Space* lao(void) {
+      if (!la() || (c == NULL))
+        return NULL;
+      Space* t = c; c = NULL;
+      commit(t);
+      return t;
+    }
+    \end{litblock}
+    void reset(void) {
+      delete ch; ch=NULL; delete c; c=NULL;
+    }
+  };
+  \end{litblock}
+  Edge e[n_stack];
+  unsigned int n;
+public:
+  Path(void) : n(0) {}
+  \begin{litblock}{push edge}
+  void push(Space* s, Space* c) {
+    if (n == n_stack)
+      throw StackOverflow("Path::push");
+    e[n].init(s,c); e[n].commit(s);
+    n++;
+  }
+  \end{litblock}
+  \begin{litblock}{move to next alternative}
+  bool next(void) {
+    while (n > 0)
+      if (e[n-1].la()) {
+        e[--n].reset();
+      } else {
+        e[n-1].next(); return true;
+      }
+    return false;
+  }
+  \end{litblock}
+  \begin{litblock}{perform recomputation}
+  Space* recompute(unsigned int& d) {
+    \begin{litblock}{path:perform lao}
+    if (Space* t = e[n-1].lao()) {
+      e[--n].reset();
+      d = c_d; 
+      return t;
+    }
+    \end{litblock}
+    unsigned int i = n-1;
+    for (; e[i].clone() == NULL; i--) {}
+    Space* s = e[i].clone()->clone();
+    d = n - i;
+    \begin{litblock}{perform adaptive recomputation}
+    if (d >= a_d) {
+      unsigned int m = i + d/2;
+      for (; i < m; i++)
+        e[i].commit(s);
+      \begin{litblock}{skip over last alternatives}
+      for (; (i < n) && e[i].la(); i++)
+        e[i].commit(s);
+      \end{litblock}
+      \begin{litblock}{create additional clone}
+      if (i < n-1) {
+        \begin{litblock}{perform propagation}
+        if (s->status() == SS_FAILED) {
+          delete s; 
+          for (; i < n; n--) {
+            e[n-1].reset(); d--;
+          }
+          return NULL;
+        }
+        \end{litblock}
+        e[i].clone(s);
+        d = n-i;
+      }
+      \end{litblock}
+    }
+    \end{litblock}
+    for (; i < n; i++)
+      e[i].commit(s);
+    return s;
+  }
+  \end{litblock}
+};
+\end{litblock}
+
+\begin{litblock}{search engine}
+class Engine {
+protected:
+  Path p;
+  Space* s;
+  unsigned int d;
+public:
+  Engine(Space* r) : s(r), d(c_d) {}
+  Space* next(void) {
+    do {
+      while (s != NULL)
+        \begin{litblock}{exploration}
+        switch (s->status()) {
+        case SS_FAILED:
+          delete s; s = NULL;
+          break;
+        case SS_SOLVED:
+          {
+            Space* t = s; s = NULL;
+            (void) t->choice();
+            return t;
+          }
+        case SS_BRANCH:
+          if (d >= c_d) {
+            p.push(s,s->clone()); d=1;
+          } else {
+            p.push(s,NULL); d++;
+          }
+        }
+        \end{litblock}
+      while ((s == NULL) && p.next())
+        s = p.recompute(d);
+    } while (s != NULL);
+    return NULL;
+  }
+  ~Engine(void) {
+    delete s;
+  }
+};
+\end{litblock}
+  
+\end{litcode}

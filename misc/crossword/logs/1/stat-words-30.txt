@@ -1,0 +1,37 @@
+Crossword
+	dens*aspic*bile*accra
+	idea*plato*ever*solar
+	snapdragon*disapprove
+	calliope*cafes*hinges
+	***inns*texas*wire***
+	slings*hades*belittle
+	tangy*libertarian*hen
+	odds*ball***lard*read
+	wei*bitterest*defense
+	enforces*axle**lanced
+	**flier*rotor*spree**
+	sweden**aura*schaefer
+	parents*planetoid*ore
+	eyer*eire***vita*brae
+	ann*endorsement*butts
+	returned*prong*washoe
+	***paid*grids*bash***
+	odessa*geese*paginate
+	wilhelmina*rhinoceros
+	labor*arid*nolan*leap
+	slats*odes*sells*lady
+
+
+
+Initial
+	propagators: 756
+	branchers:   1
+
+Summary
+	runtime:      2:57.214 (177214.000000 ms)
+	solutions:    1
+	propagations: 5474140
+	nodes:        26567
+	failures:     13247
+	peak depth:   147
+	peak memory:  35784 KB

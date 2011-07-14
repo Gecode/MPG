@@ -1,0 +1,685 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Reification and rewriting}
+\label{chap:p:reified}
+
+This chapter discusses how to implement propagators for reified
+constraints and how to optimize constraint propagation by
+propagator rewriting. Gecode does not offer any special support
+for reification but uses propagator rewriting as a more general
+technique. 
+
+\paragraph{Overview.}
+
+The definition of a reified constraint and how it can be
+propagated is reviewed in \autoref{sec:p:reified:overview}. The
+following section (\autoref{sec:p:reified:leeq}) presents a
+refied less or equal propagator as an example. General propagator
+rewriting during constraint propagation is discussed in
+\autoref{sec:p:reified:max}, whereas \autoref{sec:p:reified:or}
+presents how to rewrite propagators during cloning.
+
+
+\section{Reification}
+\label{sec:p:reified:overview}
+
+A propagator for the reified constraint $\reify{c}{\mathtt{b}}$
+for a Boolean \emph{control variable} $\mathtt{b}$ propagates as
+follows:
+\begin{enumerate}
+\item If \?b? is \?1?, propagate $c$.
+\item If \?b? is \?0?, propagate $\neg c$ (it is not always
+  easy to propagate the negation of a constraint $c$
+  effectively and efficiently).
+\item If $c$ is subsumed, propagate that \?b? is \?1?.
+\item If $\neg c$ is subsumed, propagate that \?b? is \?0?.
+\end{enumerate}
+
+The idea how to implement reification in Gecode is quite simple:
+if the first (or second) case is true, the reified propagator
+implementing the reified constraint rewrites itself into a
+propagator for $c$ (or $\neg c$). The remaining two cases are
+nothing but testing criteria for subsumption. 
+
+The advantage of rewriting a reified propagator for
+$\reify{c}{\mathtt{b}}$ into a non-reified propagator for $c$ or
+$\neg c$ is that the propagators created by rewriting are
+typically available anyway, and that after rewriting no more
+overhead for reification is incurred.
+
+
+\section{A reified less or equal propagator}
+\label{sec:p:reified:leeq}
+
+We will discuss a reified less or equal propagator $\reify{\mathtt
+  x \leq \mathtt y}{\mathtt b}$ for integer variables \?x? and
+\?y? as an example. Taking the above propagation rules for a
+reified constraint, we obtain:
+\begin{enumerate}
+\item If \?b? is \?1?, propagate $\mathtt x \leq \mathtt y$.
+\item If \?b? is \?0?, propagate $\mathtt x > \mathtt y$
+  (actually, we choose to propagate $\mathtt y < \mathtt x$ instead).
+\item If $\mathtt x \leq \mathtt y$ is subsumed, propagate that \?b? is \?1?.
+\item If $\mathtt x > \mathtt y$ is subsumed, propagate that \?b?
+  is \?0?.
+\item If none of the above rules apply, the propagator is at fixpoint.
+\end{enumerate}
+
+\begin{figure}
+\insertlitcode{less or equal reified}
+\caption{A constraint and propagator for reified less or equal}
+\label{fig:p:reified:leeq}
+\end{figure}
+
+The propagator \?ReLeEq? for reified less or equal relies on
+propagators \?Less? for less and \?LeEq? for less or equal (the
+propagators are not shown, see \autoref{sec:p:started:patterns}
+instead). The \?propagate()? function as shown in
+\autoref{fig:p:reified:leeq} follows the propagation rules
+sketched above.
+
+\paragraph{Propagator rewriting.}
+
+The \?GECODE_REWRITE? macro takes the propagator (here, \?*this?)
+to be rewritten and an expression that posts the new propagator
+as arguments. It relies on the fact that the identifier \?home?
+refers to the current home space (like the fail macros in
+\autoref{sec:p:started:better}). The macro expands to something
+along the following lines:
+\begin{code}
+size_t s = this->dispose(home);
+GECODE_ES_CHECK(LeEq::post(home(*this),x0,x1));
+return home.ES_SUBSUMED_DISPOSED(*this,s);
+\end{code}
+That is, the \?ReLeEq? propagator is disposed, the new \?LeEq?
+propagator is posted, and subsumption is reported. The order is
+essential for performance: by first disposing \?ReLeEq?, the data
+structures that store the subscriptions for \?x0? and \?x1? will
+have at least one free slot for the subscriptions that are
+created by posting \?LeEq? and hence avoid (rather inefficient
+and memory consuming) resizing. Note that it is important to
+understand that the old propagator is disposed before the new
+propagator is posted. In case that some data structures that are
+deleted during disposal are needed for posting, one either has to
+make sure that the data structures outlive the call to \?dispose()?
+or that one does not use the \?GECODE_REWRITE? macro but first
+posts the new propagator and only then reports subsumption.
+
+Another essential part is that after calling \?ES_SUBSUMED()?, a
+propagator is not allowed to do anything that can schedule
+propagators (such as performing modification operations or
+creating subscriptions). That is the reason that first \?dispose()?
+is called and later the special variant \?ES_SUBSUMED_DISPOSED()?
+is used for actually reporting subsumption. Do not use
+\?ES_SUBSUMED_DISPOSED()? unless you really, really have to!
+
+\paragraph{Adding information to \?Home?.}
+
+As has been discussed in \autoref{tip:m:started:home} and
+\autoref{sec:p:started:better}, posting uses a value of class
+\gecoderef[class]{Home} instead of a reference to a \?Space?. In
+the expansion of \?GECODE_REWRITE? as shown above, the call
+operator \?()? as in
+\begin{code}
+home(*this)
+\end{code}
+returns a new value of type \?Home? with the additional
+information added that the propagator to be posted is in fact a
+rewrite of the propagator \?*this?. This information is
+important, for example, for inheriting the AFC (accumulated
+failure count, see \autoref{sec:m:search:branch:int}): the newly
+created propagator will inherit the number of accumulated
+failures from the propagator being rewritten. There will be other
+applications of \?Home? in future versions of Gecode.
+
+\paragraph{Testing relations between views.}
+
+Rather than testing whether $\mathtt{x0}\leq\mathtt{x1}$ or
+$\mathtt{x0}>\mathtt{x1}$ hold individually, we use the function
+\?Int::rtest_lq()? that tests whether two views are less or equal
+and returns whether the relation holds (\?Int::RT_TRUE?), does
+not hold (\?Int::RT_FALSE?), or might hold or not
+(\?Int::RT_MAYBE?). 
+
+Relation tests are available for two views (integer or Boolean)
+or for a view (again, integer or Boolean) and an integer.
+Relation tests exist for all inequality relations:
+\?Int::rtest_le()? (for~$<$), \?Int::rtest_lq()? (for~$\leq$),
+\?Int::rtest_gr()? (for~$>$), and \?Int::rtest_gq()?  (for~$\geq$).
+For equality, a bounds test (\?Int::rtest_eq_bnd()?) as
+well as a domain test exists (\?Int::rtest_eq_dom()?). While
+\?Int::rtest_eq_bnd()? only uses the bounds for testing the
+relation (with constant time complexity), \?Int::rtest_eq_dom()? uses the full set of values in the
+domain of the views to determine the relation (having linear time
+complexity in the length of the range representation of the
+views' domains, see \autoref{sec:p:domain:iter} for more
+information on range representations of view domains). The
+same holds true for disequality: \?Int::rtest_nq_bnd()? performs
+the bounds-only test, whereas \?Int::rtest_nq_dom()? performs the
+full domain test. For example, \?Int::rtest_eq_bnd(x,y)? for
+$\mathtt x\in\{0,2\}$ and $\mathtt y\in\{1,3\}$ returns
+\?Int::RT_MAYBE?, whereas \?Int::rtest_eq_dom()? returns
+\?Int::RT_FALSE?.
+
+\paragraph{Reified propagator patterns.}
+
+The integer module (as these patterns require Boolean views they
+are part of the integer module)
+provides reified propagator patterns for unary propagators
+(\gecoderef[class]{Int::ReUnaryPropagator}) and binary
+propagators (\gecoderef[class]{Int::ReBinaryPropagator} and
+\gecoderef[class]{Int::ReMixBinaryPropagator}). In addition to
+views \?x0? (and \?x1? for the binary variants), they define a
+Boolean control variable \?b?. Please note that in
+\autoref{fig:p:reified:leeq} a reified propagator pattern
+requires an additional template argument for the Boolean control
+view used (the mystery why this is useful is lifted in
+\autoref{chap:p:views}).
+
+
+\section{Rewriting during propagation}
+\label{sec:p:reified:max}
+
+Rewriting during propagation is a useful technique that is not
+limited to implementing reification. We consider a \?Max?
+propagator that propagates
+$\max(\mathtt{x}_0,\mathtt{x}_1)=\mathtt{x}_2$. The propagation
+rules (we are giving bounds propagation rules that achieve
+\boundsz{} consistency, see~\cite{bounds-consistency}) for \?Max?
+are easy to understand when looking at an equivalent formulation
+of $\max$~\cite{SchulteStuckey:TOPLAS:2005}:
+\begin{eqnarray*}
+\max(\mathtt{x}_0,\mathtt{x}_1)=\mathtt{x}_2
+&\iff&
+(\mathtt{x}_0\leq\mathtt{x}_2)\wedge
+(\mathtt{x}_1\leq\mathtt{x}_2)\wedge
+\left( (\mathtt{x}_0=\mathtt{x}_2)\vee(\mathtt{x}_1=\mathtt{x}_2)\right)\\
+&\iff&
+(\mathtt{x}_0\leq\mathtt{x}_2)\wedge
+(\mathtt{x}_1\leq\mathtt{x}_2)\wedge
+\left( (\mathtt{x}_0\geq\mathtt{x}_2)\vee(\mathtt{x}_1\geq\mathtt{x}_2)\right)\\
+\end{eqnarray*}
+
+Then, the propagation rules can be turned into
+the following \CPP-code to be executed by the \?propagate()? member
+function of \?Max?:
+\begin{code}
+GECODE_ME_CHECK(x2.lq(home,std::max(x0.max(),x1.max())));
+GECODE_ME_CHECK(x2.gq(home,std::max(x0.min(),x1.min())));
+GECODE_ME_CHECK(x0.lq(home,x2.max()));
+GECODE_ME_CHECK(x1.lq(home,x2.max()));
+if ((x1.max() <= x0.min()) || 
+    (x1.max() < x2.min()))
+  GECODE_ME_CHECK(x0.gq(home,x2.min()));
+if ((x0.max() <= x1.min()) || 
+    (x0.max() < x2.min()))
+  GECODE_ME_CHECK(x1.gq(home,x2.min()));
+\end{code}
+
+\begin{figure}
+\insertlitcode{max using rewriting}
+\caption{A maximum propagator using rewriting}
+\label{fig:p:reified:max}
+\end{figure}
+
+Please take a second look: the condition of the first
+\?if?-statement tests whether $\mathtt{x}_1$ is less or equal
+than $\mathtt{x}_0$, or whether $\mathtt{x}_1$ is less than
+$\mathtt{x}_2$. In both cases,
+$\max(\mathtt{x}_0,\mathtt{x}_1)=\mathtt{x}_2$ simplifies to
+$\mathtt{x}_0=\mathtt{x}_2$. Exactly this simplification can be
+implemented by propagator rewriting, please check
+\autoref{fig:p:reified:max}. Note that the propagator is naive in
+that it does not implement the propagator to be idempotent (however,
+this can be done exactly as demonstrated in
+\autoref{sec:p:avoid:eqbnd}).
+
+Another idea would be to perform rewriting during cloning: the
+\?copy()? function could return an \?Equal? propagator rather than
+a \?Max? propagator in the cases where rewriting is possible.
+However, this is illegal: it would create a propagator with only
+two views, hence one view would not be updated even though there
+is a subscription for it (violating obligation ``update
+complete'' from \autoref{sec:p:started:obligations}). Also,
+canceling a subscription is illegal during cloning (violating
+obligation ``cloning conservative'' from
+\autoref{sec:p:started:obligations}). The next section shows an
+example with opposite properties: rewriting during propagation
+makes no sense (even though it would be legal) whereas rewriting
+during cloning is legal and useful.
+
+
+\section{Rewriting during cloning}
+\label{sec:p:reified:or}
+
+In \autoref{sec:p:avoid:dynamic}, the propagator \?OrTrue? is
+simplified during copying by eliminating assigned views. Here we
+show that the propagator created as a copy during cloning can be
+optimized further by rewriting it during copying.
+
+\begin{samepage}
+\paragraph{Copying.}
+The modified \?copy()? function is as follows:
+\insertlitcode{or true using rewriting:copy}
+\end{samepage}
+
+\begin{figure}
+\insertlitcode{or true using rewriting}
+\caption{A Boolean disjunction propagator using rewriting}
+\label{fig:p:reified:or}
+\end{figure}
+
+
+The \?copy()? function takes advantage of two cases:
+\begin{enumerate}
+\item If there is a view that is assigned to \?1?, the propagator
+  is subsumed. However, during cloning a propagator cannot be
+  deleted by subsumption. Reporting subsumption is only possible
+  during propagation. The \?copy()? function does the next best
+  thing: it creates a propagator \?SubsumedOrTrue? that next time
+  it is executed will in fact report subsumption.
+  
+  Note that in this situation rewriting during cloning is
+  preferable to rewriting during propagation. An important aspect
+  of the \?OrTrue?  propagator is that it does not inspect all of
+  its views during finding a view for resubscribing (as implemented
+  by the \?resubscribe()? member function). Instead, inspection
+  stops as soon as the first unassigned view is found. That
+  entails that a view that is assigned to \?1? might be missed
+  during propagation. In other words, rewriting during cloning
+  also optimizes subsumption detection.
+\item If all views in the view array \?x? are assigned to \?0?,
+  the view array is actually not longer needed (it has no
+  elements). In this case, the \?copy()? function creates
+  a propagator \?BinaryOrTrue? that is a special variant of
+  \?OrTrue? limited to just two views. Note that the two views
+  \?x0? and \?x1? are known to be not yet assigned: otherwise,
+  the propagator would not be at fixpoint. This is impossible as
+  only spaces that are at fixpoint (and hence all of its
+  propagators must be at fixpoint) can be cloned (this invariant
+  is discussed in \autoref{sec:s:started:space}).
+  
+  Rewriting during propagation would be entirely pointless in
+  this situation: the propagator (be it \?OrTrue? or
+  \?BinaryOrTrue?) will be executed at most one more time and
+  will become subsumed then (or, due to failure, it is not
+  executed at all). As rewriting incurs the cost of creating and
+  disposing propagators and subscriptions, rewriting in this case
+  would actually slow down execution.
+\end{enumerate}
+
+\paragraph{Constructors for copying.}
+
+The relevant parts of the two special propagators for rewriting
+\?SubsumedOrTrue? and \?BinaryOrTrue? are shown in
+\autoref{fig:p:reified:or}. Their \?propagate()? functions are
+exactly as sketched above. The only other non-obvious aspect are
+the constructors used for copying during cloning: they are now
+called for a propagator of class \?OrTrue?. In this example, it
+is sufficient to have a single constructor for copying as all the
+propagators \?OrTrue?, \?SubsumedOrTrue?, and \?BinaryOrTrue?
+inherit from \?BinaryPropagator?. In other cases, it might be
+necessary to have more than a single constructor for copying
+defined by a propagator class \?C?: one for copying a propagator
+of class \?C? and one for creating propagators as rewrites of
+other propagators.
+
+
+
+
+
+\begin{litcode}{or true using rewriting}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class BinaryOrTrue : 
+  \begin{litblock}{anonymous}
+  public BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL> {
+public:
+  BinaryOrTrue(Space& home, Int::BoolView x0, Int::BoolView x1) 
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,x0,x1) {}
+  static ExecStatus post(Space& home,
+                         Int::BoolView x0, Int::BoolView x1) {
+    (void) new (home) BinaryOrTrue(home,x0,x1);
+    return ES_OK;
+  }
+  \end{litblock}
+  BinaryOrTrue(Space& home, bool share,
+               BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>& p)
+  \begin{litblock}{anonymous}
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) BinaryOrTrue(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (x0.zero())
+      GECODE_ME_CHECK(x1.one(home));
+    if (x1.zero())
+      GECODE_ME_CHECK(x0.one(home));
+    return home.ES_SUBSUMED(*this);
+  }
+};
+class SubsumedOrTrue : 
+  \begin{litblock}{anonymous}
+  public BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL> {
+public:
+  \end{litblock}
+  SubsumedOrTrue(Space& home, bool share, 
+                 BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>& p)
+  \begin{litblock}{anonymous}
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) SubsumedOrTrue(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    return home.ES_SUBSUMED(*this);
+  }
+};
+class OrTrue : 
+  \begin{litblock}{anonymous}
+  public BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL> {
+protected:
+  ViewArray<Int::BoolView> x;
+public:
+  OrTrue(Space& home, ViewArray<Int::BoolView>& y) 
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>
+      (home,y[0],y[1]), x(y) {
+    x.drop_fst(2);
+  }
+  static ExecStatus post(Space& home, ViewArray<Int::BoolView>& x) {
+    for (int i=x.size(); i--; )
+      if (x[i].one())
+        return ES_OK;
+      else if (x[i].zero())
+        x.move_lst(i);
+    if (x.size() == 0)
+      return ES_FAILED;
+    x.unique(home);
+    if (x.size() == 1) {
+      GECODE_ME_CHECK(x[0].one(home));
+    } else {
+      (void) new (home) OrTrue(home,x);
+    }
+    return ES_OK;
+  }
+  virtual size_t dispose(Space& home) {
+    (void) BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>
+      ::dispose(home);
+    return sizeof(*this);
+  }
+  OrTrue(Space& home, bool share, OrTrue& p) 
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {
+    x.update(home,share,p.x);
+  }
+  \end{litblock}
+  \begin{litblock}{copy}
+  virtual Propagator* copy(Space& home, bool share) {
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        x[0]=x[i]; x.size(1);
+        return new (home) SubsumedOrTrue(home,share,*this);
+      } else if (x[i].zero()) {
+        x.move_lst(i);
+      }
+    if (x.size() == 0)
+      return new (home) BinaryOrTrue(home,share,*this);
+    else
+      return new (home) OrTrue(home,share,*this);
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  ExecStatus resubscribe(Space& home, 
+                         Int::BoolView& y, Int::BoolView z) {
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        return home.ES_SUBSUMED(*this);
+      } else if (x[i].zero()) {
+        x.move_lst(i);
+      } else {
+        y=x[i]; x.move_lst(i);
+        y.subscribe(home,*this,Int::PC_BOOL_VAL);
+        return ES_FIX;
+      }
+    GECODE_ME_CHECK(z.one(home));
+    return home.ES_SUBSUMED(*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    if (x0.one() || x1.one())
+      return home.ES_SUBSUMED(*this);
+    if (x0.zero())
+      GECODE_ES_CHECK(resubscribe(home,x0,x1));
+    if (x1.zero())
+      GECODE_ES_CHECK(resubscribe(home,x1,x0));
+    return ES_FIX;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+void dis(Space& home, const BoolVarArgs& x, int n) {
+  if ((n != 0) && (n != 1))
+    throw Int::NotZeroOne("or");
+  if (home.failed()) return;
+  if (n == 0) {
+    for (int i=x.size(); i--; ) {
+      Int::BoolView xi(x[i]);
+      GECODE_ME_FAIL(xi.zero(home));
+    }
+  } else {
+    ViewArray<Int::BoolView> y(home,x);
+    GECODE_ES_FAIL(OrTrue::post(home,y));
+  }
+}
+\end{litblock}
+\end{litcode}
+  
+
+
+\begin{litcode}{max using rewriting}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Equal : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+  \begin{litblock}{anonymous}
+public:
+  Equal(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    (void) new (home) Equal(home,x0,x1);
+    return ES_OK;
+  }
+  Equal(Space& home, bool share, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Equal(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    GECODE_ME_CHECK(x0.gq(home,x1.min()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.lq(home,x0.max()));
+    if (x0.assigned() && x1.assigned())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_NOFIX;
+  }
+  \end{litblock}
+};
+class Max : public TernaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  \begin{litblock}{anonymous}
+  Max(Home home, Int::IntView x0, Int::IntView x1, Int::IntView x2) 
+    : TernaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1,x2) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1,
+                         Int::IntView x2) {
+    (void) new (home) Max(home,x0,x1,x2);
+    return ES_OK;
+  }
+  Max(Space& home, bool share, Max& p) 
+    : TernaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Max(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
+    GECODE_ME_CHECK(x2.lq(home,std::max(x0.max(),x1.max())));
+    GECODE_ME_CHECK(x2.gq(home,std::max(x0.min(),x1.min())));
+    GECODE_ME_CHECK(x0.lq(home,x2.max()));
+    GECODE_ME_CHECK(x1.lq(home,x2.max()));
+    if ((x1.max() <= x0.min()) || (x1.max() < x2.min()))
+      GECODE_REWRITE(*this,Equal::post(home(*this),x0,x2));
+    if ((x0.max() <= x1.min()) || (x0.max() < x2.min()))
+      GECODE_REWRITE(*this,Equal::post(home(*this),x1,x2));
+    if (x0.assigned() && x1.assigned() && x2.assigned())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_NOFIX;
+  }
+};
+\begin{litblock}{anonymous}
+
+void max(Home home, IntVar x0, IntVar x1, IntVar x2) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Max::post(home,x0,x1,x2));
+}
+\end{litblock}
+\end{litcode}
+  
+
+\begin{litcode}{less or equal reified}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class Less 
+\begin{litblock}{anonymous}
+  : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  Less(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_FAILED;
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() >= x1.min())
+      (void) new (home) Less(home,x0,x1);
+    return ES_OK;
+  }
+  Less(Space& home, bool share, Less& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Less(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() < x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+\end{litblock}
+};
+class LeEq
+\begin{litblock}{anonymous}
+  : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  LeEq(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_OK;
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    if (x0.max() > x1.min())
+      (void) new (home) LeEq(home,x0,x1);
+    return ES_OK;
+  }
+  LeEq(Space& home, bool share, LeEq& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) LeEq(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    if (x0.max() <= x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+\end{litblock}
+};
+class ReLeEq
+  : public Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,
+                                   Int::BoolView> {
+  \begin{litblock}{anonymous}
+public:
+  ReLeEq(Home home, Int::IntView x0, Int::IntView x1,
+         Int::BoolView b) 
+    : Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,x0,x1,b) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1,
+                         Int::BoolView b) {
+    if (b.zero())
+      return Less::post(home,x1,x0);
+    if (b.one())
+      return LeEq::post(home,x0,x1);
+    if (same(x0,x1)) {
+      GECODE_ME_CHECK(b.one(home));
+    } else {
+      switch (Int::rtest_lq(x0,x1)) {
+      case Int::RT_TRUE:
+        GECODE_ME_CHECK(b.one(home)); break;
+      case Int::RT_FALSE:
+        GECODE_ME_CHECK(b.zero(home)); break;
+      case Int::RT_MAYBE:
+        (void) new (home) ReLeEq(home,x0,x1,b); break;
+      }
+    }
+    return ES_OK;
+  }
+  ReLeEq(Space& home, bool share, ReLeEq& p) 
+    : Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) ReLeEq(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    if (b.one())
+      GECODE_REWRITE(*this,LeEq::post(home(*this),x0,x1));
+    if (b.zero())
+      GECODE_REWRITE(*this,Less::post(home(*this),x1,x0));
+    switch (Int::rtest_lq(x0,x1)) {
+    case Int::RT_TRUE:
+      GECODE_ME_CHECK(b.one(home)); break;
+    case Int::RT_FALSE:
+      GECODE_ME_CHECK(b.zero(home)); break;
+    case Int::RT_MAYBE:
+       return ES_FIX;
+    }
+    return home.ES_SUBSUMED(*this);
+  }
+};
+\begin{litblock}{anonymous}
+
+void leeq(Home home, IntVar x0, IntVar x1, BoolVar b) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(ReLeEq::post(home,x0,x1,b));
+}
+\end{litblock}
+\end{litcode}

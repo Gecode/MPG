@@ -1,0 +1,389 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Knight's tour}
+\label{chap:c:knights}
+
+%% FILES: CHAPTERONLY
+
+This chapter demonstrates a problem-specific brancher inspired
+by a classic heuristic for a classic problem.
+
+\begin{important}
+  This case study requires knowledge on programming
+  branchers, see \autoref{part:b}.
+\end{important}
+
+\section{Problem}
+\label{sec:c:knights:problem}
+
+The problem of a knight's tour is to find a series of knight's
+moves (a knight can move two fields vertically and simultaneously
+one field horizontally, or vice versa) on an empty $n\times n$
+board starting from some initial field such that:
+\begin{itemize}
+\item each field is visited exactly once, and
+\item there is a further knight's move from the last field of the
+  tour to the initial field.
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\psset{unit=20pt}
+\knboard{8}%
+\knfield{0}{0}{0}{0}\knfield{8}{3}{0}{1}\knfield{16}{22}{0}{2}\knfield{24}{19}{0}{3}\knfield{32}{48}{0}{4}\knfield{40}{5}{0}{5}\knfield{48}{24}{0}{6}\knfield{56}{27}{0}{7}%
+\knfield{1}{21}{1}{0}\knfield{9}{18}{1}{1}\knfield{17}{1}{1}{2}\knfield{25}{4}{1}{3}\knfield{33}{23}{1}{4}\knfield{41}{26}{1}{5}\knfield{49}{49}{1}{6}\knfield{57}{6}{1}{7}%
+\knfield{2}{2}{2}{0}\knfield{10}{63}{2}{1}\knfield{18}{20}{2}{2}\knfield{26}{47}{2}{3}\knfield{34}{40}{2}{4}\knfield{42}{55}{2}{5}\knfield{50}{28}{2}{6}\knfield{58}{25}{2}{7}%
+\knfield{3}{17}{3}{0}\knfield{11}{38}{3}{1}\knfield{19}{41}{3}{2}\knfield{27}{62}{3}{3}\knfield{35}{45}{3}{4}\knfield{43}{50}{3}{5}\knfield{51}{7}{3}{6}\knfield{59}{60}{3}{7}%
+\knfield{4}{42}{4}{0}\knfield{12}{13}{4}{1}\knfield{20}{46}{4}{2}\knfield{28}{39}{4}{3}\knfield{36}{54}{4}{4}\knfield{44}{61}{4}{5}\knfield{52}{56}{4}{6}\knfield{60}{29}{4}{7}%
+\knfield{5}{37}{5}{0}\knfield{13}{16}{5}{1}\knfield{21}{53}{5}{2}\knfield{29}{44}{5}{3}\knfield{37}{51}{5}{4}\knfield{45}{32}{5}{5}\knfield{53}{59}{5}{6}\knfield{61}{8}{5}{7}%
+\knfield{6}{12}{6}{0}\knfield{14}{43}{6}{1}\knfield{22}{14}{6}{2}\knfield{30}{35}{6}{3}\knfield{38}{10}{6}{4}\knfield{46}{57}{6}{5}\knfield{54}{30}{6}{6}\knfield{62}{33}{6}{7}%
+\knfield{7}{15}{7}{0}\knfield{15}{36}{7}{1}\knfield{23}{11}{7}{2}\knfield{31}{52}{7}{3}\knfield{39}{31}{7}{4}\knfield{47}{34}{7}{5}\knfield{55}{9}{7}{6}\knfield{63}{58}{7}{7}%
+\knmove{0}{0}{17}\knmove{21}{1}{16}\knmove{2}{2}{8}\knmove{17}{3}{9}\knmove{42}{4}{14}\knmove{37}{5}{11}\knmove{12}{6}{12}\knmove{15}{7}{13}\knmove{3}{8}{25}\knmove{18}{9}{24}\knmove{63}{10}{0}\knmove{38}{11}{28}\knmove{13}{12}{22}\knmove{16}{13}{3}\knmove{43}{14}{29}\knmove{36}{15}{5}\knmove{22}{16}{33}\knmove{1}{17}{2}\knmove{20}{18}{1}\knmove{41}{19}{4}\knmove{46}{20}{26}\knmove{53}{21}{36}\knmove{14}{22}{7}\knmove{11}{23}{6}\knmove{19}{24}{18}\knmove{4}{25}{40}\knmove{47}{26}{32}\knmove{62}{27}{10}\knmove{39}{28}{34}\knmove{44}{29}{35}\knmove{35}{30}{15}\knmove{52}{31}{21}\knmove{48}{32}{49}\knmove{23}{33}{48}\knmove{40}{34}{19}\knmove{45}{35}{20}\knmove{54}{36}{42}\knmove{51}{37}{31}\knmove{10}{38}{23}\knmove{31}{39}{45}\knmove{5}{40}{57}\knmove{26}{41}{56}\knmove{55}{42}{52}\knmove{50}{43}{37}\knmove{61}{44}{27}\knmove{32}{45}{62}\knmove{57}{46}{63}\knmove{34}{47}{30}\knmove{24}{48}{58}\knmove{49}{49}{43}\knmove{28}{50}{60}\knmove{7}{51}{61}\knmove{56}{52}{46}\knmove{59}{53}{59}\knmove{30}{54}{39}\knmove{9}{55}{38}\knmove{27}{56}{50}\knmove{6}{57}{51}\knmove{25}{58}{41}\knmove{60}{59}{44}\knmove{29}{60}{54}\knmove{8}{61}{55}\knmove{33}{62}{47}\knmove{58}{63}{53}%
+\end{pspicture}
+\end{center}
+\caption{$8\times 8$-knight's tour}
+\label{fig:c:knights:example:8}
+\end{figure}
+
+\autoref{fig:c:knights:example:8} shows a knight's tour
+for $n=8$, where the tour starts at the lower left corner.
+
+
+
+\section{Model}
+
+The model for the knight's tour uses a successor representation
+for the knight's moves to make posting the constraints
+straightforward. To further simplify posting the constraints, the
+variables in the model use \emph{fields} on the board as values.
+The field $0$ has $\langle \mathtt x,\mathtt
+y\rangle$-coordinates $\langle 0,0\rangle$ on the board, the
+field $1$ has coordinates $\langle 1,0\rangle$, the field $n$ on
+an $n\times n$ board has coordinates $\langle 0,1\rangle$, and so
+on. That is, fields on the board are counted first in
+\?x?-direction and then in \?y?-direction.
+
+The successor representation means that a variable in the model
+has the field numbers as possible values that can be reached by a
+knight's move. The model uses the \?circuit?  constraint (see
+\autoref{sec:m:integer:circuit}) to enforce that the tour is in
+fact a Hamiltonian circuit. The only additional constraints
+needed are that fields must be reachable only by knight's moves.
+
+\begin{figure}
+\insertlitcode{knights}
+\caption{A script for the knight's tour problem}
+\label{fig:c:knights:script}
+\end{figure}
+
+\autoref{fig:c:knights:script} outlines the program to implement
+the knight's tour model. An object of class \?Knights? stores the
+size of the board as its member \?n?. The variables for the knight
+moves are stored in the integer variable array (see
+\autoref{sec:m:integer:intvararray}) \?succ?. The array \?succ?
+has $\mathtt{n}^2$ elements where the variable at position \?f?
+stores the successor of the field \?f?. The function \?f(x,y)? computes
+the field number for coordinates $\langle\mathtt x,\mathtt
+y\rangle$. For example, \?f(0,0)=0?, \?f(1,0)=1?, and \?f(0,1)=n?.
+
+\paragraph{Enforcing knight's moves.}
+
+Domain constraints \?dom? (see \autoref{sec:m:integer:dom}) are
+used to constrain moves to knight's moves:
+\insertlitcode{knights:knight's moves} 
+
+The function \?neighbors(i)? returns an integer set which
+contains the fields that are reachable from field \?i? by a
+knight's move. For example, for $\mathtt{n}=8$, \?neighbors(0)?
+(the field \?0?  has coordinates
+$\langle\mathtt{0},\mathtt{0}\rangle$) returns the integer set
+$\{\mathtt{17},\mathtt{10}\}$ (that is, the fields with coordinates
+$\langle\mathtt{2},\mathtt{1}\rangle$ and
+$\langle\mathtt{1},\mathtt{2}\rangle$) and
+\?neighbors(27)? (the field \?27? has coordinates
+$\langle\mathtt{3},\mathtt{3}\rangle$) returns the integer set
+$\{\mathtt{17},\mathtt{33},\mathtt{10},\mathtt{42},\mathtt{12},\mathtt{44},\mathtt{21},\mathtt{37}\}$
+(that is, the fields with coordinates
+$\langle\mathtt{2},\mathtt{1}\rangle$,
+$\langle\mathtt{4},\mathtt{1}\rangle$,
+$\langle\mathtt{1},\mathtt{2}\rangle$,
+$\langle\mathtt{5},\mathtt{2}\rangle$,
+$\langle\mathtt{1},\mathtt{4}\rangle$,
+$\langle\mathtt{5},\mathtt{4}\rangle$,
+$\langle\mathtt{2},\mathtt{5}\rangle$, and
+$\langle\mathtt{4},\mathtt{5}\rangle$).
+
+\paragraph{Fixing the first move.}
+
+Without loss of generality we fix that the knight's first move goes
+to field \?f(1,2)?:
+\insertlitcode{knights:fix first move}
+
+Fixing the first move can be seen as breaking a symmetry in the
+model and hence reduces the amount of search needed for finding a
+knight's tour. 
+
+\paragraph{Enforcing a Hamiltonian circuit.}
+
+The \?circuit? constraint (see \autoref{sec:m:integer:circuit})
+enforces that the tour of knight's moves forms a Hamiltonian
+circuit: 
+\insertlitcode{knights:Hamiltonian circuit}
+We request domain propagation for the \?circuit? constraint by
+providing \?ICL_DOM? as argument (see
+\autoref{sec:m:integer:icl}).\footnote{Of course, domain
+  propagation for \?circuit? does not achieve domain consistency,
+  as the problem of finding Hamiltonian circuits is
+  NP-complete~\cite[p.~199]{GareyJohnson:79}.} Intuitively, we
+want to have the strongest possible propagation available for
+\?circuit? as it is the only constraint.
+
+
+\section{Branching}
+
+The really interesting aspect of solving the knight's tour puzzle
+is to find a branching that works well. A classic approach
+is Warnsdorff's heuristic~\cite{Warnsdorff}: move the knight to
+a field that has the least number of further possible moves.
+
+In terms of our model, Warnsdorff's heuristic has of course no
+procedural notion of \emph{moving} the knight! Instead, our
+branching finds a yet unassigned field $i$ on the board (a
+field whose successor is not known yet).  Then, it first tries a
+value for $\mathtt{succ}_i$ that moves the knight to a field with
+the least number of further possible moves. That is, the
+branching first tries a value \?n?  for $\mathtt{succ}_i$ such
+that the domain size of $\mathtt{succ}_\mathtt{n}$ is smallest.
+If there are several such values, it just tries the smallest
+first (as it is most natural to implement).
+
+\paragraph{The brancher.}
+
+\begin{figure}[p]
+\insertlitcode{knights:brancher}
+\caption{A brancher for Warnsdorff's heuristic}
+\label{fig:c:knights:branching}
+\end{figure}
+
+\mbox{}\autoref{fig:c:knights:branching} shows an outline of a
+branching and a brancher implementing Warnsdorff's heuristic.
+The members of \?Warnsdorff? are exactly the same as for the
+example brancher in \autoref{sec:b:started:nonemin:improved}:
+the view array \?x?  stores the knight's moves, the \?mutable?
+integer \?start? points to the current unassigned view in
+\?x?, and the \?PosVal?  choice stores the position of the view and
+the value to be used for branching.
+
+\paragraph{Status computation.}
+
+The \?status()? function tries to find a yet unassigned view for
+branching in the view array \?x?. It starts inspecting the views
+from position \?start?. If it finds an assigned view, it moves
+\?start? to the position in the view array as defined by the
+assigned view's value. In other words, \?status()? follows
+partially constructed knight's tours. If \?status()? finds an
+unassigned view, it returns \?true?:
+\insertlitcode{knights:status function}
+
+The number of attempts to find an unassigned view is limited by
+the number of views in the view array \?x?. If the limit is
+exceeded, all views are assigned and hence the \?status()?
+function returns \?false?.
+
+\paragraph{Choice computation.}
+
+The \?choice()? function implements the actual heuristic. It
+chooses the value of \?x[start]? for branching that has the
+smallest domain size as follows:
+\insertlitcode{knights:choice function}
+As mentioned above, to keep the implementation simple, if there
+are several values that have smallest domain size, the first is
+chosen (and hence the smallest).
+
+Note that the value \?UINT_MAX? is larger than the size of any
+view domain.\footnote{\?UINT_MAX? (for the maximal value of an
+  unsigned integer) is available as the program includes the
+  \CppInline{\litstr{<climits>}} header file.} Hence, it is
+guaranteed that the \?for?-loop will always choose a value from
+the domain of \?x[start]?. The choice returned is the typical
+implementation to store position and value, similar to the
+examples in \autoref{sec:b:started:nonemin:improved}.
+
+\section{More information}
+
+The model is also available as a Gecode example, see
+\gecoderef[example]{knights:KnightsCircuit}. The Gecode example
+also features a simple standard branching that can be compared to
+Warns\-dorff's branching and a naive model using reification
+instead of \?circuit? (see
+\gecoderef[example]{knights:KnightsReified}).
+
+
+\begin{litcode}{knights}{lagerkvist,schulte}
+#include <climits>
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+\begin{litblock}{brancher}
+class Warnsdorff : public Brancher {
+protected:
+  ViewArray<Int::IntView> x;
+  mutable int start;
+  class PosVal : public Choice {
+    \begin{litblock}{anonymous}
+  public:
+    int pos; int val;
+    PosVal(const Warnsdorff& b, int p, int v)
+      : Choice(b,2), pos(p), val(v) {}
+    virtual size_t size(void) const {
+      return sizeof(Choice);
+    }
+    virtual void archive(Archive& e) const {
+      Choice::archive(e);
+      e << pos << val;
+    }
+    \end{litblock}
+  };
+public:
+  \begin{litblock}{anonymous}
+  Warnsdorff(Home home, ViewArray<Int::IntView>& x0) 
+    : Brancher(home), x(x0), start(0) {}
+  static void post(Home home, ViewArray<Int::IntView>& x) {
+    (void) new (home) Warnsdorff(home,x);
+  }
+  virtual size_t dispose(Space&) {
+    return sizeof(*this);
+  }
+  Warnsdorff(Space& home, bool share, Warnsdorff& b) 
+    : Brancher(home,share,b), start(b.start) {
+    x.update(home,share,b.x);
+  }
+  virtual Brancher* copy(Space& home, bool share) {
+    return new (home) Warnsdorff(home, share, *this);
+  }
+  \end{litblock}
+  \begin{litblock}{status function}
+  virtual bool status(const Space&) const {
+    for (int n=0; n<x.size(); n++) {
+      if (!x[start].assigned()) 
+        return true;
+      start = x[start].val();
+    }
+    return false;
+  }
+  \end{litblock}
+  \begin{litblock}{choice function}
+  virtual Choice* choice(Space&) {
+    int n=-1; unsigned int size=UINT_MAX;
+    for (Int::ViewValues<Int::IntView> i(x[start]); i(); ++i)
+      if (x[i.val()].size() < size) {
+        n=i.val(); size=x[n].size();
+      }
+    return new PosVal(*this,start,n);
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  virtual Choice* choice(const Space&, Archive& e) {
+    int pos, val;
+    e >> pos >> val;
+    return new PosVal(*this, pos, val);
+  }
+  virtual ExecStatus commit(Space& home, const Gecode::Choice& c, 
+                            unsigned int a) {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    if (a == 0)
+      return me_failed(x[pv.pos].eq(home,pv.val)) ? ES_FAILED : ES_OK;
+    else 
+      return me_failed(x[pv.pos].nq(home,pv.val)) ? ES_FAILED : ES_OK;
+  }
+  \end{litblock}
+};
+
+void warnsdorff(Home home, const IntVarArgs& x) {
+  \begin{litblock}{anonymous}
+  ViewArray<Int::IntView> y(home,x);
+  Warnsdorff::post(home,y);
+  \end{litblock}
+}
+\end{litblock}
+class Knights : public Script {
+protected:
+  const int n;
+  IntVarArray succ;
+public:
+  int f(int x, int y) const { return x + y*n; }
+  \begin{litblock}{anonymous}
+  int x(int f) const { return f%n; }
+  int y(int f) const { return f/n; }
+  \end{litblock}
+  IntSet neighbors(int i) {
+    \begin{litblock}{anonymous}
+    static const int moves[8][2] = {
+      {-2,-1}, {-2,1}, {-1,-2}, {-1,2}, {1,-2}, {1,2}, {2,-1}, {2,1}
+    };
+    int nbs[8]; int n_nbs = 0;
+    for (int m=0; m<8; m++) {
+      int nx = x(i) + moves[m][0], ny = y(i) + moves[m][1];
+      if ((nx >= 0) && (nx < n) && (ny >= 0) && (ny < n))
+        nbs[n_nbs++] = f(nx,ny);
+    }
+    return IntSet(nbs,n_nbs);
+    \end{litblock}
+  }
+  Knights(const SizeOptions& opt)
+    : n(opt.size()), succ(*this,n*n,0,n*n-1) {
+   \begin{litblock}{knight's moves}
+    for (int i=0; i<n*n; i++)
+      dom(*this, succ[i], neighbors(i));
+    \end{litblock}
+    \begin{litblock}{fix first move}
+    rel(*this, succ[0], IRT_EQ, f(1,2));
+    \end{litblock}
+    \begin{litblock}{Hamiltonian circuit}
+    circuit(*this, succ, ICL_DOM);
+    \end{litblock}
+    warnsdorff(*this, succ);
+  }
+  \begin{litblock}{anonymous}
+  Knights(bool share, Knights& s) : Script(share,s), n(s.n) {
+    succ.update(*this, share, s.succ);
+  }
+  virtual Space* copy(bool share) {
+    return new Knights(share,*this);
+  }
+  virtual void
+  print(std::ostream& os) const {
+    int* jump = new int[n*n];
+    {
+      int j=0;
+      for (int i=0; i<n*n; i++) {
+        jump[j]=i; j=succ[j].min();
+      }
+    }
+    os << "\t";
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        os.width(3);
+        os << jump[f(i,j)] << " ";
+        }
+        os << std::endl << "\t";
+    }
+    os << std::endl;
+    delete [] jump;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+
+int main(int argc, char* argv[]) {
+  SizeOptions opt("Knights");
+  opt.size(6);
+  opt.c_d(100); opt.a_d(100);
+  opt.parse(argc,argv);
+  Script::run<Knights,DFS,SizeOptions>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}

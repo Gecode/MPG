@@ -1,0 +1,678 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Kakuro}
+\label{chap:c:kakuro}
+
+%% FILES: CHAPTERONLY
+
+\newcommand{\kakhint}[2]{%
+\rput(#1,#2){%
+  \psframe[fillstyle=solid,fillcolor=black,dimen=inner](0.09,0.09)(0.91,0.91)%
+  \psline[linecolor=white,linewidth=1.2pt](0.04,0.96)(0.96,0.04)}}
+
+\newcommand{\kakflaw}[2]{%
+\rput(#1,#2){%
+  \psframe[fillstyle=solid,fillcolor=GecodeGreen,dimen=inner,opacity=0.5](0,0)(1,1)}}
+
+\newcommand{\kakvhint}[3]{%
+\rput(#1,#2){\rput(0.3,0.3){\makebox(0,0){\white%
+\fontsize{3mm}{3mm}\selectfont\textbf{#3}}}}}
+
+\newcommand{\kakhhint}[3]{%
+\rput(#1,#2){\rput(0.7,0.7){\makebox(0,0){\white%
+\fontsize{3mm}{3mm}\selectfont\textbf{#3}}}}}
+
+This chapter studies Kakuro puzzles, a variant of the well-known
+Sudoku puzzles. Two models are presented: a first and obvious model
+that suffers from too little propagation to be feasible. This is
+followed by a model that employs user-defined constraints
+implemented as \?extensional? constraints using tuple set
+specifications. Interestingly, the tuple set specifications are
+computed by solving a simple constraint problem.
+
+
+\section{Problem}
+\label{sec:c:kakuro:problem}
+
+\begin{figure}
+\centering
+\psset{unit=8mm}
+\begin{pspicture}(12,10)
+\kakhint{0}{9}\kakhint{0}{8}\kakhint{0}{7}\kakhint{0}{6}\kakhint{0}{5}\kakhint{0}{4}\kakhint{0}{3}\kakhint{0}{2}\kakhint{0}{1}\kakhint{0}{0}\kakhint{1}{9}\kakhint{1}{8}\kakhint{1}{7}\kakhint{1}{4}\kakhint{1}{3}\kakhint{2}{9}\kakhint{2}{8}\kakhint{2}{4}\kakhint{3}{9}\kakhint{3}{5}\kakhint{3}{0}\kakhint{4}{9}\kakhint{4}{2}\kakhint{5}{9}\kakhint{5}{8}\kakhint{5}{7}\kakhint{5}{4}\kakhint{6}{9}\kakhint{6}{8}\kakhint{6}{5}\kakhint{6}{4}\kakhint{6}{3}\kakhint{6}{0}\kakhint{7}{9}\kakhint{7}{4}\kakhint{7}{1}\kakhint{7}{0}\kakhint{8}{9}\kakhint{8}{6}\kakhint{9}{9}\kakhint{9}{8}\kakhint{9}{3}\kakhint{10}{9}\kakhint{10}{4}\kakhint{10}{0}\kakhint{11}{9}\kakhint{11}{5}\kakhint{11}{4}\kakhint{11}{1}\kakhint{11}{0}%
+\kakvhint{3}{9}{7}\kakvhint{4}{9}{21}\kakvhint{7}{9}{29}\kakvhint{8}{9}{17}\kakvhint{10}{9}{29}\kakvhint{11}{9}{23}\kakvhint{2}{8}{6}\kakvhint{6}{8}{16}\kakvhint{9}{8}{14}\kakvhint{1}{7}{4}\kakvhint{5}{7}{3}\kakvhint{8}{6}{22}\kakvhint{3}{5}{10}\kakvhint{2}{4}{11}\kakvhint{5}{4}{10}\kakvhint{7}{4}{10}\kakvhint{10}{4}{24}\kakvhint{11}{4}{16}\kakvhint{1}{3}{7}\kakvhint{6}{3}{9}\kakvhint{9}{3}{23}\kakvhint{4}{2}{4}\kakhhint{2}{8}{4}\kakhhint{6}{8}{17}\kakhhint{9}{8}{16}\kakhhint{1}{7}{6}\kakhhint{5}{7}{39}\kakhhint{0}{6}{28}\kakhhint{8}{6}{24}\kakhhint{0}{5}{3}\kakhhint{3}{5}{3}\kakhhint{6}{5}{20}\kakhhint{2}{4}{9}\kakhhint{7}{4}{4}\kakhhint{1}{3}{10}\kakhhint{6}{3}{3}\kakhhint{9}{3}{16}\kakhhint{0}{2}{6}\kakhhint{4}{2}{42}\kakhhint{0}{1}{21}\kakhhint{7}{1}{21}\kakhhint{0}{0}{4}\kakhhint{3}{0}{3}\kakhhint{7}{0}{16}
+\multiput(0,0)(1,0){12}{%
+  \multiput(0,0)(0,1){10}{%
+    \psframe[linecolor=black,linewidth=0.2pt,dimen=inner](0,0)(1,1)%
+  }
+}
+\end{pspicture}
+\caption{A Kakuro puzzle}
+\label{fig:c:kakuro:board}
+\end{figure}
+
+Solving a Kakuro puzzle (see \autoref{fig:c:kakuro:board} for an
+example) amounts to finding digits between~1 and~9 for the
+non-hint fields on a board. A hint field can specify a
+\emph{vertical hint} and/or a \emph{horizontal hint}:
+\begin{itemize}
+\item A vertical hint contains a number $s$ above the diagonal in
+  the hint field. It requires that all digits on the fields
+  extending from the field left of the hint up to the next hint
+  field or to the end of the row are pairwise distinct and sum up
+  to the value $s$.
+\item A horizontal hint contains a number $s$ below the diagonal
+  in the hint field. The requirements are analogous.
+\end{itemize}
+The number contained in a hint is called its \emph{value}
+and the number of fields constrained by a hint is called its \emph{length}.
+
+\begin{figure}
+\centering
+\psset{unit=8mm}
+\newcommand{\sol}[3]{%
+\rput(#1,#2){\rput(0.5,0.5){\makebox(0,0){\texttt{\large #3}}}}
+}
+\begin{pspicture}(12,10)
+\kakhint{0}{9}\kakhint{0}{8}\kakhint{0}{7}\kakhint{0}{6}\kakhint{0}{5}\kakhint{0}{4}\kakhint{0}{3}\kakhint{0}{2}\kakhint{0}{1}\kakhint{0}{0}\kakhint{1}{9}\kakhint{1}{8}\kakhint{1}{7}\kakhint{1}{4}\kakhint{1}{3}\kakhint{2}{9}\kakhint{2}{8}\kakhint{2}{4}\kakhint{3}{9}\kakhint{3}{5}\kakhint{3}{0}\kakhint{4}{9}\kakhint{4}{2}\kakhint{5}{9}\kakhint{5}{8}\kakhint{5}{7}\kakhint{5}{4}\kakhint{6}{9}\kakhint{6}{8}\kakhint{6}{5}\kakhint{6}{4}\kakhint{6}{3}\kakhint{6}{0}\kakhint{7}{9}\kakhint{7}{4}\kakhint{7}{1}\kakhint{7}{0}\kakhint{8}{9}\kakhint{8}{6}\kakhint{9}{9}\kakhint{9}{8}\kakhint{9}{3}\kakhint{10}{9}\kakhint{10}{4}\kakhint{10}{0}\kakhint{11}{9}\kakhint{11}{5}\kakhint{11}{4}\kakhint{11}{1}\kakhint{11}{0}%
+\kakvhint{3}{9}{7}\kakvhint{4}{9}{21}\kakvhint{7}{9}{29}\kakvhint{8}{9}{17}\kakvhint{10}{9}{29}\kakvhint{11}{9}{23}\kakvhint{2}{8}{6}\kakvhint{6}{8}{16}\kakvhint{9}{8}{14}\kakvhint{1}{7}{4}\kakvhint{5}{7}{3}\kakvhint{8}{6}{22}\kakvhint{3}{5}{10}\kakvhint{2}{4}{11}\kakvhint{5}{4}{10}\kakvhint{7}{4}{10}\kakvhint{10}{4}{24}\kakvhint{11}{4}{16}\kakvhint{1}{3}{7}\kakvhint{6}{3}{9}\kakvhint{9}{3}{23}\kakvhint{4}{2}{4}\kakhhint{2}{8}{4}\kakhhint{6}{8}{17}\kakhhint{9}{8}{16}\kakhhint{1}{7}{6}\kakhhint{5}{7}{39}\kakhhint{0}{6}{28}\kakhhint{8}{6}{24}\kakhhint{0}{5}{3}\kakhhint{3}{5}{3}\kakhhint{6}{5}{20}\kakhhint{2}{4}{9}\kakhhint{7}{4}{4}\kakhhint{1}{3}{10}\kakhhint{6}{3}{3}\kakhhint{9}{3}{16}\kakhhint{0}{2}{6}\kakhhint{4}{2}{42}\kakhhint{0}{1}{21}\kakhhint{7}{1}{21}\kakhhint{0}{0}{4}\kakhhint{3}{0}{3}\kakhhint{7}{0}{16}
+\multiput(0,0)(1,0){12}{%
+  \multiput(0,0)(0,1){10}{%
+    \psframe[linecolor=black,linewidth=0.2pt,dimen=inner](0,0)(1,1)%
+  }
+}
+        \sol{3}{8}{1}\sol{4}{8}{3}\sol{7}{8}{8}\sol{8}{8}{9}\sol{10}{8}{7}\sol{11}{8}{9}%
+        \sol{2}{7}{3}\sol{3}{7}{2}\sol{4}{7}{1}\sol{6}{7}{9}\sol{7}{7}{7}\sol{8}{7}{8}\sol{9}{7}{4}\sol{10}{7}{5}\sol{11}{7}{6}%
+        \sol{1}{6}{3}\sol{2}{6}{1}\sol{3}{6}{4}\sol{4}{6}{6}\sol{5}{6}{2}\sol{6}{6}{7}\sol{7}{6}{5}\sol{9}{6}{7}\sol{10}{6}{9}\sol{11}{6}{8}%
+        \sol{1}{5}{1}\sol{2}{5}{2}\sol{4}{5}{2}\sol{5}{5}{1}\sol{7}{5}{9}\sol{8}{5}{1}\sol{9}{5}{2}\sol{10}{5}{8}%
+        \sol{3}{4}{4}\sol{4}{4}{5}\sol{8}{4}{3}\sol{9}{4}{1}%
+        \sol{2}{3}{2}\sol{3}{3}{1}\sol{4}{3}{4}\sol{5}{3}{3}\sol{7}{3}{1}\sol{8}{3}{2}\sol{10}{3}{7}\sol{11}{3}{9}%
+        \sol{1}{2}{2}\sol{2}{2}{1}\sol{3}{2}{3}\sol{5}{2}{4}\sol{6}{2}{3}\sol{7}{2}{9}\sol{8}{2}{5}\sol{9}{2}{6}\sol{10}{2}{8}\sol{11}{2}{7}%
+        \sol{1}{1}{4}\sol{2}{1}{5}\sol{3}{1}{2}\sol{4}{1}{3}\sol{5}{1}{1}\sol{6}{1}{6}\sol{8}{1}{4}\sol{9}{1}{8}\sol{10}{1}{9}%
+        \sol{1}{0}{1}\sol{2}{0}{3}\sol{4}{0}{1}\sol{5}{0}{2}\sol{8}{0}{7}\sol{9}{0}{9}%
+\end{pspicture}
+\caption{Solution for Kakuro puzzle from \autoref{fig:c:kakuro:board}}
+\label{fig:c:kakuro:solution}
+\end{figure}
+
+The solution for the Kakuro puzzle from
+\autoref{fig:c:kakuro:board} is shown in
+\autoref{fig:c:kakuro:solution}. Kakuro puzzles are always
+designed (at least meant to be) to have a unique solution.
+
+
+\section{A naive model}
+\label{sec:c:kakuro:model:naive}
+
+\begin{figure}
+\insertlitcode{kakuro naive}
+
+\insertlitcode{kakuro naive:board specification}
+\caption{A naive script and board specification for solving Kakuro puzzles}
+\label{fig:c:kakuro:script:naive}
+\end{figure}
+
+A script for the Kakuro model is shown in
+\autoref{fig:c:kakuro:script:naive}. The script stores the
+width (\?w?) and height (\?h?) of the board. The fields are
+stored in an integer variable array \?f? which is initialized to
+have $\mathtt{w}\cdot\mathtt{h}$ elements. Note that none of the
+fields is initialized in the constructor of \?Kakuro?; their
+initialization is discussed below.
+
+\paragraph{Board specification.}
+
+The specification of the Kakuro board, as shown in
+\autoref{fig:c:kakuro:script:naive}, stores width and height of
+the board, followed by a specification of the hints. The hints
+are provided in two groups: first vertical hints, then horizontal
+hints, separated by the integer \?-1?. A hint is described by its
+coordinates on the board, followed by its length and value. Note
+that the specification assumes that the field with coordinate
+$\langle 0,0\rangle$ is in the left upper corner.
+
+\paragraph{Initializing fields.}
+
+All fields are initialized to a single shared integer variable
+\?black? that is assigned to zero:
+\insertlitcode{kakuro naive:field initialization}
+
+Only if a field is actually used by a hint, the field will be
+initialized to an integer variable taking digit values by the
+following \?init()? function:
+\insertlitcode{kakuro naive:init function}
+
+The test whether the minimum of variable \?x? equals zero is true,
+if and only if \?x? still refers to the variable
+\?black?. In this case, a new variable is created with non-zero
+digits as variable domain. As \?x? is passed by reference,
+assigning \?x? to the newly created variable also assigns the
+corresponding field on the board to the newly created
+variable. This guarantees that a new variable is created at
+most once for each field.
+
+\paragraph{Posting hint constraints.}
+
+Posting hint constraints is done best by using a matrix interface
+\?b? (see \autoref{sec:m:minimodel:matrix}) to the fields in
+\?f?. The specification of the hints will be accessed by the
+variable \?k?, where the dimension of the board has already been
+skipped:
+\insertlitcode{kakuro naive:setup}
+
+Processing the vertical hints is straightforward. After
+retrieving the coordinates \?x? and \?y?, the length \?n?, and
+the value \?s? for a hint from the board specification, the
+variables covered by the hint are collected in the integer
+variable argument array (see \autoref{sec:m:integer:args})
+\?col?. The constraint for the hint on the collected variables is
+posted by the member function \?hint()?:
+\insertlitcode{kakuro naive:process vertical hints}
+
+The \?hint()? function must constrain that all variables are
+distinct (using a \?distinct? constraint) and that they sum up to
+the value of the hint (using a \?linear? constraint).  To achieve
+strong propagation, we want to use domain propagation for both
+\?distinct? and \?linear?. However, the complexity of domain
+propagation for \?linear? is exponential, hence it is a
+good idea to avoid posting \?linear? constraints as much a
+possible.
+
+Consider a hint of length $9$. Then obviously, the single
+possible value of the hint is $\sum_{i=1}^{9} i=9(9+1)/2$ and
+hence no \?linear? constraint needs to be posted. Now consider a
+hint of length $8$ with value $s$. Then, the fields covered by
+the hint take on all but one digit. That is, all fields must be
+different from $\sum_{i=1}^9 i -s = 9(9+1)/2 -s$. Taking these
+two observations into account, the constraints for a hint can be
+posted as follows, where the value \?ICL_DOM? requests domain
+propagation (see \autoref{sec:m:integer:icl}):
+\insertlitcode{kakuro naive:posting hint constraints}
+
+Note that there are other special cases where no \?linear?
+constraint needs to be posted, for example if for a hint of
+length $n$ and value $s$ it holds that $\sum_{i=1}^n i=s$ (that
+is, only digits from $1$ to $n$ are possible). See
+\autoref{sec:c:kakuro:info} for more information.
+
+Vertical hints are of course analogous and are hence omitted.
+
+\paragraph{Branching.}
+
+We choose a branching that selects the variable where the
+quotient of domain size and AFC is smallest (see
+\autoref{sec:m:search:branch:int}). Values are tried by interval
+bisection:
+\insertlitcode{kakuro naive:branching}
+
+
+\paragraph{Why the model is poor.}
+
+\begin{figure}
+\centering
+\psset{unit=8mm}
+\newcommand{\digitdot}[1]{\tiny\texttt{#1}}
+\newcommand{\pone}[2]{\rput(#1,#2){\rput(0.25,0.75){\digitdot{1}}}}
+\newcommand{\ptwo}[2]{\rput(#1,#2){\rput(0.5,0.75){\digitdot{2}}}}
+\newcommand{\pthree}[2]{\rput(#1,#2){\rput(0.75,0.75){\digitdot{3}}}}
+\newcommand{\pfour}[2]{\rput(#1,#2){\rput(0.25,0.5){\digitdot{4}}}}
+\newcommand{\pfive}[2]{\rput(#1,#2){\rput(0.5,0.5){\digitdot{5}}}}
+\newcommand{\psix}[2]{\rput(#1,#2){\rput(0.75,0.5){\digitdot{6}}}}
+\newcommand{\pseven}[2]{\rput(#1,#2){\rput(0.25,0.25){\digitdot{7}}}}
+\newcommand{\peight}[2]{\rput(#1,#2){\rput(0.5,0.25){\digitdot{8}}}}
+\newcommand{\pnine}[2]{\rput(#1,#2){\rput(0.75,0.25){\digitdot{9}}}}
+\begin{pspicture}(12,10)
+\kakflaw{4}{0}\kakflaw{4}{1}%
+\kakhint{0}{9}\kakhint{0}{8}\kakhint{0}{7}\kakhint{0}{6}\kakhint{0}{5}\kakhint{0}{4}\kakhint{0}{3}\kakhint{0}{2}\kakhint{0}{1}\kakhint{0}{0}\kakhint{1}{9}\kakhint{1}{8}\kakhint{1}{7}\kakhint{1}{4}\kakhint{1}{3}\kakhint{2}{9}\kakhint{2}{8}\kakhint{2}{4}\kakhint{3}{9}\kakhint{3}{5}\kakhint{3}{0}\kakhint{4}{9}\kakhint{4}{2}\kakhint{5}{9}\kakhint{5}{8}\kakhint{5}{7}\kakhint{5}{4}\kakhint{6}{9}\kakhint{6}{8}\kakhint{6}{5}\kakhint{6}{4}\kakhint{6}{3}\kakhint{6}{0}\kakhint{7}{9}\kakhint{7}{4}\kakhint{7}{1}\kakhint{7}{0}\kakhint{8}{9}\kakhint{8}{6}\kakhint{9}{9}\kakhint{9}{8}\kakhint{9}{3}\kakhint{10}{9}\kakhint{10}{4}\kakhint{10}{0}\kakhint{11}{9}\kakhint{11}{5}\kakhint{11}{4}\kakhint{11}{1}\kakhint{11}{0}%
+\kakvhint{3}{9}{7}\kakvhint{4}{9}{21}\kakvhint{7}{9}{29}\kakvhint{8}{9}{17}\kakvhint{10}{9}{29}\kakvhint{11}{9}{23}\kakvhint{2}{8}{6}\kakvhint{6}{8}{16}\kakvhint{9}{8}{14}\kakvhint{1}{7}{4}\kakvhint{5}{7}{3}\kakvhint{8}{6}{22}\kakvhint{3}{5}{10}\kakvhint{2}{4}{11}\kakvhint{5}{4}{10}\kakvhint{7}{4}{10}\kakvhint{10}{4}{24}\kakvhint{11}{4}{16}\kakvhint{1}{3}{7}\kakvhint{6}{3}{9}\kakvhint{9}{3}{23}\kakvhint{4}{2}{4}\kakhhint{2}{8}{4}\kakhhint{6}{8}{17}\kakhhint{9}{8}{16}\kakhhint{1}{7}{6}\kakhhint{5}{7}{39}\kakhhint{0}{6}{28}\kakhhint{8}{6}{24}\kakhhint{0}{5}{3}\kakhhint{3}{5}{3}\kakhhint{6}{5}{20}\kakhhint{2}{4}{9}\kakhhint{7}{4}{4}\kakhhint{1}{3}{10}\kakhhint{6}{3}{3}\kakhhint{9}{3}{16}\kakhhint{0}{2}{6}\kakhhint{4}{2}{42}\kakhhint{0}{1}{21}\kakhhint{7}{1}{21}\kakhhint{0}{0}{4}\kakhhint{3}{0}{3}\kakhhint{7}{0}{16}
+\multiput(0,0)(1,0){12}{%
+  \multiput(0,0)(0,1){10}{%
+    \psframe[linecolor=black,linewidth=0.2pt,dimen=inner](0,0)(1,1)%
+  }
+}
+\pone{3}{8}\ptwo{3}{8}\pthree{3}{8}\pone{4}{8}\ptwo{4}{8}\pthree{4}{8}\peight{7}{8}\pnine{7}{8}\peight{8}{8}\pnine{8}{8}\pseven{10}{8}\peight{10}{8}\pnine{10}{8}\pseven{11}{8}\peight{11}{8}\pnine{11}{8}\pone{2}{7}\ptwo{2}{7}\pthree{2}{7}\pfour{2}{7}\pone{3}{7}\ptwo{3}{7}\pthree{3}{7}\pfour{3}{7}\pone{4}{7}\ptwo{4}{7}\pthree{4}{7}\pfour{4}{7}\pseven{6}{7}\peight{6}{7}\pnine{6}{7}\ptwo{7}{7}\pthree{7}{7}\pfour{7}{7}\pfive{7}{7}\psix{7}{7}\pseven{7}{7}\peight{7}{7}\pnine{7}{7}\peight{8}{7}\pnine{8}{7}\pone{9}{7}\ptwo{9}{7}\pthree{9}{7}\pfour{9}{7}\pfive{9}{7}\psix{9}{7}\ptwo{10}{7}\pthree{10}{7}\pfour{10}{7}\pfive{10}{7}\psix{10}{7}\pseven{10}{7}\peight{10}{7}\pnine{10}{7}\pfive{11}{7}\psix{11}{7}\pseven{11}{7}\peight{11}{7}\pnine{11}{7}\ptwo{1}{6}\pthree{1}{6}\pone{2}{6}\ptwo{2}{6}\pthree{2}{6}\pfour{2}{6}\pone{3}{6}\ptwo{3}{6}\pthree{3}{6}\pfour{3}{6}\pfive{3}{6}\pone{4}{6}\ptwo{4}{6}\pthree{4}{6}\pfour{4}{6}\pfive{4}{6}\psix{4}{6}\pseven{4}{6}\peight{4}{6}\pnine{4}{6}\pone{5}{6}\ptwo{5}{6}\pseven{6}{6}\peight{6}{6}\pnine{6}{6}\ptwo{7}{6}\pthree{7}{6}\pfour{7}{6}\pfive{7}{6}\psix{7}{6}\pseven{7}{6}\peight{7}{6}\pnine{7}{6}\psix{9}{6}\pseven{9}{6}\peight{9}{6}\pnine{9}{6}\psix{10}{6}\pseven{10}{6}\peight{10}{6}\pnine{10}{6}\psix{11}{6}\pseven{11}{6}\peight{11}{6}\pnine{11}{6}\pone{1}{5}\ptwo{1}{5}\pone{2}{5}\ptwo{2}{5}\pone{4}{5}\ptwo{4}{5}\pone{5}{5}\ptwo{5}{5}\ptwo{7}{5}\pthree{7}{5}\pfour{7}{5}\pfive{7}{5}\psix{7}{5}\pseven{7}{5}\peight{7}{5}\pnine{7}{5}\pone{8}{5}\ptwo{8}{5}\pthree{8}{5}\pfour{8}{5}\pfive{8}{5}\psix{8}{5}\pseven{8}{5}\peight{8}{5}\pnine{8}{5}\pone{9}{5}\ptwo{9}{5}\pthree{9}{5}\pfour{9}{5}\pfive{9}{5}\psix{9}{5}\ptwo{10}{5}\pthree{10}{5}\pfour{10}{5}\pfive{10}{5}\psix{10}{5}\pseven{10}{5}\peight{10}{5}\pnine{10}{5}\pone{3}{4}\ptwo{3}{4}\pthree{3}{4}\pfour{3}{4}\pfive{3}{4}\psix{3}{4}\pseven{3}{4}\ptwo{4}{4}\pthree{4}{4}\pfour{4}{4}\pfive{4}{4}\psix{4}{4}\pseven{4}{4}\peight{4}{4}\pone{8}{4}\ptwo{8}{4}\pthree{8}{4}\pone{9}{4}\ptwo{9}{4}\pthree{9}{4}\pone{2}{3}\ptwo{2}{3}\pthree{2}{3}\pfour{2}{3}\pfive{2}{3}\psix{2}{3}\pseven{2}{3}\pone{3}{3}\ptwo{3}{3}\pthree{3}{3}\pfour{3}{3}\pfive{3}{3}\psix{3}{3}\pseven{3}{3}\pone{4}{3}\ptwo{4}{3}\pthree{4}{3}\pfour{4}{3}\pfive{4}{3}\psix{4}{3}\pseven{4}{3}\pone{5}{3}\ptwo{5}{3}\pthree{5}{3}\pfour{5}{3}\pfive{5}{3}\psix{5}{3}\pseven{5}{3}\pone{7}{3}\ptwo{7}{3}\pone{8}{3}\ptwo{8}{3}\pseven{10}{3}\peight{10}{3}\pnine{10}{3}\pseven{11}{3}\peight{11}{3}\pnine{11}{3}\pone{1}{2}\ptwo{1}{2}\pthree{1}{2}\pfour{1}{2}\pone{2}{2}\ptwo{2}{2}\pthree{2}{2}\pfour{2}{2}\pone{3}{2}\ptwo{3}{2}\pthree{3}{2}\pfour{3}{2}\pone{5}{2}\ptwo{5}{2}\pthree{5}{2}\pfour{5}{2}\pfive{5}{2}\psix{5}{2}\pseven{5}{2}\pone{6}{2}\ptwo{6}{2}\pthree{6}{2}\pfour{6}{2}\pfive{6}{2}\psix{6}{2}\pseven{6}{2}\peight{6}{2}\peight{7}{2}\pnine{7}{2}\pone{8}{2}\ptwo{8}{2}\pthree{8}{2}\pfour{8}{2}\pfive{8}{2}\psix{8}{2}\pseven{8}{2}\peight{8}{2}\pnine{8}{2}\pfive{9}{2}\psix{9}{2}\pseven{9}{2}\peight{9}{2}\pnine{9}{2}\psix{10}{2}\pseven{10}{2}\peight{10}{2}\pnine{10}{2}\pseven{11}{2}\peight{11}{2}\pnine{11}{2}\pone{1}{1}\ptwo{1}{1}\pthree{1}{1}\pfour{1}{1}\pfive{1}{1}\pone{2}{1}\ptwo{2}{1}\pthree{2}{1}\pfour{2}{1}\pfive{2}{1}\psix{2}{1}\pseven{2}{1}\peight{2}{1}\pone{3}{1}\ptwo{3}{1}\pthree{3}{1}\pfour{3}{1}\pfive{3}{1}\psix{3}{1}\pseven{3}{1}\ptwo{4}{1}\pthree{4}{1}\pone{5}{1}\ptwo{5}{1}\pthree{5}{1}\pfour{5}{1}\pfive{5}{1}\psix{5}{1}\pseven{5}{1}\pone{6}{1}\ptwo{6}{1}\pthree{6}{1}\pfour{6}{1}\pfive{6}{1}\psix{6}{1}\pseven{6}{1}\peight{6}{1}\pthree{8}{1}\pfour{8}{1}\pfive{8}{1}\psix{8}{1}\pseven{8}{1}\peight{8}{1}\pnine{8}{1}\pfive{9}{1}\psix{9}{1}\pseven{9}{1}\peight{9}{1}\pnine{9}{1}\psix{10}{1}\pseven{10}{1}\peight{10}{1}\pnine{10}{1}\pone{1}{0}\ptwo{1}{0}\pthree{1}{0}\pone{2}{0}\ptwo{2}{0}\pthree{2}{0}\pone{4}{0}\ptwo{4}{0}\pone{5}{0}\ptwo{5}{0}\pseven{8}{0}\peight{8}{0}\pnine{8}{0}\pseven{9}{0}\peight{9}{0}\pnine{9}{0}%
+\end{pspicture}
+\caption{Propagation for the Kakuro puzzle}
+\label{fig:c:kakuro:prop}
+\end{figure}
+
+When running the script, solving even the tiny board of
+\autoref{fig:c:kakuro:board} requires
+$19$~search nodes. There exist commercially available boards with thousands of hints, which are
+of course completely out of reach with the naive model.
+\mbox{}\autoref{fig:c:kakuro:prop} shows the possible digits for
+each field after performing propagation for the Kakuro script but
+before any search. Consider the two green fields for the hint of
+length~$2$ and value~$4$. The only possible combination for the two
+fields is $\langle 3,1\rangle$. However,
+propagation does not prune the value $2$ for both fields. The
+reason is that a \?hint? constraint is decomposed into a
+\?distinct? constraint
+and into a \?linear? constraint and neither constraint by itself warrants
+more pruning than shown.
+
+
+
+\section{A working model}
+\label{sec:c:kakuro:model:work}
+
+The naive model from the previous section suffers from the fact
+that \?hint? constraints are decomposed into a \?distinct?
+constraint and a \?linear? constraint. One remedy would be to
+implement a dedicated propagator for a \?distinctlinear?
+constraint. This is impractical: too complicated and too much
+effort for such a specialized constraint.
+
+\paragraph{Model idea.}
+
+This section implements \?distinctlinear? constraints as
+\?extensional? constraints using tuple sets as specification of
+the possible solutions of \?distinctlinear? constraints. For
+example, for a hint of length~$3$ and value~$8$, the possible
+solutions for the corresponding \?distinctlinear? constraint are:
+$$
+\begin{array}{c@{\quad}c@{\quad}c@{\quad}c}
+\langle 1,2,5 \rangle &
+\langle 1,3,4 \rangle &
+\langle 1,4,3 \rangle &
+\langle 1,5,2 \rangle \\
+\langle 2,1,5 \rangle &
+\langle 2,5,1 \rangle &
+\langle 3,1,4 \rangle &
+\langle 3,4,1 \rangle \\
+\langle 4,1,3 \rangle &
+\langle 4,3,1 \rangle &
+\langle 5,1,2 \rangle &
+\langle 5,2,1 \rangle 
+\end{array}
+$$
+
+The model needs a method to compute all solutions of a
+\?distinctlinear? constraint. To simplify matters, we
+are going to compute all solutions of a \?distinctlinear?
+constraint by computing all solutions of a trivial constraint
+problem: the decomposition of a \?distinctlinear? constraint into
+a \?distinct? and \?linear? constraint.
+
+\begin{figure}[p]
+\insertlitcode{kakuro}
+\caption{A working script for solving Kakuro puzzles}
+\label{fig:c:kakuro:script:work}
+\end{figure}
+
+\autoref{fig:c:kakuro:script:work} shows the outline for a
+working script for solving Kakuro puzzles. The class
+\?DistinctLinear? defines the script used for computing
+all solutions of a \?distinctlinear? constraint and the function
+\?distinctlinear()? serves as constraint post function. Apart from
+how \?hint? constraints are posted, the \?Kakuro? script is the
+same as in the previous section.
+
+\paragraph{Computing distinct linear solutions.}
+
+As mentioned, the script for \?DistinctLinear? just posts a
+\?linear? and \?distinct? constraint for \?n? variables and value
+\?s?. As the search space of the problem is small anyway, we neither
+need strong propagation for \?distinct? and \?linear? nor do we
+need a clever branching:
+\insertlitcode{kakuro:distinct linear script}
+
+When solving the \?DistinctLinear? script, we need its solutions
+as integer argument arrays for computing a tuple set. The
+\?solution()? member function of \?DistinctLinear? returns an
+integer argument array for a solution as follows:
+\insertlitcode{kakuro:returning a solution}
+
+\paragraph{Posting \?distinctlinear? constraints.}
+
+The search engine (see \autoref{sec:m:search:simple}) for
+computing all solutions of a \?DistinctLinear? script is
+initialized as follows:
+\insertlitcode{kakuro:set up search engine}
+
+Computing a tuple set (see \autoref{sec:m:integer:extensional})
+for all solutions of a \?distinctlinear? constraints is
+straightforward:
+\insertlitcode{kakuro:compute tuple set}
+Note that after all solutions have been added to the tuple set
+\?ts?, it must be finalized before it can be used by an
+\?extensional? constraint (see
+\autoref{sec:m:integer:extensional}). 
+
+Finally, posting the \?extensional? constraint using the
+tuple set \?ts? is as to be expected:
+\insertlitcode{kakuro:post extensional constraint}
+
+\paragraph{Posting hint constraints.}
+
+Posting a \?hint? constraint follows a similar line of
+reasoning as in the previous section. If the length of a hint
+is~$0$, no constraint needs to be posted (hints of length $0$
+are black fields without hints). If the length is~$1$,
+the single variable is constrained to \?s? directly. For lengths~$8$
+and~$9$, \?distinct? is used as it achieves the same propagation as
+\?distinctlinear?. Note that the case for length~$8$ continues
+(as it does not have a \?break? statement)
+with the case for length~$9$ and hence also posts a \?distinct?
+constraint. In all other cases, \?distinctlinear? is used:
+\insertlitcode{kakuro:posting hint constraints}
+
+There is a further important optimization which we will not show
+(but see \autoref{sec:c:kakuro:info}). Each time
+\?distinctlinear? is called, it computes a new tuple set, even
+though the tuple set is exactly the same for all hints of equal
+length and value. To guarantee that the same tuple set is
+computed at most once, one could cache tuple sets: if a tuple set
+for a certain length and value has already been computed earlier,
+it is not computed again but taken from a cache (where it had
+been stored when it was computed for the first time).
+
+\paragraph{This model works.}
+
+For the example puzzle, propagation alone is
+sufficient to solve the puzzle. Even puzzles with
+thousands of hints are solved without search in a
+fraction of a second (including computing the tuple sets,
+provided they are cached as sketched above).
+
+\section{More information}
+\label{sec:c:kakuro:info}
+
+Kakuro puzzles with some more examples are available as a Gecode
+example, see \gecoderef[example]{kakuro}. In particular, the
+model caches tuple sets such that for each type of hint its
+corresponding tuple set is computed at most once as discussed in
+\autoref{sec:c:kakuro:model:work}. Furthermore, the example
+exploits further special cases where posting a \?distinct?
+constraint rather than a complete \?hint? constraint is
+sufficient as discussed in \autoref{sec:c:kakuro:model:naive}.
+
+More constraint-based techniques for solving Kakuro puzzles are
+discussed in~\cite{HelmutKakuro}.
+
+
+
+\begin{litcode}{kakuro naive}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+\begin{litblock}{board specification}
+const int board[] = {
+  // Dimension w x h
+  12, 10,
+  // Vertical hints
+   3, 0, 3, 7,     4, 0, 6,21,     7, 0, 4,29,     8, 0, 2,17,
+  \begin{litblock}{anonymous}
+  10, 0, 4,29,    11, 0, 3,23,     2, 1, 3, 6,     6, 1, 2,16,
+   9, 1, 4,14,     1, 2, 2, 4,     5, 2, 2, 3,     8, 3, 6,22,
+   3, 4, 4,10,     2, 5, 4,11,     5, 5, 4,10,     7, 5, 2,10,
+  10, 5, 3,24,    11, 5, 2,16,     1, 6, 3, 7,     6, 6, 2, 9,
+   9, 6, 3,23,     4, 7, 2, 4,    
+  \end{litblock}
+  -1,
+  // Horizontal hints
+   2, 1, 2, 4,     6, 1, 2,17,     9, 1, 2,16,     1, 2, 3, 6,
+  \begin{litblock}{anonymous}
+   5, 2, 6,39,     0, 3, 7,28,     8, 3, 3,24,     0, 4, 2, 3,
+   3, 4, 2, 3,     6, 4, 4,20,     2, 5, 2, 9,     7, 5, 2, 4,
+   1, 6, 4,10,     6, 6, 2, 3,     9, 6, 2,16,     0, 7, 3, 6,
+   4, 7, 7,42,     0, 8, 6,21,     7, 8, 3,21,     0, 9, 2, 4,
+   3, 9, 2, 3,     7, 9, 2,16,    
+  -1
+  \end{litblock}
+};
+\end{litblock}
+class Kakuro : public Script {
+protected:
+  const int w, h;
+  IntVarArray f;
+public:
+  \begin{litblock}{init function}
+  IntVar init(IntVar& x) {
+    if (x.min() == 0)
+      x = IntVar(*this,1,9);
+    return x;
+  }
+  \end{litblock}
+  \begin{litblock}{posting hint constraints}
+  void hint(const IntVarArgs& x, int s) {
+    if (x.size() < 8)
+      linear(*this, x, IRT_EQ, s, ICL_DOM);
+    else if (x.size() == 8)
+      rel(*this, x, IRT_NQ, 9*(9+1)/2 - s);
+    distinct(*this, x, ICL_DOM);
+  }
+  \end{litblock}
+  Kakuro(const Options& opt)
+    : w(board[0]),  h(board[1]), f(*this,w*h) {
+    \begin{litblock}{field initialization}
+    IntVar black(*this,0,0);
+    for (int i=0; i<w*h; i++)
+      f[i] = black;
+    \end{litblock}
+    \begin{litblock}{setup}
+    Matrix<IntVarArray> b(f,w,h);
+    const int* k = &board[2];
+    \end{litblock}
+    \begin{litblock}{process vertical hints}
+    while (*k >= 0) {
+      int x=*k++; int y=*k++; int n=*k++; int s=*k++;
+      IntVarArgs col(n);
+      for (int i=0; i<n; i++)
+        col[i]=init(b(x,y+i+1));
+      hint(col,s);
+    }
+    \end{litblock}
+    \begin{litblock}{anonymous}
+    k++;
+    while (*k >= 0) {
+      int x=*k++; int y=*k++; int n=*k++; int s=*k++;
+      IntVarArgs row(n);
+      for (int i=0; i<n; i++)
+        row[i]=init(b(x+i+1,y));
+      hint(row,s);
+    }
+    \end{litblock}
+    \begin{litblock}{branching}
+    branch(*this, f, INT_VAR_SIZE_AFC_MIN, INT_VAL_SPLIT_MIN);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  // Constructor for cloning s
+  Kakuro(bool share, Kakuro& s) : Script(share,s), w(s.w), h(s.h) {
+    f.update(*this, share, s.f);
+  }
+  // Perform copying during cloning
+  virtual Space* copy(bool share) {
+    return new Kakuro(share,*this);
+  }
+  // Print solution
+  virtual void print(std::ostream& os) const {
+    Matrix<IntVarArray> b(f,w,h);
+    for (int y=0; y<h; y++) {
+      os << '\t';
+      for (int x=0; x<w; x++)
+        if (b(x,y).min() == 0)
+          os << ". ";
+        else
+          os << b(x,y) << ' ';
+      os << std::endl;
+    }
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  Options opt("Kakuro");
+  opt.parse(argc,argv);
+  Script::run<Kakuro,DFS,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+
+\begin{litcode}{kakuro}{schulte,lagerkvist}
+\begin{litblock}{anonymous}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+const int board[] = {
+  // Dimension w x h
+  12, 10,
+  // Vertical hints
+   3, 0, 3, 7,     4, 0, 6,21,     7, 0, 4,29,     8, 0, 2,17,
+  10, 0, 4,29,    11, 0, 3,23,     2, 1, 3, 6,     6, 1, 2,16,
+   9, 1, 4,14,     1, 2, 2, 4,     5, 2, 2, 3,     8, 3, 6,22,
+   3, 4, 4,10,     2, 5, 4,11,     5, 5, 4,10,     7, 5, 2,10,
+  10, 5, 3,24,    11, 5, 2,16,     1, 6, 3, 7,     6, 6, 2, 9,
+   9, 6, 3,23,     4, 7, 2, 4,    
+  -1,
+  // Horizontal hints
+   2, 1, 2, 4,     6, 1, 2,17,     9, 1, 2,16,     1, 2, 3, 6,
+   5, 2, 6,39,     0, 3, 7,28,     8, 3, 3,24,     0, 4, 2, 3,
+   3, 4, 2, 3,     6, 4, 4,20,     2, 5, 2, 9,     7, 5, 2, 4,
+   1, 6, 4,10,     6, 6, 2, 3,     9, 6, 2,16,     0, 7, 3, 6,
+   4, 7, 7,42,     0, 8, 6,21,     7, 8, 3,21,     0, 9, 2, 4,
+   3, 9, 2, 3,     7, 9, 2,16,    
+  -1
+};
+
+\end{litblock}
+class DistinctLinear : public Space {
+protected:
+  IntVarArray x;
+public:
+  \begin{litblock}{distinct linear script}
+  DistinctLinear(int n, int s) : x(*this,n,1,9) {
+    distinct(*this, x);
+    linear(*this, x, IRT_EQ, s);
+    branch(*this, x, INT_VAR_NONE, INT_VAL_SPLIT_MIN);
+  }
+  \end{litblock}
+  \begin{litblock}{returning a solution}
+  IntArgs solution(void) const {
+    IntArgs s(x.size());
+    for (int i=0; i<x.size(); i++)
+      s[i]=x[i].val();
+    return s;
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  DistinctLinear(bool share, DistinctLinear& s) : Space(share,s) {
+    x.update(*this, share, s.x);
+  }
+  virtual Space* copy(bool share) {
+    return new DistinctLinear(share,*this);
+  }
+  \end{litblock}
+};
+
+void distinctlinear(Home home, const IntVarArgs& x, int c) {
+  \begin{litblock}{set up search engine}
+  DistinctLinear* e = new DistinctLinear(x.size(),c);
+  DFS<DistinctLinear> d(e);
+  delete e;
+  \end{litblock}
+  \begin{litblock}{compute tuple set}
+  TupleSet ts;
+  while (DistinctLinear* s = d.next()) {
+    ts.add(s->solution()); delete s;
+  }
+  ts.finalize();
+  \end{litblock}
+  \begin{litblock}{post extensional constraint}
+  extensional(home, x, ts);
+  \end{litblock}
+}
+
+class Kakuro : public Script {
+  \begin{litblock}{anonymous}
+protected:
+  const int w, h;
+  IntVarArray f;
+public:
+  IntVar init(IntVar& x) {
+    if (x.min() == 0)
+      x = IntVar(*this,1,9);
+    return x;
+  }
+  \end{litblock}
+  \begin{litblock}{posting hint constraints}
+  void hint(const IntVarArgs& x, int s) {
+    switch (x.size()) {
+    case 0: 
+      break;
+    case 1:
+      rel(*this, x[0], IRT_EQ, s); break;
+    case 8:
+      rel(*this, x, IRT_NQ, 9*(9+1)/2 - s);
+    case 9:
+      distinct(*this, x, ICL_DOM); break;
+    default:
+      distinctlinear(*this, x, s); break;
+    }
+  }
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  Kakuro(const Options& opt)
+    : w(board[0]),  h(board[1]), f(*this,w*h) {
+    IntVar black(*this,0,0);
+    for (int i=0; i<w*h; i++)
+      f[i] = black;
+    Matrix<IntVarArray> b(f,w,h);
+    const int* k = &board[2];
+    while (*k >= 0) {
+      int x=*k++; int y=*k++; int n=*k++; int s=*k++;
+      IntVarArgs col(n);
+      for (int i=0; i<n; i++)
+        col[i]=init(b(x,y+i+1));
+      hint(col,s);
+    }
+    k++;
+    while (*k >= 0) {
+      int x=*k++; int y=*k++; int n=*k++; int s=*k++;
+      IntVarArgs row(n);
+      for (int i=0; i<n; i++)
+        row[i]=init(b(x+i+1,y));
+      hint(row,s);
+    }
+    branch(*this, f, INT_VAR_SIZE_AFC_MIN, INT_VAL_SPLIT_MIN);
+  }
+  // Constructor for cloning s
+  Kakuro(bool share, Kakuro& s) : Script(share,s), w(s.w), h(s.h) {
+    f.update(*this, share, s.f);
+  }
+  // Perform copying during cloning
+  virtual Space* copy(bool share) {
+    return new Kakuro(share,*this);
+  }
+  // Print solution
+  virtual void print(std::ostream& os) const {
+    Matrix<IntVarArray> b(f,w,h);
+    for (int y=0; y<h; y++) {
+      os << '\t';
+      for (int x=0; x<w; x++)
+        if (b(x,y).min() == 0)
+          os << ". ";
+        else
+          os << b(x,y) << ' ';
+      os << std::endl;
+    }
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+int main(int argc, char* argv[]) {
+  Options opt("Kakuro");
+  opt.parse(argc,argv);
+  Script::run<Kakuro,DFS,Options>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}

@@ -1,0 +1,31 @@
+Crossword
+	lap*deem*scaled
+	univalve*alcove
+	interferometric
+	satan*nixon*elk
+	***lew*teach***
+	the*dijon*hokan
+	role*dar*bernie
+	industriousness
+	adolph*orr*salt
+	loner*buena*des
+	***regis*sun***
+	sea*arena*reads
+	omnidirectional
+	aitken*stagnate
+	pliers*saga*lad
+
+
+
+Initial
+	propagators: 392
+	branchers:   1
+
+Summary
+	runtime:      51.570 (51570.000000 ms)
+	solutions:    1
+	propagations: 5093265
+	nodes:        34519
+	failures:     17246
+	peak depth:   93
+	peak memory:  13029 KB
