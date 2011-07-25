@@ -72,7 +72,7 @@ for branching on set variables.
 
 Gecode offers predefined \emph{variable-value branching}: when
 calling \?branch? to post a branching, the third argument defines
-which variable is selected for branching, whereas the forth
+which variable is selected for branching, whereas the fourth
 argument defines which values are selected for branching. For
 example, for an array of integer or Boolean variables \?x? the
 following call to branch
@@ -611,7 +611,7 @@ actually return to a previous space, or an equivalent version of
 that space.
 
 Two space are \emph{equivalent} if propagation and branching and
-hence search behaves exactly the same on both spaces. Equivalent
+hence search behave exactly the same on both spaces. Equivalent
 spaces can be different, for example, they contain different yet
 equivalent propagators, or are allocated at a different memory
 area.
