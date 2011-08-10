@@ -1682,16 +1682,16 @@ other rectangle is allowed to be placed where the zero-sized
 rectangle is placed.
 
 Rectangles can also be modeled as optional through a Boolean
-variable $\mathtt o_i$ for each rectangle $i$. If the Boolean
-variable $\mathtt{o}_i$ is \?1? the rectangle is mandatory and
+variable $\mathtt m_i$ for each rectangle $i$. If the Boolean
+variable $\mathtt{m}_i$ is \?1? the rectangle is mandatory and
 considered by the packing constraint, if it is \?0?, the
 rectangle is ignored. 
 
 \begin{samepage}
-With an array of Boolean variables \?o? the
+With an array of Boolean variables \?m? the
 constraint taking optional rectangles into account is posted by
 \begin{code}
-nooverlap(home, x, w, y, h, o);
+nooverlap(home, x, w, y, h, m);
 \end{code}
 \end{samepage}
 
