@@ -816,6 +816,7 @@ particular variable type without being forced to reconfigure the
 Gecode kernel, see also \autoref{sec:v:all:conf}.
 
 \paragraph{Explicitly disposing variable implementations.}
+\label{par:v:varimp:dispose}
 
 Our example variables are entirely space-allocated and do not
 require external memory or other resources. However, for some
@@ -836,6 +837,22 @@ and implementing in the variable implementation class a
 implementations are disposed by calling their \?dispose()?
 functions. The variable implementations are disposed when their
 home space is deleted.
+
+Additionally, an object must be created that controls the
+disposal of variable implementations. Assume that our example
+integer variables used external memory and that its specification
+file contains
+\litcmdblock{%
+\lits\lits{}Dispose:\lits{}true
+}
+and that \?MPG::IntVarImp? implements a \?dispose()? function.
+Then, your program must
+create a variable implementation disposer as follows:
+\begin{code}
+Gecode::VarImpDisposer<MPG::IntVarImp> disposer;
+\end{code}
+The \?disposer? object must be initialized before the first
+variable using \?MPG::IntVarImp? is created.
 
 \paragraph{Reserving bits.}
 
@@ -1437,7 +1454,6 @@ Finally: compile, link, and run the example script
 \autoref{sec:m:started:run}, where you need to make sure that the
 directory for include files and library files is
 \texttt{gecode-\GecodeVersion}.
-
 
 
 \begin{litcode}{int.hh}{schulte}

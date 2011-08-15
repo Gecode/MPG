@@ -8,7 +8,10 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
-  \cle[\AckName{Pierre}{Flener}]{2011-07-25}{Fixed typos.}
+  \cle[\AckName{Gustavo}{Gutierrez}]{2011-08-15}{Added missing
+    information on creating a variable implementation disposer
+    (see \autoref{par:v:varimp:dispose})}
+  \cle[\AckName{Pierre}{Flener}]{2011-07-25}{Fixed some typos}
   \cle{2011-07-15}{Released for Gecode 3.6.0}
   \cle{2011-07-13}{Documented \?precede? constraint 
     (see \autoref{sec:m:set:precede})}
@@ -27,7 +30,7 @@
   \cle[\AckName{Gabriel}{Hjort Blindell}, 
        \AckName{Flutra}{Osmani}]{2011-03-28}{Added \autoref{tip:m:started:install:ld} about the library path to
     the compilation instructions}
-  \cle{2011-03-24}{Added pointers to MiniModel reference documentation.}
+  \cle{2011-03-24}{Added pointers to MiniModel reference documentation}
   \cle{2011-03-14}{Added archiving for choices and branchers}
   \cle{2011-02-22}{Adapted to new names for set channeling constraints}
   \cle{2011-02-13}{Added that
