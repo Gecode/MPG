@@ -511,8 +511,8 @@ integer values. By
 precede(home, x, c);
 \end{code}
 where \?x? is an array of set variables and \?c? is an array
-of integers, it is enforced that $\mathtt{c}_i$ precedes
-$\mathtt{c}_{i+1}$ in \?x? for $0\leq i<|\mathtt c|-1$.
+of integers, it is enforced that $\mathtt{c}_k$ precedes
+$\mathtt{c}_{k+1}$ in \?x? for $0\leq k<|\mathtt c|-1$.
 
 The constraint is implemented by the propagator
 introduced in~\cite{Precede}, the paper also explains how to use

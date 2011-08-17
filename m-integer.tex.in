@@ -2184,7 +2184,7 @@ where \?x? is an array of integer variables and \?c? is an array
 of integers, it is enforced that $\mathtt{c}_i$ precedes
 $\mathtt{c}_{i+1}$ in \?x? for $0\leq i<|\mathtt c|-1$. That is
 \begin{enumerate}
-\item $\mathtt{x}_0 \neq \mathtt{c}_k$ for $0\leq k<|\mathtt{c}|$, and
+\item $\mathtt{x}_0 \neq \mathtt{c}_{k+1}$ for $0\leq k<|\mathtt{c}|-1$, and
 \item if $\mathtt{x}_j=\mathtt{c}_{k+1}$ then $\bigvee_{i=0}^{j-1}
   \mathtt{x}_i=\mathtt{c}_k$ for $1\leq j<|\mathtt x|$ and $0\leq
   k<|\mathtt{c}|-1$.
