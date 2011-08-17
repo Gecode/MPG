@@ -8,7 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
-  \cle[\AckName{Chris}{Mears}]{2011-08-017}{Fixed error in
+  \cle{2011-08-17}{Documented number of values constraint (see
+    \autoref{sec:m:integer:nvalues})}
+  \cle[\AckName{Chris}{Mears}]{2011-08-17}{Fixed error in
     explanation of value precedence constraint for multiple
     values (see \autoref{sec:m:integer:precede})}
   \cle[\AckName{Gustavo}{Gutierrez}]{2011-08-15}{Added missing

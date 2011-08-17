@@ -1278,6 +1278,37 @@ on~\cite{gccbnd}), and domain propagation (based
 on~\cite{DBLP:conf/aaai/Regin96}) for the global \?count?
 constraint.
 
+\subsection{Number of values constraints}
+\label{sec:m:integer:nvalues}
+
+\gecoderef[group]{TaskModelIntNValues} constrain how many values
+can be taken by an array of variables. 
+
+Assume that \?x? is an array of integer variables and \?y? is an
+integer variable. Then
+\begin{code}
+nvalues(home, x, IRT_EQ, y);
+\end{code}
+constrains the number of distinct values in \?x? to be equal to
+\?y?, that is
+$$
+\#\{\mathtt{x}_0,\ldots,\mathtt{x}_{|\mathtt{x}|-1}\}=\mathtt y
+$$
+
+Instead of \?IRT_EQ? any other integer relation type can be used,
+see \autoref{fig:m:integer:irt} for an overview. For example,
+\begin{code}
+nvalues(home, x, IRT_LQ, y);
+\end{code}
+constrains the number of distinct values in \?x? to be less than
+or equal to \?y?. The array \?x? can also be an array of Boolean
+variables and \?y? can be an integer value.
+
+The constraint is implemented by the propagators introduced
+in~\cite{nvalue}. For an example using the \?nvalues? constraint,
+see \gecoderef[example]{dominating-queens}.
+
+
 \subsection{Sequence constraints}
 \label{sec:m:integer:sequence}
 

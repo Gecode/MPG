@@ -17,6 +17,7 @@ URL class Crossword classCrossword.html
 URL class CrowdedChess classCrowdedChess.html
 URL class Curriculum classCurriculum.html
 URL class Dictionary classDictionary.html
+URL class DominatingQueens classDominatingQueens.html
 URL class Domino classDomino.html
 URL class Donald classDonald.html
 URL class EFPA classEFPA.html
@@ -295,23 +296,16 @@ URL class Gecode::Int::Cumulative::StoCap classGecode_1_1Int_1_1Cumulative_1_1St
 URL class Gecode::Int::Cumulative::TaskByDecCap classGecode_1_1Int_1_1Cumulative_1_1TaskByDecCap.html
 URL class Gecode::Int::Cumulatives::Event classGecode_1_1Int_1_1Cumulatives_1_1Event.html
 URL class Gecode::Int::Cumulatives::Val classGecode_1_1Int_1_1Cumulatives_1_1Val.html
-URL class Gecode::Int::Distinct::BiLink classGecode_1_1Int_1_1Distinct_1_1BiLink.html
 URL class Gecode::Int::Distinct::Bnd classGecode_1_1Int_1_1Distinct_1_1Bnd.html
-URL class Gecode::Int::Distinct::CombPtrFlag classGecode_1_1Int_1_1Distinct_1_1CombPtrFlag.html
 URL class Gecode::Int::Distinct::Dom classGecode_1_1Int_1_1Distinct_1_1Dom.html
 URL class Gecode::Int::Distinct::DomCtrl classGecode_1_1Int_1_1Distinct_1_1DomCtrl.html
-URL class Gecode::Int::Distinct::DomCtrl::ViewValGraph classGecode_1_1Int_1_1Distinct_1_1DomCtrl_1_1ViewValGraph.html
-URL class Gecode::Int::Distinct::Edge classGecode_1_1Int_1_1Distinct_1_1Edge.html
+URL class Gecode::Int::Distinct::Graph classGecode_1_1Int_1_1Distinct_1_1Graph.html
 URL class Gecode::Int::Distinct::HallInfo classGecode_1_1Int_1_1Distinct_1_1HallInfo.html
 URL class Gecode::Int::Distinct::MaxInc classGecode_1_1Int_1_1Distinct_1_1MaxInc.html
 URL class Gecode::Int::Distinct::MinInc classGecode_1_1Int_1_1Distinct_1_1MinInc.html
-URL class Gecode::Int::Distinct::Node classGecode_1_1Int_1_1Distinct_1_1Node.html
-URL class Gecode::Int::Distinct::PruneVal classGecode_1_1Int_1_1Distinct_1_1PruneVal.html
 URL class Gecode::Int::Distinct::Rank classGecode_1_1Int_1_1Distinct_1_1Rank.html
 URL class Gecode::Int::Distinct::TerDom classGecode_1_1Int_1_1Distinct_1_1TerDom.html
 URL class Gecode::Int::Distinct::Val classGecode_1_1Int_1_1Distinct_1_1Val.html
-URL class Gecode::Int::Distinct::ValNode classGecode_1_1Int_1_1Distinct_1_1ValNode.html
-URL class Gecode::Int::Distinct::ViewNode classGecode_1_1Int_1_1Distinct_1_1ViewNode.html
 URL class Gecode::Int::Dom::ReIntSet classGecode_1_1Int_1_1Dom_1_1ReIntSet.html
 URL class Gecode::Int::Dom::ReRange classGecode_1_1Int_1_1Dom_1_1ReRange.html
 URL class Gecode::Int::Element::IdxView classGecode_1_1Int_1_1Element_1_1IdxView.html
@@ -439,6 +433,19 @@ URL class Gecode::Int::Linear::TermLess classGecode_1_1Int_1_1Linear_1_1TermLess
 URL class Gecode::Int::ManTaskViewIter classGecode_1_1Int_1_1ManTaskViewIter.html
 URL class Gecode::Int::ManToOptTask classGecode_1_1Int_1_1ManToOptTask.html
 URL class Gecode::Int::MinusView classGecode_1_1Int_1_1MinusView.html
+URL class Gecode::Int::NValues::BoolBase classGecode_1_1Int_1_1NValues_1_1BoolBase.html
+URL class Gecode::Int::NValues::EqBool classGecode_1_1Int_1_1NValues_1_1EqBool.html
+URL class Gecode::Int::NValues::EqInt classGecode_1_1Int_1_1NValues_1_1EqInt.html
+URL class Gecode::Int::NValues::GqBool classGecode_1_1Int_1_1NValues_1_1GqBool.html
+URL class Gecode::Int::NValues::GqInt classGecode_1_1Int_1_1NValues_1_1GqInt.html
+URL class Gecode::Int::NValues::Graph classGecode_1_1Int_1_1NValues_1_1Graph.html
+URL class Gecode::Int::NValues::IntBase classGecode_1_1Int_1_1NValues_1_1IntBase.html
+URL class Gecode::Int::NValues::LqBool classGecode_1_1Int_1_1NValues_1_1LqBool.html
+URL class Gecode::Int::NValues::LqInt classGecode_1_1Int_1_1NValues_1_1LqInt.html
+URL class Gecode::Int::NValues::RangeEvent classGecode_1_1Int_1_1NValues_1_1RangeEvent.html
+URL class Gecode::Int::NValues::SymBitMatrix classGecode_1_1Int_1_1NValues_1_1SymBitMatrix.html
+URL class Gecode::Int::NValues::ValSet classGecode_1_1Int_1_1NValues_1_1ValSet.html
+URL class Gecode::Int::NValues::ValSet::Ranges classGecode_1_1Int_1_1NValues_1_1ValSet_1_1Ranges.html
 URL class Gecode::Int::NegBoolView classGecode_1_1Int_1_1NegBoolView.html
 URL class Gecode::Int::NoOffset classGecode_1_1Int_1_1NoOffset.html
 URL class Gecode::Int::NoOverlap::Base classGecode_1_1Int_1_1NoOverlap_1_1Base.html
@@ -574,6 +581,14 @@ URL class Gecode::Int::ViewRanges<MinusView> classGecode_1_1Int_1_1ViewRanges_3_
 URL class Gecode::Int::ViewRanges<NegBoolView> classGecode_1_1Int_1_1ViewRanges_3_01NegBoolView_01_4.html
 URL class Gecode::Int::ViewRanges<OffsetView> classGecode_1_1Int_1_1ViewRanges_3_01OffsetView_01_4.html
 URL class Gecode::Int::ViewRanges<ZeroIntView> classGecode_1_1Int_1_1ViewRanges_3_01ZeroIntView_01_4.html
+URL class Gecode::Int::ViewValGraph::BiLink classGecode_1_1Int_1_1ViewValGraph_1_1BiLink.html
+URL class Gecode::Int::ViewValGraph::CombPtrFlag classGecode_1_1Int_1_1ViewValGraph_1_1CombPtrFlag.html
+URL class Gecode::Int::ViewValGraph::Edge classGecode_1_1Int_1_1ViewValGraph_1_1Edge.html
+URL class Gecode::Int::ViewValGraph::Graph classGecode_1_1Int_1_1ViewValGraph_1_1Graph.html
+URL class Gecode::Int::ViewValGraph::IterPruneVal classGecode_1_1Int_1_1ViewValGraph_1_1IterPruneVal.html
+URL class Gecode::Int::ViewValGraph::Node classGecode_1_1Int_1_1ViewValGraph_1_1Node.html
+URL class Gecode::Int::ViewValGraph::ValNode classGecode_1_1Int_1_1ViewValGraph_1_1ValNode.html
+URL class Gecode::Int::ViewValGraph::ViewNode classGecode_1_1Int_1_1ViewValGraph_1_1ViewNode.html
 URL class Gecode::Int::ViewValues classGecode_1_1Int_1_1ViewValues.html
 URL class Gecode::Int::ZeroIntView classGecode_1_1Int_1_1ZeroIntView.html
 URL class Gecode::IntArgs classGecode_1_1IntArgs.html
@@ -1146,6 +1161,11 @@ URL class Test::Int::MiniModelSet::Create classTest_1_1Int_1_1MiniModelSet_1_1Cr
 URL class Test::Int::MiniModelSet::SetExprConst classTest_1_1Int_1_1MiniModelSet_1_1SetExprConst.html
 URL class Test::Int::MiniModelSet::SetExprExpr classTest_1_1Int_1_1MiniModelSet_1_1SetExprExpr.html
 URL class Test::Int::MiniModelSet::SetInstr classTest_1_1Int_1_1MiniModelSet_1_1SetInstr.html
+URL class Test::Int::NValues::BoolInt classTest_1_1Int_1_1NValues_1_1BoolInt.html
+URL class Test::Int::NValues::BoolVar classTest_1_1Int_1_1NValues_1_1BoolVar.html
+URL class Test::Int::NValues::Create classTest_1_1Int_1_1NValues_1_1Create.html
+URL class Test::Int::NValues::IntInt classTest_1_1Int_1_1NValues_1_1IntInt.html
+URL class Test::Int::NValues::IntVar classTest_1_1Int_1_1NValues_1_1IntVar.html
 URL class Test::Int::NoOverlap::Create classTest_1_1Int_1_1NoOverlap_1_1Create.html
 URL class Test::Int::NoOverlap::Int2 classTest_1_1Int_1_1NoOverlap_1_1Int2.html
 URL class Test::Int::NoOverlap::IntOpt2 classTest_1_1Int_1_1NoOverlap_1_1IntOpt2.html
@@ -1330,6 +1350,10 @@ TITLE example crowded-chess "Crowded chessboard"
 URL example crowded-chess:Bishops crowded-chess_8cpp.html
 URL example crowded-chess:CrowdedChess crowded-chess_8cpp.html
 TITLE example crowded-chess:CrowdedChess "Crowded chessboard"
+URL example dominating-queens dominating-queens_8cpp.html
+TITLE example dominating-queens "Dominating Queens"
+URL example dominating-queens:DominatingQueens dominating-queens_8cpp.html
+TITLE example dominating-queens:DominatingQueens "Dominating Queens"
 URL example domino domino_8cpp.html
 TITLE example domino "Solitaire domino"
 URL example domino:Domino domino_8cpp.html
@@ -1518,6 +1542,7 @@ URL file examples/car-sequencing.cpp car-sequencing_8cpp.html
 URL file examples/crew.cpp crew_8cpp.html
 URL file examples/crossword.cpp crossword_8cpp.html
 URL file examples/crowded-chess.cpp crowded-chess_8cpp.html
+URL file examples/dominating-queens.cpp dominating-queens_8cpp.html
 URL file examples/domino.cpp domino_8cpp.html
 URL file examples/donald.cpp donald_8cpp.html
 URL file examples/efpa.cpp efpa_8cpp.html
@@ -1679,12 +1704,10 @@ URL file gecode/int/cumulatives.hh cumulatives_8hh.html
 URL file gecode/int/cumulatives/val.hpp cumulatives_2val_8hpp.html
 URL file gecode/int/distinct.cpp gecode_2int_2distinct_8cpp.html
 URL file gecode/int/distinct.hh int_2distinct_8hh.html
-URL file gecode/int/distinct/bilink.hpp bilink_8hpp.html
 URL file gecode/int/distinct/bnd.hpp distinct_2bnd_8hpp.html
-URL file gecode/int/distinct/combptr.hpp combptr_8hpp.html
+URL file gecode/int/distinct/dom-ctrl.hpp dom-ctrl_8hpp.html
 URL file gecode/int/distinct/dom.hpp distinct_2dom_8hpp.html
-URL file gecode/int/distinct/edge.hpp edge_8hpp.html
-URL file gecode/int/distinct/node.hpp int_2distinct_2node_8hpp.html
+URL file gecode/int/distinct/graph.hpp distinct_2graph_8hpp.html
 URL file gecode/int/distinct/ter-dom.hpp ter-dom_8hpp.html
 URL file gecode/int/distinct/val.hpp distinct_2val_8hpp.html
 URL file gecode/int/dom.cpp gecode_2int_2dom_8cpp.html
@@ -1746,6 +1769,20 @@ URL file gecode/int/no-overlap/box.hpp box_8hpp.html
 URL file gecode/int/no-overlap/dim.hpp dim_8hpp.html
 URL file gecode/int/no-overlap/man.hpp man_8hpp.html
 URL file gecode/int/no-overlap/opt.hpp opt_8hpp.html
+URL file gecode/int/nvalues.cpp gecode_2int_2nvalues_8cpp.html
+URL file gecode/int/nvalues.hh nvalues_8hh.html
+URL file gecode/int/nvalues/bool-base.hpp bool-base_8hpp.html
+URL file gecode/int/nvalues/bool-eq.hpp bool-eq_8hpp.html
+URL file gecode/int/nvalues/bool-gq.hpp bool-gq_8hpp.html
+URL file gecode/int/nvalues/bool-lq.hpp bool-lq_8hpp.html
+URL file gecode/int/nvalues/graph.hpp nvalues_2graph_8hpp.html
+URL file gecode/int/nvalues/int-base.hpp int-base_8hpp.html
+URL file gecode/int/nvalues/int-eq.hpp int-eq_8hpp.html
+URL file gecode/int/nvalues/int-gq.hpp int-gq_8hpp.html
+URL file gecode/int/nvalues/int-lq.hpp int-lq_8hpp.html
+URL file gecode/int/nvalues/range-event.hpp range-event_8hpp.html
+URL file gecode/int/nvalues/sym-bit-matrix.hpp sym-bit-matrix_8hpp.html
+URL file gecode/int/nvalues/val-set.hpp val-set_8hpp.html
 URL file gecode/int/precede.cpp gecode_2int_2precede_8cpp.html
 URL file gecode/int/precede.hh int_2precede_8hh.html
 URL file gecode/int/precede/single.hpp int_2precede_2single_8hpp.html
@@ -1804,6 +1841,13 @@ URL file gecode/int/var/bool.hpp var_2bool_8hpp.html
 URL file gecode/int/var/int.cpp gecode_2int_2var_2int_8cpp.html
 URL file gecode/int/var/int.hpp gecode_2int_2var_2int_8hpp.html
 URL file gecode/int/var/print.hpp int_2var_2print_8hpp.html
+URL file gecode/int/view-val-graph.hh view-val-graph_8hh.html
+URL file gecode/int/view-val-graph/bi-link.hpp bi-link_8hpp.html
+URL file gecode/int/view-val-graph/comb-ptr-flag.hpp comb-ptr-flag_8hpp.html
+URL file gecode/int/view-val-graph/edge.hpp edge_8hpp.html
+URL file gecode/int/view-val-graph/graph.hpp view-val-graph_2graph_8hpp.html
+URL file gecode/int/view-val-graph/iter-prune-val.hpp iter-prune-val_8hpp.html
+URL file gecode/int/view-val-graph/node.hpp int_2view-val-graph_2node_8hpp.html
 URL file gecode/int/view.hpp int_2view_8hpp.html
 URL file gecode/int/view/bool-test.hpp bool-test_8hpp.html
 URL file gecode/int/view/bool.hpp view_2bool_8hpp.html
@@ -2097,6 +2141,7 @@ URL file test/int/mm-count.cpp mm-count_8cpp.html
 URL file test/int/mm-lin.cpp mm-lin_8cpp.html
 URL file test/int/mm-rel.cpp mm-rel_8cpp.html
 URL file test/int/no-overlap.cpp test_2int_2no-overlap_8cpp.html
+URL file test/int/nvalues.cpp test_2int_2nvalues_8cpp.html
 URL file test/int/precede.cpp test_2int_2precede_8cpp.html
 URL file test/int/rel.cpp test_2int_2rel_8cpp.html
 URL file test/int/sequence.cpp test_2int_2sequence_8cpp.html
@@ -2263,6 +2308,8 @@ URL group TaskModelIntLB group__TaskModelIntLB.html
 TITLE group TaskModelIntLB "Linear constraints over Boolean variables"
 URL group TaskModelIntLI group__TaskModelIntLI.html
 TITLE group TaskModelIntLI "Linear constraints over integer variables"
+URL group TaskModelIntNValues group__TaskModelIntNValues.html
+TITLE group TaskModelIntNValues "Number of values constraints"
 URL group TaskModelIntPrecede group__TaskModelIntPrecede.html
 TITLE group TaskModelIntPrecede "Value precedence constraints over integer variables"
 URL group TaskModelIntRelBool group__TaskModelIntRelBool.html
@@ -2393,6 +2440,8 @@ URL group TaskTestIntMiniModelLin group__TaskTestIntMiniModelLin.html
 TITLE group TaskTestIntMiniModelLin "Minimal modeling constraints (linear constraints)"
 URL group TaskTestIntMiniModelRel group__TaskTestIntMiniModelRel.html
 TITLE group TaskTestIntMiniModelRel "Minimal modelling constraints (relation)"
+URL group TaskTestIntNValues group__TaskTestIntNValues.html
+TITLE group TaskTestIntNValues "Number of values constraints"
 URL group TaskTestIntNoOverlap group__TaskTestIntNoOverlap.html
 TITLE group TaskTestIntNoOverlap "No-overlap constraints"
 URL group TaskTestIntRel group__TaskTestIntRel.html
@@ -2463,6 +2512,7 @@ URL namespace Gecode::Int::Extensional namespaceGecode_1_1Int_1_1Extensional.htm
 URL namespace Gecode::Int::GCC namespaceGecode_1_1Int_1_1GCC.html
 URL namespace Gecode::Int::Limits namespaceGecode_1_1Int_1_1Limits.html
 URL namespace Gecode::Int::Linear namespaceGecode_1_1Int_1_1Linear.html
+URL namespace Gecode::Int::NValues namespaceGecode_1_1Int_1_1NValues.html
 URL namespace Gecode::Int::NoOverlap namespaceGecode_1_1Int_1_1NoOverlap.html
 URL namespace Gecode::Int::Precede namespaceGecode_1_1Int_1_1Precede.html
 URL namespace Gecode::Int::Rel namespaceGecode_1_1Int_1_1Rel.html
@@ -2470,6 +2520,7 @@ URL namespace Gecode::Int::Sequence namespaceGecode_1_1Int_1_1Sequence.html
 URL namespace Gecode::Int::Sorted namespaceGecode_1_1Int_1_1Sorted.html
 URL namespace Gecode::Int::Unary namespaceGecode_1_1Int_1_1Unary.html
 URL namespace Gecode::Int::Unshare namespaceGecode_1_1Int_1_1Unshare.html
+URL namespace Gecode::Int::ViewValGraph namespaceGecode_1_1Int_1_1ViewValGraph.html
 URL namespace Gecode::Iter namespaceGecode_1_1Iter.html
 URL namespace Gecode::Iter::Ranges namespaceGecode_1_1Iter_1_1Ranges.html
 URL namespace Gecode::Iter::Values namespaceGecode_1_1Iter_1_1Values.html
@@ -2518,6 +2569,7 @@ URL namespace Test::Int::MiniModelBoolean namespaceTest_1_1Int_1_1MiniModelBoole
 URL namespace Test::Int::MiniModelCount namespaceTest_1_1Int_1_1MiniModelCount.html
 URL namespace Test::Int::MiniModelLin namespaceTest_1_1Int_1_1MiniModelLin.html
 URL namespace Test::Int::MiniModelSet namespaceTest_1_1Int_1_1MiniModelSet.html
+URL namespace Test::Int::NValues namespaceTest_1_1Int_1_1NValues.html
 URL namespace Test::Int::NoOverlap namespaceTest_1_1Int_1_1NoOverlap.html
 URL namespace Test::Int::Precede namespaceTest_1_1Int_1_1Precede.html
 URL namespace Test::Int::Rel namespaceTest_1_1Int_1_1Rel.html
