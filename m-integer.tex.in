@@ -1149,6 +1149,14 @@ integer relation types are supported, see
 \?x? that are equal to \?y?. Here \?y? and \?z? can be
 integer variables as well as integer values.
 
+The \?count? constraints also support counting how many integer variables
+are included in an integer set. If \?y? is an integer set, then
+\begin{code}
+count(home, x, y, IRT_EQ, z);
+\end{code}
+constrains \?z? to be equal to the number of integer variables in
+\?x? that are included in \?y?.
+
 The following
 \begin{code}
 count(home, x, c, IRT_EQ, z);
