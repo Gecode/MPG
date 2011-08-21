@@ -654,4 +654,13 @@ aliases and their corresponding definitions.
 \section{Aliases for set constraints}
 \label{sec:m:minimodel:setalias}
 
+\gecoderef[group]{TaskModelMiniModelSetAlias} provide aliases and convenience post functions for useful set constraints.
+
 \?channel(home, x, y)? is an alias for \?rel(home, SOT_UNION, x, y)?, posting the constraint that \?y? is exactly the set of integers $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$.
+
+\?range(home,x,y,z)?, where \?x? is an array of integer variables and \?y? and \?z? are set variables, is an alias for \?element(home, SOT_UNION, x,y,z)?. This constraints treats \?x? as defining a function, and constrains \?z? to be the range of the function restricted to \?y?:
+$$z=\bigcup_{i\in y}\{x_i\}$$
+
+\noindent
+Conversely, \?roots(home,x,y,z)? constrains \?y? to be the roots of the elements in \?z?, i.e., those indices mapping to elements in \?z?:
+$$y=\bigcup_{i\in z}\{j\ |\ x_j=i\}$$
