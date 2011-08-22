@@ -110,14 +110,18 @@ URL class Gecode::FlatZinc::AST::TypeError classGecode_1_1FlatZinc_1_1AST_1_1Typ
 URL class Gecode::FlatZinc::AST::Var classGecode_1_1FlatZinc_1_1AST_1_1Var.html
 URL class Gecode::FlatZinc::Alias classGecode_1_1FlatZinc_1_1Alias.html
 URL class Gecode::FlatZinc::BoolVarSpec classGecode_1_1FlatZinc_1_1BoolVarSpec.html
+URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
+URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
+URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
 URL class Gecode::FlatZinc::Printer classGecode_1_1FlatZinc_1_1Printer.html
 URL class Gecode::FlatZinc::Registry classGecode_1_1FlatZinc_1_1Registry.html
 URL class Gecode::FlatZinc::SetVarSpec classGecode_1_1FlatZinc_1_1SetVarSpec.html
+URL class Gecode::FlatZinc::SymbolEntry classGecode_1_1FlatZinc_1_1SymbolEntry.html
 URL class Gecode::FlatZinc::SymbolTable classGecode_1_1FlatZinc_1_1SymbolTable.html
 URL class Gecode::FlatZinc::VarSpec classGecode_1_1FlatZinc_1_1VarSpec.html
 URL class Gecode::FreeList classGecode_1_1FreeList.html
@@ -153,6 +157,7 @@ URL class Gecode::Gist::PostorderNodeVisitor classGecode_1_1Gist_1_1PostorderNod
 URL class Gecode::Gist::PreferencesDialog classGecode_1_1Gist_1_1PreferencesDialog.html
 URL class Gecode::Gist::PreorderNodeVisitor classGecode_1_1Gist_1_1PreorderNodeVisitor.html
 URL class Gecode::Gist::Print classGecode_1_1Gist_1_1Print.html
+URL class Gecode::Gist::SearchItem classGecode_1_1Gist_1_1SearchItem.html
 URL class Gecode::Gist::SearcherThread classGecode_1_1Gist_1_1SearcherThread.html
 URL class Gecode::Gist::Shape classGecode_1_1Gist_1_1Shape.html
 URL class Gecode::Gist::ShapeAllocator classGecode_1_1Gist_1_1ShapeAllocator.html
@@ -203,6 +208,7 @@ URL class Gecode::Int::BinPacking::Item classGecode_1_1Int_1_1BinPacking_1_1Item
 URL class Gecode::Int::BinPacking::Pack classGecode_1_1Int_1_1BinPacking_1_1Pack.html
 URL class Gecode::Int::BinPacking::SizeSet classGecode_1_1Int_1_1BinPacking_1_1SizeSet.html
 URL class Gecode::Int::BinPacking::SizeSetMinusOne classGecode_1_1Int_1_1BinPacking_1_1SizeSetMinusOne.html
+URL class Gecode::Int::BinPacking::TellCache classGecode_1_1Int_1_1BinPacking_1_1TellCache.html
 URL class Gecode::Int::Bool::BinOrTrue classGecode_1_1Int_1_1Bool_1_1BinOrTrue.html
 URL class Gecode::Int::Bool::BoolBinary classGecode_1_1Int_1_1Bool_1_1BoolBinary.html
 URL class Gecode::Int::Bool::BoolTernary classGecode_1_1Int_1_1Bool_1_1BoolTernary.html
@@ -254,6 +260,7 @@ URL class Gecode::Int::Branch::ValZeroOne classGecode_1_1Int_1_1Branch_1_1ValZer
 URL class Gecode::Int::Branch::ViewValuesBrancher classGecode_1_1Int_1_1Branch_1_1ViewValuesBrancher.html
 URL class Gecode::Int::CachedView classGecode_1_1Int_1_1CachedView.html
 URL class Gecode::Int::Channel::Base classGecode_1_1Int_1_1Channel_1_1Base.html
+URL class Gecode::Int::Channel::BoolIter classGecode_1_1Int_1_1Channel_1_1BoolIter.html
 URL class Gecode::Int::Channel::Dom classGecode_1_1Int_1_1Channel_1_1Dom.html
 URL class Gecode::Int::Channel::DomInfo classGecode_1_1Int_1_1Channel_1_1DomInfo.html
 URL class Gecode::Int::Channel::LinkMulti classGecode_1_1Int_1_1Channel_1_1LinkMulti.html
@@ -318,6 +325,7 @@ URL class Gecode::Int::Element::Int::IterVal classGecode_1_1Int_1_1Element_1_1In
 URL class Gecode::Int::Element::Int::IterValUnmark classGecode_1_1Int_1_1Element_1_1Int_1_1IterValUnmark.html
 URL class Gecode::Int::Element::IterIdxView classGecode_1_1Int_1_1Element_1_1IterIdxView.html
 URL class Gecode::Int::Element::Pair classGecode_1_1Int_1_1Element_1_1Pair.html
+URL class Gecode::Int::Element::PairValues classGecode_1_1Int_1_1Element_1_1PairValues.html
 URL class Gecode::Int::Element::RelTestBnd classGecode_1_1Int_1_1Element_1_1RelTestBnd.html
 URL class Gecode::Int::Element::RelTestBnd<VA,ConstIntView> classGecode_1_1Int_1_1Element_1_1RelTestBnd_3_01VA_00_01ConstIntView_01_4.html
 URL class Gecode::Int::Element::RelTestDom classGecode_1_1Int_1_1Element_1_1RelTestDom.html
@@ -327,7 +335,9 @@ URL class Gecode::Int::Element::ViewBnd classGecode_1_1Int_1_1Element_1_1ViewBnd
 URL class Gecode::Int::Element::ViewDom classGecode_1_1Int_1_1Element_1_1ViewDom.html
 URL class Gecode::Int::Element::ViewToVarArg classGecode_1_1Int_1_1Element_1_1ViewToVarArg.html
 URL class Gecode::Int::Element::ViewToVarArg<BoolView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01BoolView_01_4.html
+URL class Gecode::Int::Element::ViewToVarArg<Gecode::Set::ConstSetView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1ConstSetView_01_4.html
 URL class Gecode::Int::Element::ViewToVarArg<Gecode::Set::SetView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SetView_01_4.html
+URL class Gecode::Int::Element::ViewToVarArg<Gecode::Set::SingletonView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SingletonView_01_4.html
 URL class Gecode::Int::Element::ViewToVarArg<IntView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01IntView_01_4.html
 URL class Gecode::Int::Exec::When classGecode_1_1Int_1_1Exec_1_1When.html
 URL class Gecode::Int::Extensional::Base classGecode_1_1Int_1_1Extensional_1_1Base.html
@@ -432,6 +442,8 @@ URL class Gecode::Int::Linear::Term classGecode_1_1Int_1_1Linear_1_1Term.html
 URL class Gecode::Int::Linear::TermLess classGecode_1_1Int_1_1Linear_1_1TermLess.html
 URL class Gecode::Int::ManTaskViewIter classGecode_1_1Int_1_1ManTaskViewIter.html
 URL class Gecode::Int::ManToOptTask classGecode_1_1Int_1_1ManToOptTask.html
+URL class Gecode::Int::Member::Prop classGecode_1_1Int_1_1Member_1_1Prop.html
+URL class Gecode::Int::Member::ReProp classGecode_1_1Int_1_1Member_1_1ReProp.html
 URL class Gecode::Int::MinusView classGecode_1_1Int_1_1MinusView.html
 URL class Gecode::Int::NValues::BoolBase classGecode_1_1Int_1_1NValues_1_1BoolBase.html
 URL class Gecode::Int::NValues::EqBool classGecode_1_1Int_1_1NValues_1_1EqBool.html
@@ -444,8 +456,6 @@ URL class Gecode::Int::NValues::LqBool classGecode_1_1Int_1_1NValues_1_1LqBool.h
 URL class Gecode::Int::NValues::LqInt classGecode_1_1Int_1_1NValues_1_1LqInt.html
 URL class Gecode::Int::NValues::RangeEvent classGecode_1_1Int_1_1NValues_1_1RangeEvent.html
 URL class Gecode::Int::NValues::SymBitMatrix classGecode_1_1Int_1_1NValues_1_1SymBitMatrix.html
-URL class Gecode::Int::NValues::ValSet classGecode_1_1Int_1_1NValues_1_1ValSet.html
-URL class Gecode::Int::NValues::ValSet::Ranges classGecode_1_1Int_1_1NValues_1_1ValSet_1_1Ranges.html
 URL class Gecode::Int::NegBoolView classGecode_1_1Int_1_1NegBoolView.html
 URL class Gecode::Int::NoOffset classGecode_1_1Int_1_1NoOffset.html
 URL class Gecode::Int::NoOverlap::Base classGecode_1_1Int_1_1NoOverlap_1_1Base.html
@@ -567,6 +577,8 @@ URL class Gecode::Int::UnknownOperation classGecode_1_1Int_1_1UnknownOperation.h
 URL class Gecode::Int::UnknownRelation classGecode_1_1Int_1_1UnknownRelation.html
 URL class Gecode::Int::Unshare::VarPtrLess classGecode_1_1Int_1_1Unshare_1_1VarPtrLess.html
 URL class Gecode::Int::ValOfUnassignedVar classGecode_1_1Int_1_1ValOfUnassignedVar.html
+URL class Gecode::Int::ValSet classGecode_1_1Int_1_1ValSet.html
+URL class Gecode::Int::ValSet::Ranges classGecode_1_1Int_1_1ValSet_1_1Ranges.html
 URL class Gecode::Int::VariableEmptyDomain classGecode_1_1Int_1_1VariableEmptyDomain.html
 URL class Gecode::Int::ViewDiffRanges classGecode_1_1Int_1_1ViewDiffRanges.html
 URL class Gecode::Int::ViewRanges classGecode_1_1Int_1_1ViewRanges.html
@@ -683,9 +695,6 @@ URL class Gecode::NoIdxVarImpConf classGecode_1_1NoIdxVarImpConf.html
 URL class Gecode::NonLinExpr classGecode_1_1NonLinExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
-URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
-URL class Gecode::OutputOrder classGecode_1_1OutputOrder.html
-URL class Gecode::ParserState classGecode_1_1ParserState.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
@@ -722,7 +731,6 @@ URL class Gecode::Search::Stop classGecode_1_1Search_1_1Stop.html
 URL class Gecode::Search::TimeStop classGecode_1_1Search_1_1TimeStop.html
 URL class Gecode::Search::Worker classGecode_1_1Search_1_1Worker.html
 URL class Gecode::Search::WorkerToEngine classGecode_1_1Search_1_1WorkerToEngine.html
-URL class Gecode::SearchItem classGecode_1_1SearchItem.html
 URL class Gecode::Set::ArgumentSizeMismatch classGecode_1_1Set_1_1ArgumentSizeMismatch.html
 URL class Gecode::Set::ArrayRanges classGecode_1_1Set_1_1ArrayRanges.html
 URL class Gecode::Set::BndSet classGecode_1_1Set_1_1BndSet.html
@@ -884,7 +892,6 @@ URL class Gecode::Support::StaticStack classGecode_1_1Support_1_1StaticStack.htm
 URL class Gecode::Support::Thread classGecode_1_1Support_1_1Thread.html
 URL class Gecode::Support::Thread::Run classGecode_1_1Support_1_1Thread_1_1Run.html
 URL class Gecode::Support::Timer classGecode_1_1Support_1_1Timer.html
-URL class Gecode::SymbolEntry classGecode_1_1SymbolEntry.html
 URL class Gecode::TernaryPropagator classGecode_1_1TernaryPropagator.html
 URL class Gecode::TieBreakVarBranch classGecode_1_1TieBreakVarBranch.html
 URL class Gecode::TieBreakVarBranchOptions classGecode_1_1TieBreakVarBranchOptions.html
@@ -979,14 +986,15 @@ URL class SudokuInt classSudokuInt.html
 URL class SudokuMixed classSudokuMixed.html
 URL class SudokuSet classSudokuSet.html
 URL class TSP classTSP.html
-URL class Test::AbsXX classTest_1_1AbsXX.html
-URL class Test::AbsXY classTest_1_1AbsXY.html
+URL class Test::AFC classTest_1_1AFC.html
+URL class Test::AFC::TestSpace classTest_1_1AFC_1_1TestSpace.html
 URL class Test::Array::Iterator classTest_1_1Array_1_1Iterator.html
 URL class Test::Array::SharedArrayIterator classTest_1_1Array_1_1SharedArrayIterator.html
 URL class Test::Array::TestSpace classTest_1_1Array_1_1TestSpace.html
 URL class Test::Array::VarArgsIterator classTest_1_1Array_1_1VarArgsIterator.html
 URL class Test::Array::VarArrayIterator classTest_1_1Array_1_1VarArrayIterator.html
 URL class Test::Array::ViewArrayIterator classTest_1_1Array_1_1ViewArrayIterator.html
+URL class Test::Assign::Bool classTest_1_1Assign_1_1Bool.html
 URL class Test::Assign::BoolTest classTest_1_1Assign_1_1BoolTest.html
 URL class Test::Assign::BoolTestSpace classTest_1_1Assign_1_1BoolTestSpace.html
 URL class Test::Assign::Int classTest_1_1Assign_1_1Int.html
@@ -996,6 +1004,7 @@ URL class Test::Assign::Set classTest_1_1Assign_1_1Set.html
 URL class Test::Assign::SetTest classTest_1_1Assign_1_1SetTest.html
 URL class Test::Assign::SetTestSpace classTest_1_1Assign_1_1SetTestSpace.html
 URL class Test::Base classTest_1_1Base.html
+URL class Test::Branch::Bool classTest_1_1Branch_1_1Bool.html
 URL class Test::Branch::BoolTest classTest_1_1Branch_1_1BoolTest.html
 URL class Test::Branch::BoolTestSpace classTest_1_1Branch_1_1BoolTestSpace.html
 URL class Test::Branch::Int classTest_1_1Branch_1_1Int.html
@@ -1005,8 +1014,34 @@ URL class Test::Branch::RunInfo classTest_1_1Branch_1_1RunInfo.html
 URL class Test::Branch::Set classTest_1_1Branch_1_1Set.html
 URL class Test::Branch::SetTest classTest_1_1Branch_1_1SetTest.html
 URL class Test::Branch::SetTestSpace classTest_1_1Branch_1_1SetTestSpace.html
-URL class Test::Div classTest_1_1Div.html
-URL class Test::DivMod classTest_1_1DivMod.html
+URL class Test::Int::Arithmetic::AbsXX classTest_1_1Int_1_1Arithmetic_1_1AbsXX.html
+URL class Test::Int::Arithmetic::AbsXY classTest_1_1Int_1_1Arithmetic_1_1AbsXY.html
+URL class Test::Int::Arithmetic::Div classTest_1_1Int_1_1Arithmetic_1_1Div.html
+URL class Test::Int::Arithmetic::DivMod classTest_1_1Int_1_1Arithmetic_1_1DivMod.html
+URL class Test::Int::Arithmetic::MaxNary classTest_1_1Int_1_1Arithmetic_1_1MaxNary.html
+URL class Test::Int::Arithmetic::MaxNaryShared classTest_1_1Int_1_1Arithmetic_1_1MaxNaryShared.html
+URL class Test::Int::Arithmetic::MaxXXX classTest_1_1Int_1_1Arithmetic_1_1MaxXXX.html
+URL class Test::Int::Arithmetic::MaxXXY classTest_1_1Int_1_1Arithmetic_1_1MaxXXY.html
+URL class Test::Int::Arithmetic::MaxXYX classTest_1_1Int_1_1Arithmetic_1_1MaxXYX.html
+URL class Test::Int::Arithmetic::MaxXYY classTest_1_1Int_1_1Arithmetic_1_1MaxXYY.html
+URL class Test::Int::Arithmetic::MaxXYZ classTest_1_1Int_1_1Arithmetic_1_1MaxXYZ.html
+URL class Test::Int::Arithmetic::MinNary classTest_1_1Int_1_1Arithmetic_1_1MinNary.html
+URL class Test::Int::Arithmetic::MinNaryShared classTest_1_1Int_1_1Arithmetic_1_1MinNaryShared.html
+URL class Test::Int::Arithmetic::MinXXX classTest_1_1Int_1_1Arithmetic_1_1MinXXX.html
+URL class Test::Int::Arithmetic::MinXXY classTest_1_1Int_1_1Arithmetic_1_1MinXXY.html
+URL class Test::Int::Arithmetic::MinXYX classTest_1_1Int_1_1Arithmetic_1_1MinXYX.html
+URL class Test::Int::Arithmetic::MinXYY classTest_1_1Int_1_1Arithmetic_1_1MinXYY.html
+URL class Test::Int::Arithmetic::MinXYZ classTest_1_1Int_1_1Arithmetic_1_1MinXYZ.html
+URL class Test::Int::Arithmetic::Mod classTest_1_1Int_1_1Arithmetic_1_1Mod.html
+URL class Test::Int::Arithmetic::MultXXX classTest_1_1Int_1_1Arithmetic_1_1MultXXX.html
+URL class Test::Int::Arithmetic::MultXXY classTest_1_1Int_1_1Arithmetic_1_1MultXXY.html
+URL class Test::Int::Arithmetic::MultXYX classTest_1_1Int_1_1Arithmetic_1_1MultXYX.html
+URL class Test::Int::Arithmetic::MultXYY classTest_1_1Int_1_1Arithmetic_1_1MultXYY.html
+URL class Test::Int::Arithmetic::MultXYZ classTest_1_1Int_1_1Arithmetic_1_1MultXYZ.html
+URL class Test::Int::Arithmetic::SqrXX classTest_1_1Int_1_1Arithmetic_1_1SqrXX.html
+URL class Test::Int::Arithmetic::SqrXY classTest_1_1Int_1_1Arithmetic_1_1SqrXY.html
+URL class Test::Int::Arithmetic::SqrtXX classTest_1_1Int_1_1Arithmetic_1_1SqrtXX.html
+URL class Test::Int::Arithmetic::SqrtXY classTest_1_1Int_1_1Arithmetic_1_1SqrtXY.html
 URL class Test::Int::Assignment classTest_1_1Int_1_1Assignment.html
 URL class Test::Int::Basic::Basic classTest_1_1Int_1_1Basic_1_1Basic.html
 URL class Test::Int::BinPacking::BPT classTest_1_1Int_1_1BinPacking_1_1BPT.html
@@ -1046,6 +1081,8 @@ URL class Test::Int::Count::IntInt classTest_1_1Int_1_1Count_1_1IntInt.html
 URL class Test::Int::Count::IntIntDup classTest_1_1Int_1_1Count_1_1IntIntDup.html
 URL class Test::Int::Count::IntVar classTest_1_1Int_1_1Count_1_1IntVar.html
 URL class Test::Int::Count::IntVarShared classTest_1_1Int_1_1Count_1_1IntVarShared.html
+URL class Test::Int::Count::SetInt classTest_1_1Int_1_1Count_1_1SetInt.html
+URL class Test::Int::Count::SetVar classTest_1_1Int_1_1Count_1_1SetVar.html
 URL class Test::Int::Count::VarInt classTest_1_1Int_1_1Count_1_1VarInt.html
 URL class Test::Int::Count::VarVar classTest_1_1Int_1_1Count_1_1VarVar.html
 URL class Test::Int::Count::VarVarSharedA classTest_1_1Int_1_1Count_1_1VarVarSharedA.html
@@ -1123,6 +1160,9 @@ URL class Test::Int::Linear::BoolVar classTest_1_1Int_1_1Linear_1_1BoolVar.html
 URL class Test::Int::Linear::Create classTest_1_1Int_1_1Linear_1_1Create.html
 URL class Test::Int::Linear::IntInt classTest_1_1Int_1_1Linear_1_1IntInt.html
 URL class Test::Int::Linear::IntVar classTest_1_1Int_1_1Linear_1_1IntVar.html
+URL class Test::Int::Member::Bool classTest_1_1Int_1_1Member_1_1Bool.html
+URL class Test::Int::Member::Create classTest_1_1Int_1_1Member_1_1Create.html
+URL class Test::Int::Member::Int classTest_1_1Int_1_1Member_1_1Int.html
 URL class Test::Int::MiniModel::BoolLex classTest_1_1Int_1_1MiniModel_1_1BoolLex.html
 URL class Test::Int::MiniModel::Create classTest_1_1Int_1_1MiniModel_1_1Create.html
 URL class Test::Int::MiniModel::IntLex classTest_1_1Int_1_1MiniModel_1_1IntLex.html
@@ -1204,25 +1244,6 @@ URL class Test::Int::Unary::OptFixPUnary classTest_1_1Int_1_1Unary_1_1OptFixPUna
 URL class Test::Int::Unary::OptFlexUnary classTest_1_1Int_1_1Unary_1_1OptFlexUnary.html
 URL class Test::Int::Unshare::Bool classTest_1_1Int_1_1Unshare_1_1Bool.html
 URL class Test::Int::Unshare::Int classTest_1_1Int_1_1Unshare_1_1Int.html
-URL class Test::MaxNary classTest_1_1MaxNary.html
-URL class Test::MaxNaryShared classTest_1_1MaxNaryShared.html
-URL class Test::MaxXXX classTest_1_1MaxXXX.html
-URL class Test::MaxXXY classTest_1_1MaxXXY.html
-URL class Test::MaxXYX classTest_1_1MaxXYX.html
-URL class Test::MaxXYY classTest_1_1MaxXYY.html
-URL class Test::MaxXYZ classTest_1_1MaxXYZ.html
-URL class Test::MinNary classTest_1_1MinNary.html
-URL class Test::MinNaryShared classTest_1_1MinNaryShared.html
-URL class Test::MinXXX classTest_1_1MinXXX.html
-URL class Test::MinXXY classTest_1_1MinXXY.html
-URL class Test::MinXYX classTest_1_1MinXYX.html
-URL class Test::MinXYY classTest_1_1MinXYY.html
-URL class Test::MinXYZ classTest_1_1MinXYZ.html
-URL class Test::Mod classTest_1_1Mod.html
-URL class Test::MultXXX classTest_1_1MultXXX.html
-URL class Test::MultXXY classTest_1_1MultXXY.html
-URL class Test::MultXYX classTest_1_1MultXYX.html
-URL class Test::MultXYY classTest_1_1MultXYY.html
 URL class Test::Options classTest_1_1Options.html
 URL class Test::Search::Best classTest_1_1Search_1_1Best.html
 URL class Test::Search::BranchTypes classTest_1_1Search_1_1BranchTypes.html
@@ -1290,10 +1311,6 @@ URL class Test::Set::SetTest classTest_1_1Set_1_1SetTest.html
 URL class Test::Set::SetTestSpace classTest_1_1Set_1_1SetTestSpace.html
 URL class Test::Set::Var::Construct classTest_1_1Set_1_1Var_1_1Construct.html
 URL class Test::SortByName classTest_1_1SortByName.html
-URL class Test::SqrXX classTest_1_1SqrXX.html
-URL class Test::SqrXY classTest_1_1SqrXY.html
-URL class Test::SqrtXX classTest_1_1SqrtXX.html
-URL class Test::SqrtXY classTest_1_1SqrtXY.html
 URL class Test::ind classTest_1_1ind.html
 URL class TileSpec classTileSpec.html
 URL class Warehouses classWarehouses.html
@@ -1762,6 +1779,10 @@ URL file gecode/int/linear/int-noview.hpp int-noview_8hpp.html
 URL file gecode/int/linear/int-post.cpp int-post_8cpp.html
 URL file gecode/int/linear/int-ter.hpp int-ter_8hpp.html
 URL file gecode/int/linear/post.hpp int_2linear_2post_8hpp.html
+URL file gecode/int/member.cpp gecode_2int_2member_8cpp.html
+URL file gecode/int/member.hh member_8hh.html
+URL file gecode/int/member/prop.hpp member_2prop_8hpp.html
+URL file gecode/int/member/re-prop.hpp re-prop_8hpp.html
 URL file gecode/int/no-overlap.cpp gecode_2int_2no-overlap_8cpp.html
 URL file gecode/int/no-overlap.hh no-overlap_8hh.html
 URL file gecode/int/no-overlap/base.hpp no-overlap_2base_8hpp.html
@@ -1782,7 +1803,6 @@ URL file gecode/int/nvalues/int-gq.hpp int-gq_8hpp.html
 URL file gecode/int/nvalues/int-lq.hpp int-lq_8hpp.html
 URL file gecode/int/nvalues/range-event.hpp range-event_8hpp.html
 URL file gecode/int/nvalues/sym-bit-matrix.hpp sym-bit-matrix_8hpp.html
-URL file gecode/int/nvalues/val-set.hpp val-set_8hpp.html
 URL file gecode/int/precede.cpp gecode_2int_2precede_8cpp.html
 URL file gecode/int/precede.hh int_2precede_8hh.html
 URL file gecode/int/precede/single.hpp int_2precede_2single_8hpp.html
@@ -1813,7 +1833,7 @@ URL file gecode/int/task/array.hpp int_2task_2array_8hpp.html
 URL file gecode/int/task/fwd-to-bwd.hpp fwd-to-bwd_8hpp.html
 URL file gecode/int/task/iter.hpp int_2task_2iter_8hpp.html
 URL file gecode/int/task/man-to-opt.hpp man-to-opt_8hpp.html
-URL file gecode/int/task/prop.hpp prop_8hpp.html
+URL file gecode/int/task/prop.hpp task_2prop_8hpp.html
 URL file gecode/int/task/purge.hpp purge_8hpp.html
 URL file gecode/int/task/sort.hpp int_2task_2sort_8hpp.html
 URL file gecode/int/task/tree.hpp task_2tree_8hpp.html
@@ -1830,6 +1850,8 @@ URL file gecode/int/unary/task-view.hpp unary_2task-view_8hpp.html
 URL file gecode/int/unary/task.hpp unary_2task_8hpp.html
 URL file gecode/int/unary/tree.hpp unary_2tree_8hpp.html
 URL file gecode/int/unshare.cpp gecode_2int_2unshare_8cpp.html
+URL file gecode/int/val-set.hh val-set_8hh.html
+URL file gecode/int/val-set.hpp val-set_8hpp.html
 URL file gecode/int/var-imp.hpp int_2var-imp_8hpp.html
 URL file gecode/int/var-imp/bool.cpp gecode_2int_2var-imp_2bool_8cpp.html
 URL file gecode/int/var-imp/bool.hpp var-imp_2bool_8hpp.html
@@ -2135,6 +2157,7 @@ URL file test/int/exec.cpp test_2int_2exec_8cpp.html
 URL file test/int/extensional.cpp test_2int_2extensional_8cpp.html
 URL file test/int/gcc.cpp test_2int_2gcc_8cpp.html
 URL file test/int/linear.cpp linear_8cpp.html
+URL file test/int/member.cpp test_2int_2member_8cpp.html
 URL file test/int/mm-arithmetic.cpp mm-arithmetic_8cpp.html
 URL file test/int/mm-bool.cpp mm-bool_8cpp.html
 URL file test/int/mm-count.cpp mm-count_8cpp.html
@@ -2308,6 +2331,8 @@ URL group TaskModelIntLB group__TaskModelIntLB.html
 TITLE group TaskModelIntLB "Linear constraints over Boolean variables"
 URL group TaskModelIntLI group__TaskModelIntLI.html
 TITLE group TaskModelIntLI "Linear constraints over integer variables"
+URL group TaskModelIntMember group__TaskModelIntMember.html
+TITLE group TaskModelIntMember "Membership constraints"
 URL group TaskModelIntNValues group__TaskModelIntNValues.html
 TITLE group TaskModelIntNValues "Number of values constraints"
 URL group TaskModelIntPrecede group__TaskModelIntPrecede.html
@@ -2398,6 +2423,8 @@ URL group TaskTest group__TaskTest.html
 TITLE group TaskTest "Testing"
 URL group TaskTestInt group__TaskTestInt.html
 TITLE group TaskTestInt "Testing finite domain integers"
+URL group TaskTestIntArithmetic group__TaskTestIntArithmetic.html
+TITLE group TaskTestIntArithmetic "Arithmetic constraints"
 URL group TaskTestIntBasic group__TaskTestIntBasic.html
 TITLE group TaskTestIntBasic "Basic setup"
 URL group TaskTestIntBinPacking group__TaskTestIntBinPacking.html
@@ -2430,6 +2457,8 @@ URL group TaskTestIntInt group__TaskTestIntInt.html
 TITLE group TaskTestIntInt "General test support"
 URL group TaskTestIntLinear group__TaskTestIntLinear.html
 TITLE group TaskTestIntLinear "Linear constraints"
+URL group TaskTestIntMember group__TaskTestIntMember.html
+TITLE group TaskTestIntMember "Membership constraints"
 URL group TaskTestIntMiniModelArithmetic group__TaskTestIntMiniModelArithmetic.html
 TITLE group TaskTestIntMiniModelArithmetic "Minimal modelling constraints (arithmetic)"
 URL group TaskTestIntMiniModelBool group__TaskTestIntMiniModelBool.html
@@ -2512,6 +2541,7 @@ URL namespace Gecode::Int::Extensional namespaceGecode_1_1Int_1_1Extensional.htm
 URL namespace Gecode::Int::GCC namespaceGecode_1_1Int_1_1GCC.html
 URL namespace Gecode::Int::Limits namespaceGecode_1_1Int_1_1Limits.html
 URL namespace Gecode::Int::Linear namespaceGecode_1_1Int_1_1Linear.html
+URL namespace Gecode::Int::Member namespaceGecode_1_1Int_1_1Member.html
 URL namespace Gecode::Int::NValues namespaceGecode_1_1Int_1_1NValues.html
 URL namespace Gecode::Int::NoOverlap namespaceGecode_1_1Int_1_1NoOverlap.html
 URL namespace Gecode::Int::Precede namespaceGecode_1_1Int_1_1Precede.html
@@ -2548,6 +2578,7 @@ URL namespace Test::Array namespaceTest_1_1Array.html
 URL namespace Test::Assign namespaceTest_1_1Assign.html
 URL namespace Test::Branch namespaceTest_1_1Branch.html
 URL namespace Test::Int namespaceTest_1_1Int.html
+URL namespace Test::Int::Arithmetic namespaceTest_1_1Int_1_1Arithmetic.html
 URL namespace Test::Int::Basic namespaceTest_1_1Int_1_1Basic.html
 URL namespace Test::Int::BinPacking namespaceTest_1_1Int_1_1BinPacking.html
 URL namespace Test::Int::Bool namespaceTest_1_1Int_1_1Bool.html
@@ -2563,6 +2594,7 @@ URL namespace Test::Int::Exec namespaceTest_1_1Int_1_1Exec.html
 URL namespace Test::Int::Extensional namespaceTest_1_1Int_1_1Extensional.html
 URL namespace Test::Int::GCC namespaceTest_1_1Int_1_1GCC.html
 URL namespace Test::Int::Linear namespaceTest_1_1Int_1_1Linear.html
+URL namespace Test::Int::Member namespaceTest_1_1Int_1_1Member.html
 URL namespace Test::Int::MiniModel namespaceTest_1_1Int_1_1MiniModel.html
 URL namespace Test::Int::MiniModelArithmetic namespaceTest_1_1Int_1_1MiniModelArithmetic.html
 URL namespace Test::Int::MiniModelBoolean namespaceTest_1_1Int_1_1MiniModelBoolean.html
@@ -2595,9 +2627,9 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange_2.html
+URL page PageHowToChange_2 PageHowToChange__2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange_3.html
+URL page PageHowToChange_3 PageHowToChange__3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"

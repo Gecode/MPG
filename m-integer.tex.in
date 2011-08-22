@@ -783,6 +783,25 @@ reification. For examples using domain constraints, see
 \gecoderef[example]{perfect-square}.
 
 
+\subsection{Membership constraints}
+\label{sec:m:integer:member}
+
+\gecoderef[group]{TaskModelIntMember} constrain integer or
+Boolean variables to be included in an array of integer or
+Boolean variables. That is, for an integer array \?x? and an
+integer variable \?y?, the constraint
+\begin{code}
+member(home, x, y);
+\end{code}
+forces that \?y? is included in \?x?:
+$$
+\mathtt{y}\in\left\{\mathtt{x}_0,\ldots,\mathtt{x}_{|\mathtt{x}|-1}\right\}
+$$
+
+As mentioned, \?x? and \?y? can also be Boolean variables.
+Membership constraints also support reification.
+
+
 \subsection{Simple relation constraints over integer variables}
 \label{sec:m:integer:rel:int}
 
