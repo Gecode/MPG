@@ -639,11 +639,14 @@ For an array of integer variables \?x?, \?channel(home, x)? returns a set variab
 \\\hline
 \?lex(home, x, r, y);? & \?rel(home, x, r, y);?
 \\\hline
+\?values(home, x, s);? & \?dom(home, x, s);?
+\\                     & \?nvalues(home, x, IRT_EQ, s.size());?
+\\\hline
 \end{tabular}
 \end{center}
 \caption[Aliases for integer constraints]{Aliases for integer constraints (\?x? and \?y? are integer variable
   arrays, \?u? and \?v? are integers or integer variables, \?r?
-  is an integer relation type)}
+  is an integer relation type, \?s? is an integer set)}
 \label{fig:m:minimodel:alias}
 \end{figure}
 
@@ -656,7 +659,7 @@ aliases and their corresponding definitions.
 
 \gecoderef[group]{TaskModelMiniModelSetAlias} provide aliases and convenience post functions for useful set constraints.
 
-\?channel(home, x, y)? is an alias for \?rel(home, SOT_UNION, x, y)?, posting the constraint that \?y? is exactly the set of integers $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$.
+\?channel(home, x, y)? is an alias for \?rel(home, SOT_UNION, x, y)?, posting the constraint that \?y? is exactly the set of integers $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$. In addition to the union constraint, it posts an \?nvalues? constraint for stronger propagation.
 
 \?range(home,x,y,z)?, where \?x? is an array of integer variables and \?y? and \?z? are set variables, is an alias for \?element(home, SOT_UNION, x,y,z)?. This constraints treats \?x? as defining a function, and constrains \?z? to be the range of the function restricted to \?y?:
 $$z=\bigcup_{i\in y}\{x_i\}$$
