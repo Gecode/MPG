@@ -453,7 +453,8 @@ IntVar r(home,0,1024), c(home,0,1024), v(home,0,1024);
 element(home, m, r, c, v);
 \end{code}
 constrains the variable \?v? to the value at position 
-$\langle \mathtt{r},\mathtt{c}\rangle$ of the matrix \?m?.
+$\langle \mathtt{r},\mathtt{c}\rangle$ of the matrix \?m?
+\GCCAT{\CAT[mm-int]{element_matrix}{element}{TaskModelMiniModel}}.
 
 \tip{Element for matrix can compromise propagation}{%
   
@@ -626,21 +627,28 @@ For an array of integer variables \?x?, \?channel(home, x)? returns a set variab
 
 \begin{figure}
 \begin{center}
-\begin{tabular}{|l|l|}
+\begin{tabular}{|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{alias} &
-\multicolumn{1}{c|}{constraint posted} \\
+\multicolumn{1}{c|}{constraint posted} &
+\multicolumn{1}{c|}{\GCCATNAME} \\
 \hline\hline
-\?atmost(home, x, u, v);? & \?count(home, x, u, IRT_LQ, v);? 
+\?atmost(home, x, u, v);? & \?count(home, x, u, IRT_LQ, v);?
+&\CAT[mm-int]{atmost}{atmost}{TaskModelMiniModelIntAlias}
 \\
 \?atleast(home, x, u, v);? & \?count(home, x, u, IRT_GQ, v);? 
+&\CAT[mm-int]{atleast}{atleast}{TaskModelMiniModelIntAlias}
 \\
 \?exactly(home, x, u, v);? & \?count(home, x, u, IRT_EQ, v);? 
+&\CAT[mm-int]{exactly}{exactly}{TaskModelMiniModelIntAlias}
 \\\hline
 \?lex(home, x, r, y);? & \?rel(home, x, r, y);?
+&\CAT[mm-int]{lex}{lex}{TaskModelMiniModelIntAlias}
 \\\hline
 \?values(home, x, s);? & \?dom(home, x, s);?
+&\CAT[mm-int]{-}{values}{TaskModelMiniModelIntAlias}
 \\                     & \?nvalues(home, x, IRT_EQ, s.size());?
+&
 \\\hline
 \end{tabular}
 \end{center}
@@ -654,22 +662,31 @@ For an array of integer variables \?x?, \?channel(home, x)? returns a set variab
 popular aliases. \autoref{fig:m:minimodel:alias} lists the
 aliases and their corresponding definitions.
 
-\GCCAT[mm-int]{atmost}{atmost}{TaskModelMiniModelIntAlias}
-\GCCAT[mm-int]{atleast}{atleast}{TaskModelMiniModelIntAlias}
-\GCCAT[mm-int]{exactly}{exactly}{TaskModelMiniModelIntAlias}
-\GCCAT[mm-int]{lex}{lex}{TaskModelMiniModelIntAlias}
-\GCCAT[mm-int]{-}{values}{TaskModelMiniModelIntAlias}
+
+
+
 
 \section{Aliases for set constraints}
 \label{sec:m:minimodel:setalias}
 
-\gecoderef[group]{TaskModelMiniModelSetAlias} provide aliases and convenience post functions for useful set constraints.
+\gecoderef[group]{TaskModelMiniModelSetAlias} provide aliases and
+convenience post functions for useful set constraints.
 
-\?channel(home, x, y)? is an alias for \?rel(home, SOT_UNION, x, y)?, posting the constraint that \?y? is exactly the set of integers $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$. In addition to the union constraint, it posts an \?nvalues? constraint for stronger propagation.
+\?channel(home, x, y)? is an alias for \?rel(home, SOT_UNION, x, y)?, 
+posting the constraint that \?y? is exactly the set of
+integers $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$. In
+addition to the union constraint, it posts an \?nvalues?
+constraint for stronger propagation (see \autoref{sec:m:integer:nvalues}).
 
-\?range(home,x,y,z)?, where \?x? is an array of integer variables and \?y? and \?z? are set variables, is an alias for \?element(home, SOT_UNION, x,y,z)?. This constraints treats \?x? as defining a function, and constrains \?z? to be the range of the function restricted to \?y?:
+\?range(home, x, y, z)?, where \?x? is an array of integer variables
+and \?y? and \?z? are set variables, is an alias for
+\?element(home, SOT_UNION, x, y, z)?. This constraints treats \?x?
+as defining a function, and constrains \?z? to be the range of
+the function restricted to \?y?:
 $$z=\bigcup_{i\in y}\{x_i\}$$
 
-\noindent
-Conversely, \?roots(home,x,y,z)? constrains \?y? to be the roots of the elements in \?z?, i.e., those indices mapping to elements in \?z?:
+%\CAT[mm-set]{-range}{range}{TaskModelMiniModelSetAlias}.
+
+Conversely, \?roots(home, x, y, z)? constrains \?y? to be the roots of the elements in \?z?, i.e., those indices mapping to elements in \?z?:
 $$y=\bigcup_{i\in z}\{j\ |\ x_j=i\}$$
+\GCCAT{\CAT[mm-set]{roots}{roots}{TaskModelMiniModelSetAlias}}.

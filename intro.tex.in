@@ -56,8 +56,9 @@ applications. Gecode is:
   
 \item[efficient] Gecode offers excellent performance with respect
   to runtime, memory usage, and scalability. For example, Gecode won the 
-  MiniZinc Challenge in both 
-  \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2009/results2009.html}{2009} and
+  MiniZinc Challenge in  
+  \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2010/results2010.html}{2010}, 
+  \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2009/results2009.html}{2009}, and
   \AURL{http://www.g12.csse.unimelb.edu.au/minizinc/results.html}{2008}.
   
 \item[parallel] Gecode complies with reality in that it exploits
@@ -169,7 +170,9 @@ The modeling part starts with a very simple constraint model that
 already touches on all the important concepts used in Gecode. There
 are detailed instructions how to compile and link the example code, so
 that you can get started right away. After that, the different
-variable types, the most important classes of constraints, and the
+variable types, the most important classes of constraints
+(including pointers to the
+\GCCATURL{}{Global Constraint Catalog}~\cite{GlobalConstraintCatalog}, referred to by \GCCATNAME) , and the
 infrastructure provided by Gecode (such as search engines) are
 presented.
 
