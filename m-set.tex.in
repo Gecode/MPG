@@ -254,6 +254,8 @@ cardinality(home, x, 3, 5);
 \end{code}
 restricts the cardinality of the set variable \?x? to be between $3$ and $5$.
 
+\GCCAT[set]{-}{dom}{TaskModelSetDom}
+
 For examples using domain constraints, see
 \gecoderef[example]{crew}, as well as the redundant constraints
 in \gecoderef[example]{golf}.
@@ -287,6 +289,8 @@ rel(home, x, IRT_GR, y);
 \end{samepage}
 constrains all elements of the set variable \?x? to be strictly
 greater than the value of the integer variable \?y?.
+
+\GCCAT[set]{eq_set,in}{rel}{TaskModelSetRel}
 
 Gecode provides reified versions of all set relation constraints. For an
 example, see \gecoderef[example]{golf} and \autoref{chap:c:golf}.
@@ -328,6 +332,8 @@ versions of the set operation constraints (you can decompose
 using reified relation constraints on the result, see
 \autoref{tip:m:set:rbd}).
 
+\GCCAT[set]{-}{rel}{TaskModelSetRelOp}
+
 Set operation constraints are used in most examples that contain
 set variables, such as \gecoderef[example]{crew} or
 \gecoderef[example]{hamming}.
@@ -345,6 +351,8 @@ for an array of set variables or constants \?x?, an integer
 variable \?y?, and a set variable \?z?. It constrains \?z? to be
 the element of array \?x? at index \?y? (where the index starts
 at \?0?).
+
+\GCCAT[set]{-element}{element}{TaskModelSetElement}
 
 A further generalization uses a \emph{set variable} as the index,
 thus selecting several sets at once. The result variable is
@@ -391,6 +399,8 @@ min(home, x, y);
 \end{code}
 constrains the integer variable \?y? to be the minimum of the set \?x?. 
 
+\GCCAT[set]{-cardinality,-min,-max}{cardinality,min,max}{TaskModelSetConnect}
+
 For an example of constraints connecting integer and set
 variables, see \gecoderef[example]{steiner}.
 
@@ -412,6 +422,8 @@ elements in \?x?, where the weight of the element \?1? would be
 \?-1?, the weight of \?3? would be \?4? and so on. Assigning \?x?
 to the set $\{3,7,9\}$ would therefore result in \?y? being
 assigned to $4+3+3=10$.
+
+\GCCAT[set]{sum_set}{weights}{TaskModelSetConnect}
 
 \paragraph{Channeling.}
 
@@ -454,6 +466,8 @@ $\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}$, and the
 integer variables in \?x? are sorted in increasing order
 ($\mathtt{x}_i<\mathtt{x}_{i+1}$ for $0\leq i<|\mathtt{x}|$).
 
+\GCCAT[set]{link_set_to_booleans,-int_set_channel}{channel,channelSorted}{TaskModelSetConnect}
+
 \subsection{Convexity constraints}
 
 \gecoderef[group]{TaskModelSetConvex} enforce that set variables
@@ -474,6 +488,8 @@ convex(home, x, y);
 enforces that the set variable \?y? is the convex hull of the set
 variable \?x?.
 
+\GCCAT[set]{-convex}{convex}{TaskModelSetConvex}
+
 \subsection{Sequence constraints}
 
 \gecoderef[group]{TaskModelSetSequence} enforce an order among an
@@ -488,6 +504,8 @@ i<|\mathtt{x}|-1$. Posting
 sequence(home, x, y);
 \end{code}
 additionally constrains the set variable \?y? to be the union of the \?x?.
+
+\GCCAT[set]{-sequence}{sequence}{TaskModelSetSequence}
 
 For an example of sequence constraints, see \gecoderef[example]{steiner}.
 
@@ -513,6 +531,8 @@ precede(home, x, c);
 where \?x? is an array of set variables and \?c? is an array
 of integers, it is enforced that $\mathtt{c}_k$ precedes
 $\mathtt{c}_{k+1}$ in \?x? for $0\leq k<|\mathtt c|-1$.
+
+\GCCAT[set]{set_value_precede}{precede}{TaskModelSetPrecede}
 
 The constraint is implemented by the propagator
 introduced in~\cite{Precede}, the paper also explains how to use
