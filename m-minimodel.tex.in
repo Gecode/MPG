@@ -654,6 +654,12 @@ For an array of integer variables \?x?, \?channel(home, x)? returns a set variab
 popular aliases. \autoref{fig:m:minimodel:alias} lists the
 aliases and their corresponding definitions.
 
+\GCCAT[mm-int]{atmost}{atmost}{TaskModelMiniModelIntAlias}
+\GCCAT[mm-int]{atleast}{atleast}{TaskModelMiniModelIntAlias}
+\GCCAT[mm-int]{exactly}{exactly}{TaskModelMiniModelIntAlias}
+\GCCAT[mm-int]{lex}{lex}{TaskModelMiniModelIntAlias}
+\GCCAT[mm-int]{-}{values}{TaskModelMiniModelIntAlias}
+
 \section{Aliases for set constraints}
 \label{sec:m:minimodel:setalias}
 

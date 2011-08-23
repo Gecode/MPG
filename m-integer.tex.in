@@ -773,6 +773,8 @@ dom(home, x, d);
 constrains the variable \?x? (or, the variables in \?x?) to take
 values from the set $\{-7,-3,1,5\}$.
 
+\GCCAT[int]{domain,in,in_interval,in_intervals}{dom}{TaskModelIntDomain}
+
 Note that there are no domain constraints for Boolean variables,
 please use relation constraints instead, see
 \autoref{sec:m:integer:rel:bool}.
@@ -800,6 +802,8 @@ $$
 
 As mentioned, \?x? and \?y? can also be Boolean variables.
 Membership constraints also support reification.
+
+\GCCAT[int]{-}{member}{TaskModelIntMember}
 
 
 \subsection{Simple relation constraints over integer variables}
@@ -840,6 +844,8 @@ rel(home, x, IRT_NQ, 4);
 \?x? is constrained to be different from \?4?. Both variants of
 \?rel? also support reification.
 
+\GCCAT[int]{eq,neq,lt,leq,gt,geq}{rel}{TaskModelIntRelInt}
+
 \paragraph{Constraints between variable arrays and a single
   variable.}
 
@@ -854,6 +860,8 @@ constrains all variables in \?x? to be less than or equal to
 rel(home, x, IRT_GR, 7);
 \end{code}
 constrains all variables in \?x? to be larger than \?7?. 
+
+\GCCAT[int]{arith}{rel}{TaskModelIntRelInt}
 
 \paragraph{Constraints between array elements.}
 
@@ -896,6 +904,8 @@ $$
 $$
 For an example, see \gecoderef[example]{schurs-lemma}.
 
+\GCCAT[int]{all_equal,decreasing,increasing,not_all_equal}{rel}{TaskModelIntRelInt}
+
 \paragraph{Lexicographic constraints between variable arrays.}
 
 \begin{samepage}
@@ -918,6 +928,7 @@ x|\neq|\mathtt y|$, for \?IRT_EQ? the space \?home? is failed
 whereas for \?IRT_NQ? the constraint is ignored (it is subsumed). See \gecoderef[example]{bibd} for an example
 (albeit over Boolean variables).
 
+\GCCAT[int]{lex_greater,lex_greatereq,lex_less,lex_lesseq}{rel}{TaskModelIntRelInt}
 
 \subsection{Simple relation constraints over Boolean variables}
 \label{sec:m:integer:rel:bool}
@@ -970,6 +981,9 @@ rel(home, x, IRT_NQ, y);
 \end{code}
 }
 
+\GCCAT[int]{and,equivalent,imply,or,xor}{rel}{TaskModelIntRelBool}
+
+
 \begin{samepage}
 Additional constraints are available for Boolean variable arrays.
 For a Boolean variable array \?x? and a Boolean variable \?y?,
@@ -1000,6 +1014,7 @@ types are supported, other Boolean operations types throw an
 exception of type \gecoderef[class]{Int::IllegalOperation}. For an
 example, see \gecoderef[example]{sat}.
 
+\GCCAT[int]{clause_and,clause_or,nand,nor}{clause}{TaskModelIntRelBool}
 
 \subsection{Arithmetic constraints}
 \label{sec:m:integer:arithmetic}
@@ -1058,6 +1073,16 @@ min(home, x, y);
 constrains \?y? to be the minimum of the variables in \?x?
 (\?max? is analogous). 
 
+\GCCAT[int]{minimum}{min}{TaskModelIntArith}
+\GCCAT[int]{maximum}{max}{TaskModelIntArith}
+\GCCAT[int]{abs_value}{abs}{TaskModelIntArith}
+\GCCAT[int]{-}{mult}{TaskModelIntArith}
+\GCCAT[int]{-}{sqr}{TaskModelIntArith}
+\GCCAT[int]{-}{sqrt}{TaskModelIntArith}
+\GCCAT[int]{-}{div}{TaskModelIntArith}
+\GCCAT[int]{-}{mod}{TaskModelIntArith}
+\GCCAT[int]{-}{divmod}{TaskModelIntArith}
+
 
 \subsection{Linear constraints}
 \label{sec:m:integer:linear}
@@ -1112,6 +1137,9 @@ All variants of \?linear? support reification and exist in
 variants that perform both bounds propagation (the default) and
 domain propagation.
 
+\GCCAT[int]{scalar_product,sum_ctr}{linear}{TaskModelIntLI}
+\GCCAT[int]{scalar_product,sum_ctr}{linear}{TaskModelIntLB}
+
 
 \subsection{Distinct constraints}
 \label{sec:m:integer:distinct}
@@ -1151,6 +1179,7 @@ For examples, see in particular \autoref{chap:c:golomb},
 \gecoderef[example]{queens}, and
 \gecoderef[example]{crowded-chess}.
 
+\GCCAT[int]{alldifferent,alldifferent_cst}{linear}{TaskModelIntDistinct}
 
 \subsection{Counting constraints}
 \label{sec:m:integer:count}
@@ -1168,6 +1197,8 @@ integer relation types are supported, see
 \?x? that are equal to \?y?. Here \?y? and \?z? can be
 integer variables as well as integer values.
 
+\GCCAT[int]{atleast,atmost,count,counts,exactly}{count}{TaskModelIntCount}
+
 The \?count? constraints also support counting how many integer variables
 are included in an integer set. If \?y? is an integer set, then
 \begin{code}
@@ -1175,6 +1206,8 @@ count(home, x, y, IRT_EQ, z);
 \end{code}
 constrains \?z? to be equal to the number of integer variables in
 \?x? that are included in \?y?.
+
+\GCCAT[int]{among,among_var}{count}{TaskModelIntCount}
 
 The following
 \begin{code}
@@ -1189,6 +1222,8 @@ $$
 $$
 Here, $\#s$ denotes the cardinality (number of elements) of a set
 $s$.
+
+\GCCAT[int]{-}{count}{TaskModelIntCount}
 
 \paragraph{Counting multiple values.}
 
@@ -1305,6 +1340,9 @@ on~\cite{gccbnd}), and domain propagation (based
 on~\cite{DBLP:conf/aaai/Regin96}) for the global \?count?
 constraint.
 
+\GCCAT[int]{global_cardinality}{count}{TaskModelIntCount}
+
+
 \subsection{Number of values constraints}
 \label{sec:m:integer:nvalues}
 
@@ -1334,6 +1372,8 @@ variables and \?y? can be an integer value.
 The constraint is implemented by the propagators introduced
 in~\cite{nvalue}. For an example using the \?nvalues? constraint,
 see \gecoderef[example]{dominating-queens}.
+
+\GCCAT[int]{nvalue,nvalues}{nvalues}{TaskModelIntNValues}
 
 
 \subsection{Sequence constraints}
@@ -1377,6 +1417,8 @@ The constraint is implemented by the domain consistent propagator
 introduced in~\cite{DBLP:journals/constraints/HoevePRS09}. For an
 example, see \gecoderef[example]{car-sequencing}.
 
+\GCCAT[int]{among_seq}{sequence}{TaskModelIntSequence}
+
 
 \subsection{Channel constraints}
 \label{sec:m:integer:channel}
@@ -1406,6 +1448,7 @@ $$
 For examples, see \gecoderef[example]{black-hole}
 and \gecoderef[example]{knights:KnightsReified}.
 
+\GCCAT[int]{inverse,inverse_offset}{channel}{TaskModelIntChannel}
 
 \paragraph{Channeling between integer and Boolean variables.}
 
@@ -1438,6 +1481,7 @@ channel(home, x, y, n);
 \end{code}
 For an example, see \gecoderef[example]{pentominoes}.
 
+\GCCAT[int]{domain}{channel}{TaskModelIntChannel}
 
 
 
@@ -1467,6 +1511,8 @@ constraint, the propagators for \?element? always perform domain reasoning
 on the index variable. For examples, see the case study in
 \autoref{chap:c:warehouses} or the examples
 \gecoderef[example]{steel-mill} and \gecoderef[example]{tsp}.
+
+\GCCAT[int]{elem,element}{element}{TaskModelIntElement}
 
 \tip{Shared integer arrays}{
 \label{tip:m:integer:sharedelement}%
@@ -1609,6 +1655,8 @@ consistent and is based on~\cite{Pesant:CP:2004}.
 Examples that use regular expressions for defining DFAs can
 be found in \autoref{sec:m:minimodel:reg}.
 
+\GCCAT[int]{-regular}{extensional}{TaskModelIntExt}
+
 \paragraph{Tuple sets.}
 
 Constraints can also be defined by a list of tuples, where each
@@ -1640,6 +1688,7 @@ For examples of extensional constraints using tuple sets, see
 \autoref{chap:c:kakuro}, 
 \gecoderef[example]{black-hole}, and \gecoderef[example]{kakuro}.
 
+\GCCAT[int]{in_relation}{extensional}{TaskModelIntExt}
 
 \subsection{Sorted constraints}
 \label{sec:m:integer:sorted}
@@ -1665,6 +1714,8 @@ $$
 
 The propagator for \?sorted? is bounds consistent and is based
 on~\cite{MehlhornThiel:CP:2000}.
+
+\GCCAT[int]{sort,sort_permutation}{sorted}{TaskModelIntSorted}
 
 \subsection{Bin-packing constraints}
 \label{sec:m:integer:bpp}
@@ -1707,6 +1758,8 @@ constraint and CDBF (complete decreasing best fit)~\cite{CDBF} as
 a specialized branching for bin-packing, see
 \autoref{chap:c:bpp} and
 \gecoderef[example]{bin-packing}.
+
+\GCCAT[int]{bin_packing,bin_packing_capa}{binpacking}{TaskModelIntBinPacking}
 
 
 \subsection{Geometrical packing constraints}
@@ -1779,6 +1832,7 @@ constructive disjunction), this will change in the future.  For
 an example using the no-overlap constraint, see
 \gecoderef[example]{perfect-square}.
 
+\GCCAT[int]{diffn}{nooverlap}{TaskModelIntGeoPacking}
 
 \subsection{Circuit and Hamiltonian path constraints}
 \label{sec:m:integer:circuit}
@@ -1867,6 +1921,8 @@ constrains the values of \?x? such that their corresponding edges form
 a Hamiltonian circuit. For an example before and after
 propagation of \?circuit? see \autoref{fig:m:integer:circuit}.  For
 an example, see \autoref{chap:c:knights} and \gecoderef[example]{knights:KnightsCircuit}.
+
+\GCCAT[int]{circuit}{circuit}{TaskModelIntGraph}
 
 Common applications of \?circuit? also require costs for the
 edges in the graph. Assume that the cost for an edge $i\to j$
@@ -2088,6 +2144,8 @@ All propagators implementing the \?unary? constraint use
 overload-checking, detectable precedences, not-first-not-last,
 and edge-finding, following~\cite{Vilim:2007}.
 
+\GCCAT[int]{disjunctive}{unary}{TaskModelIntScheduling}
+
 A common variant for unary resource constraints is where tasks
 can be optional: each task $t$ has a Boolean variable $b$
 attached to it. If $b=1$ then the task is \emph{mandatory} and
@@ -2165,6 +2223,7 @@ The propagators implementing the \?cumulative? constraint use
 time-tabling, overload checking~\cite{Vilim:CPAIOR:2009}, and
 edge-finding~\cite{Vilim:CP:2009}.
 
+\GCCAT[int]{cumulative}{cumulative}{TaskModelIntScheduling}
 
 \paragraph{Cumulative multi-resource constraint.}
 
@@ -2214,6 +2273,9 @@ insightful discussion of how to use \?cumulatives? for modeling,
 see~\cite{DBLP:conf/cp/BeldiceanuC02} (the propagator for
 \?cumulative? is implemented following this paper).
 
+\GCCAT[int]{cumulatives}{cumulatives}{TaskModelIntScheduling}
+
+
 \subsection{Value precedence constraints}
 \label{sec:m:integer:precede}
 
@@ -2253,6 +2315,7 @@ introduced in~\cite{Precede}, the paper also explains how to use
 the \?precede? constraint for breaking value symmetries.
 For an example, see \gecoderef[example]{schurs-lemma}.
 
+\GCCAT[int]{int_value_precede,int_value_precede_chain}{precede}{TaskModelIntPrecede}
 
 
 \section{Synchronized execution}
