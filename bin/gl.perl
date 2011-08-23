@@ -460,7 +460,7 @@ sub replaceDocRefs {
     $l = $prefix."\\litdocref{$u}{$text}".$suffix;
   }
   while ($l =~ /(.*)\\GCCAT\[([^\]]*)\]{([^}]*)}{([^}]*)}{([^}]*)}(.*)/) {
-    my $gccaturl = "http://www.emn.fr/z-info/sdemasse/gccat/C";
+    my $gccaturl = "http://www.emn.fr/z-info/sdemasse/gccat/";
     my $prefix = $1; my $suffix = $6;
     my $type = $2; my $gccat = $3; my $gecode = $4; my $ref = $5;
     my $u1 = $url{"group"}{$ref};
@@ -475,15 +475,19 @@ sub replaceDocRefs {
       $u = "NONE";
     }
     my $text = $title{"group"}{$ref};
-    my $gclinks = "";
-    foreach $gcentry (split(',',$gccat)) {
-      $gcquote = $gcentry;
-      $gcquote =~ s|\_|\\_|go;
-      $gclinks = $gclinks . ", \\AURL{" . $gccaturl . $gcentry
-                 . ".html}{\\CppInline{" . $gcquote . "}}";
+    if ($gccat =~ /-/) {
+      $l = $prefix . $suffix;
+    } else {
+      my $gclinks = "";
+      foreach $gcentry (split(',',$gccat)) {
+	$gcquote = $gcentry;
+	$gcquote =~ s|\_|\\_|go;
+	$gclinks = $gclinks . ", \\AURL{" . $gccaturl . "C" . $gcentry
+	  . ".html}{\\CppInline{" . $gcquote . "}}";
+      }
+      $gclinks =~ s|^, ||o;
+      $l = $prefix . "\\AURL{$gccaturl}{Global constraint catalog}: $gclinks." . $suffix;
     }
-    $gclinks =~ s|^, ||o;
-    $l = $prefix."Global Constraint Catalog: $gclinks, Gecode: \\litdocref{$u}{$text}".$suffix;
   }
   return $l."\n";
 }
