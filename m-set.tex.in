@@ -219,6 +219,10 @@ rel(home, z0, SRT_EQ, z, b);
 \begin{tabular}{l@{\quad}l@{\qquad}l@{\quad}l}
 \?SRT_EQ? & equality ($=$) &
 \?SRT_NQ? & disequality ($\neq$) \\
+\?SRT_LQ? & lex. less than or equal &
+\?SRT_LE? & lex. less than \\
+\?SRT_GQ? & lex. greater than or equal &
+\?SRT_GR? & lex. greater than\\
 \?SRT_SUB? & subset ($\subseteq$) &
 \?SRT_SUP? & superset ($\supseteq$) \\
 \?SRT_DISJ? & disjointness ($\parallel$) &
@@ -233,7 +237,7 @@ rel(home, z0, SRT_EQ, z, b);
 set constant (given as a single integer, an interval of two integers or an
 \?IntSet?), depending on set relation types of type \?SetRelType? (see
 \gecoderef[group]{TaskModelSet}). \autoref{fig:m:set:srt} lists the available set
-relation types and their meaning.
+relation types and their meaning. The relations \?SRT_LQ?, \?SRT_LE?, \?SRT_GQ?, and \?SRT_GR? establish a total order based on the lexicographic order of the characteristic functions of the two sets.
 
 \begin{samepage}
 For example, the constraints
