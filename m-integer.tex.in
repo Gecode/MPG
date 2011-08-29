@@ -1,4 +1,4 @@
-% -*- mode: LaTeX; -*- 
+ -*- mode: LaTeX; -*- 
 \chapter{Integer and Boolean variables and constraints}
 \label{chap:m:int}
 
@@ -772,7 +772,7 @@ dom(home, x, d);
 \end{code}
 constrains the variable \?x? (or, the variables in \?x?) to take
 values from the set $\{-7,-3,1,5\}$
-\GCCAT{\CAT[int]{domain,in,in_interval,in_intervals}{dom}{TaskModelIntDomain}}.
+\GCCAT{\CAT[int]{domain,in,in_interval,in_intervals,in_set}{dom}{TaskModelIntDomain}}.
 
 Note that there are no domain constraints for Boolean variables,
 please use relation constraints instead, see
@@ -900,7 +900,7 @@ $$
 \mathtt{x}_{|\mathtt x|-1}\right)
 $$
 For an example, see \gecoderef[example]{schurs-lemma}
-\GCCAT{\CAT[int]{all_equal,decreasing,increasing,not_all_equal}{rel}{TaskModelIntRelInt}}.
+\GCCAT{\CAT[int]{all_equal,decreasing,increasing,not_all_equal,strictly_decreasing,strictly_increasing}{rel}{TaskModelIntRelInt}}.
 
 \paragraph{Lexicographic constraints between variable arrays.}
 
@@ -1129,8 +1129,8 @@ the Boolean variables in \?x?.
 All variants of \?linear? support reification and exist in
 variants that perform both bounds propagation (the default) and
 domain propagation
-\GCCAT{\CAT[int]{scalar_product,sum_ctr}{linear}{TaskModelIntLI,TaskModelIntLB}}.
-
+\GCCAT{\CAT[int]{scalar_product,sum_ctr}{linear}{TaskModelIntLI}}.
+% TaskModelIntLB has been dropped for simplicity
 
 \subsection{Distinct constraints}
 \label{sec:m:integer:distinct}
@@ -1466,7 +1466,7 @@ is posted by
 \begin{code}
 channel(home, x, y);
 \end{code}
-\GCCAT{\CAT[int]{domain}{channel}{TaskModelIntChannel}}.
+\GCCAT{\CAT[int]{domain_constraint}{channel}{TaskModelIntChannel}}.
 Note that an optional offset argument is supported. The constraint
 $$\mathtt{x}_i=1 \iff \mathtt y = i+\mathtt n\qquad\mbox{for }0\leq i<|x|$$
 for an integer value \?n? is posted by

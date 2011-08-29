@@ -124,7 +124,11 @@ MPG.bib: MPG.bib.in
 	sed "s|@VERSION@|$(VERSION)|g" < MPG.bib.in | \
 	sed "s|@YEAR@|$(YEAR)|g" > MPG.bib
 
-distzip: MPG.bib MPG.tex.in MPG.pdf
+gecode.pl: ${CHAPSRC:%=%.tex.in}
+	perl bin/gccat.perl ${VERSION} ${YEAR} prolog ${CHAPSRC:%=%.tex.in} > \
+		gecode.pl
+
+distzip: MPG.bib MPG.tex.in MPG.pdf gecode.pl
 	rm -rf dist
 	mkdir dist
 	mkdir dist/MPG
@@ -135,7 +139,7 @@ distzip: MPG.bib MPG.tex.in MPG.pdf
 	 7z a MPG.7z MPG; \
 	 rm -rf MPG)
 	mkdir dist/MPG
-	cp MPG.pdf MPG.bib dist
+	cp MPG.pdf MPG.bib gecode.pl dist
 	cp *.cpp int.vis int.hh template.vis dist/MPG
 	(cd dist;zip -9 -r ../MPG.zip MPG.pdf MPG.bib MPG.tar.gz MPG.7z MPG)
 	rm -rf dist
@@ -209,6 +213,7 @@ clean::
 
 realclean:: clean
 	rm -f MPG.ps MPG.dvi MPG.pdf MPG.zip MPG.bib
+	rm -f gecode.pl
 	rm -f *.cpp int.hh
 
 veryclean:: realclean

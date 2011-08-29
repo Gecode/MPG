@@ -293,7 +293,7 @@ rel(home, x, IRT_GR, y);
 \end{samepage}
 constrains all elements of the set variable \?x? to be strictly
 greater than the value of the integer variable \?y?
-\GCCAT{\CAT[set]{eq_set,in}{rel}{TaskModelSetRel}}.
+\GCCAT{\CAT[set]{eq_set,in,in_set,not_in}{rel}{TaskModelSetRel}}.
 
 Gecode provides reified versions of all set relation constraints. For an
 example, see \gecoderef[example]{golf} and \autoref{chap:c:golf}.
