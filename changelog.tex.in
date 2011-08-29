@@ -8,6 +8,7 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2011-08-31}{Released for Gecode 3.7.0}
   \cle{2011-08-22}{Added links to the Global Constraint Catalog
     (\GCCATNAME, \cite{GlobalConstraintCatalog})}
   \cle{2011-08-22}{Documented membership constraints (see
