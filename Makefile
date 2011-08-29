@@ -141,7 +141,7 @@ distzip: MPG.bib MPG.tex.in MPG.pdf gecode.pl
 	mkdir dist/MPG
 	cp MPG.pdf MPG.bib gecode.pl dist
 	cp *.cpp int.vis int.hh template.vis dist/MPG
-	(cd dist;zip -9 -r ../MPG.zip MPG.pdf MPG.bib MPG.tar.gz MPG.7z MPG)
+	(cd dist;zip -9 -r ../MPG.zip gecode.pl MPG.pdf MPG.bib MPG.tar.gz MPG.7z MPG)
 	rm -rf dist
 
 .SUFFIXES: .dvi .ps .pdf .aux .bbl .tex.in .tex .cpp .exe

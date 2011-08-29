@@ -50,7 +50,7 @@ while ($e = <DBFILE>) {
 close(DBFILE);
 
 $gccaturl  = "http://www.emn.fr/z-info/sdemasse/gccat/C";
-$gecodeurl = "http://www.gecode.org/doc-$version/reference/";
+$gecodeurl = "http://www.gecode.org/doc/$version/reference/";
 
 # Extract Global Constraint Catalog information
 while ($l = <>) {
@@ -106,6 +106,7 @@ if ($type =~ /prolog/) {
 EOF
   ;
 
+  print "system_version(gecode,'Gecode " . $version . "').\n\n";
   foreach $e (sort(keys(%gces))) {
     if (!($e =~ /^-/)) {
       print "ctr_systems('$e',[";
