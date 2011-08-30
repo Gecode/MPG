@@ -522,7 +522,7 @@ g++ -framework gecode -o send-more-money send-more-money.cpp
 You can easily use Gecode within the XCode development
 environment by choosing \emph{Add} $\rhd$ \emph{Existing Frameworks\dots} 
 from the context menu on your target. Then pick the \?gecode? framework from 
-the list. You may have to edit your project settings to choose \emph{Mac~OS~10.5} as the base SDK.
+the list. You may have to edit your project settings to choose \emph{Mac~OS~10.6} as the base SDK.
 
 \subsection{Linux and relatives}
 \label{sec:m:started:linux}
