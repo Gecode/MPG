@@ -1,4 +1,4 @@
- -*- mode: LaTeX; -*- 
+% -*- mode: LaTeX; -*- 
 \chapter{Integer and Boolean variables and constraints}
 \label{chap:m:int}
 
