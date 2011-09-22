@@ -789,7 +789,7 @@ reification. For examples using domain constraints, see
 
 \gecoderef[group]{TaskModelIntMember} constrain integer or
 Boolean variables to be included in an array of integer or
-Boolean variables. That is, for an integer array \?x? and an
+Boolean variables. That is, for an integer variable array \?x? and an
 integer variable \?y?, the constraint
 \begin{code}
 member(home, x, y);
