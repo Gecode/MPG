@@ -1188,7 +1188,7 @@ integer relation types are supported, see
 \autoref{fig:m:integer:irt}) to the number of integer variables in
 \?x? that are equal to \?y?. Here \?y? and \?z? can be
 integer variables as well as integer values
-\GCCAT{\CAT[int]{atleast,atmost,count,counts,exactly}{count}{TaskModelIntCount}}.
+\GCCAT{\CAT[int]{atleast,atmost,count,exactly}{count}{TaskModelIntCount}}.
 
 The \?count? constraints also support counting how many integer variables
 are included in an integer set. If \?y? is an integer set, then
@@ -1197,7 +1197,7 @@ count(home, x, y, IRT_EQ, z);
 \end{code}
 constrains \?z? to be equal to the number of integer variables in
 \?x? that are included in \?y?
-\GCCAT{\CAT[int]{among,among_var}{count}{TaskModelIntCount}}.
+\GCCAT{\CAT[int]{among,among_var,counts}{count}{TaskModelIntCount}}.
 
 The following
 \begin{code}
