@@ -997,6 +997,21 @@ $$\bigvee_{i=0}^{|\mathtt x|-1}\mathtt{x}_i=\mathtt{y}$$
 Again, \?y? can
 also be \?0? or \?1?.
 
+Note that Boolean implication is special in that it is not
+associative and Gecode follows normal notational convention.
+Hence for a Boolean variable array \?x? and a Boolean variable
+\?y?,
+\begin{code}
+rel(home, BOT_IMP, x, y)
+\end{code}
+posts the constraint
+$$\mathtt{x}_0 \to \left(\mathtt{x}_1 \to 
+\left(\ldots\to\left(\mathtt{x}_{|\mathtt{x}|-2}\to 
+\mathtt{x}_{|\mathtt{x}|-1}\right)\right)\right)=\mathtt{y}$$ 
+Again, \?y? can
+also be \?0? or \?1?.
+
+
 \begin{samepage}
 In order to avoid many propagators for negation, the clause
 constraint accepts both positive and negative Boolean variables.
@@ -1102,6 +1117,7 @@ y$ and $b\cdot y$ for the same variable $y$ are rewritten to
 $(a+b)\cdot y$ to increase propagation. For an example, see
 \autoref{sec:m:started:first}.
 
+\begin{samepage}
 The array of coefficients can be omitted if all coefficients are
 one. That is,
 \begin{code}
@@ -1112,6 +1128,7 @@ $$
 \sum_{i=0}^{|\mathtt x|-1} \mathtt{x}_i > \mathtt c
 $$
 for a variable array \?x? and an integer \?c?.
+\end{samepage}
 
 Instead of an integer constant \?c? as the right-hand side of the
 linear constraint, an integer variable can be used as well. This
