@@ -220,6 +220,7 @@ URL class Gecode::Int::Bool::Eqv classGecode_1_1Int_1_1Bool_1_1Eqv.html
 URL class Gecode::Int::Bool::Le classGecode_1_1Int_1_1Bool_1_1Le.html
 URL class Gecode::Int::Bool::Lq classGecode_1_1Int_1_1Bool_1_1Lq.html
 URL class Gecode::Int::Bool::NaryEq classGecode_1_1Int_1_1Bool_1_1NaryEq.html
+URL class Gecode::Int::Bool::NaryEqv classGecode_1_1Int_1_1Bool_1_1NaryEqv.html
 URL class Gecode::Int::Bool::NaryLq classGecode_1_1Int_1_1Bool_1_1NaryLq.html
 URL class Gecode::Int::Bool::NaryOr classGecode_1_1Int_1_1Bool_1_1NaryOr.html
 URL class Gecode::Int::Bool::NaryOrTrue classGecode_1_1Int_1_1Bool_1_1NaryOrTrue.html
@@ -306,8 +307,9 @@ URL class Gecode::Int::Distinct::Dom classGecode_1_1Int_1_1Distinct_1_1Dom.html
 URL class Gecode::Int::Distinct::DomCtrl classGecode_1_1Int_1_1Distinct_1_1DomCtrl.html
 URL class Gecode::Int::Distinct::Graph classGecode_1_1Int_1_1Distinct_1_1Graph.html
 URL class Gecode::Int::Distinct::HallInfo classGecode_1_1Int_1_1Distinct_1_1HallInfo.html
-URL class Gecode::Int::Distinct::MaxInc classGecode_1_1Int_1_1Distinct_1_1MaxInc.html
+URL class Gecode::Int::Distinct::MaxIncIdx classGecode_1_1Int_1_1Distinct_1_1MaxIncIdx.html
 URL class Gecode::Int::Distinct::MinInc classGecode_1_1Int_1_1Distinct_1_1MinInc.html
+URL class Gecode::Int::Distinct::MinIncIdx classGecode_1_1Int_1_1Distinct_1_1MinIncIdx.html
 URL class Gecode::Int::Distinct::Rank classGecode_1_1Int_1_1Distinct_1_1Rank.html
 URL class Gecode::Int::Distinct::TerDom classGecode_1_1Int_1_1Distinct_1_1TerDom.html
 URL class Gecode::Int::Distinct::Val classGecode_1_1Int_1_1Distinct_1_1Val.html
@@ -1549,6 +1551,8 @@ URL example word-square word-square_8cpp.html
 TITLE example word-square "Word-square puzzle"
 URL example word-square:WordSquare word-square_8cpp.html
 TITLE example word-square:WordSquare "Word-square puzzle"
+URL file changelog.hh changelog_8hh.html
+URL file doxygen.hh doxygen_8hh.html
 URL file examples/all-interval.cpp all-interval_8cpp.html
 URL file examples/alpha.cpp alpha_8cpp.html
 URL file examples/bacp.cpp bacp_8cpp.html
@@ -1597,6 +1601,7 @@ URL file examples/sudoku.cpp sudoku_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
+URL file fz.cpp fz_8cpp.html
 URL file gecode/driver.hh driver_8hh.html
 URL file gecode/driver/options.cpp driver_2options_8cpp.html
 URL file gecode/driver/options.hpp driver_2options_8hpp.html
@@ -1674,6 +1679,7 @@ URL file gecode/int/bool.hh bool_8hh.html
 URL file gecode/int/bool/base.hpp bool_2base_8hpp.html
 URL file gecode/int/bool/clause.hpp clause_8hpp.html
 URL file gecode/int/bool/eq.hpp int_2bool_2eq_8hpp.html
+URL file gecode/int/bool/eqv.cpp eqv_8cpp.html
 URL file gecode/int/bool/eqv.hpp eqv_8hpp.html
 URL file gecode/int/bool/lq.hpp int_2bool_2lq_8hpp.html
 URL file gecode/int/bool/or.hpp or_8hpp.html
@@ -2131,11 +2137,8 @@ URL file gecode/support/thread/thread.hpp thread_2thread_8hpp.html
 URL file gecode/support/thread/windows.cpp windows_8cpp.html
 URL file gecode/support/thread/windows.hpp windows_8hpp.html
 URL file gecode/support/timer.hpp timer_8hpp.html
-URL file gecode/trunk/changelog.hh changelog_8hh.html
-URL file gecode/trunk/doxygen.hh doxygen_8hh.html
-URL file gecode/trunk/license.hh license_8hh.html
-URL file gecode/trunk/stat.hh stat_8hh.html
-URL file gecode/trunk/tools/flatzinc/fz.cpp fz_8cpp.html
+URL file license.hh license_8hh.html
+URL file stat.hh stat_8hh.html
 URL file test/afc.cpp afc_8cpp.html
 URL file test/array.cpp test_2array_8cpp.html
 URL file test/assign.cpp assign_8cpp.html
