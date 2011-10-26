@@ -283,6 +283,14 @@ Note that all features are enabled for the precompiled binaries
 that are available from the Gecode webpages.
 }
 
+\tip{Which version of Gecode are we using?}{
+Some programs might have to deal with incompatible changes
+between different versions of Gecode. The macro
+\?GECODE_VERSION_NUMBER? can be used to find out which
+version of Gecode is used during compilation. The macro's
+value is defined as $100000\times x + 100\times y +z$ for Gecode
+version $x.y.z$.
+}
 
 
 \begin{litcode}{send more money de-mystified}{schulte}

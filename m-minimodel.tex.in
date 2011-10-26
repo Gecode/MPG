@@ -82,6 +82,8 @@ $\NLE$ & $::=$ & $\NINT$ & integer value\\
        & $|$   & $\NLE \mathbin{\texttt{+}} \NLE$ & addition\\
        & $|$   & $\NLE \mathbin{\texttt{-}} \NLE$ & subtraction\\
        & $|$   & $\NLE \mathbin{\texttt{*}} \NLE$ & multiplication\\
+       & $|$   & $\NLE \mathbin{\texttt{/}} \NLE$ & integer division\\
+       & $|$   & $\NLE \mathbin{\texttt{\%}} \NLE$ & modulo\\
        & $|$   & $\texttt{sum(}\NVARS\texttt{)}$ & sum of integer
        or Boolean variables\\
        & $|$   & $\texttt{sum(}\NINTS\texttt{,}\NVARS\texttt{)}$ & sum of integer
@@ -93,8 +95,6 @@ $\NLE$ & $::=$ & $\NINT$ & integer value\\
        & $|$   & $\operatorname{\texttt{abs}}(\NLE)$ & absolute value\\
        & $|$   & $\operatorname{\texttt{sqr}}(\NLE)$ & square\\
        & $|$   & $\operatorname{\texttt{sqrt}}(\NLE)$ & square root\\
-       & $|$   & $\NLE \operatorname{\texttt{/}} \NLE$ & integer division\\
-       & $|$   & $\NLE \operatorname{\texttt{\%}} \NLE$ & modulo\\
        & $|$   & $\operatorname{\texttt{element}}(\NVARS,\NLE)$ & array element of integer variables\\
        & $|$   & $\operatorname{\texttt{element}}(\NINTS,\NLE)$ & array element of integers\\
        & $|$   & $\operatorname{\texttt{min}}(\NSE)$ & minimum of a set expression\\
@@ -554,7 +554,7 @@ For an example, see \autoref{sec:m:comfy:cost}.
 \end{center}
 \caption[Constructing regular expressions]{Constructing regular
   expressions (\?r? and \?s? are regular expressions, \?n? and
-  \?m? are integers)}
+  \?m? are unsigned integers)}
 \label{fig:m:minimodel:reg}
 \end{figure}
 
