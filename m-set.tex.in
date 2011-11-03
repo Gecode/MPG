@@ -427,10 +427,24 @@ to the set $\{3,7,9\}$ would therefore result in \?y? being
 assigned to $4+3+3=10$
 \GCCAT{\CAT[set]{sum_set}{weights}{TaskModelSetConnect}}.
 
-\paragraph{Channeling.}
+\subsection{Set channeling constraints}
+\label{m:set:set_channel}
 
-Finally, there are channeling constraints between set variables
-and integer and Boolean variables. For an array of integer
+\gecoderef[group]{TaskModelSetChannel} link arrays of set variables, as well as
+set variables with integer and Boolean variables.
+
+For an two arrays of set variables \?x? and \?y?,
+\begin{code}
+channel(home, x, y);
+\end{code}
+posts the constraint
+$$
+j\in\mathtt{x}_i \Leftrightarrow i\in \mathtt{y}_j
+\qquad\mbox{for }0\leq i<|\mathtt{x}|
+\qquad\mbox{and }0\leq j<|\mathtt{y}|
+$$
+
+For an array of integer
 variables \?x? and an array of set variables \?y?,
 \begin{code}
 channel(home, x, y);
