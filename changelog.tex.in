@@ -8,6 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle[\AckName{Pavel}{Bochman}]{2011-11-10}{Added tip that
+    compilers for Qt and Gecode must match
+    (see \autoref{tip:m:started:samecompiler})}
   \cle{2011-10-10}{Released for Gecode 3.7.1}
   \cle{2011-10-06}{Explained semantics of $n$-ary implication
     (see \autoref{sec:m:integer:rel:bool})}

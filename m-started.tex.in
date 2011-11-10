@@ -967,6 +967,20 @@ After installing Qt, make sure that the \?qmake? tool is in your
 shell path. The Gecode \?configure? script will then detect the
 presence of Qt and automatically compile with support for Gist.
 
+\tip{Compatible compilers and installations for Gecode and Qt}{
+\label{tip:m:started:samecompiler}%
+Please make sure that the compiler with which Qt has been
+compiled is compatible with the compiler you intend to use for
+Gecode (most likely, the requirement is that both packages must
+be compiled with the very same compiler).
+
+In particular, make sure that this is true when you install a Qt
+binary package. Watch out for pre-installed Qt packages! For
+example: the Qt packages on Windows available through Cygwin
+should be disabled or deinstalled when you want to use Qt and
+Gecode with the Microsoft Visual \CPP{} compiler.
+}
+
 \subsection{Advanced configuration and compilation}
 \label{sec:m:started:compileadvanced}
 
