@@ -230,9 +230,9 @@ The obligation of the copy constructor is to invoke the copy
 constructor of the parent class, and to copy all data
 structures that contain variables. For
 \?SendMoreMoney? this amounts to invoking \?Space(share,s)? and
-updating the variable array. An exception
-is thrown if the copy constructor of the \?Space? class is not
-invoked.
+updating the variable array. An exception of type 
+\gecoderef[class]{SpaceNotCloned} is thrown if the copy
+constructor of the \?Space? class is not invoked.
 Please keep in mind that the copy constructor is run on the copy
 being created and is passed the space that needs to be copied as
 argument. Hence, updating the variable array \?l? in the copy
