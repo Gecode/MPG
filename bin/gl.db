@@ -56,7 +56,6 @@ URL class Gecode::BaseOptions classGecode_1_1BaseOptions.html
 URL class Gecode::BinaryPropagator classGecode_1_1BinaryPropagator.html
 URL class Gecode::BoolExpr classGecode_1_1BoolExpr.html
 URL class Gecode::BoolExpr::MiscExpr classGecode_1_1BoolExpr_1_1MiscExpr.html
-URL class Gecode::BoolExpr::NNF classGecode_1_1BoolExpr_1_1NNF.html
 URL class Gecode::BoolExpr::Node classGecode_1_1BoolExpr_1_1Node.html
 URL class Gecode::BoolVar classGecode_1_1BoolVar.html
 URL class Gecode::BoolVarArgs classGecode_1_1BoolVarArgs.html
@@ -574,6 +573,7 @@ URL class Gecode::Int::Unary::OptFlexTask classGecode_1_1Int_1_1Unary_1_1OptFlex
 URL class Gecode::Int::Unary::OptProp classGecode_1_1Int_1_1Unary_1_1OptProp.html
 URL class Gecode::Int::UnknownBranching classGecode_1_1Int_1_1UnknownBranching.html
 URL class Gecode::Int::UnknownOperation classGecode_1_1Int_1_1UnknownOperation.html
+URL class Gecode::Int::UnknownReifyMode classGecode_1_1Int_1_1UnknownReifyMode.html
 URL class Gecode::Int::UnknownRelation classGecode_1_1Int_1_1UnknownRelation.html
 URL class Gecode::Int::Unshare::VarPtrLess classGecode_1_1Int_1_1Unshare_1_1VarPtrLess.html
 URL class Gecode::Int::ValOfUnassignedVar classGecode_1_1Int_1_1ValOfUnassignedVar.html
@@ -664,6 +664,7 @@ URL class Gecode::Iter::Values::ValueListIter::ValueList classGecode_1_1Iter_1_1
 URL class Gecode::Kernel::NaryWait classGecode_1_1Kernel_1_1NaryWait.html
 URL class Gecode::Kernel::UnaryWait classGecode_1_1Kernel_1_1UnaryWait.html
 URL class Gecode::LinExpr classGecode_1_1LinExpr.html
+URL class Gecode::LinExpr::Node classGecode_1_1LinExpr_1_1Node.html
 URL class Gecode::LinRel classGecode_1_1LinRel.html
 URL class Gecode::LocalHandle classGecode_1_1LocalHandle.html
 URL class Gecode::LocalObject classGecode_1_1LocalObject.html
@@ -706,6 +707,7 @@ URL class Gecode::REG classGecode_1_1REG.html
 URL class Gecode::REG::Exp classGecode_1_1REG_1_1Exp.html
 URL class Gecode::RangeList classGecode_1_1RangeList.html
 URL class Gecode::Region classGecode_1_1Region.html
+URL class Gecode::Reify classGecode_1_1Reify.html
 URL class Gecode::Restart classGecode_1_1Restart.html
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
@@ -754,6 +756,11 @@ URL class Gecode::Set::Branch::ValMed classGecode_1_1Set_1_1Branch_1_1ValMed.htm
 URL class Gecode::Set::Branch::ValMin classGecode_1_1Set_1_1Branch_1_1ValMin.html
 URL class Gecode::Set::Branch::ValRnd classGecode_1_1Set_1_1Branch_1_1ValRnd.html
 URL class Gecode::Set::CachedView classGecode_1_1Set_1_1CachedView.html
+URL class Gecode::Set::Channel::ChannelBool classGecode_1_1Set_1_1Channel_1_1ChannelBool.html
+URL class Gecode::Set::Channel::ChannelBool::IndexAdvisor classGecode_1_1Set_1_1Channel_1_1ChannelBool_1_1IndexAdvisor.html
+URL class Gecode::Set::Channel::ChannelInt classGecode_1_1Set_1_1Channel_1_1ChannelInt.html
+URL class Gecode::Set::Channel::ChannelSet classGecode_1_1Set_1_1Channel_1_1ChannelSet.html
+URL class Gecode::Set::Channel::ChannelSorted classGecode_1_1Set_1_1Channel_1_1ChannelSorted.html
 URL class Gecode::Set::ComplementView classGecode_1_1Set_1_1ComplementView.html
 URL class Gecode::Set::ConstSetView classGecode_1_1Set_1_1ConstSetView.html
 URL class Gecode::Set::Convex::Convex classGecode_1_1Set_1_1Convex_1_1Convex.html
@@ -778,11 +785,7 @@ URL class Gecode::Set::GlbRanges<SingletonView> classGecode_1_1Set_1_1GlbRanges_
 URL class Gecode::Set::GlbRanges<UniverseView> classGecode_1_1Set_1_1GlbRanges_3_01UniverseView_01_4.html
 URL class Gecode::Set::IllegalOperation classGecode_1_1Set_1_1IllegalOperation.html
 URL class Gecode::Set::Int::Card classGecode_1_1Set_1_1Int_1_1Card.html
-URL class Gecode::Set::Int::ChannelBool classGecode_1_1Set_1_1Int_1_1ChannelBool.html
-URL class Gecode::Set::Int::ChannelBool::IndexAdvisor classGecode_1_1Set_1_1Int_1_1ChannelBool_1_1IndexAdvisor.html
-URL class Gecode::Set::Int::ChannelInt classGecode_1_1Set_1_1Int_1_1ChannelInt.html
 URL class Gecode::Set::Int::IntLess classGecode_1_1Set_1_1Int_1_1IntLess.html
-URL class Gecode::Set::Int::Match classGecode_1_1Set_1_1Int_1_1Match.html
 URL class Gecode::Set::Int::MaxElement classGecode_1_1Set_1_1Int_1_1MaxElement.html
 URL class Gecode::Set::Int::MinElement classGecode_1_1Set_1_1Int_1_1MinElement.html
 URL class Gecode::Set::Int::NotMaxElement classGecode_1_1Set_1_1Int_1_1NotMaxElement.html
@@ -842,7 +845,6 @@ URL class Gecode::Set::UnknownRelation classGecode_1_1Set_1_1UnknownRelation.htm
 URL class Gecode::Set::VariableEmptyDomain classGecode_1_1Set_1_1VariableEmptyDomain.html
 URL class Gecode::SetCmpRel classGecode_1_1SetCmpRel.html
 URL class Gecode::SetExpr classGecode_1_1SetExpr.html
-URL class Gecode::SetExpr::NNF classGecode_1_1SetExpr_1_1NNF.html
 URL class Gecode::SetExpr::Node classGecode_1_1SetExpr_1_1Node.html
 URL class Gecode::SetRel classGecode_1_1SetRel.html
 URL class Gecode::SetVar classGecode_1_1SetVar.html
@@ -868,6 +870,7 @@ URL class Gecode::SpaceConstrainUndefined classGecode_1_1SpaceConstrainUndefined
 URL class Gecode::SpaceFailed classGecode_1_1SpaceFailed.html
 URL class Gecode::SpaceIllegalAlternative classGecode_1_1SpaceIllegalAlternative.html
 URL class Gecode::SpaceNoBrancher classGecode_1_1SpaceNoBrancher.html
+URL class Gecode::SpaceNotCloned classGecode_1_1SpaceNotCloned.html
 URL class Gecode::SpaceNotStable classGecode_1_1SpaceNotStable.html
 URL class Gecode::StatusStatistics classGecode_1_1StatusStatistics.html
 URL class Gecode::Support::BitSet classGecode_1_1Support_1_1BitSet.html
@@ -1258,6 +1261,10 @@ URL class Test::Search::FailImmediate classTest_1_1Search_1_1FailImmediate.html
 URL class Test::Search::HasSolutions classTest_1_1Search_1_1HasSolutions.html
 URL class Test::Search::Test classTest_1_1Search_1_1Test.html
 URL class Test::Search::TestSpace classTest_1_1Search_1_1TestSpace.html
+URL class Test::Set::Channel::ChannelBool classTest_1_1Set_1_1Channel_1_1ChannelBool.html
+URL class Test::Set::Channel::ChannelInt classTest_1_1Set_1_1Channel_1_1ChannelInt.html
+URL class Test::Set::Channel::ChannelSet classTest_1_1Set_1_1Channel_1_1ChannelSet.html
+URL class Test::Set::Channel::ChannelSorted classTest_1_1Set_1_1Channel_1_1ChannelSorted.html
 URL class Test::Set::Convex::Convex classTest_1_1Set_1_1Convex_1_1Convex.html
 URL class Test::Set::Convex::ConvexHull classTest_1_1Set_1_1Convex_1_1ConvexHull.html
 URL class Test::Set::Convex::ConvexHullS classTest_1_1Set_1_1Convex_1_1ConvexHullS.html
@@ -1281,11 +1288,8 @@ URL class Test::Set::Element::MatrixIntSet classTest_1_1Set_1_1Element_1_1Matrix
 URL class Test::Set::Exec::Wait classTest_1_1Set_1_1Exec_1_1Wait.html
 URL class Test::Set::FakeSpace classTest_1_1Set_1_1FakeSpace.html
 URL class Test::Set::Int::Card classTest_1_1Set_1_1Int_1_1Card.html
-URL class Test::Set::Int::ChannelBool classTest_1_1Set_1_1Int_1_1ChannelBool.html
-URL class Test::Set::Int::ChannelInt classTest_1_1Set_1_1Int_1_1ChannelInt.html
 URL class Test::Set::Int::Elem classTest_1_1Set_1_1Int_1_1Elem.html
 URL class Test::Set::Int::IntRel classTest_1_1Set_1_1Int_1_1IntRel.html
-URL class Test::Set::Int::Match classTest_1_1Set_1_1Int_1_1Match.html
 URL class Test::Set::Int::Max classTest_1_1Set_1_1Int_1_1Max.html
 URL class Test::Set::Int::Min classTest_1_1Set_1_1Int_1_1Min.html
 URL class Test::Set::Int::NoElem classTest_1_1Set_1_1Int_1_1NoElem.html
@@ -1693,7 +1697,7 @@ URL file gecode/int/branch/select-val.hpp int_2branch_2select-val_8hpp.html
 URL file gecode/int/branch/select-values.hpp select-values_8hpp.html
 URL file gecode/int/branch/select-view.hpp int_2branch_2select-view_8hpp.html
 URL file gecode/int/channel.cpp gecode_2int_2channel_8cpp.html
-URL file gecode/int/channel.hh channel_8hh.html
+URL file gecode/int/channel.hh int_2channel_8hh.html
 URL file gecode/int/channel/base.hpp channel_2base_8hpp.html
 URL file gecode/int/channel/dom.hpp channel_2dom_8hpp.html
 URL file gecode/int/channel/link-multi.cpp link-multi_8cpp.html
@@ -1741,7 +1745,7 @@ URL file gecode/int/distinct/val.hpp distinct_2val_8hpp.html
 URL file gecode/int/dom.cpp gecode_2int_2dom_8cpp.html
 URL file gecode/int/dom.hh dom_8hh.html
 URL file gecode/int/dom/range.hpp range_8hpp.html
-URL file gecode/int/dom/spec.hpp spec_8hpp.html
+URL file gecode/int/dom/set.hpp gecode_2int_2dom_2set_8hpp.html
 URL file gecode/int/element.cpp gecode_2int_2element_8cpp.html
 URL file gecode/int/element.hh int_2element_8hh.html
 URL file gecode/int/element/int.hpp gecode_2int_2element_2int_8hpp.html
@@ -1818,6 +1822,7 @@ URL file gecode/int/precede.cpp gecode_2int_2precede_8cpp.html
 URL file gecode/int/precede.hh int_2precede_8hh.html
 URL file gecode/int/precede/single.hpp int_2precede_2single_8hpp.html
 URL file gecode/int/propagator.hpp int_2propagator_8hpp.html
+URL file gecode/int/reify.hpp reify_8hpp.html
 URL file gecode/int/rel.cpp gecode_2int_2rel_8cpp.html
 URL file gecode/int/rel.hh int_2rel_8hh.html
 URL file gecode/int/rel/eq.hpp int_2rel_2eq_8hpp.html
@@ -1865,12 +1870,12 @@ URL file gecode/int/val-set.hh val-set_8hh.html
 URL file gecode/int/val-set.hpp val-set_8hpp.html
 URL file gecode/int/var-imp.hpp int_2var-imp_8hpp.html
 URL file gecode/int/var-imp/bool.cpp gecode_2int_2var-imp_2bool_8cpp.html
-URL file gecode/int/var-imp/bool.hpp var-imp_2bool_8hpp.html
+URL file gecode/int/var-imp/bool.hpp int_2var-imp_2bool_8hpp.html
 URL file gecode/int/var-imp/delta.hpp int_2var-imp_2delta_8hpp.html
 URL file gecode/int/var-imp/int.cpp gecode_2int_2var-imp_2int_8cpp.html
 URL file gecode/int/var-imp/int.hpp gecode_2int_2var-imp_2int_8hpp.html
 URL file gecode/int/var/bool.cpp gecode_2int_2var_2bool_8cpp.html
-URL file gecode/int/var/bool.hpp var_2bool_8hpp.html
+URL file gecode/int/var/bool.hpp int_2var_2bool_8hpp.html
 URL file gecode/int/var/int.cpp gecode_2int_2var_2int_8cpp.html
 URL file gecode/int/var/int.hpp gecode_2int_2var_2int_8hpp.html
 URL file gecode/int/var/print.hpp int_2var_2print_8hpp.html
@@ -1883,7 +1888,7 @@ URL file gecode/int/view-val-graph/iter-prune-val.hpp iter-prune-val_8hpp.html
 URL file gecode/int/view-val-graph/node.hpp int_2view-val-graph_2node_8hpp.html
 URL file gecode/int/view.hpp int_2view_8hpp.html
 URL file gecode/int/view/bool-test.hpp bool-test_8hpp.html
-URL file gecode/int/view/bool.hpp view_2bool_8hpp.html
+URL file gecode/int/view/bool.hpp int_2view_2bool_8hpp.html
 URL file gecode/int/view/cached.hpp int_2view_2cached_8hpp.html
 URL file gecode/int/view/constint.hpp constint_8hpp.html
 URL file gecode/int/view/int.hpp gecode_2int_2view_2int_8hpp.html
@@ -1969,7 +1974,6 @@ URL file gecode/minimodel/bool-expr.cpp bool-expr_8cpp.html
 URL file gecode/minimodel/bool-expr.hpp bool-expr_8hpp.html
 URL file gecode/minimodel/exception.hpp minimodel_2exception_8hpp.html
 URL file gecode/minimodel/lin-expr.cpp lin-expr_8cpp.html
-URL file gecode/minimodel/lin-expr.hpp lin-expr_8hpp.html
 URL file gecode/minimodel/lin-rel.cpp lin-rel_8cpp.html
 URL file gecode/minimodel/lin-rel.hpp lin-rel_8hpp.html
 URL file gecode/minimodel/matrix.hpp matrix_8hpp.html
@@ -2018,6 +2022,12 @@ URL file gecode/set/branch/post-view.cpp post-view_8cpp.html
 URL file gecode/set/branch/select-val.hpp set_2branch_2select-val_8hpp.html
 URL file gecode/set/branch/select-view.hpp set_2branch_2select-view_8hpp.html
 URL file gecode/set/cardinality.cpp cardinality_8cpp.html
+URL file gecode/set/channel.cpp gecode_2set_2channel_8cpp.html
+URL file gecode/set/channel.hh set_2channel_8hh.html
+URL file gecode/set/channel/bool.hpp set_2channel_2bool_8hpp.html
+URL file gecode/set/channel/int.hpp gecode_2set_2channel_2int_8hpp.html
+URL file gecode/set/channel/set.hpp gecode_2set_2channel_2set_8hpp.html
+URL file gecode/set/channel/sorted.hpp sorted_8hpp.html
 URL file gecode/set/convex.cpp gecode_2set_2convex_8cpp.html
 URL file gecode/set/convex.hh convex_8hh.html
 URL file gecode/set/convex/conv.cpp conv_8cpp.html
@@ -2040,9 +2050,6 @@ URL file gecode/set/exec.cpp gecode_2set_2exec_8cpp.html
 URL file gecode/set/int.cpp gecode_2set_2int_8cpp.html
 URL file gecode/set/int.hh gecode_2set_2int_8hh.html
 URL file gecode/set/int/card.hpp card_8hpp.html
-URL file gecode/set/int/channel-bool.hpp channel-bool_8hpp.html
-URL file gecode/set/int/channel-int.hpp channel-int_8hpp.html
-URL file gecode/set/int/match.hpp match_8hpp.html
 URL file gecode/set/int/minmax.hpp minmax_8hpp.html
 URL file gecode/set/int/weights.hpp weights_8hpp.html
 URL file gecode/set/limits.hpp set_2limits_8hpp.html
@@ -2188,6 +2195,7 @@ URL file test/search.cpp search_8cpp.html
 URL file test/set.cpp test_2set_8cpp.html
 URL file test/set.hh test_2set_8hh.html
 URL file test/set.hpp test_2set_8hpp.html
+URL file test/set/channel.cpp test_2set_2channel_8cpp.html
 URL file test/set/construct.cpp construct_8cpp.html
 URL file test/set/convex.cpp test_2set_2convex_8cpp.html
 URL file test/set/distinct.cpp test_2set_2distinct_8cpp.html
@@ -2400,6 +2408,8 @@ URL group TaskModelSetAssign group__TaskModelSetAssign.html
 TITLE group TaskModelSetAssign "Assigning"
 URL group TaskModelSetBranch group__TaskModelSetBranch.html
 TITLE group TaskModelSetBranch "Branching"
+URL group TaskModelSetChannel group__TaskModelSetChannel.html
+TITLE group TaskModelSetChannel "Channel constraints"
 URL group TaskModelSetConnect group__TaskModelSetConnect.html
 TITLE group TaskModelSetConnect "Connection constraints to integer variables"
 URL group TaskModelSetConvex group__TaskModelSetConvex.html
@@ -2498,6 +2508,8 @@ URL group TaskTestIntUnshare group__TaskTestIntUnshare.html
 TITLE group TaskTestIntUnshare "Unsharing variables in arrays"
 URL group TaskTestSet group__TaskTestSet.html
 TITLE group TaskTestSet "Testing finite sets"
+URL group TaskTestSetChannel group__TaskTestSetChannel.html
+TITLE group TaskTestSetChannel "Set channeling constraints"
 URL group TaskTestSetConvex group__TaskTestSetConvex.html
 TITLE group TaskTestSetConvex "Convexity constraints"
 URL group TaskTestSetDistinct group__TaskTestSetDistinct.html
@@ -2576,6 +2588,7 @@ URL namespace Gecode::Search::Parallel namespaceGecode_1_1Search_1_1Parallel.htm
 URL namespace Gecode::Search::Sequential namespaceGecode_1_1Search_1_1Sequential.html
 URL namespace Gecode::Set namespaceGecode_1_1Set.html
 URL namespace Gecode::Set::Branch namespaceGecode_1_1Set_1_1Branch.html
+URL namespace Gecode::Set::Channel namespaceGecode_1_1Set_1_1Channel.html
 URL namespace Gecode::Set::Convex namespaceGecode_1_1Set_1_1Convex.html
 URL namespace Gecode::Set::Distinct namespaceGecode_1_1Set_1_1Distinct.html
 URL namespace Gecode::Set::Element namespaceGecode_1_1Set_1_1Element.html
@@ -2624,6 +2637,7 @@ URL namespace Test::Int::Unary namespaceTest_1_1Int_1_1Unary.html
 URL namespace Test::Int::Unshare namespaceTest_1_1Int_1_1Unshare.html
 URL namespace Test::Search namespaceTest_1_1Search.html
 URL namespace Test::Set namespaceTest_1_1Set.html
+URL namespace Test::Set::Channel namespaceTest_1_1Set_1_1Channel.html
 URL namespace Test::Set::Convex namespaceTest_1_1Set_1_1Convex.html
 URL namespace Test::Set::Distinct namespaceTest_1_1Set_1_1Distinct.html
 URL namespace Test::Set::Dom namespaceTest_1_1Set_1_1Dom.html

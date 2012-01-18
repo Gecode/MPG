@@ -54,7 +54,9 @@ integer consistency level\\
 \texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},\mathtt{gist}\}$ & script mode to run\\
 \texttt{-samples} & \?unsigned int? & how many samples\\
 \texttt{-iterations} & \?unsigned int? & how many iterations per
-sample\\\hline
+sample\\
+\texttt{-print-last} & $\{\mathtt{false},\mathtt{true}\}$ &
+whether to only print the last solution\\\hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{user-definable options}\\\hline
 \texttt{-branching} & string & branching options\\
@@ -77,8 +79,9 @@ commandline option with name \?-name?, the option classes provide
 two functions with name \?name()?: one that takes no argument and
 returns the current value of the option, and one that takes an
 argument of the listed type and sets the option to that value.
-The only exceptions are \texttt{-c-d} and \texttt{-a-d} where the
-member functions are named \?c_d()? and \?a_d()?.
+The only exceptions are \texttt{-c-d}, \texttt{-a-d}, and \texttt{-print-last} where the
+member functions are named \?c_d()?, \?a_d()?, and
+\?print_last()? respectively.
 
 The values for \?-threads? are interpreted as described in
 \autoref{sec:m:search:options}.

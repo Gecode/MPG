@@ -741,12 +741,14 @@ before. That means that solutions are found and printed
 with an increasing value of $MONEY$. The best solution is printed
 last.
 
-The branch-and-bound engine \gecoderef[class]{BAB} calls the
-\?constrain()? member function defined by the model. Note that
-every space defines a default \?constrain()? member function (to
-keep the design of models simple). If a model does not re-define
-the \?constrain()?  member function, the default function will be
-called which throws an exception of type
+The branch-and-bound engine \gecoderef[class]{BAB} (see also
+\autoref{sec:m:search:simple}) calls the \?constrain()? member
+function defined by the model. Note that every space defines a
+default \?constrain()? member function (to keep the design of
+models simple). If a model does not re-define the \?constrain()?
+member function (either directly or indirectly bu inheriting a
+\?constrain()? function), the default function will be called
+which throws an exception of type
 \gecoderef[class]{SpaceConstrainUndefined} (as this is a modeling
 error).
 
@@ -754,7 +756,9 @@ Using Gist for best solution search is straightforward. Instead
 of using \?Gist::dfs?, one uses \?Gist::bab? to put Gist into
 branch-and-bound mode.
 
-
+In \autoref{sec:m:comfy:cost} it is discussed how a simple \?cost()?
+function can be used for best solution search instead of a more
+general \?constrain()? function. 
 
 \section{Obtaining Gecode}
 \label{sec:m:started:obtain}
