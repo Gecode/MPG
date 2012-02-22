@@ -8,6 +8,7 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2012-02-22}{Released for Gecode 3.7.2}
   \cle[\AckName{Pavel}{Bochman}]{2011-11-10}{Added tip that
     compilers for Qt and Gecode must match
     (see \autoref{tip:m:started:samecompiler})}

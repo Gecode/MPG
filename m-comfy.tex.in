@@ -284,6 +284,7 @@ that are available from the Gecode webpages.
 }
 
 \tip{Which version of Gecode are we using?}{
+\label{tip:m:comfy:version}%
 Some programs might have to deal with incompatible changes
 between different versions of Gecode. The macro
 \?GECODE_VERSION_NUMBER? can be used to find out which
