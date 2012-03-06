@@ -50,10 +50,8 @@ on the variables \?x? and then on the variables \?y?. Here, it
 does not matter whether propagators are created in between the
 creation of branchers.
 
-\subsection{Branching on integer and set variables}
+\subsection{Branching on integer and Boolean variables}
 \label{sec:m:search:branch:int}
-\label{sec:m:search:branch:set}
-
 
 \begin{important}
 \begin{samepage}
@@ -63,11 +61,7 @@ Do not forget to add
 \end{code}
 \end{samepage}
 to your program when you want to branch on integer and
-Boolean variables. Likewise, do not forget to add
-\begin{code}
-#include <gecode/set.hh>
-\end{code}
-for branching on set variables.
+Boolean variables.
 \end{important}
 
 Gecode offers predefined \emph{variable-value branching}: when
@@ -89,7 +83,6 @@ search continues with the next brancher.
 
 \begin{figure}
 \begin{center}
-\subfigure{
 \begin{tabular}{l@{\quad}l}
 \?INT_VAR_NONE? & first unassigned\\
 \?INT_VAR_RND? & randomly\\
@@ -97,6 +90,8 @@ search continues with the next brancher.
 \?INT_VAR_DEGREE_MAX? & largest degree\\
 \?INT_VAR_AFC_MIN? & smallest accumulated failure count (AFC)\\
 \?INT_VAR_AFC_MAX? & largest accumulated failure count (AFC)\\
+\?INT_VAR_ACTIVITY_MIN? & lowest activity\\
+\?INT_VAR_ACTIVITY_MAX? & highest activity\\
 \?INT_VAR_MIN_MIN? & smallest minimum value\\
 \?INT_VAR_MIN_MAX? & largest minimum value\\
 \?INT_VAR_MAX_MIN? & smallest maximum value\\
@@ -107,13 +102,20 @@ search continues with the next brancher.
 \?INT_VAR_SIZE_DEGREE_MAX? & largest domain size divided by degree\\
 \?INT_VAR_SIZE_AFC_MIN? & smallest domain size divided by AFC\\
 \?INT_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC\\
+\?INT_VAR_SIZE_ACTIVITY_MIN? & smallest domain size divided by activity\\
+\?INT_VAR_SIZE_ACTIVITY_MAX? & largest domain size divided by activity\\
 \?INT_VAR_REGRET_MIN_MIN? & smallest minimum-regret\\
 \?INT_VAR_REGRET_MIN_MAX? & largest minimum-regret\\
 \?INT_VAR_REGRET_MAX_MIN? & smallest maximum-regret\\
 \?INT_VAR_REGRET_MAX_MAX? & largest maximum-regret
-\end{tabular}}
+\end{tabular}
+\end{center}
+\caption{Integer and Boolean variable selection}
+\label{fig:m:search:int:var}
+\end{figure}
 
-\subfigure{
+\begin{figure}
+\begin{center}
 \begin{tabular}{l@{\quad}l}
 \?INT_VAL_MIN? & smallest value\\
 \?INT_VAL_MED? & greatest value not greater than the median\\
@@ -133,33 +135,129 @@ several ranges;\\
   and largest value\\
 \?INT_VALUES_MIN? & all values starting from smallest\\
 \?INT_VALUES_MAX? & all values starting from largest
-\end{tabular}}
-
+\end{tabular}
 \end{center}
-\caption{Integer and Boolean variable and value selection}
-\label{fig:m:search:int}
+\caption{Integer and Boolean value selection}
+\label{fig:m:search:int:val}
 \end{figure}
 
 For integer and Boolean variables, variable selection is defined
 by a value of type \?IntVarBranch? and value selection is defined
 by a value of type \?IntValBranch?  (see
 \gecoderef[group]{TaskModelIntBranch}). For an overview of the
-available value and variable selection strategies, see
-\autoref{fig:m:search:int}. 
+available variable selection strategies, see
+\autoref{fig:m:search:int:var}. An overview of the available
+value selection strategies can be found in \autoref{fig:m:search:int:val}.
 
-The degree of a variable is the number of propagators depending
-on the variable (useful as an approximate measure of how
-constrained a variables is).  The accumulated failure count (AFC)
-of a variable is the sum of the AFCs of all propagators depending
-on the variable plus its degree (to give a good initial value if
-the AFCs of all propagators are still zero). The AFC of a
-propagator counts how often the propagator has failed during
-search.  The AFC is also known as the weighted degree of a
+\paragraph{Local versus shared variable selection criteria.}
+
+The criteria used for selecting variables are either \emph{local}
+or \emph{shared} criteria. A \emph{local} variable selection
+criterion depends only on a brancher's home space. A
+\emph{shared} variable selection criterion depends on not only
+the brancher's home space but also on all spaces that have been
+created during search sharing the same root space where the
+brancher had originally been posted. That entails that a shared
+criterion can use information that is collected during search. In
+terms of \autoref{sec:m:search:re}, a shared variable selection
+criterion depends on all equivalent spaces created by cloning.
+
+\paragraph{Local variable selection criteria.}
+
+All selection criteria but those based on \emph{AFC} and
+\emph{activity} are local: they either select variables without
+using any information on a
+variable (\?INT_VAR_NONE?), select variables randomly
+(\?INT_VAR_RND?, see also \autoref{sec:m:search:branch:rnd}), or
+use the degree or domain of a variable for selection.
+
+The \emph{degree} of a variable is the number of propagators
+depending on the variable (useful as an approximate measure of
+how constrained a variables is).
+
+The \emph{minimum-regret} is the difference between the smallest and
+second smallest value in the domain of a variable (\emph{maximum-regret}
+is analogous).
+
+\paragraph{Selection using accumulated failure count.}
+
+The accumulated failure count (AFC) of a variable is a shared
+selection criterion. It is defined as the sum of the AFCs of all
+propagators depending on the variable plus its degree (to give a
+good initial value if the AFCs of all propagators are still
+zero). The AFC of a propagator counts how often the propagator
+has failed during search.  
+
+The AFC of a variable is also known as the weighted degree of a
 variable~\cite{AFC}.
 
-The minimum-regret is the difference between the smallest and
-second smallest value in the domain of a variable (maximum-regret
-is analogous).
+\paragraph{Selection using activity.}
+
+The activity of an integer or Boolean variable is a shared
+criterion and captures how much a variable has been involved in
+constraint propagation. 
+
+The activity of a variable is maintained by constraint
+propagation as follows. Each time constraint propagation finishes
+during search (by executing the \?status()? function of a space,
+see also \autoref{tip:m:started:status}), the activity of a
+variable $\mathtt x$ is updated as follows~\cite{activity}:
+\begin{itemize}
+\item If the variable \?x? has not been pruned (that is, no
+  values have been removed from the domain of \?x? through
+  propagation), the activity $\alpha(\mathtt x)$ of \?x? is
+  updated by a decay-factor $\gamma$ ($0<\gamma\leq 1$):
+$$\alpha(\mathtt x)=\gamma\cdot\alpha(\mathtt x)$$
+\item If the variable \?x? has been pruned, the activity
+  $\alpha(\mathtt x)$ of \?x? is incremented by $1$:
+$$\alpha(\mathtt x)=\alpha(\mathtt x)+1$$
+\end{itemize}
+
+In order to use activity for branching, one must create an object
+of class \gecoderef[class]{IntActivity} for integer variables or
+an object of class \gecoderef[class]{BoolActivity} for Boolean
+variables. The object is responsible for recording activity
+information.
+
+If \?x? is an integer variable array, then
+\begin{code}
+IntActivity a(home,x,0.99);
+\end{code}
+initializes the activity information \?a? for the variables in \?x?
+with decay-factor $\gamma=\mathtt{0.99}$. 
+
+The decay-factor can
+later be changed, say to $\gamma=\mathtt{0.95}$, by
+\begin{code}
+a.decay(0.95);
+\end{code}
+and \?a.decay()? returns the current decay-factor of \?a?.
+
+A branching using activity information must be given an object of
+type \?IntActivity? by specifying a variable branch option of
+type \gecoderef[class]{VarBranchOptions} as follows:
+\begin{code}
+VarBranchOptions vbo(a);
+\end{code}
+Equivalently, one can also define the integer activity for a
+variable branching option by:
+\begin{code}
+VarBranchOptions vbo;
+vbo.activity = a;
+\end{code}
+
+\begin{samepage}
+Finally, a branching using activity information can be posted by
+\begin{code}
+branch(home, x, INT_VAR_ACTIVITY_MAX, INT_VAL_MIN, vbo);
+\end{code}
+Here the integer variable array \?x? must be exactly the same
+that has been used for creating the integer activity object
+\?a?. 
+\end{samepage}
+
+Activity for Boolean variables is analogous, using the class
+\gecoderef[class]{BoolActivity} for recording activity information.
 
 \tip{Variables are re-selected during branching}{
 \label{tip:m:search:reselected}
@@ -206,10 +304,20 @@ creates.  }
   instructional purposes (well, they do create beautiful
   trees in Gist). }
 
+
+\subsection{Branching on set variables}
+\label{sec:m:search:branch:set}
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/set.hh>
+\end{code}
+to your program when you want to branch on set variables.
+\end{important}
+
 \begin{figure}
 \begin{center}
-
-\subfigure{
 \begin{tabular}{l@{\quad}l}
 \?SET_VAR_NONE? & first unassigned\\
 \?SET_VAR_RND? & randomly\\
@@ -217,6 +325,8 @@ creates.  }
 \?SET_VAR_DEGREE_MAX? & largest degree\\
 \?SET_VAR_AFC_MIN? & smallest accumulated failure count (AFC)\\
 \?SET_VAR_AFC_MAX? & largest accumulated failure count (AFC)\\
+\?SET_VAR_ACTIVITY_MIN? & lowest activity\\
+\?SET_VAR_ACTIVITY_MAX? & highest activity\\
 \?SET_VAR_MIN_MIN? & smallest minimum unknown element\\
 \?SET_VAR_MIN_MAX? & largest minimum unknown element\\
 \?SET_VAR_MAX_MIN? & smallest maximum unknown element\\
@@ -226,10 +336,17 @@ creates.  }
 \?SET_VAR_SIZE_DEGREE_MIN? & smallest domain size divided by degree\\
 \?SET_VAR_SIZE_DEGREE_MAX? & largest domain size divided by degree\\
 \?SET_VAR_SIZE_AFC_MIN? & smallest domain size divided by AFC\\
-\?SET_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC
-\end{tabular}}
+\?SET_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC\\
+\?SET_VAR_SIZE_ACTIVITY_MIN? & smallest domain size divided by activity\\
+\?SET_VAR_SIZE_ACTIVITY_MAX? & largest domain size divided by activity
+\end{tabular}
+\end{center}
+\caption{Set variable selection}
+\label{fig:m:search:set:var}
+\end{figure}
 
-\subfigure{
+\begin{figure}
+\begin{center}
 \begin{tabular}{l@{\quad}l}
 \?SET_VAL_MIN_INC? &include smallest element\\
 \?SET_VAL_MIN_EXC? &exclude smallest element\\
@@ -239,20 +356,25 @@ creates.  }
 \?SET_VAL_MAX_EXC? &exclude largest element\\
 \?SET_VAL_RND_INC? &include random element\\
 \?SET_VAL_RND_EXC? &exclude random element
-\end{tabular}}
-
+\end{tabular}
 \end{center}
-\caption{Set variable and value selection}
-\label{fig:m:search:set}
+\caption{Set value selection}
+\label{fig:m:search:set:val}
 \end{figure}
 
 Likewise, for set variables, variable selection is defined by a
 value of type \?SetVarBranch? and value selection is defined by a
 value of type \?SetValBranch?  (see
 \gecoderef[group]{TaskModelSetBranch}).  For an overview of the
-available value and variable selection strategies, see
-\autoref{fig:m:search:set}.
+available variable and value selection strategies, see
+\autoref{fig:m:search:set:var} and \autoref{fig:m:search:set:val}.
 
+\paragraph{Selection using activity.}
+
+Variable selection using activity is analogous to selection of
+integer and Boolean variables. In particular, the activity object
+for set variables is created from the class
+\gecoderef[class]{SetActivity}.
 
 \subsection{Random variable and value selection}
 \label{sec:m:search:branch:rnd}
@@ -639,7 +761,7 @@ rather than storing an entire clone of a space just enough
 information to redo the effect of a brancher is stored. The
 information stored is called a \emph{choice} in
 Gecode.  Redoing the effect is called to \emph{commit} a space:
-given a space and a choice committing reexecutes
+given a space and a choice committing re-executes
 the brancher as described by the choice and the
 alternative to be explored (for example, left or right).
 
@@ -981,7 +1103,7 @@ more likely to occur):
 \item For parallel search to deliver some speedup, the search
   tree must be sufficiently large. Otherwise, not all threads
   might be able to find work and idle threads might slow down
-  busy threads by the overhead of unsuccesful work-stealing.
+  busy threads by the overhead of unsuccessful work-stealing.
 \item From all the facts listed, it should be clear that for
   depth-first left-most search for just a single solution it is
   notoriously difficult to obtain consistent speedup. If the

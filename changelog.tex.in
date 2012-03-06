@@ -8,6 +8,8 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2012-03-06}{Explained activity-based search and shared
+    variable selection criteria (see \autoref{sec:m:search:branch})}
   \cle{2012-02-22}{Released for Gecode 3.7.2}
   \cle[\AckName{Pavel}{Bochman}]{2011-11-10}{Added tip that
     compilers for Qt and Gecode must match

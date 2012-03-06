@@ -11,6 +11,8 @@ URL class BlackHoleBranch::Choice classBlackHoleBranch_1_1Choice.html
 URL class CDBF classCDBF.html
 URL class CDBF::Choice classCDBF_1_1Choice.html
 URL class CarSequencing classCarSequencing.html
+URL class ColoredMatrix classColoredMatrix.html
+URL class ColoredMatrixOptions classColoredMatrixOptions.html
 URL class Course classCourse.html
 URL class Crew classCrew.html
 URL class Crossword classCrossword.html
@@ -24,6 +26,11 @@ URL class EFPA classEFPA.html
 URL class EFPAOptions classEFPAOptions.html
 URL class Eq20 classEq20.html
 URL class FileSizeOptions classFileSizeOptions.html
+URL class Gecode::Activity classGecode_1_1Activity.html
+URL class Gecode::Activity::Recorder classGecode_1_1Activity_1_1Recorder.html
+URL class Gecode::Activity::Recorder::Idx classGecode_1_1Activity_1_1Recorder_1_1Idx.html
+URL class Gecode::Activity::Storage classGecode_1_1Activity_1_1Storage.html
+URL class Gecode::ActivityWrongArity classGecode_1_1ActivityWrongArity.html
 URL class Gecode::Actor classGecode_1_1Actor.html
 URL class Gecode::ActorLink classGecode_1_1ActorLink.html
 URL class Gecode::Advisor classGecode_1_1Advisor.html
@@ -54,6 +61,7 @@ URL class Gecode::BAB classGecode_1_1BAB.html
 URL class Gecode::BElementExpr classGecode_1_1BElementExpr.html
 URL class Gecode::BaseOptions classGecode_1_1BaseOptions.html
 URL class Gecode::BinaryPropagator classGecode_1_1BinaryPropagator.html
+URL class Gecode::BoolActivity classGecode_1_1BoolActivity.html
 URL class Gecode::BoolExpr classGecode_1_1BoolExpr.html
 URL class Gecode::BoolExpr::MiscExpr classGecode_1_1BoolExpr_1_1MiscExpr.html
 URL class Gecode::BoolExpr::Node classGecode_1_1BoolExpr_1_1Node.html
@@ -111,14 +119,9 @@ URL class Gecode::FlatZinc::Alias classGecode_1_1FlatZinc_1_1Alias.html
 URL class Gecode::FlatZinc::BoolVarSpec classGecode_1_1FlatZinc_1_1BoolVarSpec.html
 URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
-URL class Gecode::FlatZinc::FZPrintingInspector classGecode_1_1FlatZinc_1_1FZPrintingInspector.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
-URL class Gecode::FlatZinc::GistEngine classGecode_1_1FlatZinc_1_1GistEngine.html
-URL class Gecode::FlatZinc::GistEngine<BAB<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
-URL class Gecode::FlatZinc::GistEngine<DFS<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
-URL class Gecode::FlatZinc::GistEngine<Restart<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01Restart_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
 URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
 URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
@@ -248,6 +251,8 @@ URL class Gecode::Int::Branch::ByRegretMaxMax classGecode_1_1Int_1_1Branch_1_1By
 URL class Gecode::Int::Branch::ByRegretMaxMin classGecode_1_1Int_1_1Branch_1_1ByRegretMaxMin.html
 URL class Gecode::Int::Branch::ByRegretMinMax classGecode_1_1Int_1_1Branch_1_1ByRegretMinMax.html
 URL class Gecode::Int::Branch::ByRegretMinMin classGecode_1_1Int_1_1Branch_1_1ByRegretMinMin.html
+URL class Gecode::Int::Branch::BySizeActivityMax classGecode_1_1Int_1_1Branch_1_1BySizeActivityMax.html
+URL class Gecode::Int::Branch::BySizeActivityMin classGecode_1_1Int_1_1Branch_1_1BySizeActivityMin.html
 URL class Gecode::Int::Branch::BySizeAfcMax classGecode_1_1Int_1_1Branch_1_1BySizeAfcMax.html
 URL class Gecode::Int::Branch::BySizeAfcMin classGecode_1_1Int_1_1Branch_1_1BySizeAfcMin.html
 URL class Gecode::Int::Branch::BySizeDegreeMax classGecode_1_1Int_1_1Branch_1_1BySizeDegreeMax.html
@@ -608,6 +613,7 @@ URL class Gecode::Int::ViewValGraph::ValNode classGecode_1_1Int_1_1ViewValGraph_
 URL class Gecode::Int::ViewValGraph::ViewNode classGecode_1_1Int_1_1ViewValGraph_1_1ViewNode.html
 URL class Gecode::Int::ViewValues classGecode_1_1Int_1_1ViewValues.html
 URL class Gecode::Int::ZeroIntView classGecode_1_1Int_1_1ZeroIntView.html
+URL class Gecode::IntActivity classGecode_1_1IntActivity.html
 URL class Gecode::IntArgs classGecode_1_1IntArgs.html
 URL class Gecode::IntSet classGecode_1_1IntSet.html
 URL class Gecode::IntSet::MinInc classGecode_1_1IntSet_1_1MinInc.html
@@ -695,6 +701,7 @@ URL class Gecode::MiniModel::StatePool classGecode_1_1MiniModel_1_1StatePool.htm
 URL class Gecode::MiniModel::SymbolsInc classGecode_1_1MiniModel_1_1SymbolsInc.html
 URL class Gecode::MiniModel::TooFewArguments classGecode_1_1MiniModel_1_1TooFewArguments.html
 URL class Gecode::MiniModel::TransitionBag classGecode_1_1MiniModel_1_1TransitionBag.html
+URL class Gecode::MissingActivity classGecode_1_1MissingActivity.html
 URL class Gecode::MixBinaryPropagator classGecode_1_1MixBinaryPropagator.html
 URL class Gecode::MixNaryOnePropagator classGecode_1_1MixNaryOnePropagator.html
 URL class Gecode::MixTernaryPropagator classGecode_1_1MixTernaryPropagator.html
@@ -704,7 +711,6 @@ URL class Gecode::NoIdxVarImpConf classGecode_1_1NoIdxVarImpConf.html
 URL class Gecode::NonLinExpr classGecode_1_1NonLinExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
-URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
@@ -754,6 +760,8 @@ URL class Gecode::Set::Branch::ByMaxMax classGecode_1_1Set_1_1Branch_1_1ByMaxMax
 URL class Gecode::Set::Branch::ByMaxMin classGecode_1_1Set_1_1Branch_1_1ByMaxMin.html
 URL class Gecode::Set::Branch::ByMinMax classGecode_1_1Set_1_1Branch_1_1ByMinMax.html
 URL class Gecode::Set::Branch::ByMinMin classGecode_1_1Set_1_1Branch_1_1ByMinMin.html
+URL class Gecode::Set::Branch::BySizeActivityMax classGecode_1_1Set_1_1Branch_1_1BySizeActivityMax.html
+URL class Gecode::Set::Branch::BySizeActivityMin classGecode_1_1Set_1_1Branch_1_1BySizeActivityMin.html
 URL class Gecode::Set::Branch::BySizeAfcMax classGecode_1_1Set_1_1Branch_1_1BySizeAfcMax.html
 URL class Gecode::Set::Branch::BySizeAfcMin classGecode_1_1Set_1_1Branch_1_1BySizeAfcMin.html
 URL class Gecode::Set::Branch::BySizeDegreeMax classGecode_1_1Set_1_1Branch_1_1BySizeDegreeMax.html
@@ -852,6 +860,7 @@ URL class Gecode::Set::UnknownOperation classGecode_1_1Set_1_1UnknownOperation.h
 URL class Gecode::Set::UnknownRanges classGecode_1_1Set_1_1UnknownRanges.html
 URL class Gecode::Set::UnknownRelation classGecode_1_1Set_1_1UnknownRelation.html
 URL class Gecode::Set::VariableEmptyDomain classGecode_1_1Set_1_1VariableEmptyDomain.html
+URL class Gecode::SetActivity classGecode_1_1SetActivity.html
 URL class Gecode::SetCmpRel classGecode_1_1SetCmpRel.html
 URL class Gecode::SetExpr classGecode_1_1SetExpr.html
 URL class Gecode::SetExpr::Node classGecode_1_1SetExpr_1_1Node.html
@@ -932,6 +941,8 @@ URL class Gecode::ViewAdvisor classGecode_1_1ViewAdvisor.html
 URL class Gecode::ViewArray classGecode_1_1ViewArray.html
 URL class Gecode::ViewArray<Int::Linear::NoView> classGecode_1_1ViewArray_3_01Int_1_1Linear_1_1NoView_01_4.html
 URL class Gecode::ViewBrancher classGecode_1_1ViewBrancher.html
+URL class Gecode::ViewSelActivityMax classGecode_1_1ViewSelActivityMax.html
+URL class Gecode::ViewSelActivityMin classGecode_1_1ViewSelActivityMin.html
 URL class Gecode::ViewSelAfcMax classGecode_1_1ViewSelAfcMax.html
 URL class Gecode::ViewSelAfcMin classGecode_1_1ViewSelAfcMin.html
 URL class Gecode::ViewSelBase classGecode_1_1ViewSelBase.html
@@ -959,7 +970,6 @@ URL class IndSet classIndSet.html
 URL class Kakuro classKakuro.html
 URL class Knights classKnights.html
 URL class KnightsCircuit classKnightsCircuit.html
-URL class KnightsInspector classKnightsInspector.html
 URL class KnightsReified classKnightsReified.html
 URL class LangfordNumber classLangfordNumber.html
 URL class LangfordNumberOptions classLangfordNumberOptions.html
@@ -984,7 +994,6 @@ URL class Play classPlay.html
 URL class QueenArmies classQueenArmies.html
 URL class QueenArmies::QueenBranch classQueenArmies_1_1QueenBranch.html
 URL class Queens classQueens.html
-URL class QueensInspector classQueensInspector.html
 URL class RRS classRRS.html
 URL class Radiotherapy classRadiotherapy.html
 URL class Radiotherapy::NestedSearch classRadiotherapy_1_1NestedSearch.html
@@ -1233,6 +1242,7 @@ URL class Test::Int::Precede::Multi classTest_1_1Int_1_1Precede_1_1Multi.html
 URL class Test::Int::Precede::Single classTest_1_1Int_1_1Precede_1_1Single.html
 URL class Test::Int::RandomAssignment classTest_1_1Int_1_1RandomAssignment.html
 URL class Test::Int::RandomMixAssignment classTest_1_1Int_1_1RandomMixAssignment.html
+URL class Test::Int::ReifyModes classTest_1_1Int_1_1ReifyModes.html
 URL class Test::Int::Rel::BoolArray classTest_1_1Int_1_1Rel_1_1BoolArray.html
 URL class Test::Int::Rel::BoolInt classTest_1_1Int_1_1Rel_1_1BoolInt.html
 URL class Test::Int::Rel::BoolSeq classTest_1_1Int_1_1Rel_1_1BoolSeq.html
@@ -1373,6 +1383,11 @@ URL example car-sequencing:CarOptions car-sequencing_8cpp.html
 URL example car-sequencing:CarSequencing car-sequencing_8cpp.html
 TITLE example car-sequencing:CarSequencing "Car sequencing"
 URL example car-sequencing:PushToEnd car-sequencing_8cpp.html
+URL example colored-matrix colored-matrix_8cpp.html
+TITLE example colored-matrix "Colored matrix example."
+URL example colored-matrix:ColoredMatrix colored-matrix_8cpp.html
+TITLE example colored-matrix:ColoredMatrix "Colored matrix example."
+URL example colored-matrix:ColoredMatrixOptions colored-matrix_8cpp.html
 URL example crew crew_8cpp.html
 TITLE example crew "Airline crew allocation"
 URL example crew:Crew crew_8cpp.html
@@ -1575,6 +1590,7 @@ URL file examples/bibd.cpp bibd_8cpp.html
 URL file examples/bin-packing.cpp examples_2bin-packing_8cpp.html
 URL file examples/black-hole.cpp black-hole_8cpp.html
 URL file examples/car-sequencing.cpp car-sequencing_8cpp.html
+URL file examples/colored-matrix.cpp colored-matrix_8cpp.html
 URL file examples/crew.cpp crew_8cpp.html
 URL file examples/crossword.cpp crossword_8cpp.html
 URL file examples/crowded-chess.cpp crowded-chess_8cpp.html
@@ -1674,6 +1690,8 @@ URL file gecode/gist/visualnode.hh visualnode_8hh.html
 URL file gecode/gist/visualnode.hpp visualnode_8hpp.html
 URL file gecode/gist/zoomToFitIcon.hpp zoomToFitIcon_8hpp.html
 URL file gecode/int.hh gecode_2int_8hh.html
+URL file gecode/int/activity.cpp int_2activity_8cpp.html
+URL file gecode/int/activity.hpp int_2activity_8hpp.html
 URL file gecode/int/arithmetic.cpp gecode_2int_2arithmetic_8cpp.html
 URL file gecode/int/arithmetic.hh arithmetic_8hh.html
 URL file gecode/int/arithmetic/abs.hpp abs_8hpp.html
@@ -1949,6 +1967,8 @@ URL file gecode/iter/values-singleton.hpp values-singleton_8hpp.html
 URL file gecode/iter/values-union.hpp values-union_8hpp.html
 URL file gecode/iter/values-unique.hpp values-unique_8hpp.html
 URL file gecode/kernel.hh kernel_8hh.html
+URL file gecode/kernel/activity.cpp kernel_2activity_8cpp.html
+URL file gecode/kernel/activity.hpp kernel_2activity_8hpp.html
 URL file gecode/kernel/advisor.hpp advisor_8hpp.html
 URL file gecode/kernel/allocators.hpp allocators_8hpp.html
 URL file gecode/kernel/archive.cpp archive_8cpp.html
@@ -2023,6 +2043,8 @@ URL file gecode/search/stop.hpp stop_8hpp.html
 URL file gecode/search/support.hh search_2support_8hh.html
 URL file gecode/search/worker.hh worker_8hh.html
 URL file gecode/set.hh gecode_2set_8hh.html
+URL file gecode/set/activity.cpp set_2activity_8cpp.html
+URL file gecode/set/activity.hpp set_2activity_8hpp.html
 URL file gecode/set/array-traits.hpp set_2array-traits_8hpp.html
 URL file gecode/set/array.cpp gecode_2set_2array_8cpp.html
 URL file gecode/set/array.hpp set_2array_8hpp.html
@@ -2665,9 +2687,9 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange_2.html
+URL page PageHowToChange_2 PageHowToChange__2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange_3.html
+URL page PageHowToChange_3 PageHowToChange__3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"
