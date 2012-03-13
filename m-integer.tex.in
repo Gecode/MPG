@@ -1740,7 +1740,7 @@ binpacking(home, l, b, s);
 \end{code}
 where \?l? is an array of integer variables (the \emph{load}
 variables), \?b? is an array of integer variables (the \emph{bin}
-variables), and \?s? is an array of integers (the item
+variables), and \?s? is an array of non-negative integers (the item
 \emph{sizes}). 
 
 The load variables \?l? determine the load $\mathtt{l}_j$ of each
