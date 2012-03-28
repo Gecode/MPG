@@ -155,6 +155,8 @@ The basic material needed for modeling with Gecode is as follows:
   \ptsmintegergeneric{}.
 \item The first section of \tcmset{} gives an overview of set
   variables \ptsmsetvar{}.
+\item The first section of \tcmfloat{} gives an overview of float
+  variables \ptsmfloatvar{}.
 \item The first section of \tcmsearch{} explains branchings for
   modeling \ptsmsearchbranch{}. Even though not strictly necessary
   for modeling, it is recommended to also read
@@ -173,6 +175,8 @@ available functionality for modeling and solving:
   are summarized in \tsmintegerpost{} and \tsmintegerexec{} of \tcmint{}.
 \item \tsmsetpost{} and \tsmsetexec{} of \tcmset{} summarize
   constraints on set variables.
+\item \tsmfloatpost{} and \tsmfloatexec{} of \tcmfloat{} summarize
+  constraints on set variables.
 \item \tcmminimodel{} provides an overview of modeling
   convenience implemented by MiniModel.
 \item \tsmsearchsimple{} of \tcmsearch{} summarizes how to use
@@ -189,6 +193,7 @@ available functionality for modeling and solving:
 \include{m-comfy}
 \include{m-integer}
 \include{m-set}
+\include{m-float}
 \include{m-minimodel}
 \include{m-search}
 \include{m-gist}

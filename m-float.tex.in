@@ -1,0 +1,59 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Float variables and constraints}
+\label{chap:m:float}
+
+This chapter gives an overview over float variables and float
+constraints in Gecode. Just like \autoref{chap:m:int} does for
+integer and Boolean variables, this chapter serves as a starting
+point for using float variables. For the reference documentation,
+see \gecoderef[group]{TaskModelFloat}.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:float:var} details how float variables can be
+used for modeling.  The sections \autoref{sec:m:float:post} and
+\autoref{sec:m:float:exec} provide an overview of the constraints
+that are available for set variables in Gecode.
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/float.hh>
+\end{code}
+to your program when you want to use float variables. Note that
+the same conventions hold as in \autoref{chap:m:int}.
+\end{important}
+
+\section{Float variables}
+\label{sec:m:float:var}
+
+\section{Constraint overview}
+\label{sec:m:float:post}
+
+This section introduces the different groups of constraints over
+float variables available in Gecode. The section serves only as
+an overview. For the details and the full list of available post
+functions, the section refers to the relevant reference
+documentation.
+
+\section{Synchronized execution}
+\label{sec:m:float:exec}
+
+Gecode offers support in
+\gecoderef[group]{TaskModelSetExec} for executing a function
+(either a function or a static member function but not a member
+function) when set variables become assigned. 
+
+Assume that a function \?c? (for continuation) is defined by
+\begin{code}
+void c(Space& home) { ... }
+\end{code}
+Then
+\begin{code}
+wait(home, x, &c);
+\end{code}
+posts a propagator that waits until the set
+variable \?x? (or, if \?x? is an array of variables: all variables in
+\?x?) is assigned. If \?x? becomes assigned, the function \?c? is
+executed with the current home space passed as argument.
+
