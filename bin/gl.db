@@ -44,17 +44,23 @@ URL class Gecode::ArrayTraits classGecode_1_1ArrayTraits.html
 URL class Gecode::ArrayTraits<ArgArray<IntSet>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01IntSet_01_4_01_4.html
 URL class Gecode::ArrayTraits<BoolVarArgs> classGecode_1_1ArrayTraits_3_01BoolVarArgs_01_4.html
 URL class Gecode::ArrayTraits<BoolVarArray> classGecode_1_1ArrayTraits_3_01BoolVarArray_01_4.html
+URL class Gecode::ArrayTraits<FloatArgs> classGecode_1_1ArrayTraits_3_01FloatArgs_01_4.html
+URL class Gecode::ArrayTraits<FloatVarArgs> classGecode_1_1ArrayTraits_3_01FloatVarArgs_01_4.html
+URL class Gecode::ArrayTraits<FloatVarArray> classGecode_1_1ArrayTraits_3_01FloatVarArray_01_4.html
 URL class Gecode::ArrayTraits<IntArgs> classGecode_1_1ArrayTraits_3_01IntArgs_01_4.html
 URL class Gecode::ArrayTraits<IntVarArgs> classGecode_1_1ArrayTraits_3_01IntVarArgs_01_4.html
 URL class Gecode::ArrayTraits<IntVarArray> classGecode_1_1ArrayTraits_3_01IntVarArray_01_4.html
+URL class Gecode::ArrayTraits<PrimArgArray<FloatNum>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01FloatNum_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<TaskType>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01TaskType_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<int>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01int_01_4_01_4.html
 URL class Gecode::ArrayTraits<SetVarArgs> classGecode_1_1ArrayTraits_3_01SetVarArgs_01_4.html
 URL class Gecode::ArrayTraits<SetVarArray> classGecode_1_1ArrayTraits_3_01SetVarArray_01_4.html
 URL class Gecode::ArrayTraits<VarArgArray<BoolVar>> classGecode_1_1ArrayTraits_3_01VarArgArray_3_01BoolVar_01_4_01_4.html
+URL class Gecode::ArrayTraits<VarArgArray<FloatVar>> classGecode_1_1ArrayTraits_3_01VarArgArray_3_01FloatVar_01_4_01_4.html
 URL class Gecode::ArrayTraits<VarArgArray<IntVar>> classGecode_1_1ArrayTraits_3_01VarArgArray_3_01IntVar_01_4_01_4.html
 URL class Gecode::ArrayTraits<VarArgArray<SetVar>> classGecode_1_1ArrayTraits_3_01VarArgArray_3_01SetVar_01_4_01_4.html
 URL class Gecode::ArrayTraits<VarArray<BoolVar>> classGecode_1_1ArrayTraits_3_01VarArray_3_01BoolVar_01_4_01_4.html
+URL class Gecode::ArrayTraits<VarArray<FloatVar>> classGecode_1_1ArrayTraits_3_01VarArray_3_01FloatVar_01_4_01_4.html
 URL class Gecode::ArrayTraits<VarArray<IntVar>> classGecode_1_1ArrayTraits_3_01VarArray_3_01IntVar_01_4_01_4.html
 URL class Gecode::ArrayTraits<VarArray<SetVar>> classGecode_1_1ArrayTraits_3_01VarArray_3_01SetVar_01_4_01_4.html
 URL class Gecode::BAB classGecode_1_1BAB.html
@@ -116,12 +122,20 @@ URL class Gecode::FlatZinc::AST::String classGecode_1_1FlatZinc_1_1AST_1_1String
 URL class Gecode::FlatZinc::AST::TypeError classGecode_1_1FlatZinc_1_1AST_1_1TypeError.html
 URL class Gecode::FlatZinc::AST::Var classGecode_1_1FlatZinc_1_1AST_1_1Var.html
 URL class Gecode::FlatZinc::Alias classGecode_1_1FlatZinc_1_1Alias.html
+URL class Gecode::FlatZinc::AuxVarBrancher classGecode_1_1FlatZinc_1_1AuxVarBrancher.html
+URL class Gecode::FlatZinc::AuxVarBrancher::Choice classGecode_1_1FlatZinc_1_1AuxVarBrancher_1_1Choice.html
 URL class Gecode::FlatZinc::BoolVarSpec classGecode_1_1FlatZinc_1_1BoolVarSpec.html
 URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
+URL class Gecode::FlatZinc::FZPrintingComparator classGecode_1_1FlatZinc_1_1FZPrintingComparator.html
+URL class Gecode::FlatZinc::FZPrintingInspector classGecode_1_1FlatZinc_1_1FZPrintingInspector.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
+URL class Gecode::FlatZinc::GistEngine classGecode_1_1FlatZinc_1_1GistEngine.html
+URL class Gecode::FlatZinc::GistEngine<BAB<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
+URL class Gecode::FlatZinc::GistEngine<DFS<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
+URL class Gecode::FlatZinc::GistEngine<Restart<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01Restart_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
 URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
 URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
@@ -131,6 +145,87 @@ URL class Gecode::FlatZinc::SetVarSpec classGecode_1_1FlatZinc_1_1SetVarSpec.htm
 URL class Gecode::FlatZinc::SymbolEntry classGecode_1_1FlatZinc_1_1SymbolEntry.html
 URL class Gecode::FlatZinc::SymbolTable classGecode_1_1FlatZinc_1_1SymbolTable.html
 URL class Gecode::FlatZinc::VarSpec classGecode_1_1FlatZinc_1_1VarSpec.html
+URL class Gecode::Float::ArgumentSame classGecode_1_1Float_1_1ArgumentSame.html
+URL class Gecode::Float::ArgumentSizeMismatch classGecode_1_1Float_1_1ArgumentSizeMismatch.html
+URL class Gecode::Float::Arithmetic::Abs classGecode_1_1Float_1_1Arithmetic_1_1Abs.html
+URL class Gecode::Float::Arithmetic::Channel classGecode_1_1Float_1_1Arithmetic_1_1Channel.html
+URL class Gecode::Float::Arithmetic::Div classGecode_1_1Float_1_1Arithmetic_1_1Div.html
+URL class Gecode::Float::Arithmetic::Max classGecode_1_1Float_1_1Arithmetic_1_1Max.html
+URL class Gecode::Float::Arithmetic::Min classGecode_1_1Float_1_1Arithmetic_1_1Min.html
+URL class Gecode::Float::Arithmetic::Mult classGecode_1_1Float_1_1Arithmetic_1_1Mult.html
+URL class Gecode::Float::Arithmetic::NaryMax classGecode_1_1Float_1_1Arithmetic_1_1NaryMax.html
+URL class Gecode::Float::Arithmetic::NthRoot classGecode_1_1Float_1_1Arithmetic_1_1NthRoot.html
+URL class Gecode::Float::Arithmetic::Pow classGecode_1_1Float_1_1Arithmetic_1_1Pow.html
+URL class Gecode::Float::Arithmetic::Sqrt classGecode_1_1Float_1_1Arithmetic_1_1Sqrt.html
+URL class Gecode::Float::Arithmetic::Square classGecode_1_1Float_1_1Arithmetic_1_1Square.html
+URL class Gecode::Float::Branch::ByMaxMax classGecode_1_1Float_1_1Branch_1_1ByMaxMax.html
+URL class Gecode::Float::Branch::ByMaxMin classGecode_1_1Float_1_1Branch_1_1ByMaxMin.html
+URL class Gecode::Float::Branch::ByMinMax classGecode_1_1Float_1_1Branch_1_1ByMinMax.html
+URL class Gecode::Float::Branch::ByMinMin classGecode_1_1Float_1_1Branch_1_1ByMinMin.html
+URL class Gecode::Float::Branch::ByWidthActivityMax classGecode_1_1Float_1_1Branch_1_1ByWidthActivityMax.html
+URL class Gecode::Float::Branch::ByWidthActivityMin classGecode_1_1Float_1_1Branch_1_1ByWidthActivityMin.html
+URL class Gecode::Float::Branch::ByWidthAfcMax classGecode_1_1Float_1_1Branch_1_1ByWidthAfcMax.html
+URL class Gecode::Float::Branch::ByWidthAfcMin classGecode_1_1Float_1_1Branch_1_1ByWidthAfcMin.html
+URL class Gecode::Float::Branch::ByWidthDegreeMax classGecode_1_1Float_1_1Branch_1_1ByWidthDegreeMax.html
+URL class Gecode::Float::Branch::ByWidthDegreeMin classGecode_1_1Float_1_1Branch_1_1ByWidthDegreeMin.html
+URL class Gecode::Float::Branch::ByWidthMax classGecode_1_1Float_1_1Branch_1_1ByWidthMax.html
+URL class Gecode::Float::Branch::ByWidthMin classGecode_1_1Float_1_1Branch_1_1ByWidthMin.html
+URL class Gecode::Float::Branch::ValSplitMax classGecode_1_1Float_1_1Branch_1_1ValSplitMax.html
+URL class Gecode::Float::Branch::ValSplitMin classGecode_1_1Float_1_1Branch_1_1ValSplitMin.html
+URL class Gecode::Float::FloatDelta classGecode_1_1Float_1_1FloatDelta.html
+URL class Gecode::Float::FloatVarImp classGecode_1_1Float_1_1FloatVarImp.html
+URL class Gecode::Float::FloatVarImpBase classGecode_1_1Float_1_1FloatVarImpBase.html
+URL class Gecode::Float::FloatVarImpConf classGecode_1_1Float_1_1FloatVarImpConf.html
+URL class Gecode::Float::FloatView classGecode_1_1Float_1_1FloatView.html
+URL class Gecode::Float::IllegalOperation classGecode_1_1Float_1_1IllegalOperation.html
+URL class Gecode::Float::Linear::Eq classGecode_1_1Float_1_1Linear_1_1Eq.html
+URL class Gecode::Float::Linear::EqBin classGecode_1_1Float_1_1Linear_1_1EqBin.html
+URL class Gecode::Float::Linear::EqTer classGecode_1_1Float_1_1Linear_1_1EqTer.html
+URL class Gecode::Float::Linear::GqBin classGecode_1_1Float_1_1Linear_1_1GqBin.html
+URL class Gecode::Float::Linear::Lin classGecode_1_1Float_1_1Linear_1_1Lin.html
+URL class Gecode::Float::Linear::LinBin classGecode_1_1Float_1_1Linear_1_1LinBin.html
+URL class Gecode::Float::Linear::LinTer classGecode_1_1Float_1_1Linear_1_1LinTer.html
+URL class Gecode::Float::Linear::Lq classGecode_1_1Float_1_1Linear_1_1Lq.html
+URL class Gecode::Float::Linear::LqBin classGecode_1_1Float_1_1Linear_1_1LqBin.html
+URL class Gecode::Float::Linear::LqTer classGecode_1_1Float_1_1Linear_1_1LqTer.html
+URL class Gecode::Float::Linear::NoView classGecode_1_1Float_1_1Linear_1_1NoView.html
+URL class Gecode::Float::Linear::Nq classGecode_1_1Float_1_1Linear_1_1Nq.html
+URL class Gecode::Float::Linear::NqBin classGecode_1_1Float_1_1Linear_1_1NqBin.html
+URL class Gecode::Float::Linear::NqTer classGecode_1_1Float_1_1Linear_1_1NqTer.html
+URL class Gecode::Float::Linear::ReEq classGecode_1_1Float_1_1Linear_1_1ReEq.html
+URL class Gecode::Float::Linear::ReEqBin classGecode_1_1Float_1_1Linear_1_1ReEqBin.html
+URL class Gecode::Float::Linear::ReLin classGecode_1_1Float_1_1Linear_1_1ReLin.html
+URL class Gecode::Float::Linear::ReLinBin classGecode_1_1Float_1_1Linear_1_1ReLinBin.html
+URL class Gecode::Float::Linear::ReLq classGecode_1_1Float_1_1Linear_1_1ReLq.html
+URL class Gecode::Float::Linear::ReLqBin classGecode_1_1Float_1_1Linear_1_1ReLqBin.html
+URL class Gecode::Float::Linear::Term classGecode_1_1Float_1_1Linear_1_1Term.html
+URL class Gecode::Float::Linear::TermLess classGecode_1_1Float_1_1Linear_1_1TermLess.html
+URL class Gecode::Float::MinusView classGecode_1_1Float_1_1MinusView.html
+URL class Gecode::Float::OffsetView classGecode_1_1Float_1_1OffsetView.html
+URL class Gecode::Float::OutOfLimits classGecode_1_1Float_1_1OutOfLimits.html
+URL class Gecode::Float::Rel::Eq classGecode_1_1Float_1_1Rel_1_1Eq.html
+URL class Gecode::Float::Rel::Gq classGecode_1_1Float_1_1Rel_1_1Gq.html
+URL class Gecode::Float::Rel::Lq classGecode_1_1Float_1_1Rel_1_1Lq.html
+URL class Gecode::Float::Rel::NaryEq classGecode_1_1Float_1_1Rel_1_1NaryEq.html
+URL class Gecode::Float::Rel::Nq classGecode_1_1Float_1_1Rel_1_1Nq.html
+URL class Gecode::Float::Rel::ReEq classGecode_1_1Float_1_1Rel_1_1ReEq.html
+URL class Gecode::Float::Rel::ReEqFloat classGecode_1_1Float_1_1Rel_1_1ReEqFloat.html
+URL class Gecode::Float::Rel::ReGq classGecode_1_1Float_1_1Rel_1_1ReGq.html
+URL class Gecode::Float::Rel::ReGqFloat classGecode_1_1Float_1_1Rel_1_1ReGqFloat.html
+URL class Gecode::Float::Rel::ReLq classGecode_1_1Float_1_1Rel_1_1ReLq.html
+URL class Gecode::Float::Rel::ReLqFloat classGecode_1_1Float_1_1Rel_1_1ReLqFloat.html
+URL class Gecode::Float::ScaleView classGecode_1_1Float_1_1ScaleView.html
+URL class Gecode::Float::TooFewArguments classGecode_1_1Float_1_1TooFewArguments.html
+URL class Gecode::Float::UnknownBranching classGecode_1_1Float_1_1UnknownBranching.html
+URL class Gecode::Float::UnknownOperation classGecode_1_1Float_1_1UnknownOperation.html
+URL class Gecode::Float::UnknownRelation classGecode_1_1Float_1_1UnknownRelation.html
+URL class Gecode::Float::ValOfUnassignedVar classGecode_1_1Float_1_1ValOfUnassignedVar.html
+URL class Gecode::Float::VariableEmptyDomain classGecode_1_1Float_1_1VariableEmptyDomain.html
+URL class Gecode::FloatActivity classGecode_1_1FloatActivity.html
+URL class Gecode::FloatArgs classGecode_1_1FloatArgs.html
+URL class Gecode::FloatVar classGecode_1_1FloatVar.html
+URL class Gecode::FloatVarArgs classGecode_1_1FloatVarArgs.html
+URL class Gecode::FloatVarArray classGecode_1_1FloatVarArray.html
 URL class Gecode::FreeList classGecode_1_1FreeList.html
 URL class Gecode::FunctionBranch classGecode_1_1FunctionBranch.html
 URL class Gecode::FunctionBranch::Description classGecode_1_1FunctionBranch_1_1Description.html
@@ -679,6 +774,9 @@ URL class Gecode::Kernel::NaryWait classGecode_1_1Kernel_1_1NaryWait.html
 URL class Gecode::Kernel::UnaryWait classGecode_1_1Kernel_1_1UnaryWait.html
 URL class Gecode::LinExpr classGecode_1_1LinExpr.html
 URL class Gecode::LinExpr::Node classGecode_1_1LinExpr_1_1Node.html
+URL class Gecode::LinFloatExpr classGecode_1_1LinFloatExpr.html
+URL class Gecode::LinFloatExpr::Node classGecode_1_1LinFloatExpr_1_1Node.html
+URL class Gecode::LinFloatRel classGecode_1_1LinFloatRel.html
 URL class Gecode::LinRel classGecode_1_1LinRel.html
 URL class Gecode::LocalHandle classGecode_1_1LocalHandle.html
 URL class Gecode::LocalObject classGecode_1_1LocalObject.html
@@ -689,6 +787,7 @@ URL class Gecode::MemoryManager classGecode_1_1MemoryManager.html
 URL class Gecode::MiniModel::ArgumentOutOfRange classGecode_1_1MiniModel_1_1ArgumentOutOfRange.html
 URL class Gecode::MiniModel::ArgumentSizeMismatch classGecode_1_1MiniModel_1_1ArgumentSizeMismatch.html
 URL class Gecode::MiniModel::ArithNonLinExpr classGecode_1_1MiniModel_1_1ArithNonLinExpr.html
+URL class Gecode::MiniModel::ArithNonLinFloatExpr classGecode_1_1MiniModel_1_1ArithNonLinFloatExpr.html
 URL class Gecode::MiniModel::ExpInfo classGecode_1_1MiniModel_1_1ExpInfo.html
 URL class Gecode::MiniModel::FinalBag classGecode_1_1MiniModel_1_1FinalBag.html
 URL class Gecode::MiniModel::NodeInfo classGecode_1_1MiniModel_1_1NodeInfo.html
@@ -709,8 +808,10 @@ URL class Gecode::NaryOnePropagator classGecode_1_1NaryOnePropagator.html
 URL class Gecode::NaryPropagator classGecode_1_1NaryPropagator.html
 URL class Gecode::NoIdxVarImpConf classGecode_1_1NoIdxVarImpConf.html
 URL class Gecode::NonLinExpr classGecode_1_1NonLinExpr.html
+URL class Gecode::NonLinFloatExpr classGecode_1_1NonLinFloatExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
+URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
@@ -939,6 +1040,7 @@ URL class Gecode::VarImpVar classGecode_1_1VarImpVar.html
 URL class Gecode::VarImpView classGecode_1_1VarImpView.html
 URL class Gecode::ViewAdvisor classGecode_1_1ViewAdvisor.html
 URL class Gecode::ViewArray classGecode_1_1ViewArray.html
+URL class Gecode::ViewArray<Float::Linear::NoView> classGecode_1_1ViewArray_3_01Float_1_1Linear_1_1NoView_01_4.html
 URL class Gecode::ViewArray<Int::Linear::NoView> classGecode_1_1ViewArray_3_01Int_1_1Linear_1_1NoView_01_4.html
 URL class Gecode::ViewBrancher classGecode_1_1ViewBrancher.html
 URL class Gecode::ViewSelActivityMax classGecode_1_1ViewSelActivityMax.html
@@ -970,6 +1072,7 @@ URL class IndSet classIndSet.html
 URL class Kakuro classKakuro.html
 URL class Knights classKnights.html
 URL class KnightsCircuit classKnightsCircuit.html
+URL class KnightsInspector classKnightsInspector.html
 URL class KnightsReified classKnightsReified.html
 URL class LangfordNumber classLangfordNumber.html
 URL class LangfordNumberOptions classLangfordNumberOptions.html
@@ -994,6 +1097,7 @@ URL class Play classPlay.html
 URL class QueenArmies classQueenArmies.html
 URL class QueenArmies::QueenBranch classQueenArmies_1_1QueenBranch.html
 URL class Queens classQueens.html
+URL class QueensInspector classQueensInspector.html
 URL class RRS classRRS.html
 URL class Radiotherapy classRadiotherapy.html
 URL class Radiotherapy::NestedSearch classRadiotherapy_1_1NestedSearch.html
@@ -1341,6 +1445,7 @@ URL class Test::Set::SetTestSpace classTest_1_1Set_1_1SetTestSpace.html
 URL class Test::Set::Var::Construct classTest_1_1Set_1_1Var_1_1Construct.html
 URL class Test::SortByName classTest_1_1SortByName.html
 URL class Test::ind classTest_1_1ind.html
+URL class TestFloat classTestFloat.html
 URL class TileSpec classTileSpec.html
 URL class Warehouses classWarehouses.html
 URL class Warnsdorff classWarnsdorff.html
@@ -1569,6 +1674,8 @@ URL example sudoku:SudokuMixed sudoku_8cpp.html
 TITLE example sudoku:SudokuMixed "Solving Sudoku puzzles using both set and integer"
 URL example sudoku:SudokuSet sudoku_8cpp.html
 TITLE example sudoku:SudokuSet "Solving Sudoku puzzles using set constraints"
+URL example test-float test-float_8cpp.html
+URL example test-float:TestFloat test-float_8cpp.html
 URL example tsp tsp_8cpp.html
 TITLE example tsp "Travelling salesman problem (TSP)"
 URL example tsp:TSP tsp_8cpp.html
@@ -1629,6 +1736,7 @@ URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
 URL file examples/sudoku.cpp sudoku_8cpp.html
+URL file examples/test-float.cpp test-float_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
@@ -1649,6 +1757,58 @@ URL file gecode/flatzinc/registry.cpp registry_8cpp.html
 URL file gecode/flatzinc/registry.hh registry_8hh.html
 URL file gecode/flatzinc/symboltable.hh symboltable_8hh.html
 URL file gecode/flatzinc/varspec.hh varspec_8hh.html
+URL file gecode/float.hh float_8hh.html
+URL file gecode/float/activity.cpp float_2activity_8cpp.html
+URL file gecode/float/activity.hpp float_2activity_8hpp.html
+URL file gecode/float/arithmetic.cpp gecode_2float_2arithmetic_8cpp.html
+URL file gecode/float/arithmetic.hh float_2arithmetic_8hh.html
+URL file gecode/float/arithmetic/div.hpp div_8hpp.html
+URL file gecode/float/arithmetic/min-max-channel.hpp min-max-channel_8hpp.html
+URL file gecode/float/arithmetic/mult.hpp float_2arithmetic_2mult_8hpp.html
+URL file gecode/float/arithmetic/pow-nroot.hpp pow-nroot_8hpp.html
+URL file gecode/float/arithmetic/sqr-sqrt-abs.hpp sqr-sqrt-abs_8hpp.html
+URL file gecode/float/array-traits.hpp float_2array-traits_8hpp.html
+URL file gecode/float/array.cpp gecode_2float_2array_8cpp.html
+URL file gecode/float/array.hpp float_2array_8hpp.html
+URL file gecode/float/branch.cpp gecode_2float_2branch_8cpp.html
+URL file gecode/float/branch.hh gecode_2float_2branch_8hh.html
+URL file gecode/float/branch/post-val-float.hpp post-val-float_8hpp.html
+URL file gecode/float/branch/post-view-float.cpp post-view-float_8cpp.html
+URL file gecode/float/branch/select-val.hpp float_2branch_2select-val_8hpp.html
+URL file gecode/float/branch/select-view.hpp float_2branch_2select-view_8hpp.html
+URL file gecode/float/exception.hpp float_2exception_8hpp.html
+URL file gecode/float/limits.hpp float_2limits_8hpp.html
+URL file gecode/float/linear.hh float_2linear_8hh.html
+URL file gecode/float/linear/float-bin.hpp float-bin_8hpp.html
+URL file gecode/float/linear/float-nary.hpp float-nary_8hpp.html
+URL file gecode/float/linear/float-noview.hpp float-noview_8hpp.html
+URL file gecode/float/linear/float-ter.hpp float-ter_8hpp.html
+URL file gecode/float/linear/post.cpp post_8cpp.html
+URL file gecode/float/linear/post.hpp float_2linear_2post_8hpp.html
+URL file gecode/float/rel.cpp gecode_2float_2rel_8cpp.html
+URL file gecode/float/rel.hh float_2rel_8hh.html
+URL file gecode/float/rel/eq.hpp float_2rel_2eq_8hpp.html
+URL file gecode/float/rel/gq.hpp gq_8hpp.html
+URL file gecode/float/rel/lq.hpp float_2rel_2lq_8hpp.html
+URL file gecode/float/rel/nq.hpp float_2rel_2nq_8hpp.html
+URL file gecode/float/transcendental.hh transcendental_8hh.html
+URL file gecode/float/transcendental/exp-log.hpp exp-log_8hpp.html
+URL file gecode/float/trigonometric.hh trigonometric_8hh.html
+URL file gecode/float/trigonometric/asinacos.hpp asinacos_8hpp.html
+URL file gecode/float/trigonometric/sincos.hpp sincos_8hpp.html
+URL file gecode/float/trigonometric/tanatan.hpp tanatan_8hpp.html
+URL file gecode/float/var-imp.hpp float_2var-imp_8hpp.html
+URL file gecode/float/var-imp/delta.hpp float_2var-imp_2delta_8hpp.html
+URL file gecode/float/var-imp/float.hpp var-imp_2float_8hpp.html
+URL file gecode/float/var/float.cpp float_8cpp.html
+URL file gecode/float/var/float.hpp var_2float_8hpp.html
+URL file gecode/float/view.hpp float_2view_8hpp.html
+URL file gecode/float/view/float.hpp view_2float_8hpp.html
+URL file gecode/float/view/minus.hpp float_2view_2minus_8hpp.html
+URL file gecode/float/view/offset.hpp float_2view_2offset_8hpp.html
+URL file gecode/float/view/print.hpp float_2view_2print_8hpp.html
+URL file gecode/float/view/rel-test.hpp float_2view_2rel-test_8hpp.html
+URL file gecode/float/view/scale.hpp float_2view_2scale_8hpp.html
 URL file gecode/gist.hh gist_8hh.html
 URL file gecode/gist/drawingcursor.cpp drawingcursor_8cpp.html
 URL file gecode/gist/drawingcursor.hh drawingcursor_8hh.html
@@ -1693,11 +1853,11 @@ URL file gecode/int.hh gecode_2int_8hh.html
 URL file gecode/int/activity.cpp int_2activity_8cpp.html
 URL file gecode/int/activity.hpp int_2activity_8hpp.html
 URL file gecode/int/arithmetic.cpp gecode_2int_2arithmetic_8cpp.html
-URL file gecode/int/arithmetic.hh arithmetic_8hh.html
+URL file gecode/int/arithmetic.hh int_2arithmetic_8hh.html
 URL file gecode/int/arithmetic/abs.hpp abs_8hpp.html
 URL file gecode/int/arithmetic/divmod.hpp divmod_8hpp.html
 URL file gecode/int/arithmetic/max.hpp max_8hpp.html
-URL file gecode/int/arithmetic/mult.hpp mult_8hpp.html
+URL file gecode/int/arithmetic/mult.hpp int_2arithmetic_2mult_8hpp.html
 URL file gecode/int/arithmetic/sqr.hpp sqr_8hpp.html
 URL file gecode/int/arithmetic/sqrt.hpp sqrt_8hpp.html
 URL file gecode/int/array-traits.hpp int_2array-traits_8hpp.html
@@ -1811,7 +1971,7 @@ URL file gecode/int/int-set.cpp int-set_8cpp.html
 URL file gecode/int/limits.hpp int_2limits_8hpp.html
 URL file gecode/int/linear-bool.cpp linear-bool_8cpp.html
 URL file gecode/int/linear-int.cpp linear-int_8cpp.html
-URL file gecode/int/linear.hh linear_8hh.html
+URL file gecode/int/linear.hh int_2linear_8hh.html
 URL file gecode/int/linear/bool-int.hpp bool-int_8hpp.html
 URL file gecode/int/linear/bool-post.cpp bool-post_8cpp.html
 URL file gecode/int/linear/bool-scale.hpp bool-scale_8hpp.html
@@ -1922,12 +2082,12 @@ URL file gecode/int/view/cached.hpp int_2view_2cached_8hpp.html
 URL file gecode/int/view/constint.hpp constint_8hpp.html
 URL file gecode/int/view/int.hpp gecode_2int_2view_2int_8hpp.html
 URL file gecode/int/view/iter.hpp int_2view_2iter_8hpp.html
-URL file gecode/int/view/minus.hpp minus_8hpp.html
+URL file gecode/int/view/minus.hpp int_2view_2minus_8hpp.html
 URL file gecode/int/view/neg-bool.hpp neg-bool_8hpp.html
-URL file gecode/int/view/offset.hpp offset_8hpp.html
+URL file gecode/int/view/offset.hpp int_2view_2offset_8hpp.html
 URL file gecode/int/view/print.hpp int_2view_2print_8hpp.html
-URL file gecode/int/view/rel-test.hpp rel-test_8hpp.html
-URL file gecode/int/view/scale.hpp scale_8hpp.html
+URL file gecode/int/view/rel-test.hpp int_2view_2rel-test_8hpp.html
+URL file gecode/int/view/scale.hpp int_2view_2scale_8hpp.html
 URL file gecode/int/view/zero.hpp zero_8hpp.html
 URL file gecode/iter.hh iter_8hh.html
 URL file gecode/iter/ranges-add.hpp ranges-add_8hpp.html
@@ -2005,6 +2165,9 @@ URL file gecode/minimodel/bool-expr.cpp bool-expr_8cpp.html
 URL file gecode/minimodel/bool-expr.hpp bool-expr_8hpp.html
 URL file gecode/minimodel/exception.hpp minimodel_2exception_8hpp.html
 URL file gecode/minimodel/lin-expr.cpp lin-expr_8cpp.html
+URL file gecode/minimodel/lin-float-expr.cpp lin-float-expr_8cpp.html
+URL file gecode/minimodel/lin-float-rel.cpp lin-float-rel_8cpp.html
+URL file gecode/minimodel/lin-float-rel.hpp lin-float-rel_8hpp.html
 URL file gecode/minimodel/lin-rel.cpp lin-rel_8cpp.html
 URL file gecode/minimodel/lin-rel.hpp lin-rel_8hpp.html
 URL file gecode/minimodel/matrix.hpp matrix_8hpp.html
@@ -2249,6 +2412,12 @@ URL group Example group__Example.html
 TITLE group Example "Example scripts (models)"
 URL group Func group__Func.html
 TITLE group Func "Common functionality"
+URL group FuncFloatProp group__FuncFloatProp.html
+TITLE group FuncFloatProp "Float propagators"
+URL group FuncFloatSelVal group__FuncFloatSelVal.html
+TITLE group FuncFloatSelVal "Float value selection for brancher"
+URL group FuncFloatSelView group__FuncFloatSelView.html
+TITLE group FuncFloatSelView "Float view selection for brancher"
 URL group FuncIntProp group__FuncIntProp.html
 TITLE group FuncIntProp "Integer propagators"
 URL group FuncIntSelVal group__FuncIntSelVal.html
@@ -2293,6 +2462,8 @@ URL group FuncSupportThread group__FuncSupportThread.html
 TITLE group FuncSupportThread "Simple thread and synchronization support"
 URL group FuncThrow group__FuncThrow.html
 TITLE group FuncThrow "Gecode exceptions"
+URL group FuncThrowFloat group__FuncThrowFloat.html
+TITLE group FuncThrowFloat "Float exceptions"
 URL group FuncThrowInt group__FuncThrowInt.html
 TITLE group FuncThrowInt "Integer exceptions"
 URL group FuncThrowKernel group__FuncThrowKernel.html
@@ -2311,6 +2482,14 @@ URL group Task group__Task.html
 TITLE group Task "Functionality by programming task"
 URL group TaskActor group__TaskActor.html
 TITLE group TaskActor "Programming actors"
+URL group TaskActorFloat group__TaskActorFloat.html
+TITLE group TaskActorFloat "Programming float actors"
+URL group TaskActorFloatMEPC group__TaskActorFloatMEPC.html
+TITLE group TaskActorFloatMEPC "Float modification events and propagation conditions"
+URL group TaskActorFloatTest group__TaskActorFloatTest.html
+TITLE group TaskActorFloatTest "Testing relations between float views"
+URL group TaskActorFloatView group__TaskActorFloatView.html
+TITLE group TaskActorFloatView "Float views"
 URL group TaskActorInt group__TaskActorInt.html
 TITLE group TaskActorInt "Programming integer actors"
 URL group TaskActorIntMEPC group__TaskActorIntMEPC.html
@@ -2351,8 +2530,22 @@ URL group TaskModelBranchExec group__TaskModelBranchExec.html
 TITLE group TaskModelBranchExec "Branch with a function"
 URL group TaskModelBranchTieBreak group__TaskModelBranchTieBreak.html
 TITLE group TaskModelBranchTieBreak "Tie-breaking for variable selection"
+URL group TaskModelFloat group__TaskModelFloat.html
+TITLE group TaskModelFloat "Using float variables and constraints"
+URL group TaskModelFloatArith group__TaskModelFloatArith.html
+TITLE group TaskModelFloatArith "Arithmetic constraints"
+URL group TaskModelFloatBranch group__TaskModelFloatBranch.html
+TITLE group TaskModelFloatBranch "Branching"
+URL group TaskModelFloatChannel group__TaskModelFloatChannel.html
+TITLE group TaskModelFloatChannel "Channel constraints"
+URL group TaskModelFloatRelFloat group__TaskModelFloatRelFloat.html
+TITLE group TaskModelFloatRelFloat "Simple relation constraints over float variables"
+URL group TaskModelFloatVarArrays group__TaskModelFloatVarArrays.html
+TITLE group TaskModelFloatVarArrays "Variable arrays"
+URL group TaskModelFloatVars group__TaskModelFloatVars.html
+TITLE group TaskModelFloatVars "Float variables"
 URL group TaskModelInt group__TaskModelInt.html
-TITLE group TaskModelInt "Using finite domain integers"
+TITLE group TaskModelInt "Using integer variables and constraints"
 URL group TaskModelIntArgs group__TaskModelIntArgs.html
 TITLE group TaskModelIntArgs "Argument arrays"
 URL group TaskModelIntArith group__TaskModelIntArith.html
@@ -2434,7 +2627,7 @@ TITLE group TaskModelSearch "Search engines"
 URL group TaskModelSearchStop group__TaskModelSearchStop.html
 TITLE group TaskModelSearchStop "Stop-objects for stopping search"
 URL group TaskModelSet group__TaskModelSet.html
-TITLE group TaskModelSet "Using finite integer sets"
+TITLE group TaskModelSet "Using integer set variables and constraints"
 URL group TaskModelSetArgs group__TaskModelSetArgs.html
 TITLE group TaskModelSetArgs "Argument arrays"
 URL group TaskModelSetAssign group__TaskModelSetAssign.html
@@ -2579,6 +2772,14 @@ URL namespace Gecode namespaceGecode.html
 URL namespace Gecode::Driver namespaceGecode_1_1Driver.html
 URL namespace Gecode::FlatZinc namespaceGecode_1_1FlatZinc.html
 URL namespace Gecode::FlatZinc::AST namespaceGecode_1_1FlatZinc_1_1AST.html
+URL namespace Gecode::Float namespaceGecode_1_1Float.html
+URL namespace Gecode::Float::Arithmetic namespaceGecode_1_1Float_1_1Arithmetic.html
+URL namespace Gecode::Float::Branch namespaceGecode_1_1Float_1_1Branch.html
+URL namespace Gecode::Float::Limits namespaceGecode_1_1Float_1_1Limits.html
+URL namespace Gecode::Float::Linear namespaceGecode_1_1Float_1_1Linear.html
+URL namespace Gecode::Float::Rel namespaceGecode_1_1Float_1_1Rel.html
+URL namespace Gecode::Float::Transcendental namespaceGecode_1_1Float_1_1Transcendental.html
+URL namespace Gecode::Float::Trigonometric namespaceGecode_1_1Float_1_1Trigonometric.html
 URL namespace Gecode::Gist namespaceGecode_1_1Gist.html
 URL namespace Gecode::Gist::LayoutConfig namespaceGecode_1_1Gist_1_1LayoutConfig.html
 URL namespace Gecode::Int namespaceGecode_1_1Int.html
@@ -2687,9 +2888,9 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange__2.html
+URL page PageHowToChange_2 PageHowToChange_2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange__3.html
+URL page PageHowToChange_3 PageHowToChange_3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"
