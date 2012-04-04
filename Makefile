@@ -6,7 +6,7 @@ CHAPSRC = \
 	m-started m-comfy m-integer m-set m-float m-minimodel \
 	m-search m-gist m-driver \
 	p-started p-avoid p-reified p-views \
-	p-domain p-advisors p-memory p-sets \
+	p-domain p-advisors p-memory p-sets p-floats \
 	b-started b-viewval \
 	s-started s-recomputation s-engine \
 	v \

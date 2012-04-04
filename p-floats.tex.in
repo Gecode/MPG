@@ -1,0 +1,101 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Propagators for float constraints}
+\label{chap:p:floats}
+
+This chapter shows how to implement propagators for constraints
+over float variables. We assume that you have worked through the
+chapters on implementing integer propagators, as most of the
+techniques readily carry over and are not explained again
+here.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:p:floats:example} demonstrates a
+propagator that implements FIXME. 
+Float views and their related concepts are summarized in
+\autoref{sec:p:floats:propagation}.
+
+
+\section{A simple example}
+\label{sec:p:floats:example}
+
+
+\section{Modification events, propagation conditions, views,
+   and advisors}
+\label{sec:p:floats:propagation}
+
+This section summarizes how these concepts are
+specialized for float variables and propagators.
+
+\paragraph{Modification events and propagation conditions.}
+
+\begin{figure}[p]
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{float modification events}}\\
+\?Set::ME_SET_NONE? & the view has not been changed\\
+\?Set::ME_SET_FAILED? & the domain has become empty\\
+\?Set::ME_SET_VAL? & the view has been assigned to a single set\\
+\?Set::ME_SET_CARD? & the view has been assigned to a single set\\
+\?Set::ME_SET_LUB? & the upper bound has been changed\\
+\?Set::ME_SET_GLB? & the lower bound has been changed\\
+\?Set::ME_SET_BB? & both bounds have been changed\\
+\?Set::ME_SET_CLUB? & cardinality and upper bound have changed\\
+\?Set::ME_SET_CGLB? & cardinality and lower bound have changed\\
+\?Set::ME_SET_CBB? & cardinality and both bounds have changed\\
+\\
+\multicolumn{2}{c}{\textbf{float propagation conditions}}\\
+\?Set::PC_SET_VAL? & schedule when the view is assigned\\
+\?Set::PC_SET_CARD? & schedule when the cardinality changes\\
+\?Set::PC_SET_CLUB? & schedule when the cardinality or the upper bound changes\\
+\?Set::PC_SET_CGLB? & schedule when the cardinality or the lower bound changes\\
+\?Set::PC_SET_ANY? & schedule at any change\\
+\?Set::PC_SET_NONE? & do not schedule\\
+\end{tabular}
+\end{center}
+\caption{Float modification events and propagation conditions}
+\label{fig:p:floats:propagation_conditions}
+\end{figure}
+
+The modification events and propagation conditions for float
+propagators (see
+\autoref{fig:p:floats:propagation_conditions}) capture the
+parts of a float variable domain that can change.
+
+One could imagine a richer set, for example distinguishing
+between lower and upper bound changes of the cardinality, or
+separating the cardinality changes from the interval bound
+changes. However, the number of propagation conditions has a
+direct influence on the size of a variable, see
+\autoref{par:v:varimp:design:cost}. Just like for integer views,
+this set of modification events and propagation conditions has
+been chosen as a compromise between expressiveness on the one
+hand, and keeping the set small on the other.
+
+
+\paragraph{Float variable views.}
+
+In addition to the basic \gecoderef[class]{Float::FloatView} class,
+there are five other set views:
+\gecoderef[class]{Set::ConstSetView},
+\gecoderef[class]{Set::EmptyView},
+\gecoderef[class]{Set::UniverseView},
+\gecoderef[class]{Set::SingletonView}, and
+\gecoderef[class]{Set::ComplementView}.
+
+The first three are constant views. A \?SingletonView? wraps an
+integer view $x$ in the interface of a set view, so that it
+acts like the singleton set $\{x\}$. A \?ComplementView? is like
+Boolean negation, it provides the set complement with respect to
+the global Gecode universe for set variables (defined as
+$\range{\mathtt{Set::Limits::min}}{\mathtt{Set::Limits::max}}$,
+see \gecoderef[namespace]{Set::Limits}).
+
+\paragraph{Advisors for float propagators.}
+
+Advisors for float constraints get informed about the domain
+modifications using a \gecoderef[class]{Float::FloatDelta}. The set delta
+provides only information about the minimum and maximum values
+that were added to the lower bound and/or removed from the upper
+bound.
+
