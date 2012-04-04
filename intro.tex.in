@@ -36,8 +36,8 @@ applications. Gecode is:
   easily interfaced to other systems. It supports the programming
   of new propagators (as implementation of constraints),
   branching strategies, and search engines. New variables can be
-  programmed at the same level of efficiency as integer and set
-  variables that ship with Gecode.
+  programmed at the same level of efficiency as integer, set, and
+  float variables that ship with Gecode.
   
 \item[free] Gecode is distributed under the
   \AURL{http://www.gecode.org/license.html}{MIT license} and is
@@ -111,7 +111,7 @@ This document follows the general architecure of Gecode,
 containing one part for each major component.
 \autoref{fig:intro:gecode_architecture} gives an overview of the
 Gecode architecture. The kernel provides common functionality,
-upon which the modules for integer and set constraints as well as
+upon which the modules for integer, set, and float constraints as well as
 the search engines are built. The colored boxes refer to the
 topics covered in this document.
 
@@ -204,7 +204,7 @@ topics:
   branchers (as implementations of branchings for search) can be
   programmed using Gecode. This part is short and straightforward.
 \item[programming variables] Gecode supports the addition of new
-  variables types: the modules for integer, Boolean and set
+  variables types: the modules for integer, Boolean, set, and float
   variables use exactly the same programming interface as is
   available to any user. This interface is described in
   \autoref{part:v}.
