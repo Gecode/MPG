@@ -561,7 +561,7 @@ Some linkers require the list of libraries to be sorted such that libraries
 appear before all libraries they depend on. In this case, use the following
 order (and omit libraries you don't use): \?-lgecodeflatzinc?,
 \?-lgecodedriver?, \?-lgecodegist?, \?-lgecodesearch?, \?-lgecodeminimodel?,
-\?-lgecodeset?, \?-lgecodeint?,
+\?-lgecodeset?, \?-lgecodefloat?, \?-lgecodeint?,
 \?-lgecodekernel?, \?-lgecodesupport?.
 
 A complete example for compiling and linking the file

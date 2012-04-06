@@ -17,6 +17,7 @@
 \usepackage{subfigure}
 \usepackage{calc}
 \usepackage{colortbl}
+\usepackage{fmtcount}
 
 \definecolor{GecodeGreen}{rgb}{0.04314,0.46275,0.27451}
 \definecolor{GecodeBlue}{rgb}{0,0.36078,0.631273}
@@ -283,8 +284,10 @@
 \newcommand{\NINT}{\NONTERM{n}}
 \newcommand{\NVAR}{\NONTERM{x}}
 \newcommand{\NSET}{\NONTERM{s}}
+\newcommand{\NFLOAT}{\NONTERM{f}}
 \newcommand{\NVARS}{\NONTERM{\overline x}}
 \newcommand{\NINTS}{\NONTERM{\overline n}}
+\newcommand{\NFLOATS}{\NONTERM{\overline f}}
 \newcommand{\NREL}{\NONTERM{r}}
 \newcommand{\NLE}{\NONTERM{\mathit{IntExpr}}}
 \newcommand{\NLR}{\NONTERM{\mathit{IntRel}}}
@@ -292,6 +295,8 @@
 \newcommand{\NBR}{\NONTERM{\mathit{BoolRel}}}
 \newcommand{\NSE}{\NONTERM{\mathit{SetExpr}}}
 \newcommand{\NSR}{\NONTERM{\mathit{SetRel}}}
+\newcommand{\NFE}{\NONTERM{\mathit{FloatExpr}}}
+\newcommand{\NFR}{\NONTERM{\mathit{FloatRel}}}
 
 
 \newcommand{\reify}[2]{#1\Leftrightarrow #2=\mathtt 1}

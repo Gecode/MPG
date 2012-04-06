@@ -116,42 +116,49 @@ the search engines are built. The colored boxes refer to the
 topics covered in this document.
 
 \begin{figure}
-\begin{pspicture}(16,8)
+\begin{center}
+\psset{unit=0.88cm}
+\begin{pspicture}(18,8)
 %\psgrid
-\fcframe{GecodeGreen}{(4,6)(16,8)}
+\fcframe{GecodeGreen}{(4,6)(18,8)}
 \put(10,7){\makebox(0,0){Modeling (\autoref{part:m})}}
 \fcbwframe(4,0)(16,2)
 \put(10,1){\makebox(0,0){Gecode kernel}}
 
-\fcframe{GecodeBlue}{(0,3)(8,5)}
+\fcframe{GecodeBlue}{(0,3)(10,5)}
 \put(0.2,4.3){\makebox(0,.5)[l]{\footnotesize Programming}}
 \put(0.2,3.7){\makebox(0,.5)[l]{\footnotesize propagators (\autoref{part:p})}}
 \put(0.2,3.2){\makebox(0,.5)[l]{\footnotesize and branchers (\autoref{part:b})}}
 
-\fcbwframe(4.3,1.8)(5.8,6.2)
+\fcbwframe(4.25,1.8)(5.85,6.2)
 \put(5.05,4.3){\makebox(0,0){\?Int?}}
-\put(5.05,3.8){\makebox(0,0){module}}
+\put(5.05,3.8){\makebox(0,0){\footnotesize module}}
 
-\fcbwframe(6.3,1.8)(7.8,6.2)
+\fcbwframe(6.25,1.8)(7.85,6.2)
 \put(7.05,4.3){\makebox(0,0){\?Set?}}
-\put(7.05,3.8){\makebox(0,0){module}}
+\put(7.05,3.8){\makebox(0,0){\footnotesize module}}
 
-\fcbwframe(8.3,1.8)(9.8,6.2)
-\put(9.05,4.3){\makebox(0,0){\?Search?}}
-\put(9.05,3.8){\makebox(0,0){module}}
+\fcbwframe(8.25,1.8)(9.85,6.2)
+\put(9.05,4.3){\makebox(0,0){\?Float?}}
+\put(9.05,3.8){\makebox(0,0){\footnotesize module}}
 
-\fcframe{GecodeRed}{(13.3,1.8)(15.8,6.2)}
-\put(14.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
-\put(14.55,4.0){\makebox(0,0){{\footnotesize search}}}
-\put(14.55,3.5){\makebox(0,0){{\footnotesize engines}}}
-\put(14.55,3.0){\makebox(0,0){{\footnotesize (\autoref{part:s})}}}
+\fcbwframe(10.25,1.8)(11.85,6.2)
+\put(11.05,4.3){\makebox(0,0){\?Search?}}
+\put(11.05,3.8){\makebox(0,0){\footnotesize module}}
 
-\fcframe{GecodeOrange}{(10.3,1.8)(12.8,6.2)}
-\put(11.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
-\put(11.55,4.0){\makebox(0,0){{\footnotesize variables}}}
-\put(11.55,3.5){\makebox(0,0){{\footnotesize (\autoref{part:v})}}}
+\fcframe{GecodeOrange}{(12.25,1.8)(14.85,6.2)}
+\put(13.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
+\put(13.55,4.0){\makebox(0,0){{\footnotesize variables}}}
+\put(13.55,3.5){\makebox(0,0){{\footnotesize (\autoref{part:v})}}}
 
-\end{pspicture}  
+\fcframe{GecodeRed}{(15.25,1.8)(17.85,6.2)}
+\put(16.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
+\put(16.55,4.0){\makebox(0,0){{\footnotesize search}}}
+\put(16.55,3.5){\makebox(0,0){{\footnotesize engines}}}
+\put(16.55,3.0){\makebox(0,0){{\footnotesize (\autoref{part:s})}}}
+
+\end{pspicture}
+\end{center}  
 \caption{Gecode architecture}
 \label{fig:intro:gecode_architecture}
 \end{figure}

@@ -11,7 +11,7 @@ new constraints or branchers.
 \paragraph{Overview.}
 
 \mbox{}\autoref{sec:m:minimodel:exprrel} surveys how constraints
-represented by integer, Boolean, and set expressions and
+represented by integer, Boolean, set, and float expressions and
 relations can be posted. How matrix interfaces for arrays can be
 defined and used is discussed in
 \autoref{sec:m:minimodel:matrix}. Support for defining cost
@@ -59,7 +59,7 @@ rel(home, z == 3*x-4*y+2);
 posts the same constraint as in the previous example.
 
 MiniModel provides syntax for expressions and relations over
-integer, Boolean, and set variables, which can be freely mixed.
+integer, Boolean, set, and float variables, which can be freely mixed.
 For example, the following code snippet returns a Boolean
 variable that is true if and only if $\{\mathtt x\}\subseteq
 \mathtt s$ and $|\mathtt s|=\mathtt y$, where $\mathtt x$ and
@@ -116,7 +116,7 @@ $\NINTS$ & $::=$ & \multicolumn{2}{l}{array of integers}\\
 \label{fig:m:minimodel:integer}
 \end{figure}
 
-Integer expressions (i.e., expressions that evaluate to an integer) are constructed according to the structure sketched in \autoref{fig:m:minimodel:integer}. We use the standard \CPP{}
+Integer expressions (that is, expressions that evaluate to an integer) are constructed according to the structure sketched in \autoref{fig:m:minimodel:integer}. We use the standard \CPP{}
 operators (for an example, see
 \autoref{sec:m:comfy:expr}), as well as several functions with intuitive names such as \?min? or \?max?. Integer expressions and relations can
 be constructed over integer, Boolean, and set variables. 
@@ -191,7 +191,8 @@ $\NBE$ & $::=$ & $\NVAR$ & Boolean variable\\
        & $|$   & $\NBE \mathbin{\texttt{\^{}}} \NBE$ & exclusive or\\
        & $|$   & $\operatorname{\texttt{element}}(\NVARS,\NLE)$ & array element of Boolean variables\\
        & $|$   & $\NLR$ & reified integer relation\\
-       & $|$   & $\NSR$ & reified set relation
+       & $|$   & $\NSR$ & reified set relation\\
+       & $|$   & $\NFR$ & reified float relation
 \end{tabular}
 \end{center}
 \caption{Boolean expressions}
@@ -384,6 +385,70 @@ The subset relations can also be posted two-sided, such as
 rel(home, IntSet(0,10) <= x <= IntSet(0,20));
 \end{code}
 \end{samepage}
+
+\subsection{Float expressions and relations}
+
+\addtocounter{footnote}{1}
+\footnotetext[\value{footnote}]{These functions are only
+  available if Gecode has been compiled with support for MPFR,
+  see \autoref{m:float:mpfr}.}
+
+\begin{figure}
+\begin{center}
+\newcommand{\MPFRMARK}{${}^{\decimal{footnote}}$}%
+\begin{tabular}{rcl@{\quad}l}
+$\NFE$ & $::=$ & $\NVAR$ & float variable\\
+       & $|$   & $\NFLOAT$ & float constant (\?FloatVal?)\\
+       & $|$   & $\operatorname{\texttt{-}}\NFE$ & unary minus \\
+       & $|$   & $\NFE \mathbin{\texttt{+}} \NFE$ & addition\\
+       & $|$   & $\NFE \mathbin{\texttt{-}} \NFE$ & subtraction\\
+       & $|$   & $\NFE \mathbin{\texttt{*}} \NFE$ & multiplication\\
+       & $|$   & $\NFE \mathbin{\texttt{/}} \NFE$ & division\\
+       & $|$   & $\texttt{sum(}\NVARS\texttt{)}$ & sum of float variables\\
+       & $|$   & $\texttt{sum(}\NFLOATS\texttt{,}\NVARS\texttt{)}$ & sum of float with coefficients\\
+       & $|$   & $\operatorname{\texttt{min}}(\NFE,\NFE)$ & minimum\\
+       & $|$   & $\operatorname{\texttt{min}}(\NVARS)$ & minimum of float variables\\
+       & $|$   & $\operatorname{\texttt{max}}(\NFE,\NFE)$ & maximum\\
+       & $|$   & $\operatorname{\texttt{max}}(\NVARS)$ & maximum of float variables\\
+       & $|$   & $\operatorname{\texttt{abs}}(\NFE)$ & absolute value\\
+       & $|$   & $\operatorname{\texttt{sqr}}(\NFE)$ & square\\
+       & $|$   & $\operatorname{\texttt{sqrt}}(\NFE)$ & square root\\
+       & $|$   & $\operatorname{\texttt{pow}}(\NFE,\NINT)$ &
+       power\\
+       & $|$   & $\operatorname{\texttt{nroot}}(\NFE,\NINT)$ &
+       $n$-th root\\
+       & $|$   & $\operatorname{\texttt{exp}}(\NFE)$ & exponential\MPFRMARK\\
+       & $|$   & $\operatorname{\texttt{log}}(\NFE)$ & logarithm\MPFRMARK\\
+       & $|$   & $\operatorname{\texttt{sin}}(\NFE)$ & sine\MPFRMARK\\
+       & $|$   & $\operatorname{\texttt{cos}}(\NFE)$ & cosine\MPFRMARK\\
+       & $|$   & $\operatorname{\texttt{tan}}(\NFE)$ & tangent\MPFRMARK\\
+       & $|$   & $\operatorname{\texttt{asin}}(\NFE)$ & arcsine\MPFRMARK\\
+       & $|$   & $\operatorname{\texttt{acos}}(\NFE)$ & arccosine\MPFRMARK\\
+       & $|$   & $\operatorname{\texttt{atan}}(\NFE)$ & arctangent\MPFRMARK\\
+\\
+$\NFR$ & $::=$ & $\NFE \mathrel{\NREL} \NFE$ & relation\\
+\\
+$\NREL$ & $::=$ & 
+\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
+\texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
+\texttt{>} $\;|\;$ \texttt{>=}
+& relation symbol\\
+$\NVARS$ & $::=$ & \multicolumn{2}{l}{array float variables}\\
+$\NFLOATS$ & $::=$ & \multicolumn{2}{l}{array of float values}\\
+\end{tabular}
+\end{center}
+\caption{Float expressions and relations}
+\label{fig:m:minimodel:float}
+\end{figure}
+
+\gecoderef[group]{TaskModelMiniModelFloat} are constructed using
+the standard \CPP{} operators and the functions listed in
+\autoref{fig:m:minimodel:float}. Posting of a float expression
+returns a new float variable that is constrained to the value of
+the expression.
+
+Intead of a float variable, you can always use a constant of type
+\?FloatVal?.
 
 \section{Matrix interface for arrays}
 \label{sec:m:minimodel:matrix}

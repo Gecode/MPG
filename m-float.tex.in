@@ -24,6 +24,9 @@ to your program when you want to use float variables. Note that
 the same conventions hold as in \autoref{chap:m:int}.
 \end{important}
 
+MPFR!
+
+\label{m:float:mpfr}
 \section{Float variables}
 \label{sec:m:float:var}
 
