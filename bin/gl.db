@@ -158,25 +158,30 @@ URL class Gecode::Float::Arithmetic::NthRoot classGecode_1_1Float_1_1Arithmetic_
 URL class Gecode::Float::Arithmetic::Pow classGecode_1_1Float_1_1Arithmetic_1_1Pow.html
 URL class Gecode::Float::Arithmetic::Sqrt classGecode_1_1Float_1_1Arithmetic_1_1Sqrt.html
 URL class Gecode::Float::Arithmetic::Square classGecode_1_1Float_1_1Arithmetic_1_1Square.html
+URL class Gecode::Float::Branch::AssignValMax classGecode_1_1Float_1_1Branch_1_1AssignValMax.html
+URL class Gecode::Float::Branch::AssignValMin classGecode_1_1Float_1_1Branch_1_1AssignValMin.html
+URL class Gecode::Float::Branch::AssignValRnd classGecode_1_1Float_1_1Branch_1_1AssignValRnd.html
 URL class Gecode::Float::Branch::ByMaxMax classGecode_1_1Float_1_1Branch_1_1ByMaxMax.html
 URL class Gecode::Float::Branch::ByMaxMin classGecode_1_1Float_1_1Branch_1_1ByMaxMin.html
 URL class Gecode::Float::Branch::ByMinMax classGecode_1_1Float_1_1Branch_1_1ByMinMax.html
 URL class Gecode::Float::Branch::ByMinMin classGecode_1_1Float_1_1Branch_1_1ByMinMin.html
-URL class Gecode::Float::Branch::ByWidthActivityMax classGecode_1_1Float_1_1Branch_1_1ByWidthActivityMax.html
-URL class Gecode::Float::Branch::ByWidthActivityMin classGecode_1_1Float_1_1Branch_1_1ByWidthActivityMin.html
-URL class Gecode::Float::Branch::ByWidthAfcMax classGecode_1_1Float_1_1Branch_1_1ByWidthAfcMax.html
-URL class Gecode::Float::Branch::ByWidthAfcMin classGecode_1_1Float_1_1Branch_1_1ByWidthAfcMin.html
-URL class Gecode::Float::Branch::ByWidthDegreeMax classGecode_1_1Float_1_1Branch_1_1ByWidthDegreeMax.html
-URL class Gecode::Float::Branch::ByWidthDegreeMin classGecode_1_1Float_1_1Branch_1_1ByWidthDegreeMin.html
-URL class Gecode::Float::Branch::ByWidthMax classGecode_1_1Float_1_1Branch_1_1ByWidthMax.html
-URL class Gecode::Float::Branch::ByWidthMin classGecode_1_1Float_1_1Branch_1_1ByWidthMin.html
+URL class Gecode::Float::Branch::BySizeActivityMax classGecode_1_1Float_1_1Branch_1_1BySizeActivityMax.html
+URL class Gecode::Float::Branch::BySizeActivityMin classGecode_1_1Float_1_1Branch_1_1BySizeActivityMin.html
+URL class Gecode::Float::Branch::BySizeAfcMax classGecode_1_1Float_1_1Branch_1_1BySizeAfcMax.html
+URL class Gecode::Float::Branch::BySizeAfcMin classGecode_1_1Float_1_1Branch_1_1BySizeAfcMin.html
+URL class Gecode::Float::Branch::BySizeDegreeMax classGecode_1_1Float_1_1Branch_1_1BySizeDegreeMax.html
+URL class Gecode::Float::Branch::BySizeDegreeMin classGecode_1_1Float_1_1Branch_1_1BySizeDegreeMin.html
+URL class Gecode::Float::Branch::BySizeMax classGecode_1_1Float_1_1Branch_1_1BySizeMax.html
+URL class Gecode::Float::Branch::BySizeMin classGecode_1_1Float_1_1Branch_1_1BySizeMin.html
 URL class Gecode::Float::Branch::ValSplitMax classGecode_1_1Float_1_1Branch_1_1ValSplitMax.html
 URL class Gecode::Float::Branch::ValSplitMin classGecode_1_1Float_1_1Branch_1_1ValSplitMin.html
+URL class Gecode::Float::Branch::ValSplitRnd classGecode_1_1Float_1_1Branch_1_1ValSplitRnd.html
 URL class Gecode::Float::FloatDelta classGecode_1_1Float_1_1FloatDelta.html
 URL class Gecode::Float::FloatVarImp classGecode_1_1Float_1_1FloatVarImp.html
 URL class Gecode::Float::FloatVarImpBase classGecode_1_1Float_1_1FloatVarImpBase.html
 URL class Gecode::Float::FloatVarImpConf classGecode_1_1Float_1_1FloatVarImpConf.html
 URL class Gecode::Float::FloatView classGecode_1_1Float_1_1FloatView.html
+URL class Gecode::Float::FullRounding classGecode_1_1Float_1_1FullRounding.html
 URL class Gecode::Float::IllegalOperation classGecode_1_1Float_1_1IllegalOperation.html
 URL class Gecode::Float::Linear::Eq classGecode_1_1Float_1_1Linear_1_1Eq.html
 URL class Gecode::Float::Linear::EqBin classGecode_1_1Float_1_1Linear_1_1EqBin.html
@@ -216,6 +221,14 @@ URL class Gecode::Float::Rel::ReLq classGecode_1_1Float_1_1Rel_1_1ReLq.html
 URL class Gecode::Float::Rel::ReLqFloat classGecode_1_1Float_1_1Rel_1_1ReLqFloat.html
 URL class Gecode::Float::ScaleView classGecode_1_1Float_1_1ScaleView.html
 URL class Gecode::Float::TooFewArguments classGecode_1_1Float_1_1TooFewArguments.html
+URL class Gecode::Float::Transcendental::Exp classGecode_1_1Float_1_1Transcendental_1_1Exp.html
+URL class Gecode::Float::Transcendental::Pow classGecode_1_1Float_1_1Transcendental_1_1Pow.html
+URL class Gecode::Float::Trigonometric::ACos classGecode_1_1Float_1_1Trigonometric_1_1ACos.html
+URL class Gecode::Float::Trigonometric::ASin classGecode_1_1Float_1_1Trigonometric_1_1ASin.html
+URL class Gecode::Float::Trigonometric::ATan classGecode_1_1Float_1_1Trigonometric_1_1ATan.html
+URL class Gecode::Float::Trigonometric::Cos classGecode_1_1Float_1_1Trigonometric_1_1Cos.html
+URL class Gecode::Float::Trigonometric::Sin classGecode_1_1Float_1_1Trigonometric_1_1Sin.html
+URL class Gecode::Float::Trigonometric::Tan classGecode_1_1Float_1_1Trigonometric_1_1Tan.html
 URL class Gecode::Float::UnknownBranching classGecode_1_1Float_1_1UnknownBranching.html
 URL class Gecode::Float::UnknownOperation classGecode_1_1Float_1_1UnknownOperation.html
 URL class Gecode::Float::UnknownRelation classGecode_1_1Float_1_1UnknownRelation.html
@@ -223,6 +236,7 @@ URL class Gecode::Float::ValOfUnassignedVar classGecode_1_1Float_1_1ValOfUnassig
 URL class Gecode::Float::VariableEmptyDomain classGecode_1_1Float_1_1VariableEmptyDomain.html
 URL class Gecode::FloatActivity classGecode_1_1FloatActivity.html
 URL class Gecode::FloatArgs classGecode_1_1FloatArgs.html
+URL class Gecode::FloatVal classGecode_1_1FloatVal.html
 URL class Gecode::FloatVar classGecode_1_1FloatVar.html
 URL class Gecode::FloatVarArgs classGecode_1_1FloatVarArgs.html
 URL class Gecode::FloatVarArray classGecode_1_1FloatVarArray.html
@@ -1128,6 +1142,9 @@ URL class Test::Array::ViewArrayIterator classTest_1_1Array_1_1ViewArrayIterator
 URL class Test::Assign::Bool classTest_1_1Assign_1_1Bool.html
 URL class Test::Assign::BoolTest classTest_1_1Assign_1_1BoolTest.html
 URL class Test::Assign::BoolTestSpace classTest_1_1Assign_1_1BoolTestSpace.html
+URL class Test::Assign::Float classTest_1_1Assign_1_1Float.html
+URL class Test::Assign::FloatTest classTest_1_1Assign_1_1FloatTest.html
+URL class Test::Assign::FloatTestSpace classTest_1_1Assign_1_1FloatTestSpace.html
 URL class Test::Assign::Int classTest_1_1Assign_1_1Int.html
 URL class Test::Assign::IntTest classTest_1_1Assign_1_1IntTest.html
 URL class Test::Assign::IntTestSpace classTest_1_1Assign_1_1IntTestSpace.html
@@ -1138,6 +1155,9 @@ URL class Test::Base classTest_1_1Base.html
 URL class Test::Branch::Bool classTest_1_1Branch_1_1Bool.html
 URL class Test::Branch::BoolTest classTest_1_1Branch_1_1BoolTest.html
 URL class Test::Branch::BoolTestSpace classTest_1_1Branch_1_1BoolTestSpace.html
+URL class Test::Branch::Float classTest_1_1Branch_1_1Float.html
+URL class Test::Branch::FloatTest classTest_1_1Branch_1_1FloatTest.html
+URL class Test::Branch::FloatTestSpace classTest_1_1Branch_1_1FloatTestSpace.html
 URL class Test::Branch::Int classTest_1_1Branch_1_1Int.html
 URL class Test::Branch::IntTest classTest_1_1Branch_1_1IntTest.html
 URL class Test::Branch::IntTestSpace classTest_1_1Branch_1_1IntTestSpace.html
@@ -1145,6 +1165,14 @@ URL class Test::Branch::RunInfo classTest_1_1Branch_1_1RunInfo.html
 URL class Test::Branch::Set classTest_1_1Branch_1_1Set.html
 URL class Test::Branch::SetTest classTest_1_1Branch_1_1SetTest.html
 URL class Test::Branch::SetTestSpace classTest_1_1Branch_1_1SetTestSpace.html
+URL class Test::Float::Assignment classTest_1_1Float_1_1Assignment.html
+URL class Test::Float::Basic::Basic classTest_1_1Float_1_1Basic_1_1Basic.html
+URL class Test::Float::CpltAssignment classTest_1_1Float_1_1CpltAssignment.html
+URL class Test::Float::FloatRelTypes classTest_1_1Float_1_1FloatRelTypes.html
+URL class Test::Float::RandomAssignment classTest_1_1Float_1_1RandomAssignment.html
+URL class Test::Float::ReifyModes classTest_1_1Float_1_1ReifyModes.html
+URL class Test::Float::Test classTest_1_1Float_1_1Test.html
+URL class Test::Float::TestSpace classTest_1_1Float_1_1TestSpace.html
 URL class Test::Int::Arithmetic::AbsXX classTest_1_1Int_1_1Arithmetic_1_1AbsXX.html
 URL class Test::Int::Arithmetic::AbsXY classTest_1_1Int_1_1Arithmetic_1_1AbsXY.html
 URL class Test::Int::Arithmetic::Div classTest_1_1Int_1_1Arithmetic_1_1Div.html
@@ -1757,7 +1785,7 @@ URL file gecode/flatzinc/registry.cpp registry_8cpp.html
 URL file gecode/flatzinc/registry.hh registry_8hh.html
 URL file gecode/flatzinc/symboltable.hh symboltable_8hh.html
 URL file gecode/flatzinc/varspec.hh varspec_8hh.html
-URL file gecode/float.hh float_8hh.html
+URL file gecode/float.hh gecode_2float_8hh.html
 URL file gecode/float/activity.cpp float_2activity_8cpp.html
 URL file gecode/float/activity.hpp float_2activity_8hpp.html
 URL file gecode/float/arithmetic.cpp gecode_2float_2arithmetic_8cpp.html
@@ -1777,33 +1805,40 @@ URL file gecode/float/branch/post-view-float.cpp post-view-float_8cpp.html
 URL file gecode/float/branch/select-val.hpp float_2branch_2select-val_8hpp.html
 URL file gecode/float/branch/select-view.hpp float_2branch_2select-view_8hpp.html
 URL file gecode/float/exception.hpp float_2exception_8hpp.html
+URL file gecode/float/exec.cpp gecode_2float_2exec_8cpp.html
 URL file gecode/float/limits.hpp float_2limits_8hpp.html
+URL file gecode/float/linear.cpp gecode_2float_2linear_8cpp.html
 URL file gecode/float/linear.hh float_2linear_8hh.html
-URL file gecode/float/linear/float-bin.hpp float-bin_8hpp.html
-URL file gecode/float/linear/float-nary.hpp float-nary_8hpp.html
-URL file gecode/float/linear/float-noview.hpp float-noview_8hpp.html
-URL file gecode/float/linear/float-ter.hpp float-ter_8hpp.html
+URL file gecode/float/linear/bin.hpp bin_8hpp.html
+URL file gecode/float/linear/nary.hpp nary_8hpp.html
+URL file gecode/float/linear/noview.hpp noview_8hpp.html
 URL file gecode/float/linear/post.cpp post_8cpp.html
 URL file gecode/float/linear/post.hpp float_2linear_2post_8hpp.html
+URL file gecode/float/linear/ter.hpp ter_8hpp.html
+URL file gecode/float/num.hpp num_8hpp.html
 URL file gecode/float/rel.cpp gecode_2float_2rel_8cpp.html
 URL file gecode/float/rel.hh float_2rel_8hh.html
 URL file gecode/float/rel/eq.hpp float_2rel_2eq_8hpp.html
 URL file gecode/float/rel/gq.hpp gq_8hpp.html
 URL file gecode/float/rel/lq.hpp float_2rel_2lq_8hpp.html
 URL file gecode/float/rel/nq.hpp float_2rel_2nq_8hpp.html
+URL file gecode/float/rounding.cpp rounding_8cpp.html
+URL file gecode/float/rounding.hpp rounding_8hpp.html
 URL file gecode/float/transcendental.hh transcendental_8hh.html
 URL file gecode/float/transcendental/exp-log.hpp exp-log_8hpp.html
 URL file gecode/float/trigonometric.hh trigonometric_8hh.html
 URL file gecode/float/trigonometric/asinacos.hpp asinacos_8hpp.html
 URL file gecode/float/trigonometric/sincos.hpp sincos_8hpp.html
 URL file gecode/float/trigonometric/tanatan.hpp tanatan_8hpp.html
+URL file gecode/float/val.hpp float_2val_8hpp.html
 URL file gecode/float/var-imp.hpp float_2var-imp_8hpp.html
 URL file gecode/float/var-imp/delta.hpp float_2var-imp_2delta_8hpp.html
-URL file gecode/float/var-imp/float.hpp var-imp_2float_8hpp.html
-URL file gecode/float/var/float.cpp float_8cpp.html
-URL file gecode/float/var/float.hpp var_2float_8hpp.html
+URL file gecode/float/var-imp/float.hpp gecode_2float_2var-imp_2float_8hpp.html
+URL file gecode/float/var/float.cpp gecode_2float_2var_2float_8cpp.html
+URL file gecode/float/var/float.hpp gecode_2float_2var_2float_8hpp.html
+URL file gecode/float/var/print.hpp float_2var_2print_8hpp.html
 URL file gecode/float/view.hpp float_2view_8hpp.html
-URL file gecode/float/view/float.hpp view_2float_8hpp.html
+URL file gecode/float/view/float.hpp gecode_2float_2view_2float_8hpp.html
 URL file gecode/float/view/minus.hpp float_2view_2minus_8hpp.html
 URL file gecode/float/view/offset.hpp float_2view_2offset_8hpp.html
 URL file gecode/float/view/print.hpp float_2view_2print_8hpp.html
@@ -1893,12 +1928,12 @@ URL file gecode/int/channel/link-multi.cpp link-multi_8cpp.html
 URL file gecode/int/channel/link-multi.hpp link-multi_8hpp.html
 URL file gecode/int/channel/link-single.cpp link-single_8cpp.html
 URL file gecode/int/channel/link-single.hpp link-single_8hpp.html
-URL file gecode/int/channel/val.hpp channel_2val_8hpp.html
+URL file gecode/int/channel/val.hpp int_2channel_2val_8hpp.html
 URL file gecode/int/circuit.cpp gecode_2int_2circuit_8cpp.html
 URL file gecode/int/circuit.hh circuit_8hh.html
 URL file gecode/int/circuit/base.hpp circuit_2base_8hpp.html
 URL file gecode/int/circuit/dom.hpp circuit_2dom_8hpp.html
-URL file gecode/int/circuit/val.hpp circuit_2val_8hpp.html
+URL file gecode/int/circuit/val.hpp int_2circuit_2val_8hpp.html
 URL file gecode/int/count.cpp gecode_2int_2count_8cpp.html
 URL file gecode/int/count.hh count_8hh.html
 URL file gecode/int/count/int-base.hpp count_2int-base_8hpp.html
@@ -1922,7 +1957,7 @@ URL file gecode/int/cumulative/task.hpp cumulative_2task_8hpp.html
 URL file gecode/int/cumulative/tree.hpp cumulative_2tree_8hpp.html
 URL file gecode/int/cumulatives.cpp gecode_2int_2cumulatives_8cpp.html
 URL file gecode/int/cumulatives.hh cumulatives_8hh.html
-URL file gecode/int/cumulatives/val.hpp cumulatives_2val_8hpp.html
+URL file gecode/int/cumulatives/val.hpp int_2cumulatives_2val_8hpp.html
 URL file gecode/int/distinct.cpp gecode_2int_2distinct_8cpp.html
 URL file gecode/int/distinct.hh int_2distinct_8hh.html
 URL file gecode/int/distinct/bnd.hpp distinct_2bnd_8hpp.html
@@ -1930,7 +1965,7 @@ URL file gecode/int/distinct/dom-ctrl.hpp dom-ctrl_8hpp.html
 URL file gecode/int/distinct/dom.hpp distinct_2dom_8hpp.html
 URL file gecode/int/distinct/graph.hpp distinct_2graph_8hpp.html
 URL file gecode/int/distinct/ter-dom.hpp ter-dom_8hpp.html
-URL file gecode/int/distinct/val.hpp distinct_2val_8hpp.html
+URL file gecode/int/distinct/val.hpp int_2distinct_2val_8hpp.html
 URL file gecode/int/dom.cpp gecode_2int_2dom_8cpp.html
 URL file gecode/int/dom.hh dom_8hh.html
 URL file gecode/int/dom/range.hpp range_8hpp.html
@@ -1963,7 +1998,7 @@ URL file gecode/int/gcc/bnd.hpp gcc_2bnd_8hpp.html
 URL file gecode/int/gcc/dom-sup.hpp dom-sup_8hpp.html
 URL file gecode/int/gcc/dom.hpp gcc_2dom_8hpp.html
 URL file gecode/int/gcc/post.hpp int_2gcc_2post_8hpp.html
-URL file gecode/int/gcc/val.hpp gcc_2val_8hpp.html
+URL file gecode/int/gcc/val.hpp int_2gcc_2val_8hpp.html
 URL file gecode/int/gcc/view.hpp int_2gcc_2view_8hpp.html
 URL file gecode/int/int-set-1.hpp int-set-1_8hpp.html
 URL file gecode/int/int-set-2.hpp int-set-2_8hpp.html
@@ -2347,18 +2382,24 @@ URL file test/array.cpp test_2array_8cpp.html
 URL file test/assign.cpp assign_8cpp.html
 URL file test/assign.hh assign_8hh.html
 URL file test/assign/bool.cpp test_2assign_2bool_8cpp.html
+URL file test/assign/float.cpp test_2assign_2float_8cpp.html
 URL file test/assign/int.cpp test_2assign_2int_8cpp.html
 URL file test/assign/set.cpp test_2assign_2set_8cpp.html
 URL file test/branch.cpp test_2branch_8cpp.html
 URL file test/branch.hh test_2branch_8hh.html
 URL file test/branch/bool.cpp test_2branch_2bool_8cpp.html
+URL file test/branch/float.cpp test_2branch_2float_8cpp.html
 URL file test/branch/int.cpp test_2branch_2int_8cpp.html
 URL file test/branch/set.cpp test_2branch_2set_8cpp.html
+URL file test/float.cpp test_2float_8cpp.html
+URL file test/float.hh test_2float_8hh.html
+URL file test/float.hpp test_2float_8hpp.html
+URL file test/float/basic.cpp float_2basic_8cpp.html
 URL file test/int.cpp test_2int_8cpp.html
 URL file test/int.hh test_2int_8hh.html
 URL file test/int.hpp test_2int_8hpp.html
 URL file test/int/arithmetic.cpp test_2int_2arithmetic_8cpp.html
-URL file test/int/basic.cpp basic_8cpp.html
+URL file test/int/basic.cpp int_2basic_8cpp.html
 URL file test/int/bin-packing.cpp test_2int_2bin-packing_8cpp.html
 URL file test/int/bool.cpp test_2int_2bool_8cpp.html
 URL file test/int/channel.cpp test_2int_2channel_8cpp.html
@@ -2372,7 +2413,7 @@ URL file test/int/element.cpp test_2int_2element_8cpp.html
 URL file test/int/exec.cpp test_2int_2exec_8cpp.html
 URL file test/int/extensional.cpp test_2int_2extensional_8cpp.html
 URL file test/int/gcc.cpp test_2int_2gcc_8cpp.html
-URL file test/int/linear.cpp linear_8cpp.html
+URL file test/int/linear.cpp test_2int_2linear_8cpp.html
 URL file test/int/member.cpp test_2int_2member_8cpp.html
 URL file test/int/mm-arithmetic.cpp mm-arithmetic_8cpp.html
 URL file test/int/mm-bool.cpp mm-bool_8cpp.html
@@ -2534,12 +2575,22 @@ URL group TaskModelFloat group__TaskModelFloat.html
 TITLE group TaskModelFloat "Using float variables and constraints"
 URL group TaskModelFloatArith group__TaskModelFloatArith.html
 TITLE group TaskModelFloatArith "Arithmetic constraints"
+URL group TaskModelFloatAssign group__TaskModelFloatAssign.html
+TITLE group TaskModelFloatAssign "Assigning"
 URL group TaskModelFloatBranch group__TaskModelFloatBranch.html
 TITLE group TaskModelFloatBranch "Branching"
 URL group TaskModelFloatChannel group__TaskModelFloatChannel.html
 TITLE group TaskModelFloatChannel "Channel constraints"
+URL group TaskModelFloatExec group__TaskModelFloatExec.html
+TITLE group TaskModelFloatExec "Synchronized execution"
+URL group TaskModelFloatLI group__TaskModelFloatLI.html
+TITLE group TaskModelFloatLI "Linear constraints over float variables"
 URL group TaskModelFloatRelFloat group__TaskModelFloatRelFloat.html
 TITLE group TaskModelFloatRelFloat "Simple relation constraints over float variables"
+URL group TaskModelFloatTrans group__TaskModelFloatTrans.html
+TITLE group TaskModelFloatTrans "Transcendental constraints"
+URL group TaskModelFloatTrigo group__TaskModelFloatTrigo.html
+TITLE group TaskModelFloatTrigo "Trigonometric constraints"
 URL group TaskModelFloatVarArrays group__TaskModelFloatVarArrays.html
 TITLE group TaskModelFloatVarArrays "Variable arrays"
 URL group TaskModelFloatVars group__TaskModelFloatVars.html
@@ -2620,6 +2671,8 @@ URL group TaskModelMiniModelSet group__TaskModelMiniModelSet.html
 TITLE group TaskModelMiniModelSet "Set expressions and relations"
 URL group TaskModelMiniModelSetAlias group__TaskModelMiniModelSetAlias.html
 TITLE group TaskModelMiniModelSetAlias "Aliases for set constraints"
+URL group TaskModelMiniModelTrans group__TaskModelMiniModelTrans.html
+TITLE group TaskModelMiniModelTrans "Transcendental functions"
 URL group TaskModelScript group__TaskModelScript.html
 TITLE group TaskModelScript "Setting up scripts"
 URL group TaskModelSearch group__TaskModelSearch.html
@@ -2670,6 +2723,12 @@ URL group TaskSearch group__TaskSearch.html
 TITLE group TaskSearch "Programming search engines"
 URL group TaskTest group__TaskTest.html
 TITLE group TaskTest "Testing"
+URL group TaskTestFloat group__TaskTestFloat.html
+TITLE group TaskTestFloat "Testing domain floats"
+URL group TaskTestFloatBasic group__TaskTestFloatBasic.html
+TITLE group TaskTestFloatBasic "Basic setup"
+URL group TaskTestFloatFloat group__TaskTestFloatFloat.html
+TITLE group TaskTestFloatFloat "General test support"
 URL group TaskTestInt group__TaskTestInt.html
 TITLE group TaskTestInt "Testing finite domain integers"
 URL group TaskTestIntArithmetic group__TaskTestIntArithmetic.html
@@ -2837,6 +2896,8 @@ URL namespace Test namespaceTest.html
 URL namespace Test::Array namespaceTest_1_1Array.html
 URL namespace Test::Assign namespaceTest_1_1Assign.html
 URL namespace Test::Branch namespaceTest_1_1Branch.html
+URL namespace Test::Float namespaceTest_1_1Float.html
+URL namespace Test::Float::Basic namespaceTest_1_1Float_1_1Basic.html
 URL namespace Test::Int namespaceTest_1_1Int.html
 URL namespace Test::Int::Arithmetic namespaceTest_1_1Int_1_1Arithmetic.html
 URL namespace Test::Int::Basic namespaceTest_1_1Int_1_1Basic.html
