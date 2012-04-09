@@ -442,12 +442,15 @@ $\NFLOATS$ & $::=$ & \multicolumn{2}{l}{array of float values}\\
 \end{figure}
 
 \gecoderef[group]{TaskModelMiniModelFloat} are constructed using
-the standard \CPP{} operators and the functions listed in
+the standard \CPP{} operators and the functions (see also
+\gecoderef[group]{TaskModelMiniModelArith}, 
+\gecoderef[group]{TaskModelMiniModelTrans},
+and \gecoderef[group]{TaskModelMiniModelTrigo})  listed in
 \autoref{fig:m:minimodel:float}. Posting of a float expression
 returns a new float variable that is constrained to the value of
 the expression.
 
-Intead of a float variable, you can always use a constant of type
+Instead of a float variable, you can always use a constant of type
 \?FloatVal?.
 
 \section{Matrix interface for arrays}

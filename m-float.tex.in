@@ -13,7 +13,7 @@ see \gecoderef[group]{TaskModelFloat}.
 \mbox{}\autoref{sec:m:float:var} details how float variables can be
 used for modeling.  The sections \autoref{sec:m:float:post} and
 \autoref{sec:m:float:exec} provide an overview of the constraints
-that are available for set variables in Gecode.
+that are available for float variables in Gecode.
 
 \begin{important}
 Do not forget to add
@@ -27,8 +27,16 @@ the same conventions hold as in \autoref{chap:m:int}.
 MPFR!
 
 \label{m:float:mpfr}
-\section{Float variables}
+
+\section{Float values and variables}
 \label{sec:m:float:var}
+
+A \emph{floating point value} (short, \emph{float value}, see \gecoderef[class]{FloatVal}) is
+represented as a closed interval of two \emph{floating point
+  numbers} (short, \emph{float number}, see
+\gecoderef[group]{TaskModelFloatVars}). That is, a float value is
+a closed interval $[a,b]$ which includes all float numbers $n$
+such that $a\leq n$ and $n\leq b$.
 
 \section{Constraint overview}
 \label{sec:m:float:post}
@@ -43,9 +51,9 @@ documentation.
 \label{sec:m:float:exec}
 
 Gecode offers support in
-\gecoderef[group]{TaskModelSetExec} for executing a function
+\gecoderef[group]{TaskModelFloatExec} for executing a function
 (either a function or a static member function but not a member
-function) when set variables become assigned. 
+function) when float variables become assigned. 
 
 Assume that a function \?c? (for continuation) is defined by
 \begin{code}
@@ -55,8 +63,8 @@ Then
 \begin{code}
 wait(home, x, &c);
 \end{code}
-posts a propagator that waits until the set
-variable \?x? (or, if \?x? is an array of variables: all variables in
+posts a propagator that waits until the float
+variable \?x? (or, if \?x? is an array of float variables: all variables in
 \?x?) is assigned. If \?x? becomes assigned, the function \?c? is
 executed with the current home space passed as argument.
 
