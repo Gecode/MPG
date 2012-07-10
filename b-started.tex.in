@@ -239,12 +239,13 @@ only in the same search engine with a different space, but transferred to a
 search engine in a different process, possibly on a different computer. The
 main application for this are distributed search engines.
 
-An \gecoderef[class]{Archive} is simply an array of unsigned integers, which
-is easy to transmit e.g. over a network. Every choice must implement the
-\?archive()? method, which in turn calls \?archive()? on the super class and
-then writes the contents of the choice into the archive. Conversely, branchers
-must implement a \?choice? method that gets an archive as the argument and
-returns a new choice.
+An \gecoderef[class]{Archive} is simply an array of unsigned
+integers, which is easy to transmit e.g. over a network. Every
+choice must implement a virtual \?archive()? member function,
+which in turn calls \?archive()? on the super class and then
+writes the contents of the choice into the archive. Conversely,
+branchers must implement a virtual \?choice()? member function
+that gets an archive as the argument and returns a new choice.
 
 \paragraph{Brancher invariants and life cycle.}
 

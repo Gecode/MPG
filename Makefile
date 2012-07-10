@@ -67,8 +67,8 @@ MSVCTESTEXE	= $(TESTCPP:%=test-%.exe)
 MSVCNOTESTEXE	= $(NOTESTCPP:%=notest-%.exe)
 #MSVCCPPOPT	= -nologo -EHsc -MDd -wd4355	
 MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
-MSVCINCL	= -I"../gecode/trunk"
-MSVCLINK	= /link /LIBPATH:"../gecode/trunk"
+MSVCINCL	= -I"../../gecode/trunk"
+MSVCLINK	= /link /LIBPATH:"../../gecode/trunk"
 
 GCCEXE = $(MODELCPP)
 GCCTESTEXE = $(TESTCPP:%=test-%)
@@ -160,9 +160,9 @@ notest-%.cpp: %.cpp notest/%.cpp
 
 test-%.exe: test-%.obj
 	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ \
-		../gecode/trunk/test/test.obj \
-		../gecode/trunk/test/int.obj \
-		../gecode/trunk/test/set.obj \
+		../../gecode/trunk/test/test.obj \
+		../../gecode/trunk/test/int.obj \
+		../../gecode/trunk/test/set.obj \
 		$< $(MSVCLINK)
 %.exe: %.obj
 	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ $< $(MSVCLINK)
