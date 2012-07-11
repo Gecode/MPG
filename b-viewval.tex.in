@@ -40,7 +40,8 @@ well as a value selector, the view types for view selector and
 value selector can actually differ.  However, a view-value
 brancher for integer views can only combine integer views and
 minus views (these are the only views that are actually
-meaningful for branchers on integer views, see \autoref{sec:b:started:views}).
+meaningful for branchers on integer views, see
+\autoref{sec:b:started:views}).
 
 \subsection{Implementing \?sizemin?}
 \label{sec:b:viewval:use:sizemin}
@@ -84,7 +85,8 @@ implement the following constructor and functions:
   of type \?ViewSelStatus? (see
   \gecoderef[group]{TaskBranchViewVal}). The initialization
   function is called for a view \?x? (the first unassigned view
-  of the view-value brancher) and should initialize the data
+  of the view-value brancher) together with its position (which
+  is not used here) and should initialize the data
   structures that are required to select the appropriate view. In
   our case, the size is initialized to the so-far smallest domain
   size of a view (which, of course, is \?x.size()?).
@@ -98,7 +100,8 @@ implement the following constructor and functions:
   selection function becomes clear when looking at the
   example. 
   
-  If the view \?x? passed as argument has a domain of smaller
+  If the view \?x? passed as argument (again, also an integer
+  position is passed that is not used here) has a domain of smaller
   size, the \?size? member is updated, and \?VSS_BETTER?  or
   \?VSS_BEST?  is returned (the view \?x? is better than the
   previously selected view or even a best view). If \?x? has a
@@ -405,11 +408,11 @@ public:
   SizeMin(void) : size(0U) {}
   SizeMin(Space& home, const VarBranchOptions& vbo) 
     : ViewSelBase<Int::IntView>(home,vbo) {}
-  ViewSelStatus init(Space& home, Int::IntView x) {
+  ViewSelStatus init(Space& home, Int::IntView x, int) {
     size = x.size(); 
     return (size == 2) ? VSS_BEST : VSS_BETTER;
   }
-  ViewSelStatus select(Space& home, Int::IntView x) {
+  ViewSelStatus select(Space& home, Int::IntView x, int) {
     if (x.size() < size) {
       size = x.size(); 
       return (size == 2) ? VSS_BEST : VSS_BETTER;
@@ -456,10 +459,10 @@ public:
   None(void) {}
   None(Space& home, const VarBranchOptions& vbo) 
     : ViewSelBase<Int::IntView>(home,vbo) {}
-  ViewSelStatus init(Space& home, Int::IntView x) {
+  ViewSelStatus init(Space& home, Int::IntView x, int) {
     return VSS_BEST;
   }
-  ViewSelStatus select(Space& home, Int::IntView x) {
+  ViewSelStatus select(Space& home, Int::IntView x, int) {
     return VSS_BEST;
   }
 };
@@ -496,10 +499,10 @@ public:
   None(void) {}
   None(Space& home, const VarBranchOptions& vbo) 
     : ViewSelBase<Int::IntView>(home,vbo) {}
-  ViewSelStatus init(Space& home, Int::IntView x) {
+  ViewSelStatus init(Space& home, Int::IntView x, int) {
     return VSS_BEST;
   }
-  ViewSelStatus select(Space& home, Int::IntView x) {
+  ViewSelStatus select(Space& home, Int::IntView x, int) {
     return VSS_BEST;
   }
 };
