@@ -8,6 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle[\AckName{Max}{Ostrowski}]{2012-08-21}{Fixed explanation of
+    advisor deltas
+    (see \autoref{par:p:advisors:delta})}
   \cle{2012-03-06}{Explained activity-based search and shared
     variable selection criteria (see \autoref{sec:m:search:branch})}
   \cle{2012-03-20}{Released for Gecode 3.7.3}

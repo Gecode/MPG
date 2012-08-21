@@ -501,12 +501,20 @@ the view \?x?).
 The modification event of the operation that modified the view
 \?x? is available by \?x.modevent(d)?. If \?x.any(d)? returns
 true, no further information about how the domain of \?x?
-has changed is available. Only if \?x.any(d)? is false,
-\?x.min(d)? returns the previously (that is, the value before the domain
-modification) smallest value of \?x? and \?x.max(d)? returns the
-previously largest value of \?x?. With other words, the delta \?d? only
+has changed is available. 
+
+Only if \?x.any(d)? is false,
+\?x.min(d)? returns the smallest value and \?x.max(d)? returns the
+largest value of the values that have been removed from \?x?. With other words, the delta \?d? only
 provides approximate information on how the old view domain has
-been changed.
+been changed. 
+
+For example, if \?x? has the domain $\{0,\ldots,10\}$ and the
+value $4$ is removed from \?x?, then a delta \?d? is passed where
+\?x.any(d)? is true. If the values $\{0,\ldots,6\}$ are removed
+and the new domain is $\{7,\ldots,10\}$
+then a delta \?d? is passed where \?x.any(d)? is false and
+\?x.min(d)? returns $0$ and \?x.max(d)? returns $6$.
 
 For Boolean views, one can rely on the fact that the delta
 information is always accurate. For integer views, it might be
