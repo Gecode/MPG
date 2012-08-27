@@ -8,16 +8,19 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2012-08-27}{Documented \?pow? and \?nroot? constraints
+    variable selection criteria (see
+    \autoref{sec:m:integer:arithmetic} and
+    \autoref{sec:m:minimodel:exprrel:int})}
   \cle[\AckName{Max}{Ostrowski}]{2012-08-21}{Fixed explanation of
-    advisor deltas
-    (see \autoref{par:p:advisors:delta})}
+    advisor deltas (see \autoref{par:p:advisors:delta})}
   \cle{2012-03-06}{Explained activity-based search and shared
-    variable selection criteria (see \autoref{sec:m:search:branch})}
-  \cle{2012-03-20}{Released for Gecode 3.7.3}
-  \cle{2012-02-22}{Released for Gecode 3.7.2}
+    variable selection criteria (see
+    \autoref{sec:m:search:branch})} \cle{2012-03-20}{Released for
+    Gecode 3.7.3} \cle{2012-02-22}{Released for Gecode 3.7.2}
   \cle[\AckName{Pavel}{Bochman}]{2011-11-10}{Added tip that
-    compilers for Qt and Gecode must match
-    (see \autoref{tip:m:started:samecompiler})}
+    compilers for Qt and Gecode must match (see
+    \autoref{tip:m:started:samecompiler})}
   \cle{2011-10-10}{Released for Gecode 3.7.1}
   \cle{2011-10-06}{Explained semantics of $n$-ary implication
     (see \autoref{sec:m:integer:rel:bool})}
@@ -25,8 +28,8 @@
   \cle{2011-08-22}{Added links to the Global Constraint Catalog
     (\GCCATNAME, \cite{GlobalConstraintCatalog})}
   \cle{2011-08-22}{Documented membership constraints (see
-    \autoref{sec:m:integer:member})}
-  \cle{2011-08-17}{Documented number of values constraints (see
+    \autoref{sec:m:integer:member})} \cle{2011-08-17}{Documented
+    number of values constraints (see
     \autoref{sec:m:integer:nvalues})}
   \cle[\AckName{Chris}{Mears}]{2011-08-17}{Fixed error in
     explanation of value precedence constraint for multiple
@@ -36,116 +39,123 @@
     (see \autoref{par:v:varimp:dispose})}
   \cle[\AckName{Pierre}{Flener}]{2011-07-25}{Fixed some typos}
   \cle{2011-07-15}{Released for Gecode 3.6.0}
-  \cle{2011-07-13}{Documented \?precede? constraint 
-    (see \autoref{sec:m:set:precede})}
+  \cle{2011-07-13}{Documented \?precede? constraint (see
+    \autoref{sec:m:set:precede})}
   \cle[\AckName{Kish}{Shen}]{2011-07-08}{Explained that
     constraint post functions are clever in that they select a
     good propagator (see \autoref{sec:m:integer:generic})}
-  \cle{2011-06-30}{Documented \?precede? constraint 
-    (see \autoref{sec:m:integer:precede})}
-  \cle{2011-06-07}{Documented \?nooverlap? constraint 
-    (see \autoref{sec:m:integer:geopacking})}
+  \cle{2011-06-30}{Documented \?precede? constraint (see
+    \autoref{sec:m:integer:precede})} \cle{2011-06-07}{Documented
+    \?nooverlap? constraint (see
+    \autoref{sec:m:integer:geopacking})}
   \cle{2011-06-07}{Documented \?path? constraint for Hamiltonian
     paths (see \autoref{sec:m:integer:circuit})}
   \cle{2011-05-26}{Moved graph and scheduling constraints to
-    integer module (see \autoref{sec:m:integer:circuit} and \autoref{sec:m:integer:scheduling})}
-  \cle[\AckName{Kish}{Shen}]{2011-05-03}{Fixed example for \?count? constraint}
-  \cle[\AckName{Gabriel}{Hjort Blindell}, 
-       \AckName{Flutra}{Osmani}]{2011-03-28}{Added \autoref{tip:m:started:install:ld} about the library path to
-    the compilation instructions}
-  \cle{2011-03-24}{Added pointers to MiniModel reference documentation}
-  \cle{2011-03-14}{Added archiving for choices and branchers}
-  \cle{2011-02-22}{Adapted to new names for set channeling constraints}
-  \cle{2011-02-13}{Added that
-    Gecode on Windows requires Microsoft Visual \CPP~2008 or better}
+    integer module (see \autoref{sec:m:integer:circuit} and
+    \autoref{sec:m:integer:scheduling})}
+  \cle[\AckName{Kish}{Shen}]{2011-05-03}{Fixed example for
+    \?count? constraint} \cle[\AckName{Gabriel}{Hjort Blindell},
+  \AckName{Flutra}{Osmani}]{2011-03-28}{Added
+    \autoref{tip:m:started:install:ld} about the library path to
+    the compilation instructions} \cle{2011-03-24}{Added pointers
+    to MiniModel reference documentation} \cle{2011-03-14}{Added
+    archiving for choices and branchers} \cle{2011-02-22}{Adapted
+    to new names for set channeling constraints}
+  \cle{2011-02-13}{Added that Gecode on Windows requires
+    Microsoft Visual \CPP~2008 or better}
   \cle[\AckName{Gustavo}{Gutierrez}]{2011-02-11}{Added missing
-    \?int.hh? file}
-  \cle{2011-02-01}{Released for Gecode 3.5.0}
-  \cle{2011-01-28}{Added bin packing case study (\autoref{chap:c:bpp})}
+    \?int.hh? file} \cle{2011-02-01}{Released for Gecode 3.5.0}
+  \cle{2011-01-28}{Added bin packing case study
+    (\autoref{chap:c:bpp})}
   \cle[\AckName{Gregory}{Crosswhite}]{2011-01-25}{Documented
     STL-style array iterators (\autoref{sec:m:integer:stl})}
   \cle{2010-10-09}{Released for Gecode 3.4.2}
-  \cle{2010-10-09}{Removed discussion of limited discrepancy search}
-  \cle{2010-10-06}{Released for Gecode 3.4.1}
-  \cle{2010-10-06}{Documented the \?binpacking? constraint  
+  \cle{2010-10-09}{Removed discussion of limited discrepancy
+    search} \cle{2010-10-06}{Released for Gecode 3.4.1}
+  \cle{2010-10-06}{Documented the \?binpacking? constraint
     (\autoref{sec:m:integer:bpp})}
-  \cle[\AckName{Chris}{Mears}]{2010-10-05}{Added explanation how to initially schedule a
-    propagator using advisors (see \autoref{tip:p:advisors:started})}
-  \cle{2010-10-05}{Added installation and
-    compilation instructions (moved and eexpanded from the reference
-    documentation) (\autoref{sec:m:started:obtain})}
+  \cle[\AckName{Chris}{Mears}]{2010-10-05}{Added explanation how
+    to initially schedule a propagator using advisors (see
+    \autoref{tip:p:advisors:started})} \cle{2010-10-05}{Added
+    installation and compilation instructions (moved and
+    eexpanded from the reference documentation)
+    (\autoref{sec:m:started:obtain})}
   \cle[\AckName{Kish}{Shen}]{2010-09-02}{Explain that variables
-    are re-selected during branching (\autoref{tip:m:search:reselected})}
+    are re-selected during branching
+    (\autoref{tip:m:search:reselected})}
   \cle[\AckName{Felix}{Brandt}]{2010-09-01}{Explain branch filter
-    functions
-    (\autoref{sec:m:search:branch:filter})}
+    functions (\autoref{sec:m:search:branch:filter})}
   \cle{2010-08-31}{Documented that variable implementation views
-    are parametric with respect to variables (\autoref{sec:v:view:varview})}
-  \cle{2010-08-31}{Documented that the variable base class is \?VarImpVar? (\autoref{sec:v:var:var})}
-  \cle{2010-07-30}{Many small fixes everywhere (language, presentation, references)}
+    are parametric with respect to variables
+    (\autoref{sec:v:view:varview})} \cle{2010-08-31}{Documented
+    that the variable base class is \?VarImpVar?
+    (\autoref{sec:v:var:var})} \cle{2010-07-30}{Many small fixes
+    everywhere (language, presentation, references)}
   \cle{2010-07-26}{Released for Gecode 3.4.0 (first complete
-    version)}
-  \cle{2010-07-21}{Added a how to read section
+    version)} \cle{2010-07-21}{Added a how to read section
     (\autoref{sec:intro:how}) and overview material to each
-    chapter and part}
-  \cle{2010-07-20}{Added the part on programming search engines 
-    (\autoref{part:s})}
-  \cle{2010-07-02}{Added the part on programming variables (\autoref{part:v})}
+    chapter and part} \cle{2010-07-20}{Added the part on
+    programming search engines (\autoref{part:s})}
+  \cle{2010-07-02}{Added the part on programming variables
+    (\autoref{part:v})}
   \cle[\AckName{Dan}{Scott}]{2010-06-17}{Explain that the
     compiler defines the platform used on Windows
-    (\autoref{tip:m:started:x86x64})}
-  \cle{2010-06-04}{Explained that variables do not have \?init()?
-    functions as the are not needed in \autoref{tip:m:integer:init}}
-  \cle[\AckName{Andreas}{Karlsson}]{2010-05-10}{Fixed typo in \autoref{sec:m:search:recomp}}
-  \cle{2010-05-07}{Documented new MiniModel for set constraints (\autoref{sec:m:minimodel:exprrel}) and adapted to other MiniModel changes}
-  \cle{2010-05-06}{Added more case studies}
-  \cle{2010-05-06}{Documented new operations on argument arrays (\autoref{sec:m:integer:args})}
-  \cle{2010-04-11}{Only use absolute URLs as not all PDF viewers honor
-    the base URL}
+    (\autoref{tip:m:started:x86x64})} \cle{2010-06-04}{Explained
+    that variables do not have \?init()?  functions as the are
+    not needed in \autoref{tip:m:integer:init}}
+  \cle[\AckName{Andreas}{Karlsson}]{2010-05-10}{Fixed typo in
+    \autoref{sec:m:search:recomp}} \cle{2010-05-07}{Documented
+    new MiniModel for set constraints
+    (\autoref{sec:m:minimodel:exprrel}) and adapted to other
+    MiniModel changes} \cle{2010-05-06}{Added more case studies}
+  \cle{2010-05-06}{Documented new operations on argument arrays
+    (\autoref{sec:m:integer:args})} \cle{2010-04-11}{Only use
+    absolute URLs as not all PDF viewers honor the base URL}
   \cle{2010-04-09}{Released for Gecode 3.3.1 (first release of
     ``Modeling and Programming with Gecode'')}
-  \cle[\AckName{Seyed Hosein}{Attarzadeh Niaki}]{2010-04-01}{Fixed typo in 
-      \autoref{fig:m:started:smm-best}}
-  \cle{2010-03-13}{Released for Gecode 3.3.0}
-  \cle{2010-02-01}{Described that linear expressions can freely
-    mix integer and Boolean variables and that also sum
-    expressions are supported
+  \cle[\AckName{Seyed Hosein}{Attarzadeh
+    Niaki}]{2010-04-01}{Fixed typo in
+    \autoref{fig:m:started:smm-best}} \cle{2010-03-13}{Released
+    for Gecode 3.3.0} \cle{2010-02-01}{Described that linear
+    expressions can freely mix integer and Boolean variables and
+    that also sum expressions are supported
     (\autoref{sec:m:minimodel:exprrel})}
-  \cle[\AckName{Vincent}{Barichard}]{2010-01-18}{Fixed typo in example
-   (\autoref{sec:m:search:recomp})}
-  \cle{2010-01-18}{Added tips for linking libraries 
-   (\autoref{tip:m:started:link-gist} and \autoref{tip:m:comfy:link-driver})}
-  \cle{2009-11-30}{Released for Gecode 3.2.2}
-  \cle{2009-11-24}{Documented \?sequence? constraints 
-    (\autoref{sec:m:integer:sequence})}
+  \cle[\AckName{Vincent}{Barichard}]{2010-01-18}{Fixed typo in
+    example (\autoref{sec:m:search:recomp})}
+  \cle{2010-01-18}{Added tips for linking libraries
+    (\autoref{tip:m:started:link-gist} and
+    \autoref{tip:m:comfy:link-driver})} \cle{2009-11-30}{Released
+    for Gecode 3.2.2} \cle{2009-11-24}{Documented \?sequence?
+    constraints (\autoref{sec:m:integer:sequence})}
   \cle{2009-11-04}{Released for Gecode 3.2.1}
   \cle{2009-11-01}{Explained integer shared arrays for \?element?
     (\autoref{tip:m:integer:sharedelement})}
   \cle{2009-10-16}{Explained \?Home?
-    (\autoref{tip:m:started:home})}
-  \cle{2009-10-13}{Documented AFC-based variable selection for
-    branching (\autoref{sec:m:search:branch:int})}
-  \cle{2009-10-08}{Fixed link for reporting bugs}
-  \cle{2009-10-05}{Released for Gecode 3.2.0}
-  \cle[\AckName{Sverker}{Janson}]{2009-06-15}{Fixed some broken links}
-  \cle{2009-06-08}{Documented branching on single variables
-    (\autoref{sec:m:search:single})}
+    (\autoref{tip:m:started:home})} \cle{2009-10-13}{Documented
+    AFC-based variable selection for branching
+    (\autoref{sec:m:search:branch:int})} \cle{2009-10-08}{Fixed
+    link for reporting bugs} \cle{2009-10-05}{Released for Gecode
+    3.2.0} \cle[\AckName{Sverker}{Janson}]{2009-06-15}{Fixed some
+    broken links} \cle{2009-06-08}{Documented branching on single
+    variables (\autoref{sec:m:search:single})}
   \cle{2009-06-08}{Documented element constraint for matrix
     interface (\autoref{par:m:minimodel:matrix:element})}
   \cle{2009-05-20}{Released for Gecode 3.1.0}
   \cle{2009-05-12}{Documented parallel search
     (\autoref{sec:m:search:parallel})}
-  \cle[\AckName{Markus}{Böhm}]{2009-05-08}{Clarified the use of \?"<GECODEDIR>"?.
-    (\autoref{sec:m:started:windows})}
+  \cle[\AckName{Markus}{Böhm}]{2009-05-08}{Clarified the use of
+    \?"<GECODEDIR>"?.  (\autoref{sec:m:started:windows})}
   \cle{2009-04-20}{Documented script commandline driver
     (\autoref{sec:m:comfy:driver}, \autoref{chap:m:driver})}
   \cle{2009-04-09}{Documented \?wait? post functions
     (\autoref{sec:m:integer:exec}, \autoref{sec:m:set:exec})}
   \cle{2009-03-26}{Released for Gecode 3.0.2}
-  \cle[\AckName{Roberto}{Castañeda}]{2009-03-26}{Fix for gcc compilation
-    instructions in \autoref{sec:m:started:linux}}
+  \cle[\AckName{Roberto}{Castañeda}]{2009-03-26}{Fix for gcc
+    compilation instructions in \autoref{sec:m:started:linux}}
   \cle{2009-03-24}{Released for Gecode 3.0.1}
-  \cle[\AckName{Håkan}{Kjellerstrand}]{2009-03-23}{Generate shorter inter-document references to avoid problems with some PDF viewers}
-  \cle{2009-03-13}{Initial release for Gecode 3.0.0}
+  \cle[\AckName{Håkan}{Kjellerstrand}]{2009-03-23}{Generate
+    shorter inter-document references to avoid problems with some
+    PDF viewers} \cle{2009-03-13}{Initial release for Gecode
+    3.0.0}
 \end{changelog}
 

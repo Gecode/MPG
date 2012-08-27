@@ -1062,6 +1062,13 @@ bnd & dom &\multicolumn{1}{c|}{\GCCATNAME}\\
 \\
 \?sqrt(home, x, y);? & $\lfloor\sqrt{\mathtt x}\rfloor=\mathtt y$
 &\YES&\YES&\CAT[int]{-}{sqrt}{TaskModelIntArith}
+\\
+\?pow(home, x, n, y);? & ${\mathtt x}^{\mathtt n}=\mathtt y$
+&\YES&\YES&\CAT[int]{-}{pow}{TaskModelIntArith}
+\\
+\?nroot(home, x, n, y);? & $\lfloor\sqrt[{\mathtt n}]{\mathtt
+  x}\rfloor=\mathtt y$
+&\YES&\YES&\CAT[int]{-}{nroot}{TaskModelIntArith}
 \\\hline
 \?div(home, x, y, z);? & $\mathtt{x} \div \mathtt{y}=\mathtt{z}$
 &\YES&&\CAT[int]{-}{div}{TaskModelIntArith}
@@ -1075,7 +1082,7 @@ bnd & dom &\multicolumn{1}{c|}{\GCCATNAME}\\
 \end{tabular}
 \end{center}
 \caption[Arithmetic constraints]{Arithmetic constraints (\?x?, \?y?, \?z?,
-  \?d?, and \?m? are integer variables)}
+  \?d?, and \?m? are integer variables; \?n? is an integer)}
 \label{fig:m:integer:arithmetic}
 \end{figure}
 
