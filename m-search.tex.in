@@ -468,13 +468,22 @@ member \?seed? that defines the seed value used for the random
 number generator.
 
 Both classes support the generation of seed values based on the
-current time. The following selects both variables and values
-randomly and uses the current time as seed for both variable and
-value selection.
+current time or through hardware random number generators. The
+following selects both variables and values randomly and uses the
+current time as seed for both variable and value selection:
 \begin{code}
 branch(home, x, INT_VAR_RND, INT_VAL_RND,
                 VarBranchOptions::time(),
                 ValBranchOptions::time());
+\end{code}
+Likewise, the
+following selects both variables and values randomly and uses a
+hardware-based random number generator as seed for both variable
+and value selection:
+\begin{code}
+branch(home, x, INT_VAR_RND, INT_VAL_RND,
+                VarBranchOptions::hwrnd(),
+                ValBranchOptions::hwrnd());
 \end{code}
 
 \subsection{Tie-breaking}

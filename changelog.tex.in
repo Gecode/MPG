@@ -8,6 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2012-08-29}{Documented hardware-based random seed
+    generation for random branchers (see
+    \autoref{sec:m:search:branch:rnd})}
   \cle{2012-08-27}{Documented \?pow? and \?nroot? constraints
     variable selection criteria (see
     \autoref{sec:m:integer:arithmetic} and
