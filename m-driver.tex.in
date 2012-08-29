@@ -117,7 +117,7 @@ have the following meaning:
   print information. Gist is put into depth-first mode, when a
   non best solution search engine is used (that is, \?DFS?), and
   into branch-and-bound mode otherwise (that is, \?BAB? and
-  \?Restart?).
+  \?RBS?).
   
   If Gecode has not been compiled with support for Gist (see
   \autoref{tip:m:comfy:conf} for how to find out about Gecode's

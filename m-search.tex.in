@@ -1388,7 +1388,7 @@ parallel \\
 \?DFS? & \?dfs? & depth-first left-most & & \YES\\
 \hline
 \?BAB? & \?bab? & branch-and-bound & \YES & \YES\\
-\?Restart? & \?restart? & depth-first left-most restart & \YES& \YES\\
+\?RBS? & \?rbs? & depth-first left-most restart & \YES& \YES\\
 \hline
 \end{tabular}
 \end{center}
@@ -1406,7 +1406,7 @@ available search engines are summarized in
 \?BAB? continues search when a solution is found by adding a
 constraint (through the \?constrain()? function as discussed in
 \autoref{sec:m:started:search-best}) to search for a better
-solution to all remaining nodes of the search tree. \?Restart?
+solution to all remaining nodes of the search tree. \?RBS?
 restarts the search after the constraint has been added to the
 root node of the search tree (again, by using the \?constrain()?
 function).
