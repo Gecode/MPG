@@ -104,41 +104,20 @@ compatible with the \CPP{} STL, see
 \paragraph{Region.}
 \label{par:p:memory:region}
 
-All spaces for one thread share a chunk of memory for temporary
-data structures with very efficient allocation and deallocation
-(again, its exact size is defined in the namespace
-\gecoderef[namespace]{MemoryConfig}). Assume that \?home? refers
-to a space (say, during the execution of the \?propagate()?
-function of a propagator), then
+A region is a temporary memory area with very efficient
+allocation and deallocation (again, its exact size is defined in
+the namespace \gecoderef[namespace]{MemoryConfig}). With
 \begin{code}
-Region r(home);
+Region r;
 \end{code}
 creates a new region \?r? for memory management (see
 \gecoderef[group]{FuncMemRegion}). A region does not impose any
 size limit on the memory blocks allocated from it. If necessary,
 a region transparently falls back to heap-allocated memory.
 
-\begin{samepage}
-  Several regions for the same space can exist simultaneously.
-  For example,
-\begin{code}
-Region r1(home), r2(home);
-int* i = r1.alloc<int>(n);
-int* j = r2.alloc<int>(m);
-\end{code}
-\end{samepage}
-
 The specialty of a region is that it does not require \?free()?
 operations. If a region is destructed, all memory allocated from
-it is freed (unless several regions for the same space exist). If
-several regions for the same space are in use, the memory is
-entirely freed when all regions are destructed.
-
-Even though a region does not require \?free()? operations, it
-can profit from it: if the memory allocated last is freed first,
-the freed memory becomes immediately available for future
-allocation.
-
+it is freed.
 
 
 \paragraph{Heap.}
