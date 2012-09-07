@@ -41,9 +41,9 @@ A space in Gecode can have \emph{several} branchers posted on
 behalf of a \emph{branching} that are
 executed in order of creation. Assume that in
 \begin{code}
-branch(home, x, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+branch(home, x, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
 ...
-branch(home, y, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+branch(home, y, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
 \end{code}
 both calls to \?branch? create a brancher. Search branches first
 on the variables \?x? and then on the variables \?y?. Here, it
@@ -71,7 +71,7 @@ argument defines which values are selected for branching. For
 example, for an array of integer or Boolean variables \?x? the
 following call to branch
 \begin{code}
-branch(home, x, INT_VAR_MIN_MIN, INT_VAL_SPLIT_MIN);
+branch(home, x, INT_VAR_MIN_MIN(), INT_VAL_SPLIT_MIN());
 \end{code}
 selects a variable $y$ with the smallest minimum value (in case
 of ties, the first such variable in \?x? is selected) and creates
@@ -84,30 +84,30 @@ search continues with the next brancher.
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
-\?INT_VAR_NONE? & first unassigned\\
-\?INT_VAR_RND? & randomly\\
-\?INT_VAR_DEGREE_MIN? & smallest degree\\
-\?INT_VAR_DEGREE_MAX? & largest degree\\
-\?INT_VAR_AFC_MIN? & smallest accumulated failure count (AFC)\\
-\?INT_VAR_AFC_MAX? & largest accumulated failure count (AFC)\\
-\?INT_VAR_ACTIVITY_MIN? & lowest activity\\
-\?INT_VAR_ACTIVITY_MAX? & highest activity\\
-\?INT_VAR_MIN_MIN? & smallest minimum value\\
-\?INT_VAR_MIN_MAX? & largest minimum value\\
-\?INT_VAR_MAX_MIN? & smallest maximum value\\
-\?INT_VAR_MAX_MAX? & largest maximum value\\
-\?INT_VAR_SIZE_MIN? & smallest domain size\\
-\?INT_VAR_SIZE_MAX? & largest domain size\\
-\?INT_VAR_SIZE_DEGREE_MIN? & smallest domain size divided by degree\\
-\?INT_VAR_SIZE_DEGREE_MAX? & largest domain size divided by degree\\
-\?INT_VAR_SIZE_AFC_MIN? & smallest domain size divided by AFC\\
-\?INT_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC\\
-\?INT_VAR_SIZE_ACTIVITY_MIN? & smallest domain size divided by activity\\
-\?INT_VAR_SIZE_ACTIVITY_MAX? & largest domain size divided by activity\\
-\?INT_VAR_REGRET_MIN_MIN? & smallest minimum-regret\\
-\?INT_VAR_REGRET_MIN_MAX? & largest minimum-regret\\
-\?INT_VAR_REGRET_MAX_MIN? & smallest maximum-regret\\
-\?INT_VAR_REGRET_MAX_MAX? & largest maximum-regret
+\?INT_VAR_NONE()? & first unassigned\\
+\?INT_VAR_RND()? & randomly\\
+\?INT_VAR_DEGREE_MIN()? & smallest degree\\
+\?INT_VAR_DEGREE_MAX()? & largest degree\\
+\?INT_VAR_AFC_MIN()? & smallest accumulated failure count (AFC)\\
+\?INT_VAR_AFC_MAX()? & largest accumulated failure count (AFC)\\
+\?INT_VAR_ACTIVITY_MIN()? & lowest activity\\
+\?INT_VAR_ACTIVITY_MAX()? & highest activity\\
+\?INT_VAR_MIN_MIN()? & smallest minimum value\\
+\?INT_VAR_MIN_MAX()? & largest minimum value\\
+\?INT_VAR_MAX_MIN()? & smallest maximum value\\
+\?INT_VAR_MAX_MAX()? & largest maximum value\\
+\?INT_VAR_SIZE_MIN()? & smallest domain size\\
+\?INT_VAR_SIZE_MAX()? & largest domain size\\
+\?INT_VAR_SIZE_DEGREE_MIN()? & smallest domain size divided by degree\\
+\?INT_VAR_SIZE_DEGREE_MAX()? & largest domain size divided by degree\\
+\?INT_VAR_SIZE_AFC_MIN()? & smallest domain size divided by AFC\\
+\?INT_VAR_SIZE_AFC_MAX()? & largest domain size divided by AFC\\
+\?INT_VAR_SIZE_ACTIVITY_MIN()? & smallest domain size divided by activity\\
+\?INT_VAR_SIZE_ACTIVITY_MAX()? & largest domain size divided by activity\\
+\?INT_VAR_REGRET_MIN_MIN()? & smallest minimum-regret\\
+\?INT_VAR_REGRET_MIN_MAX()? & largest minimum-regret\\
+\?INT_VAR_REGRET_MAX_MIN()? & smallest maximum-regret\\
+\?INT_VAR_REGRET_MAX_MAX()? & largest maximum-regret
 \end{tabular}
 \end{center}
 \caption{Integer and Boolean variable selection}
@@ -117,19 +117,19 @@ search continues with the next brancher.
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
-\?INT_VAL_MIN? & smallest value\\
-\?INT_VAL_MED? & greatest value not greater than the median\\
-\?INT_VAL_MAX? & largest value\\
-\?INT_VAL_RND? & random value\\
-\?INT_VAL_SPLIT_MIN? & values not greater than mean of smallest
+\?INT_VAL_MIN()? & smallest value\\
+\?INT_VAL_MED()? & greatest value not greater than the median\\
+\?INT_VAL_MAX()? & largest value\\
+\?INT_VAL_RND()? & random value\\
+\?INT_VAL_SPLIT_MIN()? & values not greater than mean of smallest
   and largest value\\
-\?INT_VAL_SPLIT_MAX? & values greater than mean of smallest
+\?INT_VAL_SPLIT_MAX()? & values greater than mean of smallest
   and largest value\\
-\?INT_VAL_RANGE_MIN? & values from smallest range, if domain has
+\?INT_VAL_RANGE_MIN()? & values from smallest range, if domain has
 several ranges;\\
 & otherwise, values not greater than mean of smallest\\&
   and largest value\\
-\?INT_VAL_RANGE_MAX? & values from largest range, if domain has
+\?INT_VAL_RANGE_MAX()? & values from largest range, if domain has
 several ranges;\\
 & otherwise, values greater than mean of smallest
   and largest value\\
@@ -167,8 +167,8 @@ criterion depends on all equivalent spaces created by cloning.
 All selection criteria but those based on \emph{AFC} and
 \emph{activity} are local: they either select variables without
 using any information on a
-variable (\?INT_VAR_NONE?), select variables randomly
-(\?INT_VAR_RND?, see also \autoref{sec:m:search:branch:rnd}), or
+variable (\?INT_VAR_NONE()?), select variables randomly
+(\?INT_VAR_RND()?, see also \autoref{sec:m:search:branch:rnd}), or
 use the degree or domain of a variable for selection.
 
 The \emph{degree} of a variable is the number of propagators
@@ -249,7 +249,7 @@ vbo.activity = a;
 \begin{samepage}
 Finally, a branching using activity information can be posted by
 \begin{code}
-branch(home, x, INT_VAR_ACTIVITY_MAX, INT_VAL_MIN, vbo);
+branch(home, x, INT_VAR_ACTIVITY_MAX(), INT_VAL_MIN(), vbo);
 \end{code}
 Here the integer variable array \?x? must be exactly the same
 that has been used for creating the integer activity object
@@ -273,7 +273,7 @@ IntVarArray x(home, 3, 1, 4);
 Let us assume that no constraints are posted on the variables in
 \?x? and that a branching is posted by
 \begin{code}
-branch(home, x, INT_VAR_SIZE_MAX, INT_VAL_SPLIT_MIN);
+branch(home, x, INT_VAR_SIZE_MAX(), INT_VAL_SPLIT_MIN());
 \end{code}
 \end{samepage}
 
@@ -319,26 +319,26 @@ to your program when you want to branch on set variables.
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
-\?SET_VAR_NONE? & first unassigned\\
-\?SET_VAR_RND? & randomly\\
-\?SET_VAR_DEGREE_MIN? & smallest degree\\
-\?SET_VAR_DEGREE_MAX? & largest degree\\
-\?SET_VAR_AFC_MIN? & smallest accumulated failure count (AFC)\\
-\?SET_VAR_AFC_MAX? & largest accumulated failure count (AFC)\\
-\?SET_VAR_ACTIVITY_MIN? & lowest activity\\
-\?SET_VAR_ACTIVITY_MAX? & highest activity\\
-\?SET_VAR_MIN_MIN? & smallest minimum unknown element\\
-\?SET_VAR_MIN_MAX? & largest minimum unknown element\\
-\?SET_VAR_MAX_MIN? & smallest maximum unknown element\\
-\?SET_VAR_MAX_MAX? & largest maximum unknown element\\
-\?SET_VAR_SIZE_MIN? & smallest unknown set\\
-\?SET_VAR_SIZE_MAX? & largest unknown set\\
-\?SET_VAR_SIZE_DEGREE_MIN? & smallest domain size divided by degree\\
-\?SET_VAR_SIZE_DEGREE_MAX? & largest domain size divided by degree\\
-\?SET_VAR_SIZE_AFC_MIN? & smallest domain size divided by AFC\\
-\?SET_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC\\
-\?SET_VAR_SIZE_ACTIVITY_MIN? & smallest domain size divided by activity\\
-\?SET_VAR_SIZE_ACTIVITY_MAX? & largest domain size divided by activity
+\?SET_VAR_NONE()? & first unassigned\\
+\?SET_VAR_RND()? & randomly\\
+\?SET_VAR_DEGREE_MIN()? & smallest degree\\
+\?SET_VAR_DEGREE_MAX()? & largest degree\\
+\?SET_VAR_AFC_MIN()? & smallest accumulated failure count (AFC)\\
+\?SET_VAR_AFC_MAX()? & largest accumulated failure count (AFC)\\
+\?SET_VAR_ACTIVITY_MIN()? & lowest activity\\
+\?SET_VAR_ACTIVITY_MAX()? & highest activity\\
+\?SET_VAR_MIN_MIN()? & smallest minimum unknown element\\
+\?SET_VAR_MIN_MAX()? & largest minimum unknown element\\
+\?SET_VAR_MAX_MIN()? & smallest maximum unknown element\\
+\?SET_VAR_MAX_MAX()? & largest maximum unknown element\\
+\?SET_VAR_SIZE_MIN()? & smallest unknown set\\
+\?SET_VAR_SIZE_MAX()? & largest unknown set\\
+\?SET_VAR_SIZE_DEGREE_MIN()? & smallest domain size divided by degree\\
+\?SET_VAR_SIZE_DEGREE_MAX()? & largest domain size divided by degree\\
+\?SET_VAR_SIZE_AFC_MIN()? & smallest domain size divided by AFC\\
+\?SET_VAR_SIZE_AFC_MAX()? & largest domain size divided by AFC\\
+\?SET_VAR_SIZE_ACTIVITY_MIN()? & smallest domain size divided by activity\\
+\?SET_VAR_SIZE_ACTIVITY_MAX()? & largest domain size divided by activity
 \end{tabular}
 \end{center}
 \caption{Set variable selection}
@@ -348,14 +348,14 @@ to your program when you want to branch on set variables.
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
-\?SET_VAL_MIN_INC? &include smallest element\\
-\?SET_VAL_MIN_EXC? &exclude smallest element\\
-\?SET_VAL_MED_INC? &include median element (rounding downwards)\\
-\?SET_VAL_MED_EXC? &exclude median element (rounding downwards)\\
-\?SET_VAL_MAX_INC? &include largest element\\
-\?SET_VAL_MAX_EXC? &exclude largest element\\
-\?SET_VAL_RND_INC? &include random element\\
-\?SET_VAL_RND_EXC? &exclude random element
+\?SET_VAL_MIN_INC()? &include smallest element\\
+\?SET_VAL_MIN_EXC()? &exclude smallest element\\
+\?SET_VAL_MED_INC()? &include median element (rounding downwards)\\
+\?SET_VAL_MED_EXC()? &exclude median element (rounding downwards)\\
+\?SET_VAL_MAX_INC()? &include largest element\\
+\?SET_VAL_MAX_EXC()? &exclude largest element\\
+\?SET_VAL_RND_INC()? &include random element\\
+\?SET_VAL_RND_EXC()? &exclude random element
 \end{tabular}
 \end{center}
 \caption{Set value selection}
@@ -448,10 +448,10 @@ object for float variables is created from the class
 \label{sec:m:search:branch:rnd}
 
 One particular strategy for variable and value selection is by
-random. For integer and Boolean variables, \?INT_VAR_RND?
-selects a random variable and \?INT_VAL_RND? selects a random
-value.  For set variables, \?SET_VAR_RND? selects a random
-variable and \?SET_VAL_RND_INC? and \?SET_VAL_RND_EXC? include
+random. For integer and Boolean variables, \?INT_VAR_RND()?
+selects a random variable and \?INT_VAL_RND()? selects a random
+value.  For set variables, \?SET_VAR_RND()? selects a random
+variable and \?SET_VAL_RND_INC()? and \?SET_VAL_RND_EXC()? include
 and exclude a random value from a set variable. For float
 variables, \?FLOAT_VAR_RND? selects a random variable and
 \?FLOAT_VAL_SPLIT_RND? randomly selects the lower or upper half
@@ -472,7 +472,7 @@ current time or through hardware random number generators. The
 following selects both variables and values randomly and uses the
 current time as seed for both variable and value selection:
 \begin{code}
-branch(home, x, INT_VAR_RND, INT_VAL_RND,
+branch(home, x, INT_VAR_RND(), INT_VAL_RND(),
                 VarBranchOptions::time(),
                 ValBranchOptions::time());
 \end{code}
@@ -481,7 +481,7 @@ following selects both variables and values randomly and uses a
 hardware-based random number generator as seed for both variable
 and value selection:
 \begin{code}
-branch(home, x, INT_VAR_RND, INT_VAL_RND,
+branch(home, x, INT_VAR_RND(), INT_VAL_RND(),
                 VarBranchOptions::hwrnd(),
                 ValBranchOptions::hwrnd());
 \end{code}
@@ -500,8 +500,8 @@ on, that is, with largest degree). Then, among the most
 constrained variables select the variable with the smallest
 domain. This can be achieved by using a \?tiebreak?  function:
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_DEGREE_MAX, INT_VAR_SIZE_MIN),
-                INT_VAL_MIN);
+branch(home, x, tiebreak(INT_VAR_DEGREE_MAX(), INT_VAR_SIZE_MIN()),
+                INT_VAL_MIN());
 \end{code}
 The overloaded function \?tiebreak?  (see
 \gecoderef[group]{TaskModelBranchTieBreak}) takes up to four
@@ -512,8 +512,8 @@ example, breaking ties by first selecting a variable with
 smallest domain and then selecting a random variable among those
 with smallest domain:
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN, INT_VAR_RND),
-                INT_VAL_MIN);
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND()),
+                INT_VAL_MIN());
 \end{code}
 
 \begin{samepage}
@@ -523,16 +523,16 @@ in tie-breaking, the
 \gecoderef[class]{VarBranchOptions}. For example,
 \begin{code}
 VarBranchOptions o;
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN, INT_VAR_RND),
-                INT_VAL_MIN,
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND()),
+                INT_VAL_MIN(),
                 tiebreak(o, VarBranchOptions::time()));
 \end{code}
 \end{samepage}
 passes a seed value based on the current time to the random
 variable selection used for tie-breaking. The same can also be achieved by
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN, INT_VAR_RND),
-                INT_VAL_MIN,
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND()),
+                INT_VAL_MIN(),
                 tiebreak(VarBranchOptions:def, 
                          VarBranchOptions::time()));
 \end{code}
@@ -729,7 +729,7 @@ assigning a single variable.
 For example, if \?x? is an integer variable of type \?IntVar?,
 then
 \begin{code}
-branch(home, x, INT_VAL_MIN);
+branch(home, x, INT_VAL_MIN());
 \end{code}
 branches on the single variable \?x? by first trying the smallest
 value of \?x?.
@@ -738,11 +738,11 @@ Assume that \?x? is an array of integer variables. Then the
 following code
 \begin{code}
 for (int i=0; i<x.size(); i++)
-  branch(home, x[i], INT_VAL_MIN);
+  branch(home, x[i], INT_VAL_MIN());
 \end{code}
 is equivalent, albeit considerably less efficient, to
 \begin{code}
-branch(home, x, INT_VAR_NONE, INT_VAL_MIN);
+branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
 \end{code}
 
 \subsection{Executing code between branchers}
@@ -755,7 +755,7 @@ public:
     \begin{litblock}{anonymous}
     \end{litblock}
     \begin{litblock}{post branchings}
-    branch(home, x, INT_VAR_NONE, INT_VAL_MIN);
+    branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
     branch(home, &Model::post);
     \end{litblock}
   }
@@ -860,7 +860,7 @@ the sum and the product of \?x[0]? and \?x[1]? to be equal to
 IntVarArray x(home, 3, 1, 6);
 rel(home, x[0] + x[1] == x[2]);
 mult(home, x[0], x[1], x[2]);
-branch(home, x, INT_VAR_NONE, INT_VAL_MIN);
+branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
 \end{code}
 
 \begin{figure}
@@ -1292,7 +1292,7 @@ engine, see the following section for details.
   minimize the cost. Then, one could use the following code
   fragment
 \begin{code}
-branch(home, c, INT_VAL_MIN);
+branch(home, c, INT_VAL_MIN());
 \end{code}
 which will try the values for \?c? in increasing order.
 \end{samepage}

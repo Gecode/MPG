@@ -280,8 +280,8 @@ public:
     c_total = expr(*this, c_fixed*sum(open) + sum(c_store));
     \end{litblock}
     \begin{litblock}{branching}
-    branch(*this, c_store, INT_VAR_REGRET_MIN_MAX, INT_VAL_MIN);
-    branch(*this, supplier, INT_VAR_NONE, INT_VAL_MIN);
+    branch(*this, c_store, INT_VAR_REGRET_MIN_MAX(), INT_VAL_MIN());
+    branch(*this, supplier, INT_VAR_NONE(), INT_VAL_MIN());
     \end{litblock}
   }
   \begin{litblock}{cost function}

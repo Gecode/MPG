@@ -477,7 +477,7 @@ public:
     }
     \end{litblock}
     \begin{litblock}{branching}
-    branch(*this, f, INT_VAR_SIZE_AFC_MIN, INT_VAL_SPLIT_MIN);
+    branch(*this, f, INT_VAR_SIZE_AFC_MIN(), INT_VAL_SPLIT_MIN());
     \end{litblock}
   }
   \begin{litblock}{anonymous}
@@ -552,7 +552,7 @@ public:
   DistinctLinear(int n, int s) : x(*this,n,1,9) {
     distinct(*this, x);
     linear(*this, x, IRT_EQ, s);
-    branch(*this, x, INT_VAR_NONE, INT_VAL_SPLIT_MIN);
+    branch(*this, x, INT_VAR_NONE(), INT_VAL_SPLIT_MIN());
   }
   \end{litblock}
   \begin{litblock}{returning a solution}
@@ -642,7 +642,7 @@ public:
         row[i]=init(b(x+i+1,y));
       hint(row,s);
     }
-    branch(*this, f, INT_VAR_SIZE_AFC_MIN, INT_VAL_SPLIT_MIN);
+    branch(*this, f, INT_VAR_SIZE_AFC_MIN(), INT_VAL_SPLIT_MIN());
   }
   // Constructor for cloning s
   Kakuro(bool share, Kakuro& s) : Script(share,s), w(s.w), h(s.h) {

@@ -319,7 +319,7 @@ public:
                          + 1000*m + 100*o + 10*r + e
               == 10000*m + 1000*o + 100*n + 10*e + y);
     \begin{litblock}{anonymous}
-    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
     \end{litblock}
   }
   \begin{litblock}{anonymous}
@@ -378,7 +378,7 @@ public:
     \end{litblock}
     rel(*this, money == 10000*m + 1000*o + 100*n + 10*e + y);
     \begin{litblock}{anonymous}
-    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
     \end{litblock}
   }
   SendMostMoney(bool share, SendMostMoney& s)
@@ -464,7 +464,7 @@ public:
     }
     \begin{litblock}{anonymous}
     rel(*this, money == 10000*m + 1000*o + 100*n + 10*e + y);
-    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
     \end{litblock}
   }
   \begin{litblock}{anonymous}

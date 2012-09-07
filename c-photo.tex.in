@@ -131,7 +131,7 @@ public:
     rel(*this, pos[Betty] < pos[Chris]);
     \end{litblock}
     \begin{litblock}{anonymous}
-    branch(*this, pos, INT_VAR_NONE, INT_VAL_MIN);
+    branch(*this, pos, INT_VAR_NONE(), INT_VAL_MIN());
     \end{litblock}
   }
   virtual IntVar cost(void) const {
@@ -218,7 +218,7 @@ public:
     linear(*this, viol, IRT_EQ, violations);
 \begin{litblock}{anonymous}
     rel(*this, pos[Betty] < pos[Chris]);
-    branch(*this, pos, INT_VAR_NONE, INT_VAL_MIN);
+    branch(*this, pos, INT_VAR_NONE(), INT_VAL_MIN());
   }
   virtual IntVar cost(void) const {
     return violations;

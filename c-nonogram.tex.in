@@ -144,7 +144,7 @@ puzzles, using an AFC-based branching (see
 \autoref{sec:m:search:branch:int}) is a good idea:
 \insertlitcode{nonogram:branching}
 
-The choice to use \?INT_VAL_MAX? is because most puzzles will have
+The choice to use \?INT_VAL_MAX()? is because most puzzles will have
 fewer marks than empty spaces. For the example puzzle from
 \autoref{fig:c:nonogram:ex}, propagation alone solves the puzzle. To
 solve really hard puzzles, a custom branching may be needed.
@@ -236,7 +236,7 @@ public:
       extensional(*this, m.row(h), line(p));
     \end{litblock}
     \begin{litblock}{branching}
-    branch(*this, b, INT_VAR_AFC_MAX, INT_VAL_MAX);
+    branch(*this, b, INT_VAR_AFC_MAX(), INT_VAL_MAX());
     \end{litblock}
   }
   \begin{litblock}{anonymous}

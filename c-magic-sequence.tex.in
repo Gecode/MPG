@@ -127,7 +127,7 @@ public:
     linear(*this, IntArgs::create(x.size(),-1,1), x, IRT_EQ, 0);
     \end{litblock}
     \begin{litblock}{branching}
-    branch(*this, x, INT_VAR_NONE, INT_VAL_MAX);
+    branch(*this, x, INT_VAR_NONE(), INT_VAL_MAX());
     \end{litblock}
   }
   \begin{litblock}{anonymous}
@@ -179,7 +179,7 @@ public:
     // Implied constraint
     linear(*this, IntArgs::create(x.size(),-1,1), x, IRT_EQ, 0);
     // Branching
-    branch(*this, x, INT_VAR_NONE, INT_VAL_MAX);
+    branch(*this, x, INT_VAR_NONE(), INT_VAL_MAX());
   }
   \begin{litblock}{anonymous}
   MagicSequence(bool share, MagicSequence& e) : Script(share,e) {

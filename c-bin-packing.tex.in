@@ -319,7 +319,7 @@ required \?bins?, followed by trying to assign items to bins.
 \insertlitcode{bin packing naive:branching}
 
 Note that by choosing the \?bin? variables with order
-\?INT_VAR_NONE? assigns the largest item to a bin first as items
+\?INT_VAR_NONE()? assigns the largest item to a bin first as items
 are sorted by decreasing size.
 
 The script in \autoref{fig:c:bpp:naive} does not show that the
@@ -682,8 +682,8 @@ public:
       rel(*this, bin[i] == i);
     \end{litblock}
     \begin{litblock}{branching}
-    branch(*this, bins, INT_VAL_MIN);
-    branch(*this, bin, INT_VAR_NONE, INT_VAL_MIN);
+    branch(*this, bins, INT_VAL_MIN());
+    branch(*this, bin, INT_VAR_NONE(), INT_VAL_MIN());
     \end{litblock}
   }
   virtual IntVar cost(void) const {
@@ -815,8 +815,8 @@ public:
     for (int i=0; (i < n) && (i < u) && (size[i] * 2 > c); i++)
       rel(*this, bin[i] == i);
     // branching
-    branch(*this, bins, INT_VAL_MIN);
-    branch(*this, bin, INT_VAR_NONE, INT_VAL_MIN);
+    branch(*this, bins, INT_VAL_MIN());
+    branch(*this, bin, INT_VAR_NONE(), INT_VAL_MIN());
     \end{litblock}
   }
   \begin{litblock}{anonymous}
@@ -1108,7 +1108,7 @@ public:
       rel(*this, bin[i] == i);
     // branching
     \end{litblock}
-    branch(*this, bins, INT_VAL_MIN);
+    branch(*this, bins, INT_VAL_MIN());
     cdbf(*this, load, bin, sizes);
   }
   \begin{litblock}{anonymous}

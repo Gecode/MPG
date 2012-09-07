@@ -177,9 +177,9 @@ values during search, a variable selection strategy, and a value
 selection strategy. 
 
 Here, we select the
-variable with a smallest domain size first (\?INT_VAR_SIZE_MIN?) and
+variable with a smallest domain size first (\?INT_VAR_SIZE_MIN()?) and
 assign the smallest value of the selected variable first
-(\?INT_VAL_MIN?):
+(\?INT_VAL_MIN()?):
 \insertlitcode{send more money:post branching}
 
 A \emph{branching} is implemented by a \emph{brancher} (like a
@@ -1178,7 +1178,7 @@ public:
     linear(*this, c, x, IRT_EQ, 0);
     \end{litblock}
     \begin{litblock}{post branching}
-    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
     \end{litblock}
   }
   \begin{litblock}{search support}
@@ -1238,7 +1238,7 @@ public:
     c[8]=-10000; c[9]=-1000; c[10]=-100; c[11]=-10; c[12]=-1;
     x[8]=m;      x[9]=o;     x[10]=n;    x[11]=e;   x[12]=y;
     linear(*this, c, x, IRT_EQ, 0);
-    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
   SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
     l.update(*this, share, s.l);
@@ -1287,7 +1287,7 @@ public:
     c[8]=-10000; c[9]=-1000; c[10]=-100; c[11]=-10; c[12]=-1;
     x[8]=m;      x[9]=o;     x[10]=n;    x[11]=e;   x[12]=y;
     linear(*this, c, x, IRT_EQ, 0);
-    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
   SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
     l.update(*this, share, s.l);
@@ -1341,7 +1341,7 @@ public:
     c[8]=-10000; c[9]=-1000; c[10]=-100; c[11]=-10; c[12]=-1;
     x[8]=m;      x[9]=o;     x[10]=n;    x[11]=e;   x[12]=y;
     linear(*this, c, x, IRT_EQ, 0);
-    branch(*this, l, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+    branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
   SendMostMoney(bool share, SendMostMoney& s) : Space(share, s) {
     l.update(*this, share, s.l);
