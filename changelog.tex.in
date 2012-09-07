@@ -8,6 +8,8 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2012-09-07}{Properly explained regions
+    (see \autoref{par:p:memory:region})}
   \cle{2012-08-29}{Documented hardware-based random seed
     generation for random branchers (see
     \autoref{sec:m:search:branch:rnd})}
