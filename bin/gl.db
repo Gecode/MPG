@@ -77,8 +77,8 @@ URL class Gecode::BranchTraits<IntVar> classGecode_1_1BranchTraits_3_01IntVar_01
 URL class Gecode::BranchTraits<SetVar> classGecode_1_1BranchTraits_3_01SetVar_01_4.html
 URL class Gecode::Brancher classGecode_1_1Brancher.html
 URL class Gecode::Choice classGecode_1_1Choice.html
-URL class Gecode::ChoiceVirtual classGecode_1_1ChoiceVirtual.html
-URL class Gecode::ChoiceVirtualBase classGecode_1_1ChoiceVirtualBase.html
+URL class Gecode::ChooseMax classGecode_1_1ChooseMax.html
+URL class Gecode::ChooseMin classGecode_1_1ChooseMin.html
 URL class Gecode::CloneStatistics classGecode_1_1CloneStatistics.html
 URL class Gecode::CommitStatistics classGecode_1_1CommitStatistics.html
 URL class Gecode::ConstView classGecode_1_1ConstView.html
@@ -103,8 +103,6 @@ URL class Gecode::Driver::StringOption::Value classGecode_1_1Driver_1_1StringOpt
 URL class Gecode::Driver::StringValueOption classGecode_1_1Driver_1_1StringValueOption.html
 URL class Gecode::Driver::UnsignedIntOption classGecode_1_1Driver_1_1UnsignedIntOption.html
 URL class Gecode::DynamicCastFailed classGecode_1_1DynamicCastFailed.html
-URL class Gecode::EmptyValSelChoice classGecode_1_1EmptyValSelChoice.html
-URL class Gecode::EmptyViewSelChoice classGecode_1_1EmptyViewSelChoice.html
 URL class Gecode::Exception classGecode_1_1Exception.html
 URL class Gecode::FlatZinc::AST::Array classGecode_1_1FlatZinc_1_1AST_1_1Array.html
 URL class Gecode::FlatZinc::AST::ArrayAccess classGecode_1_1FlatZinc_1_1AST_1_1ArrayAccess.html
@@ -162,18 +160,17 @@ URL class Gecode::Float::Arithmetic::Pow classGecode_1_1Float_1_1Arithmetic_1_1P
 URL class Gecode::Float::Arithmetic::Sqr classGecode_1_1Float_1_1Arithmetic_1_1Sqr.html
 URL class Gecode::Float::Arithmetic::SqrPlus classGecode_1_1Float_1_1Arithmetic_1_1SqrPlus.html
 URL class Gecode::Float::Arithmetic::Sqrt classGecode_1_1Float_1_1Arithmetic_1_1Sqrt.html
-URL class Gecode::Float::Branch::AssignValMax classGecode_1_1Float_1_1Branch_1_1AssignValMax.html
-URL class Gecode::Float::Branch::AssignValMin classGecode_1_1Float_1_1Branch_1_1AssignValMin.html
-URL class Gecode::Float::Branch::AssignValRnd classGecode_1_1Float_1_1Branch_1_1AssignValRnd.html
 URL class Gecode::Float::Branch::MeritMax classGecode_1_1Float_1_1Branch_1_1MeritMax.html
 URL class Gecode::Float::Branch::MeritMin classGecode_1_1Float_1_1Branch_1_1MeritMin.html
 URL class Gecode::Float::Branch::MeritSize classGecode_1_1Float_1_1Branch_1_1MeritSize.html
 URL class Gecode::Float::Branch::MeritSizeActivity classGecode_1_1Float_1_1Branch_1_1MeritSizeActivity.html
 URL class Gecode::Float::Branch::MeritSizeAfc classGecode_1_1Float_1_1Branch_1_1MeritSizeAfc.html
 URL class Gecode::Float::Branch::MeritSizeDegree classGecode_1_1Float_1_1Branch_1_1MeritSizeDegree.html
-URL class Gecode::Float::Branch::ValSplitMax classGecode_1_1Float_1_1Branch_1_1ValSplitMax.html
-URL class Gecode::Float::Branch::ValSplitMin classGecode_1_1Float_1_1Branch_1_1ValSplitMin.html
-URL class Gecode::Float::Branch::ValSplitRnd classGecode_1_1Float_1_1Branch_1_1ValSplitRnd.html
+URL class Gecode::Float::Branch::ValCommitGq classGecode_1_1Float_1_1Branch_1_1ValCommitGq.html
+URL class Gecode::Float::Branch::ValCommitLq classGecode_1_1Float_1_1Branch_1_1ValCommitLq.html
+URL class Gecode::Float::Branch::ValCommitLqGq classGecode_1_1Float_1_1Branch_1_1ValCommitLqGq.html
+URL class Gecode::Float::Branch::ValSelMed classGecode_1_1Float_1_1Branch_1_1ValSelMed.html
+URL class Gecode::Float::Branch::ValSelRnd classGecode_1_1Float_1_1Branch_1_1ValSelRnd.html
 URL class Gecode::Float::FloatDelta classGecode_1_1Float_1_1FloatDelta.html
 URL class Gecode::Float::FloatVarImp classGecode_1_1Float_1_1FloatVarImp.html
 URL class Gecode::Float::FloatVarImpBase classGecode_1_1Float_1_1FloatVarImpBase.html
@@ -352,10 +349,6 @@ URL class Gecode::Int::BoolVarImp classGecode_1_1Int_1_1BoolVarImp.html
 URL class Gecode::Int::BoolVarImpBase classGecode_1_1Int_1_1BoolVarImpBase.html
 URL class Gecode::Int::BoolVarImpConf classGecode_1_1Int_1_1BoolVarImpConf.html
 URL class Gecode::Int::BoolView classGecode_1_1Int_1_1BoolView.html
-URL class Gecode::Int::Branch::AssignValMed classGecode_1_1Int_1_1Branch_1_1AssignValMed.html
-URL class Gecode::Int::Branch::AssignValMin classGecode_1_1Int_1_1Branch_1_1AssignValMin.html
-URL class Gecode::Int::Branch::AssignValRnd classGecode_1_1Int_1_1Branch_1_1AssignValRnd.html
-URL class Gecode::Int::Branch::AssignValZero classGecode_1_1Int_1_1Branch_1_1AssignValZero.html
 URL class Gecode::Int::Branch::MeritMax classGecode_1_1Int_1_1Branch_1_1MeritMax.html
 URL class Gecode::Int::Branch::MeritMin classGecode_1_1Int_1_1Branch_1_1MeritMin.html
 URL class Gecode::Int::Branch::MeritRegretMax classGecode_1_1Int_1_1Branch_1_1MeritRegretMax.html
@@ -364,14 +357,18 @@ URL class Gecode::Int::Branch::MeritSize classGecode_1_1Int_1_1Branch_1_1MeritSi
 URL class Gecode::Int::Branch::MeritSizeActivity classGecode_1_1Int_1_1Branch_1_1MeritSizeActivity.html
 URL class Gecode::Int::Branch::MeritSizeAfc classGecode_1_1Int_1_1Branch_1_1MeritSizeAfc.html
 URL class Gecode::Int::Branch::MeritSizeDegree classGecode_1_1Int_1_1Branch_1_1MeritSizeDegree.html
-URL class Gecode::Int::Branch::NoValue classGecode_1_1Int_1_1Branch_1_1NoValue.html
 URL class Gecode::Int::Branch::PosValuesChoice classGecode_1_1Int_1_1Branch_1_1PosValuesChoice.html
-URL class Gecode::Int::Branch::ValMed classGecode_1_1Int_1_1Branch_1_1ValMed.html
-URL class Gecode::Int::Branch::ValMin classGecode_1_1Int_1_1Branch_1_1ValMin.html
-URL class Gecode::Int::Branch::ValRangeMin classGecode_1_1Int_1_1Branch_1_1ValRangeMin.html
-URL class Gecode::Int::Branch::ValRnd classGecode_1_1Int_1_1Branch_1_1ValRnd.html
-URL class Gecode::Int::Branch::ValSplitMin classGecode_1_1Int_1_1Branch_1_1ValSplitMin.html
-URL class Gecode::Int::Branch::ValZeroOne classGecode_1_1Int_1_1Branch_1_1ValZeroOne.html
+URL class Gecode::Int::Branch::ValCommitEq classGecode_1_1Int_1_1Branch_1_1ValCommitEq.html
+URL class Gecode::Int::Branch::ValCommitGq classGecode_1_1Int_1_1Branch_1_1ValCommitGq.html
+URL class Gecode::Int::Branch::ValCommitGr classGecode_1_1Int_1_1Branch_1_1ValCommitGr.html
+URL class Gecode::Int::Branch::ValCommitLq classGecode_1_1Int_1_1Branch_1_1ValCommitLq.html
+URL class Gecode::Int::Branch::ValSelAvg classGecode_1_1Int_1_1Branch_1_1ValSelAvg.html
+URL class Gecode::Int::Branch::ValSelMax classGecode_1_1Int_1_1Branch_1_1ValSelMax.html
+URL class Gecode::Int::Branch::ValSelMed classGecode_1_1Int_1_1Branch_1_1ValSelMed.html
+URL class Gecode::Int::Branch::ValSelMin classGecode_1_1Int_1_1Branch_1_1ValSelMin.html
+URL class Gecode::Int::Branch::ValSelRangeMax classGecode_1_1Int_1_1Branch_1_1ValSelRangeMax.html
+URL class Gecode::Int::Branch::ValSelRangeMin classGecode_1_1Int_1_1Branch_1_1ValSelRangeMin.html
+URL class Gecode::Int::Branch::ValSelRnd classGecode_1_1Int_1_1Branch_1_1ValSelRnd.html
 URL class Gecode::Int::Branch::ViewValuesBrancher classGecode_1_1Int_1_1Branch_1_1ViewValuesBrancher.html
 URL class Gecode::Int::CachedView classGecode_1_1Int_1_1CachedView.html
 URL class Gecode::Int::Channel::Base classGecode_1_1Int_1_1Channel_1_1Base.html
@@ -871,20 +868,18 @@ URL class Gecode::Set::ArgumentSizeMismatch classGecode_1_1Set_1_1ArgumentSizeMi
 URL class Gecode::Set::ArrayRanges classGecode_1_1Set_1_1ArrayRanges.html
 URL class Gecode::Set::BndSet classGecode_1_1Set_1_1BndSet.html
 URL class Gecode::Set::BndSetRanges classGecode_1_1Set_1_1BndSetRanges.html
-URL class Gecode::Set::Branch::AssignValMax classGecode_1_1Set_1_1Branch_1_1AssignValMax.html
-URL class Gecode::Set::Branch::AssignValMed classGecode_1_1Set_1_1Branch_1_1AssignValMed.html
-URL class Gecode::Set::Branch::AssignValMin classGecode_1_1Set_1_1Branch_1_1AssignValMin.html
-URL class Gecode::Set::Branch::AssignValRnd classGecode_1_1Set_1_1Branch_1_1AssignValRnd.html
 URL class Gecode::Set::Branch::MeritMax classGecode_1_1Set_1_1Branch_1_1MeritMax.html
 URL class Gecode::Set::Branch::MeritMin classGecode_1_1Set_1_1Branch_1_1MeritMin.html
 URL class Gecode::Set::Branch::MeritSize classGecode_1_1Set_1_1Branch_1_1MeritSize.html
 URL class Gecode::Set::Branch::MeritSizeActivity classGecode_1_1Set_1_1Branch_1_1MeritSizeActivity.html
 URL class Gecode::Set::Branch::MeritSizeAfc classGecode_1_1Set_1_1Branch_1_1MeritSizeAfc.html
 URL class Gecode::Set::Branch::MeritSizeDegree classGecode_1_1Set_1_1Branch_1_1MeritSizeDegree.html
-URL class Gecode::Set::Branch::ValMax classGecode_1_1Set_1_1Branch_1_1ValMax.html
-URL class Gecode::Set::Branch::ValMed classGecode_1_1Set_1_1Branch_1_1ValMed.html
-URL class Gecode::Set::Branch::ValMin classGecode_1_1Set_1_1Branch_1_1ValMin.html
-URL class Gecode::Set::Branch::ValRnd classGecode_1_1Set_1_1Branch_1_1ValRnd.html
+URL class Gecode::Set::Branch::ValCommitExc classGecode_1_1Set_1_1Branch_1_1ValCommitExc.html
+URL class Gecode::Set::Branch::ValCommitInc classGecode_1_1Set_1_1Branch_1_1ValCommitInc.html
+URL class Gecode::Set::Branch::ValSelMax classGecode_1_1Set_1_1Branch_1_1ValSelMax.html
+URL class Gecode::Set::Branch::ValSelMed classGecode_1_1Set_1_1Branch_1_1ValSelMed.html
+URL class Gecode::Set::Branch::ValSelMin classGecode_1_1Set_1_1Branch_1_1ValSelMin.html
+URL class Gecode::Set::Branch::ValSelRnd classGecode_1_1Set_1_1Branch_1_1ValSelRnd.html
 URL class Gecode::Set::CachedView classGecode_1_1Set_1_1CachedView.html
 URL class Gecode::Set::Channel::ChannelBool classGecode_1_1Set_1_1Channel_1_1ChannelBool.html
 URL class Gecode::Set::Channel::ChannelBool::IndexAdvisor classGecode_1_1Set_1_1Channel_1_1ChannelBool_1_1IndexAdvisor.html
@@ -1034,7 +1029,7 @@ URL class Gecode::Support::Thread classGecode_1_1Support_1_1Thread.html
 URL class Gecode::Support::Thread::Run classGecode_1_1Support_1_1Thread_1_1Run.html
 URL class Gecode::Support::Timer classGecode_1_1Support_1_1Timer.html
 URL class Gecode::TernaryPropagator classGecode_1_1TernaryPropagator.html
-URL class Gecode::TieBreakVarBranch classGecode_1_1TieBreakVarBranch.html
+URL class Gecode::TieBreak classGecode_1_1TieBreak.html
 URL class Gecode::TooManyBranchers classGecode_1_1TooManyBranchers.html
 URL class Gecode::TupleSet classGecode_1_1TupleSet.html
 URL class Gecode::TupleSet::TupleSetI classGecode_1_1TupleSet_1_1TupleSetI.html
@@ -1042,8 +1037,12 @@ URL class Gecode::UnaryPropagator classGecode_1_1UnaryPropagator.html
 URL class Gecode::UninitializedActivity classGecode_1_1UninitializedActivity.html
 URL class Gecode::UninitializedRnd classGecode_1_1UninitializedRnd.html
 URL class Gecode::ValBranch classGecode_1_1ValBranch.html
-URL class Gecode::ValSelBase classGecode_1_1ValSelBase.html
-URL class Gecode::ValSelValCommit classGecode_1_1ValSelValCommit.html
+URL class Gecode::ValCommit classGecode_1_1ValCommit.html
+URL class Gecode::ValCommitFunction classGecode_1_1ValCommitFunction.html
+URL class Gecode::ValSel classGecode_1_1ValSel.html
+URL class Gecode::ValSelCommit classGecode_1_1ValSelCommit.html
+URL class Gecode::ValSelCommitBase classGecode_1_1ValSelCommitBase.html
+URL class Gecode::ValSelFunction classGecode_1_1ValSelFunction.html
 URL class Gecode::Var classGecode_1_1Var.html
 URL class Gecode::VarArgArray classGecode_1_1VarArgArray.html
 URL class Gecode::VarArgArray::VarLess classGecode_1_1VarArgArray_1_1VarLess.html
@@ -1060,17 +1059,15 @@ URL class Gecode::ViewArray classGecode_1_1ViewArray.html
 URL class Gecode::ViewArray<Float::Linear::NoView> classGecode_1_1ViewArray_3_01Float_1_1Linear_1_1NoView_01_4.html
 URL class Gecode::ViewArray<Int::Linear::NoView> classGecode_1_1ViewArray_3_01Int_1_1Linear_1_1NoView_01_4.html
 URL class Gecode::ViewBrancher classGecode_1_1ViewBrancher.html
-URL class Gecode::ViewSelBase classGecode_1_1ViewSelBase.html
+URL class Gecode::ViewSel classGecode_1_1ViewSel.html
+URL class Gecode::ViewSelChoose classGecode_1_1ViewSelChoose.html
+URL class Gecode::ViewSelChooseTbl classGecode_1_1ViewSelChooseTbl.html
 URL class Gecode::ViewSelMax classGecode_1_1ViewSelMax.html
+URL class Gecode::ViewSelMaxTbl classGecode_1_1ViewSelMaxTbl.html
 URL class Gecode::ViewSelMin classGecode_1_1ViewSelMin.html
+URL class Gecode::ViewSelMinTbl classGecode_1_1ViewSelMinTbl.html
 URL class Gecode::ViewSelNone classGecode_1_1ViewSelNone.html
 URL class Gecode::ViewSelRnd classGecode_1_1ViewSelRnd.html
-URL class Gecode::ViewSelTieBreakDynamic classGecode_1_1ViewSelTieBreakDynamic.html
-URL class Gecode::ViewSelTieBreakDynamic::Choice classGecode_1_1ViewSelTieBreakDynamic_1_1Choice.html
-URL class Gecode::ViewSelTieBreakStatic classGecode_1_1ViewSelTieBreakStatic.html
-URL class Gecode::ViewSelTieBreakStatic::Choice classGecode_1_1ViewSelTieBreakStatic_1_1Choice.html
-URL class Gecode::ViewSelVirtual classGecode_1_1ViewSelVirtual.html
-URL class Gecode::ViewSelVirtualBase classGecode_1_1ViewSelVirtualBase.html
 URL class Gecode::ViewValBrancher classGecode_1_1ViewValBrancher.html
 URL class Golf classGolf.html
 URL class GolfOptions classGolfOptions.html
@@ -1877,14 +1874,14 @@ URL file gecode/float/branch.hh gecode_2float_2branch_8hh.html
 URL file gecode/float/branch/activity.cpp float_2branch_2activity_8cpp.html
 URL file gecode/float/branch/activity.hpp float_2branch_2activity_8hpp.html
 URL file gecode/float/branch/assign.hpp float_2branch_2assign_8hpp.html
-URL file gecode/float/branch/commit.cpp float_2branch_2commit_8cpp.html
-URL file gecode/float/branch/post-val.hpp float_2branch_2post-val_8hpp.html
-URL file gecode/float/branch/post-view.cpp float_2branch_2post-view_8cpp.html
-URL file gecode/float/branch/select-val.hpp float_2branch_2select-val_8hpp.html
-URL file gecode/float/branch/select-view.hpp float_2branch_2select-view_8hpp.html
+URL file gecode/float/branch/merit.hpp float_2branch_2merit_8hpp.html
 URL file gecode/float/branch/traits.hpp float_2branch_2traits_8hpp.html
+URL file gecode/float/branch/val-commit.hpp float_2branch_2val-commit_8hpp.html
+URL file gecode/float/branch/val-sel-commit.cpp float_2branch_2val-sel-commit_8cpp.html
+URL file gecode/float/branch/val-sel.hpp float_2branch_2val-sel_8hpp.html
 URL file gecode/float/branch/val.hpp float_2branch_2val_8hpp.html
 URL file gecode/float/branch/var.hpp float_2branch_2var_8hpp.html
+URL file gecode/float/branch/view-sel.cpp float_2branch_2view-sel_8cpp.html
 URL file gecode/float/exception.hpp float_2exception_8hpp.html
 URL file gecode/float/exec.cpp gecode_2float_2exec_8cpp.html
 URL file gecode/float/limits.hpp float_2limits_8hpp.html
@@ -1999,17 +1996,16 @@ URL file gecode/int/branch.hh gecode_2int_2branch_8hh.html
 URL file gecode/int/branch/activity.cpp int_2branch_2activity_8cpp.html
 URL file gecode/int/branch/activity.hpp int_2branch_2activity_8hpp.html
 URL file gecode/int/branch/assign.hpp int_2branch_2assign_8hpp.html
-URL file gecode/int/branch/commit.cpp int_2branch_2commit_8cpp.html
-URL file gecode/int/branch/post-val-bool.hpp post-val-bool_8hpp.html
-URL file gecode/int/branch/post-val-int.hpp post-val-int_8hpp.html
-URL file gecode/int/branch/post-view-bool.cpp post-view-bool_8cpp.html
-URL file gecode/int/branch/post-view-int.cpp post-view-int_8cpp.html
-URL file gecode/int/branch/select-val.hpp int_2branch_2select-val_8hpp.html
-URL file gecode/int/branch/select-values.hpp select-values_8hpp.html
-URL file gecode/int/branch/select-view.hpp int_2branch_2select-view_8hpp.html
+URL file gecode/int/branch/merit.hpp int_2branch_2merit_8hpp.html
 URL file gecode/int/branch/traits.hpp int_2branch_2traits_8hpp.html
+URL file gecode/int/branch/val-commit.hpp int_2branch_2val-commit_8hpp.html
+URL file gecode/int/branch/val-sel-commit.cpp int_2branch_2val-sel-commit_8cpp.html
+URL file gecode/int/branch/val-sel.hpp int_2branch_2val-sel_8hpp.html
 URL file gecode/int/branch/val.hpp int_2branch_2val_8hpp.html
 URL file gecode/int/branch/var.hpp int_2branch_2var_8hpp.html
+URL file gecode/int/branch/view-sel.cpp int_2branch_2view-sel_8cpp.html
+URL file gecode/int/branch/view-values.cpp view-values_8cpp.html
+URL file gecode/int/branch/view-values.hpp view-values_8hpp.html
 URL file gecode/int/channel.cpp gecode_2int_2channel_8cpp.html
 URL file gecode/int/channel.hh int_2channel_8hh.html
 URL file gecode/int/channel/base.hpp channel_2base_8hpp.html
@@ -2264,10 +2260,12 @@ URL file gecode/kernel/branch-val.hpp branch-val_8hpp.html
 URL file gecode/kernel/branch-var.hpp branch-var_8hpp.html
 URL file gecode/kernel/branch.cpp gecode_2kernel_2branch_8cpp.html
 URL file gecode/kernel/brancher-merit.hpp brancher-merit_8hpp.html
-URL file gecode/kernel/brancher-tiebreak.hpp brancher-tiebreak_8hpp.html
-URL file gecode/kernel/brancher-val.hpp brancher-val_8hpp.html
+URL file gecode/kernel/brancher-val-commit.hpp brancher-val-commit_8hpp.html
+URL file gecode/kernel/brancher-val-sel-commit.hpp brancher-val-sel-commit_8hpp.html
+URL file gecode/kernel/brancher-val-sel.hpp brancher-val-sel_8hpp.html
+URL file gecode/kernel/brancher-view-sel.hpp brancher-view-sel_8hpp.html
+URL file gecode/kernel/brancher-view-val.hpp brancher-view-val_8hpp.html
 URL file gecode/kernel/brancher-view.hpp brancher-view_8hpp.html
-URL file gecode/kernel/brancher.hpp brancher_8hpp.html
 URL file gecode/kernel/core.cpp core_8cpp.html
 URL file gecode/kernel/core.hpp core_8hpp.html
 URL file gecode/kernel/exception.hpp kernel_2exception_8hpp.html
@@ -2344,14 +2342,14 @@ URL file gecode/set/branch.hh gecode_2set_2branch_8hh.html
 URL file gecode/set/branch/activity.cpp set_2branch_2activity_8cpp.html
 URL file gecode/set/branch/activity.hpp set_2branch_2activity_8hpp.html
 URL file gecode/set/branch/assign.hpp set_2branch_2assign_8hpp.html
-URL file gecode/set/branch/commit.cpp set_2branch_2commit_8cpp.html
-URL file gecode/set/branch/post-val.hpp set_2branch_2post-val_8hpp.html
-URL file gecode/set/branch/post-view.cpp set_2branch_2post-view_8cpp.html
-URL file gecode/set/branch/select-val.hpp set_2branch_2select-val_8hpp.html
-URL file gecode/set/branch/select-view.hpp set_2branch_2select-view_8hpp.html
+URL file gecode/set/branch/merit.hpp set_2branch_2merit_8hpp.html
 URL file gecode/set/branch/traits.hpp set_2branch_2traits_8hpp.html
+URL file gecode/set/branch/val-commit.hpp set_2branch_2val-commit_8hpp.html
+URL file gecode/set/branch/val-sel-commit.cpp set_2branch_2val-sel-commit_8cpp.html
+URL file gecode/set/branch/val-sel.hpp set_2branch_2val-sel_8hpp.html
 URL file gecode/set/branch/val.hpp set_2branch_2val_8hpp.html
 URL file gecode/set/branch/var.hpp set_2branch_2var_8hpp.html
+URL file gecode/set/branch/view-sel.cpp set_2branch_2view-sel_8cpp.html
 URL file gecode/set/cardinality.cpp cardinality_8cpp.html
 URL file gecode/set/channel.cpp gecode_2set_2channel_8cpp.html
 URL file gecode/set/channel.hh set_2channel_8hh.html
@@ -2563,16 +2561,20 @@ URL group Func group__Func.html
 TITLE group Func "Common functionality"
 URL group FuncFloatProp group__FuncFloatProp.html
 TITLE group FuncFloatProp "Float propagators"
-URL group FuncFloatSelVal group__FuncFloatSelVal.html
-TITLE group FuncFloatSelVal "Float value selection for brancher"
-URL group FuncFloatSelView group__FuncFloatSelView.html
-TITLE group FuncFloatSelView "Merit-based float view selection for branchers"
+URL group FuncFloatValCommit group__FuncFloatValCommit.html
+TITLE group FuncFloatValCommit "Float value commit classes"
+URL group FuncFloatValSel group__FuncFloatValSel.html
+TITLE group FuncFloatValSel "Float value selection for brancher"
+URL group FuncFloatViewSel group__FuncFloatViewSel.html
+TITLE group FuncFloatViewSel "Merit-based float view selection for branchers"
 URL group FuncIntProp group__FuncIntProp.html
 TITLE group FuncIntProp "Integer propagators"
-URL group FuncIntSelVal group__FuncIntSelVal.html
-TITLE group FuncIntSelVal "Integer value selection for brancher"
-URL group FuncIntSelView group__FuncIntSelView.html
-TITLE group FuncIntSelView "Merit-based integer view selection for branchers"
+URL group FuncIntValCommit group__FuncIntValCommit.html
+TITLE group FuncIntValCommit "Integer value commit classes"
+URL group FuncIntValSel group__FuncIntValSel.html
+TITLE group FuncIntValSel "Integer value selection for brancher"
+URL group FuncIntViewSel group__FuncIntViewSel.html
+TITLE group FuncIntViewSel "Merit-based integer view selection for branchers"
 URL group FuncIter group__FuncIter.html
 TITLE group FuncIter "Range and value iterators"
 URL group FuncIterRanges group__FuncIterRanges.html
@@ -2599,10 +2601,12 @@ URL group FuncMemSpace group__FuncMemSpace.html
 TITLE group FuncMemSpace "Space-memory management"
 URL group FuncSetProp group__FuncSetProp.html
 TITLE group FuncSetProp "Set propagators"
-URL group FuncSetSelVal group__FuncSetSelVal.html
-TITLE group FuncSetSelVal "Set value selection for brancher"
-URL group FuncSetSelView group__FuncSetSelView.html
-TITLE group FuncSetSelView "Merit-based set view selection for branchers"
+URL group FuncSetValCommit group__FuncSetValCommit.html
+TITLE group FuncSetValCommit "Set value commit classes"
+URL group FuncSetValSel group__FuncSetValSel.html
+TITLE group FuncSetValSel "Set value selection for brancher"
+URL group FuncSetViewSel group__FuncSetViewSel.html
+TITLE group FuncSetViewSel "Merit-based set view selection for branchers"
 URL group FuncSupport group__FuncSupport.html
 TITLE group FuncSupport "Support algorithms and datastructures"
 URL group FuncSupportShared group__FuncSupportShared.html
@@ -2657,10 +2661,14 @@ URL group TaskActorStatus group__TaskActorStatus.html
 TITLE group TaskActorStatus "Status of constraint propagation and branching commit"
 URL group TaskBranchMerit group__TaskBranchMerit.html
 TITLE group TaskBranchMerit "Generic merit for branchers based on view and value selection"
-URL group TaskBranchTieBreak group__TaskBranchTieBreak.html
-TITLE group TaskBranchTieBreak "Generic view tie-breaking for brancher based on view and value selection"
+URL group TaskBranchValCommit group__TaskBranchValCommit.html
+TITLE group TaskBranchValCommit "Generic value commit for brancher based on view and value selection"
 URL group TaskBranchValSel group__TaskBranchValSel.html
 TITLE group TaskBranchValSel "Generic value selection for brancher based on view and value selection"
+URL group TaskBranchValSelCommit group__TaskBranchValSelCommit.html
+TITLE group TaskBranchValSelCommit "Generic value selection and value commit for brancher based on view and value selection"
+URL group TaskBranchView group__TaskBranchView.html
+TITLE group TaskBranchView "Generic brancher based on view selection"
 URL group TaskBranchViewSel group__TaskBranchViewSel.html
 TITLE group TaskBranchViewSel "Generic view selection for brancher based on view and value selection"
 URL group TaskBranchViewVal group__TaskBranchViewVal.html
