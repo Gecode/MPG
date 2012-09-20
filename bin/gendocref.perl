@@ -61,6 +61,17 @@ while ($l = <TAGFILE>) {
 	} elsif ($path =~ /.*\/(.*)/) {
 	  $path = $1;
 	}
+      } elsif ($l =~ /<member kind="typedef">/) {
+	my $name;
+	my $url;
+	while (($l = <TAGFILE>) && !($l =~ /<\/member>/)) {
+	  if (($l =~ /<name>(.*)<\/name>/) && !$name) {
+	    $name = &ceify($1);
+	  } elsif (($l =~ /<anchorfile>(.*)<\/anchorfile>/) && !$url) {
+	    $url = $1;
+	  }
+	}
+	$url{"typedef $name"} = "$url";
       }
     }
     if (($path =~ /^examples\//) && ($name =~ /\.cpp$/)) {
