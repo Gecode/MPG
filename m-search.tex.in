@@ -85,42 +85,72 @@ search continues with the next brancher.
 \begin{center}
 \begin{tabular}{l@{\quad}l}
 \?INT_VAR_NONE()? & first unassigned\\
-\?INT_VAR_RND()? & randomly\\
-\?INT_VAR_DEGREE_MIN()? & smallest degree\\
-\?INT_VAR_DEGREE_MAX()? & largest degree\\
-\?INT_VAR_AFC_MIN()? & smallest accumulated failure count (AFC)\\
-\?INT_VAR_AFC_MAX()? & largest accumulated failure count (AFC)\\
-\?INT_VAR_ACTIVITY_MIN()? & lowest activity\\
-\?INT_VAR_ACTIVITY_MAX()? & highest activity\\
-\?INT_VAR_MIN_MIN()? & smallest minimum value\\
-\?INT_VAR_MIN_MAX()? & largest minimum value\\
-\?INT_VAR_MAX_MIN()? & smallest maximum value\\
-\?INT_VAR_MAX_MAX()? & largest maximum value\\
-\?INT_VAR_SIZE_MIN()? & smallest domain size\\
-\?INT_VAR_SIZE_MAX()? & largest domain size\\
-\?INT_VAR_SIZE_DEGREE_MIN()? & smallest domain size divided by degree\\
-\?INT_VAR_SIZE_DEGREE_MAX()? & largest domain size divided by degree\\
-\?INT_VAR_SIZE_AFC_MIN()? & smallest domain size divided by AFC\\
-\?INT_VAR_SIZE_AFC_MAX()? & largest domain size divided by AFC\\
-\?INT_VAR_SIZE_ACTIVITY_MIN()? & smallest domain size divided by activity\\
-\?INT_VAR_SIZE_ACTIVITY_MAX()? & largest domain size divided by activity\\
-\?INT_VAR_REGRET_MIN_MIN()? & smallest minimum-regret\\
-\?INT_VAR_REGRET_MIN_MAX()? & largest minimum-regret\\
-\?INT_VAR_REGRET_MAX_MIN()? & smallest maximum-regret\\
-\?INT_VAR_REGRET_MAX_MAX()? & largest maximum-regret
+\?INT_VAR_RND(r)? & randomly\\
+\?INT_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?INT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?INT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
+\?INT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
+\?INT_VAR_AFC_MIN(?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?INT_VAR_AFC_MAX(?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?INT_VAR_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & lowest activity\\
+\?INT_VAR_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & highest activity\\
+\?INT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
+\?INT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
+\?INT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
+\?INT_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum value\\
+\?INT_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest domain size\\
+\?INT_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest domain size\\
+\?INT_VAR_SIZE_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by degree\\
+\?INT_VAR_SIZE_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by degree\\
+\?INT_VAR_SIZE_AFC_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by AFC\\
+\?INT_VAR_SIZE_AFC_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by AFC\\
+\?INT_VAR_SIZE_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & smallest domain size divided by activity\\
+\?INT_VAR_SIZE_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & largest domain size divided by activity\\
+\?INT_VAR_REGRET_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum-regret\\
+\?INT_VAR_REGRET_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum-regret\\
+\?INT_VAR_REGRET_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum-regret\\
+\?INT_VAR_REGRET_MAX_MAX(?\OptArg{\?t?}\?)? & largest
+maximum-regret\\
 \end{tabular}
 \end{center}
 \caption{Integer and Boolean variable selection}
 \label{fig:m:search:int:var}
 \end{figure}
 
+For integer and Boolean variables, variable selection is defined
+by a value of class \gecoderef[class]{IntVarBranch} (see also
+\gecoderef[group]{TaskModelIntBranchVar}) and value selection is defined
+by a value of type \gecoderef[class]{IntValBranch}  (see also
+\gecoderef[group]{TaskModelIntBranchVal}). 
+
+For an overview of the available variable selection strategies,
+see \autoref{fig:m:search:int:var}. Here, an argument \?r? refers
+to a random number generator of type
+\gecoderef[class]{Rnd}. Using random number generators for
+branching is discussed in
+\autoref{sec:m:search:branch:rnd}. The argument \?m? refers to a
+user-defined merit function of type
+\gecoderef[typedef]{IntBranchMerit} for integer variables and
+\gecoderef[typedef]{BoolBranchMerit} for Boolean
+variables. User-defined merit functions are discussed in \autoref{sec:m:search:branch:user-var}.
+The argument \?a? refers to
+activity information for integer variables (of type
+\gecoderef[class]{IntActivity}) or Boolean variables (of type
+\gecoderef[class]{BoolActivity}). For a discussion of activity,
+see \autoref{sec:m:search:branch:shared}. The optional argument
+\?t? refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in 
+\autoref{sec:m:search:branch:tbl}.
+
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
+\?INT_VAL_RND(r)? & random value\\
+\?INT_VAL(v,?\OptArg{\?c?}\?)? & defined by value function \?v? and commit
+function \?c?\\
 \?INT_VAL_MIN()? & smallest value\\
 \?INT_VAL_MED()? & greatest value not greater than the median\\
 \?INT_VAL_MAX()? & largest value\\
-\?INT_VAL_RND()? & random value\\
 \?INT_VAL_SPLIT_MIN()? & values not greater than mean of smallest
   and largest value\\
 \?INT_VAL_SPLIT_MAX()? & values greater than mean of smallest
@@ -133,131 +163,27 @@ several ranges;\\
 several ranges;\\
 & otherwise, values greater than mean of smallest
   and largest value\\
-\?INT_VALUES_MIN? & all values starting from smallest\\
-\?INT_VALUES_MAX? & all values starting from largest
+\?INT_VALUES_MIN()? & all values starting from smallest\\
+\?INT_VALUES_MAX()? & all values starting from largest\\
 \end{tabular}
 \end{center}
 \caption{Integer and Boolean value selection}
 \label{fig:m:search:int:val}
 \end{figure}
 
-For integer and Boolean variables, variable selection is defined
-by a value of type \?IntVarBranch? and value selection is defined
-by a value of type \?IntValBranch?  (see
-\gecoderef[group]{TaskModelIntBranch}). For an overview of the
-available variable selection strategies, see
-\autoref{fig:m:search:int:var}. An overview of the available
-value selection strategies can be found in \autoref{fig:m:search:int:val}.
-
-\paragraph{Local versus shared variable selection criteria.}
-
-The criteria used for selecting variables are either \emph{local}
-or \emph{shared} criteria. A \emph{local} variable selection
-criterion depends only on a brancher's home space. A
-\emph{shared} variable selection criterion depends on not only
-the brancher's home space but also on all spaces that have been
-created during search sharing the same root space where the
-brancher had originally been posted. That entails that a shared
-criterion can use information that is collected during search. In
-terms of \autoref{sec:m:search:re}, a shared variable selection
-criterion depends on all equivalent spaces created by cloning.
-
-\paragraph{Local variable selection criteria.}
-
-All selection criteria but those based on \emph{AFC} and
-\emph{activity} are local: they either select variables without
-using any information on a
-variable (\?INT_VAR_NONE()?), select variables randomly
-(\?INT_VAR_RND()?, see also \autoref{sec:m:search:branch:rnd}), or
-use the degree or domain of a variable for selection.
-
-The \emph{degree} of a variable is the number of propagators
-depending on the variable (useful as an approximate measure of
-how constrained a variables is).
-
-The \emph{minimum-regret} is the difference between the smallest and
-second smallest value in the domain of a variable (\emph{maximum-regret}
-is analogous).
-
-\paragraph{Selection using accumulated failure count.}
-
-The accumulated failure count (AFC) of a variable is a shared
-selection criterion. It is defined as the sum of the AFCs of all
-propagators depending on the variable plus its degree (to give a
-good initial value if the AFCs of all propagators are still
-zero). The AFC of a propagator counts how often the propagator
-has failed during search.  
-
-The AFC of a variable is also known as the weighted degree of a
-variable~\cite{AFC}.
-
-\paragraph{Selection using activity.}
-
-The activity of an integer or Boolean variable is a shared
-criterion and captures how much a variable has been involved in
-constraint propagation. 
-
-The activity of a variable is maintained by constraint
-propagation as follows. Each time constraint propagation finishes
-during search (by executing the \?status()? function of a space,
-see also \autoref{tip:m:started:status}), the activity of a
-variable $\mathtt x$ is updated as follows~\cite{activity}:
-\begin{itemize}
-\item If the variable \?x? has not been pruned (that is, no
-  values have been removed from the domain of \?x? through
-  propagation), the activity $\alpha(\mathtt x)$ of \?x? is
-  updated by a decay-factor $\gamma$ ($0<\gamma\leq 1$):
-$$\alpha(\mathtt x)=\gamma\cdot\alpha(\mathtt x)$$
-\item If the variable \?x? has been pruned, the activity
-  $\alpha(\mathtt x)$ of \?x? is incremented by $1$:
-$$\alpha(\mathtt x)=\alpha(\mathtt x)+1$$
-\end{itemize}
-
-In order to use activity for branching, one must create an object
-of class \gecoderef[class]{IntActivity} for integer variables or
-an object of class \gecoderef[class]{BoolActivity} for Boolean
-variables. The object is responsible for recording activity
-information.
-
-If \?x? is an integer variable array, then
-\begin{code}
-IntActivity a(home,x,0.99);
-\end{code}
-initializes the activity information \?a? for the variables in \?x?
-with decay-factor $\gamma=\mathtt{0.99}$. 
-
-The decay-factor can
-later be changed, say to $\gamma=\mathtt{0.95}$, by
-\begin{code}
-a.decay(0.95);
-\end{code}
-and \?a.decay()? returns the current decay-factor of \?a?.
-
-A branching using activity information must be given an object of
-type \?IntActivity? by specifying a variable branch option of
-type \gecoderef[class]{VarBranchOptions} as follows:
-\begin{code}
-VarBranchOptions vbo(a);
-\end{code}
-Equivalently, one can also define the integer activity for a
-variable branching option by:
-\begin{code}
-VarBranchOptions vbo;
-vbo.activity = a;
-\end{code}
-
-\begin{samepage}
-Finally, a branching using activity information can be posted by
-\begin{code}
-branch(home, x, INT_VAR_ACTIVITY_MAX(), INT_VAL_MIN(), vbo);
-\end{code}
-Here the integer variable array \?x? must be exactly the same
-that has been used for creating the integer activity object
-\?a?. 
-\end{samepage}
-
-Activity for Boolean variables is analogous, using the class
-\gecoderef[class]{BoolActivity} for recording activity information.
+An overview of the available value selection strategies for
+integer and Boolean variables can be found in
+\autoref{fig:m:search:int:val}. Here, an argument \?r? refers to
+a random number generator of type \gecoderef[class]{Rnd} which is
+discussed in \autoref{sec:m:search:branch:rnd}. An argument \?v?
+refers to a value selection function of type
+\gecoderef[typedef]{IntBranchVal} for integer variables and
+\gecoderef[typedef]{BoolBranchVal} for Boolean variables. An
+argument \?c? refers to a commit function of type
+\gecoderef[typedef]{IntBranchCommit} for integer variables and of
+type \gecoderef[typedef]{BoolBranchCommit} for Boolean variables.
+Value and commit function are discussed in
+\autoref{sec:m:search:branch:user-val}.
 
 \tip{Variables are re-selected during branching}{
 \label{tip:m:search:reselected}
@@ -295,14 +221,15 @@ variable-value branching re-selects a variable for each choice it
 creates.  }
 
 \tip{Do not try all values}{%
-  Note that for \?INT_VALUES_MIN? and \?INT_VALUES_MAX?, a
+  Note that for \?INT_VALUES_MIN()? and \?INT_VALUES_MAX()?, a
   variable-value branching creates a choice for each selected
-  variable with one alternative per value of the variable. This
-  is typically a poor choice, as none of the alternatives can
-  benefit from propagation that arises when other values of the
-  same variable are tried. These branchings exist for
-  instructional purposes (well, they do create beautiful
-  trees in Gist). }
+  variable with one alternative per value of the variable.
+
+  This is typically a poor choice, as none of the alternatives
+  can benefit from propagation that arises when other values of
+  the same variable are tried. These branchings exist for
+  instructional purposes (well, they do create beautiful trees in
+  Gist). }
 
 
 \subsection{Branching on set variables}
@@ -320,61 +247,86 @@ to your program when you want to branch on set variables.
 \begin{center}
 \begin{tabular}{l@{\quad}l}
 \?SET_VAR_NONE()? & first unassigned\\
-\?SET_VAR_RND()? & randomly\\
-\?SET_VAR_DEGREE_MIN()? & smallest degree\\
-\?SET_VAR_DEGREE_MAX()? & largest degree\\
-\?SET_VAR_AFC_MIN()? & smallest accumulated failure count (AFC)\\
-\?SET_VAR_AFC_MAX()? & largest accumulated failure count (AFC)\\
-\?SET_VAR_ACTIVITY_MIN()? & lowest activity\\
-\?SET_VAR_ACTIVITY_MAX()? & highest activity\\
-\?SET_VAR_MIN_MIN()? & smallest minimum unknown element\\
-\?SET_VAR_MIN_MAX()? & largest minimum unknown element\\
-\?SET_VAR_MAX_MIN()? & smallest maximum unknown element\\
-\?SET_VAR_MAX_MAX()? & largest maximum unknown element\\
-\?SET_VAR_SIZE_MIN()? & smallest unknown set\\
-\?SET_VAR_SIZE_MAX()? & largest unknown set\\
-\?SET_VAR_SIZE_DEGREE_MIN()? & smallest domain size divided by degree\\
-\?SET_VAR_SIZE_DEGREE_MAX()? & largest domain size divided by degree\\
-\?SET_VAR_SIZE_AFC_MIN()? & smallest domain size divided by AFC\\
-\?SET_VAR_SIZE_AFC_MAX()? & largest domain size divided by AFC\\
-\?SET_VAR_SIZE_ACTIVITY_MIN()? & smallest domain size divided by activity\\
-\?SET_VAR_SIZE_ACTIVITY_MAX()? & largest domain size divided by activity
+\?SET_VAR_RND(r)? & randomly\\
+\?SET_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?SET_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?SET_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
+\?SET_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
+\?SET_VAR_AFC_MIN(?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?SET_VAR_AFC_MAX(?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?SET_VAR_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & lowest activity\\
+\?SET_VAR_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & highest activity\\
+\?SET_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum unknown element\\
+\?SET_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum unknown element\\
+\?SET_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum unknown element\\
+\?SET_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum unknown element\\
+\?SET_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest unknown set\\
+\?SET_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest unknown set\\
+\?SET_VAR_SIZE_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by degree\\
+\?SET_VAR_SIZE_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by degree\\
+\?SET_VAR_SIZE_AFC_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by AFC\\
+\?SET_VAR_SIZE_AFC_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by AFC\\
+\?SET_VAR_SIZE_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & smallest domain size divided by activity\\
+\?SET_VAR_SIZE_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & largest domain size divided by activity
 \end{tabular}
 \end{center}
 \caption{Set variable selection}
 \label{fig:m:search:set:var}
 \end{figure}
 
+For set variables, variable selection is defined
+by a value of class \gecoderef[class]{SetVarBranch} (see also
+\gecoderef[group]{TaskModelSetBranchVar}) and value selection is defined
+by a value of type \gecoderef[class]{SetValBranch}  (see also
+\gecoderef[group]{TaskModelSetBranchVal}). 
+
+For an overview of the available variable selection strategies,
+see \autoref{fig:m:search:set:var}. Here, an argument \?r? refers
+to a random number generator of type
+\gecoderef[class]{Rnd}. Using random number generators for
+branching is discussed in
+\autoref{sec:m:search:branch:rnd}. The argument \?m? refers to a
+user-defined merit function of type
+\gecoderef[typedef]{SetBranchMerit}. User-defined merit functions are discussed in \autoref{sec:m:search:branch:user-var}.
+The argument \?a? refers to
+activity information for set variables (of type
+\gecoderef[class]{SetActivity}). For a discussion of activity,
+see \autoref{sec:m:search:branch:shared}. The optional argument
+\?t? refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in 
+\autoref{sec:m:search:branch:tbl}.
+
+
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
+\?SET_VAL_RND_INC(r)? &include random element\\
+\?SET_VAL_RND_EXC(r)? &exclude random element\\
+\?SET_VAL(v,?\OptArg{\?c?}\?)? & defined by value function \?v? and commit
+function \?c?\\
 \?SET_VAL_MIN_INC()? &include smallest element\\
 \?SET_VAL_MIN_EXC()? &exclude smallest element\\
 \?SET_VAL_MED_INC()? &include median element (rounding downwards)\\
 \?SET_VAL_MED_EXC()? &exclude median element (rounding downwards)\\
 \?SET_VAL_MAX_INC()? &include largest element\\
 \?SET_VAL_MAX_EXC()? &exclude largest element\\
-\?SET_VAL_RND_INC()? &include random element\\
-\?SET_VAL_RND_EXC()? &exclude random element
 \end{tabular}
 \end{center}
 \caption{Set value selection}
 \label{fig:m:search:set:val}
 \end{figure}
 
-Likewise, for set variables, variable selection is defined by a
-value of type \?SetVarBranch? and value selection is defined by a
-value of type \?SetValBranch?  (see
-\gecoderef[group]{TaskModelSetBranch}).  For an overview of the
-available variable and value selection strategies, see
-\autoref{fig:m:search:set:var} and \autoref{fig:m:search:set:val}.
+An overview of the available value selection strategies for set
+variables can be found in \autoref{fig:m:search:set:val}. Here,
+an argument \?r? refers to a random number generator of type
+\gecoderef[class]{Rnd} which is discussed in
+\autoref{sec:m:search:branch:rnd}. An argument \?v? refers to a
+value selection function of type
+\gecoderef[typedef]{SetBranchVal}. An argument \?c? refers to a
+commit function of type \gecoderef[typedef]{SetBranchCommit}.
+Value and commit function are discussed in
+\autoref{sec:m:search:branch:user-val}.
 
-\paragraph{Selection using activity.}
-
-Variable selection using activity is analogous to selection of
-integer and Boolean variables. In particular, the activity object
-for set variables is created from the class
-\gecoderef[class]{SetActivity}.
 
 \subsection{Branching on float variables}
 \label{sec:m:search:branch:float}
@@ -390,59 +342,85 @@ to your program when you want to branch on float variables.
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
-\?FLOAT_VAR_NONE? & first unassigned\\
-\?FLOAT_VAR_RND? & randomly\\
-\?FLOAT_VAR_DEGREE_MIN? & smallest degree\\
-\?FLOAT_VAR_DEGREE_MAX? & largest degree\\
-\?FLOAT_VAR_AFC_MIN? & smallest accumulated failure count (AFC)\\
-\?FLOAT_VAR_AFC_MAX? & largest accumulated failure count (AFC)\\
-\?FLOAT_VAR_ACTIVITY_MIN? & lowest activity\\
-\?FLOAT_VAR_ACTIVITY_MAX? & highest activity\\
-\?FLOAT_VAR_MIN_MIN? & smallest minimum value\\
-\?FLOAT_VAR_MIN_MAX? & largest minimum value\\
-\?FLOAT_VAR_MAX_MIN? & smallest maximum value\\
-\?FLOAT_VAR_MAX_MAX? & largest maximum value\\
-\?FLOAT_VAR_SIZE_MIN? & smallest domain size\\
-\?FLOAT_VAR_SIZE_MAX? & largest domain size\\
-\?FLOAT_VAR_SIZE_DEGREE_MIN? & smallest domain size divided by degree\\
-\?FLOAT_VAR_SIZE_DEGREE_MAX? & largest domain size divided by degree\\
-\?FLOAT_VAR_SIZE_AFC_MIN? & smallest domain size divided by AFC\\
-\?FLOAT_VAR_SIZE_AFC_MAX? & largest domain size divided by AFC\\
-\?FLOAT_VAR_SIZE_ACTIVITY_MIN? & smallest domain size divided by activity\\
-\?FLOAT_VAR_SIZE_ACTIVITY_MAX? & largest domain size divided by activity\\
+\?FLOAT_VAR_NONE()? & first unassigned\\
+\?FLOAT_VAR_RND(r)? & randomly\\
+\?FLOAT_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?FLOAT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?FLOAT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
+\?FLOAT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
+\?FLOAT_VAR_AFC_MIN(?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?FLOAT_VAR_AFC_MAX(?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?FLOAT_VAR_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & lowest activity\\
+\?FLOAT_VAR_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & highest activity\\
+\?FLOAT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
+\?FLOAT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
+\?FLOAT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
+\?FLOAT_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum value\\
+\?FLOAT_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest domain size\\
+\?FLOAT_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest domain size\\
+\?FLOAT_VAR_SIZE_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by degree\\
+\?FLOAT_VAR_SIZE_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by degree\\
+\?FLOAT_VAR_SIZE_AFC_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by AFC\\
+\?FLOAT_VAR_SIZE_AFC_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by AFC\\
+\?FLOAT_VAR_SIZE_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & smallest domain size divided by activity\\
+\?FLOAT_VAR_SIZE_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & largest domain size divided by activity\\
 \end{tabular}
 \end{center}
 \caption{Float variable selection}
 \label{fig:m:search:float:var}
 \end{figure}
 
+For float variables, variable selection is defined
+by a value of class \gecoderef[class]{FloatVarBranch} (see also
+\gecoderef[group]{TaskModelFloatBranchVar}) and value selection is defined
+by a value of type \gecoderef[class]{FloatValBranch}  (see also
+\gecoderef[group]{TaskModelFloatBranchVal}). 
+
+For an overview of the available variable selection strategies,
+see \autoref{fig:m:search:float:var}. Here, an argument \?r?
+refers to a random number generator of type
+\gecoderef[class]{Rnd}. Using random number generators for
+branching is discussed in \autoref{sec:m:search:branch:rnd}. The
+argument \?m? refers to a user-defined merit function of type
+\gecoderef[typedef]{FloatBranchMerit}. User-defined merit
+functions are discussed in
+\autoref{sec:m:search:branch:user-var}.  The argument \?a? refers
+to activity information for float variables (of type
+\gecoderef[class]{FloatActivity}). For a discussion of activity,
+see \autoref{sec:m:search:branch:shared}. The optional argument
+\?t? refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in
+\autoref{sec:m:search:branch:tbl}.
+
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
-\?FLOAT_VAL_SPLIT_MIN? &values not greater than mean of smallest
-  and largest value\\
-\?FLOAT_VAL_SPLIT_MAX? &values not smaller or larger than mean of smallest
-  and largest value\\
+\?FLOAT_VAL(v,?\OptArg{\?c?}\?)? & defined by value function \?v? and commit
+function \?c?\\
+\?FLOAT_VAL_SPLIT_RND(r)? &values not smaller or larger than mean
+of smallest and largest value\\
 & (smaller or larger is randomly selected)\\
+\?FLOAT_VAL_SPLIT_MIN()? &values not greater than mean of smallest
+  and largest value\\
+\?FLOAT_VAL_SPLIT_MAX()? &values not smaller than mean of smallest
+  and largest value\\
 \end{tabular}
 \end{center}
 \caption{Float value selection}
 \label{fig:m:search:float:val}
 \end{figure}
 
-For float variables, variable selection is defined by a
-value of type \?FloatVarBranch? and value selection is defined by a
-value of type \?FloatValBranch?  (see
-\gecoderef[group]{TaskModelFloatBranch}).  For an overview of the
-available variable and value selection strategies, see
-\autoref{fig:m:search:float:var} and \autoref{fig:m:search:float:val}.
+An overview of the available value selection strategies for float
+variables can be found in \autoref{fig:m:search:float:val}. Here,
+an argument \?r? refers to a random number generator of type
+\gecoderef[class]{Rnd} which is discussed in
+\autoref{sec:m:search:branch:rnd}. An argument \?v? refers to a
+value selection function of type
+\gecoderef[typedef]{FloatBranchVal}. An argument \?c? refers to a
+commit function of type \gecoderef[typedef]{FloatBranchCommit}.
+Value and commit function are discussed in
+\autoref{sec:m:search:branch:user-val}.
 
-\paragraph{Selection using activity.}
-
-Variable selection using activity is analogous to selection of
-integer, Boolean, and set variables. In particular, the activity
-object for float variables is created from the class
-\gecoderef[class]{FloatActivity}.
 
 \subsection{Random variable and value selection}
 \label{sec:m:search:branch:rnd}
@@ -485,6 +463,113 @@ branch(home, x, INT_VAR_RND(), INT_VAL_RND(),
                 VarBranchOptions::hwrnd(),
                 ValBranchOptions::hwrnd());
 \end{code}
+
+\subsection{Local versus shared variable selection criteria}
+\label{sec:m:search:branch:shared}
+
+The criteria used for selecting variables are either \emph{local}
+or \emph{shared} criteria. A \emph{local} variable selection
+criterion depends only on a brancher's home space. A
+\emph{shared} variable selection criterion depends not only on
+the brancher's home space but also on all spaces that have been
+created during search sharing the same root space where the
+brancher had originally been posted. That entails that a shared
+criterion can use information that is collected during search. In
+terms of \autoref{sec:m:search:re}, a shared variable selection
+criterion depends on all equivalent spaces created by cloning.
+
+\paragraph{Local variable selection criteria.}
+
+All selection criteria but those based on \emph{AFC} and
+\emph{activity} are local: they either select variables without
+using any information on a
+variable (\?INT_VAR_NONE()?), select variables randomly
+(\?INT_VAR_RND(r)?, see also \autoref{sec:m:search:branch:rnd}), or
+use the degree or domain of a variable for selection.
+
+The \emph{degree} of a variable is the number of propagators
+depending on the variable (useful as an approximate measure of
+how constrained a variables is).
+
+The \emph{minimum-regret} for integer and Boolean variables is
+the difference between the smallest and second smallest value in
+the domain of a variable (\emph{maximum-regret} is analogous).
+
+\paragraph{Selection using accumulated failure count.}
+
+The accumulated failure count (AFC) of a variable is a shared
+selection criterion. It is defined as the sum of the AFCs of all
+propagators depending on the variable plus its degree (to give a
+good initial value if the AFCs of all propagators are still
+zero). The AFC of a propagator counts how often the propagator
+has failed during search.  
+
+The AFC of a variable is also known as the weighted degree of a
+variable~\cite{AFC}.
+
+\paragraph{Selection using activity.}
+
+The activity of a variable is a shared criterion and captures how
+much a variable has been involved in constraint propagation.
+
+The activity of a variable is maintained by constraint
+propagation as follows. Each time constraint propagation finishes
+during search (by executing the \?status()? function of a space,
+see also \autoref{tip:m:started:status}), the activity of a
+variable $\mathtt x$ is updated as follows~\cite{activity}:
+\begin{itemize}
+\item If the variable \?x? has not been pruned (that is, no
+  values have been removed from the domain of \?x? through
+  propagation), the activity $\alpha(\mathtt x)$ of \?x? is
+  updated by a decay-factor $\gamma$ ($0<\gamma\leq 1$):
+$$\alpha(\mathtt x)=\gamma\cdot\alpha(\mathtt x)$$
+\item If the variable \?x? has been pruned, the activity
+  $\alpha(\mathtt x)$ of \?x? is incremented by $1$:
+$$\alpha(\mathtt x)=\alpha(\mathtt x)+1$$
+\end{itemize}
+
+In order to use activity for branching, one must create an object
+of class \gecoderef[class]{IntActivity} for integer variables, an
+object of class \gecoderef[class]{BoolActivity} for Boolean
+variables, an object of class \gecoderef[class]{SetActivity} for
+set variables, or an object of class
+\gecoderef[class]{FloatActivity} for float variables. The object
+is responsible for recording activity information.
+
+If \?x? is an integer variable array, then
+\begin{code}
+IntActivity a(home,x,0.99);
+\end{code}
+initializes the activity information \?a? for the variables in \?x?
+with decay-factor $\gamma=\mathtt{0.99}$. 
+
+The decay-factor can
+later be changed, say to $\gamma=\mathtt{0.95}$, by
+\begin{code}
+a.decay(0.95);
+\end{code}
+and \?a.decay()? returns the current decay-factor of \?a?.
+
+A branching for integer variables using activity information must be given an object of
+type \?IntActivity? by providing an additional argument as
+follows: 
+\begin{code}
+branch(home, x, INT_VAR_ACTIVITY_MAX(a), INT_VAL_MIN());
+\end{code}
+Here the integer variable array \?x? must be exactly the same
+that has been used for creating the integer activity object
+\?a?. 
+
+Activity for other variable types is analogous.
+
+
+
+\subsection{User-defined variable selection}
+\label{sec:m:search:branch:user-var}
+
+
+\subsection{User-defined value selection}
+\label{sec:m:search:branch:user-val}
 
 \subsection{Tie-breaking}
 \label{sec:m:search:branch:tie}
@@ -537,6 +622,9 @@ branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND()),
                          VarBranchOptions::time()));
 \end{code}
 
+
+\subsection{Using tie-breaking limits}
+\label{sec:m:search:branch:tbl}
 
 \subsection{Using branch filter functions}
 \label{sec:m:search:branch:filter}
