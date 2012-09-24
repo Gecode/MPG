@@ -634,7 +634,7 @@ double merit(const IntVar& x, int i) const {
   return ...;
 }
 \end{code}
-is used when definining a static function as follows
+is used when defining a static function as follows
 \begin{code}
 double trampoline(const Space& home, const IntVar& x, int i) {
   return static_cast<const Model&>(home).merit(x,i);
@@ -729,7 +729,7 @@ branch(home, x, INT_VAR_NONE(), INT_VAL(&v));
 \begin{center}
 \begin{tabular}{|l||l|l|}
 \hline
-Variable type & Commit function type & Default\\
+Variable type & Commit function type & Default behavior\\
 \hline\hline
 \gecoderef[class]{IntVar} & \gecoderef[typedef]{IntBranchCommit} &
 $(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})$\\\hline
@@ -756,9 +756,13 @@ Note that both value and commit functions can also be implemented
 as member functions, similar to merit functions as described in
 \autoref{tip:m:search:merit}.
 
+For examples using value functions for branching, see
+\gecoderef[example]{black-hole} and \gecoderef[example]{bacp}.
+
 
 \subsection{Tie-breaking}
 \label{sec:m:search:branch:tie}
+\label{sec:m:search:branch:tbl}
 
 The default behavior for tie-breaking during variable selection
 is that the first variable (that is the variable with the lowest
@@ -769,12 +773,12 @@ A typical example for integer variables is to select a most
 constrained variable first (the variable most propagators depend
 on, that is, with largest degree). Then, among the most
 constrained variables select the variable with the smallest
-domain. This can be achieved by using a \?tiebreak?  function:
+domain. This can be achieved by using a \?tiebreak()?  function:
 \begin{code}
 branch(home, x, tiebreak(INT_VAR_DEGREE_MAX(), INT_VAR_SIZE_MIN()),
                 INT_VAL_MIN());
 \end{code}
-The overloaded function \?tiebreak?  (see
+The overloaded function \?tiebreak()?  (see
 \gecoderef[group]{TaskModelBranchTieBreak}) takes up to four
 variable selection values.
 
@@ -789,9 +793,90 @@ branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
 Here, \?r? must be a random number generator as discussed in
 \autoref{sec:m:search:branch:rnd}.
 
+\paragraph{Using tie-breaking limit functions.}
 
-\subsection{Using tie-breaking limits}
-\label{sec:m:search:branch:tbl}
+In the discussion so-far only exact ties have been considered.
+Often it necessary to consider several variables as ties even
+though some of them are not among the best variables. 
+Which variables are considered as ties can be controlled by
+\emph{tie-breaking limit functions}.
+
+A tie-breaking limit function has the type
+\gecoderef[typedef]{BranchTbl} which is defined as:
+\begin{code}
+typedef double (*BranchTbl)(const Space& home, double w, double b);
+\end{code}
+The function takes a constant reference to a space \?home? and
+the worst merit value \?w? and the best merit value \?b? as
+arguments. The value returned by the function determines which
+variables are considered as ties.
+
+Let us consider an example where we branch over four integer
+variables from the integer variable array \?x? where the domains
+of the variables are as follows:
+$$
+\mbox{\?x[0]?}\in\{1,2,3,4\}\qquad
+\mbox{\?x[1]?}\in\{2,3,4\}\qquad
+\mbox{\?x[2]?}\in\{1,2,4\}\qquad
+\mbox{\?x[3]?}\in\{1,2,3,4,5,6,7\}
+$$
+Without the use of a tie-breaking limit function tie breaking as
+in (here, \?r? is a random number generator):
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+the variables \?x[1]? and \?x[2]? (both with size as the merit value $3.0$) are considered as ties and
+random variable selection will choose one of them. Likewise, when
+branching with
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MAX(), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+only variable \?x[3]? will be considered as the single variable
+with the best merit value $7.0$.
+
+The following tie-breaking limit function (defined as a static
+member function of a script, see also
+\autoref{tip:m:search:merit}):
+\begin{code}
+static double tbl(const Space& home,
+                  double w, double b) {
+  return (w + b) / 2.0;
+}
+\end{code}
+returns the average of the worst merit value \?w? and the best
+marit value \?b?. Using the function \?tbl()? for tie-breaking is
+done by passing it as additional argument. 
+
+For example, when using \?tbl()? with
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(&tbl), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+the function \?tbl()? is called with $\mathtt{w}=7.0$ and
+$\mathtt{b}=3.0$ and returns $(7.0 + 3.0)/2.0=5.0$. Hence,
+the three variables \?x[0]?, \?x[1]?, and \?x[2]? are considered
+for tie-breaking and random selection will make a choice among
+these three variables.
+
+For example, when using \?tbl()? with
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MAX(&tbl), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+the function \?tbl()? is called with $\mathtt{w}=3.0$ and
+$\mathtt{b}=7.0$ and returns $(3.0 + 7.0)/2.0=5.0$. Hence,
+only variable \?x[3]? is considered for tie-breaking.
+
+Note that worse and best depends on whether the variable
+selection tries to minimize or maximize the merit value. If a
+tie-breaking limit function returns a value that is worse that
+the worst merit value, all variables are considered for
+tie-breaking. If a function returns a value that is better than
+the best value, the returned value is ignored and the best value
+is considered as limit (in which case, tie-breaking works exactly
+the same as if not using a tie-breaking limit function at all).
 
 \subsection{Using branch filter functions}
 \label{sec:m:search:branch:filter}
