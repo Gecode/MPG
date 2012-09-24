@@ -183,14 +183,15 @@ assign the smallest value of the selected variable first
 \insertlitcode{send more money:post branching}
 
 A \emph{branching} is implemented by a \emph{brancher} (like a
-constraint is implemented by a propagator). A brancher creates a number of \emph{choices} where each
-choice is defined by a number of \emph{alternatives}. For
-example, the brancher posted above will create as many choices
-as needed to assign all variables in the integer variable array
-\?l?. Each of the choices is based on the variable selected by
-the brancher, say $x$, and the value selected by the brancher,
-say $n$. Then the alternatives of a choice are $x=n$ and $x\neq
-n$ and are tried by search in that order.
+constraint is implemented by a propagator). A brancher creates a
+number of \emph{choices} where each choice is defined by a number
+of \emph{alternatives}. For example, the brancher posted above
+will create as many choices as needed to assign all variables in
+the integer variable array \?l?. Each of the choices is based on
+the variable selected by the brancher, say $x$, and the value
+selected by the brancher, say $n$. Then the alternatives of a
+choice are $x=n$ and $x\neq n$ and are tried by search in that
+order.
 
 A space can have several branchers, where the brancher that is
 posted first is also used first for search. More information on

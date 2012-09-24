@@ -81,6 +81,10 @@ The posted brancher assigns all
 variables and then ceases to exist. If more branchers exist,
 search continues with the next brancher.
 
+The \?branch()? function also accepts a branch filter function as
+optional last argument, see \autoref{sec:m:search:branch:filter}
+for details.
+
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
@@ -179,7 +183,7 @@ discussed in \autoref{sec:m:search:branch:rnd}. An argument \?v?
 refers to a value selection function of type
 \gecoderef[typedef]{IntBranchVal} for integer variables and
 \gecoderef[typedef]{BoolBranchVal} for Boolean variables. An
-argument \?c? refers to a commit function of type
+optional argument \?c? refers to a commit function of type
 \gecoderef[typedef]{IntBranchCommit} for integer variables and of
 type \gecoderef[typedef]{BoolBranchCommit} for Boolean variables.
 Value and commit function are discussed in
@@ -422,48 +426,6 @@ Value and commit function are discussed in
 \autoref{sec:m:search:branch:user-val}.
 
 
-\subsection{Random variable and value selection}
-\label{sec:m:search:branch:rnd}
-
-One particular strategy for variable and value selection is by
-random. For integer and Boolean variables, \?INT_VAR_RND()?
-selects a random variable and \?INT_VAL_RND()? selects a random
-value.  For set variables, \?SET_VAR_RND()? selects a random
-variable and \?SET_VAL_RND_INC()? and \?SET_VAL_RND_EXC()? include
-and exclude a random value from a set variable. For float
-variables, \?FLOAT_VAR_RND? selects a random variable and
-\?FLOAT_VAL_SPLIT_RND? randomly selects the lower or upper half
-of the domain of a float variable.
-
-The random number generators used for random variable and value
-selection follow a uniform distribution and can be initialized by
-a seed value. In order to pass seed values, variable-value
-branching accepts optional arguments of type
-\gecoderef[class]{VarBranchOptions} and
-\gecoderef[class]{ValBranchOptions} (see
-\gecoderef[group]{TaskModelBranch}). These classes feature a
-member \?seed? that defines the seed value used for the random
-number generator.
-
-Both classes support the generation of seed values based on the
-current time or through hardware random number generators. The
-following selects both variables and values randomly and uses the
-current time as seed for both variable and value selection:
-\begin{code}
-branch(home, x, INT_VAR_RND(), INT_VAL_RND(),
-                VarBranchOptions::time(),
-                ValBranchOptions::time());
-\end{code}
-Likewise, the
-following selects both variables and values randomly and uses a
-hardware-based random number generator as seed for both variable
-and value selection:
-\begin{code}
-branch(home, x, INT_VAR_RND(), INT_VAL_RND(),
-                VarBranchOptions::hwrnd(),
-                ValBranchOptions::hwrnd());
-\end{code}
-
 \subsection{Local versus shared variable selection criteria}
 \label{sec:m:search:branch:shared}
 
@@ -550,9 +512,9 @@ a.decay(0.95);
 \end{code}
 and \?a.decay()? returns the current decay-factor of \?a?.
 
-A branching for integer variables using activity information must be given an object of
-type \?IntActivity? by providing an additional argument as
-follows: 
+A branching for integer variables using activity information must
+be given an object of type \?IntActivity? by providing an
+additional argument as follows:
 \begin{code}
 branch(home, x, INT_VAR_ACTIVITY_MAX(a), INT_VAL_MIN());
 \end{code}
@@ -564,12 +526,236 @@ Activity for other variable types is analogous.
 
 
 
+\subsection{Random variable and value selection}
+\label{sec:m:search:branch:rnd}
+
+One particular strategy for variable and value selection is by
+random. For integer and Boolean variables, \?INT_VAR_RND(r)?
+selects a random variable and \?INT_VAL_RND(r)? selects a random
+value where \?r? is a random number generator of class
+\gecoderef[class]{Rnd}.  For set variables, \?SET_VAR_RND(r)?
+selects a random variable and \?SET_VAL_RND_INC(r)? and
+\?SET_VAL_RND_EXC(r)? include and exclude a random value from a
+set variable. For float variables, \?FLOAT_VAR_RND(r)? selects a
+random variable and \?FLOAT_VAL_SPLIT_RND(r)? randomly selects
+the lower or upper half of the domain of a float variable.
+
+The random number generators used for random variable and value
+selection follow a uniform distribution and must be initialized by
+a seed value. For example, a random number generator \?r? is
+created and initialized with a seed value of \?1? (the seed value
+must be an \?unsigned int?) by
+\begin{code}
+Rnd r(1U);
+\end{code}T
+he seed value can be changed with the \?seed()? function (if
+needed, the \?seed()? function initializes the random number
+generator). For example, by
+\begin{code}
+r.seed(2U);
+\end{code}
+the seed value is set to \?2? (the \?seed()? function also
+expects an argument of type \?unsigned int?).
+
+A random number generator is passed by reference to the
+brancher. In the terms of \autoref{sec:m:integer:proper}, a
+random number generator is a proper data structure. When a random
+number generator is stored as a member of a space it must be
+updated by using the \?update()? function of the random number
+generator.
+
+It is possible to use the same random number generator for both
+variable and value selection. For example, by
+\begin{code}
+Rnd r(1U);
+branch(home, x, INT_VAR_RND(r), INT_VAL_RND(r));
+\end{code}
+both the variable in \?x? as well as its value is randomly
+selected using the numbers generated by \?r?. It is of course
+also possible to use two separate random number generators as in:
+\begin{code}
+Rnd r1(1U), r2(1U);
+branch(home, x, INT_VAR_RND(r1), INT_VAL_RND(r2));
+\end{code}
+
+
+
 \subsection{User-defined variable selection}
 \label{sec:m:search:branch:user-var}
+
+Variables can be selected according to user-defined criteria
+implemented as a \emph{merit function}. For integer variables,
+the type of the merit function is
+\gecoderef[typedef]{IntBranchMerit}, for Boolean variables
+\gecoderef[typedef]{BoolBranchMerit}, set set variables
+\gecoderef[typedef]{SetBranchMerit}, and for float variables
+\gecoderef[typedef]{FloatBranchMerit}. For integer variables, the
+type is defined as
+\begin{code}
+typedef double (*IntBranchMerit)(const Space& home, 
+                                 const IntVar& x, int i);
+\end{code}
+where \?home? refers to the home space, \?x? is the integer
+variable for which a merit value should be computed and \?i?
+refers to the position of \?x? in the integer variable array
+passed as argument to the \?branch()? function. The merit
+function types for Boolean, set, and float variables are
+analogous.
+
+For example, the following static merit function
+\begin{code}
+static double m(const Space& home, const IntVar& x, int i) {
+  return x.size();
+}
+\end{code}
+simply returns the domain size of the integer variable \?x? as
+merit value. The merit function can be used to select a
+variable with either smallest or largest merit value. By
+\begin{code}
+branch(home, INT_VAR_MIN(&m). INT_VAL_MIN());
+\end{code}
+a variable with least merit value according to the merit function
+\?m()? is selected (that is, the first variable in the array with
+smallest size). A variable with maximal merit value is selected
+by: 
+\begin{code}
+branch(home, INT_VAR_MAX(&m). INT_VAL_MIN());
+\end{code}
+
+\tip{Using a member function as merit function}{
+\label{tip:m:search:merit}%
+Often it is more convenient to use a const member function instead of a
+static function as a merit function. This is in particular the
+case when the merit function needs access to members of a
+script. For example, the following member function of a class
+\?Model? for a script (a subclass of \gecoderef[class]{Space}):
+\begin{code}
+double merit(const IntVar& x, int i) const {
+  return ...;
+}
+\end{code}
+is used when definining a static function as follows
+\begin{code}
+double trampoline(const Space& home, const IntVar& x, int i) {
+  return static_cast<const Model&>(home).merit(x,i);
+\end{code}
+and passing a pointer to \?trampoline()? as an argument to
+\?INT_VAR_MIN()? or \?INT_VAR_MAX()?.
+}
 
 
 \subsection{User-defined value selection}
 \label{sec:m:search:branch:user-val}
+
+
+The value selected for branching and how the selected value is
+used for branching can be defined by \emph{branch value
+  functions} and \emph{branch commit functions}. 
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l||l|l|}
+\hline
+Variable type & Value function type & Value type\\
+\hline\hline
+\gecoderef[class]{IntVar} & \gecoderef[typedef]{IntBranchVal} &
+\?int?\\\hline
+\gecoderef[class]{BoolVar} & \gecoderef[typedef]{BoolBranchVal} &
+\?int?\\\hline
+\gecoderef[class]{SetVar} & \gecoderef[typedef]{SetBranchVal} &
+\?int?\\\hline
+\gecoderef[class]{FloatVar} & \gecoderef[typedef]{FloatBranchVal}
+&\gecoderef[typedef]{FloatNum}\\\hline
+\end{tabular}
+\end{center}
+\caption{Branch value functions}
+\label{fig:m:search:val}
+\end{figure}
+
+A branch value function takes a constant reference to a space and
+a variable and returns a value, where the type of the value
+depends on the variable type. \autoref{fig:m:search:val} lists
+the branch value function types and the value types for the
+different variable types. For example, the type for value
+functions for integer variables is defined as:
+\begin{code}
+typedef int (*IntBranchVal)(const Space& home, const IntVar& x);
+\end{code}
+
+A branch commit function takes a reference to a space, the number
+of the alternative \?a? (\?0? for the first alternative and \?1?
+for the second alternative), a variable, and a value selected by
+a branch value function. For example, the type definition for
+branch commit functions for integer variables is:
+\begin{code}
+typedef void (*IntBranchCommit)(Space& home, unsigned int a,
+                                IntVar x, int n);
+\end{code}
+
+Let us consider \?INT_VAL_MIN()? implemented by value and
+commit functions. The value function can be defined as:
+\begin{code}
+static int v(const Space& home, const IntVar& x) {
+  return x.min();
+}
+\end{code}
+and the commit function as:
+\begin{code}
+static void c(Space& home, unsigned int a,
+              IntVar x, int n) {
+  if (a == 0U) {
+    rel(home, x, IRT_EQ, n);
+  } else {
+    rel(home, x, IRT_NQ, n);
+  }
+}
+\end{code}
+A branching using the value and commit function then can be
+posted by:
+\begin{code}
+branch(home, x, INT_VAR_NONE(), INT_VAL(&v,&c));
+\end{code}
+
+The commit function is optional. If the commit function is
+omitted, a default commit function depending on the variable type
+is used. For integer variables, for example, the commit function
+corresponds to the commit function from the previous
+example. Hence, it is sufficient to post the brancher as:
+\begin{code}
+branch(home, x, INT_VAR_NONE(), INT_VAL(&v));
+\end{code}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l||l|l|}
+\hline
+Variable type & Commit function type & Default\\
+\hline\hline
+\gecoderef[class]{IntVar} & \gecoderef[typedef]{IntBranchCommit} &
+$(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})$\\\hline
+\gecoderef[class]{BoolVar} & \gecoderef[typedef]{BoolBranchCommit} &
+$(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})$\\\hline
+\gecoderef[class]{SetVar} & \gecoderef[typedef]{SetBranchCommit} &
+$(\mathtt{n}\in\mathtt{x})\vee(\mathtt{n}\not\in\mathtt{x})$\\\hline
+\gecoderef[class]{FloatVar} &
+\gecoderef[typedef]{FloatBranchCommit}&
+$(\mathtt{x}\leq\mathtt{n})\vee(\mathtt{x}\geq\mathtt{n})$\\\hline
+\end{tabular}
+\end{center}
+\caption{Branch commit functions}
+\label{fig:m:search:commit}
+\end{figure}
+
+\autoref{fig:m:search:commit} lists the commit function types
+and the behavior of the default commit function for the different
+variable types. The variable \?x? refers to the variable selected
+by the brancher and \?n? to the value selected by the branch
+value function.
+
+Note that both value and commit functions can also be implemented
+as member functions, similar to merit functions as described in
+\autoref{tip:m:search:merit}.
+
 
 \subsection{Tie-breaking}
 \label{sec:m:search:branch:tie}
@@ -597,30 +783,11 @@ example, breaking ties by first selecting a variable with
 smallest domain and then selecting a random variable among those
 with smallest domain:
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND()),
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
                 INT_VAL_MIN());
 \end{code}
-
-\begin{samepage}
-To be able to pass seed values to a particular variable selection
-in tie-breaking, the
-\?tiebreak? function is also overloaded for the class
-\gecoderef[class]{VarBranchOptions}. For example,
-\begin{code}
-VarBranchOptions o;
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND()),
-                INT_VAL_MIN(),
-                tiebreak(o, VarBranchOptions::time()));
-\end{code}
-\end{samepage}
-passes a seed value based on the current time to the random
-variable selection used for tie-breaking. The same can also be achieved by
-\begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND()),
-                INT_VAL_MIN(),
-                tiebreak(VarBranchOptions:def, 
-                         VarBranchOptions::time()));
-\end{code}
+Here, \?r? must be a random number generator as discussed in
+\autoref{sec:m:search:branch:rnd}.
 
 
 \subsection{Using tie-breaking limits}
@@ -638,22 +805,23 @@ variable to be branched on. If the filter function returns
 \?true?, the variable is considered for branching. Otherwise, the
 variable is simply ignored.
 
-A branch filter function can be specified when a branching is
-posted. The filter function to be used by a branching can be
-passed by creating an object of class
-\gecoderef[class]{VarBranchOptions} (see
-\gecoderef[group]{TaskModelBranch}) and passing that object to
-the \?branch()? function.
+A branch filter function can be passed as the last (optional)
+argument when calling the \?branch()? function. 
 
-A branch filter function is of type \?BranchFilter? (see
-\gecoderef[group]{TaskModelBranch}) defined as
+The type of a branch filter function depends on the variable
+type. For integer variables, the type
+\gecoderef[typedef]{IntBranchFilter} is defined as
 \begin{code}
-typedef bool (*BranchFilter)(const Space& home, int i, const Var& y);
+typedef bool (*IntBranchFilter)(const Space& home,
+                                const IntVar& x, int i);
 \end{code}
 That is, a branch filter function takes the \?home? space and the
-position \?i? of the variable \?y? as argument. The position \?i?
-refers to the position of the variable \?y? in the array of
-variables used for posting the branching.
+position \?i? of the variable \?x? as argument. The position \?i?
+refers to the position of the variable \?x? in the array of
+variables used for posting the branching. For Boolean variables,
+the type is \gecoderef[typedef]{BoolBranchFilter}, for set
+variables \gecoderef[typedef]{SetBranchFilter}, and for float
+variables \gecoderef[typedef]{FloatBranchFilter}.
 
 \begin{litcode}[texonly]{branch filter function sketch}
 class Model : public Space {
@@ -664,15 +832,14 @@ public:
     \begin{litblock}{anonymous}
     \end{litblock}
     \begin{litblock}{post branching}
-    VarBranchOptions o(&filter);
-    branch(home, x, ..., ..., o);
+    branch(home, x, ..., ..., &filter);
     \end{litblock}
   }
   \begin{litblock}{anonymous}
   \end{litblock}
   \begin{litblock}{define filter function}
-  static bool filter(const Space& home, int i, const Var& y) {
-    return static_cast<const IntVar&>(y).size() >= 4;
+  static bool filter(const Space& home, const IntVar& y, int i) {
+    return y.size() >= 4;
   }
   \end{litblock}
 };
@@ -692,58 +859,17 @@ least \?4?. Consider the sketch of a model shown in
 The branch filter function can be defined as a static member
 function of the class \?Model? as follows:
 \insertlitcode{branch filter function sketch:define filter function}
-Note that the variable \?y? must first be cast to the variable
-type used for branching (\gecoderef[class]{IntVar} in our case).
 
 Specifying that the branching should use the filter function is done
 as follows:
 \insertlitcode{branch filter function sketch:post branching}
 
-One could also use the member \?bf? of a variable branch option
-to set a branch filter function:
-\begin{code}
-VarBranchOptions o;
-o.bf = &filter;
-branch(home, x, ..., ..., o);
-\end{code}
-
 In many cases it can be more convenient to perform the actual
-filtering in a \?const? member function, say \?filter()?, that
-has access to all members of the script \?Model?. Then, the
-\?filter()? member function can be called by some other static
-member function:
-\begin{code}
-bool filter(int i, const IntVar& y) const {
-  ...
-}
-static bool trampoline(const Space& home, int i, const Var& y) {
-  return static_cast<const Model&>(home)
-           .filter(i,static_cast<const IntVar&>(y));
-}
-\end{code}
-where the function \?trampoline()? now serves as branch filter
-function. 
-
-\paragraph{Branch filter functions and tie-breaking.}
-
-Tie-breaking requires that several objects of class
-\gecoderef[class]{VarBranchOptions} are combined via the
-\?tiebreak()? function (see
-\autoref{sec:m:search:branch:tie}). However, the branch filter
-function (if defined) is always taken from the first object. That
-is, when defining option objects by
-\begin{code}
-VarBranchOptions o1(&f1), o2(&f2);
-\end{code}
-and passing them by
-\begin{code}
-branch(home, x, tiebreak(..., ...), ...,
-                tiebreak(o1,o2));
-\end{code}
-the branch filter function \?f1()? is used.
+filtering in a \?const? member function. This can be done along
+the lines of \autoref{tip:m:search:merit}.
 
 
-\subsection{Assigning integer, set, and float variables}
+\subsection{Assigning integer, Boolean, set, and float variables}
 \label{sec:m:search:branch:assign}
 
 A special variant of branching is \emph{assigning} variables: for
@@ -759,29 +885,35 @@ assignment has been propagated.
 
 \subfigure{
 \begin{tabular}{l@{\quad}l}
-\?INT_ASSIGN_MIN? & smallest value\\
-\?INT_ASSIGN_MED? & median value (rounding downwards)\\
-\?INT_ASSIGN_MAX? & maximum value\\
-\?INT_ASSIGN_RND? & random value\\
+\?INT_ASSIGN_MIN()?  & smallest value\\
+\?INT_ASSIGN_MED()?  & median value (rounding downwards)\\
+\?INT_ASSIGN_MAX()?  & maximum value\\
+\?INT_ASSIGN_RND(r)? & random value\\
+\?INT_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
+\?v? and commit function \?c?\\
 \end{tabular}}
 
 \subfigure{
 \begin{tabular}{l@{\quad}l}
-\?SET_ASSIGN_MIN_INC? & include smallest element\\
-\?SET_ASSIGN_MIN_EXC? & exclude smallest element\\
-\?SET_ASSIGN_MED_INC? & include median element (rounding downwards)\\
-\?SET_ASSIGN_MED_EXC? & exclude median element (rounding downwards)\\
-\?SET_ASSIGN_MAX_INC? & include largest element\\
-\?SET_ASSIGN_MAX_EXC? & exclude largest element\\
-\?SET_ASSIGN_RND_INC? & include random element\\
-\?SET_ASSIGN_RND_EXC? & exclude random element\\
+\?SET_ASSIGN_MIN_INC()? & include smallest element\\
+\?SET_ASSIGN_MIN_EXC()? & exclude smallest element\\
+\?SET_ASSIGN_MED_INC()? & include median element (rounding downwards)\\
+\?SET_ASSIGN_MED_EXC()? & exclude median element (rounding downwards)\\
+\?SET_ASSIGN_MAX_INC()? & include largest element\\
+\?SET_ASSIGN_MAX_EXC()? & exclude largest element\\
+\?SET_ASSIGN_RND_INC(r)? & include random element\\
+\?SET_ASSIGN_RND_EXC(r)? & exclude random element\\
+\?SET_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
+\?v? and commit function \?c?\\
 \end{tabular}}
 
 \subfigure{
 \begin{tabular}{l@{\quad}l}
-\?FLOAT_ASSIGN_MIN? & median value of lower part\\
-\?FLOAT_ASSIGN_MAX? & median value of upper part\\
-\?FLOAT_ASSIGN_RND? & median value of randomly chosen part\\
+\?FLOAT_ASSIGN_MIN()? & median value of lower part\\
+\?FLOAT_ASSIGN_MAX()? & median value of upper part\\
+\?FLOAT_ASSIGN_RND(r)? & median value of randomly chosen part\\
+\?FLOAT_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
+\?v? and commit function \?c?\\
 \end{tabular}}
 
 \end{center}
@@ -792,20 +924,41 @@ assignment has been propagated.
 For example, the next code fragment assigns all integer variables
 in \?x?  their smallest possible value:
 \begin{code}
-assign(home, x, INT_ASSIGN_MIN);
+assign(home, x, INT_ASSIGN_MIN());
 \end{code}
 The strategy to select the value to be assigned is defined by a
-value of type \?IntAssign?  (see
-\gecoderef[group]{TaskModelIntAssign}) for integer and Boolean
-variables, by a value of type \?SetAssign?  (see
-\gecoderef[group]{TaskModelSetAssign}), and by a value of type
-\?FloatAssign? (see \gecoderef[group]{TaskModelFloatAssign}).
-\autoref{fig:m:search:assign} summarizes the value selection
-strategies for assigning integer, Boolean, and set variables.
+value of class \gecoderef[class]{IntAssign} (see also (see also
+\gecoderef[group]{TaskModelIntBranchAssign}) for integer and
+Boolean variables, by a value of class
+\gecoderef[class]{SetAssign} (see also (see also
+\gecoderef[group]{TaskModelSetBranchAssign}) for set variables,
+and by a value of class \gecoderef[class]{FloatAssign} (see also
+(see also \gecoderef[group]{TaskModelFloatBranchAssign}) for
+float variables.  
 
-Assignments also support random value selection and hence also
-accept an optional argument of type
-\gecoderef[class]{ValBranchOptions}.
+\autoref{fig:m:search:assign} summarizes the
+value selection strategies for assigning integer, Boolean, set,
+and float variables. Here, an argument \?r? refers to
+a random number generator of type \gecoderef[class]{Rnd} which is
+discussed in \autoref{sec:m:search:branch:rnd}. An argument \?v?
+refers to a value selection function of type
+\gecoderef[typedef]{IntBranchVal} for integer variables,
+\gecoderef[typedef]{BoolBranchVal} for Boolean variables,
+\gecoderef[typedef]{SetBranchVal} for set variables, and
+\gecoderef[typedef]{FloatBranchVal} for float variables. An
+optional argument \?c? refers to a commit function of type
+\gecoderef[typedef]{IntBranchCommit} for integer variables, of
+type \gecoderef[typedef]{BoolBranchCommit} for Boolean variables,
+of type \gecoderef[typedef]{SetBranchCommit} for set variables,
+and of type \gecoderef[typedef]{FloatBranchCommit} for float variables.
+Value and commit function can be used in the same way for
+assigning than for branching as described in
+\autoref{sec:m:search:branch:user-val}. The only difference is
+that the number of the alternative passed to the commit function
+is always zero (as there is only a single alternative). 
+
+An assignment also accepts a branch filter function as described
+in \autoref{sec:m:search:branch:filter}.
 
 \subsection{Branching on and assigning single variables}
 \label{sec:m:search:single}
