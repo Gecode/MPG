@@ -65,7 +65,7 @@ Boolean variables.
 \end{important}
 
 Gecode offers predefined \emph{variable-value branching}: when
-calling \?branch? to post a branching, the third argument defines
+calling \?branch()? to post a branching, the third argument defines
 which variable is selected for branching, whereas the fourth
 argument defines which values are selected for branching. For
 example, for an array of integer or Boolean variables \?x? the
@@ -122,22 +122,28 @@ maximum-regret\\
 \end{figure}
 
 For integer and Boolean variables, variable selection is defined
-by a value of class \gecoderef[class]{IntVarBranch} (see also
-\gecoderef[group]{TaskModelIntBranchVar}) and value selection is defined
-by a value of type \gecoderef[class]{IntValBranch}  (see also
-\gecoderef[group]{TaskModelIntBranchVal}). 
+by a value of class \gecoderef[class]{IntVarBranch} and value
+selection is defined by a value of type
+\gecoderef[class]{IntValBranch}. Values of these types are
+obtained by calling functions (possibly taking arguments) that
+correspond to variable and value selection strategies. For
+example, a call \?INT_VAR_SIZE_MIN()? returns an object of class
+\gecoderef[class]{IntVarBranch}.
+
 
 For an overview of the available variable selection strategies,
-see \autoref{fig:m:search:int:var}. Here, an argument \?r? refers
+see \autoref{fig:m:search:int:var} (see also
+\gecoderef[group]{TaskModelIntBranchVar}) where \OptArg{$\cdot$} denotes
+an optional argument. Here, an argument \?r? refers
 to a random number generator of type
 \gecoderef[class]{Rnd}. Using random number generators for
 branching is discussed in
-\autoref{sec:m:search:branch:rnd}. The argument \?m? refers to a
+\autoref{sec:m:search:branch:rnd}. An argument \?m? refers to a
 user-defined merit function of type
 \gecoderef[typedef]{IntBranchMerit} for integer variables and
 \gecoderef[typedef]{BoolBranchMerit} for Boolean
 variables. User-defined merit functions are discussed in \autoref{sec:m:search:branch:user-var}.
-The argument \?a? refers to
+An argument \?a? refers to
 activity information for integer variables (of type
 \gecoderef[class]{IntActivity}) or Boolean variables (of type
 \gecoderef[class]{BoolActivity}). For a discussion of activity,
@@ -177,7 +183,9 @@ several ranges;\\
 
 An overview of the available value selection strategies for
 integer and Boolean variables can be found in
-\autoref{fig:m:search:int:val}. Here, an argument \?r? refers to
+\autoref{fig:m:search:int:val} (see also
+\gecoderef[group]{TaskModelIntBranchVal}) where \OptArg{$\cdot$} denotes
+an optional argument. Here, an argument \?r? refers to
 a random number generator of type \gecoderef[class]{Rnd} which is
 discussed in \autoref{sec:m:search:branch:rnd}. An argument \?v?
 refers to a value selection function of type
@@ -188,6 +196,11 @@ optional argument \?c? refers to a commit function of type
 type \gecoderef[typedef]{BoolBranchCommit} for Boolean variables.
 Value and commit function are discussed in
 \autoref{sec:m:search:branch:user-val}.
+
+Note that variable-value branchers are just common cases for
+branching based on the idea of selecting variables and values. In
+Gecode also arbitrary other branchers can be programmed, see
+\autoref{part:b}.
 
 \tip{Variables are re-selected during branching}{
 \label{tip:m:search:reselected}
@@ -285,14 +298,15 @@ by a value of type \gecoderef[class]{SetValBranch}  (see also
 \gecoderef[group]{TaskModelSetBranchVal}). 
 
 For an overview of the available variable selection strategies,
-see \autoref{fig:m:search:set:var}. Here, an argument \?r? refers
+see \autoref{fig:m:search:set:var} where \OptArg{$\cdot$} denotes
+an optional argument. Here, an argument \?r? refers
 to a random number generator of type
 \gecoderef[class]{Rnd}. Using random number generators for
 branching is discussed in
-\autoref{sec:m:search:branch:rnd}. The argument \?m? refers to a
+\autoref{sec:m:search:branch:rnd}. An argument \?m? refers to a
 user-defined merit function of type
 \gecoderef[typedef]{SetBranchMerit}. User-defined merit functions are discussed in \autoref{sec:m:search:branch:user-var}.
-The argument \?a? refers to
+An argument \?a? refers to
 activity information for set variables (of type
 \gecoderef[class]{SetActivity}). For a discussion of activity,
 see \autoref{sec:m:search:branch:shared}. The optional argument
@@ -321,12 +335,13 @@ function \?c?\\
 \end{figure}
 
 An overview of the available value selection strategies for set
-variables can be found in \autoref{fig:m:search:set:val}. Here,
+variables can be found in \autoref{fig:m:search:set:val} where \OptArg{$\cdot$} denotes
+an optional argument. Here,
 an argument \?r? refers to a random number generator of type
 \gecoderef[class]{Rnd} which is discussed in
 \autoref{sec:m:search:branch:rnd}. An argument \?v? refers to a
 value selection function of type
-\gecoderef[typedef]{SetBranchVal}. An argument \?c? refers to a
+\gecoderef[typedef]{SetBranchVal}. An optional argument \?c? refers to a
 commit function of type \gecoderef[typedef]{SetBranchCommit}.
 Value and commit function are discussed in
 \autoref{sec:m:search:branch:user-val}.
@@ -381,14 +396,15 @@ by a value of type \gecoderef[class]{FloatValBranch}  (see also
 \gecoderef[group]{TaskModelFloatBranchVal}). 
 
 For an overview of the available variable selection strategies,
-see \autoref{fig:m:search:float:var}. Here, an argument \?r?
+see \autoref{fig:m:search:float:var} where \OptArg{$\cdot$} denotes
+an optional argument. Here, an argument \?r?
 refers to a random number generator of type
 \gecoderef[class]{Rnd}. Using random number generators for
 branching is discussed in \autoref{sec:m:search:branch:rnd}. The
 argument \?m? refers to a user-defined merit function of type
 \gecoderef[typedef]{FloatBranchMerit}. User-defined merit
 functions are discussed in
-\autoref{sec:m:search:branch:user-var}.  The argument \?a? refers
+\autoref{sec:m:search:branch:user-var}.  An argument \?a? refers
 to activity information for float variables (of type
 \gecoderef[class]{FloatActivity}). For a discussion of activity,
 see \autoref{sec:m:search:branch:shared}. The optional argument
@@ -415,12 +431,13 @@ of smallest and largest value\\
 \end{figure}
 
 An overview of the available value selection strategies for float
-variables can be found in \autoref{fig:m:search:float:val}. Here,
+variables can be found in \autoref{fig:m:search:float:val} where \OptArg{$\cdot$} denotes
+an optional argument. Here,
 an argument \?r? refers to a random number generator of type
 \gecoderef[class]{Rnd} which is discussed in
 \autoref{sec:m:search:branch:rnd}. An argument \?v? refers to a
 value selection function of type
-\gecoderef[typedef]{FloatBranchVal}. An argument \?c? refers to a
+\gecoderef[typedef]{FloatBranchVal}. An optional argument \?c? refers to a
 commit function of type \gecoderef[typedef]{FloatBranchCommit}.
 Value and commit function are discussed in
 \autoref{sec:m:search:branch:user-val}.
@@ -430,7 +447,7 @@ Value and commit function are discussed in
 \label{sec:m:search:branch:shared}
 
 The criteria used for selecting variables are either \emph{local}
-or \emph{shared} criteria. A \emph{local} variable selection
+or \emph{shared}. A \emph{local} variable selection
 criterion depends only on a brancher's home space. A
 \emph{shared} variable selection criterion depends not only on
 the brancher's home space but also on all spaces that have been
@@ -444,10 +461,13 @@ criterion depends on all equivalent spaces created by cloning.
 
 All selection criteria but those based on \emph{AFC} and
 \emph{activity} are local: they either select variables without
-using any information on a
-variable (\?INT_VAR_NONE()?), select variables randomly
-(\?INT_VAR_RND(r)?, see also \autoref{sec:m:search:branch:rnd}), or
-use the degree or domain of a variable for selection.
+using any information on a variable (\?INT_VAR_NONE()?), select
+variables randomly (\?INT_VAR_RND(r)?, see also
+\autoref{sec:m:search:branch:rnd}), or use the degree or domain
+of a variable for selection. The user-defined selection criteria
+\?INT_VAR_MIN()? and \?INT_VAR_MAX()? in addition have access to
+the home space and the selected variable's position, see
+\autoref{sec:m:search:branch:user-var} for details.
 
 The \emph{degree} of a variable is the number of propagators
 depending on the variable (useful as an approximate measure of
@@ -478,7 +498,7 @@ The activity of a variable is maintained by constraint
 propagation as follows. Each time constraint propagation finishes
 during search (by executing the \?status()? function of a space,
 see also \autoref{tip:m:started:status}), the activity of a
-variable $\mathtt x$ is updated as follows~\cite{activity}:
+variable $\mathtt x$ is updated~\cite{activity}:
 \begin{itemize}
 \item If the variable \?x? has not been pruned (that is, no
   values have been removed from the domain of \?x? through
@@ -506,15 +526,14 @@ initializes the activity information \?a? for the variables in \?x?
 with decay-factor $\gamma=\mathtt{0.99}$. 
 
 The decay-factor can
-later be changed, say to $\gamma=\mathtt{0.95}$, by
+be changed later, say to $\gamma=\mathtt{0.95}$, by
 \begin{code}
 a.decay(0.95);
 \end{code}
 and \?a.decay()? returns the current decay-factor of \?a?.
 
 A branching for integer variables using activity information must
-be given an object of type \?IntActivity? by providing an
-additional argument as follows:
+be given an object of type \?IntActivity? as argument:
 \begin{code}
 branch(home, x, INT_VAR_ACTIVITY_MAX(a), INT_VAL_MIN());
 \end{code}
@@ -547,8 +566,8 @@ created and initialized with a seed value of \?1? (the seed value
 must be an \?unsigned int?) by
 \begin{code}
 Rnd r(1U);
-\end{code}T
-he seed value can be changed with the \?seed()? function (if
+\end{code}
+The seed value can be changed with the \?seed()? function (if
 needed, the \?seed()? function initializes the random number
 generator). For example, by
 \begin{code}
@@ -570,7 +589,7 @@ variable and value selection. For example, by
 Rnd r(1U);
 branch(home, x, INT_VAR_RND(r), INT_VAL_RND(r));
 \end{code}
-both the variable in \?x? as well as its value is randomly
+both the variable in \?x? as well as its value are randomly
 selected using the numbers generated by \?r?. It is of course
 also possible to use two separate random number generators as in:
 \begin{code}
@@ -587,13 +606,12 @@ Variables can be selected according to user-defined criteria
 implemented as a \emph{merit function}. For integer variables,
 the type of the merit function is
 \gecoderef[typedef]{IntBranchMerit}, for Boolean variables
-\gecoderef[typedef]{BoolBranchMerit}, set set variables
+\gecoderef[typedef]{BoolBranchMerit}, for set variables
 \gecoderef[typedef]{SetBranchMerit}, and for float variables
 \gecoderef[typedef]{FloatBranchMerit}. For integer variables, the
 type is defined as
 \begin{code}
-typedef double (*IntBranchMerit)(const Space& home, 
-                                 const IntVar& x, int i);
+typedef double (*IntBranchMerit)(const Space& home, IntVar x, int i);
 \end{code}
 where \?home? refers to the home space, \?x? is the integer
 variable for which a merit value should be computed and \?i?
@@ -604,22 +622,22 @@ analogous.
 
 For example, the following static merit function
 \begin{code}
-static double m(const Space& home, const IntVar& x, int i) {
+static double m(const Space& home, IntVar x, int i) {
   return x.size();
 }
 \end{code}
 simply returns the domain size of the integer variable \?x? as
-merit value. The merit function can be used to select a
+the merit value. The merit function can be used to select a
 variable with either smallest or largest merit value. By
 \begin{code}
-branch(home, INT_VAR_MIN(&m). INT_VAL_MIN());
+branch(home, INT_VAR_MIN(&m), INT_VAL_MIN());
 \end{code}
 a variable with least merit value according to the merit function
 \?m()? is selected (that is, the first variable in the array with
 smallest size). A variable with maximal merit value is selected
 by: 
 \begin{code}
-branch(home, INT_VAR_MAX(&m). INT_VAL_MIN());
+branch(home, INT_VAR_MAX(&m), INT_VAL_MIN());
 \end{code}
 
 \tip{Using a member function as merit function}{
@@ -630,13 +648,13 @@ case when the merit function needs access to members of a
 script. For example, the following member function of a class
 \?Model? for a script (a subclass of \gecoderef[class]{Space}):
 \begin{code}
-double merit(const IntVar& x, int i) const {
+double merit(IntVar x, int i) const {
   return ...;
 }
 \end{code}
 is used when defining a static function as follows
 \begin{code}
-double trampoline(const Space& home, const IntVar& x, int i) {
+double trampoline(const Space& home, IntVar x, int i) {
   return static_cast<const Model&>(home).merit(x,i);
 \end{code}
 and passing a pointer to \?trampoline()? as an argument to
@@ -672,37 +690,40 @@ Variable type & Value function type & Value type\\
 \label{fig:m:search:val}
 \end{figure}
 
-A branch value function takes a constant reference to a space and
-a variable and returns a value, where the type of the value
-depends on the variable type. \autoref{fig:m:search:val} lists
-the branch value function types and the value types for the
-different variable types. For example, the type for value
-functions for integer variables is defined as:
+A branch value function takes a constant reference to a space, a
+variable, and the variable's position and returns a value, where
+the type of the value depends on the variable type.
+\autoref{fig:m:search:val} lists the branch value function types
+and the value types for the different variable types. For
+example, the type \gecoderef[typedef]{IntBranchVal} for value functions for integer variables is
+defined as:
 \begin{code}
-typedef int (*IntBranchVal)(const Space& home, const IntVar& x);
+typedef int (*IntBranchVal)(const Space& home, IntVar x, int i);
 \end{code}
 
 A branch commit function takes a reference to a space, the number
 of the alternative \?a? (\?0? for the first alternative and \?1?
-for the second alternative), a variable, and a value selected by
-a branch value function. For example, the type definition for
-branch commit functions for integer variables is:
+for the second alternative), a variable, the variable's position,
+and a value selected by a branch value function. For example, the
+type \gecoderef[typedef]{IntBranchCommit} for branch commit
+functions for integer variables is defined as:
 \begin{code}
 typedef void (*IntBranchCommit)(Space& home, unsigned int a,
-                                IntVar x, int n);
+                                IntVar x, int i, int n);
 \end{code}
 
-Let us consider \?INT_VAL_MIN()? implemented by value and
-commit functions. The value function can be defined as:
+Let us consider \?INT_VAL_MIN()? as an example, but
+re-implemented by value and commit functions. The value function
+can be defined as:
 \begin{code}
-static int v(const Space& home, const IntVar& x) {
+static int v(const Space& home, IntVar x, int i) {
   return x.min();
 }
 \end{code}
 and the commit function as:
 \begin{code}
 static void c(Space& home, unsigned int a,
-              IntVar x, int n) {
+              IntVar x, int i, int n) {
   if (a == 0U) {
     rel(home, x, IRT_EQ, n);
   } else {
@@ -773,7 +794,7 @@ A typical example for integer variables is to select a most
 constrained variable first (the variable most propagators depend
 on, that is, with largest degree). Then, among the most
 constrained variables select the variable with the smallest
-domain. This can be achieved by using a \?tiebreak()?  function:
+domain. This can be achieved by using the \?tiebreak()?  function:
 \begin{code}
 branch(home, x, tiebreak(INT_VAR_DEGREE_MAX(), INT_VAR_SIZE_MIN()),
                 INT_VAL_MIN());
@@ -785,7 +806,7 @@ variable selection values.
 Random selection is particularly interesting for tie-breaking. For
 example, breaking ties by first selecting a variable with
 smallest domain and then selecting a random variable among those
-with smallest domain:
+with smallest domain is obtained by:
 \begin{code}
 branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
                 INT_VAL_MIN());
@@ -795,8 +816,8 @@ Here, \?r? must be a random number generator as discussed in
 
 \paragraph{Using tie-breaking limit functions.}
 
-In the discussion so-far only exact ties have been considered.
-Often it necessary to consider several variables as ties even
+In the discussion so far only exact ties have been considered.
+Often it is necessary to consider several variables as ties even
 though some of them are not among the best variables. 
 Which variables are considered as ties can be controlled by
 \emph{tie-breaking limit functions}.
@@ -806,8 +827,8 @@ A tie-breaking limit function has the type
 \begin{code}
 typedef double (*BranchTbl)(const Space& home, double w, double b);
 \end{code}
-The function takes a constant reference to a space \?home? and
-the worst merit value \?w? and the best merit value \?b? as
+The function takes a constant reference to a space \?home?,
+the worst merit value \?w?, and the best merit value \?b? as
 arguments. The value returned by the function determines which
 variables are considered as ties.
 
@@ -820,7 +841,7 @@ $$
 \mbox{\?x[2]?}\in\{1,2,4\}\qquad
 \mbox{\?x[3]?}\in\{1,2,3,4,5,6,7\}
 $$
-Without the use of a tie-breaking limit function tie breaking as
+Without the use of a tie-breaking limit function as
 in (here, \?r? is a random number generator):
 \begin{code}
 branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
@@ -840,13 +861,12 @@ The following tie-breaking limit function (defined as a static
 member function of a script, see also
 \autoref{tip:m:search:merit}):
 \begin{code}
-static double tbl(const Space& home,
-                  double w, double b) {
+static double tbl(const Space& home, double w, double b) {
   return (w + b) / 2.0;
 }
 \end{code}
 returns the average of the worst merit value \?w? and the best
-marit value \?b?. Using the function \?tbl()? for tie-breaking is
+merit value \?b?. Using the function \?tbl()? for tie-breaking is
 done by passing it as additional argument. 
 
 For example, when using \?tbl()? with
@@ -871,7 +891,7 @@ only variable \?x[3]? is considered for tie-breaking.
 
 Note that worse and best depends on whether the variable
 selection tries to minimize or maximize the merit value. If a
-tie-breaking limit function returns a value that is worse that
+tie-breaking limit function returns a value that is worse than
 the worst merit value, all variables are considered for
 tie-breaking. If a function returns a value that is better than
 the best value, the returned value is ignored and the best value
@@ -897,8 +917,7 @@ The type of a branch filter function depends on the variable
 type. For integer variables, the type
 \gecoderef[typedef]{IntBranchFilter} is defined as
 \begin{code}
-typedef bool (*IntBranchFilter)(const Space& home,
-                                const IntVar& x, int i);
+typedef bool (*IntBranchFilter)(const Space& home, IntVar x, int i);
 \end{code}
 That is, a branch filter function takes the \?home? space and the
 position \?i? of the variable \?x? as argument. The position \?i?
@@ -923,7 +942,7 @@ public:
   \begin{litblock}{anonymous}
   \end{litblock}
   \begin{litblock}{define filter function}
-  static bool filter(const Space& home, const IntVar& y, int i) {
+  static bool filter(const Space& home, IntVar y, int i) {
     return y.size() >= 4;
   }
   \end{litblock}
