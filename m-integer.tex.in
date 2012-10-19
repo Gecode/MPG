@@ -587,7 +587,7 @@ applies the function \?f()? to each integer variable in \?a?.
 This section provides information about general principles for
 posting constraints over integer and Boolean variables.
 
-\paragraph{Post functions are clever.}
+\subsection{Post functions are clever}
 
 A constraint post function carefully analyzes its
 arguments. Based on this analysis, the constraint post function
@@ -602,7 +602,7 @@ distinct(home, x);
 where \?x? has two elements, the much more efficient propagator
 for disequality $\mathtt{x}_0 \neq \mathtt{x}_1$ is created.
 
-\paragraph{Everything is copied.}
+\subsection{Everything is copied}
 
 When passing arguments to a post function, all data structures
 that are needed for creating a propagator (or several
@@ -610,17 +610,118 @@ propagators) implementing a constraint are copied. That is, none
 of the data structures that are passed as arguments are needed
 after a constraint has been posted.
 
-\paragraph{Reified constraints.}
+\subsection{Reified constraints}
+\label{sec:m:integer:reify}
 
-Many constraints also exist as a \emph{reified} variant: the
+Many constraints also exist as \emph{reified} variants: the
 validity of a constraint is reflected to a Boolean control
-variable (reified constraints are also known as meta-constraints).
+variable (reified constraints are also known as
+meta-constraints). In addition to full reification also half
+reification~\cite{HalfReify} is supported for reified constraints.
 Whether a reified version exists for a given constraint can be
 found in the reference documentation. If a reified version does
-exist, the Boolean control variable is passed as the last
-non-optional argument.
+exist, the Boolean control variable (and possibly information
+about the reification mode) is passed as the last
+non-optional argument (the story is a little bit more complicated
+than that and is discussed in the following paragraph on half
+reification).
 
-\paragraph{Selecting the consistency level.}
+For example, posting
+\begin{code}
+rel(home, x, IRT_EQ, y, b);
+\end{code}
+for integer variables \?x? and \?y? and the Boolean control
+variable \?b? creates a propagator for the reified constraint
+$\reifyeqv{\mathtt{b}}{\mathtt{x}=\mathtt{y}}$ that propagates
+according to the following rules:
+\begin{itemize}
+\item If \?b? is assigned to \?1?, the constraint
+  $\mathtt{x}=\mathtt{y}$ is propagated.
+\item If \?b? is assigned to \?0?, the constraint
+  $\mathtt{x}\neq\mathtt{y}$ is propagated.
+\item If the constraint $\mathtt{x}=\mathtt{y}$ holds, then
+  $\mathtt{b}=\mathtt{1}$ is propagated.
+\item If the constraint $\mathtt{x}\neq\mathtt{y}$ holds, then
+  $\mathtt{b}=\mathtt{0}$ is propagated.
+\end{itemize}
+
+\subsection{Half reification}
+\label{sec:m:integer:halfreify}
+
+Reification as discussed in the previous paragraph is also know
+as \emph{full} reification as it propagates a full equivalence
+between the constraint $c$ and the constraint that a Boolean
+control variable is equal to \?1?. \emph{Half reification}
+propagates one direction of the
+equivalence~\cite{HalfReify}. Half reification can be used by
+passing an object of class \gecoderef[class]{Reify} that combines
+a Boolean control variable and a \emph{reification mode} of type
+\?ReifyMode? (see \gecoderef[group]{TaskModelInt}).
+
+For example, the half reified constraint
+$\reifyimp{\mathtt{b}}{\mathtt{x}=\mathtt{y}}$ for
+integer variables \?x? and \?y? and a Boolean control variable
+\?b? can be posted by 
+\begin{code}
+Reify r(b, RM_IMP);
+rel(home, x, IRT_EQ, y, r);
+\end{code}
+and is propagated as follows (\?RM_IMP? suggests \emph{implication}):
+\begin{itemize}
+\item If \?b? is assigned to \?1?, the constraint
+  $\mathtt{x}=\mathtt{y}$ is propagated.
+\item If the constraint $\mathtt{x}\neq\mathtt{y}$ holds, then
+  $\mathtt{b}=\mathtt{0}$ is propagated.
+\end{itemize}
+
+Likewise, the half reified constraint
+$\reifypmi{\mathtt{b}}{\mathtt{x}=\mathtt{y}}$ for
+integer variables \?x? and \?y? and a Boolean control variable
+\?b? can be posted by
+\begin{code}
+Reify r(b, RM_PMI);
+rel(home, x, IRT_EQ, y, r);
+\end{code}
+and is propagated as follows (\?RM_PMI? suggests \emph{inverse implication}):
+\begin{itemize}
+\item If \?b? is assigned to \?0?, the constraint
+  $\mathtt{x}\neq\mathtt{y}$ is propagated.
+\item If the constraint $\mathtt{x}=\mathtt{y}$ holds, then
+  $\mathtt{b}=\mathtt{1}$ is propagated.
+\end{itemize}
+
+Full reification can be requested by the reification mode
+\?RM_EQV? (for equivalence) as follows:
+\begin{code}
+Reify r(b, RM_EQV);
+rel(home, x, IRT_EQ, y, r);
+\end{code}
+As the constructor for \gecoderef[class]{Reify} has \?RM_EQV? as
+default value for its second argument, this can be written
+shorter as:
+\begin{code}
+Reify r(b);
+rel(home, x, IRT_EQ, y, r);
+\end{code}
+or even shorter as:
+\begin{code}
+rel(home, x, IRT_EQ, y, b);
+\end{code}
+
+For convenience, three functions \?eqv()?, \?imp()?, and \?pmi()?
+exist that take a Boolean variable and return a corresponding
+object of class \gecoderef[class]{Reify}. For example, instead of
+writing:
+\begin{code}
+Reify r(b, RM_IMP);
+rel(home, x, IRT_EQ, y, r);
+\end{code}
+one can write more concisely:
+\begin{code}
+rel(home, x, IRT_EQ, y, imp(b));
+\end{code}
+
+\subsection{Selecting the consistency level}
 \label{sec:m:integer:icl}
 
 For many constraints, Gecode provides different propagators with
@@ -676,13 +777,13 @@ complexity to perform bounds propagation (that is, \?ICL_BND?) is
 $O(n)$ whereas the complexity for domain propagation (that is,
 \?ICL_DOM?) is $O(d^n)$.  }
 
-\paragraph{Exceptions.}
+\subsection{Exceptions}
 
 Many post functions check their arguments for consistency before
 attempting to create a propagator. For each post function, the
 reference documentation lists which exceptions might be thrown.
 
-\paragraph{Unsharing arguments.}
+\subsection{Unsharing arguments}
 
 Some constraints can only deal with \emph{non-shared} variable
 arrays: a variable is not allowed to appear more than once in the

@@ -43,7 +43,7 @@ Obviously, there are two different approaches to realize \?samedom?:
   follows. We create a Boolean variable $\mathtt{b}$ and post
   reified \?dom? constraints (see
   \gecoderef[group]{TaskModelIntDomain}) such that
-  $\reify{\mathtt{x}_i\in\mathtt{d}}{\mathtt{b}}$ (for $0\leq
+  $\reifyeqv{\mathtt{b}}{\mathtt{x}_i\in\mathtt{d}}$ (for $0\leq
   i<|\mathtt{x}|$). As the single Boolean variable \?b? is the same
   for all reified \?dom? constraints, \?samedom? is automatically
   enforced.

@@ -8,6 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2012-10-19}{Explained how to use half reification
+    (see \autoref{sec:m:integer:halfreify}) and how to implement
+    it (see \autoref{sec:p:reified:half})}
   \cle{2012-09-07}{Properly explained regions
     (see \autoref{par:p:memory:region})}
   \cle{2012-08-29}{Documented hardware-based random seed

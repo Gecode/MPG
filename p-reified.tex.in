@@ -13,7 +13,8 @@ technique.
 The definition of a reified constraint and how it can be
 propagated is reviewed in \autoref{sec:p:reified:overview}. The
 following section (\autoref{sec:p:reified:leeq}) presents a
-refied less or equal propagator as an example. General propagator
+refied less or equal propagator as an example. How to implement
+half reification is discussed in the following section. General propagator
 rewriting during constraint propagation is discussed in
 \autoref{sec:p:reified:max}, whereas \autoref{sec:p:reified:or}
 presents how to rewrite propagators during cloning.
@@ -22,7 +23,7 @@ presents how to rewrite propagators during cloning.
 \section{Reification}
 \label{sec:p:reified:overview}
 
-A propagator for the reified constraint $\reify{c}{\mathtt{b}}$
+A propagator for the reified constraint $\reifyeqv{\mathtt{b}}{c}$
 for a Boolean \emph{control variable} $\mathtt{b}$ propagates as
 follows:
 \begin{enumerate}
@@ -41,7 +42,7 @@ propagator for $c$ (or $\neg c$). The remaining two cases are
 nothing but testing criteria for subsumption. 
 
 The advantage of rewriting a reified propagator for
-$\reify{c}{\mathtt{b}}$ into a non-reified propagator for $c$ or
+$\reifyeqv{\mathtt{b}}{c}$ into a non-reified propagator for $c$ or
 $\neg c$ is that the propagators created by rewriting are
 typically available anyway, and that after rewriting no more
 overhead for reification is incurred.
@@ -50,8 +51,8 @@ overhead for reification is incurred.
 \section{A reified less or equal propagator}
 \label{sec:p:reified:leeq}
 
-We will discuss a reified less or equal propagator $\reify{\mathtt
-  x \leq \mathtt y}{\mathtt b}$ for integer variables \?x? and
+We will discuss a reified less or equal propagator $\reifyeqv{\mathtt b}{\mathtt
+  x \leq \mathtt y}$ for integer variables \?x? and
 \?y? as an example. Taking the above propagation rules for a
 reified constraint, we obtain:
 \begin{enumerate}
@@ -175,6 +176,11 @@ requires an additional template argument for the Boolean control
 view used (the mystery why this is useful is lifted in
 \autoref{chap:p:views}).
 
+
+\section{Half reification}
+\label{sec:p:reified:half}
+
+YADA!
 
 \section{Rewriting during propagation}
 \label{sec:p:reified:max}
