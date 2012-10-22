@@ -40,7 +40,8 @@ TESTCPP = \
 	equal-idempotent-using-modification-events \
 	or-true or-true-concise \
 	or-true-with-dynamic-subscriptions \
-	less-or-equal-reified max-using-rewriting \
+	less-or-equal-reified-full less-or-equal-reified-half \
+	max-using-rewriting \
 	or-true-using-rewriting \
 	min-and-max less-for-integer-and-Boolean-variables \
 	domain-equal-with-and-without-offset \

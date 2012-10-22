@@ -617,20 +617,19 @@ Many constraints also exist as \emph{reified} variants: the
 validity of a constraint is reflected to a Boolean control
 variable (reified constraints are also known as
 meta-constraints). In addition to full reification also half
-reification~\cite{HalfReify} is supported for reified constraints.
-Whether a reified version exists for a given constraint can be
-found in the reference documentation. If a reified version does
-exist, the Boolean control variable (and possibly information
-about the reification mode) is passed as the last
-non-optional argument (the story is a little bit more complicated
-than that and is discussed in the following paragraph on half
-reification).
+reification~\cite{HalfReify} is supported for reified
+constraints.  Whether a reified version exists for a given
+constraint can be found in the reference documentation. If a
+reified version does exist, the Boolean control variable (and
+possibly information about the reification mode, to be discussed
+in \autoref{sec:m:integer:halfreify}) is passed as the last
+non-optional argument.
 
 For example, posting
 \begin{code}
 rel(home, x, IRT_EQ, y, b);
 \end{code}
-for integer variables \?x? and \?y? and the Boolean control
+for integer variables \?x? and \?y? and a Boolean control
 variable \?b? creates a propagator for the reified constraint
 $\reifyeqv{\mathtt{b}}{\mathtt{x}=\mathtt{y}}$ that propagates
 according to the following rules:
@@ -648,11 +647,11 @@ according to the following rules:
 \subsection{Half reification}
 \label{sec:m:integer:halfreify}
 
-Reification as discussed in the previous paragraph is also know
+Reification as discussed in the previous paragraph is also known
 as \emph{full} reification as it propagates a full equivalence
 between the constraint $c$ and the constraint that a Boolean
 control variable is equal to \?1?. \emph{Half reification}
-propagates one direction of the
+propagates only one direction of the
 equivalence~\cite{HalfReify}. Half reification can be used by
 passing an object of class \gecoderef[class]{Reify} that combines
 a Boolean control variable and a \emph{reification mode} of type
@@ -666,7 +665,8 @@ integer variables \?x? and \?y? and a Boolean control variable
 Reify r(b, RM_IMP);
 rel(home, x, IRT_EQ, y, r);
 \end{code}
-and is propagated as follows (\?RM_IMP? suggests \emph{implication}):
+and is propagated as follows (\?RM_IMP? suggests
+\emph{implication} $\Rightarrow$):
 \begin{itemize}
 \item If \?b? is assigned to \?1?, the constraint
   $\mathtt{x}=\mathtt{y}$ is propagated.
@@ -682,7 +682,8 @@ integer variables \?x? and \?y? and a Boolean control variable
 Reify r(b, RM_PMI);
 rel(home, x, IRT_EQ, y, r);
 \end{code}
-and is propagated as follows (\?RM_PMI? suggests \emph{inverse implication}):
+and is propagated as follows (\?RM_PMI? suggests \emph{inverse
+  implication} $\Leftarrow$):
 \begin{itemize}
 \item If \?b? is assigned to \?0?, the constraint
   $\mathtt{x}\neq\mathtt{y}$ is propagated.
@@ -691,7 +692,7 @@ and is propagated as follows (\?RM_PMI? suggests \emph{inverse implication}):
 \end{itemize}
 
 Full reification can be requested by the reification mode
-\?RM_EQV? (for equivalence) as follows:
+\?RM_EQV? (for equivalence $\Leftrightarrow$) as follows:
 \begin{code}
 Reify r(b, RM_EQV);
 rel(home, x, IRT_EQ, y, r);
@@ -720,6 +721,7 @@ one can write more concisely:
 \begin{code}
 rel(home, x, IRT_EQ, y, imp(b));
 \end{code}
+
 
 \subsection{Selecting the consistency level}
 \label{sec:m:integer:icl}

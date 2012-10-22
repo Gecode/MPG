@@ -4,18 +4,13 @@
 
 #include <gecode/minimodel.hh>
 
-using namespace Test; 
-using namespace Test::Int;
-
-
-
 namespace Test { namespace Int {
 
     class LessTest : public Test {
     public:
       /// Create and register test
       LessTest(void)
-        : Test("LessOrEqual",2,-3,3,true) {}
+        : Test("LessOrEqualHalf",2,-3,3,true) {}
       /// Test whether \a x is solution
       virtual bool solution(const Assignment& x) const {
         return x[0] <= x[1];
@@ -27,9 +22,9 @@ namespace Test { namespace Int {
       }
       /// Post reified constraint on \a x
       virtual void post(Gecode::Space& home, Gecode::IntVarArray& x,
-                        Gecode::BoolVar b) {
+                        Gecode::Reify r) {
         using namespace Gecode;
-        leeq(home,x[0],x[1],b);
+        leeq(home,x[0],x[1],r);
       }
     };
     

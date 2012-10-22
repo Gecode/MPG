@@ -190,18 +190,20 @@ support the same operations introduced in
 \section{Constraint overview}
 \label{sec:m:set:post}
 
-This section introduces the different groups of constraints over set variables
-available in Gecode. The section serves only as an overview. For the details and
-the full list of available post functions, the section refers to the relevant
-reference documentation.
+This section introduces the different groups of constraints over
+set variables available in Gecode. The section serves only as an
+overview. For the details and the full list of available post
+functions, the section refers to the relevant reference
+documentation.
 
 \paragraph{Reified constraints.}
 
 Several set constraints also exist as a reified variant. Whether a reified
 version exists for a given constraint can be found in the
 reference documentation. If a reified version does exist, the
-Boolean control variable is passed as the last non-optional
-argument.
+reification information combining the Boolean control variable and
+an optional reification mode is passed as the last non-optional
+argument, see \autoref{sec:m:integer:halfreify}.
 
 \tip{Reification by decomposition}{%
 \label{tip:m:set:rbd}%

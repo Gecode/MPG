@@ -10,7 +10,7 @@ technique.
 
 \paragraph{Overview.}
 
-The definition of a reified constraint and how it can be
+Reified constraints and how they can be
 propagated is reviewed in \autoref{sec:p:reified:overview}. The
 following section (\autoref{sec:p:reified:leeq}) presents a
 refied less or equal propagator as an example. How to implement
@@ -23,16 +23,25 @@ presents how to rewrite propagators during cloning.
 \section{Reification}
 \label{sec:p:reified:overview}
 
+Before reading this section, please read about reification in
+\autoref{sec:m:integer:reify} and about half reification in
+\autoref{sec:m:integer:halfreify}.
+
 A propagator for the reified constraint $\reifyeqv{\mathtt{b}}{c}$
-for a Boolean \emph{control variable} $\mathtt{b}$ propagates as
-follows:
+for a Boolean \emph{control variable} $\mathtt{b}$ propagates as follows:
 \begin{enumerate}
-\item If \?b? is \?1?, propagate $c$.
-\item If \?b? is \?0?, propagate $\neg c$ (it is not always
+\item If \?b? is \?1?, propagate $c$ (reification modes:
+  \?RM_EQV? $\Leftrightarrow$, \?RM_IMP? $\Rightarrow$).
+\item If \?b? is \?0?, propagate $\neg c$ (reification modes:
+  \?RM_EQV? $\Leftrightarrow$, \?RM_PMI? $\Leftarrow$). Not that
+  it is not always
   easy to propagate the negation of a constraint $c$
-  effectively and efficiently).
-\item If $c$ is subsumed, propagate that \?b? is \?1?.
-\item If $\neg c$ is subsumed, propagate that \?b? is \?0?.
+  effectively and efficiently.
+\item If $c$ is subsumed, propagate that \?b? is \?1? (reification modes:
+  \?RM_EQV? $\Leftrightarrow$, \?RM_PMI? $\Leftarrow$).
+\item If $\neg c$ is subsumed, propagate that \?b? is \?0?
+  (reification modes: \?RM_EQV? $\Leftrightarrow$, \?RM_IMP?
+  $\Rightarrow$).
 \end{enumerate}
 
 The idea how to implement reification in Gecode is quite simple:
@@ -48,13 +57,15 @@ typically available anyway, and that after rewriting no more
 overhead for reification is incurred.
 
 
-\section{A reified less or equal propagator}
+\section{A fully reified less or equal propagator}
 \label{sec:p:reified:leeq}
 
-We will discuss a reified less or equal propagator $\reifyeqv{\mathtt b}{\mathtt
-  x \leq \mathtt y}$ for integer variables \?x? and
-\?y? as an example. Taking the above propagation rules for a
-reified constraint, we obtain:
+We will discuss a fully reified less or equal propagator
+$\reifyeqv{\mathtt b}{\mathtt x \leq \mathtt y}$ for integer
+variables \?x? and \?y? using full reification (that is,
+reification mode \?RM_EQV? $\Leftrightarrow$) as an example.
+Taking the above propagation rules for a reified constraint, we
+obtain:
 \begin{enumerate}
 \item If \?b? is \?1?, propagate $\mathtt x \leq \mathtt y$.
 \item If \?b? is \?0?, propagate $\mathtt x > \mathtt y$
@@ -66,8 +77,8 @@ reified constraint, we obtain:
 \end{enumerate}
 
 \begin{figure}
-\insertlitcode{less or equal reified}
-\caption{A constraint and propagator for reified less or equal}
+\insertlitcode{less or equal reified full}
+\caption{A constraint and propagator for fully reified less or equal}
 \label{fig:p:reified:leeq}
 \end{figure}
 
@@ -177,10 +188,47 @@ view used (the mystery why this is useful is lifted in
 \autoref{chap:p:views}).
 
 
-\section{Half reification}
+\section{Supporting both full and half reification}
 \label{sec:p:reified:half}
 
-YADA!
+In order to support both half and full reification, one needs
+one propagator for each reification mode: \?RM_EQV? for
+equivalence ($\Leftrightarrow$), \?RM_IMP? for
+implication ($\Rightarrow$), and \?RM_PMI? for
+reverse implication ($\Leftarrow$). Instead of three different
+implementations it is better to have a single implementation that
+is parametric with respect to the reification mode.
+
+\begin{figure}
+\insertlitcode{less or equal reified half}
+\caption{A constraint and propagator for full and half reified less or equal}
+\label{fig:p:reified:leeq:half}
+\end{figure}
+
+\mbox{}\autoref{fig:p:reified:leeq:half} shows the constraint
+post function \?leeq()? for the reified less or equal propagator
+supporting all three reification modes. The class \?ReLeEq? now
+is parametric with respect to the reification mode the propagator
+implements. The constraint post function now posts the propagator
+that corresponds to the reification mode (available via
+\?r.mode()?) passed as argument \?r? of type
+\gecoderef[class]{Reify}. The Boolean control variable can be
+returned by \?r.var()?.
+
+\begin{figure}
+\insertlitcode{less or equal reified half:propagate function}
+\caption{Propagate function for full and half reified less or equal}
+\label{fig:p:reified:leeq:half:propagate}
+\end{figure}
+
+The idea for the reified propagator is straightforward, its
+\?propagate()?  function is shown in
+\autoref{fig:p:reified:leeq:half:propagate}: the four different
+parts of the propagator are employed depending on the reification
+mode \?rm?. Note that this is entirely schematic and any reified
+propagator can be programmed supporting all reification modes in
+that way.
+
 
 \section{Rewriting during propagation}
 \label{sec:p:reified:max}
@@ -561,7 +609,7 @@ void max(Home home, IntVar x0, IntVar x1, IntVar x2) {
 \end{litcode}
   
 
-\begin{litcode}{less or equal reified}{schulte}
+\begin{litcode}{less or equal reified full}{schulte}
 \begin{litblock}{anonymous}
 #include <gecode/int.hh>
 
@@ -630,6 +678,7 @@ public:
   }
 \end{litblock}
 };
+
 class ReLeEq
   : public Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,
                                    Int::BoolView> {
@@ -688,4 +737,158 @@ void leeq(Home home, IntVar x0, IntVar x1, BoolVar b) {
   GECODE_ES_FAIL(ReLeEq::post(home,x0,x1,b));
 }
 \end{litblock}
+\end{litcode}
+
+\begin{litcode}{less or equal reified half}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+class Less 
+  : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  Less(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_FAILED;
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() >= x1.min())
+      (void) new (home) Less(home,x0,x1);
+    return ES_OK;
+  }
+  Less(Space& home, bool share, Less& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Less(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.le(home,x1.max()));
+    GECODE_ME_CHECK(x1.gr(home,x0.min()));
+    if (x0.max() < x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+};
+
+class LeEq
+  : public BinaryPropagator<Int::IntView,Int::PC_INT_BND> {
+public:
+  LeEq(Home home, Int::IntView x0, Int::IntView x1) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1) {
+    if (same(x0,x1))
+      return ES_OK;
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    if (x0.max() > x1.min())
+      (void) new (home) LeEq(home,x0,x1);
+    return ES_OK;
+  }
+  LeEq(Space& home, bool share, LeEq& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) LeEq(home,share,*this);
+  }
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    GECODE_ME_CHECK(x0.lq(home,x1.max()));
+    GECODE_ME_CHECK(x1.gq(home,x0.min()));
+    if (x0.max() <= x1.min())
+      return home.ES_SUBSUMED(*this);
+    else 
+      return ES_FIX;
+  }
+};
+
+\end{litblock}
+template<ReifyMode rm>
+class ReLeEq
+  : public Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,
+                                   Int::BoolView> {
+  \begin{litblock}{anonymous}
+public:
+  ReLeEq(Home home, Int::IntView x0, Int::IntView x1,
+         Int::BoolView b) 
+    :
+    Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,x0,x1,b) {}
+  static ExecStatus post(Home home, 
+                         Int::IntView x0, Int::IntView x1,
+                         Int::BoolView b) {
+    if (b.zero())
+      return (rm == RM_IMP) ? ES_OK : Less::post(home,x1,x0);
+    if (b.one())
+      return (rm == RM_PMI) ? ES_OK : LeEq::post(home,x0,x1);
+    if (same(x0,x1)) {
+      if (rm != RM_IMP)
+        GECODE_ME_CHECK(b.one(home));
+    } else {
+      switch (Int::rtest_lq(x0,x1)) {
+      case Int::RT_TRUE:
+        if (rm != RM_IMP)
+          GECODE_ME_CHECK(b.one(home)); 
+        break;
+      case Int::RT_FALSE:
+        if (rm != RM_PMI)
+          GECODE_ME_CHECK(b.zero(home)); 
+        break;
+      case Int::RT_MAYBE:
+        (void) new (home) ReLeEq<rm>(home,x0,x1,b); break;
+      }
+    }
+    return ES_OK;
+  }
+  ReLeEq(Space& home, bool share, ReLeEq& p) 
+    : Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) ReLeEq<rm>(home,share,*this);
+  }
+  \end{litblock}
+  \begin{litblock}{propagate function}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    if (b.one()) {
+      if (rm != RM_PMI)
+        GECODE_REWRITE(*this,LeEq::post(home(*this),x0,x1));
+    } else if (b.zero()) {
+      if (rm != RM_IMP)
+        GECODE_REWRITE(*this,Less::post(home(*this),x1,x0));
+    } else {
+      switch (Int::rtest_lq(x0,x1)) {
+      case Int::RT_TRUE:
+        if (rm != RM_IMP)
+          GECODE_ME_CHECK(b.one(home)); 
+        break;
+      case Int::RT_FALSE:
+        if (rm != RM_PMI)
+          GECODE_ME_CHECK(b.zero(home)); 
+        break;
+      case Int::RT_MAYBE:
+        return ES_FIX;
+      }
+    }
+    return home.ES_SUBSUMED(*this);
+  }
+  \end{litblock}
+};
+
+void leeq(Home home, IntVar x0, IntVar x1, Reify r) {
+  if (home.failed()) return;
+  switch (r.mode()) {
+  case RM_EQV:
+    GECODE_ES_FAIL(ReLeEq<RM_EQV>::post(home,x0,x1,r.var()));
+    break;
+  case RM_IMP:
+    GECODE_ES_FAIL(ReLeEq<RM_IMP>::post(home,x0,x1,r.var()));
+    break;
+  case RM_PMI:
+    GECODE_ES_FAIL(ReLeEq<RM_PMI>::post(home,x0,x1,r.var()));
+    break;
+  default:
+    throw Int::UnknownReifyMode("leeq");
+  }
+}
 \end{litcode}

@@ -47,6 +47,16 @@ an overview. For the details and the full list of available post
 functions, the section refers to the relevant reference
 documentation.
 
+\paragraph{Reified constraints.}
+
+Several float constraints also exist as a reified variant. Whether a reified
+version exists for a given constraint can be found in the
+reference documentation. If a reified version does exist, the
+reification information combining the Boolean control variable and
+an optional reification mode is passed as the last non-optional
+argument, see \autoref{sec:m:integer:halfreify}.
+
+
 \section{Synchronized execution}
 \label{sec:m:float:exec}
 
