@@ -10,14 +10,15 @@ technique.
 
 \paragraph{Overview.}
 
-Reified constraints and how they can be
-propagated is reviewed in \autoref{sec:p:reified:overview}. The
-following section (\autoref{sec:p:reified:leeq}) presents a
-refied less or equal propagator as an example. How to implement
-half reification is discussed in the following section. General propagator
-rewriting during constraint propagation is discussed in
-\autoref{sec:p:reified:max}, whereas \autoref{sec:p:reified:or}
-presents how to rewrite propagators during cloning.
+Reified constraints and how they can be propagated is reviewed in
+\autoref{sec:p:reified:overview}. The following section
+(\autoref{sec:p:reified:leeq}) presents a reified less or equal
+propagator as an example. How to implement both half and full
+reification is discussed in the following section. General
+propagator rewriting during constraint propagation is discussed
+in \autoref{sec:p:reified:max}, whereas
+\autoref{sec:p:reified:or} presents how to rewrite propagators
+during cloning.
 
 
 \section{Reification}
@@ -51,8 +52,8 @@ propagator for $c$ (or $\neg c$). The remaining two cases are
 nothing but testing criteria for subsumption. 
 
 The advantage of rewriting a reified propagator for
-$\reifyeqv{\mathtt{b}}{c}$ into a non-reified propagator for $c$ or
-$\neg c$ is that the propagators created by rewriting are
+$\reifyeqv{\mathtt{b}}{c}$ into a non-reified propagator for $c$
+or $\neg c$ is that the propagators created by rewriting are
 typically available anyway, and that after rewriting no more
 overhead for reification is incurred.
 
