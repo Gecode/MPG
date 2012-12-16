@@ -224,7 +224,7 @@ the maximum (\?max()?) of each input range must be mapped. Using
 desired sequence by
 \begin{code}
 OffsetMap om(c);
-Iter::Ranges::Map<Int::View::Ranges<Int::IntView>,
+Iter::Ranges::Map<Int::ViewRanges<Int::IntView>,
                   OffsetMap> m(r,om);
 \end{code}
 
