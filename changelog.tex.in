@@ -8,6 +8,7 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle[\AckName{Benjamin}{Negrevergne}]{2012-12-17}{Fixed typo in \autoref{sec:p:domain:iterators}}
   \cle{2012-10-19}{Explained how to use half reification
     (see \autoref{sec:m:integer:halfreify}) and how to implement
     it (see \autoref{sec:p:reified:half})}
