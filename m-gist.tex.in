@@ -292,17 +292,19 @@ During execution, Gist can be configured using the \emph{Preferences} dialog, av
 \end{figure}
 
 
-The drawing preferences (\autoref{fig:m:gist:preferences}, left)
-let you specify whether failed subtrees are hidden automatically
-during search, and whether the auto-zoom and smooth scrolling
-features are enabled at start-up. Furthermore, you can set the
-refresh interval -- this is the number of nodes that are explored
-before the tree is redrawn. If you set this to a large number,
-search will be faster, but you get less visual feedback. Finally,
-you can enable slow search, which will explore only around three
-nodes per second. Drawing
-preferences are remembered between sessions and across different
-invocations of Gist.
+The drawing preferences (\autoref{fig:m:gist:preferences}, left) let you
+specify whether failed subtrees are hidden automatically during search, and
+whether the auto-zoom and smooth scrolling features are enabled at start-up.
+Furthermore, you can set the refresh interval -- this is the number of nodes
+that are explored before the tree is redrawn. If you set this to a large
+number, search will be faster, but you get less visual feedback. You can
+enable slow search, which will explore only around three nodes per second,
+useful for demonstrating how search proceeds. Finally, enabling the ``Move
+cursor during search'' option means that the move inspectors will be called
+for every single node during search. Again, this is great for demonstration
+and debugging purposes, but it slows down the search considerably. Drawing
+preferences (except for the slow-down and cursor moving options) are
+remembered between sessions and across different invocations of Gist.
 
 The search preferences are exactly the parameters you can pass using the \gecoderef[class]{Gist::Options} class. In addition, you can switch on the display of where Gist actually stores spaces in the tree, as shown in \autoref{fig:m:gist:copies}. A small red circle indicates a clone used for recomputation, while a small yellow circle shows that the node has an active space used for exploration (a so-called \emph{working clone}).
 
