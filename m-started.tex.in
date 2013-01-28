@@ -990,6 +990,29 @@ should be disabled or deinstalled when you want to use Qt and
 Gecode with the Microsoft Visual \CPP{} compiler.
 }
 
+\paragraph{Compilation with support for trigonometric and
+  transcedental float constraints.}
+
+By default, trigonometric and transcedental float constraints are
+\emph{disabled} (see also \autoref{m:float:mpfr}). To enable
+them, Gecode must be configured to use the
+\AURL{http://gmplib.org/}{GMP} (or
+\AURL{http://www.mpir.org/}{MPIR} instead) and
+\AURL{http://www.mpfr.org/}{MPFR} libraries. After having
+installed the libraries, the following command line options
+instruct \?configure? to use these packages:
+\begin{itemize}
+\item \?-with-gmp-include=...?: the directory where the header
+  files of GMP or MPIR are installed.
+\item \?-with-gmp-lib=...?: the directory where the library
+  files of GMP or MPIR are installed.
+\item \?-with-mpfr-include=...?: the directory where the header
+  files of MPFR are installed.
+\item \?-with-mpfr-lib=...?: the directory where the library
+  files of MPFR are installed.
+\end{itemize}
+
+
 \subsection{Advanced configuration and compilation}
 \label{sec:m:started:compileadvanced}
 
@@ -1141,10 +1164,6 @@ The main Gecode Makefile supports the following useful targets:
 \item \?test? compiles the test suite.
 \item \?doc? generates the reference documentation using doxygen.
 \item \?installdoc? installs the documentation.
-\item \?dist? creates a source distribution as a tgz archive, not 
-   including the contributions found in the \?contribs? directory.
-\item \?distdir? creates a source distribution in a directory, not 
-   including the contributions found in the \?contribs? directory.
 \item \?distdoc? creates tgz and zip archives of the documentation.
 \end{itemize}
 
