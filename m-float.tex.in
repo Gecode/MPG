@@ -35,7 +35,7 @@ the same conventions hold as in \autoref{chap:m:int}.
   of Gecode, see \autoref{par:m:started:mpfr}.
   
   To find out whether the constraints are enabled, consult
-  \autoref{{tip:m:comfy:conf}.
+  \autoref{tip:m:comfy:conf}.
 }
 
 \section{Float values and numbers}
@@ -81,8 +81,8 @@ FloatVal x(0.9999,1.0001);
 
 \paragraph{Predefined float values.}
 
-The static member functions \?FloatVal::pi_half()?,
-\?FloatVal::pi()?, and \?FloatVal::pi_twice()? return float
+The static member functions \?pi_half()?,
+\?pi()?, and \?pi_twice()? of \gecoderef[class]{FloatVal} return float
 values for 
 $\frac{\pi}{2}$, $\pi$, and $2\pi$ respectively.
 
@@ -254,13 +254,11 @@ FloatVarArray x(home, 4, -1.0, 1.2);
 creates an array of four float variables, each with domain $[-1.0,1.2]$.
 
 To pass temporary data structures as arguments, you can use the
-\?FloatVarArgs? class (see
-\gecoderef[group]{TaskModelFloatArgs}).  Some float constraints
+\gecoderef[class]{FloatVarArgs} class.  Some float constraints
 are defined in terms of arrays of float values. These can be
-passed using \?FloatValArgs? (see
-\gecoderef[group]{TaskModelFloatArgs}). Float variable argument
-arrays support the same operations introduced in
-\autoref{sec:m:integer:args}.
+passed using the \gecoderef[class]{FloatValArgs} class. Float
+variable and value argument arrays support the same operations introduced
+in \autoref{sec:m:integer:args}.
 
 
 \section{Constraint overview}
