@@ -131,15 +131,15 @@ greater or equal.
 \?sin(x)? & sine $\sin(\mathtt{x})$ &\\
 \?cos(x)? & cosine $\cos(\mathtt{x})$ &\\
 \?tan(x)? & tangent $\tan(\mathtt{x})$ &\\\hline
-\?asin(x)? & arc-sine $\arcsin(\mathtt{x})$ &\\
-\?acos(x)? & arc-cosine $\arccos(\mathtt{x})$ &\\
-\?atan(x)? & arc-tangent $\arctan(\mathtt{x})$ &\\\hline
+\?asin(x)? & arcsine $\arcsin(\mathtt{x})$ &\\
+\?acos(x)? & arccosine $\arccos(\mathtt{x})$ &\\
+\?atan(x)? & arctangent $\arctan(\mathtt{x})$ &\\\hline
 \?sinh(x)? & hyperbolic sine $\sinh(\mathtt{x})$ &\\
 \?cosh(x)? & hyperbolic cosine $\cosh(\mathtt{x})$ &\\
 \?tanh(x)? & hyperbolic tangent $\tanh(\mathtt{x})$ &\\\hline
-\?asinh(x)? & hyperbolic arc-sine $\arcsinh(\mathtt{x})$ &\\
-\?acosh(x)? & hyperbolic arc-cosine $\arccosh(\mathtt{x})$ &\\
-\?atanh(x)? & hyperbolic arc-tangent $\arctanh(\mathtt{x})$ &\\\hline
+\?asinh(x)? & hyperbolic arcsine $\arcsinh(\mathtt{x})$ &\\
+\?acosh(x)? & hyperbolic arccosine $\arccosh(\mathtt{x})$ &\\
+\?atanh(x)? & hyperbolic arctangent $\arctanh(\mathtt{x})$ &\\\hline
 \end{tabular}
 \end{center}
 \caption[Functions on float values]{Functions on float values

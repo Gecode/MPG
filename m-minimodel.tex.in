@@ -401,7 +401,7 @@ rel(home, IntSet(0,10) <= x <= IntSet(0,20));
 \newcommand{\MPFRMARK}{${}^{\decimal{footnote}}$}%
 \begin{tabular}{rcl@{\quad}l}
 $\NFE$ & $::=$ & $\NVAR$ & float variable\\
-       & $|$   & $\NFLOAT$ & float constant (\?FloatVal?)\\
+       & $|$   & $\NFLOAT$ & float value\\
        & $|$   & $\operatorname{\texttt{-}}\NFE$ & unary minus \\
        & $|$   & $\NFE \mathbin{\texttt{+}} \NFE$ & addition\\
        & $|$   & $\NFE \mathbin{\texttt{-}} \NFE$ & subtraction\\
@@ -436,7 +436,7 @@ $\NREL$ & $::=$ &
 \texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
 \texttt{>} $\;|\;$ \texttt{>=}
 & relation symbol\\
-$\NVARS$ & $::=$ & \multicolumn{2}{l}{array float variables}\\
+$\NVARS$ & $::=$ & \multicolumn{2}{l}{array of float variables}\\
 $\NFLOATS$ & $::=$ & \multicolumn{2}{l}{array of float values}\\
 \end{tabular}
 \end{center}
@@ -683,13 +683,19 @@ usefulness.
 \label{sec:m:minimodel:channel}
 
 \gecoderef[group]{TaskModelMiniModelChannel} are functions to
-channel a Boolean variable to an integer variable and vice versa, and to channel between integer variables and a set variable.
+channel a Boolean variable to an integer variable and vice versa,
+to channel a float variable to an integer variable, and to
+channel between integer variables and a set variable.
+
 For an integer variable \?x?,
 \begin{code}
 channel(home, x);
 \end{code}
 returns a new Boolean variable that is equal to \?x?. Likewise, for a
 Boolean variable \?x? an equal integer variable is returned.
+
+For a float variable \?x?, \?channel(home, x)? returns an integer
+variable equal to \?x?.
 
 For an array of integer variables \?x?, \?channel(home, x)? returns a set variable equal to all the integers in \?x?.
 
