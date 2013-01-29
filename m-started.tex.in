@@ -992,6 +992,7 @@ Gecode with the Microsoft Visual \CPP{} compiler.
 
 \paragraph{Compilation with support for trigonometric and
   transcedental float constraints.}
+\label{par:m:started:mpfr}
 
 By default, trigonometric and transcedental float constraints are
 \emph{disabled} (see also \autoref{m:float:mpfr}). To enable

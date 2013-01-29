@@ -10,10 +10,12 @@ see \gecoderef[group]{TaskModelFloat}.
 
 \paragraph{Overview.}
 
-\mbox{}\autoref{sec:m:float:var} details how float variables can be
-used for modeling.  The sections \autoref{sec:m:float:post} and
-\autoref{sec:m:float:exec} provide an overview of the constraints
-that are available for float variables in Gecode.
+\mbox{}\autoref{sec:m:float:val} explains float values whereas
+\autoref{sec:m:float:var} explains float
+variables.  The sections
+\autoref{sec:m:float:post} and \autoref{sec:m:float:exec} provide
+an overview of the constraints that are available for float
+variables in Gecode.
 
 \begin{important}
 Do not forget to add
@@ -24,19 +26,242 @@ to your program when you want to use float variables. Note that
 the same conventions hold as in \autoref{chap:m:int}.
 \end{important}
 
-MPFR!
+\tip{Transcendental and trigonometric functions and constraints}{%
+  \label{m:float:mpfr}
+  When compiling Gecode, by default transcendental and
+  trigonometric constraints are disabled. In order to enable
+  these constraints, you have to install additional third-party
+  libraries and provide additional options to the configuration
+  of Gecode, see \autoref{par:m:started:mpfr}.
+  
+  To find out whether the constraints are enabled, consult
+  \autoref{{tip:m:comfy:conf}.
+}
 
-\label{m:float:mpfr}
+\section{Float values and numbers}
+\label{sec:m:float:val}
 
-\section{Float values and variables}
+A \emph{floating point value} (short, \emph{float value}, see
+\gecoderef[class]{FloatVal}) is represented as a closed interval
+of two \emph{floating point numbers} (short, \emph{float number},
+see \gecoderef[group]{TaskModelFloatVars}). That is, a float
+value is a closed interval $[a,b]$ which includes all real
+numbers $n\in\RR$ such that $a\leq n$ and $n\leq b$. Float
+numbers of type \?FloatNum? are defined as \?double?.
+
+The reason why a float value is not represented by a single
+floating point number is that real numbers cannot be represented
+exactly and that operations on floating point numbers perform
+rounding. All operations (see below) on float values try to be as
+\emph{accurate} as possible (so the interval $[a,b]$ for a float
+value is as small as possible) while being \emph{correct} (no
+possible real number is ever excluded due to rounding).  The
+classical reference on interval arithmetic is \cite{Moore:1966},
+for more information see also the Wikipedia article on
+\AURL{http://en.wikipedia.org/wiki/Interval_arithmetic}{interval
+  arithmetic}.
+
+A float value \?x? represented by the interval $[a,b]$ provides
+many member functions such as \?min()? (returning $a$) and
+\?max()? (returning $b$), see \gecoderef[class]{FloatVal}. The
+float value \?x? is called \emph{tight} if $a$ equals $b$ or if
+$b$ is the smallest representable float number larger than
+$a$. If \?x? is tight, \?x.tight()? returns \?true?. 
+
+A float value can be initialized from a single float number such
+as in
+\begin{code}
+FloatVal x(1.0);
+\end{code}
+or from two float numbers such as in
+\begin{code}
+FloatVal x(0.9999,1.0001);
+\end{code}
+
+
+\paragraph{Predefined float values.}
+
+The static member functions \?FloatVal::pi_half()?,
+\?FloatVal::pi()?, and \?FloatVal::pi_twice()? return float
+values for 
+$\frac{\pi}{2}$, $\pi$, and $2\pi$ respectively.
+
+\paragraph{Arithmetic operators.}
+
+For float values, the standard arithmetic operators \?+?, \?-?,
+\?*?, and  \?/? and their assignment variants \?+=?, \?-=?,
+\?*=?, and \?/=? are defined with the obvious meaning.
+
+\paragraph{Comparison operators.}
+
+The usual float value comparisons \?==?, \?!=?, \?<=?, \?<?,
+\?>?, and \?>=? are provided with \emph{entailment} semantics (or
+subsumption semantics).
+
+For example, the comparison
+\begin{code}
+x < y
+\end{code}
+returns \?true? if and only if \?x.max()<y.min()? returns
+\?true?. That means, \?x<y? returns \?false? if either \?x? is
+larger or equal than \?y? or it cannot yet be decided: both \?x?
+and \?y? still represent values which are both smaller and
+greater or equal.
+
+\paragraph{Functions on float values.}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|c|}
+\hline
+\multicolumn{1}{|c|}{function} &
+\multicolumn{1}{c|}{meaning}&default\\
+\hline
+\hline
+\?max(x,y)? & maximum $\max(\mathtt{x},\mathtt{y})$ & \YES \\
+\?min(x,y)? & minimum $\max(\mathtt{x},\mathtt{y})$ & \YES \\\hline
+\?abs(x)? & absolute value $|\mathtt{x}|$ & \YES \\\hline
+\?sqrt(x)? & square root $\sqrt{x}$ & \YES \\
+\?sqr(x)? & square $\mathtt{x}^2$ & \YES \\
+\?pow(x,n)? & $\mathtt{n}$-th power $\mathtt{x}^{\mathtt{n}}$  & \YES \\
+\?nroot(x,n)? & $\mathtt{n}$-th root  $\sqrt[n]{x}$ & \YES \\\hline
+\?fmod(x,y)? & remainder of $\mathtt{x}/\mathtt{y}$ & \\\hline
+\?exp(x)? & exponential $\exp(\mathtt{x})$ &\\
+\?log(x)? & natural logarithm $\log(\mathtt{x})$ &\\\hline
+\?sin(x)? & sine $\sin(\mathtt{x})$ &\\
+\?cos(x)? & cosine $\cos(\mathtt{x})$ &\\
+\?tan(x)? & tangent $\tan(\mathtt{x})$ &\\\hline
+\?asin(x)? & arc-sine $\arcsin(\mathtt{x})$ &\\
+\?acos(x)? & arc-cosine $\arccos(\mathtt{x})$ &\\
+\?atan(x)? & arc-tangent $\arctan(\mathtt{x})$ &\\\hline
+\?sinh(x)? & hyperbolic sine $\sinh(\mathtt{x})$ &\\
+\?cosh(x)? & hyperbolic cosine $\cosh(\mathtt{x})$ &\\
+\?tanh(x)? & hyperbolic tangent $\tanh(\mathtt{x})$ &\\\hline
+\?asinh(x)? & hyperbolic arc-sine $\arcsinh(\mathtt{x})$ &\\
+\?acosh(x)? & hyperbolic arc-cosine $\arccosh(\mathtt{x})$ &\\
+\?atanh(x)? & hyperbolic arc-tangent $\arctanh(\mathtt{x})$ &\\\hline
+\end{tabular}
+\end{center}
+\caption[Functions on float values]{Functions on float values
+  (\?x? and \?y? are float values; \?n? is an integer)}
+\label{fig:m:float:val:fun}
+\end{figure}
+
+\mbox{}\autoref{fig:m:float:val:fun} lists the available functions on
+float values. The functions marked as default are always
+supported, the others only if Gecode has been built accordingly,
+see \autoref{m:float:mpfr}.
+
+
+\section{Float variables}
 \label{sec:m:float:var}
 
-A \emph{floating point value} (short, \emph{float value}, see \gecoderef[class]{FloatVal}) is
-represented as a closed interval of two \emph{floating point
-  numbers} (short, \emph{float number}, see
-\gecoderef[group]{TaskModelFloatVars}). That is, a float value is
-a closed interval $[a,b]$ which includes all float numbers $n$
-such that $a\leq n$ and $n\leq b$.
+Float variables in Gecode model sets of real numbers and are instances
+of the class \gecoderef[class]{FloatVar}.
+
+\tip{Still do not use views for modeling}{%
+  Just as for integer variables, you should not feel tempted to
+  use views of float variables (such as \?FloatView?) for modeling.
+  Views can only be used for implementing propagators and
+  branchers, see \autoref{part:p} and \autoref{part:b}.
+}
+
+\paragraph{Representing float domains as intervals.}
+
+The domain of a float variable is represented exactly as a float
+value: a closed interval $[a,b]$ which represents all real
+numbers $n\in\RR$ such that $a\leq n$ and $n\leq b$. A float
+variable is \emph{assigned} if the interval $[a,b]$ is tight (see
+\autoref{sec:m:float:val})\footnote{Note that this means that a
+  float variable is assigned even though its domain might still
+  denote a set with more than one element. But this cannot be
+  avoided as real numbers cannot be represented exactly.}
+
+\paragraph{Creating a float variable.}
+
+New float variables are created using a constructor.
+A new float variable \?x? is created by
+\begin{code}
+FloatVar x(home, -1.0, 1.0);
+\end{code}
+This declares a variable \?x? of type \?FloatVar? in the space
+\?home?, creates a new float variable implementation with
+domain $[-1.0,1.0]$, and makes \?x?  refer to the newly
+created float variable implementation.
+
+You find the full interface in the
+reference documentation of the class \gecoderef[class]{FloatVar}.
+An attempt to create a float variable with an empty domain throws
+an exception of type \gecoderef[class]{Float::VariableEmptyDomain}.
+
+As for integer variables, the default and copy constructors do not create new variable implementations. Instead, the
+variable does not refer to any variable implementation (default
+constructor) or to the same variable implementation (copy
+constructor). For example in
+\begin{code}
+FloatVar x(home, -1.0, 1.0);
+FloatVar y(x);
+FloatVar z;
+z=y;
+\end{code}
+the variables \?x?, \?y?, and \?z? all refer to the same float variable
+implementation.
+
+\paragraph{Limits for float numbers, values, and variables.}
+
+The float numbers range from $\mathtt{Float::Limits::min}$ to
+$\mathtt{Float::Limits::max}$ which also defines which values and
+variables can be represented. The limits are defined in
+the namespace \gecoderef[namespace]{Float::Limits}.
+
+\tip{Small variable domains are still beautiful}{%
+  Just like integer variables (see
+  \autoref{tip:m:integer:beautifuldomains}), float variables do
+  not have a constructor that creates a variable with the largest
+  possible domain. And again, one has to worry and the omission
+  is deliberate to make you worry. So think about the initial
+  domains carefully when modeling.  }
+
+\paragraph{Variable access functions.}
+
+You can access the current domain of a float variable \?x? using
+member functions such as \?x.min()? and \?x.max()?. Furthermore,
+you can print a float variable's domain using the standard output
+operator \?<<?.
+
+\paragraph{Updating variables.}
+
+Float variables behave exactly like integer variables during
+cloning of a space. A float variable is updated by
+\begin{code}
+x.update(home, share, y);
+\end{code}
+where \?share? is the Boolean argument passed as argument to
+\?copy()? and \?y? is the variable from which \?x? is to be
+updated. While \?home? is the space \?x? belongs to, \?y? belongs
+to the space which is being cloned.
+
+\paragraph{Variable and argument arrays.}
+
+Float variable arrays can be allocated using the class
+\gecoderef[class]{FloatVarArray}. The constructors of this class
+take the same arguments as the float variable constructors,
+preceded by
+the size of the array. For example,
+\begin{code}
+FloatVarArray x(home, 4, -1.0, 1.2);
+\end{code}
+creates an array of four float variables, each with domain $[-1.0,1.2]$.
+
+To pass temporary data structures as arguments, you can use the
+\?FloatVarArgs? class (see
+\gecoderef[group]{TaskModelFloatArgs}).  Some float constraints
+are defined in terms of arrays of float values. These can be
+passed using \?FloatValArgs? (see
+\gecoderef[group]{TaskModelFloatArgs}). Float variable argument
+arrays support the same operations introduced in
+\autoref{sec:m:integer:args}.
+
 
 \section{Constraint overview}
 \label{sec:m:float:post}
@@ -49,12 +274,212 @@ documentation.
 
 \paragraph{Reified constraints.}
 
-Several float constraints also exist as a reified variant. Whether a reified
-version exists for a given constraint can be found in the
-reference documentation. If a reified version does exist, the
-reification information combining the Boolean control variable and
-an optional reification mode is passed as the last non-optional
-argument, see \autoref{sec:m:integer:halfreify}.
+Some float constraints (relation constraints, see
+\autoref{sec:m:float:rel}, and linear constraints, see
+\autoref{sec:m:float:linear}) also exist as a reified variant.
+Whether a reified version exists for a given constraint can be
+found in the reference documentation. If a reified version does
+exist, the reification information combining the Boolean control
+variable and an optional reification mode is passed as the last
+non-optional argument, see \autoref{sec:m:integer:halfreify}.
+
+\subsection{Simple relation constraints}
+\label{sec:m:float:rel}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l@{\qquad}l@{\quad}l}
+\?FRT_EQ? & equality ($=$) &
+\?FRT_NQ? & disequality ($\neq$) \\
+\?FRT_LE? & strictly less inequality ($<$) &
+\?FRT_LQ? & less or equal inequality ($\leq$) \\
+\?FRT_GR? & strictly greater inequality ($>$) &
+\?FRT_GQ? & greater or equal inequality ($\geq$)
+\end{tabular}
+\end{center}
+\caption{Float relation types}
+\label{fig:m:float:frt}
+\end{figure}
+
+\gecoderef[group]{TaskModelFloatRelFloat} enforce relations between
+float variables and between float variables and float
+values. The relation depends on a float relation type
+\?FloatRelType?  (see \gecoderef[group]{TaskModelFloatRelFloat}).
+\autoref{fig:m:float:frt} lists the available float relation
+types and their meaning.
+
+\paragraph{Binary relation constraints.}
+
+Assume that \?x? and \?y? are float variables. Then
+\begin{code}
+rel(home, x, FRT_LE, y);
+\end{code}
+constrains \?x? to be strictly less than \?y?. Similarly, by
+\begin{code}
+rel(home, x, FRT_LQ, 4.0);
+\end{code}
+\?x? is constrained to be less than \?4.0?. Both variants of
+\?rel? also support reification.
+
+\tip{Weak propagation for strict inequalities ($<$, $>$) and
+  disequality ($\neq$)}{
+\label{tip:m:float:weak}%
+  Unfortunately, the propagation for strict inequality ($<$, $>$) and
+  disequality ($\neq$) relations is rather weak.
+
+  Consider the constraint \?x<y? for float variables \?x? and
+  \?y? with domains $[a,b]$ and $[c,d]$ respectively, where $b>d$
+  and $c<a$. Then one
+  would like to propagate that \?x? must be less than $d$ and \?y?
+  must be larger than $a$. However, this
+  would require that the domains of \?x? and \?y? after
+  propagation are
+  the \emph{open} intervals $[a,d)$ and $(a,d]$. But only closed
+  intervals can be represented by float variables!
+
+  Hence, the best propagation one could get is that the new
+  domains are represented by the closed intervals $[a,d]$ and
+  $[a,d]$ (the same propagation one would get for the constraint
+  $\mathtt x\leq \mathtt y$).
+}
+
+\paragraph{Constraints between variable arrays and a single
+  variable.}
+
+If \?x? is a float variable array and \?y? is an float
+variable, then
+\begin{code}
+rel(home, x, FRT_LQ, y);
+\end{code}
+constrains all variables in \?x? to be less than or equal to
+\?y?. Likewise,
+\begin{code}
+rel(home, x, FRT_GR, 7.0);
+\end{code}
+constrains all variables in \?x? to be larger than \?7.0?.
+
+
+\subsection{Arithmetic constraints}
+\label{sec:m:float:arithmetic}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|c|}
+\hline
+\multicolumn{1}{|c|}{post function} &
+\multicolumn{1}{c|}{constraint posted} & default\\
+\hline\hline
+\?min(home, x, y, z);? & $\min(\mathtt x, \mathtt y)=\mathtt z$ &\YES
+\\
+\?max(home, x, y, z);? & $\max(\mathtt x, \mathtt y)=\mathtt z$ &\YES
+\\\hline
+\?abs(home, x, y);? & $|\mathtt x|=\mathtt y$&\YES
+\\\hline
+\?mult(home, x, y, z);? & $\mathtt x \cdot \mathtt y=\mathtt
+z$&\YES
+\\
+\?div(home, x, y, z);? & $\mathtt{x} / \mathtt{y}=\mathtt{z}$&\YES
+\\
+\?sqr(home, x, y);? & ${\mathtt x}^2=\mathtt y$&\YES
+\\
+\?sqrt(home, x, y);? & $\sqrt{\mathtt x}=\mathtt y$&\YES
+\\
+\?pow(home, x, n, y);? & ${\mathtt x}^{\mathtt n}=\mathtt y$&\YES
+\\
+\?nroot(home, x, n, y);? & $\sqrt[{\mathtt n}]{\mathtt
+  x}=\mathtt y$&\YES
+\\\hline
+\?exp(home, x, y)? & $\exp(\mathtt{x})=\mathtt y$ &\\
+\?pow(home, b, x, y)? & $\mathtt{b}^\mathtt{x}=\mathtt y$ &\\
+\?log(home, x, y)? & $\log(\mathtt{x})=\mathtt y$ &\\
+\?log(home, b, x, y)? & $\log_{\mathtt{b}}(\mathtt{x})=\mathtt y$ &\\\hline
+\?sin(home, x, y)? & $\sin(\mathtt{x})=\mathtt y$ &\\
+\?cos(home, x, y)? & $\cos(\mathtt{x})=\mathtt y$ &\\
+\?tan(home, x, y)? & $\tan(\mathtt{x})=\mathtt y$ &\\\hline
+\?asin(home, x, y)? & $\arcsin(\mathtt{x})=\mathtt y$ &\\
+\?acos(home, x, y)? & $\arccos(\mathtt{x})=\mathtt y$ &\\
+\?atan(home, x, y)? & $\arctan(\mathtt{x})=\mathtt y$ &\\\hline
+\end{tabular}
+\end{center}
+\caption[Arithmetic constraints]{Arithmetic constraints (\?x?,
+  \?y?, and \?z?  are float variables; \?n? is an \emph{unsigned}
+  integer; \?b? is a float number)}
+\label{fig:m:float:arithmetic}
+\end{figure}
+
+In addition to the constraints summarized in
+\autoref{fig:m:float:arithmetic} (see also
+\gecoderef[group]{TaskModelFloatArith}), the minimum and maximum
+constraints are also available for float variable arrays. 
+That
+is, for a float variable array \?x? and a float variable
+\?y?
+\begin{code}
+min(home, x, y);
+\end{code}
+constrains \?y? to be the minimum of the variables in \?x?
+(\?max? is analogous). 
+
+The constraints marked as default in
+\autoref{fig:m:float:arithmetic} are always supported, the others
+only if Gecode has been built accordingly, see
+\autoref{m:float:mpfr}.
+
+\subsection{Linear constraints}
+\label{sec:m:float:linear}
+
+\gecoderef[group]{TaskModelFloatLI} provide constraint post
+functions for linear constraints over float variables. The most general variant
+\begin{code}
+linear(home, a, x, FRT_EQ, c);
+\end{code}
+posts the linear constraint
+$$
+\sum_{i=0}^{|\mathtt x|-1} \mathtt{a}_i \cdot \mathtt{x}_i =
+\mathtt c
+$$
+with float value coefficients \?a? (of type \?FloatValArgs?), float
+variables \?x?, and a float value \?c?. Note that \?a? and
+\?x? must have the same size. Of course, all other float
+relation types are supported, see \autoref{fig:m:float:frt} for a
+table of float relation types. Multiple occurrences of the same
+variable in \?x? are explicitly allowed and common terms $a\cdot
+y$ and $b\cdot y$ for the same variable $y$ are rewritten to
+$(a+b)\cdot y$ to increase propagation.
+
+\begin{samepage}
+The array of coefficients can be omitted if all coefficients are
+one. That is,
+\begin{code}
+linear(home, x, FRT_GR, c);
+\end{code}
+posts the linear constraint
+$$
+\sum_{i=0}^{|\mathtt x|-1} \mathtt{x}_i > \mathtt c
+$$
+for a variable array \?x? and a float value \?c?.
+\end{samepage}
+
+Instead of float value \?c? as the right-hand side of the linear
+constraint, a float variable can be used as well. All variants of
+\?linear? support reification.
+
+
+\subsection{Channel constraints}
+\label{sec:m:float:channel}
+
+\gecoderef[group]{TaskModelFloatChannel} channel float to integer
+variables. To express that a float variable \?x? is equal to an
+integer variable \?y? is by posting either
+\begin{code}
+channel(home, x, y);
+\end{code}
+\begin{samepage}
+or
+\begin{code}
+channel(home, y, x);
+\end{code}
+\end{samepage}
 
 
 \section{Synchronized execution}

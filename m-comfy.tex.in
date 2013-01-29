@@ -267,8 +267,8 @@ When you press Ctrl-C twice, the process is interrupted immediately. This can be
 \tip{How Gecode has been configured}{%
 \label{tip:m:comfy:conf}
 Depending on the hardware and software platform on which Gecode has been
-compiled, some features (such as Gist or thread support for
-parallel search) might not be available. 
+compiled, some features (such as Gist, thread support for
+parallel search, trigonometric and transcedental constraints for floats) might not be available. 
 For example, if Gist is not supported, the request for 
 \?-mode gist? 
 will be silently ignored and the normal mode 
