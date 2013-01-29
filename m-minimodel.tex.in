@@ -123,7 +123,7 @@ Integer expressions (that is, expressions that evaluate to an integer) are const
 operators (for an example, see
 \autoref{sec:m:comfy:expr}), as well as several functions with intuitive names such as \?min? or \?max?. Integer expressions and relations can
 be constructed over integer, Boolean, and set variables. 
-In Gecode, integer expressions are of type \gecoderef[class]{LinExpr}, which
+In Gecode, integer expressions are of type \gecoderef[class]{LinIntExpr}, which
 are constructed using \gecoderef[group]{TaskModelMiniModelLin},
 \gecoderef[group]{TaskModelMiniModelArith}, and some
 \gecoderef[group]{TaskModelMiniModelSet}.

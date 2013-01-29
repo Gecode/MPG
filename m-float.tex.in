@@ -6,7 +6,7 @@ This chapter gives an overview over float variables and float
 constraints in Gecode. Just like \autoref{chap:m:int} does for
 integer and Boolean variables, this chapter serves as a starting
 point for using float variables. For the reference documentation,
-see \gecoderef[group]{TaskModelFloat}.
+please consult \gecoderef[group]{TaskModelFloat}.
 
 \paragraph{Overview.}
 
@@ -29,13 +29,13 @@ the same conventions hold as in \autoref{chap:m:int}.
 \tip{Transcendental and trigonometric functions and constraints}{%
   \label{m:float:mpfr}
   When compiling Gecode, by default transcendental and
-  trigonometric constraints are disabled. In order to enable
-  these constraints, you have to install additional third-party
+  trigonometric functions and constraints are disabled. In order to enable
+  them, you have to install additional third-party
   libraries and provide additional options to the configuration
   of Gecode, see \autoref{par:m:started:mpfr}.
   
-  To find out whether the constraints are enabled, consult
-  \autoref{tip:m:comfy:conf}.
+  To find out whether the functions and constraints are enabled,
+  consult \autoref{tip:m:comfy:conf}.  
 }
 
 \section{Float values and numbers}
@@ -46,8 +46,8 @@ A \emph{floating point value} (short, \emph{float value}, see
 of two \emph{floating point numbers} (short, \emph{float number},
 see \gecoderef[group]{TaskModelFloatVars}). That is, a float
 value is a closed interval $[a,b]$ which includes all real
-numbers $n\in\RR$ such that $a\leq n$ and $n\leq b$. Float
-numbers of type \?FloatNum? are defined as \?double?.
+numbers $n\in\RR$ such that $a\leq n$ and $n\leq b$. The float
+number type \?FloatNum? is defined as \?double?.
 
 The reason why a float value is not represented by a single
 floating point number is that real numbers cannot be represented
@@ -76,6 +76,16 @@ FloatVal x(1.0);
 or from two float numbers such as in
 \begin{code}
 FloatVal x(0.9999,1.0001);
+\end{code}
+
+Float numbers (and other numbers) are automatically cast to
+float values if needed, for example in
+\begin{code}
+FloatVal x=1.0;
+\end{code}
+or
+\begin{code}
+FloatVal x=1;
 \end{code}
 
 
@@ -143,7 +153,7 @@ greater or equal.
 \end{tabular}
 \end{center}
 \caption[Functions on float values]{Functions on float values
-  (\?x? and \?y? are float values; \?n? is an integer)}
+  (\?x? and \?y? are float values; \?n? is a non-negative integer)}
 \label{fig:m:float:val:fun}
 \end{figure}
 
@@ -172,7 +182,7 @@ The domain of a float variable is represented exactly as a float
 value: a closed interval $[a,b]$ which represents all real
 numbers $n\in\RR$ such that $a\leq n$ and $n\leq b$. A float
 variable is \emph{assigned} if the interval $[a,b]$ is tight (see
-\autoref{sec:m:float:val})\footnote{Note that this means that a
+\autoref{sec:m:float:val}).\footnote{Note that this means that a
   float variable is assigned even though its domain might still
   denote a set with more than one element. But this cannot be
   avoided as real numbers cannot be represented exactly.}
@@ -184,9 +194,9 @@ A new float variable \?x? is created by
 \begin{code}
 FloatVar x(home, -1.0, 1.0);
 \end{code}
-This declares a variable \?x? of type \?FloatVar? in the space
-\?home?, creates a new float variable implementation with
-domain $[-1.0,1.0]$, and makes \?x?  refer to the newly
+This declares a variable \?x? of type \gecoderef[class]{FloatVar}
+in the space \?home?, creates a new float variable implementation
+with domain $[-1.0,1.0]$, and makes \?x?  refer to the newly
 created float variable implementation.
 
 You find the full interface in the
@@ -210,8 +220,9 @@ implementation.
 \paragraph{Limits for float numbers, values, and variables.}
 
 The float numbers range from $\mathtt{Float::Limits::min}$ to
-$\mathtt{Float::Limits::max}$ which also defines which values and
-variables can be represented. The limits are defined in
+$\mathtt{Float::Limits::max}$ which also define the numbers that
+can represent float values and
+float variables. The limits are defined in
 the namespace \gecoderef[namespace]{Float::Limits}.
 
 \tip{Small variable domains are still beautiful}{%
@@ -275,8 +286,7 @@ documentation.
 Some float constraints (relation constraints, see
 \autoref{sec:m:float:rel}, and linear constraints, see
 \autoref{sec:m:float:linear}) also exist as a reified variant.
-Whether a reified version exists for a given constraint can be
-found in the reference documentation. If a reified version does
+If a reified version does
 exist, the reification information combining the Boolean control
 variable and an optional reification mode is passed as the last
 non-optional argument, see \autoref{sec:m:integer:halfreify}.
@@ -400,7 +410,7 @@ z$&\YES
 \end{tabular}
 \end{center}
 \caption[Arithmetic constraints]{Arithmetic constraints (\?x?,
-  \?y?, and \?z?  are float variables; \?n? is an \emph{unsigned}
+  \?y?, and \?z?  are float variables; \?n? is a non-negative
   integer; \?b? is a float number)}
 \label{fig:m:float:arithmetic}
 \end{figure}
@@ -436,14 +446,16 @@ $$
 \sum_{i=0}^{|\mathtt x|-1} \mathtt{a}_i \cdot \mathtt{x}_i =
 \mathtt c
 $$
-with float value coefficients \?a? (of type \?FloatValArgs?), float
-variables \?x?, and a float value \?c?. Note that \?a? and
-\?x? must have the same size. Of course, all other float
-relation types are supported, see \autoref{fig:m:float:frt} for a
-table of float relation types. Multiple occurrences of the same
-variable in \?x? are explicitly allowed and common terms $a\cdot
-y$ and $b\cdot y$ for the same variable $y$ are rewritten to
-$(a+b)\cdot y$ to increase propagation.
+with float value coefficients \?a? (of type
+\gecoderef[class]{FloatValArgs}), float variables \?x?, and a
+float value \?c?. Note that \?a? and \?x? must have the same
+size. Of course, all other float relation types are supported,
+see \autoref{fig:m:float:frt} for a table of float relation
+types (note that, linear constraints also show poor propagation
+for strict inequalities and disequality as discussed in \autoref{tip:m:float:weak}). Multiple occurrences of the same variable in \?x? are
+explicitly allowed and common terms $a\cdot y$ and $b\cdot y$ for
+the same variable $y$ are rewritten to $(a+b)\cdot y$ to increase
+propagation.
 
 \begin{samepage}
 The array of coefficients can be omitted if all coefficients are
@@ -458,7 +470,7 @@ $$
 for a variable array \?x? and a float value \?c?.
 \end{samepage}
 
-Instead of float value \?c? as the right-hand side of the linear
+Instead of a float value \?c? as the right-hand side of the linear
 constraint, a float variable can be used as well. All variants of
 \?linear? support reification.
 
@@ -466,7 +478,7 @@ constraint, a float variable can be used as well. All variants of
 \subsection{Channel constraints}
 \label{sec:m:float:channel}
 
-\gecoderef[group]{TaskModelFloatChannel} channel float to integer
+\gecoderef[group]{TaskModelFloatChannel} channel float variables to integer
 variables. To express that a float variable \?x? is equal to an
 integer variable \?y? is by posting either
 \begin{code}
