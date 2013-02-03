@@ -40,7 +40,7 @@ different ways. You can post a relation, or create a new variable
 from an expression.
 
 For example, the following code creates a fresh integer variable
-\?z? that is costrained to be equal to the given
+\?z? that is constrained to be equal to the given
 \emph{expression} \?3*x-4*y+2?, where both \?x?
 and \?y? are integer variables:
 \begin{code}
