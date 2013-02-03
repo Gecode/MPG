@@ -1582,7 +1582,7 @@ Summary
         peak depth:   52
         peak memory:  1636 KB
 \end{cmd}
-\caption{Output for golomb rulers with eight workers}
+\caption{Output for Golomb rulers with eight workers}
 \label{fig:m:search:out:8}
 \end{figure}
 
@@ -1615,7 +1615,7 @@ Summary
         peak depth:   57
         peak memory:  262 KB
 \end{cmd}
-\caption{Output for golomb rulers with one worker}
+\caption{Output for Golomb rulers with one worker}
 \label{fig:m:search:out:1}
 \end{figure}
 

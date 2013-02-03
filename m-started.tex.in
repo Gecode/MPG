@@ -1000,7 +1000,7 @@ them, Gecode must be configured to use the
 \AURL{http://gmplib.org/}{GMP} (or
 \AURL{http://www.mpir.org/}{MPIR} instead) and
 \AURL{http://www.mpfr.org/}{MPFR} libraries. After having
-installed the libraries, the following command line options
+installed the libraries, the following commandline options
 instruct \?configure? to use these packages:
 \begin{itemize}
 \item \?-with-gmp-include=...?: the directory where the header
@@ -1142,7 +1142,7 @@ the filenames and the tools used to generate shared and static libraries.
 The second option says
 that your compiler can be used very much like the gnu compiler
 \?gcc?, or the Microsoft compiler \?cl?.
-Please let us know of any successfull attempt at
+Please let us know of any successful attempt at
 compiling Gecode on other platforms.
 
 \subsubsection{Useful Makefile targets}

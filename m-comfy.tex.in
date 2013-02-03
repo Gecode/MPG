@@ -261,7 +261,7 @@ line. So if your model runs a long time without returning solutions, you can
 press Ctrl-C and still see the statistics that tell you how deep the search
 tree was up to that point, or how many nodes the search has explored.
 
-When you press Ctrl-C twice, the process is interrupted immediately. This can be useful when debugging programs, e.g.\ if the process is stuck in an infinite loop. Alternatively, you can make the driver ignore Ctrl-C altogether, so that it immediately interrupts your program, using the command line option \texttt{-interrupt false}.
+When you press Ctrl-C twice, the process is interrupted immediately. This can be useful when debugging programs, e.g.\ if the process is stuck in an infinite loop. Alternatively, you can make the driver ignore Ctrl-C altogether, so that it immediately interrupts your program, using the commandline option \texttt{-interrupt false}.
 }
 
 \tip{How Gecode has been configured}{%
