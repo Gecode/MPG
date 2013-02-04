@@ -7,7 +7,7 @@ CHAPSRC = \
 	m-search m-gist m-driver \
 	p-started p-avoid p-reified p-views \
 	p-domain p-advisors p-memory p-sets p-floats \
-	b-started b-viewval \
+	b-started \
 	s-started s-recomputation s-engine \
 	v \
 	c-knights c-nonogram c-magic-sequence c-warehouses \
@@ -51,12 +51,12 @@ TESTCPP = \
 	domain-equal-using-staging \
 	domain-equal-with-offset \
 	samedom samedom-using-predefined-view-advisors or \
-	intersection
+	intersection \
+	linear
 NOTESTCPP = \
 	shared-object-and-handle local-object-and-handle \
 	local-object-with-external-resources \
 	none-min none-min-improved size-min assign-min none-min-and-none-max \
-	view-val-none-min view-val-size-min view-val-assign-min \
 	dfs-binary dfs bab \
 	dfs-using-full-recomputation dfs-using-full-recomputation-and-lao \
 	dfs-using-hybrid-recomputation dfs-using-adaptive-recomputation \
@@ -163,6 +163,7 @@ test-%.exe: test-%.obj
 	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ \
 		../../gecode/trunk/test/test.obj \
 		../../gecode/trunk/test/int.obj \
+		../../gecode/trunk/test/float.obj \
 		../../gecode/trunk/test/set.obj \
 		$< $(MSVCLINK)
 %.exe: %.obj
@@ -172,6 +173,7 @@ $(TESTCPP:%=test-%): test-%: test-%.o
 	$(CXX) $(GCCCPPOPT) $(GCCINCL) -o $@ \
 		../gecode/trunk/test/test.o \
 		../gecode/trunk/test/int.o \
+		../gecode/trunk/test/float.o \
 		../gecode/trunk/test/set.o \
 		$< $(GCCLINK)
 

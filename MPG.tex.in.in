@@ -378,13 +378,10 @@ This part presents how to program branchers as
 implementations of branchings.
 }
 
-\tcbstarted{} shows how to implement branchers.  An overview of
-the predefined view-value brancher pattern is given in
-\tcbviewval{}.}
+\tcbstarted{} shows how to implement branchers.}
 \mypart{1}{Programming branchers}
 
 \include{b-started}
-\include{b-viewval}
 
 
 

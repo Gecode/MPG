@@ -89,7 +89,7 @@ public:
 
     distinct(*this, le);
 
-    branch(*this, le, INT_VAR_NONE, INT_VALUES_MIN);
+    branch(*this, le, INT_VAR_NONE(), INT_VALUES_MIN);
   }
 
   /// Constructor for cloning \a s

@@ -84,11 +84,11 @@ public:
         int j=0;
         for (int i=le.size(); i--; )
           el[j++]=le[i];
-        branch(*this, el, INT_VAR_NONE, INT_VAL_MIN);
+        branch(*this, el, INT_VAR_NONE(), INT_VAL_MIN());
       }
       break;
     case BRANCH_SIZE:
-      branch(*this, le, INT_VAR_SIZE_MIN, INT_VAL_MIN);
+      branch(*this, le, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
       break;
     }
   }

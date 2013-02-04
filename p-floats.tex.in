@@ -43,9 +43,9 @@ propagation conditions are defined in the namespace
 \begin{center}
 \begin{tabular}{ll}
 \multicolumn{2}{c}{\textbf{access operations}}\\
-\?min()? & return lower bound\\
-\?max()? & return upper bound\\
-\?size()? & return width of domain\\
+\?min()? & return lower bound (a float number)\\
+\?max()? & return upper bound (a float number)\\
+\?size()? & return width of domain (a float number)\\
 \?assigned()? & whether view is assigned\\
 \?in(n)? & whether float number \?n? is contained in domain\\
 \?in(n)? & whether float value \?n? is contained in domain\\
@@ -60,11 +60,12 @@ propagation conditions are defined in the namespace
 \label{fig:p:float:view}
 \end{figure}
 
-The operations on float views for programming propagators are
-summarized in \autoref{fig:p:float:view}, the full information is
-provided by \gecoderef[class]{Float::FloatView}. The lack of
-operations such as \?gr()? (for greater), \?le()? (for less), and
-\?nq()? (for disequal) is due to the fact that domains are open
+The most important operations on float views for programming
+propagators are summarized in \autoref{fig:p:float:view}, the
+full information can be found in
+\gecoderef[class]{Float::FloatView}. The lack of operations such
+as \?gr()? (for greater), \?le()? (for less), and \?nq()? (for
+disequality) is due to the fact that domains are closed
 intervals, see \autoref{sec:m:float:val} and
 \autoref{tip:m:float:weak}.
 
@@ -93,9 +94,9 @@ l/u bound of $\mathtt{x} - \mathtt{y}$
 \?sqrt_down(x)?, \?sqrt_up(x)? 
 & l/u bound of $\sqrt{\mathtt{x}}$
 &\YES\\\hline
-\?int_down(x)? & next downward-rounded integer of $\mathtt{x}$
+\texttt{int}\?_down(x)? & next downward-rounded integer of $\mathtt{x}$
 &\YES\\
-\?int_up(x)? & next upward-rounded integer of $\mathtt{x}$
+\texttt{int}\?_up(x)? & next upward-rounded integer of $\mathtt{x}$
 &\YES\\\hline
 \?exp_down(x)?, \?exp_up(x)? 
 & l/u bound of $\exp(\mathtt{x})$
@@ -147,18 +148,19 @@ l/u bound of $\mathtt{x} - \mathtt{y}$
 \label{fig:p:floats:rounding}
 \end{figure}
 
-The propagation rules of the \?linear? propagator will require
-that it can be controlled whether to round in a floating point
-operation on a float number upwards or downwards. Access to
+The propagation rules of the \?Linear? propagator will require
+that it can be controlled whether to round downwards or upwards
+in a floating point operation on a float number. Access to
 operations with explicit rounding control is provided by an
 object of class \gecoderef[class]{Float::Rounding}. The creation
 of an object of this class initializes the underlying floating
-point unit such that exact rounding is supported.
-\autoref{fig:p:floats:rounding} lists the supported operations
-with explicit rounding, where the \?_up()? variants round upwards
-and the \?_down()? variants round downwards. The functions marked
-as default are always supported, the others only if Gecode has
-been built accordingly, see \autoref{m:float:mpfr}.
+point unit such that it performs exact rounding in the required
+direction.  \autoref{fig:p:floats:rounding} lists the supported
+operations with explicit rounding, where the \?_down()? variants
+round downwards and the \?_up()? variants round upwards. The
+functions marked as default are always supported, the others are
+only supported if Gecode has been built accordingly, see
+\autoref{m:float:mpfr}.
 
 Hence, the first thing that the \?propagate()? function of our
 \?Linear? propagator does is to create a rounding object \?r? as
@@ -167,10 +169,33 @@ follows:
 
 \paragraph{Pruning lower and upper bounds.}
 
+The propagation rules for \?Linear? are quite
+straightforward. As $\mathtt{x}_0+\mathtt{x}_1+\mathtt{x}_2=0$ we
+can isolate $\mathtt{x}_0$ ($\mathtt{x}_1$ and $\mathtt{x}_2$ are
+of course analogous):
+$$
+\mathtt{x}_0=-\mathtt{x}_1-\mathtt{x}_2
+$$
+The upper bound of $\mathtt{x}_0$ can be constrained following:
+\begin{eqnarray*}
+\mathtt{x}_0&\leq&\max\left(-\mathtt{x}_1-\mathtt{x}_2\right)\\
+            &=&-\min\left(\mathtt{x}_1+\mathtt{x}_2\right)\\
+            &=&-\min\left(\min(\mathtt{x}_1)+\min(\mathtt{x}_2)\right)
+\end{eqnarray*}
+and, accordingly, the lower bound of $\mathtt{x}_0$ can be
+constrained following:
+\begin{eqnarray*}
+\mathtt{x}_0&\geq&\min\left(-\mathtt{x}_1-\mathtt{x}_2\right)\\
+            &=&-\max\left(\mathtt{x}_1+\mathtt{x}_2\right)\\
+            &=&-\max\left(\max(\mathtt{x}_1)+\max(\mathtt{x}_2\right))
+\end{eqnarray*}
 
-\insertlitcode{linear:prune lower bounds}
-
+The equations can be translated directly into
+update operations, where $\min$ corresponds to rounding
+downwards:
 \insertlitcode{linear:prune upper bounds}
+and $\max$ corresponds to rounding upwards:
+\insertlitcode{linear:prune lower bounds}
 
 
 
@@ -234,7 +259,8 @@ $[-1.0,1.0]$. Then, executing
 GECODE_ME_CHECK(x.lq(home,0.0));
 \end{code}
 will generate a float delta \?d? such that \?x.min(d)? returns
-\?0.0? and \?x.max()? returns \?1.0?.
+\?0.0? and \?x.max(d)? returns \?1.0? even though the domain of \?x?
+is now $[-1.0,0.0]$ and still includes $0.0$.
 
 
 \begin{litcode}{linear}{schulte}
@@ -265,15 +291,15 @@ public:
     \begin{litblock}{create rounding object}
     Rounding r;
     \end{litblock}
-    \begin{litblock}{prune lower bounds}
-    GECODE_ME_CHECK(x0.gq(home,-r.add_up(x1.max(),x2.max())));
-    GECODE_ME_CHECK(x1.gq(home,-r.add_up(x0.max(),x2.max())));
-    GECODE_ME_CHECK(x2.gq(home,-r.add_up(x0.max(),x1.max())));
-    \end{litblock}
     \begin{litblock}{prune upper bounds}
     GECODE_ME_CHECK(x0.lq(home,-r.add_down(x1.min(),x2.min())));
     GECODE_ME_CHECK(x1.lq(home,-r.add_down(x0.min(),x2.min())));
     GECODE_ME_CHECK(x2.lq(home,-r.add_down(x0.min(),x1.min())));
+    \end{litblock}
+    \begin{litblock}{prune lower bounds}
+    GECODE_ME_CHECK(x0.gq(home,-r.add_up(x1.max(),x2.max())));
+    GECODE_ME_CHECK(x1.gq(home,-r.add_up(x0.max(),x2.max())));
+    GECODE_ME_CHECK(x2.gq(home,-r.add_up(x0.max(),x1.max())));
     \end{litblock}
     return (x0.assigned() && x1.assigned()) ?
       home.ES_SUBSUMED(*this) : ES_NOFIX;

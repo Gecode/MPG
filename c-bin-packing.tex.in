@@ -973,7 +973,7 @@ public:
   \begin{litblock}{choice function}
   virtual Gecode::Choice* choice(Space& home) {
     int n = bin.size(), m = load.size();
-    Region region;
+    Region region(home);
     \begin{litblock}{initialize free space in bins}
     int* free = region.alloc<int>(m);
     for (int j=0; j<m; j++)
@@ -1050,7 +1050,7 @@ public:
   choice(const Space& home, Archive& e) {
     int alt, item, n_same;
     e >> alt >> item >> n_same;
-    Region region;
+    Region region(home);
     int* same = region.alloc<int>(n_same);
     for (int i=n_same; i--;) 
       e >> same[i];
