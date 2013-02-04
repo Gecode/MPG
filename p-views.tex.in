@@ -18,7 +18,7 @@ instantiating the template propagator, one can obtain
 implementations for several constraints from a single
 propagator. More on views (a concept
 introduced by Gecode) can be found
-in~\cite{SchulteTack:CCoR:2009} and~\cite{SchulteTack:Advances:2006}.
+in~\cite{SchulteTack:Constraints:2013} and~\cite{SchulteTack:Advances:2006}.
 
 As it comes to importance, this chapter should be the second
 in this part. However, the chapter comes rather late to be able

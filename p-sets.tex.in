@@ -95,10 +95,10 @@ domain operations:
 \begin{center}
 \begin{tabular}{ll}
 \multicolumn{2}{c}{\textbf{integer-valued bounds operations}}\\
-\?glbMin()? / \?glbMax()? & Return minimum/maximum of lower bound\\
-\?lubMin()? / \?lubMax()? & Return minimum/maximum of upper bound\\
-\?glbSize()? / \?lubSize()? & Return size of lower/upper bound\\
-\?unknownSize()? & Return number of elements in upper but not in lower bound\\
+\?glbMin()? / \?glbMax()? & return minimum/maximum of lower bound\\
+\?lubMin()? / \?lubMax()? & return minimum/maximum of upper bound\\
+\?glbSize()? / \?lubSize()? & return size of lower/upper bound\\
+\?unknownSize()? & return number of elements in upper but not in lower bound\\
 \?contains()? & test whether lower bound contains element\\
 \?notContains()? & test whether upper bound does not contain element\\
 \?include()? & add element (or range) to lower bound\\
@@ -111,8 +111,8 @@ domain operations:
 \?intersectI()? & intersect upper bound with given set\\
 \\
 \multicolumn{2}{c}{\textbf{cardinality operations}}\\
-\?cardMin()? & Return/modify minimum cardinality\\
-\?cardMax()? & Return/modify maximum cardinality\\
+\?cardMin()? & return/modify minimum cardinality\\
+\?cardMax()? & return/modify maximum cardinality\\
 \end{tabular}
 \end{center}
 \caption{Set view operations}

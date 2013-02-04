@@ -10,14 +10,168 @@ here.
 
 \paragraph{Overview.}
 
-\mbox{}\autoref{sec:p:floats:example} demonstrates a
-propagator that implements FIXME. 
-Float views and their related concepts are summarized in
+\mbox{}\autoref{sec:p:floats:example} demonstrates a propagator
+that implements a ternary linear constraint. Float views and
+their related concepts are summarized in
 \autoref{sec:p:floats:propagation}.
 
 
 \section{A simple example}
 \label{sec:p:floats:example}
+
+\begin{figure}
+\insertlitcode{linear}
+\caption{A constraint and propagator for ternary linear}
+\label{fig:p:floats:linear}
+\end{figure}
+
+\autoref{fig:p:floats:linear} shows a propagator for the
+ternary linear constraint
+$\mathtt{x}_0+\mathtt{x}_1+\mathtt{x}_2=0$ for three float
+variables $\mathtt{x}_0$, $\mathtt{x}_1$, and $\mathtt{x}_2$.
+
+As you can see, propagators for float constraints follow exactly
+the same structure as propagators for integer or Boolean
+constraints. The same propagator patterns can be used (see
+\autoref{sec:p:started:patterns}). The appropriate views and
+propagation conditions are defined in the namespace
+\gecoderef[namespace]{Gecode::Float}.
+
+\paragraph{Operations on float views.}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{ll}
+\multicolumn{2}{c}{\textbf{access operations}}\\
+\?min()? & return lower bound\\
+\?max()? & return upper bound\\
+\?size()? & return width of domain\\
+\?assigned()? & whether view is assigned\\
+\?in(n)? & whether float number \?n? is contained in domain\\
+\?in(n)? & whether float value \?n? is contained in domain\\
+\\
+\multicolumn{2}{c}{\textbf{modification operations}}\\
+\?eq(home,n)? & restrict values to be equal to \?n?\\
+\?lq(home,n)? & restrict values to be less or equal than \?n?\\
+\?gq(home,n)? & restrict values to be greater or equal than \?n?\\
+\end{tabular}
+\end{center}
+\caption{Most important float view operations}
+\label{fig:p:float:view}
+\end{figure}
+
+The operations on float views for programming propagators are
+summarized in \autoref{fig:p:float:view}, the full information is
+provided by \gecoderef[class]{Float::FloatView}. The lack of
+operations such as \?gr()? (for greater), \?le()? (for less), and
+\?nq()? (for disequal) is due to the fact that domains are open
+intervals, see \autoref{sec:m:float:val} and
+\autoref{tip:m:float:weak}.
+
+\paragraph{Creating a rounding object.}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|c|}
+\hline
+\multicolumn{1}{|c|}{function} &
+\multicolumn{1}{c|}{meaning}&default\\
+\hline
+\hline
+\?add_down(x,y)?, \?add_up(x,y)? & l/u bound of
+$\mathtt{x}+\mathtt{y}$
+&\YES\\
+\?sub_down(x,y)?, \?sub_up(x,y)? &
+l/u bound of $\mathtt{x} - \mathtt{y}$
+&\YES\\
+\?mul_down(x,y)?, \?mul_up(x,y)? 
+& l/u bound of $\mathtt{x} \times \mathtt{y}$
+&\YES\\
+\?div_down(x,y)?, \?div_up(x,y)? 
+& l/u bound of $\mathtt{x} / \mathtt{y}$
+&\YES\\\hline
+\?sqrt_down(x)?, \?sqrt_up(x)? 
+& l/u bound of $\sqrt{\mathtt{x}}$
+&\YES\\\hline
+\?int_down(x)? & next downward-rounded integer of $\mathtt{x}$
+&\YES\\
+\?int_up(x)? & next upward-rounded integer of $\mathtt{x}$
+&\YES\\\hline
+\?exp_down(x)?, \?exp_up(x)? 
+& l/u bound of $\exp(\mathtt{x})$
+&\\
+\?log_down(x)?, \?log_up(x)? 
+& l/u bound of $\log(\mathtt{x})$
+&\\\hline
+\?sin_down(x)?, \?sin_up(x)? 
+& l/u bound of $\sin(\mathtt{x})$
+&\\
+\?cos_down(x)?, \?cos_up(x)? 
+& l/u bound of $\cos(\mathtt{x})$
+&\\
+\?tan_down(x)?, \?tan_up(x)? 
+& l/u bound of $\tan(\mathtt{x})$
+&\\\hline
+\?asin_down(x)?, \?asin_up(x)? 
+& l/u bound of $\arcsin(\mathtt{x})$
+&\\
+\?acos_down(x)?, \?acos_up(x)? 
+& l/u bound of $\arccos(\mathtt{x})$
+&\\
+\?atan_down(x)?, \?atan_up(x)? 
+& l/u bound of $\arctan(\mathtt{x})$
+&\\\hline
+\?sinh_down(x)?, \?sinh_up(x)? 
+& l/u bound of $\sinh(\mathtt{x})$
+&\\
+\?cosh_down(x)?, \?cosh_up(x)? 
+& l/u bound of $\cosh(\mathtt{x})$
+&\\
+\?tanh_down(x)?, \?tanh_up(x)? 
+& l/u bound of $\tanh(\mathtt{x})$
+&\\\hline
+\?asinh_down(x)?, \?asinh_up(x)? 
+& l/u bound of $\arcsinh(\mathtt{x})$
+&\\
+\?acosh_down(x)?, \?acosh_up(x)? 
+& l/u bound of $\arccosh(\mathtt{x})$
+&\\
+\?atanh_down(x)?, \?atanh_up(x)? 
+& l/u bound of $\arctanh(\mathtt{x})$
+&\\\hline
+\end{tabular}
+\end{center}
+\caption[Rounding operations on float numbers]{Rounding
+  operations on float numbers 
+  (\?x? and \?y? are float numbers)}
+\label{fig:p:floats:rounding}
+\end{figure}
+
+The propagation rules of the \?linear? propagator will require
+that it can be controlled whether to round in a floating point
+operation on a float number upwards or downwards. Access to
+operations with explicit rounding control is provided by an
+object of class \gecoderef[class]{Float::Rounding}. The creation
+of an object of this class initializes the underlying floating
+point unit such that exact rounding is supported.
+\autoref{fig:p:floats:rounding} lists the supported operations
+with explicit rounding, where the \?_up()? variants round upwards
+and the \?_down()? variants round downwards. The functions marked
+as default are always supported, the others only if Gecode has
+been built accordingly, see \autoref{m:float:mpfr}.
+
+Hence, the first thing that the \?propagate()? function of our
+\?Linear? propagator does is to create a rounding object \?r? as
+follows:
+\insertlitcode{linear:create rounding object}
+
+\paragraph{Pruning lower and upper bounds.}
+
+
+\insertlitcode{linear:prune lower bounds}
+
+\insertlitcode{linear:prune upper bounds}
+
 
 
 \section{Modification events, propagation conditions, views,
@@ -33,24 +187,15 @@ specialized for float variables and propagators.
 \begin{center}
 \begin{tabular}{ll}
 \multicolumn{2}{c}{\textbf{float modification events}}\\
-\?Set::ME_SET_NONE? & the view has not been changed\\
-\?Set::ME_SET_FAILED? & the domain has become empty\\
-\?Set::ME_SET_VAL? & the view has been assigned to a single set\\
-\?Set::ME_SET_CARD? & the view has been assigned to a single set\\
-\?Set::ME_SET_LUB? & the upper bound has been changed\\
-\?Set::ME_SET_GLB? & the lower bound has been changed\\
-\?Set::ME_SET_BB? & both bounds have been changed\\
-\?Set::ME_SET_CLUB? & cardinality and upper bound have changed\\
-\?Set::ME_SET_CGLB? & cardinality and lower bound have changed\\
-\?Set::ME_SET_CBB? & cardinality and both bounds have changed\\
+\?Float::ME_FLOAT_NONE? & the view has not been changed\\
+\?Float::ME_FLOAT_FAILED? & the domain has become empty\\
+\?Float::ME_FLOAT_VAL? & the view has been assigned\\
+\?Float::ME_FLOAT_BND? & the bounds have changed (the domain has changed)\\
 \\
 \multicolumn{2}{c}{\textbf{float propagation conditions}}\\
-\?Set::PC_SET_VAL? & schedule when the view is assigned\\
-\?Set::PC_SET_CARD? & schedule when the cardinality changes\\
-\?Set::PC_SET_CLUB? & schedule when the cardinality or the upper bound changes\\
-\?Set::PC_SET_CGLB? & schedule when the cardinality or the lower bound changes\\
-\?Set::PC_SET_ANY? & schedule at any change\\
-\?Set::PC_SET_NONE? & do not schedule\\
+\?Float::PC_FLOAT_VAL? & schedule when the view is assigned\\
+\?Float::PC_FLOAT_BND? & schedule when the domain changes\\
+\?Float::PC_FLOAT_NONE? & do not schedule\\
 \end{tabular}
 \end{center}
 \caption{Float modification events and propagation conditions}
@@ -60,42 +205,85 @@ specialized for float variables and propagators.
 The modification events and propagation conditions for float
 propagators (see
 \autoref{fig:p:floats:propagation_conditions}) capture the
-parts of a float variable domain that can change.
-
-One could imagine a richer set, for example distinguishing
-between lower and upper bound changes of the cardinality, or
-separating the cardinality changes from the interval bound
-changes. However, the number of propagation conditions has a
-direct influence on the size of a variable, see
-\autoref{par:v:varimp:design:cost}. Just like for integer views,
-this set of modification events and propagation conditions has
-been chosen as a compromise between expressiveness on the one
-hand, and keeping the set small on the other.
+how the variable domain of a float view can change.
 
 
 \paragraph{Float variable views.}
 
 In addition to the basic \gecoderef[class]{Float::FloatView} class,
-there are five other set views:
-\gecoderef[class]{Set::ConstSetView},
-\gecoderef[class]{Set::EmptyView},
-\gecoderef[class]{Set::UniverseView},
-\gecoderef[class]{Set::SingletonView}, and
-\gecoderef[class]{Set::ComplementView}.
-
-The first three are constant views. A \?SingletonView? wraps an
-integer view $x$ in the interface of a set view, so that it
-acts like the singleton set $\{x\}$. A \?ComplementView? is like
-Boolean negation, it provides the set complement with respect to
-the global Gecode universe for set variables (defined as
-$\range{\mathtt{Set::Limits::min}}{\mathtt{Set::Limits::max}}$,
-see \gecoderef[namespace]{Set::Limits}).
+there are two other float views:
+\gecoderef[class]{Float::MinusView}, and
+\gecoderef[class]{Float::ScaleView}. The two latter views are
+defined similarly to minus view for integers (see
+\autoref{sec:p:views:int:minus}) and scale views for integers
+(see \autoref{sec:p:views:int:constantscale}).
 
 \paragraph{Advisors for float propagators.}
 
 Advisors for float constraints get informed about the domain
-modifications using a \gecoderef[class]{Float::FloatDelta}. The set delta
-provides only information about the minimum and maximum values
-that were added to the lower bound and/or removed from the upper
-bound.
+modifications using a float delta of class
+\gecoderef[class]{Float::FloatDelta}. 
+
+Float deltas are also represented by a minimum and maximum
+float number and hence also constitute a closed interval (as float
+value and float variables do). That means that a float delta
+cannot describe exactly which values have been removed. For example,
+assume that \?x? is a float view and that the domain of \?x? is
+$[-1.0,1.0]$. Then, executing
+\begin{code}
+GECODE_ME_CHECK(x.lq(home,0.0));
+\end{code}
+will generate a float delta \?d? such that \?x.min(d)? returns
+\?0.0? and \?x.max()? returns \?1.0?.
+
+
+\begin{litcode}{linear}{schulte}
+#include <gecode/float.hh>
+using namespace Gecode;
+  
+class Linear
+  : public TernaryPropagator<Float::FloatView,Float::PC_FLOAT_BND> {
+public:
+  Linear(Home home, Float::FloatView x0, Float::FloatView x1,
+                    Float::FloatView x2)
+    : TernaryPropagator<Float::FloatView,Float::PC_FLOAT_BND>
+        (home,x0,x1,x2) {}
+  \begin{litblock}{anonymous}
+  static ExecStatus post(Home home, Float::FloatView x0, Float::FloatView x1,
+                         Float::FloatView x2) {
+    (void) new (home) Linear(home,x0,x1,x2);
+    return ES_OK;
+  }
+  Linear(Space& home, bool share, Linear& p)
+    : TernaryPropagator<Float::FloatView,Float::PC_FLOAT_BND>(home,share,p) {}
+  virtual Propagator* copy(Space& home, bool share) {
+    return new (home) Linear(home,share,*this);
+  }
+  \end{litblock}
+  virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
+    using namespace Float;
+    \begin{litblock}{create rounding object}
+    Rounding r;
+    \end{litblock}
+    \begin{litblock}{prune lower bounds}
+    GECODE_ME_CHECK(x0.gq(home,-r.add_up(x1.max(),x2.max())));
+    GECODE_ME_CHECK(x1.gq(home,-r.add_up(x0.max(),x2.max())));
+    GECODE_ME_CHECK(x2.gq(home,-r.add_up(x0.max(),x1.max())));
+    \end{litblock}
+    \begin{litblock}{prune upper bounds}
+    GECODE_ME_CHECK(x0.lq(home,-r.add_down(x1.min(),x2.min())));
+    GECODE_ME_CHECK(x1.lq(home,-r.add_down(x0.min(),x2.min())));
+    GECODE_ME_CHECK(x2.lq(home,-r.add_down(x0.min(),x1.min())));
+    \end{litblock}
+    return (x0.assigned() && x1.assigned()) ?
+      home.ES_SUBSUMED(*this) : ES_NOFIX;
+  }
+};
+
+void linear(Home home, FloatVar x0, FloatVar x1, FloatVar x2) {
+  if (home.failed()) return;
+  GECODE_ES_FAIL(Linear::post(home,x0,x1,x2));
+}
+\end{litcode}
+
 

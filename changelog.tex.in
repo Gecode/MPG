@@ -8,6 +8,11 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2013-01-29}{Documented modeling with floats 
+    (see \autoref{chap:m:float}, 
+    \autoref{sec:m:minimodel:float}, 
+    \autoref{sec:m:search:branch:float}, 
+    and \autoref{par:m:started:mpfr})}
   \cle{2013-01-25}{Explain new search options for Gist in \autoref{sec:m:gist:preferences}}
   \cle[\AckName{Benjamin}{Negrevergne}]{2012-12-17}{Fixed typo in \autoref{sec:p:domain:iterators}}
   \cle{2012-10-19}{Explained how to use half reification

@@ -37,7 +37,7 @@
    Author =    "Christian Schulte",
    Title =     "Programming Constraint Services",
    Publisher = "Springer-Verlag",
-   Series =    "Lecture Notes in Artificial Intelligence",
+   Series =    lnai,
    Volume =    "2302",
    Year =      2002,
    URL =       "http://link.springer.de/link/service/series/0558/tocs/t2302.htm"
@@ -79,7 +79,7 @@ and Practice of Constraint Programming},
 editor = {Toby Walsh},
 year = {2001},
 publisher =   {Springer Verlag},
-series =      {Lecture Notes in Computer Science},
+series =      lncs,
 Pages = "240--255",
 Volume = 2239
 }
@@ -125,7 +125,7 @@ Volume = 2239
   year = 2006,
   Pages        = "49--58",
   booktitle    = "AI 2006: Advances in Artificial Intelligence",
-  series       = "Lecture Notes in Computer Science",
+  series       = lncs,
   publisher    = "Springer Verlag",
 }
 
@@ -173,7 +173,7 @@ Volume = 2239
   Address = "Pittsburgh, PA, USA",
   Month = may,
   publisher = {Springer-Verlag},
-  series    = {Lecture Notes in Computer Science},
+  series    = lncs,
   volume    = {5547},
   year      = {2009},
 }
@@ -332,7 +332,7 @@ Volume = 2239
    Month =     sep,
    Address =   "Providence, RI, USA",
    Publisher = "Springer-Verlag",
-   Series =    "Lecture Notes in Computer Science",
+   Series =    lncs,
    Volume =    "4741",
    Pages =     "409--422",
    DOI =       "10.1007/978-3-540-74970-7_30",
@@ -355,10 +355,24 @@ Volume = 2239
    Booktitle = "Recent Advances in Constraints (2005)",
    Year =      2006,
    Publisher = "Springer-Verlag",
-   Series =    "Lecture Notes in Artificial Intelligence",
+   Series =    lncs,
    Volume =    "3978",
    Pages =     "118--132",
    Note =      "\publink{http://www.gecode.org/paper.html?id=SchulteTack:Advances:2006}"
+}
+
+@Article{SchulteTack:Constraints:2013,
+   Author =    "Christian Schulte and Guido Tack",
+   Title =     "View-based Propagator Derivation",
+   Journal =   "Constraints",
+   Year =      2013,
+   Month =     jan,
+   Publisher = "Springer-Verlag",
+   Volume =    "18",
+   Number =    "1",
+   Pages =     "75--107",
+   DOI =       "10.1007/s10601-012-9133-z",
+   URL =       "http://www.ict.kth.se/~cschulte/paper.php?id=SchulteTack:Constraints:2013"
 }
 
 @Article{SchulteTack:CCoR:2009,
@@ -485,7 +499,7 @@ Volume = 2239
                AI 2001, Ottawa, Canada, June 7-9, 2001, Proceedings},
   booktitle = {Canadian Conference on AI},
   publisher = {Springer},
-  series    = {Lecture Notes in Computer Science},
+  series    = lncs,
   volume    = {2056},
   year      = {2001},
   isbn      = {3-540-42144-0},
@@ -554,7 +568,7 @@ Volume = 2239
   Title = "Eigth International Conference on Principles and Practice of Constraint Programming",
   Booktitle = "Eigth International Conference on Principles and Practice of Constraint Programming",
   publisher = {Springer-Verlag},
-  series    = {Lecture Notes in Computer Science},
+  series    = lncs,
   volume    = {2470},
   year      = {2002},
   month = sep,
@@ -569,7 +583,7 @@ Volume = 2239
    Month =     sep,
    Address =   "Lisbon, Portugal",
    Publisher = "Springer-Verlag",
-   Series =    "Lecture Notes in Computer Science",
+   Series =    lncs,
    Volume =    "5732",
 }
 
@@ -725,17 +739,29 @@ Volume = 2239
   pages     = {271-293},
 }
 
-@article{activity,
-  author    = {Laurent D. Michel and
-               Pascal Van Hentenryck},
-  title     = {Activity-Based Search for Black-Box Contraint-Programming
+@inproceedings{activity,
+  author    = {Laurent Michel and
+               Pascal {Van Hentenryck}},
+  title     = {Activity-Based Search for Black-Box Constraint Programming
                Solvers},
-  journal   = {CoRR},
-  volume    = {abs/1105.6314},
-  year      = {2011},
-  ee        = {http://arxiv.org/abs/1105.6314},
-  bibsource = {DBLP, http://dblp.uni-trier.de}
+  year      = {2012},
+  pages     = {228-243},
+  crossref  = {DBLP:conf/cpaior/2012},
 }
+@proceedings{DBLP:conf/cpaior/2012,
+  editor    = {Nicolas Beldiceanu and
+               Narendra Jussien and
+               Eric Pinson},
+  title     = {Integration of {AI} and {OR} Techniques in Constraint Programming
+               for Combinatorial Optimzation Problems (CPAIOR)},
+  Address = "Nantes, France",
+  month = may,
+  publisher = {Springer},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {7298},
+  year      = {2012},
+}
+
 
 @InProceedings{HalfReify,
   Crossref     = "CP:2011",

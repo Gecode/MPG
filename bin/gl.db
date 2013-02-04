@@ -9,6 +9,7 @@ URL class BlackHole classBlackHole.html
 URL class CDBF classCDBF.html
 URL class CDBF::Choice classCDBF_1_1Choice.html
 URL class CarSequencing classCarSequencing.html
+URL class CartesianHeart classCartesianHeart.html
 URL class ColoredMatrix classColoredMatrix.html
 URL class ColoredMatrixOptions classColoredMatrixOptions.html
 URL class Course classCourse.html
@@ -172,7 +173,6 @@ URL class Gecode::Float::FloatVarImp classGecode_1_1Float_1_1FloatVarImp.html
 URL class Gecode::Float::FloatVarImpBase classGecode_1_1Float_1_1FloatVarImpBase.html
 URL class Gecode::Float::FloatVarImpConf classGecode_1_1Float_1_1FloatVarImpConf.html
 URL class Gecode::Float::FloatView classGecode_1_1Float_1_1FloatView.html
-URL class Gecode::Float::FullRounding classGecode_1_1Float_1_1FullRounding.html
 URL class Gecode::Float::IllegalOperation classGecode_1_1Float_1_1IllegalOperation.html
 URL class Gecode::Float::Linear::Eq classGecode_1_1Float_1_1Linear_1_1Eq.html
 URL class Gecode::Float::Linear::Lin classGecode_1_1Float_1_1Linear_1_1Lin.html
@@ -193,6 +193,7 @@ URL class Gecode::Float::Rel::ReEqFloat classGecode_1_1Float_1_1Rel_1_1ReEqFloat
 URL class Gecode::Float::Rel::ReLeFloat classGecode_1_1Float_1_1Rel_1_1ReLeFloat.html
 URL class Gecode::Float::Rel::ReLq classGecode_1_1Float_1_1Rel_1_1ReLq.html
 URL class Gecode::Float::Rel::ReLqFloat classGecode_1_1Float_1_1Rel_1_1ReLqFloat.html
+URL class Gecode::Float::Rounding classGecode_1_1Float_1_1Rounding.html
 URL class Gecode::Float::ScaleView classGecode_1_1Float_1_1ScaleView.html
 URL class Gecode::Float::TooFewArguments classGecode_1_1Float_1_1TooFewArguments.html
 URL class Gecode::Float::Transcendental::Exp classGecode_1_1Float_1_1Transcendental_1_1Exp.html
@@ -1075,7 +1076,6 @@ URL class OpenShop classOpenShop.html
 URL class OpenShop::PrintTask classOpenShop_1_1PrintTask.html
 URL class OpenShop::Task classOpenShop_1_1Task.html
 URL class OrthoLatinSquare classOrthoLatinSquare.html
-URL class ParametricHeart classParametricHeart.html
 URL class Partition classPartition.html
 URL class Pentominoes classPentominoes.html
 URL class PerfectSquare classPerfectSquare.html
@@ -1540,7 +1540,9 @@ TITLE example alpha "Alpha puzzle"
 URL example alpha:Alpha alpha_8cpp.html
 TITLE example alpha:Alpha "Alpha puzzle"
 URL example archimedean-spiral archimedean-spiral_8cpp.html
+TITLE example archimedean-spiral "Archimedean spiral"
 URL example archimedean-spiral:ArchimedeanSpiral archimedean-spiral_8cpp.html
+TITLE example archimedean-spiral:ArchimedeanSpiral "Archimedean spiral"
 URL example bacp bacp_8cpp.html
 TITLE example bacp "The balanced academic curriculum problem"
 URL example bacp:BACP bacp_8cpp.html
@@ -1566,6 +1568,10 @@ URL example car-sequencing:CarOptions car-sequencing_8cpp.html
 URL example car-sequencing:CarSequencing car-sequencing_8cpp.html
 TITLE example car-sequencing:CarSequencing "Car sequencing"
 URL example car-sequencing:PushToEnd car-sequencing_8cpp.html
+URL example cartesian-heart cartesian-heart_8cpp.html
+TITLE example cartesian-heart "Cartesian Heart"
+URL example cartesian-heart:CartesianHeart cartesian-heart_8cpp.html
+TITLE example cartesian-heart:CartesianHeart "Cartesian Heart"
 URL example colored-matrix colored-matrix_8cpp.html
 TITLE example colored-matrix "Colored matrix example."
 URL example colored-matrix:ColoredMatrix colored-matrix_8cpp.html
@@ -1585,7 +1591,9 @@ URL example crowded-chess:Bishops crowded-chess_8cpp.html
 URL example crowded-chess:CrowdedChess crowded-chess_8cpp.html
 TITLE example crowded-chess:CrowdedChess "Crowded chessboard"
 URL example descartes-folium descartes-folium_8cpp.html
+TITLE example descartes-folium "Folium of Descartes"
 URL example descartes-folium:Folium descartes-folium_8cpp.html
+TITLE example descartes-folium:Folium "Folium of Descartes"
 URL example dominating-queens dominating-queens_8cpp.html
 TITLE example dominating-queens "Dominating Queens"
 URL example dominating-queens:DominatingQueens dominating-queens_8cpp.html
@@ -1606,7 +1614,9 @@ URL example efpa:EFPAOptions efpa_8cpp.html
 URL example eq20 eq20_8cpp.html
 TITLE example eq20 "Solving 20 linear equations"
 URL example golden-spiral golden-spiral_8cpp.html
+TITLE example golden-spiral "Golden spiral"
 URL example golden-spiral:GoldenSpiral golden-spiral_8cpp.html
+TITLE example golden-spiral:GoldenSpiral "Golden spiral"
 URL example golf golf_8cpp.html
 TITLE example golf "Golf tournament"
 URL example golf:Golf golf_8cpp.html
@@ -1682,8 +1692,6 @@ URL example ortho-latin ortho-latin_8cpp.html
 TITLE example ortho-latin "Orthogonal latin squares"
 URL example ortho-latin:OrthoLatinSquare ortho-latin_8cpp.html
 TITLE example ortho-latin:OrthoLatinSquare "Orthogonal latin squares"
-URL example parametric-heart parametric-heart_8cpp.html
-URL example parametric-heart:ParametricHeart parametric-heart_8cpp.html
 URL example partition partition_8cpp.html
 TITLE example partition "partition numbers into two groups"
 URL example partition:Partition partition_8cpp.html
@@ -1780,6 +1788,7 @@ URL file examples/bibd.cpp bibd_8cpp.html
 URL file examples/bin-packing.cpp examples_2bin-packing_8cpp.html
 URL file examples/black-hole.cpp black-hole_8cpp.html
 URL file examples/car-sequencing.cpp car-sequencing_8cpp.html
+URL file examples/cartesian-heart.cpp cartesian-heart_8cpp.html
 URL file examples/colored-matrix.cpp colored-matrix_8cpp.html
 URL file examples/crew.cpp crew_8cpp.html
 URL file examples/crossword.cpp crossword_8cpp.html
@@ -1807,7 +1816,6 @@ URL file examples/money.cpp money_8cpp.html
 URL file examples/nonogram.cpp nonogram_8cpp.html
 URL file examples/open-shop.cpp open-shop_8cpp.html
 URL file examples/ortho-latin.cpp ortho-latin_8cpp.html
-URL file examples/parametric-heart.cpp parametric-heart_8cpp.html
 URL file examples/partition.cpp partition_8cpp.html
 URL file examples/pentominoes.cpp pentominoes_8cpp.html
 URL file examples/perfect-square.cpp perfect-square_8cpp.html

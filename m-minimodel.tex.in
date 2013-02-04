@@ -390,6 +390,7 @@ rel(home, IntSet(0,10) <= x <= IntSet(0,20));
 \end{samepage}
 
 \subsection{Float expressions and relations}
+\label{sec:m:minimodel:float}
 
 \addtocounter{footnote}{1}
 \footnotetext[\value{footnote}]{These functions are only
