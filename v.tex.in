@@ -108,6 +108,24 @@ Programming variables includes the following programming tasks:
   on views must be defined for testing in which order views are
   and whether two views are shared or the same (see
   \autoref{par:p:views:sameshared}).
+\item \emph{Constraints} and \emph{branchings}: typically, when
+  implementing variables one also needs to implement constraints
+  and branchings to actually use the new variables. 
+  
+  The implementation of constraints for a new variable type is
+  typically not any different from what is described in
+  \autoref{part:p}.
+  
+  The situation for implementing branchings is quite different:
+  here one would want to offer at least a common set of
+  variable-value branchings as for example for integer variables
+  (see \autoref{sec:m:search:branch}). Gecode offers substantial
+  support for implementing variable-value branchings, including
+  support for the specification of variable and value selection
+  strategies, random and activity-based selection of variables
+  and values tie-breaking, filter functions, and much more. How
+  to use Gecode's support for implementing variable-value
+  branchings is detailed in \autoref{chap:v:branch}.
 \end{itemize}
 
 \paragraph{Putting everything together.}
@@ -156,9 +174,11 @@ arrays must be defined inside the \?Gecode? namespace), each
 program fragment is shown in its appropriate
 namespace.
 
-As an example, consider the definition of two exceptions that are
+As an example, consider the definition of three exceptions. Two are
 thrown by the constructor creating a new integer interval
-variable, in case the variable domain is ill-specified:
+variable, in case the variable domain is ill-specified. The third
+exception is thrown when the variable or value selection for a
+branching is unknown:
 \insertlitcode{int.hh:exceptions}
 
 As discussed above, \?Exception? is \?Gecode::Exception? (see
@@ -1247,7 +1267,7 @@ semantics is can be seen in \autoref{sec:p:views:int:minus} for
 minus views and in \autoref{sec:p:views:int:offset} for offset
 views.
 
-\subsection{Minus view}
+\subsection{Minus views}
 \label{sec:v:view:minus}
 
 \begin{figure}
@@ -1327,7 +1347,7 @@ The remaining operations to be implemented are support operations:
 
 
 
-\subsection{Offset view}
+\subsection{Offset views}
 \label{sec:v:view:offset}
 
 \begin{figure}
@@ -1354,6 +1374,77 @@ take into account the integer offset \?c?:
 \insertlitcode{int.hh:offsetview:view tests}
 
 
+\chapter{Variable-value branchings}
+\label{chap:v:branch}
+
+This chapter explains how to program common variable-value
+branchings using the abstractions provided by Gecode.
+
+\section{Overview}
+\label{sec:v:branch:overview}
+
+\insertlitcode{int.hh:branching}
+
+\section{Type definitions}
+\label{sec:v:branch:type}
+
+\insertlitcode{int.hh:branch function types}
+
+\insertlitcode{int.hh:branch traits}
+
+\insertlitcode{int.hh:variable activity}
+
+
+\section{Variable selection}
+\label{sec:v:branch:var}
+
+\insertlitcode{int.hh:variable selection class}
+
+\insertlitcode{int.hh:variable selection functions}
+
+
+\section{Value selection}
+\label{sec:v:branch:val}
+
+
+\insertlitcode{int.hh:value selection class}
+
+\insertlitcode{int.hh:value selection functions}
+
+
+\section{View selection function}
+\label{sec:v:branch:viewsel}
+
+\insertlitcode{int.hh:view selection function}
+
+\insertlitcode{int.hh:size merit class}
+
+\insertlitcode{int.hh:view selection with tbl-function}
+
+\insertlitcode{int.hh:view selection without tbl-function}
+
+\section{Value selection and commit function}
+\label{sec:v:branch:valcommit}
+
+\insertlitcode{int.hh:value selection and commit function}
+
+\insertlitcode{int.hh:value selection classes}
+
+\insertlitcode{int.hh:less or equal commit class}
+
+
+\section{Branchings}
+\label{sec:v:branch:branch}
+
+
+\insertlitcode{int.hh:branch function}
+
+\insertlitcode{int.hh:branch function with tie-breaking}
+
+\insertlitcode{int.hh:normalizing tie-breaking}
+
+
+
 \chapter{Putting everything together}
 \label{chap:v:all}
 
@@ -1373,7 +1464,7 @@ example script.
   Please make sure to carefully read
   \autoref{sec:m:started:compile}, before reading any further in
   this chapter!
-\end{important}
+>\end{important}
 
 \section{Golomb rulers à la integer interval variables}
 \label{sec:v:all:golomb}
@@ -1499,6 +1590,14 @@ namespace MPG { namespace Int {
   public:
     VariableEmptyDomain(const char* l)
       : Exception(l,"Attempt to create variable with empty domain") {}
+    \end{litblock}
+  };
+
+  class UnknownBranching : public Exception {
+    \begin{litblock}{anonymous}
+  public:
+    UnknownBranching(const char* l)
+      : Exception(l,"Unknown branching (variable or value)") {}
     \end{litblock}
   };
 
@@ -2036,6 +2135,390 @@ namespace MPG { namespace Int {
 }}
 \end{litblock}
 
+\begin{litblock}{branching}
+\begin{litblock}{branch function types}
+namespace MPG {
+
+  typedef bool   (*IntBranchFilter)(const Space& home, 
+                                    IntVar x, int i);
+  typedef double (*IntBranchMerit) (const Space& home, 
+                                    IntVar x, int i);
+  typedef int    (*IntBranchVal)   (const Space& home, 
+                                    IntVar x, int i);
+  typedef void   (*IntBranchCommit)(Space& home, unsigned int a,
+                                    IntVar x, int i, int n);
+
+}
+\end{litblock}
+\begin{litblock}{branch traits}
+namespace Gecode {
+
+  template<>
+  class BranchTraits<MPG::IntVar> {
+  public:
+    typedef MPG::IntBranchFilter Filter;
+    typedef MPG::IntBranchMerit Merit;
+    typedef MPG::IntBranchVal Val;
+    typedef int ValType;
+    typedef MPG::IntBranchCommit Commit;
+  };
+
+}
+\end{litblock}
+
+\begin{litblock}{variable activity}
+namespace MPG {
+
+  class IntActivity : public Activity {
+  public:
+    IntActivity(void) {}
+    IntActivity(const IntActivity& a) : Activity(a) {}
+    IntActivity& operator =(const IntActivity& a) {
+      return static_cast<IntActivity&>(Activity::operator =(a));
+    }
+    IntActivity(Home home, const IntVarArgs& x, double d) {
+      ViewArray<Int::IntView> y(home,x);
+      Activity::init(home,y,d);
+    }
+    init(Home, const IntVarArgs& x, double d) {
+      \begin{litblock}{anonymous}
+      ViewArray<Int::IntView> y(home,x);
+      Activity::init(home,y,d);
+      \end{litblock}
+    }
+  };
+
+}
+\end{litblock}
+
+namespace MPG {
+  \begin{litblock}{variable selection class}
+  class IntVarBranch : public VarBranch {
+  public:
+    enum Select {
+      SEL_NONE=0, 
+      SEL_RND,
+      SEL_MERIT_MAX,
+      SEL_DEGREE_MAX,
+      SEL_ACTIVITY_MAX,
+      SEL_SIZE_MIN
+    };
+  protected:
+    Select s;
+  public:
+    IntVarBranch(void) 
+      : VarBranch(NULL), s(SEL_NONE) {}
+    IntVarBranch(Rnd r) 
+      : VarBranch(r), s(SEL_RND) {}
+    IntVarBranch(Select s0, BranchTbl t)
+      : VarBranch(t), s(s0) {}
+    IntVarBranch(Select s0, Activity a, BranchTbl t);
+    IntVarBranch(Select s0, VoidFunction mf, BranchTbl t);
+    Select select(void) const;
+  };
+  \begin{litblock}{anonymous}
+  inline
+  IntVarBranch::IntVarBranch(Select s0, Activity a, BranchTbl t)
+    : VarBranch(a,t), s(s0) {}
+  inline
+  IntVarBranch::IntVarBranch(Select s0, VoidFunction mf, BranchTbl t)
+    : VarBranch(mf,t), s(s0) {}
+  inline
+  IntVarBranch::Select select(void) const {
+    return s;
+  }
+  \end{litblock}
+  \end{litblock}
+  \begin{litblock}{variable selection functions}
+  IntVarBranch INT_VAR_NONE(void);
+  IntVarBranch INT_VAR_RND(Rnd r);
+  IntVarBranch INT_VAR_MERIT_MAX(IntBranchMerit bm, BranchTbl tbl=NULL);
+  IntVarBranch INT_VAR_DEGREE_MAX(BranchTbl tbl=NULL);
+  IntVarBranch INT_VAR_ACTIVITY_MAX(IntActivity a, BranchTbl tbl=NULL);     
+  IntVarBranch INT_VAR_SIZE_MIN(BranchTbl tbl=NULL);
+  \begin{litblock}{anonymous}
+  inline IntVarBranch
+  INT_VAR_NONE(void) {
+    return IntVarBranch(IntVarBranch::SEL_NONE,NULL);
+  }
+  inline IntVarBranch
+  INT_VAR_RND(Rnd r) {
+    return IntVarBranch(r);
+  }
+  inline IntVarBranch
+  INT_VAR_MERIT_MAX(IntBranchMerit bm, BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_MERIT_MAX,
+                        Gecode::function_cast<VoidFunction>(bm),tbl);
+  }
+  \end{litblock}
+  inline IntVarBranch
+  INT_VAR_DEGREE_MAX(BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_DEGREE_MAX,tbl);
+  }
+  \begin{litblock}{anonymous}
+  inline IntVarBranch
+  INT_VAR_ACTIVITY_MAX(IntActivity a, BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_ACTIVITY_MAX,a,tbl);
+  }
+  inline IntVarBranch
+  INT_VAR_SIZE_MIN(BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_SIZE_MIN,tbl);
+  }
+
+  inline IntVarBranch
+  INT_VAR_SIZE_MAX(BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_SIZE_MAX,tbl);
+  }
+  \end{litblock}
+  \end{litblock}
+  \begin{litblock}{value selection class}
+  class IntValBranch : public ValBranch {
+    \begin{litblock}{anonymous}
+  public:
+    enum Select {
+      SEL_MIN,
+      SEL_RND,
+      SEL_VAL_COMMIT
+    };
+  protected:
+    Select s;
+  public:
+    IntValBranch(Select s0 = SEL_MIN)
+      : s(s0) {}
+    IntValBranch(Rnd r)
+      : ValBranch(r), s(SEL_RND) {}
+    IntValBranch(VoidFunction v, VoidFunction c)
+      : ValBranch(v,c), s(SEL_VAL_COMMIT) {}
+    Select select(void) const;
+      return s;
+    }
+    \end{litblock}
+  };
+  \end{litblock}
+  \begin{litblock}{value selection functions}
+  IntValBranch INT_VAL_MIN(void);
+  IntValBranch INT_VAL_RND(Rnd r);
+  IntValBranch INT_VAL(IntBranchVal v, IntBranchCommit c);
+  \begin{litblock}{anonymous}
+  inline IntValBranch
+  INT_VAL_MIN(void) {
+    return IntValBranch(IntValBranch::SEL_MIN);
+  }
+  inline IntValBranch
+  INT_VAL_RND(Rnd r) {
+    return IntValBranch(r);
+  }
+  inline IntValBranch
+  INT_VAL(IntBranchVal v, IntBranchCommit c) {
+    return IntValBranch(Gecode::function_cast<VoidFunction>(v),
+                        Gecode::function_cast<VoidFunction>(c));
+  }
+  \end{litblock}
+  \end{litblock}
+}
+
+namespace MPG { namespace Int {
+  \begin{litblock}{view selection function}
+  \begin{litblock}{size merit class}
+  class MeritSize : public MeritBase<IntView,unsigned int> {
+  public:
+    MeritSize(Space& home, const VarBranch& vb);
+      : MeritBase<IntView,unsigned int>(home,vb) {}
+    MeritSize(Space& home, bool shared, MeritSize& m);
+      : MeritBase<IntView,unsigned int>(home,shared,m) {}
+    unsigned int operator ()(const Space& home, IntView x, int i) {
+      return x.size();
+    }
+  };
+  \end{litblock}
+  inline ViewSel<IntView>*
+  viewsel(Space& home, const IntVarBranch& ivb) {
+    if (ivb.select() == IntVarBranch::SEL_NONE)
+      return new (home) ViewSelNone<IntView>(home,ivb);
+    if (ivb.select() == IntVarBranch::SEL_RND)
+      return new (home) ViewSelRnd<IntView>(home,ivb);
+    if (ivb.tbl() != NULL) {
+      \begin{litblock}{view selection with tbl-function}
+      switch (ivb.select()) {
+      case IntVarBranch::SEL_MERIT_MAX:
+        return new (home) ViewSelMaxTbl<MeritFunction<IntView> >(home,ivb);
+      case IntVarBranch::SEL_DEGREE_MAX:
+        return new (home) ViewSelMaxTbl<MeritDegree<IntView> >(home,ivb);
+      case IntVarBranch::SEL_ACTIVITY_MAX:
+        return new (home) ViewSelMaxTbl<MeritActivity<IntView> >(home,ivb);
+      case IntVarBranch::SEL_SIZE_MIN:
+        return new (home) ViewSelMinTbl<MeritSize>(home,ivb);
+      default: ;
+      }
+      \end{litblock}
+    } else {
+      \begin{litblock}{view selection without tbl-function}
+      switch (ivb.select()) {
+      case IntVarBranch::SEL_MERIT_MAX:
+        return new (home) ViewSelMax<MeritFunction<IntView> >(home,ivb);
+      \begin{litblock}{anonymous}
+      case IntVarBranch::SEL_DEGREE_MAX:
+        return new (home) ViewSelMax<MeritDegree<IntView> >(home,ivb);
+      case IntVarBranch::SEL_ACTIVITY_MAX:
+        return new (home) ViewSelMax<MeritActivity<IntView> >(home,ivb);
+      case IntVarBranch::SEL_SIZE_MIN:
+        return new (home) ViewSelMin<MeritSize<IntView> >(home,ivb);
+      default: ;
+      \end{litblock}
+      }
+      \end{litblock}
+    }
+    throw UnknownBranching("Int::branch");
+  }
+  \end{litblock}
+  \begin{litblock}{value selection and commit function}
+  \begin{litblock}{value selection classes}
+  class ValSelMin : public ValSel<IntView,int> {
+    \begin{litblock}{anonymous}
+  public:
+    ValSelMin(Space& home, const ValBranch& vb)
+      : ValSel<IntView,int>(home,vb) {}
+    ValSelMin(Space& home, bool shared, ValSelMin& vs)
+      : ValSel<IntView,int>(home,shared,vs) {}
+    int val(const Space& home, IntView x, int i) {
+      return x.min();
+    }
+    \end{litblock}
+  };
+  class ValSelRnd : public ValSel<IntView,int> {
+  protected:
+    Rnd r;
+  public:
+    \begin{litblock}{anonymous}
+    ValSelRnd(Space& home, const ValBranch& vb);
+      : ValSel<IntView,int>(home,vb), r(vb.rnd()) {}
+    ValSelRnd(Space& home, bool shared, ValSelRnd& vs)
+      : ValSel<IntView,int>(home,shared,vs) {
+      r.update(home,shared,vs.r);
+    }
+    \end{litblock}
+    int val(const Space& home, IntView x, int i) {
+      return x.min() + static_cast<int>(r(x.size()));
+    }
+    bool notice(void) const {
+      return true;
+    }
+    void dispose(Space& home) {
+      r.~Rnd();
+    }
+  };
+  \end{litblock}
+  \begin{litblock}{less or equal commit class}
+  class ValCommitLq : public ValCommit<IntView,int> {
+  public:
+    \begin{litblock}{anonymous}
+    ValCommitLq(Space& home, const ValBranch& vb)
+      : ValCommit<IntView,int>(home,vb) {}
+    ValCommitLq(Space& home, bool shared, ValCommitLq& vc)
+      : ValCommit<IntView,int>(home,shared,vc) {}
+    \end{litblock}
+    ModEvent commit(Space& home, unsigned int a, 
+                    IntView x, int i, int n) {
+      return (a == 0) ? x.lq(home,n) : x.gq(home,n+1);
+    }
+  };
+  \end{litblock}
+  inline ValSelCommitBase<IntView,int>* 
+  valselcommit(Space& home, const IntValBranch& ivb) {
+    switch (ivb.select()) {
+    case IntValBranch::SEL_MIN:
+      return new (home) 
+        ValSelCommit<ValSelMin,ValCommitLq>(home,ivb);
+    \begin{litblock}{anonymous}
+    case IntValBranch::SEL_RND:
+      return new (home) 
+        ValSelCommit<ValSelRnd,ValCommitLq>(home,ivb);
+    \end{litblock}
+    case IntValBranch::SEL_VAL_COMMIT:
+      return new (home) 
+        ValSelCommit<ValSelFunction<IntView>,
+                     ValCommitFunction<IntView> >(home,ivb);
+      }
+    default:
+      throw UnknownBranching("Int::branch");
+    }
+  }
+  \end{litblock}
+}}
+
+namespace MPG {
+  \begin{litblock}{branch function}
+  inline void 
+  branch(Home home, const IntVarArgs& x,
+         IntVarBranch vars, IntValBranch vals, 
+         IntBranchFilter bf=NULL) {
+    using namespace Int;
+    if (home.failed()) return;
+    ViewArray<IntView> xv(home,x);
+    ViewSel<IntView>* vs[1] = { 
+      viewsel(home,vars) 
+    };
+    ViewValBrancher<IntView,1,int,2>::post
+      (home,xv,vs,valselcommit(home,vals),bf);
+  }
+  \end{litblock}
+  \begin{litblock}{branch function with tie-breaking}
+  inline void
+  branch(Home home, const IntVarArgs& x,
+         TieBreak<IntVarBranch> vars, IntValBranch vals,
+         IntBranchFilter bf=NULL)
+    using namespace Int;
+    if (home.failed()) return;
+    \begin{litblock}{normalizing tie-breaking}
+    if ((vars.a.select() == IntVarBranch::SEL_NONE) ||
+        (vars.a.select() == IntVarBranch::SEL_RND))
+      vars.b = INT_VAR_NONE();
+    if ((vars.b.select() == IntVarBranch::SEL_NONE) ||
+      \begin{litblock}{anonymous}
+        (vars.b.select() == IntVarBranch::SEL_RND))
+      vars.c = INT_VAR_NONE();
+    if ((vars.c.select() == IntVarBranch::SEL_NONE) ||
+        (vars.c.select() == IntVarBranch::SEL_RND))
+      vars.d = INT_VAR_NONE();
+      \end{litblock}
+    \end{litblock}
+    ViewArray<IntView> xv(home,x);
+    if (vars.b.select() == IntVarBranch::SEL_NONE) {
+      \begin{litblock}{anonymous}
+      ViewSel<IntView>* vs[1] = { 
+        viewsel(home,vars.a)
+      };
+      ViewValBrancher<IntView,1,int,2>
+        ::post(home,xv,vs,valselcommit(home,vals),bf);
+      \end{litblock}
+    } else if (vars.c.select() == IntVarBranch::SEL_NONE) {
+      ViewSel<IntView>* vs[2] = { 
+        viewsel(home,vars.a), viewsel(home,vars.b)
+      };
+      ViewValBrancher<IntView,2,int,2>
+        ::post(home,xv,vs,valselcommit(home,vals),bf);
+    } else if (vars.d.select() == IntVarBranch::SEL_NONE) {
+      \begin{litblock}{anonymous}
+      ViewSel<IntView>* vs[3] = { 
+        viewsel(home,vars.a), viewsel(home,vars.b),
+        viewsel(home,vars.c)
+      };
+      ViewValBrancher<IntView,3,int,2>
+        ::post(home,xv,vs,valselcommit(home,vals),bf);
+    } else {
+      ViewSel<IntView>* vs[4] = { 
+        viewsel(home,vars.a), viewsel(home,vars.b),
+        viewsel(home,vars.c), viewsel(home,vars.d)
+      };         
+      ViewValBrancher<IntView,4,int,2>
+        ::post(home,xv,vs,valselcommit(home,vals),bf);
+      \end{litblock}
+    }
+  }
+  \end{litblock}
+}
+\end{litblock}
+
 #endif
 \end{litcode}
 
@@ -2290,41 +2773,6 @@ void minus(Gecode::Home home, IntVar x0, IntVar x1, IntVar x2) {
   }
 }
 
-
-/*
- * Value selection classes
- *
- */
-
-// Select smallest value
-class ValMin : public Gecode::ValSelBase<Int::IntView,int> {
-public:
-  ValMin(void) {}
-  ValMin(Gecode::Space& home, const Gecode::ValBranchOptions& vbo)
-    : Gecode::ValSelBase<Int::IntView,int>(home,vbo) {}
-  int val(Gecode::Space& home, View x) const {
-    return x.min();
-  }
-  ModEvent tell(Gecode::Space& home, unsigned int a, Int::IntView x, int n) {
-    return (a == 0) ? x.lq(home,n) : x.gq(home,n+1);
-  }
-};
-
-
-/*
- * Branching post function
- *
- */
-
-// Branch by selecting the first unassigned variable, assigning its smallest value first
-void branch(Gecode::Home home, const IntVarArgs& x) {
-  if (home.failed()) return;
-  Gecode::ViewArray<Int::IntView> y(home,x);
-  Gecode::ViewSelNone<Int::IntView> sn; ValMin vm;
-  Gecode::ViewValBrancher<Gecode::ViewSelNone<Int::IntView>,ValMin>::post(home,y,sn,vm);
-}
-
-
 /*
  * The Golomb ruler script
  *
@@ -2367,7 +2815,7 @@ public:
     if (n > 2)
       less(*this, d[0], d[n_d-1]);
 
-    branch(*this, m);
+    branch(*this, m, INT_VAR_NONE(), INT_VAL_MIN());
   }
   virtual void constrain(const Gecode::Space& b) {
     less(*this, m[n-1], static_cast<const GolombRuler&>(b).m[n-1].min());

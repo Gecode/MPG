@@ -8,6 +8,12 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2013-02-04}{Documented how to implement variable-value
+    branchings
+    (see \autoref{chap:v:branch})}
+  \cle{2013-02-04}{Documented how to implement constraints over
+    float variables
+    (see \autoref{chap:p:floats})}
   \cle{2013-01-29}{Documented modeling with floats 
     (see \autoref{chap:m:float}, 
     \autoref{sec:m:minimodel:float}, 
@@ -24,7 +30,7 @@
     generation for random branchers (see
     \autoref{sec:m:search:branch:rnd})}
   \cle{2012-08-27}{Documented \?pow? and \?nroot? constraints
-    variable selection criteria (see
+    (see
     \autoref{sec:m:integer:arithmetic} and
     \autoref{sec:m:minimodel:exprrel:int})}
   \cle[\AckName{Max}{Ostrowski}]{2012-08-21}{Fixed explanation of
