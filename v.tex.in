@@ -110,20 +110,20 @@ Programming variables includes the following programming tasks:
   \autoref{par:p:views:sameshared}).
 \item \emph{Constraints} and \emph{branchings}: typically, when
   implementing variables one also needs to implement constraints
-  and branchings to actually use the new variables. 
+  and branchings to actually use the newly implemented variables. 
   
   The implementation of constraints for a new variable type is
-  typically not any different from what is described in
+  not in any way different from what is described in
   \autoref{part:p}.
   
   The situation for implementing branchings is quite different:
   here one would want to offer at least a common set of
-  variable-value branchings as for example for integer variables
+  variable-value branchings similar to those for integer variables
   (see \autoref{sec:m:search:branch}). Gecode offers substantial
   support for implementing variable-value branchings, including
   support for the specification of variable and value selection
-  strategies, random and activity-based selection of variables
-  and values tie-breaking, filter functions, and much more. How
+  strategies, random and activity-based selection of variables,
+  tie-breaking, filter functions, and much more. How
   to use Gecode's support for implementing variable-value
   branchings is detailed in \autoref{chap:v:branch}.
 \end{itemize}
@@ -133,7 +133,7 @@ Programming variables includes the following programming tasks:
 Even though we are presenting the implementation of integer
 interval variables only as an example, \autoref{chap:v:all} shows
 how everything is put together. This includes examples of
-propagators, branchers, post functions using various views, and a
+propagators, post functions using various views, and a
 simple script (Golomb rulers, see \autoref{chap:c:golomb}) using
 integer interval variables.
 
@@ -167,12 +167,11 @@ definitions in the \?Gecode? namespace are made available by
 Similar to the organization of namespaces in Gecode, definitions
 that are used for modeling (variables and variable arrays) are
 contained in the namespace \?MPG?, while definitions that are
-used for programming (variable implementations, views, and
-additional support) are in the namespace \?MPG::Int?. As the
+used for programming (variable implementations, views, branchers,
+and additional support) are in the namespace \?MPG::Int?. As the
 structure of namespaces matters (part of the support for variable
 arrays must be defined inside the \?Gecode? namespace), each
-program fragment is shown in its appropriate
-namespace.
+program fragment is shown in its appropriate namespace.
 
 As an example, consider the definition of three exceptions. Two are
 thrown by the constructor creating a new integer interval
@@ -207,9 +206,25 @@ namespace \?MPG? instead of \?Gecode?):
 \item Views: the respective views are implemented by classes
   \?IntView?, \?ConstIntView?, \?MinusView?, and \?OffsetView?.
   They are all defined within the namespace \?MPG::Int?.
+\item Branchings: how variables and values are selected is
+  implemented by functions such as \?INT_VAR_NONE()? or
+  \?INT_VAL_MIN()? and the actual branching is implemented by a
+  single \?branch()? function. The good news is that no actual
+  brancher must in fact be implemented, even though a number of
+  rather straightforward support definitions must be
+  implemented (which are contained in the namespace \?MPG::Int?).
 \end{itemize}
 
+\paragraph{Inline functions as simplification.}
 
+All functions, be they member of non-member functions are defined
+as \?inline?. The reason for this is to make it easier to follow
+the example, as only the single header file
+\DOWNLOAD{int.hh}{\texttt{int.hh}} is needed. In a real
+implementation one would move the definitions of some functions to
+a source file and only leave the declaration of the functions in
+the header file. This is in particular true for the functions
+defined in \autoref{chap:v:branch}.
 
 
 \chapter{Variable implementations}
@@ -928,7 +943,11 @@ implementation, its implementation is straightforward.
 The definition of integer variables is shown in
 \autoref{fig:v:var:var}. The copy constructor uses the
 member function \?varimp()? that returns the pointer to the
-variable's variable implementation.
+variable's variable implementation. Note that every variable must
+have a constructor that takes a pointer to the corresponding
+variable implementation as argument (this is, for example,
+required that the variables work together with variable-value
+branching, see \autoref{chap:v:branch}).
 
 Note that within the class \?IntVar?, a pointer to the
 corresponding variable implementation is available as protected
@@ -1380,20 +1399,74 @@ take into account the integer offset \?c?:
 This chapter explains how to program common variable-value
 branchings using the abstractions provided by Gecode.
 
-\section{Overview}
-\label{sec:v:branch:overview}
+\paragraph{Overview.}
 
+\mbox{}\autoref{sec:v:branch:type} explains which simple types must be
+defined for variable-value branchings. How functions for variable
+selection and value selection are implemented is demonstrated in
+\autoref{sec:v:branch:var} and \autoref{sec:v:branch:val},
+respectively. \autoref{sec:v:branch:viewsel} shows how a function
+that creates an object for selecting views during branching is
+implemented. How functions for selecting values and committing to
+these values are implemented is shown in
+\autoref{sec:v:branch:valcommit}. How the actual branchings are
+implemented is then detailed in \autoref{sec:v:branch:branch}.
+
+\begin{figure}
 \insertlitcode{int.hh:branching}
+\caption{Part of header file concerned with branching}
+\label{fig:v:branch:structure}
+\end{figure}
+
+This structure is reflected in the part of the
+\DOWNLOAD{int.hh}{\texttt{int.hh}} header file that is concerned
+with branching (shown in \autoref{fig:v:branch:structure}).
+
 
 \section{Type definitions}
 \label{sec:v:branch:type}
 
-\insertlitcode{int.hh:branch function types}
+The way how a variable-value branching works can be to some
+extent defined by the user by passing pointers to functions:
+\begin{itemize}
+\item A branching filter function defines which variables are
+  actually considered for branching, see
+  \autoref{sec:m:search:branch:filter}.
+\item A merit function can define which variable is selected for
+  branching, see \autoref{sec:m:search:branch:user-var}.
+\item A branch value function selects a value that is used for
+  branching, see \autoref{sec:m:search:branch:user-val}.
+\item A branch commit function constrains a variable with respect
+  to a value passed as argument, see
+  \autoref{sec:m:search:branch:user-val}. 
+\end{itemize}
 
+In the following type definitions, the type \?IntVar? of the arguments \?x?,
+the return type \?int? of the branch value function of type
+\?IntBranchVal?, and the type \?int? of the argument \?n? is
+dependent on our integer interval variables (they are of type
+\?IntVar? and they take values of type \?int?). 
+
+\begin{samepage}
+The remaining argument and return types are fixed and are as follows: 
+\insertlitcode{int.hh:branch function types}
+\end{samepage}
+
+These function type definitions must be connected to the variable
+type \?IntVar? by means of a trait class of type \?BranchTraits?.
+As the functionality for variable-value branching is defined in
+the \?Gecode? namespace, the trait class must also be defined
+there: 
 \insertlitcode{int.hh:branch traits}
 
+The last remaining definition specializes activity information
+for integer interval variables by defining a class
+\?IntActivity? as follows:
 \insertlitcode{int.hh:variable activity}
 
+The actual implementation is omitted as it contains nothing more
+than the type specialization and creation of view arrays in the
+initializing constructor and the \?init()? function.
 
 \section{Variable selection}
 \label{sec:v:branch:var}
@@ -1573,6 +1646,33 @@ using Gecode::VarArgArray;
 using Gecode::VarArray;
 using Gecode::VarImpVar;
 using Gecode::VarImpView;
+using Gecode::Activity;
+using Gecode::Home;
+using Gecode::ViewArray;
+using Gecode::Rnd;
+using Gecode::VarBranch;
+using Gecode::ValBranch;
+using Gecode::BranchTbl;
+using Gecode::VoidFunction;
+using Gecode::MeritBase;
+using Gecode::ViewSel;
+using Gecode::ViewSelMaxTbl;
+using Gecode::ViewSelMinTbl;
+using Gecode::ViewSelMax;
+using Gecode::ViewSelMin;
+using Gecode::ViewSelNone;
+using Gecode::ViewSelRnd;
+using Gecode::MeritFunction;
+using Gecode::MeritDegree;
+using Gecode::MeritActivity;
+using Gecode::ValSel;
+using Gecode::ValCommit;
+using Gecode::ValSelCommit;
+using Gecode::ValSelCommitBase;
+using Gecode::ValSelFunction;
+using Gecode::ValCommitFunction;
+using Gecode::ViewValBrancher;
+using Gecode::TieBreak;
 
 \end{litblock}
 
@@ -1717,6 +1817,8 @@ namespace MPG {
     IntVar(void) {}
     IntVar(const IntVar& y)
       : VarImpVar<Int::IntVarImp>(y.varimp()) {}
+    IntVar(Int::IntVarImp* y)
+      : VarImpVar<Int::IntVarImp>(y) {}
     \begin{litblock}{var:variable creation}
     IntVar(Space& home, int min, int max)
       : VarImpVar<Int::IntVarImp>
@@ -2138,7 +2240,6 @@ namespace MPG { namespace Int {
 \begin{litblock}{branching}
 \begin{litblock}{branch function types}
 namespace MPG {
-
   typedef bool   (*IntBranchFilter)(const Space& home, 
                                     IntVar x, int i);
   typedef double (*IntBranchMerit) (const Space& home, 
@@ -2147,12 +2248,10 @@ namespace MPG {
                                     IntVar x, int i);
   typedef void   (*IntBranchCommit)(Space& home, unsigned int a,
                                     IntVar x, int i, int n);
-
 }
 \end{litblock}
 \begin{litblock}{branch traits}
 namespace Gecode {
-
   template<>
   class BranchTraits<MPG::IntVar> {
   public:
@@ -2162,32 +2261,40 @@ namespace Gecode {
     typedef int ValType;
     typedef MPG::IntBranchCommit Commit;
   };
-
 }
 \end{litblock}
 
 \begin{litblock}{variable activity}
 namespace MPG {
-
   class IntActivity : public Activity {
   public:
-    IntActivity(void) {}
-    IntActivity(const IntActivity& a) : Activity(a) {}
-    IntActivity& operator =(const IntActivity& a) {
-      return static_cast<IntActivity&>(Activity::operator =(a));
-    }
-    IntActivity(Home home, const IntVarArgs& x, double d) {
-      ViewArray<Int::IntView> y(home,x);
-      Activity::init(home,y,d);
-    }
-    init(Home, const IntVarArgs& x, double d) {
-      \begin{litblock}{anonymous}
-      ViewArray<Int::IntView> y(home,x);
-      Activity::init(home,y,d);
-      \end{litblock}
-    }
+    IntActivity(void);
+    IntActivity(const IntActivity& a);
+    IntActivity& operator =(const IntActivity& a);
+    IntActivity(Home home, const IntVarArgs& x, double d);
+    void init(Home home, const IntVarArgs& x, double d);
   };
-
+  \begin{litblock}{anonymous}
+  inline
+  IntActivity::IntActivity(void) {}
+  inline
+  IntActivity::IntActivity(const IntActivity& a)
+    : Activity(a) {}
+  inline IntActivity&
+  IntActivity::operator =(const IntActivity& a) {
+    return static_cast<IntActivity&>(Activity::operator =(a));
+  }
+  inline
+  IntActivity::IntActivity(Home home, const IntVarArgs& x, double d) {
+    ViewArray<Int::IntView> y(home,x);
+    Activity::init(home,y,d);
+  }
+  inline void
+  IntActivity::init(Home home, const IntVarArgs& x, double d) {
+    ViewArray<Int::IntView> y(home,x);
+    Activity::init(home,y,d);
+  }
+  \end{litblock}
 }
 \end{litblock}
 
@@ -2224,7 +2331,7 @@ namespace MPG {
   IntVarBranch::IntVarBranch(Select s0, VoidFunction mf, BranchTbl t)
     : VarBranch(mf,t), s(s0) {}
   inline
-  IntVarBranch::Select select(void) const {
+  IntVarBranch::Select IntVarBranch::select(void) const {
     return s;
   }
   \end{litblock}
@@ -2264,11 +2371,6 @@ namespace MPG {
   INT_VAR_SIZE_MIN(BranchTbl tbl) {
     return IntVarBranch(IntVarBranch::SEL_SIZE_MIN,tbl);
   }
-
-  inline IntVarBranch
-  INT_VAR_SIZE_MAX(BranchTbl tbl) {
-    return IntVarBranch(IntVarBranch::SEL_SIZE_MAX,tbl);
-  }
   \end{litblock}
   \end{litblock}
   \begin{litblock}{value selection class}
@@ -2289,7 +2391,7 @@ namespace MPG {
       : ValBranch(r), s(SEL_RND) {}
     IntValBranch(VoidFunction v, VoidFunction c)
       : ValBranch(v,c), s(SEL_VAL_COMMIT) {}
-    Select select(void) const;
+    Select select(void) const {
       return s;
     }
     \end{litblock}
@@ -2322,12 +2424,12 @@ namespace MPG { namespace Int {
   \begin{litblock}{size merit class}
   class MeritSize : public MeritBase<IntView,unsigned int> {
   public:
-    MeritSize(Space& home, const VarBranch& vb);
+    MeritSize(Space& home, const VarBranch& vb)
       : MeritBase<IntView,unsigned int>(home,vb) {}
-    MeritSize(Space& home, bool shared, MeritSize& m);
+    MeritSize(Space& home, bool shared, MeritSize& m)
       : MeritBase<IntView,unsigned int>(home,shared,m) {}
     unsigned int operator ()(const Space& home, IntView x, int i) {
-      return x.size();
+      return x.max() - x.min();
     }
   };
   \end{litblock}
@@ -2362,7 +2464,7 @@ namespace MPG { namespace Int {
       case IntVarBranch::SEL_ACTIVITY_MAX:
         return new (home) ViewSelMax<MeritActivity<IntView> >(home,ivb);
       case IntVarBranch::SEL_SIZE_MIN:
-        return new (home) ViewSelMin<MeritSize<IntView> >(home,ivb);
+        return new (home) ViewSelMin<MeritSize>(home,ivb);
       default: ;
       \end{litblock}
       }
@@ -2390,7 +2492,7 @@ namespace MPG { namespace Int {
     Rnd r;
   public:
     \begin{litblock}{anonymous}
-    ValSelRnd(Space& home, const ValBranch& vb);
+    ValSelRnd(Space& home, const ValBranch& vb)
       : ValSel<IntView,int>(home,vb), r(vb.rnd()) {}
     ValSelRnd(Space& home, bool shared, ValSelRnd& vs)
       : ValSel<IntView,int>(home,shared,vs) {
@@ -2398,7 +2500,7 @@ namespace MPG { namespace Int {
     }
     \end{litblock}
     int val(const Space& home, IntView x, int i) {
-      return x.min() + static_cast<int>(r(x.size()));
+      return x.min() + r(x.max() - x.min());
     }
     bool notice(void) const {
       return true;
@@ -2429,16 +2531,13 @@ namespace MPG { namespace Int {
     case IntValBranch::SEL_MIN:
       return new (home) 
         ValSelCommit<ValSelMin,ValCommitLq>(home,ivb);
-    \begin{litblock}{anonymous}
     case IntValBranch::SEL_RND:
       return new (home) 
         ValSelCommit<ValSelRnd,ValCommitLq>(home,ivb);
-    \end{litblock}
     case IntValBranch::SEL_VAL_COMMIT:
       return new (home) 
         ValSelCommit<ValSelFunction<IntView>,
                      ValCommitFunction<IntView> >(home,ivb);
-      }
     default:
       throw UnknownBranching("Int::branch");
     }
@@ -2466,7 +2565,7 @@ namespace MPG {
   inline void
   branch(Home home, const IntVarArgs& x,
          TieBreak<IntVarBranch> vars, IntValBranch vals,
-         IntBranchFilter bf=NULL)
+         IntBranchFilter bf=NULL) {
     using namespace Int;
     if (home.failed()) return;
     \begin{litblock}{normalizing tie-breaking}
