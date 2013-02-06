@@ -446,16 +446,16 @@ $\NFLOATS$ & $::=$ & \multicolumn{2}{l}{array of float values}\\
 \end{figure}
 
 \gecoderef[group]{TaskModelMiniModelFloat} are constructed using
-the standard \CPP{} operators and the functions (see also
-\gecoderef[group]{TaskModelMiniModelArith}, 
-\gecoderef[group]{TaskModelMiniModelTrans},
-and \gecoderef[group]{TaskModelMiniModelTrigo})  listed in
-\autoref{fig:m:minimodel:float}. Posting of a float expression
-returns a new float variable that is constrained to the value of
-the expression.
+the standard \CPP{} operators and the functions listed in
+\autoref{fig:m:minimodel:float} (see also
+\gecoderef[group]{TaskModelMiniModelArith},
+\gecoderef[group]{TaskModelMiniModelTrans}, and
+\gecoderef[group]{TaskModelMiniModelTrigo}). Posting a float
+expression returns a new float variable that is constrained to
+the value of the expression.
 
 Instead of a float variable, you can always use a constant of type
-\?FloatVal?.
+\gecoderef[class]{FloatVal}.
 
 \section{Matrix interface for arrays}
 \label{sec:m:minimodel:matrix}
@@ -517,6 +517,7 @@ A matrix can also be used with an element constraint that
 propagates information about the row and column of matrix
 entries.
 
+\begin{samepage}
 For example, the following code assumes that \?x? is an integer
 array of type \?IntArgs? with \?12? elements.
 \begin{code}
@@ -527,6 +528,7 @@ element(home, m, r, c, v);
 constrains the variable \?v? to the value at position 
 $\langle \mathtt{r},\mathtt{c}\rangle$ of the matrix \?m?
 \GCCAT{\CAT[mm-int]{element_matrix}{element}{TaskModelMiniModel}}.
+\end{samepage}
 
 \tip{Element for matrix can compromise propagation}{%
   
@@ -577,11 +579,14 @@ even though some of their combinations are not.
 \gecoderef[group]{TaskModelMiniModelOptimize} provides two
 subclasses of \?Space?, \?MinimizeSpace? and \?MaximizeSpace? to
 search for a solution of minimal and maximal, respectively, cost.
+
+\begin{samepage}
 In order to use these abstract classes, a class inheriting from
 them must implement a virtual cost function of type
 \begin{code}
 virtual IntVar cost(void) const { ... }
 \end{code}
+\end{samepage}
 The function must return an integer variable for the cost. 
 For an example, see \autoref{sec:m:comfy:cost}.
 

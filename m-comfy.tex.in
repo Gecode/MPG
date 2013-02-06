@@ -228,20 +228,24 @@ Summary
         nodes:        33
         failures:     9
         peak depth:   8
-        peak memory:  14 KB
+        peak memory:  9 KB
 \end{cmd}
 
+\begin{samepage}
 If we want to try the model with carry variables we can do that
 by running
 \begin{cmd}
 send-most-money-with-driver.exe -model carry
 \end{cmd}
+\end{samepage}
 
+\begin{samepage}
 We can also use Gist by giving a different mode of
 execution:
 \begin{cmd}
 send-most-money-with-driver.exe -mode gist
 \end{cmd}
+\end{samepage}
 As we call \?run? with \?BAB? as type of search, Gist will
 automatically start in branch-and-bound mode. Other supported
 modes are \?solution? (the default mode shown above), \?time? for
@@ -286,7 +290,7 @@ that are available from the Gecode webpages.
 \tip{Which version of Gecode are we using?}{
 \label{tip:m:comfy:version}%
 Some programs might have to deal with incompatible changes
-between different versions of Gecode. The macro
+between different versions of Gecode. The Gecode-defined macro
 \?GECODE_VERSION_NUMBER? can be used to find out which
 version of Gecode is used during compilation. The macro's
 value is defined as $100000\times x + 100\times y +z$ for Gecode

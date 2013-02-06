@@ -155,14 +155,18 @@ operations with explicit rounding control is provided by an
 object of class \gecoderef[class]{Float::Rounding}. The creation
 of an object of this class initializes the underlying floating
 point unit such that it performs exact rounding in the required
-direction.  \autoref{fig:p:floats:rounding} lists the supported
+direction. Note, that explicit rounding is only required if
+rounding provided by operations on float values is not
+sufficient.
+
+\mbox{}\autoref{fig:p:floats:rounding} lists the supported
 operations with explicit rounding, where the \?_down()? variants
 round downwards and the \?_up()? variants round upwards. The
 functions marked as default are always supported, the others are
 only supported if Gecode has been built accordingly, see
 \autoref{m:float:mpfr}.
 
-Hence, the first thing that the \?propagate()? function of our
+Hence, the first thing that the \?propagate()? function of the
 \?Linear? propagator does is to create a rounding object \?r? as
 follows:
 \insertlitcode{linear:create rounding object}
@@ -208,7 +212,7 @@ specialized for float variables and propagators.
 
 \paragraph{Modification events and propagation conditions.}
 
-\begin{figure}[p]
+\begin{figure}
 \begin{center}
 \begin{tabular}{ll}
 \multicolumn{2}{c}{\textbf{float modification events}}\\
@@ -229,7 +233,7 @@ specialized for float variables and propagators.
 
 The modification events and propagation conditions for float
 propagators (see
-\autoref{fig:p:floats:propagation_conditions}) capture the
+\autoref{fig:p:floats:propagation_conditions}) capture
 how the variable domain of a float view can change.
 
 
@@ -250,17 +254,17 @@ modifications using a float delta of class
 \gecoderef[class]{Float::FloatDelta}. 
 
 Float deltas are also represented by a minimum and maximum
-float number and hence also constitute a closed interval (as float
-value and float variables do). That means that a float delta
+float number and hence also constitute a closed interval (like float
+values and float variables). That means that a float delta
 cannot describe exactly which values have been removed. For example,
 assume that \?x? is a float view and that the domain of \?x? is
-$[-1.0,1.0]$. Then, executing
+$\range{-1.0}{1.0}$. Then, executing
 \begin{code}
 GECODE_ME_CHECK(x.lq(home,0.0));
 \end{code}
 will generate a float delta \?d? such that \?x.min(d)? returns
 \?0.0? and \?x.max(d)? returns \?1.0? even though the domain of \?x?
-is now $[-1.0,0.0]$ and still includes $0.0$.
+is now $\range{-1.0}{0.0}$ and still includes $0.0$.
 
 
 \begin{litcode}{linear}{schulte}

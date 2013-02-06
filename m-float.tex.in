@@ -45,7 +45,7 @@ A \emph{floating point value} (short, \emph{float value}, see
 \gecoderef[class]{FloatVal}) is represented as a closed interval
 of two \emph{floating point numbers} (short, \emph{float number},
 see \gecoderef[group]{TaskModelFloatVars}). That is, a float
-value is a closed interval $[a,b]$ which includes all real
+value is a closed interval $\range{a}{b}$ which includes all real
 numbers $n\in\RR$ such that $a\leq n$ and $n\leq b$. The float
 number type \?FloatNum? is defined as \?double?.
 
@@ -53,7 +53,7 @@ The reason why a float value is not represented by a single
 floating point number is that real numbers cannot be represented
 exactly and that operations on floating point numbers perform
 rounding. All operations (see below) on float values try to be as
-\emph{accurate} as possible (so the interval $[a,b]$ for a float
+\emph{accurate} as possible (so the interval $\range{a}{b}$ for a float
 value is as small as possible) while being \emph{correct} (no
 possible real number is ever excluded due to rounding).  The
 classical reference on interval arithmetic is \cite{Moore:1966},
@@ -61,7 +61,7 @@ for more information see also the Wikipedia article on
 \AURL{http://en.wikipedia.org/wiki/Interval_arithmetic}{interval
   arithmetic}.
 
-A float value \?x? represented by the interval $[a,b]$ provides
+A float value \?x? represented by the interval $\range{a}{b}$ provides
 many member functions such as \?min()? (returning $a$) and
 \?max()? (returning $b$), see \gecoderef[class]{FloatVal}. The
 float value \?x? is called \emph{tight} if $a$ equals $b$ or if
@@ -179,9 +179,9 @@ of the class \gecoderef[class]{FloatVar}.
 \paragraph{Representing float domains as intervals.}
 
 The domain of a float variable is represented exactly as a float
-value: a closed interval $[a,b]$ which represents all real
+value: a closed interval $\range{a}{b}$ which represents all real
 numbers $n\in\RR$ such that $a\leq n$ and $n\leq b$. A float
-variable is \emph{assigned} if the interval $[a,b]$ is tight (see
+variable is \emph{assigned} if the interval $\range{a}{b}$ is tight (see
 \autoref{sec:m:float:val}).\footnote{Note that this means that a
   float variable is assigned even though its domain might still
   denote a set with more than one element. But this cannot be
@@ -196,7 +196,7 @@ FloatVar x(home, -1.0, 1.0);
 \end{code}
 This declares a variable \?x? of type \gecoderef[class]{FloatVar}
 in the space \?home?, creates a new float variable implementation
-with domain $[-1.0,1.0]$, and makes \?x?  refer to the newly
+with domain $\range{-1.0}{1.0}$, and makes \?x?  refer to the newly
 created float variable implementation.
 
 You find the full interface in the
@@ -217,9 +217,9 @@ z=y;
 the variables \?x?, \?y?, and \?z? all refer to the same float variable
 implementation.
 
-\paragraph{Limits for float numbers, values, and variables.}
+\paragraph{Limits.}
 
-The float numbers range from $\mathtt{Float::Limits::min}$ to
+Float numbers range from $\mathtt{Float::Limits::min}$ to
 $\mathtt{Float::Limits::max}$ which also define the numbers that
 can represent float values and
 float variables. The limits are defined in
@@ -262,7 +262,7 @@ the size of the array. For example,
 \begin{code}
 FloatVarArray x(home, 4, -1.0, 1.2);
 \end{code}
-creates an array of four float variables, each with domain $[-1.0,1.2]$.
+creates an array of four float variables, each with domain $\range{-1.0}{1.2}$.
 
 To pass temporary data structures as arguments, you can use the
 \gecoderef[class]{FloatVarArgs} class.  Some float constraints
@@ -336,19 +336,19 @@ rel(home, x, FRT_LQ, 4.0);
   disequality ($\neq$) relations is rather weak.
 
   Consider the constraint \?x<y? for float variables \?x? and
-  \?y? with domains $[a,b]$ and $[c,d]$ respectively, where $b>d$
+  \?y? with domains $\range{a}{b}$ and $\range{c}{d}$ respectively, where $b>d$
   and $c<a$. Then one
   would like to propagate that \?x? must be less than $d$ and \?y?
   must be larger than $a$. However, this
   would require that the domains of \?x? and \?y? after
   propagation are
-  the \emph{open} intervals $[a,d)$ and $(a,d]$. But only closed
+  the \emph{open} intervals $\rorange{a}{d}$ and $\lorange{a}{d}$. But only closed
   intervals can be represented by float variables!
 
   Hence, the best propagation one could get is that the new
-  domains are represented by the closed intervals $[a,d]$ and
-  $[a,d]$ (the same propagation one would get for the constraint
-  $\mathtt x\leq \mathtt y$).
+  domains are represented by the closed intervals $\range{a}{d}$ and
+  $\range{a}{d}$ (the same propagation one would get for the constraint
+  $\mathtt x\leq \mathtt y$ in this case).
 }
 
 \paragraph{Constraints between variable arrays and a single

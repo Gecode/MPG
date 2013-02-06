@@ -560,10 +560,19 @@ have to link using \?-lgecodeint?.
 
 Some linkers require the list of libraries to be sorted such that libraries
 appear before all libraries they depend on. In this case, use the following
-order (and omit libraries you don't use): \?-lgecodeflatzinc?,
-\?-lgecodedriver?, \?-lgecodegist?, \?-lgecodesearch?, \?-lgecodeminimodel?,
-\?-lgecodeset?, \?-lgecodefloat?, \?-lgecodeint?,
-\?-lgecodekernel?, \?-lgecodesupport?.
+order (and omit libraries you don't use):
+\begin{enumerate}
+\item \?-lgecodeflatzinc?
+\item \?-lgecodedriver?
+\item \?-lgecodegist?
+\item \?-lgecodesearch?,
+\item \?-lgecodeminimodel?
+\item \?-lgecodeset?
+\item \?-lgecodefloat?
+\item \?-lgecodeint?
+\item \?-lgecodekernel?
+\item \?-lgecodesupport?
+\end{enumerate}
 
 A complete example for compiling and linking the file
 \?send-more-money.cpp? is as follows.

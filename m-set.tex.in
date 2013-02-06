@@ -3,8 +3,7 @@
 \label{chap:m:set}
 
 This chapter gives an overview over set variables and set
-constraints in Gecode. Just like \autoref{chap:m:int} does for
-integer and Boolean variables, this chapter serves as a starting
+constraints in Gecode and serves as a starting
 point for using set variables. For the reference documentation,
 see \gecoderef[group]{TaskModelSet}.
 

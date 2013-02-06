@@ -46,7 +46,7 @@ public:
     distinct(*this, IntArgs::create(n,0,1), q);
     distinct(*this, IntArgs::create(n,0,-1), q);
     distinct(*this, q);
-    branch(*this, q, INT_VAR_SIZE_MIN(), INT_VAL_MIN);
+    branch(*this, q, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
   Queens(bool share, Queens& s) : Space(share,s) {
     q.update(*this, share, s.q);

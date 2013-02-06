@@ -349,9 +349,9 @@ programming efficient propagators:
 \paragraph{Overview material.}
 
 \mbox{}\tcpsets{} summarizes how to implement propagators for
-constraints over set variables, whereas \tcpfloats{} summarizes
-how to implement propagators for constraints over float
-variables. An overview of memory management for propagators (and
+constraints over set variables, whereas the implementation
+of propagators for constraints over float variables is summarized in
+\tcpfloats{}. An overview of memory management for propagators (and
 branchers, see \autoref{part:b}) is provided by \tcpmemory{}.
 }
 
