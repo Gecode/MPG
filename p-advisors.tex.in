@@ -176,8 +176,8 @@ The idea how the \?SameDom? propagator implements the \?samedom?
 constraint is straightforward. The propagator creates an advisor
 for each of its views and as soon as the \?advise()? function
 decides for one of the views \?x? that either
-$\mathtt{x}\subseteq\mathtt{d}$ or
-$\mathtt{x}\cap\mathtt{d}=\emptyset$ holds, the propagator is
+$$\mathtt{x}\subseteq\mathtt{d}\qquad\text{or}
+\qquad\mathtt{x}\cap\mathtt{d}=\emptyset$$ holds, the propagator is
 informed what it has to do and is scheduled. Then, the propagator
 performs the required propagation and becomes subsumed. That is,
 a \?SameDom? propagator is executed at most once.

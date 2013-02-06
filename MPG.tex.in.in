@@ -348,11 +348,16 @@ programming efficient propagators:
 
 \paragraph{Overview material.}
 
-\mbox{}\tcpsets{} summarizes how to implement propagators for
-constraints over set variables, whereas the implementation
-of propagators for constraints over float variables is summarized in
-\tcpfloats{}. An overview of memory management for propagators (and
-branchers, see \autoref{part:b}) is provided by \tcpmemory{}.
+The following chapters summarize or provide an overview of topics
+related to programming propagators:
+\begin{itemize}
+\item \tcpsets{} summarizes how to implement propagators for
+constraints over set variables.
+\item \tcpfloats{} summarizes how to implement propagators for
+  constraints over float variables.
+\item \tcpmemory{} provides an overview of memory management for
+  propagators (and branchers, see \autoref{part:b}).  
+\end{itemize}
 }
 
 \mypart{15}{Programming propagators}

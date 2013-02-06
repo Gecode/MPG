@@ -159,7 +159,9 @@ Relation tests exist for all inequality relations:
 \?Int::rtest_le()? (for~$<$), \?Int::rtest_lq()? (for~$\leq$),
 \?Int::rtest_gr()? (for~$>$), and \?Int::rtest_gq()?  (for~$\geq$).
 For equality, a bounds test (\?Int::rtest_eq_bnd()?) as
-well as a domain test exists (\?Int::rtest_eq_dom()?). While
+well as a domain test exists (\?Int::rtest_eq_dom()?). 
+
+While
 \?Int::rtest_eq_bnd()? only uses the bounds for testing the
 relation (with constant time complexity), \?Int::rtest_eq_dom()? uses the full set of values in the
 domain of the views to determine the relation (having linear time
@@ -192,7 +194,11 @@ view used (the mystery why this is useful is lifted in
 \section{Supporting both full and half reification}
 \label{sec:p:reified:half}
 
-In order to support both half and full reification, one needs
+There are two different options for implementing all different
+reification modes: either implement a single propagator that stores
+its reification mode, or implement three different propagators,
+one for each reification mode. Due to performance reasons we
+choose the latter variant here. That is, one needs
 one propagator for each reification mode: \?RM_EQV? for
 equivalence ($\Leftrightarrow$), \?RM_IMP? for
 implication ($\Rightarrow$), and \?RM_PMI? for

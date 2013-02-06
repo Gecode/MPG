@@ -400,15 +400,18 @@ protected:
   class SIO : public SharedHandle::Object {
   public:
     int data;
-    SIO(int d) : data(d) {}
-    SIO(const SIO& sio) : data(sio.data) {}
+    SIO(int d)
+      : data(d) {}
+    SIO(const SIO& sio)
+      : data(sio.data) {}
     virtual Object* copy(void) const {
       return new SIO(*this);
     }
     virtual ~SIO(void) {}
   };
 public:
-  SI(int d) : SharedHandle(new SIO(d)) {}
+  SI(int d) 
+    : SharedHandle(new SIO(d)) {}
   int get(void) const {
     return static_cast<SIO*>(object())->data;
   }

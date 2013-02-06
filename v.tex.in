@@ -21,8 +21,7 @@ presented in \autoref{sec:v:started:structure}.
 
 \begin{important}
   Programming variables requires to configure and recompile
-  Gecode from its source code. Using one of the pre-compiled
-  packages is not sufficient. More details can be found in
+  Gecode from its source code. More details can be found in
   \autoref{chap:v:all}.
 \end{important}
 
@@ -31,7 +30,7 @@ presented in \autoref{sec:v:started:structure}.
 \label{sec:v:started:overview}
 
 We are going to use \emph{integer interval variables} as the
-running example for the entire part on programming variables.
+running example for programming variables.
 Integer interval variables take integer values (like the integer
 variables that come pre-defined with Gecode do) but their domain
 is defined by a lower and an upper bound only. That is, the
@@ -52,7 +51,7 @@ values one could choose floating point values.
 
 \paragraph{What must be programmed.}
 
-Programming variables includes the following programming tasks:
+Programming variables includes the following tasks:
 \begin{itemize}
 \item \emph{Variable implementations} (\autoref{chap:v:varimp}):
   Programming a variable implementation consists of two tasks:
@@ -72,13 +71,13 @@ Programming variables includes the following programming tasks:
   schedule propagators that have subscribed to a variable
   implementation and to maintain these subscriptions during
   cloning.
-\item The second task consists of programming the
+\item
+The second task consists of programming the
   domain-dependent operations of a variable implementation. This
   is achieved by defining a class for a variable implementation
   that inherits from the generated, domain-independent base class
   and defines the respective domain operations.
 \end{enumerate}
-
 \item \emph{Variables} and \emph{variable arrays}
   (\autoref{chap:v:var}): As a variable is nothing but a simple
   and read-only interface to a variable implementation, a
@@ -110,8 +109,7 @@ Programming variables includes the following programming tasks:
   \autoref{par:p:views:sameshared}).
 \item \emph{Constraints} and \emph{branchings}: typically, when
   implementing variables one also needs to implement constraints
-  and branchings to actually use the newly implemented variables. 
-  
+  and branchings for them.
   The implementation of constraints for a new variable type is
   not in any way different from what is described in
   \autoref{part:p}.
@@ -173,12 +171,14 @@ structure of namespaces matters (part of the support for variable
 arrays must be defined inside the \?Gecode? namespace), each
 program fragment is shown in its appropriate namespace.
 
-As an example, consider the definition of three exceptions. Two are
-thrown by the constructor creating a new integer interval
+\begin{samepage}
+As an example, consider the definition of exceptions. Two are
+thrown by the constructor of the integer interval
 variable, in case the variable domain is ill-specified. The third
 exception is thrown when the variable or value selection for a
 branching is unknown:
 \insertlitcode{int.hh:exceptions}
+\end{samepage}
 
 As discussed above, \?Exception? is \?Gecode::Exception? (see
 \gecoderef[class]{Exception}) and has been introduced by a
@@ -945,9 +945,7 @@ The definition of integer variables is shown in
 member function \?varimp()? that returns the pointer to the
 variable's variable implementation. Note that every variable must
 have a constructor that takes a pointer to the corresponding
-variable implementation as argument (this is, for example,
-required that the variables work together with variable-value
-branching, see \autoref{chap:v:branch}).
+variable implementation as argument.
 
 Note that within the class \?IntVar?, a pointer to the
 corresponding variable implementation is available as protected
@@ -1678,13 +1676,11 @@ using Gecode::TieBreak;
 
 \begin{litblock}{exceptions}
 namespace MPG { namespace Int {
-
   class OutOfLimits : public Exception {
   public:
     OutOfLimits(const char* l)
       : Exception(l,"Number out of limits") {}
-    };
-
+  };
   class VariableEmptyDomain : public Exception {
     \begin{litblock}{anonymous}
   public:
@@ -1692,7 +1688,6 @@ namespace MPG { namespace Int {
       : Exception(l,"Attempt to create variable with empty domain") {}
     \end{litblock}
   };
-
   class UnknownBranching : public Exception {
     \begin{litblock}{anonymous}
   public:
@@ -1700,7 +1695,6 @@ namespace MPG { namespace Int {
       : Exception(l,"Unknown branching (variable or value)") {}
     \end{litblock}
   };
-
 }}
 \end{litblock}
 
