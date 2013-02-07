@@ -1399,16 +1399,16 @@ branchings using the abstractions provided by Gecode.
 
 \paragraph{Overview.}
 
-\mbox{}\autoref{sec:v:branch:type} explains which simple types must be
-defined for variable-value branchings. How functions for variable
-selection and value selection are implemented is demonstrated in
-\autoref{sec:v:branch:var} and \autoref{sec:v:branch:val},
-respectively. \autoref{sec:v:branch:viewsel} shows how a function
-that creates an object for selecting views during branching is
-implemented. How functions for selecting values and committing to
-these values are implemented is shown in
-\autoref{sec:v:branch:valcommit}. How the actual branchings are
-implemented is then detailed in \autoref{sec:v:branch:branch}.
+\mbox{}\autoref{sec:v:branch:type} explains which simple types
+must be defined for variable-value branchings. How functions for
+variable selection and value selection are implemented is
+demonstrated in \autoref{sec:v:branch:varval}.
+\autoref{sec:v:branch:viewsel} shows how a function that creates
+an object for selecting views during branching is implemented.
+How functions for selecting values and committing to these values
+are implemented is shown in \autoref{sec:v:branch:valcommit}. How
+the actual branchings are implemented is then detailed in
+\autoref{sec:v:branch:branch}.
 
 \begin{figure}
 \insertlitcode{int.hh:branching}
@@ -1424,8 +1424,8 @@ with branching (shown in \autoref{fig:v:branch:structure}).
 \section{Type definitions}
 \label{sec:v:branch:type}
 
-The way how a variable-value branching works can be to some
-extent defined by the user by passing pointers to functions:
+The way how a variable-value branching works can to some
+extent be controlled by the user by passing pointers to functions:
 \begin{itemize}
 \item A branching filter function defines which variables are
   actually considered for branching, see
@@ -1436,17 +1436,18 @@ extent defined by the user by passing pointers to functions:
   branching, see \autoref{sec:m:search:branch:user-val}.
 \item A branch commit function constrains a variable with respect
   to a value passed as argument, see
-  \autoref{sec:m:search:branch:user-val}. 
+  \autoref{sec:m:search:branch:user-val}.
 \end{itemize}
 
-In the following type definitions, the type \?IntVar? of the arguments \?x?,
-the return type \?int? of the branch value function of type
-\?IntBranchVal?, and the type \?int? of the argument \?n? is
-dependent on our integer interval variables (they are of type
-\?IntVar? and they take values of type \?int?). 
+In the following type definitions, the type \?IntVar? of the
+arguments \?x?, the return type \?int? of the branch value
+function of type \?IntBranchVal?, and the type \?int? of the
+argument \?n? is dependent on our integer interval variables
+(they are of type \?IntVar? and they take values of type \?int?).
 
 \begin{samepage}
-The remaining argument and return types are fixed and are as follows: 
+  The remaining argument and return types are fixed and are as
+  follows: 
 \insertlitcode{int.hh:branch function types}
 \end{samepage}
 
@@ -1458,46 +1459,180 @@ there:
 \insertlitcode{int.hh:branch traits}
 
 The last remaining definition specializes activity information
-for integer interval variables by defining a class
-\?IntActivity? as follows:
+for integer interval variables by defining a class \?IntActivity?
+as follows:
 \insertlitcode{int.hh:variable activity}
 
 The actual implementation is omitted as it contains nothing more
 than the type specialization and creation of view arrays in the
 initializing constructor and the \?init()? function.
 
-\section{Variable selection}
-\label{sec:v:branch:var}
+\section{Variable and value selection}
+\label{sec:v:branch:varval}
 
-\insertlitcode{int.hh:variable selection class}
+An important part of the interface of the branching is support
+for specifying how variables and values are selected for
+branching. This is implemented by a set of variable and value
+selection functions that are used for specification. These
+functions return objects that are then used for creating the
+appropriate branchers. In this section we are not interested in
+describing a complete set of variable and value selection
+functions but in a set that demonstrates the features of
+variable-value branchings well.
 
+\paragraph{Variable selection.}
+
+The variable selection functions we are considering here are
+defined as follows (their names and what they do coincides with
+the variable selction functions for normal integer variables in
+Gecode, see \autoref{sec:m:search:branch:int}):
 \insertlitcode{int.hh:variable selection functions}
 
+All but \?INT_VAR_NONE()? take arguments: unsurprisingly, a
+random number generator must be passed to \?INT_VAR_RND()? and a
+integer activity object to \?INT_VAR_ACTIVITY_MAX()?. Both
+\?INT_VAR_NONE()? and \?INT_VAR_RND()? are special in that they
+are not useful for tie-breaking. All other variable selection
+functions take an optional argument of type \?BranchTbl? as a
+branch tie-breaking limit function (we will abbreviate this here
+as tbl-function), see \autoref{sec:m:search:branch:tbl} for a
+description of tie-breaking and tbl-functions.
 
-\section{Value selection}
-\label{sec:v:branch:val}
+\begin{figure}
+\insertlitcode{int.hh:variable selection class}
+\caption{Variable selection class}
+\label{fig:v:branch:intvarbranch}
+\end{figure}
 
+The implementation of the variable selection functions is simple:
+each function returns an object of class \?IntVarBranch? that
+stores all necessary information required for creating the
+appropriate brancher. As an example of an implementation consider
+the following, the other functions are similar:
+\insertlitcode{int.hh:variable selection function implementation}
 
-\insertlitcode{int.hh:value selection class}
+The function \?function_cast()? is defined by Gecode and casts
+one function pointer into another\footnote{Normal pointers to
+  objects and function pointers cannot be casted into each other
+  in \CPP, that is why Gecode provides the function \?function_cast()?.}. The
+type \?VoidFunction? is a generic base type for function pointers
+defined by Gecode.
 
+The implementation of the class \?IntVarBranch? is shown in
+\autoref{fig:v:branch:intvarbranch}. It defines an enumeration of
+all variable selection strategies and a set of constructors for
+the different types of arguments the variable selection functions
+take. The \?select()? functions returns the value of this
+enumeration type that is stored by the object. All other
+information is handeled by the base class
+\gecoderef[class]{VarBranch}.
+
+\paragraph{Value selection.}
+
+Value selection functions are implemented similar to variable
+selection functions. They return an object of class
+\?IntValBranch? (inheriting from the base class
+\gecoderef[class]{ValBranch}) which stores the necessary information for
+creating the appropriate brancher. We are considering the
+following value selection functions as examples:
 \insertlitcode{int.hh:value selection functions}
 
+Note that the last argument of the value selection function
+\?INT_VAL()? is optional, the default behavior will be defined in
+\autoref{sec:v:branch:valcommit}.
 
-\section{View selection function}
+
+\section{View selection creation}
 \label{sec:v:branch:viewsel}
 
-\insertlitcode{int.hh:view selection function}
+\begin{figure}
+\insertlitcode{int.hh:view selection creation function}
+\caption{View selection creation function}
+\label{fig:v:branch:viewsel}
+\end{figure}
 
-\insertlitcode{int.hh:size merit class}
+The view selection creation function shown in
+\autoref{fig:v:branch:viewsel} takes an object \?ivb? of class
+\?IntVarBranch?, creates an object of class
+\gecoderef[class]{ViewSel} in the space \?home? and returns a
+pointer to the created object. The object \?ivb? is a
+specification  of which object should be returned. The returned
+object is then used to select views during the exceution of a
+brancher. 
 
+Selection of the first unassigned view (corresponding to
+\?SEL_NONE?, that is, the object \?ivb? has been created by
+calling the variable selection function \?INT_VAR_NONE()?) is
+implemented by the Gecode-defined class
+\gecoderef[class]{ViewSelNone}. Also random view selection is
+provided by Gecode through the class
+\gecoderef[class]{ViewSelRnd}. Note that both classes are
+parametric over the view type. 
+
+\paragraph{View selection with tbl-function.}
+
+The other strategies for view selection exist in two variants:
+one variant that uses a tbl-function and one variant that does
+not. In case a tbl-function has been supplied as additional
+argument to one of the variable selection functions, the
+following creates then appropriate object for view selection:  
 \insertlitcode{int.hh:view selection with tbl-function}
 
+Depending on how the view is to be selected, different objects
+are created. An object of class \gecoderef[class]{ViewSelMaxTbl}
+selects a variable with maximal merit (for the definition of
+merit, see \autoref{sec:m:search:branch:int}), whereas an object
+of class \gecoderef[class]{ViewSelMinTbl} selects a variable with
+minimal merit. Objects of both classes take a tbl-function during
+selection into account. Both classes expect a class as template argument
+that computes the actual merit value for a given view. 
+
+The classes \gecoderef[class]{MeritFunction},
+\gecoderef[class]{MeritDegree}, and
+\gecoderef[class]{MeritActivity} are defined by Gecode as they
+are parametric with respect to the actual view type. 
+
+This is different for selecting a view with minimal size as this
+is specific to our integer interval variables and views. The
+implementation of the class \?MeritSize? inherits from
+\gecoderef[class]{MeritBase} and is as follows:
+\insertlitcode{int.hh:size merit class}
+The class \gecoderef[class]{MeritBase} is parametric with respect
+to the view type (\?IntView? in our case) and the type of the
+merit value (\?unsigned int? in our case).
+The constructors are as to be expected and the call operator must
+return the merit value of type \?unsigned int? (the same as the
+second template argument to \gecoderef[class]{MeritBase}) of the
+view \?x? (\?i? refers to the position of the view \?x? in the array
+of views used in the brancher).
+
+In case the merit class uses members that must be deallocated
+when the home-space is deleted, the merit class must redefine the
+member functions \?notice()? and \?dispose()?, for example by:
+\begin{code}
+bool notice(void) const {
+  return true;
+}
+void dispose(Space& home) {
+  ...
+}
+\end{code}
+
+
+\paragraph{View selection without tbl-function.}
+
+Implementing view selection without tbl-functions is analogous:
+the only difference is that the classes
+\gecoderef[class]{ViewSelMax} (instead of
+\gecoderef[class]{ViewSelMaxTbl}) and
+\gecoderef[class]{ViewSelMin} (instead of
+\gecoderef[class]{ViewSelMinTbl}) must be used:
 \insertlitcode{int.hh:view selection without tbl-function}
 
-\section{Value selection and commit function}
+\section{Value selection and commit creation function}
 \label{sec:v:branch:valcommit}
 
-\insertlitcode{int.hh:value selection and commit function}
+\insertlitcode{int.hh:value selection and commit creation function}
 
 \insertlitcode{int.hh:value selection classes}
 
@@ -1671,6 +1806,7 @@ using Gecode::ValSelFunction;
 using Gecode::ValCommitFunction;
 using Gecode::ViewValBrancher;
 using Gecode::TieBreak;
+using Gecode::function_cast;
 
 \end{litblock}
 
@@ -2297,12 +2433,8 @@ namespace MPG {
   class IntVarBranch : public VarBranch {
   public:
     enum Select {
-      SEL_NONE=0, 
-      SEL_RND,
-      SEL_MERIT_MAX,
-      SEL_DEGREE_MAX,
-      SEL_ACTIVITY_MAX,
-      SEL_SIZE_MIN
+      SEL_NONE,       SEL_RND,          SEL_MERIT_MAX,
+      SEL_DEGREE_MAX, SEL_ACTIVITY_MAX, SEL_SIZE_MIN
     };
   protected:
     Select s;
@@ -2333,10 +2465,19 @@ namespace MPG {
   \begin{litblock}{variable selection functions}
   IntVarBranch INT_VAR_NONE(void);
   IntVarBranch INT_VAR_RND(Rnd r);
-  IntVarBranch INT_VAR_MERIT_MAX(IntBranchMerit bm, BranchTbl tbl=NULL);
+  IntVarBranch INT_VAR_MERIT_MAX(IntBranchMerit bm, 
+                                 BranchTbl tbl=NULL);
   IntVarBranch INT_VAR_DEGREE_MAX(BranchTbl tbl=NULL);
-  IntVarBranch INT_VAR_ACTIVITY_MAX(IntActivity a, BranchTbl tbl=NULL);     
+  IntVarBranch INT_VAR_ACTIVITY_MAX(IntActivity a, 
+                                    BranchTbl tbl=NULL);     
   IntVarBranch INT_VAR_SIZE_MIN(BranchTbl tbl=NULL);
+  \end{litblock}
+  \begin{litblock}{variable selection function implementation}
+  inline IntVarBranch
+  INT_VAR_MERIT_MAX(IntBranchMerit bm, BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_MERIT_MAX,
+                        function_cast<VoidFunction>(bm),tbl);
+  }
   \begin{litblock}{anonymous}
   inline IntVarBranch
   INT_VAR_NONE(void) {
@@ -2347,16 +2488,9 @@ namespace MPG {
     return IntVarBranch(r);
   }
   inline IntVarBranch
-  INT_VAR_MERIT_MAX(IntBranchMerit bm, BranchTbl tbl) {
-    return IntVarBranch(IntVarBranch::SEL_MERIT_MAX,
-                        Gecode::function_cast<VoidFunction>(bm),tbl);
-  }
-  \end{litblock}
-  inline IntVarBranch
   INT_VAR_DEGREE_MAX(BranchTbl tbl) {
     return IntVarBranch(IntVarBranch::SEL_DEGREE_MAX,tbl);
   }
-  \begin{litblock}{anonymous}
   inline IntVarBranch
   INT_VAR_ACTIVITY_MAX(IntActivity a, BranchTbl tbl) {
     return IntVarBranch(IntVarBranch::SEL_ACTIVITY_MAX,a,tbl);
@@ -2367,14 +2501,12 @@ namespace MPG {
   }
   \end{litblock}
   \end{litblock}
-  \begin{litblock}{value selection class}
+  \begin{litblock}{value selection functions}
   class IntValBranch : public ValBranch {
     \begin{litblock}{anonymous}
   public:
     enum Select {
-      SEL_MIN,
-      SEL_RND,
-      SEL_VAL_COMMIT
+      SEL_MIN, SEL_RND, SEL_VAL_COMMIT
     };
   protected:
     Select s;
@@ -2390,11 +2522,9 @@ namespace MPG {
     }
     \end{litblock}
   };
-  \end{litblock}
-  \begin{litblock}{value selection functions}
   IntValBranch INT_VAL_MIN(void);
   IntValBranch INT_VAL_RND(Rnd r);
-  IntValBranch INT_VAL(IntBranchVal v, IntBranchCommit c);
+  IntValBranch INT_VAL(IntBranchVal v, IntBranchCommit c=NULL);
   \begin{litblock}{anonymous}
   inline IntValBranch
   INT_VAL_MIN(void) {
@@ -2406,15 +2536,15 @@ namespace MPG {
   }
   inline IntValBranch
   INT_VAL(IntBranchVal v, IntBranchCommit c) {
-    return IntValBranch(Gecode::function_cast<VoidFunction>(v),
-                        Gecode::function_cast<VoidFunction>(c));
+    return IntValBranch(function_cast<VoidFunction>(v),
+                        function_cast<VoidFunction>(c));
   }
   \end{litblock}
   \end{litblock}
 }
 
 namespace MPG { namespace Int {
-  \begin{litblock}{view selection function}
+  \begin{litblock}{view selection creation function}
   \begin{litblock}{size merit class}
   class MeritSize : public MeritBase<IntView,unsigned int> {
   public:
@@ -2467,7 +2597,7 @@ namespace MPG { namespace Int {
     throw UnknownBranching("Int::branch");
   }
   \end{litblock}
-  \begin{litblock}{value selection and commit function}
+  \begin{litblock}{value selection and commit creation function}
   \begin{litblock}{value selection classes}
   class ValSelMin : public ValSel<IntView,int> {
     \begin{litblock}{anonymous}
@@ -2476,23 +2606,22 @@ namespace MPG { namespace Int {
       : ValSel<IntView,int>(home,vb) {}
     ValSelMin(Space& home, bool shared, ValSelMin& vs)
       : ValSel<IntView,int>(home,shared,vs) {}
+    \end{litblock}
     int val(const Space& home, IntView x, int i) {
       return x.min();
     }
-    \end{litblock}
   };
   class ValSelRnd : public ValSel<IntView,int> {
+    \begin{litblock}{anonymous}
   protected:
     Rnd r;
   public:
-    \begin{litblock}{anonymous}
     ValSelRnd(Space& home, const ValBranch& vb)
       : ValSel<IntView,int>(home,vb), r(vb.rnd()) {}
     ValSelRnd(Space& home, bool shared, ValSelRnd& vs)
       : ValSel<IntView,int>(home,shared,vs) {
-      r.update(home,shared,vs.r);
+      r.update(home,share,vs.r);
     }
-    \end{litblock}
     int val(const Space& home, IntView x, int i) {
       return x.min() + r(x.max() - x.min());
     }
@@ -2502,6 +2631,7 @@ namespace MPG { namespace Int {
     void dispose(Space& home) {
       r.~Rnd();
     }
+    \end{litblock}
   };
   \end{litblock}
   \begin{litblock}{less or equal commit class}
