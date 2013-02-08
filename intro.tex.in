@@ -55,8 +55,11 @@ applications. Gecode is:
   programming tasks with Gecode.
   
 \item[efficient] Gecode offers excellent performance with respect
-  to runtime, memory usage, and scalability. For example, Gecode won the 
+  to runtime, memory usage, and scalability. For example, Gecode
+  won all gold medals in the 
   MiniZinc Challenge in  
+  \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2010/results2012.html}{2012}, 
+  \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2010/results2011.html}{2011}, 
   \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2010/results2010.html}{2010}, 
   \AURL{http://www.g12.cs.mu.oz.au/minizinc/challenge2009/results2009.html}{2009}, and
   \AURL{http://www.g12.csse.unimelb.edu.au/minizinc/results.html}{2008}.
