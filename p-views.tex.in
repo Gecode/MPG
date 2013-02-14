@@ -177,8 +177,8 @@ A scale view for a variable implementation $v$ with an integer
 scale factor $a$ where $a>0$ implements operations for $a\cdot
 v$. Scale views exist in two variants differing in the precision
 of multiplication: \?IntScaleView? performs multiplication over
-integers, whereas \?DoubleScaleView? performs multiplication over
-doubles (see \gecoderef[group]{TaskActorIntView} and
+integers, whereas \?LLongScaleView? performs multiplication over
+long long integers (see \gecoderef[group]{TaskActorIntView} and
 \gecoderef[class]{Int::ScaleView}).
 
 An integer constant view \gecoderef[class]{Int::ConstIntView}
