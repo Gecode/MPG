@@ -8,6 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle[\AckName{David}{Rijsman}]{2013-02-14}{Added missing copy
+    constructors and assignment operators in 
+    \autoref{sec:p:memory:shared} and \autoref{sec:p:memory:local}}
   \cle{2013-02-04}{Documented how to implement variable-value
     branchings
     (see \autoref{chap:v:branch})}

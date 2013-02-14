@@ -412,6 +412,11 @@ protected:
 public:
   SI(int d) 
     : SharedHandle(new SIO(d)) {}
+  SI(const SI& si)
+    : SharedHandle(si) {}
+  SI& operator =(const SI& si) {
+    return static_cast<SI&>(SharedHandle::operator =(si));
+  }
   int get(void) const {
     return static_cast<SIO*>(object())->data;
   }
@@ -450,7 +455,13 @@ protected:
     virtual size_t dispose(Space&) { return sizeof(*this); }
   };
 public:
-  LI(Space& home, int d) : LocalHandle(new (home) LIO(home,d)) {}
+  LI(Space& home, int d) 
+    : LocalHandle(new (home) LIO(home,d)) {}
+  LI(const LI& li)
+    : LocalHandle(li) {}
+  LI& operator =(const LI& li) {
+    return static_cast<LI&>(LocalHandle::operator =(li));
+  }
   int get(void) const {
     return static_cast<LIO*>(object())->data;
   }
@@ -490,7 +501,15 @@ protected:
     }
   };
 public:
-  LI(Space& home, int n) : LocalHandle(new (home) LIO(home,n)) {}
+  \begin{litblock}{anonymous}
+  LI(Space& home, int n) 
+    : LocalHandle(new (home) LIO(home,n)) {}
+  LI(const LI& li)
+    : LocalHandle(li) {}
+  LI& operator =(const LI& li) {
+    return static_cast<LI&>(LocalHandle::operator =(li));
+  }
+  \end{litblock}
   int operator [](int i) const {
     return static_cast<const LIO*>(object())->data[i];
   }
