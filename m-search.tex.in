@@ -94,22 +94,25 @@ for details.
 \?INT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
 \?INT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
 \?INT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
-\?INT_VAR_AFC_MIN(?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
-\?INT_VAR_AFC_MAX(?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
-\?INT_VAR_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & lowest activity\\
-\?INT_VAR_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & highest activity\\
+\?INT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?INT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?INT_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
+\?INT_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
 \?INT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
 \?INT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
 \?INT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
 \?INT_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum value\\
 \?INT_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest domain size\\
 \?INT_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest domain size\\
-\?INT_VAR_SIZE_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by degree\\
-\?INT_VAR_SIZE_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by degree\\
-\?INT_VAR_SIZE_AFC_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by AFC\\
-\?INT_VAR_SIZE_AFC_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by AFC\\
-\?INT_VAR_SIZE_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & smallest domain size divided by activity\\
-\?INT_VAR_SIZE_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & largest domain size divided by activity\\
+\?INT_VAR_DEGREE_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest degree
+divided by domain size\\
+\?INT_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree by domain size\\
+\?INT_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC by domain size\\
+\?INT_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC by domain size\\
+\?INT_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest
+activity by domain size\\
+\?INT_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest
+activity by domain size\\
 \?INT_VAR_REGRET_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum-regret\\
 \?INT_VAR_REGRET_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum-regret\\
 \?INT_VAR_REGRET_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum-regret\\
@@ -130,26 +133,28 @@ correspond to variable and value selection strategies. For
 example, a call \?INT_VAR_SIZE_MIN()? returns an object of class
 \gecoderef[class]{IntVarBranch}.
 
-
 For an overview of the available variable selection strategies,
 see \autoref{fig:m:search:int:var} (see also
-\gecoderef[group]{TaskModelIntBranchVar}) where \OptArg{$\cdot$} denotes
-an optional argument. Here, an argument \?r? refers
-to a random number generator of type
+\gecoderef[group]{TaskModelIntBranchVar}) where \OptArg{$\cdot$}~denotes an optional argument and~\SpecialArg{$\cdot$} is a
+special argument to be explained below. Here, an argument \?r?
+refers to a random number generator of type
 \gecoderef[class]{Rnd}. Using random number generators for
-branching is discussed in
-\autoref{sec:m:search:branch:rnd}. An argument \?m? refers to a
-user-defined merit function of type
+branching is discussed in \autoref{sec:m:search:branch:rnd}. An
+argument \?m? refers to a user-defined merit function of type
 \gecoderef[typedef]{IntBranchMerit} for integer variables and
-\gecoderef[typedef]{BoolBranchMerit} for Boolean
-variables. User-defined merit functions are discussed in \autoref{sec:m:search:branch:user-var}.
-An argument \?a? refers to
-activity information for integer variables (of type
-\gecoderef[class]{IntActivity}) or Boolean variables (of type
-\gecoderef[class]{BoolActivity}). For a discussion of activity,
-see \autoref{sec:m:search:branch:shared}. The optional argument
-\?t? refers to a tie-breaking limit function of type
-\gecoderef[typedef]{BranchTbl} and is discussed in 
+\gecoderef[typedef]{BoolBranchMerit} for Boolean variables.
+User-defined merit functions are discussed in
+\autoref{sec:m:search:branch:user-var}.  An argument \?afc?
+refers to accumulated failure count (AFC) information for integer
+or Boolean variables (of class \gecoderef[class]{IntAFC}).  An
+argument \?act? refers to activity information for integer or
+Boolean variables (of class \gecoderef[class]{IntActivity}). For
+a discussion of AFC and activity, see
+\autoref{sec:m:search:branch:shared}, both \SpecialArg{\?afc?}
+and \SpecialArg{\?act?} can also be optional arguments of type
+\?double? defining a decay factor. The optional argument \?t?
+refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:search:branch:tbl}.
 
 \begin{figure}
@@ -182,7 +187,7 @@ several ranges;\\
 An overview of the available value selection strategies for
 integer and Boolean variables can be found in
 \autoref{fig:m:search:int:val} (see also
-\gecoderef[group]{TaskModelIntBranchVal}) where \OptArg{$\cdot$} denotes
+\gecoderef[group]{TaskModelIntBranchVal}) where \OptArg{$\cdot$}~denotes
 an optional argument. Here, an argument \?r? refers to
 a random number generator of type \gecoderef[class]{Rnd} which is
 discussed in \autoref{sec:m:search:branch:rnd}. An argument \?v?
@@ -267,22 +272,22 @@ to your program when you want to branch on set variables.
 \?SET_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
 \?SET_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
 \?SET_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
-\?SET_VAR_AFC_MIN(?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
-\?SET_VAR_AFC_MAX(?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
-\?SET_VAR_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & lowest activity\\
-\?SET_VAR_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & highest activity\\
+\?SET_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?SET_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?SET_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
+\?SET_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
 \?SET_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum unknown element\\
 \?SET_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum unknown element\\
 \?SET_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum unknown element\\
 \?SET_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum unknown element\\
 \?SET_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest unknown set\\
 \?SET_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest unknown set\\
-\?SET_VAR_SIZE_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by degree\\
-\?SET_VAR_SIZE_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by degree\\
-\?SET_VAR_SIZE_AFC_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by AFC\\
-\?SET_VAR_SIZE_AFC_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by AFC\\
-\?SET_VAR_SIZE_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & smallest domain size divided by activity\\
-\?SET_VAR_SIZE_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & largest domain size divided by activity
+\?SET_VAR_DEGREE_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest degree divided by domain size\\
+\?SET_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree divided by domain size\\
+\?SET_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC divided by domain size\\
+\?SET_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
+\?SET_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest activity divided by domain size\\
+\?SET_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest activity divided by domain size
 \end{tabular}
 \end{center}
 \caption{Set variable selection}
@@ -296,20 +301,27 @@ by a value of type \gecoderef[class]{SetValBranch}  (see also
 \gecoderef[group]{TaskModelSetBranchVal}). 
 
 For an overview of the available variable selection strategies,
-see \autoref{fig:m:search:set:var} where \OptArg{$\cdot$} denotes
-an optional argument. Here, an argument \?r? refers
-to a random number generator of type
-\gecoderef[class]{Rnd}. Using random number generators for
-branching is discussed in
+see \autoref{fig:m:search:set:var} (see also
+\gecoderef[group]{TaskModelSetBranchVar}) where
+\OptArg{$\cdot$}~denotes an optional argument
+and~\SpecialArg{$\cdot$} is a special argument to be explained
+below. Here, an argument \?r?  refers to a random number
+generator of type \gecoderef[class]{Rnd}. Using random number
+generators for branching is discussed in
 \autoref{sec:m:search:branch:rnd}. An argument \?m? refers to a
 user-defined merit function of type
-\gecoderef[typedef]{SetBranchMerit}. User-defined merit functions are discussed in \autoref{sec:m:search:branch:user-var}.
-An argument \?a? refers to
-activity information for set variables (of type
-\gecoderef[class]{SetActivity}). For a discussion of activity,
-see \autoref{sec:m:search:branch:shared}. The optional argument
-\?t? refers to a tie-breaking limit function of type
-\gecoderef[typedef]{BranchTbl} and is discussed in 
+\gecoderef[typedef]{SetBranchMerit}.  User-defined merit
+functions are discussed in
+\autoref{sec:m:search:branch:user-var}.  An argument \?afc?
+refers to accumulated failure count (AFC) information for set
+variables (of class \gecoderef[class]{SetAFC}).  An argument
+\?act? refers to activity information for set variables (of class
+\gecoderef[class]{SetActivity}). For a discussion of AFC and
+activity, see \autoref{sec:m:search:branch:shared}, both
+\SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
+arguments of type \?double? defining a decay factor. The optional
+argument \?t?  refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:search:branch:tbl}.
 
 
@@ -333,16 +345,16 @@ function \?c?\\
 \end{figure}
 
 An overview of the available value selection strategies for set
-variables can be found in \autoref{fig:m:search:set:val} where \OptArg{$\cdot$} denotes
-an optional argument. Here,
-an argument \?r? refers to a random number generator of type
+variables can be found in \autoref{fig:m:search:set:val} where
+\OptArg{$\cdot$}~denotes an optional argument. Here, an argument
+\?r? refers to a random number generator of type
 \gecoderef[class]{Rnd} which is discussed in
 \autoref{sec:m:search:branch:rnd}. An argument \?v? refers to a
 value selection function of type
-\gecoderef[typedef]{SetBranchVal}. An optional argument \?c? refers to a
-commit function of type \gecoderef[typedef]{SetBranchCommit}.
-Value and commit function are discussed in
-\autoref{sec:m:search:branch:user-val}.
+\gecoderef[typedef]{SetBranchVal}. An optional argument \?c?
+refers to a commit function of type
+\gecoderef[typedef]{SetBranchCommit}.  Value and commit function
+are discussed in \autoref{sec:m:search:branch:user-val}.
 
 
 \subsection{Branching on float variables}
@@ -365,22 +377,22 @@ to your program when you want to branch on float variables.
 \?FLOAT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
 \?FLOAT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
 \?FLOAT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
-\?FLOAT_VAR_AFC_MIN(?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
-\?FLOAT_VAR_AFC_MAX(?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
-\?FLOAT_VAR_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & lowest activity\\
-\?FLOAT_VAR_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & highest activity\\
+\?FLOAT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?FLOAT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?FLOAT_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
+\?FLOAT_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
 \?FLOAT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
 \?FLOAT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
 \?FLOAT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
 \?FLOAT_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum value\\
 \?FLOAT_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest domain size\\
 \?FLOAT_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest domain size\\
-\?FLOAT_VAR_SIZE_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by degree\\
-\?FLOAT_VAR_SIZE_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by degree\\
-\?FLOAT_VAR_SIZE_AFC_MIN(?\OptArg{\?t?}\?)? & smallest domain size divided by AFC\\
-\?FLOAT_VAR_SIZE_AFC_MAX(?\OptArg{\?t?}\?)? & largest domain size divided by AFC\\
-\?FLOAT_VAR_SIZE_ACTIVITY_MIN(a,?\OptArg{\?t?}\?)? & smallest domain size divided by activity\\
-\?FLOAT_VAR_SIZE_ACTIVITY_MAX(a,?\OptArg{\?t?}\?)? & largest domain size divided by activity\\
+\?FLOAT_VAR_DEGREE_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest degree divided by domain size\\
+\?FLOAT_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree divided by domain size\\
+\?FLOAT_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC divided by domain size\\
+\?FLOAT_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
+\?FLOAT_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest activity divided by domain size\\
+\?FLOAT_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest activity divided by domain size\\
 \end{tabular}
 \end{center}
 \caption{Float variable selection}
@@ -394,21 +406,29 @@ by a value of type \gecoderef[class]{FloatValBranch}  (see also
 \gecoderef[group]{TaskModelFloatBranchVal}). 
 
 For an overview of the available variable selection strategies,
-see \autoref{fig:m:search:float:var} where \OptArg{$\cdot$} denotes
-an optional argument. Here, an argument \?r?
-refers to a random number generator of type
-\gecoderef[class]{Rnd}. Using random number generators for
-branching is discussed in \autoref{sec:m:search:branch:rnd}. The
-argument \?m? refers to a user-defined merit function of type
-\gecoderef[typedef]{FloatBranchMerit}. User-defined merit
+see \autoref{fig:m:search:float:var} (see also
+\gecoderef[group]{TaskModelFloatBranchVar}) where
+\OptArg{$\cdot$}~denotes an optional argument
+and~\SpecialArg{$\cdot$} is a special argument to be explained
+below. Here, an argument~\?r?  refers to a random number
+generator of type \gecoderef[class]{Rnd}. Using random number
+generators for branching is discussed in
+\autoref{sec:m:search:branch:rnd}. An argument~\?m? refers to a
+user-defined merit function of type
+\gecoderef[typedef]{FloatBranchMerit}.  User-defined merit
 functions are discussed in
-\autoref{sec:m:search:branch:user-var}.  An argument \?a? refers
-to activity information for float variables (of type
-\gecoderef[class]{FloatActivity}). For a discussion of activity,
-see \autoref{sec:m:search:branch:shared}. The optional argument
-\?t? refers to a tie-breaking limit function of type
+\autoref{sec:m:search:branch:user-var}.  An argument \?afc?
+refers to accumulated failure count (AFC) information for float
+variables (of class \gecoderef[class]{FloatAFC}).  An argument
+\?act? refers to activity information for float variables (of
+class \gecoderef[class]{FloatActivity}). For a discussion of AFC
+and activity, see \autoref{sec:m:search:branch:shared}, both
+\SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
+arguments of type \?double? defining a decay factor. The optional
+argument \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:search:branch:tbl}.
+
 
 \begin{figure}
 \begin{center}
@@ -479,10 +499,78 @@ selection criterion. It is defined as the sum of the AFCs of all
 propagators depending on the variable plus its degree (to give a
 good initial value if the AFCs of all propagators are still
 zero). The AFC of a propagator counts how often the propagator
-has failed during search.  
+has failed during search.  The AFC of a variable is also known as
+the weighted degree of a variable~\cite{AFC}.
 
-The AFC of a variable is also known as the weighted degree of a
-variable~\cite{AFC}.
+AFC in Gecode supports decay as follows. Each time a propagator
+fails during constraint propagation (by executing the \?status()? function of a space,
+see also \autoref{tip:m:started:status}), the AFC of all
+propagators is updated:
+\begin{itemize}
+\item If the propagator \?p? did not fail, the AFC $\mathtt{afc}(\mathtt p)$ of \?p? is
+  updated by a decay-factor $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
+$$\mathtt{afc}(\mathtt p)=\mathtt{d}\cdot\mathtt{afc}(\mathtt p)$$
+\item If the propagator \?p? failed, the AFC
+  $\mathtt{afc}(\mathtt p)$ of \?p? is incremented by $1$:
+$$\mathtt{afc}(\mathtt p)=\mathtt{afc}(\mathtt p)+1$$
+\item The AFC $\mathtt{afc}(\mathtt x)$ of a variable \?x? is
+  then defined as:
+$$\mathtt{afc}(\mathtt
+x)=\mathtt{afc}(\mathtt{p}_1)+\cdots+\mathtt{afc}(\mathtt{p}_n)$$
+where the propagators $\mathtt{p}_i$ depend on \?x?.
+
+\end{itemize}
+
+In order to use AFC for branching, one must create an object
+of class \gecoderef[class]{IntAFC} for integer or Boolean
+variables, an object of class \gecoderef[class]{SetAFC} for
+set variables, or an object of class
+\gecoderef[class]{FloatAFC} for float variables. The object
+is responsible for recording AFC information\footnote{Gecode
+  cheats a little bit with the implementation of AFC: while it is possible (but not common)
+  to have more than a single AFC object, all will use the same
+  decay-factor \?d?. The decay-factor used is the one defined by the
+  AFC object created last. But as using several AFC objects with
+  different decay-factors is not really that useful, Gecode takes
+  a shortcut here.}.
+
+\begin{samepage}
+If \?x? is an integer variable array, then
+\begin{code}
+IntAFC afc(home,x,0.99);
+\end{code}
+\end{samepage}
+initializes the AFC information \?afc? for the variables in \?x?
+with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
+optional and defaults to no decay ($\mathtt{d}=1$).
+
+The decay-factor can be changed later, say to
+$\mathtt{d}=\mathtt{0.95}$, by
+\begin{code}
+afc.decay(0.95);
+\end{code}
+and \?afc.decay()? returns the current decay-factor of \?afc?.
+
+A branching for integer variables using AFC information must
+be given an object of type \?IntAFC? as argument:
+\begin{code}
+branch(home, x, INT_VAR_AFC_MAX(afc), INT_VAL_MIN());
+\end{code}
+Here the integer variable array \?x? must be exactly the same
+that has been used for creating the integer AFC object
+\?afc?. 
+
+The AFC object can be omitted if one does not want to
+change the decay-factor later, hence it is sufficient to pass the
+decay-factor as argument. For example:
+\begin{code}
+branch(home, x, INT_VAR_AFC_MAX(0.99), INT_VAL_MIN());
+\end{code}
+uses AFC information with a decay-factor of \?0.99?. Even the
+decay-factor can be omitted and defaults to \?1? (that is, no decay).
+
+AFC for other variable types is analogous.
+
 
 \paragraph{Selection using activity.}
 
@@ -497,44 +585,55 @@ variable $\mathtt x$ is updated~\cite{activity}:
 \begin{itemize}
 \item If the variable \?x? has not been pruned (that is, no
   values have been removed from the domain of \?x? through
-  propagation), the activity $\alpha(\mathtt x)$ of \?x? is
-  updated by a decay-factor $\gamma$ ($0<\gamma\leq 1$):
-$$\alpha(\mathtt x)=\gamma\cdot\alpha(\mathtt x)$$
+  propagation), the activity $\mathtt{activity}(\mathtt x)$ of \?x? is
+  updated by a decay-factor $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
+$$\mathtt{activity}(\mathtt x)=\mathtt{d}\cdot\mathtt{activity}(\mathtt x)$$
 \item If the variable \?x? has been pruned, the activity
-  $\alpha(\mathtt x)$ of \?x? is incremented by $1$:
-$$\alpha(\mathtt x)=\alpha(\mathtt x)+1$$
+  $\mathtt{activity}(\mathtt x)$ of \?x? is incremented by $1$:
+$$\mathtt{activity}(\mathtt x)=\mathtt{activity}(\mathtt x)+1$$
 \end{itemize}
 
 In order to use activity for branching, one must create an object
-of class \gecoderef[class]{IntActivity} for integer variables, an
-object of class \gecoderef[class]{BoolActivity} for Boolean
+of class \gecoderef[class]{IntActivity} for integer or Boolean
 variables, an object of class \gecoderef[class]{SetActivity} for
 set variables, or an object of class
 \gecoderef[class]{FloatActivity} for float variables. The object
 is responsible for recording activity information.
 
+\begin{samepage}
 If \?x? is an integer variable array, then
 \begin{code}
-IntActivity a(home,x,0.99);
+IntActivity act(home,x,0.99);
 \end{code}
-initializes the activity information \?a? for the variables in \?x?
-with decay-factor $\gamma=\mathtt{0.99}$. 
+\end{samepage}
+initializes the activity information \?act? for the variables in \?x?
+with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
+optional and defaults to no decay ($\mathtt{d}=1$).
 
-The decay-factor can
-be changed later, say to $\gamma=\mathtt{0.95}$, by
+The decay-factor can be changed later, say to
+$\mathtt{d}=\mathtt{0.95}$, by
 \begin{code}
-a.decay(0.95);
+act.decay(0.95);
 \end{code}
-and \?a.decay()? returns the current decay-factor of \?a?.
+and \?act.decay()? returns the current decay-factor of \?act?.
 
 A branching for integer variables using activity information must
 be given an object of type \?IntActivity? as argument:
 \begin{code}
-branch(home, x, INT_VAR_ACTIVITY_MAX(a), INT_VAL_MIN());
+branch(home, x, INT_VAR_ACTIVITY_MAX(act), INT_VAL_MIN());
 \end{code}
 Here the integer variable array \?x? must be exactly the same
 that has been used for creating the integer activity object
-\?a?. 
+\?act?. 
+
+The activity object can be omitted if one does not want to
+change the decay-factor later, hence it is sufficient to pass the
+decay-factor as argument. For example:
+\begin{code}
+branch(home, x, INT_VAR_ACTIVITY_MAX(0.99), INT_VAL_MIN());
+\end{code}
+uses activity information with a decay-factor of \?0.99?. Even the
+decay-factor can be omitted and defaults to \?1? (that is, no decay).
 
 Activity for other variable types is analogous.
 

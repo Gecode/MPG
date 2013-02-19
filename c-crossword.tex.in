@@ -245,7 +245,7 @@ variables to the respective letter variable:
 \paragraph{Branching.}
 
 We choose a simple branching that selects a variable where the
-quotient of domain size and AFC is smallest (see
+quotient of AFC and domain size is largest (see
 \autoref{sec:m:search:branch:int}). The first value for the
 selected variable to be tried is the smallest:
 \insertlitcode{crossword:branching}
@@ -6996,7 +6996,7 @@ public:
     }
     \end{litblock}
     \begin{litblock}{branching}
-    branch(*this, letters, INT_VAR_SIZE_AFC_MIN(), INT_VAL_MIN());
+    branch(*this, letters, INT_VAR_AFC_SIZE_MAX(), INT_VAL_MIN());
     \end{litblock}
   }
   \begin{litblock}{anonymous}
@@ -14004,7 +14004,7 @@ public:
       g += 3*n;
     }
     \begin{litblock}{anonymous}
-    branch(*this, letters, INT_VAR_SIZE_AFC_MIN(), INT_VAL_MIN());
+    branch(*this, letters, INT_VAR_AFC_SIZE_MAX(), INT_VAL_MIN());
     \end{litblock}
   }
   \begin{litblock}{anonymous}
