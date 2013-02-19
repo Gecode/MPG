@@ -5,10 +5,10 @@ Initial
 	branchers:   0
 
 Summary
-	runtime:      0.000 (0.000 ms)
+	runtime:      0.006 (6.000 ms)
 	solutions:    0
 	propagations: 0
 	nodes:        0
 	failures:     1
 	peak depth:   0
-	peak memory:  44 KB
+	peak memory:  49 KB

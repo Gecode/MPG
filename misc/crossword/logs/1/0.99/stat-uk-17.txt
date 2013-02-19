@@ -1,2 +1,31 @@
 Crossword
-	Runtime:           385.000000ms (0.00% deviation)
+	amah*pics*talak
+	baba*haha*alula
+	balk*imam*carob
+	areal*blare*cha
+	***mac*dae*ahab
+	bis*calendar***
+	eric*maa*abelia
+	maghreb*placard
+	anneal*bag*agma
+	***smeardab*sam
+	skis*ela*ean***
+	ian*araba*aaron
+	malar*shim*bala
+	omaha*kana*lien
+	nawab*amen*ados
+
+
+
+Initial
+	propagators: 378
+	branchers:   1
+
+Summary
+	runtime:      0.541 (541.000 ms)
+	solutions:    1
+	propagations: 6972
+	nodes:        108
+	failures:     6
+	peak depth:   98
+	peak memory:  39323 KB
