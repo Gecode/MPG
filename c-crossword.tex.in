@@ -602,7 +602,7 @@ const int grid[] = {
 
 /*
  * The following wordlists are taken from SCOWL, english-55, truncated
- * to words of atnost length 8. Please see below for details and copyright 
+ * to words of atmost length 8. Please see below for details and copyright 
  * information.
  */
 const char* w_0[] = {
