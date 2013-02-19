@@ -1,0 +1,39 @@
+Crossword
+	adams*aruba*brady*cecil
+	disappeared*levee*alone
+	extraordinariness*flute
+	lied*paint*andre*leaner
+	eerie*toe*end*trays*try
+	***safes*cager*two*her*
+	sam*gad*catered*endured
+	caiman*bates*leo*sample
+	arson*eager*gilds*moran
+	loud*other*tactics*rots
+	annette*depot*aural*dee
+	**dmitri*renew*malibu**
+	ace*mends*aesop*panacea
+	lord*railers*mated*stub
+	inset*loads*paced*leila
+	astral*mid*toned*calves
+	stabbed*nichols*par*ere
+	*any*van*early*lanka***
+	and*dinah*pie*sir*sudan
+	stiles*manic*epoch*rome
+	sinai*mediterraneanizes
+	angst*arena*intelligent
+	messy*essen*peels*lands
+
+
+
+Initial
+	propagators: 913
+	branchers:   1
+
+Summary
+	runtime:      1:21.266 (81266.000 ms)
+	solutions:    1
+	propagations: 3555224
+	nodes:        14812
+	failures:     7359
+	peak depth:   130
+	peak memory:  41671 KB
