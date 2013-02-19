@@ -9,9 +9,9 @@ Crossword
 	scoriac*sashays*cringle
 	organzas*nails*chaldaea
 	reinserts*ire*sheila***
-	baste*rattat*measle*lis
-	esth*sirrah*carets*bine
-	tes*dhotis*gelati*tabla
+	teste*rattat*measle*lis
+	opts*sirrah*carets*bine
+	fys*dhotis*gelati*tabla
 	***birled*her*caesarean
 	espalier*dirac*esoteric
 	turtles*foretop*tribade
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      23.480 (23480.000 ms)
+	runtime:      24.591 (24591.000 ms)
 	solutions:    1
-	propagations: 251541
-	nodes:        1354
-	failures:     619
-	peak depth:   148
-	peak memory:  191401 KB
+	propagations: 408301
+	nodes:        2391
+	failures:     1137
+	peak depth:   151
+	peak memory:  222865 KB

@@ -32,8 +32,8 @@ Initial
 Summary
 	runtime:      3.380 (3380.000 ms)
 	solutions:    1
-	propagations: 29622
+	propagations: 29665
 	nodes:        236
 	failures:     22
 	peak depth:   201
-	peak memory:  124138 KB
+	peak memory:  124815 KB

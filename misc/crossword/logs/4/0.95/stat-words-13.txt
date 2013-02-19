@@ -1,19 +1,19 @@
 Crossword
-	eva*beam*walton
-	renville*opiate
+	lac*beam*watson
+	univalve*opiate
 	interferometric
-	knead*cider*ask
-	***lip*tints***
-	cow*eldon*upper
-	ibis*air*greene
+	sayer*rider*ask
+	***red*tents***
+	cow*lagos*upper
+	ibis*war*greene
 	responsibleness
 	cyprus*ore*true
 	asset*duane*set
 	***estes*nab***
-	boa*irene*sleds
+	sao*irene*soaks
 	omnidirectional
-	yankee*shinbone
-	sneers*song*sad
+	decree*shinbone
+	sneers*song*ned
 
 
 
@@ -22,10 +22,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      43.310 (43310.000 ms)
+	runtime:      22.004 (22004.000 ms)
 	solutions:    1
-	propagations: 4048124
-	nodes:        23757
-	failures:     11867
-	peak depth:   52
-	peak memory:  13924 KB
+	propagations: 3982253
+	nodes:        25866
+	failures:     12919
+	peak depth:   56
+	peak memory:  27532 KB

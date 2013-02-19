@@ -1,27 +1,27 @@
 Crossword
-	gerald*freest*haar*hade
-	adonai*europa*anna*alan
+	gerald*freest*biog*hams
+	adonai*europa*anoa*aloe
 	biochemicaloxygendemand
-	olpe*dan**idea*soulmate
-	ney*arcticterns**leeped
-	****nae*bah*ska*maar***
-	fallal*fed***elpee*haps
-	aboil*faxed*beall*aecia
-	noon*pad**oneday*claret
-	greenly*euratom*iridize
-	sedate*carabao*ace*edom
-	***rhubarb***doghead***
-	gasp*rad*aphelia*disbar
-	lipread*annabel*manhole
-	oneone*corymb**dal*ards
-	peags*carex*satan*freet
-	serr*cabin***gab*lakers
-	***afar*sew*see*dad****
-	salmon**twalpennies*bab
-	egomania*area**gar*mali
-	regimentalsergeantmajor
-	anan*rial*action*eagres
-	leng*saps*whatna*steady
+	olpe*dan**idea*stigmata
+	ney*arcticterns**deepen
+	****gae*bah*ska*parr***
+	azrael*bed***elpee*harp
+	viand*faxed*geoid*serai
+	anna*pad**amadou*tragic
+	scatted*escalop*iridise
+	tosher*inpetto*ace*elea
+	***effendi***doghead***
+	scam*and*natalia*imshis
+	chlamys*manweek*inphase
+	llamas*dildos**dag*ales
+	iotas*baccy*caman*crare
+	meer*malmo***dib*ilkley
+	***adam*ale*dae*ala****
+	curney**cumbernauld*ohm
+	areacode*myra**gnu*alae
+	victoriaandalbertmuseum
+	each*adry*emeute*eringo
+	rhea*lode*serrae*deaths
 
 
 
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.930 (2930.000 ms)
+	runtime:      2.821 (2821.000 ms)
 	solutions:    1
-	propagations: 32324
-	nodes:        292
-	failures:     72
-	peak depth:   164
-	peak memory:  90184 KB
+	propagations: 57446
+	nodes:        366
+	failures:     73
+	peak depth:   130
+	peak memory:  143831 KB

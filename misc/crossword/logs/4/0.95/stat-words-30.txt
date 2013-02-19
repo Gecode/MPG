@@ -1,25 +1,25 @@
 Crossword
-	limp*smear*abba*accra
-	agar*cargo*dead*solar
-	monopolies*disapprove
-	prepares*evens*hinges
-	***hues*cling*wire***
-	shield*salad*reliably
-	canto*appalachian*rae
-	ruts*dire***lord*cuba
-	use*penetrate*demeter
-	barbecue*ager**locals
-	**modes*clank*april**
-	spinal**opts*inhaling
-	handled*sheepskin*tea
-	eggs*root***ella*bias
-	eel*tallahassee*boers
-	predated*abets*classy
-	***enid*fleas*laos***
-	bamako*riots*sanctify
-	evidencing*icosahedra
-	sorer*agee*darer*real
-	swans*barn*emery*sane
+	ante*isaac*ramp*scram
+	been*dildo*erie*chose
+	longfellow*westphalia
+	entreaty*spins*harlan
+	***awls*elena*sift***
+	staves*baird*releases
+	truer*corpuscular*eat
+	oats*soil***held*acta
+	rio*hillsdale*severer
+	enchants*ices**lagers
+	**rungs*incas*split**
+	enamel**barr*cohesive
+	decayed*shanghais*van
+	grin*hide***arpa*geld
+	eve*parenthesis*delve
+	descents*hones*buoyed
+	***aids*winds*land***
+	sharpe*three*sorcerer
+	considered*mettlesome
+	olson*reel*irate*ibis
+	tying*rely*carey*celt
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:16.094 (136094.000 ms)
+	runtime:      16.790 (16790.000 ms)
 	solutions:    1
-	propagations: 7041134
-	nodes:        40833
-	failures:     20388
-	peak depth:   103
-	peak memory:  37191 KB
+	propagations: 1805466
+	nodes:        8374
+	failures:     4142
+	peak depth:   87
+	peak memory:  93873 KB

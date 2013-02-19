@@ -1,25 +1,25 @@
 Crossword
-	kane*ababa*ecole*char
-	iran*dirac*yates*role
-	epic*elena*emits*aped
-	valhalla*dales*eddies
-	***axis*cecil*anal***
-	cornea*named*michelin
-	edits**eris*fidel*ada
-	adds*oshea*mates*aden
-	see*odors*baird*lilac
-	erroneous*eire*rudely
-	***tilt**ned**face***
-	pistol*blab*atavistic
-	alien*crate*berea*ale
-	bier*alamo*creed*shod
-	lag*adage*shot**leone
-	oderberg*sarah*gilead
-	***ella*solid*race***
-	andrea*files*bisected
-	beau*idled*teens*tara
-	barn*diane*erase*exit
-	ares*edgar*naked*dice
+	kane*ababa*ecole*span
+	iran*dirac*yates*togo
+	epic*elena*emits*root
+	valhalla*dales*emerge
+	***axis*cecil*snow***
+	cornea*named*technion
+	edits**eris*fewer*bra
+	adds*oshea*lares*reds
+	see*odors*baird*caret
+	erroneous*eire*savory
+	***tilt**ned**bake***
+	pistol*blab*shakedown
+	alien*crate*eared*pea
+	bier*alamo*elves*seem
+	lag*adage*glee**burke
+	oderberg*beans*harass
+	***ella*culpa*germ***
+	andrea*kinds*arabians
+	beau*ivory*idler*swap
+	barn*dacca*nests*ease
+	ares*ethan*gloat*dyad
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.279 (1279.000 ms)
+	runtime:      1.270 (1270.000 ms)
 	solutions:    1
-	propagations: 31778
-	nodes:        176
-	failures:     24
-	peak depth:   148
-	peak memory:  37128 KB
+	propagations: 67656
+	nodes:        463
+	failures:     96
+	peak depth:   142
+	peak memory:  65412 KB

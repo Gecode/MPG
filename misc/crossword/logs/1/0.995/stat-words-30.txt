@@ -1,0 +1,37 @@
+Crossword
+	pang*smart*acta*award
+	idol*marie*plod*canoe
+	perihelion*paraphrase
+	enameled*sorry*hailed
+	***mats*sepia*lien***
+	caters*cases*malagasy
+	alert*gentlewoman*too
+	rams*hart***read*thud
+	imp*pineapple*repulse
+	bootlegs*rain**linear
+	**rears*bouts*split**
+	shasta**role*ephesian
+	carters*aforesaid*coo
+	avis*cafe***asia*bird
+	lee*christensen*costa
+	assyrian*alien*dismal
+	***ouch*piles*mart***
+	amanda*banal*forcible
+	mandelbrot*salutation
+	estes*yale*erase*clod
+	shirt*enid*newer*hems
+
+
+
+Initial
+	propagators: 756
+	branchers:   1
+
+Summary
+	runtime:      1:02.962 (62962.000 ms)
+	solutions:    1
+	propagations: 2428668
+	nodes:        11531
+	failures:     5736
+	peak depth:   102
+	peak memory:  37191 KB

@@ -1,0 +1,37 @@
+Crossword
+	amusing*skiff*confess
+	batavia*cobra*avionic
+	rutland*orion*nanette
+	are*negated*nabla*run
+	dire*sepia*ceres*beat
+	enema*tea*cedar*irate
+	seducers*hal*breveted
+	***lily*mania*asia***
+	malady*gautama*sedate
+	abets*carlo*alias*gas
+	dave*sulks*story*alms
+	abe*amble*stone*elope
+	malawi*stature*taiwan
+	***calf*stacy*data***
+	cashiers*ark*caresses
+	octet*aware*hay*reese
+	lead*miami*bandy*date
+	ott*milne*funeral*gad
+	routine*lares*elevate
+	entices*inane*atwater
+	deepest*annal*madness
+
+
+
+Initial
+	propagators: 762
+	branchers:   1
+
+Summary
+	runtime:      25.210 (25210.000 ms)
+	solutions:    1
+	propagations: 950908
+	nodes:        5647
+	failures:     2771
+	peak depth:   142
+	peak memory:  42055 KB

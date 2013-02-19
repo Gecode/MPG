@@ -1,25 +1,25 @@
 Crossword
-	ozaenas*grasp*zachary
-	sensile*lomas*aboulia
-	tristan*imams*raciest
-	rem*spermatotheca*put
-	abas*acapnia*aba*bise
-	calpa*apsis*aia*saner
-	assail*pea*bur*recess
-	***clawed*bacchiac***
-	streaked*mantuan*alfs
-	chimney*karaite*alaap
-	resets*catalos*plasma
-	uredo*citizen*defused
-	bani*laminar*sororise
+	plantar*thump*zachary
+	radiale*riles*aboulia
+	abaxial*acids*raciest
+	nip*spermatotheca*put
+	cate*atactic*aba*bise
+	etens*spaes*aia*saner
+	redcap*ire*bur*recess
+	***emends*bacchiac***
+	inspires*mantuan*alfs
+	nathemo*karaite*alaap
+	graals*catalos*plasma
+	arils*citizen*defused
+	nero*laminar*sororise
 	***cramboes*cendre***
-	celiac*ane*bad*ujamaa
-	axons*als*aurum*ataps
-	rage*abo*minimus*eras
-	ana*unembarrassed*gnu
-	cinerea*assam*cropear
-	amildar*poaka*arrange
-	loaders*uncus*tapster
+	upbear*ane*bad*ujamaa
+	taels*als*aurum*ataps
+	inre*ado*minimus*eras
+	nag*unembarrassed*gnu
+	frappee*assam*cropear
+	ramstam*poaka*arrange
+	abators*uncus*tapster
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      11.230 (11230.000 ms)
+	runtime:      11.153 (11153.000 ms)
 	solutions:    1
-	propagations: 110597
-	nodes:        864
-	failures:     376
-	peak depth:   142
-	peak memory:  120679 KB
+	propagations: 213802
+	nodes:        1614
+	failures:     728
+	peak depth:   135
+	peak memory:  174449 KB

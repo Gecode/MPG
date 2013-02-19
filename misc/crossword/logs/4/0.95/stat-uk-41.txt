@@ -36,4 +36,4 @@ Summary
 	nodes:        377
 	failures:     81
 	peak depth:   221
-	peak memory:  108078 KB
+	peak memory:  108228 KB

@@ -1,25 +1,25 @@
 Crossword
-	urge*straw*jacob*slid
-	rind*paoli*aware*peru
-	stag*aimer*blinn*avon
-	aztec*laced*snatching
-	***women*tab*ethan***
-	galahad*tahoe*ear*how
-	abated*diploma*medici
-	token*mips*kern*yentl
-	ever*jigs*scream*idem
-	des*buns*bhagavadgita
-	***aide*cease*alan***
-	websterville*clad*bag
-	yuri*avenge*daly*sage
-	alias*ager*deny*laban
-	tenney*amadeus*canute
-	try*dar*adams*mantles
-	***danes*era*babka***
-	sprinkled*ended*ayers
-	haag*eerie*dirac*agee
-	anti*envoy*enema*nasa
-	meet*stone*deter*ants
+	sana*straw*bella*dose
+	ices*paoli*again*espy
+	atop*aimer*nabla*blue
+	manic*laced*neighbors
+	***rosen*tab*leroy***
+	galahad*tahoe*san*how
+	edited*diploma*medici
+	aiken*gums*kern*yentl
+	reed*arms*scream*idem
+	sun*arab*bhagavadgita
+	***aden*pease*alan***
+	raymondville*clad*hal
+	alee*amoral*holy*gale
+	beans*away*fury*pence
+	burden*stilled*candor
+	its*dam*envoy*daresay
+	***cabal*got*cobra***
+	juveniles*virus*slate
+	alar*stain*laban*olav
+	vase*copra*liege*gore
+	ants*onset*added*year
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.436 (1436.000 ms)
+	runtime:      1.630 (1630.000 ms)
 	solutions:    1
-	propagations: 50955
-	nodes:        320
-	failures:     116
-	peak depth:   112
-	peak memory:  36519 KB
+	propagations: 110995
+	nodes:        707
+	failures:     273
+	peak depth:   122
+	peak memory:  53769 KB

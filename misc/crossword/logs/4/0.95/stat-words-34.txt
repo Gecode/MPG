@@ -1,25 +1,25 @@
 Crossword
-	abater*grabbed*tanaka
-	cabana*latrine*oregon
-	clinic*amoebas*newark
-	odd*desmond*medea*tea
-	sled*drone*ceres*char
-	tyson*ira*jolts*ghana
-	***gab***gus***ale***
-	thimbu*paramus*seethe
-	recall*reunite*heroic
-	are*absorb*cove*sends
-	mobs*aida***pike*diet
-	piece*putt*silent*goa
-	enroll*coastal*aarhus
-	degree*erskine*chatty
-	***egg***sir***tom***
-	scary*arced*apt*eagan
-	nags*knell*dream*nasa
-	one*coypu*factual*stu
-	ringer*attache*rushes
-	endure*scarcer*inhere
-	deanna*threads*odessa
+	ablate*crashes*sweats
+	tribal*rampart*harlan
+	resell*ariadne*agatha
+	eat*keenest*evade*air
+	used*nails*aside*cite
+	strap*ray*acted*boris
+	***tar***aft***pea***
+	merely*jamaica*rascal
+	adored*odorous*octane
+	dud*depths*nips*habib
+	ices*rate***sikh*lima
+	santa*dire*miriam*nan
+	ottawa*neptune*pareto
+	nestor*groaned*platen
+	***eke***cog***yet***
+	apple*sachs*mae*sense
+	clay*nasas*pills*dahl
+	cam*fagin*jesting*did
+	enemas*actuate*alpine
+	select*needler*keener
+	staley*slayers*enters
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6.802 (6802.000 ms)
+	runtime:      6.340 (6340.000 ms)
 	solutions:    1
-	propagations: 378252
-	nodes:        3017
-	failures:     1463
-	peak depth:   116
-	peak memory:  39687 KB
+	propagations: 413868
+	nodes:        2604
+	failures:     1218
+	peak depth:   129
+	peak memory:  65523 KB

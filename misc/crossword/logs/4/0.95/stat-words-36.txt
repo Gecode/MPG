@@ -1,25 +1,25 @@
 Crossword
-	apse*ababa*clean*spat
-	dial*caleb*linda*argo
+	spat*ababa*clean*arab
+	wish*caleb*linda*bela
 	accelerate*allegories
-	marco*err*train*raves
-	**itel*maniacs*mini**
-	off*bugeyed*steen*lag
-	said*cod*van*sad*neva
-	acceded*paled*ravages
-	keener*bad*rag*lasers
-	add*ankara*odin*nasty
-	***ocean*****vales***
-	macho*yagi*thebes*map
-	upland*lab*han*ashore
-	sparser*biped*grained
-	else*lad*del*ian*mona
-	des*sleek*amassed*sal
-	**idea*mascara*dart**
-	mafia*eerie*ado*react
-	aristocrat*abominable
-	leek*white*dirac*clan
-	lads*noted*scene*hems
+	mario*err*train*batch
+	**ires*maniacs*dome**
+	ebb*bugeyed*store*ram
+	load*bad*van*sao*mama
+	inbound*dales*floater
+	delete*jed*ail*latent
+	ere*ithaca*tree*teddy
+	***alsop*****alamo***
+	alibi*earl*scribe*caw
+	mighty*nay*pun*ramona
+	annoyed*ellie*aileron
+	igor*aid*ear*add*node
+	nor*preen*babbage*ned
+	**alan*locally*elba**
+	banal*divan*ask*serra
+	astronomer*immaterial
+	nile*agile*deane*rena
+	days*betsy*arlen*asks
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.935 (1935.000 ms)
+	runtime:      2.890 (2890.000 ms)
 	solutions:    1
-	propagations: 105158
-	nodes:        697
-	failures:     290
-	peak depth:   135
-	peak memory:  36263 KB
+	propagations: 439865
+	nodes:        3041
+	failures:     1419
+	peak depth:   130
+	peak memory:  58164 KB

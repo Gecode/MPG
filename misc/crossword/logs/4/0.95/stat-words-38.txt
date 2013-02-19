@@ -1,25 +1,25 @@
 Crossword
-	**ahead*peace*plaid**
-	*amanda*laban*lacked*
-	bromide*arena*ephesus
-	rae*deduced*blase*ink
-	ebbs*dared*blade*urdu
-	alamo*lid*weeds*kneel
-	desirous*hoary*seidel
-	***lows*zions*deaf***
-	iodine*bares*boatyard
-	rhino*briar*fails*mae
-	wang*alarm*finns*papa
-	ire*adage*gregg*alien
-	nestling*waals*blonde
-	***heed*david*bait***
-	maseru*navel*fanatics
-	apart*camel*dis*setup
-	mine*mizar*bolts*date
-	mad*aegis*beneath*len
-	armenia*carla*realist
-	*yawner*udall*detect*
-	**nears*sated*sleds**
+	**farad*alias*oscar**
+	*cabana*nabla*carder*
+	arsenic*adieu*cleaner
+	rat*totaled*chute*eve
+	ones*nylon*seals*twas
+	menlo*lag*input*shame
+	assassin*ideal*sculpt
+	***chic*brien*blum***
+	shaker*favor*blabbing
+	korea*habit*ilona*mae
+	amen*oaken*clang*bake
+	tea*acres*blind*sages
+	essences*tread*accede
+	***adam*ahead*flak***
+	mortem*ocean*drilling
+	aches*aphid*foe*poser
+	stun*smear*diode*gave
+	tab*alice*carmela*die
+	snapped*abate*respond
+	*erases*namer*inkers*
+	**brett*sheds*caste**
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.904 (1904.000 ms)
+	runtime:      1.050 (1050.000 ms)
 	solutions:    1
-	propagations: 85084
-	nodes:        602
-	failures:     239
-	peak depth:   151
-	peak memory:  40681 KB
+	propagations: 61737
+	nodes:        323
+	failures:     31
+	peak depth:   116
+	peak memory:  94810 KB
