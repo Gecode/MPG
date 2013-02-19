@@ -13,9 +13,9 @@ Crossword
 	***alb*amnesiacs*mog***
 	avail*apia*tanh*canidae
 	tablature*yegg*naricorn
-	aga*saba*caro*serac*tea
-	paca*dexters*ribes*narc
-	slade*rieve*telex*salet
+	aga*saba*caro*serac*ria
+	paca*dexters*ribes*aesc
+	slade*rieve*telex*sleet
 	***ace*ala*kapok*aha***
 	trimtab*addaxes*slanted
 	bad*atap*iaido*aped*ate
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.710 (3710.000000 ms)
+	runtime:      3.479 (3479.000 ms)
 	solutions:    1
-	propagations: 30681
-	nodes:        255
-	failures:     29
-	peak depth:   216
-	peak memory:  143119 KB
+	propagations: 30624
+	nodes:        258
+	failures:     30
+	peak depth:   212
+	peak memory:  124138 KB

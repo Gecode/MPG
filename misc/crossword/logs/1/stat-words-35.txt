@@ -1,25 +1,25 @@
 Crossword
-	clod*amass*peale*hubs
-	rule*malay*lamar*oslo
-	area*informatica*neon
-	bagrodia*ian*desserts
-	***nasa*ranks*deny***
-	albert*janitor*submit
-	weiss*sub*comer*beige
-	ants*spray*nasal*ella
-	kit*aerated*legal*tom
-	energies*merit*taboos
-	**raise*berea*erwin**
-	anselm*panel*slinging
-	caw*eight*kittens*zoe
-	tied*coats*circe*finn
-	every*asian*mat*dance
-	detour*envelop*bilges
-	***prep*gavin*silt***
-	bagpipes*gel*dialects
-	agee*itineraries*rail
-	bear*natal*carve*emma
-	errs*elegy*sneed*deem
+	clod*amass*peale*haas
+	rule*malay*lamar*alba
+	area*informatica*bali
+	bagrodia*ian*destined
+	***nasa*ranks*seat***
+	albert*janitor*sparta
+	weiss*sub*comer*stern
+	ants*spray*nasal*span
+	kit*aerated*legal*rio
+	energies*merit*barely
+	**raise*celia*memos**
+	anselm*canal*paleness
+	caw*eight*yearned*nat
+	ties*coats*yield*otto
+	evens*diana*key*sneer
+	detail*nielsen*shoddy
+	***plea*laden*seen***
+	template*ken*steadied
+	aloe*nonsensical*argo
+	user*ender*ecole*goal
+	tens*rests*dewey*anne
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.925 (1925.000000 ms)
+	runtime:      1.137 (1137.000 ms)
 	solutions:    1
-	propagations: 56941
-	nodes:        305
-	failures:     102
-	peak depth:   130
-	peak memory:  36808 KB
+	propagations: 52648
+	nodes:        343
+	failures:     123
+	peak depth:   109
+	peak memory:  37448 KB

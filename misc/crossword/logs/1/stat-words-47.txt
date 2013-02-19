@@ -1,17 +1,39 @@
 Crossword
+	ashamed*alaskan*mayoral
+	stabile*toshiba*emanate
+	paroles*estates*talents
+	err*enid*sods*tease*dis
+	clio*asinine*dials*bare
+	teens*tree*darers*allen
+	stream*germ*gasp*scolds
+	***slated*enact*chic***
+	asp*ayes*erato*fredholm
+	belabor*hague*beads*rae
+	avail*meager*alibi*mira
+	secret*star*haag*reagan
+	ires*ibsen*farina*slime
+	nab*blear*labor*bikinis
+	globally*galen*levi*set
+	***asia*nabla*madame***
+	girlie*same*sway*norman
+	atoll*angelo*alec*sieve
+	less*broad*bertram*slew
+	are*views*slam*snob*ann
+	halpern*awaited*arrange
+	atlanta*kilgore*dailies
+	dearths*intense*algiers
 
-Search engine stopped...
-	reason: time limit reached
+
 
 Initial
 	propagators: 914
 	branchers:   1
 
 Summary
-	runtime:      20:00.020 (1200020.000000 ms)
-	solutions:    0
-	propagations: 36204952
-	nodes:        212747
-	failures:     106343
-	peak depth:   142
-	peak memory:  48137 KB
+	runtime:      50.872 (50872.000 ms)
+	solutions:    1
+	propagations: 3150173
+	nodes:        20507
+	failures:     10199
+	peak depth:   151
+	peak memory:  49480 KB

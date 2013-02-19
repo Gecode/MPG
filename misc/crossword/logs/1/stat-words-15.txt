@@ -8,12 +8,12 @@ Crossword
 	plasterer*ennui
 	has*edifice*inn
 	inter*cigarette
-	deeded*nameless
-	***irene*ere***
-	east*tudor*vial
-	praiser*lovable
-	iciness*goatees
-	colgate*annexes
+	deemed*nameless
+	***breve*ere***
+	ursa*cedar*vial
+	sources*lovable
+	elegant*goatees
+	resorts*annexes
 
 
 
@@ -22,10 +22,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      8:46.408 (526408.000000 ms)
+	runtime:      17.685 (17685.000 ms)
 	solutions:    1
-	propagations: 20614244
-	nodes:        122870
-	failures:     61417
-	peak depth:   70
-	peak memory:  20438 KB
+	propagations: 1082148
+	nodes:        7321
+	failures:     3644
+	peak depth:   54
+	peak memory:  21140 KB

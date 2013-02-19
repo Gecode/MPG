@@ -1,27 +1,27 @@
 Crossword
-	spaded*swans*ayes*baler
-	tobago*katie*coal*adore
+	scalar*swans*ayes*baths
+	nadine*katie*coal*about
 	apalachicola*ektachrome
-	retinue*opera*neva*emil
-	eke**mac***clearer*nine
-	***predate*heaps**based
-	appian*pals*era*abel***
-	mallet*ervin*stable*arc
-	opal*assailed*abba*scar
-	censure**stairways*acta
-	ore*lyman**traps*esteem
-	**tea*image*ethel*ten**
-	deanna*atone**adage*tin
-	yard*monitored**neptune
-	eris*indo*salesian*rake
-	spa*inland*slain*edited
-	***ploy*aid*alva*remedy
-	cabal**sleek*sandals***
-	amen*avoider***eel**pep
-	load*dart*pests*missile
-	aeronautic*stroboscopic
-	ibero*lieu*gaily*toledo
-	saran*test*erode*swedes
+	regally*opera*neva*alba
+	ere**ada***clearer*dell
+	***shields*heaps**heres
+	salaam*taps*era*ames***
+	pravda*areas*steven*man
+	ague*borealis*axes*mira
+	consult**reviewers*arcs
+	end*leila**adapt*yamaha
+	**eva*sonar*ethel*lac**
+	strand*capet**arena*ugh
+	tail*unaltered**nasally
+	erne*bely*fireboat*roam
+	wag*shasta*mania*upturn
+	***deer*ira*sees*raises
+	appia**scene*brigade***
+	iris*praised***sal**bib
+	ride*hunt*wicks*inspire
+	mogadiscio*concatenates
+	arise*thea*tread*silent
+	nines*yost*seers*spores
 
 
 
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:42.170 (102170.000000 ms)
+	runtime:      22.175 (22175.000 ms)
 	solutions:    1
-	propagations: 11944578
-	nodes:        84375
-	failures:     42132
-	peak depth:   195
-	peak memory:  38090 KB
+	propagations: 923195
+	nodes:        5758
+	failures:     2835
+	peak depth:   134
+	peak memory:  40039 KB

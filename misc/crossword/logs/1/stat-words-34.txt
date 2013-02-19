@@ -1,25 +1,25 @@
 Crossword
-	abater*bistate*wafers
-	cabana*inhaled*amoral
-	clinic*editing*aerate
-	odd*deprive*dials*she
-	sled*dacca*cents*jeep
-	tyson*let*badge*sorry
-	***gab***ban***stu***
-	thimbu*abolish*parted
-	recall*nominee*annuli
-	are*absorb*errs*danes
-	mobs*aida***paid*live
-	piece*pith*melted*sea
-	enroll*zealand*cabins
-	degree*escorts*crease
-	***egg***kay***ape***
-	scary*caged*aye*abide
-	tabs*farad*ideal*emil
-	awl*satyr*osmotic*pad
-	diadem*acclaim*allele
-	intone*niagara*raider
-	agents*saracen*speeds
+	abater*scandal*anemia
+	cabana*cocaine*havens
+	clinic*ratings*events
+	odd*debater*essay*toe
+	sled*doped*plead*pans
+	tyson*bed*gland*sales
+	***gab***bra***act***
+	thimbu*aplenty*pariah
+	recall*niagara*enigma
+	are*absorb*riot*sonar
+	mobs*aida***buoy*todd
+	piece*pith*runner*bee
+	enroll*zealand*aeolus
+	degree*escapee*rarest
+	***end***kit***sri***
+	accra*domed*mew*sofas
+	peas*farad*pares*name
+	inn*olden*berlitz*spa
+	estate*galatia*roster
+	coolie*omicron*inhere
+	ernest*nanking*peered
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      8.381 (8381.000000 ms)
+	runtime:      6.436 (6436.000 ms)
 	solutions:    1
-	propagations: 434499
-	nodes:        3938
-	failures:     1915
-	peak depth:   192
-	peak memory:  39273 KB
+	propagations: 250649
+	nodes:        2161
+	failures:     1033
+	peak depth:   123
+	peak memory:  39687 KB

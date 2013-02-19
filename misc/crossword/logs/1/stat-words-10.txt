@@ -1,14 +1,14 @@
 Crossword
-	frau*basal*opal
-	earn*ababa*flue
-	superseded*fate
-	slashed**elinor
-	***cod*menace**
-	synod*mad*betel
-	lao*emilio*rate
-	ott*sinatra*rho
-	peak*doreen*ian
-	estes*aid*ghana
+	frau*basal*anna
+	earn*ababa*dean
+	superseded*dust
+	slashed**earths
+	***cod*mender**
+	synod*mad*osaka
+	lao*emilio*slav
+	ott*sinatra*ira
+	peak*doreen*zen
+	estes*aid*ghent
 	**inanna*eli***
 	stodgy**painted
 	nina*laboratory
@@ -22,10 +22,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.960 (1960.000000 ms)
+	runtime:      1.914 (1914.000 ms)
 	solutions:    1
-	propagations: 112981
-	nodes:        789
-	failures:     371
-	peak depth:   67
-	peak memory:  17430 KB
+	propagations: 126965
+	nodes:        922
+	failures:     437
+	peak depth:   62
+	peak memory:  18292 KB

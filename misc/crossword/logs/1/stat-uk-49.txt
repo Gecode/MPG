@@ -1,27 +1,27 @@
 Crossword
-	cestus*grappa*lad*masai
-	impale*racial*eremitism
+	duetto*grappa*lad*masai
+	inlaid*racial*eremitism
 	spermatotheca*cabaletta
-	sar*isoptera*dynamo*arm
-	urman*lieus*retes*ratas
-	slab*panel*techier*mud*
-	**tawa*gneissoid*elands
-	egotism*sashays*cringle
-	locustae*nails*chaldaea
-	puerperal*ire*sheila***
-	agley*cravat*measle*eli
-	sees*wahwah*cadets*gman
-	ods*basons*gelati*crare
-	***merils*ren*naethings
-	lapidate*berob*essences
-	acerate*vacates*turdine
-	canada*bottlegas*beep**
-	*lug*hornmad*gutta*raca
-	relet*monal*sacra*aston
-	opt*apemen*parietal*ilk
-	whirligig*headswillroll
-	tamilnadu*osmose*beanie
-	heady*set*itemed*seised
+	cop*isoptera*dynamo*arm
+	ephod*lieus*retes*ratas
+	dear*panel*techier*mud*
+	**nide*gneissoid*elands
+	asteism*sashays*cringle
+	tailcoat*nails*chaldaea
+	opalesces*ire*sheila***
+	cosed*cameat*measle*rho
+	irid*calash*cadets*mead
+	ass*sobers*gelati*paine
+	***threat*zen*naethings
+	unironed*dante*essences
+	finials*firearm*tantara
+	oscula*powerloom*rear**
+	*son*wallaba*treks*inca
+	pened*leila*biota*snail
+	and*adonai*bacchiac*tea
+	whirligig*musicalchairs
+	luteinise*alison*twinge
+	steds*ahs*cleese*sarges
 
 
 
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      27.040 (27040.000000 ms)
+	runtime:      26.679 (26679.000 ms)
 	solutions:    1
-	propagations: 231857
-	nodes:        1311
-	failures:     603
-	peak depth:   164
-	peak memory:  214027 KB
+	propagations: 420442
+	nodes:        2350
+	failures:     1121
+	peak depth:   140
+	peak memory:  191399 KB

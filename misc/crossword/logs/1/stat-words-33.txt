@@ -1,25 +1,25 @@
 Crossword
-	abusive*strap*shapiro
-	batavia*phase*towered
-	slogans*lanka*emerald
-	cap*netting*kneed*nan
-	enid*swank*seeps*bite
-	scars*abe*vidal*sizes
-	senators*ben*reckless
-	***fend*dirac*slab***
-	goatee*celsius*atolls
-	acted*rilke*tease*ail
-	mead*corps*blabs*abba
-	ear*botch*alamo*fleet
-	snider*aimless*gaulle
-	***agar*cages*norm***
-	parceled*lad*botanist
-	react*haste*can*dante
-	ursa*gemma*carla*egos
-	sap*blase*corrode*rut
-	stirrer*abide*collate
-	ionians*rates*arbiter
-	argonne*sheds*leaders
+	amusing*skiff*covered
+	batavia*cobra*overuse
+	rutland*orion*magenta
+	are*negated*nabla*tar
+	dire*sepia*aegis*bite
+	enema*tea*sedan*comes
+	seducers*gas*remotest
+	***lily*algol*disc***
+	malady*steeped*athena
+	abets*aches*gamma*tag
+	dave*blues*hanoi*shin
+	abe*alibi*caleb*sieve
+	malawi*assails*bibles
+	***dams*manly*mire***
+	receipts*los*doberman
+	erupt*elite*dad*niece
+	cast*feats*dales*arts
+	ash*palms*camelot*rut
+	suicide*emacs*initial
+	trooper*lance*nanette
+	senders*fetal*granted
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      43.119 (43119.000000 ms)
+	runtime:      21.592 (21592.000 ms)
 	solutions:    1
-	propagations: 1634154
-	nodes:        9932
-	failures:     4906
-	peak depth:   189
-	peak memory:  41769 KB
+	propagations: 770486
+	nodes:        4359
+	failures:     2128
+	peak depth:   130
+	peak memory:  42055 KB

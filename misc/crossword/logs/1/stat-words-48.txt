@@ -1,27 +1,27 @@
 Crossword
-	swaps*aruba*clara*clods
-	paraphrased*haves*lucia
-	extraordinariness*oscar
-	neil*paint*andre*fatima
-	dread*gag*are*steak*dan
-	***yukon*brisk*sri*peg*
-	abe*nan*pretend*argonne
-	colony*rainy*orr*salter
-	crepe*verna*sweep*plato
-	rice*aided*pangaea*slid
-	actress*sleet*scala*ice
-	**rancid*ender*tropez**
-	ado*doted*arden*seepage
-	mimi*tobacco*gotos*stun
-	irene*rivet*latin*foist
-	decked*tit*cairn*demote
-	echelon*susanne*cat*nor
-	*tar*was*sores*comic***
-	son*peppy*bus*san*draco
-	tribal*eaves*marco*iran
-	racer*heterogeneousness
-	atari*odell*interrogate
-	pelts*essay*guard*beset
+	ababa*prima*arabs*cecil
+	degenerated*nabla*orono
+	electrocardiogram*pants
+	park*agile*stead*messes
+	tyson*ray*ash*mewed*try
+	***nasal*bluer*san*tip*
+	phi*dam*federal*sumatra
+	aeneid*faced*pam*samuel
+	ultra*moran*minor*ditto
+	seer*babel*cuddled*lien
+	enrolls*small*savor*ode
+	**driest*shuts*resign**
+	fee*pairs*emits*repeals
+	arpa*kneecap*rests*alee
+	brent*gaped*hares*drive
+	longed*din*zaire*sister
+	endears*atlanta*ear*yes
+	*eel*ian*signs*allah***
+	ion*fetus*bra*are*cobra
+	succor*there*click*reub
+	asian*probabilistically
+	alert*airer*tabernacles
+	cysts*danny*spiro*beads
 
 
 
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      48.828 (48828.000000 ms)
+	runtime:      1:08.736 (68736.000 ms)
 	solutions:    1
-	propagations: 1766493
-	nodes:        9716
-	failures:     4819
-	peak depth:   165
-	peak memory:  41930 KB
+	propagations: 4252513
+	nodes:        22085
+	failures:     10999
+	peak depth:   109
+	peak memory:  41671 KB

@@ -1,25 +1,25 @@
 Crossword
-	dens*aspic*bile*accra
-	idea*plato*ever*solar
-	snapdragon*disapprove
-	calliope*cafes*hinges
-	***inns*texas*wire***
-	slings*hades*belittle
-	tangy*libertarian*hen
-	odds*ball***lard*read
-	wei*bitterest*defense
-	enforces*axle**lanced
-	**flier*rotor*spree**
-	sweden**aura*schaefer
-	parents*planetoid*ore
-	eyer*eire***vita*brae
-	ann*endorsement*butts
-	returned*prong*washoe
-	***paid*grids*bash***
-	odessa*geese*paginate
-	wilhelmina*rhinoceros
-	labor*arid*nolan*leap
-	slats*odes*sells*lady
+	pomp*boric*sofa*apace
+	aver*aware*carr*terra
+	carolinian*asymptotes
+	elevated*three*hersey
+	***eked*wails*mimi***
+	sacred*maude*palpable
+	knobs*secretariat*ran
+	inns*peak***coed*bond
+	mac*protestor*replace
+	plateaus*code**louder
+	**trail*hands*spree**
+	smears**erie*ethernet
+	penises*aforesaid*ire
+	iran*wear***asia*anne
+	tit*constructed*begin
+	stewards*ashen*purses
+	***ants*freer*silo***
+	health*guide*scabbard
+	employment*reconsider
+	risen*alga*erato*cede
+	sleds*odin*debts*snow
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:57.214 (177214.000000 ms)
+	runtime:      3:53.180 (233180.000 ms)
 	solutions:    1
-	propagations: 5474140
-	nodes:        26567
-	failures:     13247
-	peak depth:   147
-	peak memory:  35784 KB
+	propagations: 19340343
+	nodes:        122699
+	failures:     61321
+	peak depth:   91
+	peak memory:  37190 KB

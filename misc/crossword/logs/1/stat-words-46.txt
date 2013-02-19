@@ -15,13 +15,13 @@ Crossword
 	avid*exemplary*barbital
 	den*abed*ease*juras*ida
 	engaged*adventured*void
-	***can*idea**riga*panel
-	raper*dodd*epoch*tissue
-	ours*cans*drape*cult***
-	ode*bali*miami*colonels
-	misdemeanors*collateral
-	steele*nudge*anion*sino
-	*steal*sneed*leone*scab
+	***dan*idea**riga*panel
+	comer*dodd*pooch*tissue
+	olin*bans*shape*cult***
+	men*semi*atari*colonels
+	maintenances*collateral
+	armour*nerve*anion*sino
+	*yards*steed*leone*scab
 
 
 
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.432 (3432.000000 ms)
+	runtime:      8.253 (8253.000 ms)
 	solutions:    1
-	propagations: 163528
-	nodes:        1088
-	failures:     479
-	peak depth:   195
-	peak memory:  41035 KB
+	propagations: 495384
+	nodes:        3158
+	failures:     1519
+	peak depth:   145
+	peak memory:  43465 KB

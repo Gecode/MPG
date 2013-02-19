@@ -1,27 +1,27 @@
 Crossword
-	rascal*snabs*cain*lathe
-	iguana*aaron*alma*acred
-	massaranduba*playacting
-	uphangs*amain*igad*axle
-	sei**ean***laagers*bier
-	***mihrabs*salad**fleys
-	bahada*back*mat*bare***
-	ataman*orang*novara*pho
-	bala*dabblers*road*when
-	existed**aeolipile*ears
-	eye*adage**gated*auklet
-	**uni*manet*baaed*dal**
-	eatage*malik**reata*oba
-	slip*granddads**dallier
-	paca*gast*smeardab*edam
-	yes*rachis*algae*elnino
-	***cara*oca*iamb*radnor
-	cycad**amass*nitinol***
-	haaf*vicomte***ska**dab
-	impi*adar*iambs*acharne
-	callicarpa*belittlement
-	eniac*huhs*agama*ericas
-	rinse*ossa*tahas*darkly
+	madcap*snabs*acta*caaba
+	apiary*aaron*shad*abrus
+	massaranduba*kenilworth
+	bimanal*amain*stey*meal
+	ode**cay***labarum*acne
+	***phaedra*salpa**aster
+	aegean*rand*mae*baba***
+	brandt*ainee*gavage*pad
+	hisn*haddocks*kiri*brno
+	octaval**yokedevil*aitu
+	rae*asana**akaba*adamic
+	**rad*nancy*teaed*ali**
+	chorea*cohab**ydred*pia
+	rape*marmalade**ajowans
+	alod*idea*djellaba*ores
+	bed*bridle*uboat*canape
+	***bast*ind*sile*ungets
+	atsea**asdic*nauplii***
+	boma*bortsch***pea**ods
+	areg*asci*tinea*atalaya
+	coulibiaca*compaginates
+	asset*edam*liein*namers
+	seeds*rely*elsan*glassy
 
 
 
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6.770 (6770.000000 ms)
+	runtime:      3.229 (3229.000 ms)
 	solutions:    1
-	propagations: 97754
-	nodes:        853
-	failures:     338
-	peak depth:   191
-	peak memory:  126028 KB
+	propagations: 35155
+	nodes:        264
+	failures:     52
+	peak depth:   180
+	peak memory:  110313 KB

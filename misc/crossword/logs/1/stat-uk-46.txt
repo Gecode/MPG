@@ -1,9 +1,9 @@
 Crossword
-	hade*pagod*spoom*alban*
-	alap*azeri*ardeb*seaoak
+	hade*plead*spoom*alban*
+	alap*aioli*ardeb*seaoak
 	affirmants*massaranduba
 	ratteens*chiao*band*dop
-	***hals*fleam*data*babu
+	***hale*fleam*data*babu
 	chaeta*dearn*tana*hadst
 	herma*cadi**dele*gal***
 	upas*triumphant*handbag
@@ -15,13 +15,13 @@ Crossword
 	apia*stahlhelm*pacation
 	tho*ecad*iago*caged*goa
 	senator*ampholytes*kahn
-	***dag*ghis**ache*arden
-	algal*blat*annas*frieda
-	balm*daub*aredd*maam***
-	aba*laic*chief*limbmeal
+	***nag*ghis**ache*arden
+	areal*blat*annas*frieda
+	bell*daub*aredd*maam***
+	asa*laic*chief*limbmeal
 	concertinaed*agonisedly
 	arcade*nepal*lemel*rams
-	*sepad*abody*leady*smee
+	*bedad*abody*leady*smee
 
 
 
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.750 (3750.000000 ms)
+	runtime:      3.617 (3617.000 ms)
 	solutions:    1
-	propagations: 28172
-	nodes:        218
-	failures:     14
-	peak depth:   200
-	peak memory:  136204 KB
+	propagations: 29158
+	nodes:        228
+	failures:     17
+	peak depth:   207
+	peak memory:  122506 KB

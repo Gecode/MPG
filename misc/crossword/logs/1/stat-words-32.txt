@@ -1,11 +1,11 @@
 Crossword
-	asia**tug*algae*stood
-	band*rene*raoul*horde
-	alfa*eris*crate*angel
-	flo*adept**slovakia**
-	terms*slurp**mace*nab
-	**mac*aural*hate**ike
-	pianos*separate*mazes
+	asia**tug*jonas*assam
+	band*rene*aleut*mecca
+	alfa*eris*malta*bared
+	flo*adept**flotilla**
+	terms*slurp**mute*man
+	**mac*aural*hats**bye
+	pianos*separate*males
 	entitle*seneca*hubert
 	nail*ale*rank*manors*
 	inca*vain*responds***
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.468 (1468.000000 ms)
+	runtime:      1.330 (1330.000 ms)
 	solutions:    1
-	propagations: 56360
-	nodes:        427
-	failures:     163
-	peak depth:   136
-	peak memory:  35271 KB
+	propagations: 44513
+	nodes:        319
+	failures:     111
+	peak depth:   117
+	peak memory:  36487 KB

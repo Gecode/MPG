@@ -5,21 +5,21 @@ Crossword
 	marco*err*train*raves
 	**itel*maniacs*mini**
 	off*bugeyed*steen*lag
-	said*cod*van*sad*neva
-	acceded*paled*ravages
+	said*cod*van*sat*neva
+	arcaded*paled*ravages
 	keener*bad*rag*lasers
 	add*ankara*odin*nasty
 	***ocean*****vales***
-	macho*yagi*thebes*map
+	macho*yagi*thebes*mac
 	upland*lab*han*ashore
 	sparser*biped*grained
-	else*lad*del*ian*mona
-	des*sleek*amassed*sal
+	else*lad*del*ian*done
+	des*sleek*amassed*sad
 	**idea*mascara*debt**
 	mafia*eerie*ado*arabs
 	aristocrat*abominable
-	leek*white*dirac*glue
-	lads*noted*scene*germ
+	leek*white*dirac*glow
+	lads*noted*scene*gets
 
 
 
@@ -28,10 +28,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.980 (2980.000000 ms)
+	runtime:      2.352 (2352.000 ms)
 	solutions:    1
-	propagations: 153013
-	nodes:        1010
-	failures:     445
-	peak depth:   175
-	peak memory:  35113 KB
+	propagations: 150008
+	nodes:        983
+	failures:     434
+	peak depth:   144
+	peak memory:  36265 KB

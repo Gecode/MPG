@@ -1,19 +1,19 @@
 Crossword
-	lap*deem*scaled
-	univalve*alcove
+	map*beam*dimmer
+	univalve*oneida
 	interferometric
-	satan*nixon*elk
-	***lew*teach***
-	the*dijon*hokan
-	role*dar*bernie
-	industriousness
-	adolph*orr*salt
-	loner*buena*des
-	***regis*sun***
-	sea*arena*reads
-	omnidirectional
-	aitken*stagnate
-	pliers*saga*lad
+	resin*rider*ate
+	***led*tests***
+	peg*solos*items
+	avis*war*carrot
+	perpendicularly
+	unless*oar*well
+	asset*cubed*dye
+	***dines*sit***
+	arc*milne*thief
+	characterizable
+	rebate*sidewise
+	easter*seal*del
 
 
 
@@ -22,10 +22,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      51.570 (51570.000000 ms)
+	runtime:      34.106 (34106.000 ms)
 	solutions:    1
-	propagations: 5093265
-	nodes:        34519
-	failures:     17246
-	peak depth:   93
-	peak memory:  13029 KB
+	propagations: 3474948
+	nodes:        21728
+	failures:     10845
+	peak depth:   49
+	peak memory:  13924 KB
