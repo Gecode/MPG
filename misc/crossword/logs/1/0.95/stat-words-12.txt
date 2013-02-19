@@ -1,0 +1,31 @@
+Crossword
+	kane*ababa*pans
+	iran*dirac*agee
+	epic*elena*gave
+	valhalla*dvorak
+	***axis*need***
+	cornea*comrades
+	edits*carib*rae
+	adds*burma*cage
+	see*aorta*doped
+	erringly*darers
+	***bags*kudo***
+	howell*bonanzas
+	ever*isaac*ainu
+	bali*nabla*done
+	ella*glean*ones
+
+
+
+Initial
+	propagators: 383
+	branchers:   1
+
+Summary
+	runtime:      0.440 (440.000 ms)
+	solutions:    1
+	propagations: 21484
+	nodes:        175
+	failures:     59
+	peak depth:   70
+	peak memory:  18293 KB

@@ -1,0 +1,37 @@
+Crossword
+	asia**spa*foods*ashes
+	band*teas*elsie*pearl
+	alfa*want*delve*haley
+	flo*aorta**goodwill**
+	terms*china**reed*owl
+	**mac*heron*acre**woe
+	pianos*reverses*veers
+	entitle*semite*barest
+	nail*ale*lisa*vacant*
+	inca*vain*cerberus***
+	sea*soiree*sterno*pro
+	***mannerly*ella*leap
+	*laurie*veal*lab*arpa
+	balzac*cocked*gabriel
+	argon*routines*savors
+	bra**pass*minus*mad**
+	eye*sept**anise*being
+	**catapult**atari*coo
+	amiga*omaha*bale*tart
+	radar*renal*lied*also
+	exert*trail*end**uses
+
+
+
+Initial
+	propagators: 732
+	branchers:   1
+
+Summary
+	runtime:      10.328 (10328.000 ms)
+	solutions:    1
+	propagations: 665496
+	nodes:        4749
+	failures:     2336
+	peak depth:   114
+	peak memory:  36487 KB

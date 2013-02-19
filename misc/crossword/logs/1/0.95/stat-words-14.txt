@@ -1,0 +1,31 @@
+Crossword
+	bread*sale*base
+	eerie*prod*oral
+	landscaped*sore
+	area*araby*oman
+	****abe***omaha
+	bloats*arab****
+	react**digests*
+	anthropomorphic
+	*shearer**leona
+	****cern*micron
+	rabat***ban****
+	adam*dirac*avis
+	code*adolescent
+	eben*yeas*utica
+	rend*sara*malay
+
+
+
+Initial
+	propagators: 368
+	branchers:   1
+
+Summary
+	runtime:      0.562 (562.000 ms)
+	solutions:    1
+	propagations: 23333
+	nodes:        192
+	failures:     68
+	peak depth:   69
+	peak memory:  15637 KB

@@ -1,0 +1,31 @@
+Crossword
+	frau*basal*oman
+	earn*ababa*yagi
+	superseded*step
+	slashed**eaters
+	***cod*funder**
+	synod*nun*drips
+	lao*ejects*sari
+	ott*sophias*lin
+	pear*basely*lac
+	estes*lid*rhyme
+	**iberia*via***
+	smooth**dearest
+	ainu*infernally
+	scan*nails*slap
+	held*engle*same
+
+
+
+Initial
+	propagators: 384
+	branchers:   1
+
+Summary
+	runtime:      1.890 (1890.000 ms)
+	solutions:    1
+	propagations: 104674
+	nodes:        706
+	failures:     332
+	peak depth:   57
+	peak memory:  18292 KB
