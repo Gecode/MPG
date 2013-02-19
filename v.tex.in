@@ -1458,11 +1458,14 @@ the \?Gecode? namespace, the trait class must also be defined
 there: 
 \insertlitcode{int.hh:branch traits}
 
-The last remaining definition specializes activity information
-for integer interval variables by defining a class \?IntActivity?
+The last remaining definitions specializes AFC and activity information
+for integer interval variables by defining a class \?IntAFC? as
+follows:
+\insertlitcode{int.hh:variable AFC}
+and a class \?IntActivity?
 as follows:
 \insertlitcode{int.hh:variable activity}
-The actual implementation is omitted as it contains nothing more
+The actual implementations are omitted as they contain nothing more
 than the type specialization and creation of view arrays in the
 initializing constructor and the \?init()? function.
 
@@ -1489,13 +1492,14 @@ Gecode, see \autoref{sec:m:search:branch:int}):
 
 All but \?INT_VAR_NONE()? take arguments: unsurprisingly, a
 random number generator must be passed to \?INT_VAR_RND()? and a
-integer activity object to \?INT_VAR_ACTIVITY_MAX()?. Both
-\?INT_VAR_NONE()? and \?INT_VAR_RND()? are special in that they
-are not useful for tie-breaking. All other variable selection
-functions take an optional argument of type \?BranchTbl? as a
-branch tie-breaking limit function (we will abbreviate this here
-as tbl-function), see \autoref{sec:m:search:branch:tbl} for a
-description of tie-breaking and tbl-functions.
+double as decay-factor or an integer activity object to
+\?INT_VAR_ACTIVITY_MAX()?. Both \?INT_VAR_NONE()? and
+\?INT_VAR_RND()? are special in that they are not useful for
+tie-breaking. All other variable selection functions take an
+optional argument of type \?BranchTbl? as a branch tie-breaking
+limit function (we will abbreviate this here as tbl-function),
+see \autoref{sec:m:search:branch:tbl} for a description of
+tie-breaking and tbl-functions.
 
 \begin{figure}
 \insertlitcode{int.hh:variable selection class}
@@ -1526,6 +1530,13 @@ enumeration type that is stored by the object. All other
 information is handled by the base class
 \gecoderef[class]{VarBranch}.
 
+The class must also implement an \?expand()? member function. It
+checks whether \?INT_VAR_ACTIVITY_MAX()? had been called just
+with a decay-factor instead of an integer activity object. In
+this case it creates an integer activity object and stores it as follows:
+\insertlitcode{int.hh:expand activity}
+
+
 \paragraph{Value selection.}
 
 Value selection functions are implemented similarly to variable
@@ -1553,31 +1564,28 @@ Note that the last argument of the value selection function
 The view selection creation function shown in
 \autoref{fig:v:branch:viewsel} takes an object \?ivb? of class
 \?IntVarBranch? as an argument, creates an object of class
-\gecoderef[class]{ViewSel} in the space \?home? and returns a
-pointer to the created object. The object \?ivb? is a
-specification  of which object should be returned. The returned
-object is then used to select views during the execution of a
-brancher. 
+\gecoderef[class]{ViewSel} and returns a pointer to it. The
+object \?ivb? is a specification of which object should be
+returned. The returned object is used to select views during
+brancher execution.
 
 Selection of the first unassigned view (corresponding to
 \?SEL_NONE?, that is, the object \?ivb? has been created by
-calling the variable selection function \?INT_VAR_NONE()?) is
+calling the function \?INT_VAR_NONE()?) is
 implemented by the Gecode-defined class
 \gecoderef[class]{ViewSelNone}. Also random view selection is
 provided by Gecode through the class
-\gecoderef[class]{ViewSelRnd}. Note that both classes are
+\gecoderef[class]{ViewSelRnd}. Both classes are
 parametric with respect to a view type. 
 
 \paragraph{View selection with tbl-function.}
 
-\begin{samepage}
 The other strategies for view selection exist in two variants:
 one variant that uses a tbl-function and one variant that does
 not. In case a tbl-function has been supplied as additional
 argument to one of the variable selection functions, the
-following creates the appropriate object for view selection:  
+following creates the appropriate object for view selection:
 \insertlitcode{int.hh:view selection with tbl-function}
-\end{samepage}
 
 Depending on how the view is to be selected, different objects
 are created. An object of class \gecoderef[class]{ViewSelMaxTbl}
@@ -1590,14 +1598,21 @@ that computes the actual merit value for a given view.
 
 The classes \gecoderef[class]{MeritFunction},
 \gecoderef[class]{MeritDegree}, and
-\gecoderef[class]{MeritActivity} are defined by Gecode as they
-are parametric with respect to the actual view type. 
+\gecoderef[class]{MeritActivity} are defined by Gecode and are
+parametric with respect to the actual view type.
 
-This is different for selecting a view with minimal size as this
+\begin{figure}
+\insertlitcode{int.hh:size merit class}
+\caption{Size merit class}
+\label{fig:v:branch:meritsize}
+\end{figure}
+
+Selecting a view with minimal size 
 is specific to our integer interval variables and views. The
 implementation of the class \?MeritSize? inherits from
-\gecoderef[class]{MeritBase} and is as follows:
-\insertlitcode{int.hh:size merit class}
+\gecoderef[class]{MeritBase} and is shown in
+\autoref{fig:v:branch:meritsize}. 
+
 The class \gecoderef[class]{MeritBase} is parametric with respect
 to the view type (\?IntView? in our case) and the type of the
 merit value (\?unsigned int? in our case).
@@ -1730,7 +1745,8 @@ selection and commit creation function \?valselcommit()? from
 
 The \?branch()? function is shown
 in \autoref{fig:v:branch:branch}. It creates an array of integer
-views \?IntView?, creates an array with a single view selector
+views \?IntView?, expands a possibly missing integer activity
+object, creates an array with a single view selector
 object returned by the function \?viewsel()? as discussed in
 \autoref{sec:v:branch:viewsel}, and posts the view-value brancher
 of class \gecoderef[class]{ViewValBrancher}. The class is
@@ -1909,6 +1925,7 @@ using Gecode::VarArgArray;
 using Gecode::VarArray;
 using Gecode::VarImpVar;
 using Gecode::VarImpView;
+using Gecode::AFC;
 using Gecode::Activity;
 using Gecode::Home;
 using Gecode::ViewArray;
@@ -2524,6 +2541,38 @@ namespace Gecode {
 }
 \end{litblock}
 
+\begin{litblock}{variable AFC}
+namespace MPG {
+  class IntAFC : public AFC {
+  public:
+    IntAFC(void);
+    IntAFC(const IntAFC& a);
+    IntAFC& operator =(const IntAFC& a);
+    IntAFC(Home home, const IntVarArgs& x, double d=1.0);
+    void init(Home home, const IntVarArgs& x, double d=1.0);
+  };
+  \begin{litblock}{anonymous}
+  inline
+  IntAFC::IntAFC(void) {}
+  inline
+  IntAFC::IntAFC(const IntAFC& a)
+    : AFC(a) {}
+  inline IntAFC&
+  IntAFC::operator =(const IntAFC& a) {
+    return static_cast<IntAFC&>(AFC::operator =(a));
+  }
+  inline
+  IntAFC::IntAFC(Home home, const IntVarArgs& x, double d) {
+    AFC::init(home,x,d);
+  }
+  inline void
+  IntAFC::init(Home home, const IntVarArgs& x, double d) {
+    AFC::init(home,x,d);
+  }
+  \end{litblock}
+}
+\end{litblock}
+
 \begin{litblock}{variable activity}
 namespace MPG {
   class IntActivity : public Activity {
@@ -2531,8 +2580,8 @@ namespace MPG {
     IntActivity(void);
     IntActivity(const IntActivity& a);
     IntActivity& operator =(const IntActivity& a);
-    IntActivity(Home home, const IntVarArgs& x, double d);
-    void init(Home home, const IntVarArgs& x, double d);
+    IntActivity(Home home, const IntVarArgs& x, double d=1.0);
+    void init(Home home, const IntVarArgs& x, double d=1.0);
   };
   \begin{litblock}{anonymous}
   inline
@@ -2569,17 +2618,34 @@ namespace MPG {
   protected:
     Select s;
   public:
-    IntVarBranch(void) 
-      : VarBranch(NULL), s(SEL_NONE) {}
-    IntVarBranch(Rnd r) 
-      : VarBranch(r), s(SEL_RND) {}
-    IntVarBranch(Select s0, BranchTbl t)
-      : VarBranch(t), s(s0) {}
+    IntVarBranch(void) ;
+    IntVarBranch(Rnd r);
+    IntVarBranch(Select s0, BranchTbl t);
+    IntVarBranch(Select s0, double d, BranchTbl t);
     IntVarBranch(Select s0, Activity a, BranchTbl t);
     IntVarBranch(Select s0, VoidFunction mf, BranchTbl t);
     Select select(void) const;
+    \begin{litblock}{expand activity}
+    void expand(Home home, const IntVarArgs& x) {
+      if ((select() == SEL_ACTIVITY_MAX) &&
+          !activity().initialized())
+        activity(IntActivity(home,x,decay()));
+    }
+    \end{litblock}
   };
   \begin{litblock}{anonymous}
+  inline
+  IntVarBranch::IntVarBranch(void) 
+    : VarBranch(NULL), s(SEL_NONE) {}
+  inline
+  IntVarBranch::IntVarBranch(Rnd r) 
+    : VarBranch(r), s(SEL_RND) {}
+  inline
+  IntVarBranch::IntVarBranch(Select s0, BranchTbl t)
+    : VarBranch(t), s(s0) {}
+  inline
+  IntVarBranch::IntVarBranch(Select s0, double d, BranchTbl t)
+    : VarBranch(d,t), s(s0) {}
   inline
   IntVarBranch::IntVarBranch(Select s0, Activity a, BranchTbl t)
     : VarBranch(a,t), s(s0) {}
@@ -2598,6 +2664,8 @@ namespace MPG {
   IntVarBranch INT_VAR_MERIT_MAX(IntBranchMerit bm, 
                                  BranchTbl tbl=NULL);
   IntVarBranch INT_VAR_DEGREE_MAX(BranchTbl tbl=NULL);
+  IntVarBranch INT_VAR_ACTIVITY_MAX(double d=1.0, 
+                                    BranchTbl tbl=NULL);     
   IntVarBranch INT_VAR_ACTIVITY_MAX(IntActivity a, 
                                     BranchTbl tbl=NULL);     
   IntVarBranch INT_VAR_SIZE_MIN(BranchTbl tbl=NULL);
@@ -2619,6 +2687,10 @@ namespace MPG {
   inline IntVarBranch
   INT_VAR_DEGREE_MAX(BranchTbl tbl) {
     return IntVarBranch(IntVarBranch::SEL_DEGREE_MAX,tbl);
+  }
+  inline IntVarBranch
+  INT_VAR_ACTIVITY_MAX(double d, BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_ACTIVITY_MAX,d,tbl);
   }
   inline IntVarBranch
   INT_VAR_ACTIVITY_MAX(IntActivity a, BranchTbl tbl) {
@@ -2815,6 +2887,7 @@ namespace MPG {
          IntBranchFilter bf=NULL) {
     using namespace Int;
     if (home.failed()) return;
+    vars.expand(home,x);
     ViewArray<IntView> xv(home,x);
     ViewSel<IntView>* vs[1] = { 
       viewsel(home,vars) 
@@ -2830,16 +2903,20 @@ namespace MPG {
          IntBranchFilter bf=NULL) {
     using namespace Int;
     if (home.failed()) return;
+    vars.a.expand(home,x);
     \begin{litblock}{normalizing tie-breaking}
     if ((vars.a.select() == IntVarBranch::SEL_NONE) ||
         (vars.a.select() == IntVarBranch::SEL_RND))
       vars.b = INT_VAR_NONE();
+    vars.b.expand(home,x);
     if ((vars.b.select() == IntVarBranch::SEL_NONE) ||
         (vars.b.select() == IntVarBranch::SEL_RND))
       vars.c = INT_VAR_NONE();
+    vars.c.expand(home,x);
     if ((vars.c.select() == IntVarBranch::SEL_NONE) ||
         (vars.c.select() == IntVarBranch::SEL_RND))
       vars.d = INT_VAR_NONE();
+    vars.d.expand(home,x);
     \end{litblock}
     ViewArray<IntView> xv(home,x);
     if (vars.b.select() == IntVarBranch::SEL_NONE) {
