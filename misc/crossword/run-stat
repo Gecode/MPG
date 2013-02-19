@@ -1,7 +1,6 @@
 export PATH="./x64:$PATH"
 export THREADS=1
 export TIMEOUT=1200000
-#export DECAY=0.99
 
 for decay in 0.95 0.995 0.99 1.0; do
   for d in uk words; do

@@ -1,13 +1,15 @@
 export PATH="./x64:$PATH"
-export SAMPLES=1
+export SAMPLES=5
 export THREADS=1
 export TIMEOUT=1200000
-export DECAY=0.99
 
-for d in uk words; do
-  for ((i=10; i<50; i++)); do
-    ./x64/crossword.exe -mode time -samples $SAMPLES \
-	-time $TIMEOUT -threads $THREADS -branching letters -decay $DECAY \
-	-file words/$d.txt $i | tee logs/$THREADS/$DECAY/stat-$d-$i.txt
+
+for decay in 0.95 0.995 0.99 1.0; do
+  for d in uk words; do
+    for ((i=10; i<50; i++)); do
+      ./x64/crossword.exe -mode time -samples $SAMPLES \
+	  -time $TIMEOUT -threads $THREADS -branching letters -decay $decay \
+  	  -file words/$d.txt $i | tee logs/$THREADS/$decay/time-$d-$i.txt
+    done
   done
 done
