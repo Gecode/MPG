@@ -1,0 +1,35 @@
+Crossword
+	anal**gas*masa*paul
+	bala*cagy*abib*adze
+	adam*ules*data*laid
+	carbomb*oar*acta***
+	***disappropriating
+	calash*asana**danae
+	ela*eath*barn**leir
+	duck*waac**dadd*sae
+	area**graal*gaea***
+	retinitispigmentosa
+	***dada*hevea**ahab
+	asp*bail**ecad*polo
+	icer**lala*klan*ned
+	dacha**cadee*gaiety
+	absenteelandlord***
+	***maam*arb*abdomen
+	chai*leon*lama*iago
+	hags*peag*obas*slam
+	amah*arks*cos**tide
+
+
+
+Initial
+	propagators: 588
+	branchers:   1
+
+Summary
+	runtime:      0.684 (684.000 ms)
+	solutions:    1
+	propagations: 11494
+	nodes:        145
+	failures:     3
+	peak depth:   140
+	peak memory:  51593 KB

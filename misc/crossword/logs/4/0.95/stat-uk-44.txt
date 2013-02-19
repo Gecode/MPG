@@ -1,0 +1,39 @@
+Crossword
+	sadhu*arede*itala*begad
+	abeam*dicot*shiel*largo
+	headborough*aaron*anele
+	ill*etat*tacan*numb*get
+	bestrid*minicab*sabaoth
+	***ats*farad*dab*eer***
+	gismo*basel*babas*decca
+	once*naiad*carioca*alar
+	bur*pauli*babs*baba*art
+	bradawls*aine*balaamite
+	inbreak*anti*caba*ramal
+	***alb*amnesiacs*mog***
+	avail*apia*tanh*canidae
+	tablature*yegg*naricorn
+	aga*saba*caro*serac*gnu
+	paca*dexters*ribes*smur
+	slade*rieve*telex*slate
+	***ace*ala*kapok*aha***
+	trimtab*addaxes*slavdom
+	bad*atap*iaido*aped*oca
+	ogles*heald*ipecacuanha
+	naeve*telld*slane*fiere
+	esses*splay*cered*sated
+
+
+
+Initial
+	propagators: 897
+	branchers:   1
+
+Summary
+	runtime:      3.380 (3380.000 ms)
+	solutions:    1
+	propagations: 29622
+	nodes:        236
+	failures:     22
+	peak depth:   201
+	peak memory:  124138 KB

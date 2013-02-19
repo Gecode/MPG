@@ -1,0 +1,31 @@
+Crossword
+	bab*kama*carapa
+	urodelan*atabal
+	memoriatechnica
+	psalm*marae*ban
+	***eek*groin***
+	eas*saros*sabah
+	agha*rin*aerate
+	seinesaintdenis
+	enrapt*sal*silt
+	lerna*babar*ats
+	***annat*sag***
+	sib*oorie*tafia
+	pseudosolutions
+	elevon*nazareth
+	debase*slit*soy
+
+
+
+Initial
+	propagators: 392
+	branchers:   1
+
+Summary
+	runtime:      0.491 (491.000 ms)
+	solutions:    1
+	propagations: 9402
+	nodes:        90
+	failures:     8
+	peak depth:   77
+	peak memory:  36409 KB

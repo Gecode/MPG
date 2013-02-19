@@ -1,0 +1,37 @@
+Crossword
+	abater*grabbed*tanaka
+	cabana*latrine*oregon
+	clinic*amoebas*newark
+	odd*desmond*medea*tea
+	sled*drone*ceres*char
+	tyson*ira*jolts*ghana
+	***gab***gus***ale***
+	thimbu*paramus*seethe
+	recall*reunite*heroic
+	are*absorb*cove*sends
+	mobs*aida***pike*diet
+	piece*putt*silent*goa
+	enroll*coastal*aarhus
+	degree*erskine*chatty
+	***egg***sir***tom***
+	scary*arced*apt*eagan
+	nags*knell*dream*nasa
+	one*coypu*factual*stu
+	ringer*attache*rushes
+	endure*scarcer*inhere
+	deanna*threads*odessa
+
+
+
+Initial
+	propagators: 741
+	branchers:   1
+
+Summary
+	runtime:      6.802 (6802.000 ms)
+	solutions:    1
+	propagations: 378252
+	nodes:        3017
+	failures:     1463
+	peak depth:   116
+	peak memory:  39687 KB

@@ -1,0 +1,31 @@
+Crossword
+	aloha*line*axel
+	namer*aged*lena
+	swarthmore*anon
+	inns*aaron*rick
+	****ear***omaha
+	straps*arab****
+	pooch**digests*
+	anthropomorphic
+	*shearer**leona
+	****iran*micron
+	occam***ban****
+	haag*dirac*avis
+	anne*adolescent
+	roar*teas*utica
+	eels*emma*malay
+
+
+
+Initial
+	propagators: 368
+	branchers:   1
+
+Summary
+	runtime:      0.580 (580.000 ms)
+	solutions:    1
+	propagations: 25288
+	nodes:        182
+	failures:     69
+	peak depth:   63
+	peak memory:  15636 KB

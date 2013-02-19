@@ -1,0 +1,31 @@
+Crossword
+	catawba*laplace
+	abigail*aliased
+	menorca*signing
+	plan*kruse*tate
+	***ice*nonce***
+	appeared*shrubs
+	plasterer*ennui
+	has*edifice*inn
+	inter*cigarette
+	deemed*nameless
+	***breve*ere***
+	ursa*cedar*vial
+	sources*lovable
+	elegant*goatees
+	resorts*annexes
+
+
+
+Initial
+	propagators: 397
+	branchers:   1
+
+Summary
+	runtime:      17.685 (17685.000 ms)
+	solutions:    1
+	propagations: 1082148
+	nodes:        7321
+	failures:     3644
+	peak depth:   54
+	peak memory:  21140 KB

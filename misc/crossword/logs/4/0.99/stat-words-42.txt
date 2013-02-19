@@ -1,0 +1,39 @@
+Crossword
+	scalar*swans*ayes*baths
+	nadine*katie*coal*about
+	apalachicola*ektachrome
+	regally*opera*neva*alba
+	ere**ada***clearer*dell
+	***shields*heaps**heres
+	salaam*taps*era*ames***
+	pravda*areas*steven*man
+	ague*borealis*axes*mira
+	consult**reviewers*arcs
+	end*leila**adapt*yamaha
+	**eva*sonar*ethel*lac**
+	strand*capet**arena*ugh
+	tail*unaltered**nasally
+	erne*bely*fireboat*roam
+	wag*shasta*mania*upturn
+	***deer*ira*sees*raises
+	appia**scene*brigade***
+	iris*praised***sal**bib
+	ride*hunt*wicks*inspire
+	mogadiscio*concatenates
+	arise*thea*tread*silent
+	nines*yost*seers*spores
+
+
+
+Initial
+	propagators: 891
+	branchers:   1
+
+Summary
+	runtime:      22.175 (22175.000 ms)
+	solutions:    1
+	propagations: 923195
+	nodes:        5758
+	failures:     2835
+	peak depth:   134
+	peak memory:  40039 KB

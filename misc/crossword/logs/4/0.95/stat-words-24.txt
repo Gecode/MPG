@@ -1,0 +1,35 @@
+Crossword
+	alfa**dam*maps*weds
+	vail*gino*agee*area
+	ivan*rats*herr*yawn
+	vatican*ado*eras***
+	***canadianizations
+	second*octet**eddie
+	oar*spur*eyed**edna
+	utah*anal**lisa*sal
+	sofa**idaho*errs***
+	anthropomorphically
+	***nail*bella**lila
+	rob*glue**yard*knot
+	adam**saga*idea*eye
+	sonic**salad*spends
+	presumptuousness***
+	***hear*ted*orestes
+	olga*lena*rest*argo
+	heap*team*ekes*year
+	mess*anna*yes**sent
+
+
+
+Initial
+	propagators: 588
+	branchers:   1
+
+Summary
+	runtime:      0.297 (297.000 ms)
+	solutions:    1
+	propagations: 19690
+	nodes:        139
+	failures:     34
+	peak depth:   82
+	peak memory:  19654 KB

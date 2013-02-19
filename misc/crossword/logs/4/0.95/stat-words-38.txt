@@ -1,0 +1,37 @@
+Crossword
+	**ahead*peace*plaid**
+	*amanda*laban*lacked*
+	bromide*arena*ephesus
+	rae*deduced*blase*ink
+	ebbs*dared*blade*urdu
+	alamo*lid*weeds*kneel
+	desirous*hoary*seidel
+	***lows*zions*deaf***
+	iodine*bares*boatyard
+	rhino*briar*fails*mae
+	wang*alarm*finns*papa
+	ire*adage*gregg*alien
+	nestling*waals*blonde
+	***heed*david*bait***
+	maseru*navel*fanatics
+	apart*camel*dis*setup
+	mine*mizar*bolts*date
+	mad*aegis*beneath*len
+	armenia*carla*realist
+	*yawner*udall*detect*
+	**nears*sated*sleds**
+
+
+
+Initial
+	propagators: 738
+	branchers:   1
+
+Summary
+	runtime:      1.904 (1904.000 ms)
+	solutions:    1
+	propagations: 85084
+	nodes:        602
+	failures:     239
+	peak depth:   151
+	peak memory:  40681 KB

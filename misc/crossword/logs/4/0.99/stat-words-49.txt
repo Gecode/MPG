@@ -1,0 +1,17 @@
+Crossword
+
+Search engine stopped...
+	reason: time limit reached
+
+Initial
+	propagators: 932
+	branchers:   1
+
+Summary
+	runtime:      20:00.017 (1200017.000 ms)
+	solutions:    0
+	propagations: 27893415
+	nodes:        94442
+	failures:     47218
+	peak depth:   34
+	peak memory:  50405 KB

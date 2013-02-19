@@ -1,0 +1,39 @@
+Crossword
+	faded*brie*pepsi*ideal*
+	urine*aida*atlas*torrid
+	eyeglasses*bhagavadgita
+	lag**macmillan*bald*stu
+	snorkel**neon*deny*leon
+	***han*coed**hal**burnt
+	savoy*cabs*alan*upon***
+	abed*sales*todd*needham
+	rena*envy*she*ember*eli
+	ale*bode*bulb*lark*gain
+	**raoul*aide*side*halve
+	fragile*gestapo*awaited
+	rates*sign*ivan*keith**
+	enid*star*icon*bail*its
+	ego*shine*din*dubs*were
+	dynamic*sees*rails*asia
+	***monk*swam*idle*extol
+	craig**moe**gnat*ere***
+	herd*odor*brae**swansea
+	ill*ibis*laughable**urn
+	needlessness*alienating
+	annals*eaves*rake*genie
+	*tense*spiro*trek*engel
+
+
+
+Initial
+	propagators: 880
+	branchers:   1
+
+Summary
+	runtime:      2.008 (2008.000 ms)
+	solutions:    1
+	propagations: 64935
+	nodes:        370
+	failures:     123
+	peak depth:   151
+	peak memory:  38089 KB

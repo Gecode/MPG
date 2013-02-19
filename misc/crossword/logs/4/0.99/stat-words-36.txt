@@ -1,0 +1,37 @@
+Crossword
+	apse*ababa*clean*spat
+	dial*caleb*linda*argo
+	accelerate*allegories
+	marco*err*train*raves
+	**itel*maniacs*mini**
+	off*bugeyed*steen*lag
+	said*cod*van*sat*neva
+	arcaded*paled*ravages
+	keener*bad*rag*lasers
+	add*ankara*odin*nasty
+	***ocean*****vales***
+	macho*yagi*thebes*mac
+	upland*lab*han*ashore
+	sparser*biped*grained
+	else*lad*del*ian*done
+	des*sleek*amassed*sad
+	**idea*mascara*debt**
+	mafia*eerie*ado*arabs
+	aristocrat*abominable
+	leek*white*dirac*glow
+	lads*noted*scene*gets
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      2.352 (2352.000 ms)
+	solutions:    1
+	propagations: 150008
+	nodes:        983
+	failures:     434
+	peak depth:   144
+	peak memory:  36265 KB
