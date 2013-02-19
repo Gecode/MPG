@@ -1,0 +1,31 @@
+Crossword
+	pro*seam*aromas
+	renville*depose
+	interferometric
+	maori*civil*eat
+	***bus*taxes***
+	abo*spool*clare
+	laps*ear*stadia
+	pretentiousness
+	herald*orr*glee
+	adams*fuels*end
+	***penis*yet***
+	owe*verna*welds
+	parliamentarian
+	tinier*stigmata
+	steers*sine*rag
+
+
+
+Initial
+	propagators: 392
+	branchers:   1
+
+Summary
+	runtime:      3:33.953 (213953.000 ms)
+	solutions:    1
+	propagations: 37120515
+	nodes:        1446062
+	failures:     723018
+	peak depth:   67
+	peak memory:  13924 KB
