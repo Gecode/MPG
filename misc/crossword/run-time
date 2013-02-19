@@ -1,60 +1,13 @@
 export PATH="./x64:$PATH"
-export SAMPLES=5
+export SAMPLES=1
 export THREADS=1
 export TIMEOUT=1200000
+export DECAY=0.99
 
-for d in uk; do
-  for i in 28; do
+for d in uk words; do
+  for ((i=10; i<50; i++)); do
     ./x64/crossword.exe -mode time -samples $SAMPLES \
-	-time $TIMEOUT -threads $THREADS -branching letters \
-	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
+	-time $TIMEOUT -threads $THREADS -branching letters -decay $DECAY \
+	-file words/$d.txt $i | tee logs/$THREADS/$DECAY/stat-$d-$i.txt
   done
 done
-for d in words; do
-  for i in 19 39 45 47; do
-    ./x64/crossword.exe -mode time -samples $SAMPLES \
-	-time $TIMEOUT -threads $THREADS -branching letters \
-	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-  done
-done
-#for d in uk; do
-#  for ((i=10; i<28; i++)); do
-#    ./x64/crossword.exe -mode time -samples $SAMPLES \
-#	-time $TIMEOUT -threads $THREADS -branching letters \
-#	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-#  done
-#done
-#for d in uk; do
-#  for ((i=29; i<50; i++)); do
-#    ./x64/crossword.exe -mode time -samples $SAMPLES \
-#	-time $TIMEOUT -threads $THREADS -branching letters \
-#	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-#  done
-#done
-#for d in words; do
-#  for ((i=10; i<19; i++)); do
-#    ./x64/crossword.exe -mode time -samples $SAMPLES \
-#	-time $TIMEOUT -threads $THREADS -branching letters \
-#	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-#  done
-#  for ((i=20; i<39; i++)); do
-#    ./x64/crossword.exe -mode time -samples $SAMPLES \
-#	-time $TIMEOUT -threads $THREADS -branching letters \
-#	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-#  done
-#  for ((i=40; i<45; i++)); do
-#    ./x64/crossword.exe -mode time -samples $SAMPLES \
-#	-time $TIMEOUT -threads $THREADS -branching letters \
-#	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-#  done
-#  for ((i=46; i<47; i++)); do
-#    ./x64/crossword.exe -mode time -samples $SAMPLES \
-#	-time $TIMEOUT -threads $THREADS -branching letters \
-#	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-#  done
-#  for ((i=48; i<49; i++)); do
-#    ./x64/crossword.exe -mode time -samples $SAMPLES \
-#	-time $TIMEOUT -threads $THREADS -branching letters \
-#	-file words/$d.txt $i | tee logs/$THREADS/time-$d-$i.txt
-#  done
-#done
