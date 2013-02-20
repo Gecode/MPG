@@ -1,19 +1,19 @@
 Crossword
-	pro*seam*aromas
-	renville*depose
+	ada*seam*dimmer
+	manville*oneida
 	interferometric
-	maori*civil*eat
-	***bus*taxes***
-	abo*spool*clare
-	laps*ear*stadia
-	pretentiousness
-	herald*orr*glee
-	adams*fuels*end
-	***penis*yet***
-	owe*verna*welds
+	deere*cider*ate
+	***and*tests***
+	rim*solos*items
+	ares*war*carrot
+	perpendicularly
+	engels*orb*well
+	seers*guyed*dye
+	***metes*dad***
+	ore*verna*malta
 	parliamentarian
-	tinier*stigmata
-	steers*sine*rag
+	tinier*snugness
+	sneers*sage*ski
 
 
 
@@ -22,10 +22,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3:33.953 (213953.000 ms)
+	runtime:      44.367 (44367.000 ms)
 	solutions:    1
-	propagations: 37120515
-	nodes:        1446062
-	failures:     723018
-	peak depth:   67
-	peak memory:  13924 KB
+	propagations: 5504170
+	nodes:        32890
+	failures:     16431
+	peak depth:   60
+	peak memory:  25645 KB

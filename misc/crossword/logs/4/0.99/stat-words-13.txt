@@ -1,19 +1,19 @@
 Crossword
-	map*beam*dimmer
-	univalve*oneida
-	interferometric
-	resin*rider*ate
-	***led*tests***
-	peg*solos*items
-	avis*war*carrot
-	perpendicularly
-	unless*oar*well
-	asset*cubed*dye
-	***dines*sit***
-	arc*milne*thief
-	characterizable
-	rebate*sidewise
-	easter*seal*del
+	bob*afar*teases
+	ablative*endure
+	boustrophedonic
+	eerie*write*get
+	***asp*ethan***
+	arm*tress*vocal
+	neal*ike*module
+	incommensurable
+	stevie*tar*lear
+	essen*fatal*shy
+	***digit*leg***
+	pup*serif*naive
+	epistemological
+	routes*neatness
+	unsure*seth*dee
 
 
 
@@ -22,10 +22,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      34.106 (34106.000 ms)
+	runtime:      33.509 (33509.000 ms)
 	solutions:    1
-	propagations: 3474948
-	nodes:        21728
-	failures:     10845
-	peak depth:   49
-	peak memory:  13924 KB
+	propagations: 6556426
+	nodes:        37194
+	failures:     18579
+	peak depth:   53
+	peak memory:  28719 KB

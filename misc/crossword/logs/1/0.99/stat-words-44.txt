@@ -30,7 +30,7 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.619 (4619.000 ms)
+	runtime:      4.680 (4680.000 ms)
 	solutions:    1
 	propagations: 308948
 	nodes:        2781

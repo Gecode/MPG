@@ -1,1 +1,35 @@
 Crossword
+	cad**blag*agar*ceca
+	abac*lala*gaia*abas
+	retinitispigmentosa
+	alapage*bala**anna*
+	***hah*capa*dada***
+	harem*naga*madapple
+	adar*pads*harz**ean
+	lac*babe*bande*dadd
+	*macaco*haig**cages
+	***arabiancamels***
+	haded**laik*brahma*
+	agen*haifa*mind*ads
+	aia**agas*bare*wide
+	forinsec*biga*khaya
+	***hehe*fade*ani***
+	*sara**kaka*agelast
+	embarrasderichesses
+	seem*alae*kata*tina
+	teds*fard*anas**far
+
+
+
+Initial
+	propagators: 589
+	branchers:   1
+
+Summary
+	runtime:      0.920 (920.000 ms)
+	solutions:    1
+	propagations: 27927
+	nodes:        287
+	failures:     5
+	peak depth:   171
+	peak memory:  61179 KB

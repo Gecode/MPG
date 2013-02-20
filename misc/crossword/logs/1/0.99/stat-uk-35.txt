@@ -1,0 +1,37 @@
+Crossword
+	abib*tacan*hahas*cuba
+	java*abaci*abaca*ural
+	adar*captainahab*para
+	xenophya*cad*areacode
+	***gaea*limbi*iago***
+	capris*tanbark*narial
+	okras*jag*ileum*ramee
+	seem*bobac*lloyd*lase
+	elo*catenae*ayahs*gis
+	cariocas*cornu*admire
+	**darks*farad*sheen**
+	ananas*woold*perisarc
+	rai*magog*sagaman*tae
+	nine*wanle*raven*disa
+	urent*ngana*dae*riots
+	tadjik*impregn*cannae
+	***ochs*place*nabk***
+	tedisome*abc*teriyaki
+	alan*journalised*dear
+	able*algae*erase*irma
+	laid*stedd*sered*eoan
+
+
+
+Initial
+	propagators: 753
+	branchers:   1
+
+Summary
+	runtime:      1.966 (1966.000 ms)
+	solutions:    1
+	propagations: 19196
+	nodes:        168
+	failures:     8
+	peak depth:   155
+	peak memory:  96876 KB

@@ -1,0 +1,39 @@
+Crossword
+	blast*babes*allah*gripe
+	rockefeller*maybe*loner
+	occidentalization*extra
+	warn*deans*elena*gayest
+	slang*ark*erg*groan*rio
+	***yeats*float*dam*ads*
+	aim*ash*bateman*replete
+	briars*minos*pea*drapes
+	rasps*dugan*deere*omens
+	aqua*eight*saddens*once
+	mincing*timon*sachs*den
+	**detail*caner*sloane**
+	ace*octal*laser*orlando
+	lord*tabular*waist*scan
+	inset*lacey*brice*rains
+	astral*nag*daily*delete
+	stabbed*sadists*sea*set
+	*any*van*levee*pulls***
+	and*dinah*nil*pip*manor
+	stiles*melon*alarm*babe
+	sinai*mediterraneanizes
+	angst*algae*accompanist
+	messy*dyers*these*bases
+
+
+
+Initial
+	propagators: 913
+	branchers:   1
+
+Summary
+	runtime:      1:24.381 (84381.000 ms)
+	solutions:    1
+	propagations: 8763668
+	nodes:        35230
+	failures:     17547
+	peak depth:   109
+	peak memory:  112466 KB

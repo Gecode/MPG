@@ -1,0 +1,37 @@
+Crossword
+	asia**tug*jonas*repay
+	band*rene*aleut*image
+	alfa*eris*malta*fires
+	flo*adept**flotilla**
+	terms*slurp**mute*map
+	**mac*aural*hats**ego
+	pianos*separate*mater
+	entitle*seneca*hubert
+	nail*ale*rank*manors*
+	inca*vain*responds***
+	sea*soiree*walnut*odd
+	***mannerly*weak*aura
+	*laurie*veal*ask*maim
+	balzac*cocked*halogen
+	anion*routines*harass
+	ice**pans*mined*bad**
+	len*lens**anise*aloes
+	**aviators**aspen*uri
+	titan*iliad*bien*agar
+	adele*negro*long*dose
+	baden*grain*end**sued
+
+
+
+Initial
+	propagators: 732
+	branchers:   1
+
+Summary
+	runtime:      1.404 (1404.000 ms)
+	solutions:    1
+	propagations: 72419
+	nodes:        465
+	failures:     157
+	peak depth:   121
+	peak memory:  55216 KB

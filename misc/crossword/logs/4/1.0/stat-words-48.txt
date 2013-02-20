@@ -1,0 +1,39 @@
+Crossword
+	ababa*prima*awash*cecil
+	degenerated*babka*orono
+	electrocardiogram*wants
+	park*agile*treat*basses
+	tyson*ray*act*melon*try
+	***nasal*ached*dog*tip*
+	phi*dam*accedes*sumatra
+	aeneid*spurs*cam*samuel
+	ultra*aorta*favor*ditto
+	seer*annie*layered*lien
+	enrolls*lloyd*devil*ode
+	**drapes*yokes*severn**
+	fee*chloe*zeros*reveals
+	arpa*amasses*utter*alee
+	brent*opted*braid*drive
+	longed*sea*tacit*sister
+	endears*starred*ear*yes
+	*eel*ian*slugs*allah***
+	ion*fetal*tie*are*cobra
+	succor*mares*slick*reub
+	asian*deterministically
+	alert*elide*tabernacles
+	cysts*synod*spiro*beads
+
+
+
+Initial
+	propagators: 913
+	branchers:   1
+
+Summary
+	runtime:      1:06.534 (66534.000 ms)
+	solutions:    1
+	propagations: 5975218
+	nodes:        27261
+	failures:     13555
+	peak depth:   128
+	peak memory:  94868 KB

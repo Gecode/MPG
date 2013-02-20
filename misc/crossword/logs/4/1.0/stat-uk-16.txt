@@ -1,0 +1,31 @@
+Crossword
+	aked*baba*cigar
+	bani*igad*akene
+	endamoeba*serge
+	tallage*crabbed
+	**eeks*ate*aery
+	casco*glycin***
+	hist*gallonages
+	all*cereous*aba
+	psychingup*abba
+	***easies*chasm
+	ecad*hed*herr**
+	calabar*aecidia
+	agora*inflaming
+	donet*taal*ante
+	stede*ebro*neon
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      1.342 (1342.000 ms)
+	solutions:    1
+	propagations: 11159
+	nodes:        114
+	failures:     16
+	peak depth:   89
+	peak memory:  65436 KB

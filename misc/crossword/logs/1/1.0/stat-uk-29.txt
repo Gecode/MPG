@@ -1,0 +1,35 @@
+Crossword
+	cad**blag*agar*ceca
+	abac*lala*gaia*abas
+	retinitispigmentosa
+	alapage*bala**anna*
+	***hah*capa*dada***
+	harem*naga*madapple
+	adar*pads*harz**ean
+	lac*babe*bande*dadd
+	*macaco*haig**cages
+	***arabiancamels***
+	ardeb**arak*brahma*
+	lain*chiel*find*all
+	bin**redd*bare*mage
+	intonaco*aida*limas
+	***pegh*alps*ait***
+	*chic**alae*althaea
+	breakingandentering
+	airt*taha*alto*anoa
+	abbe*atap*lass**ess
+
+
+
+Initial
+	propagators: 589
+	branchers:   1
+
+Summary
+	runtime:      1.014 (1014.000 ms)
+	solutions:    1
+	propagations: 16570
+	nodes:        173
+	failures:     4
+	peak depth:   167
+	peak memory:  48140 KB

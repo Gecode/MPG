@@ -13,11 +13,11 @@ Crossword
 	detains*sip*favorer
 	***regents*hayes***
 	labor*layered*nepal
-	alan*emil*wier*rage
-	get*maori*arden*men
-	extras*ozone*latent
+	alan*emil*wier*rave
+	get*maori*arden*don
+	extras*ozone*landis
 	relate*bends*isolde
-	siegel*ideas*canaan
+	siegel*ideas*caress
 
 
 
@@ -26,10 +26,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      8.795 (8795.000 ms)
+	runtime:      8.876 (8876.000 ms)
 	solutions:    1
-	propagations: 473294
-	nodes:        3111
-	failures:     1516
+	propagations: 471735
+	nodes:        3032
+	failures:     1468
 	peak depth:   109
-	peak memory:  33415 KB
+	peak memory:  35649 KB

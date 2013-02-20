@@ -1,0 +1,37 @@
+Crossword
+	rabanna*izard*marrams
+	euouaes*nomoi*abiotic
+	artform*deeds*eagerly
+	lah*ivorian*bacca*elt
+	ilia*adage*galea*asia
+	slept*ego*saran*trial
+	mystique*bib*paravane
+	***eras*guelf*saba***
+	charet*weigela*yblent
+	eupad*wanle*embay*baa
+	nirl*maned*sabah*abib
+	sae*randr*alban*areal
+	essays*saffian*stadda
+	***abac*liang*barm***
+	engrails*ark*orgiasts
+	nilot*accra*ada*aidan
+	scan*prats*spivs*ceca
+	hod*brede*calculi*its
+	elision*naafi*ringgit
+	lautrec*egret*askance
+	lissome*sabre*shyness
+
+
+
+Initial
+	propagators: 762
+	branchers:   1
+
+Summary
+	runtime:      6.099 (6099.000 ms)
+	solutions:    1
+	propagations: 40306
+	nodes:        282
+	failures:     64
+	peak depth:   166
+	peak memory:  107886 KB

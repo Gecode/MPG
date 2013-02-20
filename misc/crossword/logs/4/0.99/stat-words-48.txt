@@ -1,22 +1,22 @@
 Crossword
 	ababa*prima*arabs*cecil
 	degenerated*nabla*orono
-	electrocardiogram*pants
-	park*agile*stead*messes
-	tyson*ray*ash*mewed*try
-	***nasal*bluer*san*tip*
+	electrocardiogram*wants
+	park*agile*stead*basses
+	tyson*ray*ash*meson*try
+	***nasal*bluer*sun*tip*
 	phi*dam*federal*sumatra
-	aeneid*faced*pam*samuel
-	ultra*moran*minor*ditto
-	seer*babel*cuddled*lien
-	enrolls*small*savor*ode
-	**driest*shuts*resign**
-	fee*pairs*emits*repeals
-	arpa*kneecap*rests*alee
-	brent*gaped*hares*drive
-	longed*din*zaire*sister
-	endears*atlanta*ear*yes
-	*eel*ian*signs*allah***
+	aeneid*laced*cam*samuel
+	ultra*moran*tenor*ditto
+	seer*easel*fiddled*lien
+	enrolls*smart*savor*ode
+	**dragon*smelt*resign**
+	fee*dined*ayers*repeals
+	arpa*nigeria*aided*alee
+	brent*creon*cited*drive
+	longed*opt*zones*sister
+	endears*solaced*ear*yes
+	*eel*ian*rigor*allah***
 	ion*fetus*bra*are*cobra
 	succor*there*click*reub
 	asian*probabilistically
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:08.736 (68736.000 ms)
+	runtime:      1:38.592 (98592.000 ms)
 	solutions:    1
-	propagations: 4252513
-	nodes:        22085
-	failures:     10999
-	peak depth:   109
-	peak memory:  41671 KB
+	propagations: 13686701
+	nodes:        75441
+	failures:     37677
+	peak depth:   116
+	peak memory:  69296 KB

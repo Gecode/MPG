@@ -1,1 +1,39 @@
 Crossword
+	accords*alaskan*malabar
+	shapiro*toshiba*emanate
+	partner*estates*tactile
+	err*garb*sods*tease*tan
+	clam*moraine*dials*hint
+	tired*wile*darers*dante
+	seated*bard*gasp*beggar
+	***stamen*enact*babe***
+	apt*enid*erato*albanian
+	brennan*lease*adair*one
+	remit*iberia*beebe*anna
+	apples*emil*rasp*denier
+	hate*awake*bigots*state
+	are*share*bicep*absents
+	medicaid*banal*area*set
+	***carl*haydn*gladys***
+	marina*bake*slob*sensed
+	irons*cutest*abed*duane
+	smug*jests*retired*gulp
+	len*haste*pave*tara*sir
+	endless*raiders*forgave
+	aileron*arsenal*engages
+	daytona*smartly*reopens
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      19:35.102 (1175102.000 ms)
+	solutions:    1
+	propagations: 138944747
+	nodes:        862257
+	failures:     431038
+	peak depth:   168
+	peak memory:  122931 KB

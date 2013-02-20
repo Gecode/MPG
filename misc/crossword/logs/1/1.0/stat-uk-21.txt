@@ -1,0 +1,35 @@
+Crossword
+	theca**hadal**podal
+	aodai*abraxas*elide
+	spermatotheca*adman
+	kina*simis**iachimo
+	***flambe*mcluhan**
+	alveary**kulak*much
+	taish**faitors**tao
+	all**bdellium*chiba
+	pale*aaron***bravas
+	**acceded*because**
+	kagoul***kabab*knag
+	aredd*algaroba**elo
+	mac**spaemen**odsos
+	abos*caine**valises
+	**lasagna*atabeg***
+	calando**ochre*raga
+	arena*gaidhealtachd
+	pager*esteems*apnea
+	akene**horde**pheer
+
+
+
+Initial
+	propagators: 600
+	branchers:   1
+
+Summary
+	runtime:      1.560 (1560.000 ms)
+	solutions:    1
+	propagations: 30656
+	nodes:        356
+	failures:     115
+	peak depth:   132
+	peak memory:  67467 KB

@@ -1,0 +1,35 @@
+Crossword
+	haceks*abaci*bename
+	azalea*bason*acacia
+	sinker*roams*bagels
+	sot*kabab*mired*toe
+	anal*haha*ogee*carl
+	rebec*rabanna*holds
+	***modem*leerier***
+	grandad*ply*darnels
+	canaan*lao*poplitic
+	lit**mailplane**ana
+	etiolate*lad*tagger
+	facture*ear*current
+	***anklets*aasia***
+	dagga*imamate*dicty
+	urao*peag*base*proa
+	nib*marne*ubend*arc
+	celiac*arose*iambic
+	agenda*nebek*arabia
+	nesses*tsars*citess
+
+
+
+Initial
+	propagators: 621
+	branchers:   1
+
+Summary
+	runtime:      1.903 (1903.000 ms)
+	solutions:    1
+	propagations: 33449
+	nodes:        378
+	failures:     133
+	peak depth:   119
+	peak memory:  92713 KB

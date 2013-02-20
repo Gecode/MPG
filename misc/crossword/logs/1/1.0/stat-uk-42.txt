@@ -1,0 +1,39 @@
+Crossword
+	rascal*snabs*cain*lathe
+	iguana*aaron*alma*acred
+	massaranduba*playacting
+	uphangs*amain*igad*axle
+	sei**ean***laagers*bier
+	***mihrabs*salad**fleys
+	bahada*back*mat*bare***
+	ataman*orang*novara*pho
+	bala*dabblers*road*when
+	existed**aeolipile*ears
+	eye*adage**gated*auklet
+	**uni*manet*baaed*dal**
+	eatage*malik**reata*oba
+	slip*granddads**dallier
+	paca*gast*smeardab*edam
+	yes*rachis*algae*elnino
+	***cara*oca*iamb*radnor
+	cycad**amass*nitinol***
+	haaf*vicomte***ska**abe
+	impi*adar*iambs*actinon
+	callicarpa*directlabour
+	eniac*huhs*ocrea*eringo
+	rinse*ossa*garry*dossel
+
+
+
+Initial
+	propagators: 891
+	branchers:   1
+
+Summary
+	runtime:      6.552 (6552.000 ms)
+	solutions:    1
+	propagations: 102725
+	nodes:        886
+	failures:     357
+	peak depth:   180
+	peak memory:  110313 KB

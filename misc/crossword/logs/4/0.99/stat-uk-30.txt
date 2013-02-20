@@ -1,1 +1,37 @@
 Crossword
+	gyps*serac*apse*immit
+	eoan*akaba*laer*vaasa
+	lyreguitar*cockpaddle
+	dordogne*dhals*andean
+	***dreg*diazo*ache***
+	gamier*koala*abhorred
+	aband*electriceye*ate
+	yegg*bait***bead*agha
+	eli*farmhouse*metamer
+	recollet*orca**resale
+	**bield*cream*amain**
+	haulup**oint*alacarte
+	aileron*heatdeath*oer
+	mold*iago***edna*blag
+	ale*antagonised*faldo
+	lithites*danes*gusset
+	***alps*addax*oose***
+	sememe*amban*amoeboid
+	clementina*damageable
+	abrin*anil*idaho*leer
+	daint*deal*nahal*lyam
+
+
+
+Initial
+	propagators: 756
+	branchers:   1
+
+Summary
+	runtime:      2.995 (2995.000 ms)
+	solutions:    1
+	propagations: 25283
+	nodes:        162
+	failures:     19
+	peak depth:   135
+	peak memory:  106909 KB

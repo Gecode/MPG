@@ -4,16 +4,16 @@ Crossword
 	electromagnetic
 	ames*unpleasant
 	sad*odes*lie***
-	***dodd*del*map
-	breezy*gas*pare
-	lapse*bad*gamma
-	erik*cab*belays
-	dec*fag*eels***
-	***dan*inns*bra
-	assistants*reub
-	unintentionally
-	none*eternities
-	twos*nile*leeds
+	***dodd*del*rae
+	breezy*gas*beck
+	lapse*bad*blame
+	erik*cab*feared
+	dec*cog*drab***
+	***mop*maid*oat
+	anticipate*onto
+	personalization
+	swat*gravestone
+	espy*skye*honed
 
 
 
@@ -22,10 +22,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      7.364 (7364.000 ms)
+	runtime:      6.022 (6022.000 ms)
 	solutions:    1
-	propagations: 532182
-	nodes:        2405
-	failures:     1176
-	peak depth:   71
-	peak memory:  14405 KB
+	propagations: 596087
+	nodes:        2694
+	failures:     1310
+	peak depth:   80
+	peak memory:  23916 KB

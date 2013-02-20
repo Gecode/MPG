@@ -1,0 +1,35 @@
+Crossword
+	sages**mewed**incas
+	crank*removes*belie
+	applicatively*evade
+	nasa*adele**strauss
+	***rosary*methods**
+	flagler**renee*atom
+	aided**anatomy**rae
+	cam**soreness*blots
+	eric*tread***graphs
+	**natural*impeach**
+	slimed***stahl*koch
+	cased*israelis**boa
+	ant**steeple**utica
+	bars*heads**streaks
+	**alberto*elaine***
+	matilda**olive*naps
+	alice*transformable
+	coves*earlier*aglow
+	heeds**meyer**deeds
+
+
+
+Initial
+	propagators: 600
+	branchers:   1
+
+Summary
+	runtime:      1.965 (1965.000 ms)
+	solutions:    1
+	propagations: 116077
+	nodes:        774
+	failures:     347
+	peak depth:   103
+	peak memory:  26489 KB

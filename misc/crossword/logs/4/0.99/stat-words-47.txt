@@ -1,20 +1,20 @@
 Crossword
-	ashamed*alaskan*mayoral
-	stabile*toshiba*emanate
-	paroles*estates*talents
-	err*enid*sods*tease*dis
-	clio*asinine*dials*bare
-	teens*tree*darers*allen
-	stream*germ*gasp*scolds
-	***slated*enact*chic***
-	asp*ayes*erato*fredholm
-	belabor*hague*beads*rae
-	avail*meager*alibi*mira
-	secret*star*haag*reagan
-	ires*ibsen*farina*slime
-	nab*blear*labor*bikinis
-	globally*galen*levi*set
-	***asia*nabla*madame***
+	arabian*alaskan*mayoral
+	melissa*toshiba*emanate
+	elitist*estates*talents
+	ram*said*sods*tease*dis
+	abel*moraine*dials*bare
+	deneb*nice*darers*allen
+	altars*vern*gasp*scolds
+	***routes*enact*chic***
+	arc*cern*erato*fredholm
+	release*davie*beads*rae
+	stead*eraser*alibi*mira
+	erases*ewes*haag*reagan
+	nary*opens*farina*slime
+	ice*pulls*labor*bikinis
+	cerberus*galen*levi*set
+	***arcs*nabla*madame***
 	girlie*same*sway*norman
 	atoll*angelo*alec*sieve
 	less*broad*bertram*slew
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      50.872 (50872.000 ms)
+	runtime:      39.968 (39968.000 ms)
 	solutions:    1
-	propagations: 3150173
-	nodes:        20507
-	failures:     10199
+	propagations: 5923734
+	nodes:        37819
+	failures:     18836
 	peak depth:   151
-	peak memory:  49480 KB
+	peak memory:  66130 KB

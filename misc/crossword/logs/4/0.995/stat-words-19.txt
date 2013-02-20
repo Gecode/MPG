@@ -1,17 +1,31 @@
 Crossword
+	anna*swamp*soft
+	vial*toner*tile
+	inveterate*alan
+	seychelles*nero
+	****eddy*sadder
+	barry**spurs***
+	alee*antarctica
+	kenosha*resided
+	extremists*lend
+	***dealt**slats
+	attend*acre****
+	pair*applicator
+	anti*balustrade
+	ryan*aleck*ames
+	tang*desks*best
 
-Search engine stopped...
-	reason: time limit reached
+
 
 Initial
 	propagators: 386
 	branchers:   1
 
 Summary
-	runtime:      20:00.014 (1200014.000 ms)
-	solutions:    0
-	propagations: 76944468
-	nodes:        334435
-	failures:     167207
-	peak depth:   50
-	peak memory:  19124 KB
+	runtime:      3:36.856 (216856.000 ms)
+	solutions:    1
+	propagations: 41521665
+	nodes:        186094
+	failures:     93013
+	peak depth:   64
+	peak memory:  46465 KB

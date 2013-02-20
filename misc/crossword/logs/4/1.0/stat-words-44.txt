@@ -1,0 +1,39 @@
+Crossword
+	elsie*plank*smear*sides
+	loath*euler*purge*odell
+	informatica*isaac*malta
+	dee*lace*reich*rube*ion
+	erskine*bombard*radiant
+	***ace*olsen*oaf*dad***
+	faith*adair*kodak*yemen
+	anne*addis*females*male
+	rip*adder*bees*clad*ode
+	courtier*carl*goldenrod
+	entered*bard*many*mains
+	***lou*cannibals*dot***
+	strip*woke*name*menorca
+	crocodile*dana*divisors
+	aim*sill*hand*manic*yes
+	laps*emerald*gavel*rape
+	alsop*agate*fetid*belts
+	***lap*eke*dared*bed***
+	algenib*effects*palomar
+	tau*geld*ulcer*fall*eli
+	ababa*early*tutankhamen
+	renee*stale*edict*odors
+	ilona*satyr*dents*paste
+
+
+
+Initial
+	propagators: 897
+	branchers:   1
+
+Summary
+	runtime:      2.528 (2528.000 ms)
+	solutions:    1
+	propagations: 143066
+	nodes:        1258
+	failures:     558
+	peak depth:   173
+	peak memory:  45710 KB

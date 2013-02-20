@@ -1,17 +1,31 @@
 Crossword
+	lura*abhor*eire
+	opal*lease*idea
+	consolable*goes
+	intonation*else
+	****cyst*tensed
+	diode**abets***
+	able*antarctica
+	niagara*behaves
+	advertised*talk
+	***nehru**dents
+	appear*mama****
+	boar*operatives
+	alga*persianize
+	fiat*orion*care
+	tone*duane*alan
 
-Search engine stopped...
-	reason: time limit reached
+
 
 Initial
 	propagators: 386
 	branchers:   1
 
 Summary
-	runtime:      20:00.014 (1200014.000 ms)
-	solutions:    0
-	propagations: 78581167
-	nodes:        363721
-	failures:     181852
-	peak depth:   53
-	peak memory:  19124 KB
+	runtime:      6:22.388 (382388.000 ms)
+	solutions:    1
+	propagations: 80216838
+	nodes:        362940
+	failures:     181428
+	peak depth:   64
+	peak memory:  46017 KB

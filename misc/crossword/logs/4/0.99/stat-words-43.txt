@@ -1,7 +1,7 @@
 Crossword
-	scram*ababa*hamal*staff
-	alamo*dirac*abide*ernie
-	viper*opera*della*magna
+	scram*ababa*hiram*staff
+	alamo*dirac*arise*ernie
+	viper*opera*dents*magna
 	overtures*dad*destinies
 	resigned*legal*reinsert
 	***cats*bimodal*slam***
@@ -30,10 +30,10 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:17.108 (77108.000 ms)
+	runtime:      1:33.569 (93569.000 ms)
 	solutions:    1
-	propagations: 5863920
-	nodes:        32732
-	failures:     16311
-	peak depth:   151
-	peak memory:  49704 KB
+	propagations: 9136476
+	nodes:        52027
+	failures:     25944
+	peak depth:   150
+	peak memory:  60691 KB

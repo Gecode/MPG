@@ -1,0 +1,35 @@
+Crossword
+	slat*babe*bash*swat
+	tide*adam*arpa*taxi
+	alexandra*leathered
+	bananas*nasa*calmly
+	***sal*dada*phil***
+	babel*data*prefaced
+	alas*bale*greta*era
+	jab*bade*shies*alar
+	anemone*sloan*obese
+	**lads*chasm*cobb**
+	emile*plait*hazards
+	daze*shorn*safe*are
+	dye*atone*rare*atop
+	yosemite*ship*adept
+	***nato*soul*via***
+	acidic*bulb*cargill
+	bodenheim*abyssinia
+	ella*elba*rose*odes
+	deer*disc*bats*sods
+
+
+
+Initial
+	propagators: 609
+	branchers:   1
+
+Summary
+	runtime:      0.530 (530.000 ms)
+	solutions:    1
+	propagations: 20121
+	nodes:        145
+	failures:     15
+	peak depth:   119
+	peak memory:  28077 KB

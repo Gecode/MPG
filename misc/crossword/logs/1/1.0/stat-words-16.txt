@@ -1,0 +1,31 @@
+Crossword
+	opus*kali*arabs
+	font*oman*libel
+	friedrich*berra
+	storied*adamant
+	**nina*abo*ames
+	agile*prison***
+	raze*britannica
+	ale*sausage*now
+	bernardine*scar
+	***intent*sealy
+	scab*eng*beep**
+	herbert*arapaho
+	odell*islamabad
+	vanes*aped*glue
+	erase*lacy*eels
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      42.806 (42806.000 ms)
+	solutions:    1
+	propagations: 1558488
+	nodes:        8570
+	failures:     4264
+	peak depth:   58
+	peak memory:  19828 KB

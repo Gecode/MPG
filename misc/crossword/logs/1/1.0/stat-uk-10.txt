@@ -1,0 +1,31 @@
+Crossword
+	aked*kabab*dsos
+	rata*abase*etna
+	anacolutha*bren
+	basinet**shoers
+	***tas*astare**
+	grieg*flu*natal
+	cad*enrank*haka
+	lie*rainbow*rag
+	etal*benesh*aba
+	falaj*dad*alban
+	**isaiah*oca***
+	basans**arkites
+	areg*ameliorate
+	bern*ainee*dahl
+	sasa*creel*sled
+
+
+
+Initial
+	propagators: 384
+	branchers:   1
+
+Summary
+	runtime:      0.671 (671.000 ms)
+	solutions:    1
+	propagations: 9339
+	nodes:        108
+	failures:     10
+	peak depth:   92
+	peak memory:  47354 KB
