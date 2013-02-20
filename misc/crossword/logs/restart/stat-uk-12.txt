@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	chug*hadal*came
 	hera*akaba*odal
 	iran*bedad*baal
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.718 (718.000 ms)
+	runtime:      0.593 (593.000 ms)
 	solutions:    1
 	propagations: 7578
 	nodes:        104
 	failures:     3
+	restarts:     0
 	peak depth:   99
-	peak memory:  44855 KB
+	peak memory:  10075 KB

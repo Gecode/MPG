@@ -1,7 +1,8 @@
 Crossword
-	aked*baba*cigar
+RESTART
+	aked*baba*ligan
 	bani*igad*akene
-	endamoeba*serge
+	endamoeba*merge
 	tallage*crabbed
 	**eeks*ate*aery
 	casco*glycin***
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.311 (1311.000 ms)
+	runtime:      0.983 (983.000 ms)
 	solutions:    1
-	propagations: 11136
-	nodes:        114
+	propagations: 11169
+	nodes:        115
 	failures:     16
-	peak depth:   89
-	peak memory:  65334 KB
+	restarts:     0
+	peak depth:   90
+	peak memory:  10871 KB

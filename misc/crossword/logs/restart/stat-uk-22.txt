@@ -1,15 +1,16 @@
 Crossword
-	haceks*abaci*bename
+RESTART
+	haceks*abaci*befall
 	azalea*bason*acacia
-	sinker*roams*bagels
-	sot*kabab*mired*toe
-	anal*haha*ogee*carl
-	rebec*rabanna*holds
+	sinker*roams*bateau
+	sot*kabab*mired*tig
+	anal*haha*ogee*pash
+	rebec*rabanna*haley
 	***modem*leerier***
-	grandad*ply*darnels
-	canaan*lao*poplitic
-	lit**mailplane**ana
-	etiolate*lad*tagger
+	grandad*ply*darkest
+	canaan*lao*coplanar
+	lit**mailplane**spa
+	etiolate*lab*taguan
 	facture*ear*current
 	***anklets*aasia***
 	dagga*imamate*dicty
@@ -26,10 +27,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.903 (1903.000 ms)
+	runtime:      1.482 (1482.000 ms)
 	solutions:    1
-	propagations: 33449
-	nodes:        378
-	failures:     133
-	peak depth:   119
-	peak memory:  92713 KB
+	propagations: 22423
+	nodes:        219
+	failures:     54
+	restarts:     0
+	peak depth:   120
+	peak memory:  13884 KB

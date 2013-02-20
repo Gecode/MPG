@@ -1,2 +1,3 @@
 Crossword
-	Runtime:         19593.600000ms (0.24% deviation)
+RESTART
+	Runtime:         13467.000000ms (0.00% deviation)

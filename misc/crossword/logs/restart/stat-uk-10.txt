@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	aked*kabab*dsos
 	rata*abase*etna
 	anacolutha*bren
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.671 (671.000 ms)
+	runtime:      0.546 (546.000 ms)
 	solutions:    1
-	propagations: 9339
-	nodes:        108
-	failures:     10
-	peak depth:   92
-	peak memory:  47354 KB
+	propagations: 8927
+	nodes:        103
+	failures:     7
+	restarts:     0
+	peak depth:   91
+	peak memory:  4889 KB
