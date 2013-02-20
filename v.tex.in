@@ -117,7 +117,7 @@ The second task consists of programming the
   The situation for implementing branchings is quite different:
   here one would want to offer at least a common set of
   variable-value branchings similar to those for integer variables
-  (see \autoref{sec:m:search:branch}). Gecode offers substantial
+  (see \autoref{sec:m:branch:int}). Gecode offers substantial
   support for implementing variable-value branchings, including
   support for the specification of variable and value selection
   strategies, random and activity-based selection of variables,
@@ -795,7 +795,7 @@ class \gecoderef[class]{VarImp}. The most important inherited
 member functions are summarized in
 \autoref{fig:v:varimp:inherited}.  For an explanation of degree
 and accumulated failure count, see
-\autoref{sec:m:search:branch:int}.
+\autoref{sec:m:branch:shared}.
 
 
 \section{Additional specification options}
@@ -1002,7 +1002,7 @@ our variables, several other member functions are typically just
 inherited and are defined by the class \gecoderef[class]{VarImpVar}.
 The most important inherited member functions are summarized in
 \autoref{fig:v:var:inherited}.  For an explanation of degree and
-accumulated failure count, see \autoref{sec:m:search:branch:int}.
+accumulated failure count, see \autoref{sec:m:branch:shared}.
 
 
 
@@ -1429,14 +1429,14 @@ extent be controlled by the user by passing pointers to functions:
 \begin{itemize}
 \item A branching filter function defines which variables are
   actually considered for branching, see
-  \autoref{sec:m:search:branch:filter}.
+  \autoref{sec:m:branch:filter}.
 \item A merit function can define which variable is selected for
-  branching, see \autoref{sec:m:search:branch:user-var}.
+  branching, see \autoref{sec:m:branch:uservar}.
 \item A branch value function selects a value that is used for
-  branching, see \autoref{sec:m:search:branch:user-val}.
+  branching, see \autoref{sec:m:branch:userval}.
 \item A branch commit function constrains a variable with respect
   to a value passed as argument, see
-  \autoref{sec:m:search:branch:user-val}.
+  \autoref{sec:m:branch:userval}.
 \end{itemize}
 
 In the following type definitions, the type \?IntVar? of the
@@ -1487,7 +1487,7 @@ variable-value branchings well.
 The variable selection functions we are considering here are
 defined as follows (their names and what they do coincides with
 the variable selection functions for normal integer variables in
-Gecode, see \autoref{sec:m:search:branch:int}):
+Gecode, see \autoref{sec:m:branch:int}):
 \insertlitcode{int.hh:variable selection functions}
 
 All but \?INT_VAR_NONE()? take arguments: unsurprisingly, a
@@ -1498,7 +1498,7 @@ double as decay-factor or an integer activity object to
 tie-breaking. All other variable selection functions take an
 optional argument of type \?BranchTbl? as a branch tie-breaking
 limit function (we will abbreviate this here as tbl-function),
-see \autoref{sec:m:search:branch:tbl} for a description of
+see \autoref{sec:m:branch:tbl} for a description of
 tie-breaking and tbl-functions.
 
 \begin{figure}
@@ -1590,7 +1590,7 @@ following creates the appropriate object for view selection:
 Depending on how the view is to be selected, different objects
 are created. An object of class \gecoderef[class]{ViewSelMaxTbl}
 selects a variable with maximal merit (for the definition of
-merit, see \autoref{sec:m:search:branch:int}), whereas an object
+merit, see \autoref{sec:m:branch:int}), whereas an object
 of class \gecoderef[class]{ViewSelMinTbl} selects a variable with
 minimal merit. Objects of both classes take a tbl-function during
 selection into account. Both classes expect a class as template argument
@@ -1761,7 +1761,7 @@ parametric, where the arguments describe the following:
   branching, which is \?2? in our example\footnote{By choosing
     the value \?1? here, one can obtain branchers that perform
     value assignment similar to the \?assign()? function
-    described in \autoref{sec:m:search:branch:assign}.}.
+    described in \autoref{sec:m:branch:assign}.}.
 \end{enumerate}
 
 \paragraph{Branching with tie-breaking.}
@@ -1816,7 +1816,7 @@ example script.
   Please make sure to carefully read
   \autoref{sec:m:started:compile}, before reading any further in
   this chapter!
->\end{important}
+\end{important}
 
 \section{Golomb rulers à la integer interval variables}
 \label{sec:v:all:golomb}

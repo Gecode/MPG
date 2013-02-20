@@ -188,7 +188,7 @@ branchings. The first branching assigns values to the variables
 $\mathtt{c\_store}_s$ and follows the strategy of maximal regret:
 select the variable for which the difference between the smallest
 value and the next larger value is maximal (see
-\autoref{sec:m:search:branch:int}). The second branching makes
+\autoref{sec:m:branch:int}). The second branching makes
 sure that all stores are being assigned a warehouse. This
 branching is necessary as supplying a store could have the same
 cost for several different warehouses (depending on the data used

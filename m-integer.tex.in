@@ -6,7 +6,7 @@ This chapter gives an overview of integer and Boolean variables
 and the constraints available for them in Gecode. The chapter
 focuses on variables and constraints, a discussion of branching
 for integer and Boolean variables can be found in
-\autoref{sec:m:search:branch}.
+\autoref{sec:m:branch:int}.
 
 The chapter does not make an attempt to duplicate the reference
 documentation (see \gecoderef[group]{TaskModelInt}). It is

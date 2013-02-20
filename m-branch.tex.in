@@ -1,0 +1,1272 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Branching}
+\label{chap:m:branch}
+
+This chapter discusses how \emph{branching} is used for solving Gecode
+models.  Branching defines the shape of the search
+tree. Exploration defines a strategy how to explore parts of the
+search tree and is discussed in \autoref{chap:m:search}. 
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:branch:basics} explains the basics of
+Gecode's predefined branchings.  An overview of available
+branchings for integer and Boolean variables is provided in
+\autoref{sec:m:branch:int}, for set variables in
+\autoref{sec:m:branch:set}, and for float variables in
+\autoref{sec:m:branch:float}. These sections belong to the basic
+reading material of \autoref{part:m}.
+
+Advanced topics for branchings are discussed in the remaining
+sections: local versus shared variable selection
+\ptsmbranchshared, random selection \ptsmbranchrnd, user-defined
+variable \ptsmbranchuservar{} and value \ptsmbranchuserval{}
+selection, tie-breaking \ptsmbranchtie, branch filter functions
+\ptsmbranchfilter, assigning variables \ptsmbranchassign, and
+executing code between branchers \ptsmbranchcode.
+
+\begin{convention}
+  Note that the same conventions hold as in \autoref{chap:m:int}.
+\end{convention}
+
+\section{Branching basics}
+\label{sec:m:branch:basics}
+
+Gecode offers predefined \emph{variable-value branching}: when
+calling \?branch()? to post a branching, the third argument defines
+which variable is selected for branching, whereas the fourth
+argument defines which values are selected for branching. 
+
+For example, for an array of integer or Boolean variables \?x?
+the following call to branch
+\begin{code}
+branch(home, x, INT_VAR_MIN_MIN(), INT_VAL_SPLIT_MIN());
+\end{code}
+selects a variable $y$ with the smallest minimum value (in case
+of ties, the first such variable in \?x? is selected) and creates
+a choice with two alternatives $y\leq n$ and $y>n$ where
+$$n=\left\lfloor\frac{\min(y)+\max(y)}{2}\right\rfloor$$ 
+The posted brancher assigns all
+variables and then ceases to exist. If more branchers exist,
+search continues with the next brancher.
+
+The \?branch()? function also accepts a branch filter function as
+optional last argument, see \autoref{sec:m:branch:filter}
+for details.
+
+\paragraph{Several branchers.}
+
+A space in Gecode can have \emph{several} branchers posted on
+behalf of a \emph{branching} that are
+executed in order of creation. Assume that in
+\begin{code}
+branch(home, x, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
+...
+branch(home, y, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
+\end{code}
+both calls to \?branch? create a brancher. Search branches first
+on the variables \?x? and then on the variables \?y?. Here, it
+does not matter whether propagators are created in between the
+creation of branchers.
+
+\paragraph{Branching on single variables.}
+
+In addition to branching on an array of variables, Gecode also
+supports branching on a single variable.
+
+For example, if \?x? is an integer variable of type \?IntVar?,
+then
+\begin{code}
+branch(home, x, INT_VAL_MIN());
+\end{code}
+branches on the single variable \?x? by first trying the smallest
+value of \?x?.
+
+Assume that \?x? is an array of integer variables. Then the
+following code
+\begin{code}
+for (int i=0; i<x.size(); i++)
+  branch(home, x[i], INT_VAL_MIN());
+\end{code}
+is equivalent, albeit considerably less efficient, to
+\begin{code}
+branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
+\end{code}
+
+
+\section{Branching on integer and Boolean variables}
+\label{sec:m:branch:int}
+
+\begin{important}
+\begin{samepage}
+Do not forget to add
+\begin{code}
+#include <gecode/int.hh>
+\end{code}
+\end{samepage}
+to your program when you want to branch on integer and
+Boolean variables.
+\end{important}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?INT_VAR_NONE()? & first unassigned\\
+\?INT_VAR_RND(r)? & randomly\\
+\?INT_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?INT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?INT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
+\?INT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
+\?INT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?INT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?INT_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
+\?INT_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\?INT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
+\?INT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
+\?INT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
+\?INT_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum value\\
+\?INT_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest domain size\\
+\?INT_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest domain size\\
+\?INT_VAR_DEGREE_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest degree
+divided by domain size\\
+\?INT_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree by domain size\\
+\?INT_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC by domain size\\
+\?INT_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC by domain size\\
+\?INT_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest
+activity by domain size\\
+\?INT_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest
+activity by domain size\\
+\?INT_VAR_REGRET_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum-regret\\
+\?INT_VAR_REGRET_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum-regret\\
+\?INT_VAR_REGRET_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum-regret\\
+\?INT_VAR_REGRET_MAX_MAX(?\OptArg{\?t?}\?)? & largest
+maximum-regret\\
+\end{tabular}
+\end{center}
+\caption{Integer and Boolean variable selection}
+\label{fig:m:branch:int:var}
+\end{figure}
+
+For integer and Boolean variables, variable selection is defined
+by a value of class \gecoderef[class]{IntVarBranch} and value
+selection is defined by a value of type
+\gecoderef[class]{IntValBranch}. Values of these types are
+obtained by calling functions (possibly taking arguments) that
+correspond to variable and value selection strategies. For
+example, a call \?INT_VAR_SIZE_MIN()? returns an object of class
+\gecoderef[class]{IntVarBranch}.
+
+For an overview of the available variable selection strategies,
+see \autoref{fig:m:branch:int:var} (see also
+\gecoderef[group]{TaskModelIntBranchVar}) where \OptArg{$\cdot$}~denotes an optional argument and~\SpecialArg{$\cdot$} is a
+special argument to be explained below. Here, an argument \?r?
+refers to a random number generator of type
+\gecoderef[class]{Rnd}. Using random number generators for
+branching is discussed in \autoref{sec:m:branch:rnd}. An
+argument \?m? refers to a user-defined merit function of type
+\gecoderef[typedef]{IntBranchMerit} for integer variables and
+\gecoderef[typedef]{BoolBranchMerit} for Boolean variables.
+User-defined merit functions are discussed in
+\autoref{sec:m:branch:uservar}.  An argument \?afc?
+refers to accumulated failure count (AFC) information for integer
+or Boolean variables (of class \gecoderef[class]{IntAFC}).  An
+argument \?act? refers to activity information for integer or
+Boolean variables (of class \gecoderef[class]{IntActivity}). For
+a discussion of AFC and activity, see
+\autoref{sec:m:branch:shared}, both \SpecialArg{\?afc?}
+and \SpecialArg{\?act?} can also be optional arguments of type
+\?double? defining a decay factor. The optional argument \?t?
+refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in
+\autoref{sec:m:branch:tbl}.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?INT_VAL_RND(r)? & random value\\
+\?INT_VAL(v,?\OptArg{\?c?}\?)? & defined by value function \?v? and commit
+function \?c?\\
+\?INT_VAL_MIN()? & smallest value\\
+\?INT_VAL_MED()? & greatest value not greater than the median\\
+\?INT_VAL_MAX()? & largest value\\
+\?INT_VAL_SPLIT_MIN()? & values not greater than mean of smallest
+  and largest value\\
+\?INT_VAL_SPLIT_MAX()? & values greater than mean of smallest
+  and largest value\\
+\?INT_VAL_RANGE_MIN()? & values from smallest range, if domain has
+several ranges;\\
+& otherwise, values not greater than mean\\
+\?INT_VAL_RANGE_MAX()? & values from largest range, if domain has
+several ranges;\\
+& otherwise, values greater than mean\\
+\?INT_VALUES_MIN()? & all values starting from smallest\\
+\?INT_VALUES_MAX()? & all values starting from largest\\
+\end{tabular}
+\end{center}
+\caption{Integer and Boolean value selection}
+\label{fig:m:branch:int:val}
+\end{figure}
+
+An overview of the available value selection strategies for
+integer and Boolean variables can be found in
+\autoref{fig:m:branch:int:val} (see also
+\gecoderef[group]{TaskModelIntBranchVal}) where \OptArg{$\cdot$}~denotes
+an optional argument. Here, an argument \?r? refers to
+a random number generator of type \gecoderef[class]{Rnd} which is
+discussed in \autoref{sec:m:branch:rnd}. An argument \?v?
+refers to a value selection function of type
+\gecoderef[typedef]{IntBranchVal} for integer variables and
+\gecoderef[typedef]{BoolBranchVal} for Boolean variables. An
+optional argument \?c? refers to a commit function of type
+\gecoderef[typedef]{IntBranchCommit} for integer variables and of
+type \gecoderef[typedef]{BoolBranchCommit} for Boolean variables.
+Value and commit function are discussed in
+\autoref{sec:m:branch:userval}.
+
+Note that variable-value branchers are just common cases for
+branching based on the idea of selecting variables and values. In
+Gecode also arbitrary other branchers can be programmed, see
+\autoref{part:b}.
+
+\tip{Variables are re-selected during branching}{
+\label{tip:m:branch:reselected}
+A variable-value branching selects a variable for each choice
+it creates. Consider as an example a script using an integer
+variable array \?x? with three variables and domains
+$\range{1}{4}$ created by
+\begin{code}
+IntVarArray x(home, 3, 1, 4);
+\end{code}
+
+\begin{samepage}
+Let us assume that no constraints are posted on the variables in
+\?x? and that a branching is posted by
+\begin{code}
+branch(home, x, INT_VAR_SIZE_MAX(), INT_VAL_SPLIT_MIN());
+\end{code}
+\end{samepage}
+
+The branching starts by selecting \?x[0]? as the first variable with the
+largest domain in the array \?x? and creates the choice
+$$
+(\mbox{\?x[0]?}\leq 2)\vee
+(\mbox{\?x[0]?}> 2)
+$$
+
+Now assume that search explores the first alternative which
+results in the domain $\{1,2\}$ for \?x[0]?. When search continues,
+the branching again selects the first variable with a largest
+domain: hence \?x[1]? is selected and \emph{not} \?x[0]?.
+
+In other words, a variable-value branching does not stick to a
+selected variable until the variable becomes assigned. Instead, a
+variable-value branching re-selects a variable for each choice it
+creates.  }
+
+\tip{Do not try all values}{%
+  Note that for \?INT_VALUES_MIN()? and \?INT_VALUES_MAX()?, a
+  variable-value branching creates a choice for each selected
+  variable with one alternative per value of the variable.
+
+  This is typically a poor choice, as none of the alternatives
+  can benefit from propagation that arises when other values of
+  the same variable are tried. These branchings exist for
+  instructional purposes (well, they do create beautiful trees in
+  Gist). }
+
+
+\section{Branching on set variables}
+\label{sec:m:branch:set}
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/set.hh>
+\end{code}
+to your program when you want to branch on set variables.
+\end{important}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?SET_VAR_NONE()? & first unassigned\\
+\?SET_VAR_RND(r)? & randomly\\
+\?SET_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?SET_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?SET_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
+\?SET_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
+\?SET_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?SET_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?SET_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
+\?SET_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\?SET_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum unknown element\\
+\?SET_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum unknown element\\
+\?SET_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum unknown element\\
+\?SET_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum unknown element\\
+\?SET_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest unknown set\\
+\?SET_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest unknown set\\
+\?SET_VAR_DEGREE_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest degree divided by domain size\\
+\?SET_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree divided by domain size\\
+\?SET_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC divided by domain size\\
+\?SET_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
+\?SET_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest activity divided by domain size\\
+\?SET_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest activity divided by domain size
+\end{tabular}
+\end{center}
+\caption{Set variable selection}
+\label{fig:m:branch:set:var}
+\end{figure}
+
+For set variables, variable selection is defined
+by a value of class \gecoderef[class]{SetVarBranch} (see also
+\gecoderef[group]{TaskModelSetBranchVar}) and value selection is defined
+by a value of type \gecoderef[class]{SetValBranch}  (see also
+\gecoderef[group]{TaskModelSetBranchVal}). 
+
+For an overview of the available variable selection strategies,
+see \autoref{fig:m:branch:set:var} (see also
+\gecoderef[group]{TaskModelSetBranchVar}) where
+\OptArg{$\cdot$}~denotes an optional argument
+and~\SpecialArg{$\cdot$} is a special argument to be explained
+below. Here, an argument \?r?  refers to a random number
+generator of type \gecoderef[class]{Rnd}. Using random number
+generators for branching is discussed in
+\autoref{sec:m:branch:rnd}. An argument \?m? refers to a
+user-defined merit function of type
+\gecoderef[typedef]{SetBranchMerit}.  User-defined merit
+functions are discussed in
+\autoref{sec:m:branch:uservar}.  An argument \?afc?
+refers to accumulated failure count (AFC) information for set
+variables (of class \gecoderef[class]{SetAFC}).  An argument
+\?act? refers to activity information for set variables (of class
+\gecoderef[class]{SetActivity}). For a discussion of AFC and
+activity, see \autoref{sec:m:branch:shared}, both
+\SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
+arguments of type \?double? defining a decay factor. The optional
+argument \?t?  refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in
+\autoref{sec:m:branch:tbl}.
+
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?SET_VAL_RND_INC(r)? &include random element\\
+\?SET_VAL_RND_EXC(r)? &exclude random element\\
+\?SET_VAL(v,?\OptArg{\?c?}\?)? & defined by value function \?v? and commit
+function \?c?\\
+\?SET_VAL_MIN_INC()? &include smallest element\\
+\?SET_VAL_MIN_EXC()? &exclude smallest element\\
+\?SET_VAL_MED_INC()? &include median element (rounding downwards)\\
+\?SET_VAL_MED_EXC()? &exclude median element (rounding downwards)\\
+\?SET_VAL_MAX_INC()? &include largest element\\
+\?SET_VAL_MAX_EXC()? &exclude largest element\\
+\end{tabular}
+\end{center}
+\caption{Set value selection}
+\label{fig:m:branch:set:val}
+\end{figure}
+
+An overview of the available value selection strategies for set
+variables can be found in \autoref{fig:m:branch:set:val} where
+\OptArg{$\cdot$}~denotes an optional argument. Here, an argument
+\?r? refers to a random number generator of type
+\gecoderef[class]{Rnd} which is discussed in
+\autoref{sec:m:branch:rnd}. An argument \?v? refers to a
+value selection function of type
+\gecoderef[typedef]{SetBranchVal}. An optional argument \?c?
+refers to a commit function of type
+\gecoderef[typedef]{SetBranchCommit}.  Value and commit function
+are discussed in \autoref{sec:m:branch:userval}.
+
+
+\section{Branching on float variables}
+\label{sec:m:branch:float}
+
+\begin{important}
+Do not forget to add
+\begin{code}
+#include <gecode/float.hh>
+\end{code}
+to your program when you want to branch on float variables.
+\end{important}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?FLOAT_VAR_NONE()? & first unassigned\\
+\?FLOAT_VAR_RND(r)? & randomly\\
+\?FLOAT_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?FLOAT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?FLOAT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
+\?FLOAT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
+\?FLOAT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?FLOAT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?FLOAT_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
+\?FLOAT_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\?FLOAT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
+\?FLOAT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
+\?FLOAT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
+\?FLOAT_VAR_MAX_MAX(?\OptArg{\?t?}\?)? & largest maximum value\\
+\?FLOAT_VAR_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest domain size\\
+\?FLOAT_VAR_SIZE_MAX(?\OptArg{\?t?}\?)? & largest domain size\\
+\?FLOAT_VAR_DEGREE_SIZE_MIN(?\OptArg{\?t?}\?)? & smallest degree divided by domain size\\
+\?FLOAT_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree divided by domain size\\
+\?FLOAT_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC divided by domain size\\
+\?FLOAT_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
+\?FLOAT_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest activity divided by domain size\\
+\?FLOAT_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest activity divided by domain size\\
+\end{tabular}
+\end{center}
+\caption{Float variable selection}
+\label{fig:m:branch:float:var}
+\end{figure}
+
+For float variables, variable selection is defined
+by a value of class \gecoderef[class]{FloatVarBranch} (see also
+\gecoderef[group]{TaskModelFloatBranchVar}) and value selection is defined
+by a value of type \gecoderef[class]{FloatValBranch}  (see also
+\gecoderef[group]{TaskModelFloatBranchVal}). 
+
+For an overview of the available variable selection strategies,
+see \autoref{fig:m:branch:float:var} (see also
+\gecoderef[group]{TaskModelFloatBranchVar}) where
+\OptArg{$\cdot$}~denotes an optional argument
+and~\SpecialArg{$\cdot$} is a special argument to be explained
+below. Here, an argument~\?r?  refers to a random number
+generator of type \gecoderef[class]{Rnd}. Using random number
+generators for branching is discussed in
+\autoref{sec:m:branch:rnd}. An argument~\?m? refers to a
+user-defined merit function of type
+\gecoderef[typedef]{FloatBranchMerit}.  User-defined merit
+functions are discussed in
+\autoref{sec:m:branch:uservar}.  An argument \?afc?
+refers to accumulated failure count (AFC) information for float
+variables (of class \gecoderef[class]{FloatAFC}).  An argument
+\?act? refers to activity information for float variables (of
+class \gecoderef[class]{FloatActivity}). For a discussion of AFC
+and activity, see \autoref{sec:m:branch:shared}, both
+\SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
+arguments of type \?double? defining a decay factor. The optional
+argument \?t?  refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl} and is discussed in
+\autoref{sec:m:branch:tbl}.
+
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?FLOAT_VAL(v,?\OptArg{\?c?}\?)? & defined by value function \?v? and commit
+function \?c?\\
+\?FLOAT_VAL_SPLIT_RND(r)? &values not smaller or larger than mean\\
+& (smaller or larger is randomly selected)\\
+\?FLOAT_VAL_SPLIT_MIN()? &values not greater than mean\\
+\?FLOAT_VAL_SPLIT_MAX()? &values not smaller than mean\\
+\end{tabular}
+\end{center}
+\caption{Float value selection}
+\label{fig:m:branch:float:val}
+\end{figure}
+
+An overview of the available value selection strategies for float
+variables can be found in \autoref{fig:m:branch:float:val} where \OptArg{$\cdot$} denotes
+an optional argument. Here,
+an argument \?r? refers to a random number generator of type
+\gecoderef[class]{Rnd} which is discussed in
+\autoref{sec:m:branch:rnd}. An argument \?v? refers to a
+value selection function of type
+\gecoderef[typedef]{FloatBranchVal}. An optional argument \?c? refers to a
+commit function of type \gecoderef[typedef]{FloatBranchCommit}.
+Value and commit function are discussed in
+\autoref{sec:m:branch:userval}.
+
+
+\section{Local versus shared variable selection criteria}
+\label{sec:m:branch:shared}
+
+The criteria used for selecting variables are either \emph{local}
+or \emph{shared}. A \emph{local} variable selection
+criterion depends only on a brancher's home space. A
+\emph{shared} variable selection criterion depends not only on
+the brancher's home space but also on all spaces that have been
+created during search sharing the same root space where the
+brancher had originally been posted. That entails that a shared
+criterion can use information that is collected during search. In
+terms of \autoref{sec:m:search:re}, a shared variable selection
+criterion depends on all equivalent spaces created by cloning.
+
+\subsection{Local variable selection criteria}
+
+All selection criteria but those based on \emph{AFC} and
+\emph{activity} are local: they either select variables without
+using any information on a variable (\?INT_VAR_NONE()?), select
+variables randomly (\?INT_VAR_RND(r)?, see also
+\autoref{sec:m:branch:rnd}), or use the degree or domain
+of a variable for selection. The user-defined selection criteria
+\?INT_VAR_MIN()? and \?INT_VAR_MAX()? in addition have access to
+the home space and the selected variable's position, see
+\autoref{sec:m:branch:uservar} for details.
+
+The \emph{degree} of a variable is the number of propagators
+depending on the variable (useful as an approximate measure of
+how constrained a variables is).
+
+The \emph{minimum-regret} for integer and Boolean variables is
+the difference between the smallest and second smallest value in
+the domain of a variable (\emph{maximum-regret} is analogous).
+
+\subsection{Selection using accumulated failure count}
+\label{sec:m:branch:afc}
+
+The accumulated failure count (AFC) of a variable is a shared
+selection criterion. It is defined as the sum of the AFCs of all
+propagators depending on the variable plus its degree (to give a
+good initial value if the AFCs of all propagators are still
+zero). The AFC of a propagator counts how often the propagator
+has failed during search.  The AFC of a variable is also known as
+the weighted degree of a variable~\cite{AFC}.
+
+AFC in Gecode supports decay as follows. Each time a propagator
+fails during constraint propagation (by executing the \?status()? function of a space,
+see also \autoref{tip:m:started:status}), the AFC of all
+propagators is updated:
+\begin{itemize}
+\item If the propagator \?p? did not fail, the AFC
+  $\mathtt{afc}(\mathtt p)$ of \?p? is updated by a decay-factor
+  $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
+$$\mathtt{afc}(\mathtt p)=\mathtt{d}\cdot\mathtt{afc}(\mathtt p)$$
+\item If the propagator \?p? failed, the AFC
+  $\mathtt{afc}(\mathtt p)$ of \?p? is incremented by $1$:
+$$\mathtt{afc}(\mathtt p)=\mathtt{afc}(\mathtt p)+1$$
+\item The AFC $\mathtt{afc}(\mathtt x)$ of a variable \?x? is
+  then defined as:
+  $$\mathtt{afc}(\mathtt
+  x)=\mathtt{afc}(\mathtt{p}_1)+\cdots+\mathtt{afc}(\mathtt{p}_n)$$
+  where the propagators $\mathtt{p}_i$ depend on \?x?.
+\item The AFC $\mathtt{afc}(\mathtt p)$ of a propagator \?p? is
+  initialized to $1$. That entails that the AFC of a variable \?x? is
+  initialized to its degree.
+\end{itemize}
+
+In order to use AFC for branching, one must create an object
+of class \gecoderef[class]{IntAFC} for integer or Boolean
+variables, an object of class \gecoderef[class]{SetAFC} for
+set variables, or an object of class
+\gecoderef[class]{FloatAFC} for float variables. The object
+is responsible for recording AFC information\footnote{Gecode
+  cheats a little bit with the implementation of AFC: while it is possible (but not common)
+  to have more than a single AFC object, all will use the same
+  decay-factor \?d?. The decay-factor used is the one defined by the
+  AFC object created last. But as using several AFC objects with
+  different decay-factors is not really that useful, Gecode takes
+  a shortcut here.}.
+
+\begin{samepage}
+If \?x? is an integer variable array, then
+\begin{code}
+IntAFC afc(home,x,0.99);
+\end{code}
+\end{samepage}
+initializes the AFC information \?afc? for the variables in \?x?
+with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
+optional and defaults to no decay ($\mathtt{d}=1$).
+
+The decay-factor can be changed later, say to
+$\mathtt{d}=\mathtt{0.95}$, by
+\begin{code}
+afc.decay(0.95);
+\end{code}
+and \?afc.decay()? returns the current decay-factor of \?afc?.
+
+A branching for integer variables using AFC information must
+be given an object of type \?IntAFC? as argument:
+\begin{code}
+branch(home, x, INT_VAR_AFC_MAX(afc), INT_VAL_MIN());
+\end{code}
+Here the integer variable array \?x? must be exactly the same
+that has been used for creating the integer AFC object
+\?afc?. 
+
+The AFC object can be omitted if one does not want to
+change the decay-factor later, hence it is sufficient to pass the
+decay-factor as argument. For example:
+\begin{code}
+branch(home, x, INT_VAR_AFC_MAX(0.99), INT_VAL_MIN());
+\end{code}
+uses AFC information with a decay-factor of \?0.99?. Even the
+decay-factor can be omitted and defaults to \?1? (that is, no decay).
+
+AFC for other variable types is analogous.
+
+
+\subsection{Selection using activity}
+
+The activity of a variable is a shared criterion and captures how
+much a variable has been involved in constraint propagation.
+
+The activity of a variable is maintained by constraint
+propagation as follows. Each time constraint propagation finishes
+during search (by executing the \?status()? function of a space,
+see also \autoref{tip:m:started:status}), the activity of a
+variable $\mathtt x$ is updated~\cite{activity}:
+\begin{itemize}
+\item If the variable \?x? has not been pruned (that is, no
+  values have been removed from the domain of \?x? through
+  propagation), the activity $\mathtt{activity}(\mathtt x)$ of \?x? is
+  updated by a decay-factor $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
+$$\mathtt{activity}(\mathtt x)=\mathtt{d}\cdot\mathtt{activity}(\mathtt x)$$
+\item If the variable \?x? has been pruned, the activity
+  $\mathtt{activity}(\mathtt x)$ of \?x? is incremented by $1$:
+$$\mathtt{activity}(\mathtt x)=\mathtt{activity}(\mathtt x)+1$$
+\item The acitivity of a variable \?x? is initialized to be zero.
+\end{itemize}
+
+In order to use activity for branching, one must create an object
+of class \gecoderef[class]{IntActivity} for integer or Boolean
+variables, an object of class \gecoderef[class]{SetActivity} for
+set variables, or an object of class
+\gecoderef[class]{FloatActivity} for float variables. The object
+is responsible for recording activity information.
+
+\begin{samepage}
+If \?x? is an integer variable array, then
+\begin{code}
+IntActivity act(home,x,0.99);
+\end{code}
+\end{samepage}
+initializes the activity information \?act? for the variables in \?x?
+with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
+optional and defaults to no decay ($\mathtt{d}=1$).
+
+The decay-factor can be changed later, say to
+$\mathtt{d}=\mathtt{0.95}$, by
+\begin{code}
+act.decay(0.95);
+\end{code}
+and \?act.decay()? returns the current decay-factor of \?act?.
+
+A branching for integer variables using activity information must
+be given an object of type \?IntActivity? as argument:
+\begin{code}
+branch(home, x, INT_VAR_ACTIVITY_MAX(act), INT_VAL_MIN());
+\end{code}
+Here the integer variable array \?x? must be exactly the same
+that has been used for creating the integer activity object
+\?act?. 
+
+The activity object can be omitted if one does not want to
+change the decay-factor later, hence it is sufficient to pass the
+decay-factor as argument. For example:
+\begin{code}
+branch(home, x, INT_VAR_ACTIVITY_MAX(0.99), INT_VAL_MIN());
+\end{code}
+uses activity information with a decay-factor of \?0.99?. Even the
+decay-factor can be omitted and defaults to \?1? (that is, no decay).
+
+Activity for other variable types is analogous.
+
+
+
+\section{Random variable and value selection}
+\label{sec:m:branch:rnd}
+
+One particular strategy for variable and value selection is by
+random. For integer and Boolean variables, \?INT_VAR_RND(r)?
+selects a random variable and \?INT_VAL_RND(r)? selects a random
+value where \?r? is a random number generator of class
+\gecoderef[class]{Rnd}.  For set variables, \?SET_VAR_RND(r)?
+selects a random variable and \?SET_VAL_RND_INC(r)? and
+\?SET_VAL_RND_EXC(r)? include and exclude a random value from a
+set variable. For float variables, \?FLOAT_VAR_RND(r)? selects a
+random variable and \?FLOAT_VAL_SPLIT_RND(r)? randomly selects
+the lower or upper half of the domain of a float variable.
+
+The random number generators used for random variable and value
+selection follow a uniform distribution and must be initialized by
+a seed value. For example, a random number generator \?r? is
+created and initialized with a seed value of \?1? (the seed value
+must be an \?unsigned int?) by
+\begin{code}
+Rnd r(1U);
+\end{code}
+The seed value can be changed with the \?seed()? function (if
+needed, the \?seed()? function initializes the random number
+generator). For example, by
+\begin{code}
+r.seed(2U);
+\end{code}
+the seed value is set to \?2? (the \?seed()? function also
+expects an argument of type \?unsigned int?).
+
+A random number generator is passed by reference to the
+brancher. In the terms of \autoref{sec:m:integer:proper}, a
+random number generator is a proper data structure. When a random
+number generator is stored as a member of a space it must be
+updated by using the \?update()? function of the random number
+generator.
+
+\begin{samepage}
+It is possible to use the same random number generator for both
+variable and value selection. For example, by
+\begin{code}
+Rnd r(1U);
+branch(home, x, INT_VAR_RND(r), INT_VAL_RND(r));
+\end{code}
+\end{samepage}
+both the variable in \?x? as well as its value are randomly
+selected using the numbers generated by \?r?. It is of course
+also possible to use two separate random number generators as in:
+\begin{code}
+Rnd r1(1U), r2(1U);
+branch(home, x, INT_VAR_RND(r1), INT_VAL_RND(r2));
+\end{code}
+
+
+
+\section{User-defined variable selection}
+\label{sec:m:branch:uservar}
+
+Variables can be selected according to user-defined criteria
+implemented as a \emph{merit function}. For integer variables,
+the type of the merit function is
+\gecoderef[typedef]{IntBranchMerit}, for Boolean variables
+\gecoderef[typedef]{BoolBranchMerit}, for set variables
+\gecoderef[typedef]{SetBranchMerit}, and for float variables
+\gecoderef[typedef]{FloatBranchMerit}. For integer variables, the
+type is defined as
+\begin{code}
+typedef double (*IntBranchMerit)(const Space& home, IntVar x, int i);
+\end{code}
+where \?home? refers to the home space, \?x? is the integer
+variable for which a merit value should be computed and \?i?
+refers to the position of \?x? in the integer variable array
+passed as argument to the \?branch()? function. The merit
+function types for Boolean, set, and float variables are
+analogous.
+
+For example, the following static merit function
+\begin{code}
+static double m(const Space& home, IntVar x, int i) {
+  return x.size();
+}
+\end{code}
+simply returns the domain size of the integer variable \?x? as
+the merit value. The merit function can be used to select a
+variable with either smallest or largest merit value. By
+\begin{code}
+branch(home, INT_VAR_MIN(&m), INT_VAL_MIN());
+\end{code}
+a variable with least merit value according to the merit function
+\?m()? is selected (that is, the first variable in the array with
+smallest size). A variable with maximal merit value is selected
+by: 
+\begin{code}
+branch(home, INT_VAR_MAX(&m), INT_VAL_MIN());
+\end{code}
+
+\tip{Using a member function as merit function}{
+\label{tip:m:branch:merit}%
+Often it is more convenient to use a const member function instead of a
+static function as a merit function. This is in particular the
+case when the merit function needs access to members of a
+script. 
+
+\begin{samepage}
+For example, the following member function of a class
+\?Model? for a script (a subclass of \gecoderef[class]{Space}):
+\begin{code}
+double merit(IntVar x, int i) const {
+  return ...;
+}
+\end{code}
+\end{samepage}
+is used when defining a static function as follows
+\begin{code}
+double trampoline(const Space& home, IntVar x, int i) {
+  return static_cast<const Model&>(home).merit(x,i);
+\end{code}
+and passing a pointer to \?trampoline()? as an argument, for
+example by
+\begin{code}
+branch(home, INT_VAR_MIN(&trampoline), INT_VAL_MIN());
+\end{code}
+}
+
+
+\section{User-defined value selection}
+\label{sec:m:branch:userval}
+
+
+The value selected for branching and how the selected value is
+used for branching can be defined by \emph{branch value
+  functions} and \emph{branch commit functions}. 
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l||l|l|}
+\hline
+Variable type & Value function type & Value type\\
+\hline\hline
+\gecoderef[class]{IntVar} & \gecoderef[typedef]{IntBranchVal} &
+\?int?\\\hline
+\gecoderef[class]{BoolVar} & \gecoderef[typedef]{BoolBranchVal} &
+\?int?\\\hline
+\gecoderef[class]{SetVar} & \gecoderef[typedef]{SetBranchVal} &
+\?int?\\\hline
+\gecoderef[class]{FloatVar} & \gecoderef[typedef]{FloatBranchVal}
+&\gecoderef[typedef]{FloatNum}\\\hline
+\end{tabular}
+\end{center}
+\caption{Branch value functions}
+\label{fig:m:branch:val}
+\end{figure}
+
+A branch value function takes a constant reference to a space, a
+variable, and the variable's position and returns a value, where
+the type of the value depends on the variable type.
+\autoref{fig:m:branch:val} lists the branch value function types
+and the value types for the different variable types. For
+example, the type \gecoderef[typedef]{IntBranchVal} for value functions for integer variables is
+defined as:
+\begin{code}
+typedef int (*IntBranchVal)(const Space& home, IntVar x, int i);
+\end{code}
+
+A branch commit function takes a reference to a space, the number
+of the alternative \?a? (\?0? for the first alternative and \?1?
+for the second alternative), a variable, the variable's position,
+and a value selected by a branch value function. For example, the
+type \gecoderef[typedef]{IntBranchCommit} for branch commit
+functions for integer variables is defined as:
+\begin{code}
+typedef void (*IntBranchCommit)(Space& home, unsigned int a,
+                                IntVar x, int i, int n);
+\end{code}
+
+Let us consider \?INT_VAL_MIN()? as an example, but
+re-implemented by value and commit functions. The value function
+can be defined as:
+\begin{code}
+static int v(const Space& home, IntVar x, int i) {
+  return x.min();
+}
+\end{code}
+and the commit function as:
+\begin{code}
+static void c(Space& home, unsigned int a,
+              IntVar x, int i, int n) {
+  if (a == 0U) {
+    rel(home, x, IRT_EQ, n);
+  } else {
+    rel(home, x, IRT_NQ, n);
+  }
+}
+\end{code}
+A branching using the value and commit function then can be
+posted by:
+\begin{code}
+branch(home, x, INT_VAR_NONE(), INT_VAL(&v,&c));
+\end{code}
+
+The commit function is optional. If the commit function is
+omitted, a default commit function depending on the variable type
+is used. For integer variables, for example, the commit function
+corresponds to the commit function from the previous
+example. Hence, it is sufficient to post the brancher as:
+\begin{code}
+branch(home, x, INT_VAR_NONE(), INT_VAL(&v));
+\end{code}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l||l|l|}
+\hline
+Variable type & Commit function type & Default behavior\\
+\hline\hline
+\gecoderef[class]{IntVar} & \gecoderef[typedef]{IntBranchCommit} &
+$(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})$\\\hline
+\gecoderef[class]{BoolVar} & \gecoderef[typedef]{BoolBranchCommit} &
+$(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})$\\\hline
+\gecoderef[class]{SetVar} & \gecoderef[typedef]{SetBranchCommit} &
+$(\mathtt{n}\in\mathtt{x})\vee(\mathtt{n}\not\in\mathtt{x})$\\\hline
+\gecoderef[class]{FloatVar} &
+\gecoderef[typedef]{FloatBranchCommit}&
+$(\mathtt{x}\leq\mathtt{n})\vee(\mathtt{x}\geq\mathtt{n})$\\\hline
+\end{tabular}
+\end{center}
+\caption{Branch commit functions}
+\label{fig:m:branch:commit}
+\end{figure}
+
+\autoref{fig:m:branch:commit} lists the commit function types
+and the behavior of the default commit function for the different
+variable types. The variable \?x? refers to the variable selected
+by the brancher and \?n? to the value selected by the branch
+value function.
+
+Note that both value and commit functions can also be implemented
+as member functions, similar to merit functions as described in
+\autoref{tip:m:branch:merit}.
+
+For examples which use value functions to implement problem-specific
+branching, see \gecoderef[example]{black-hole} and
+\gecoderef[example]{bacp}.
+
+
+\section{Tie-breaking}
+\label{sec:m:branch:tie}
+\label{sec:m:branch:tbl}
+
+The default behavior for tie-breaking during variable selection
+is that the first variable (that is the variable with the lowest
+index in the array) satisfying the selection criteria is
+selected. For many applications that is not sufficient.
+
+A typical example for integer variables is to select a most
+constrained variable first (the variable most propagators depend
+on, that is, with largest degree). Then, among the most
+constrained variables select the variable with the smallest
+domain. This can be achieved by using the \?tiebreak()?  function:
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_DEGREE_MAX(), INT_VAR_SIZE_MIN()),
+                INT_VAL_MIN());
+\end{code}
+The overloaded function \?tiebreak()?  (see
+\gecoderef[group]{TaskModelBranchTieBreak}) takes up to four
+variable selection values.
+
+\begin{samepage}
+Random selection is particularly interesting for tie-breaking. For
+example, breaking ties by first selecting a variable with
+smallest domain and then selecting a random variable among those
+with smallest domain is obtained by:
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+\end{samepage}
+Here, \?r? must be a random number generator as discussed in
+\autoref{sec:m:branch:rnd}.
+
+\paragraph{Using tie-breaking limit functions.}
+
+In the discussion so far only exact ties have been considered.
+Often it is necessary to consider several variables as ties even
+though some of them are not among the best variables. 
+Which variables are considered as ties can be controlled by
+\emph{tie-breaking limit functions}.
+
+A tie-breaking limit function has the type
+\gecoderef[typedef]{BranchTbl} which is defined as:
+\begin{code}
+typedef double (*BranchTbl)(const Space& home, double w, double b);
+\end{code}
+The function takes a constant reference to a space \?home?,
+the worst merit value \?w?, and the best merit value \?b? as
+arguments. The value returned by the function determines which
+variables are considered as ties.
+
+Let us consider an example where we branch over four integer
+variables from the integer variable array \?x? where the domains
+of the variables are as follows:
+$$
+\mbox{\?x[0]?}\in\{1,2,3,4\}\qquad
+\mbox{\?x[1]?}\in\{2,3,4\}\qquad
+\mbox{\?x[2]?}\in\{1,2,4\}\qquad
+\mbox{\?x[3]?}\in\{1,2,3,4,5,6,7\}
+$$
+Without a tie-breaking limit function as
+in (here, \?r? is a random number generator):
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+the variables \?x[1]? and \?x[2]? (both with size as the merit value $3.0$) are considered as ties and
+random variable selection will choose one of them. Likewise, when
+branching with
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MAX(), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+only variable \?x[3]? will be considered as the single variable
+with the best merit value $7.0$.
+
+The following tie-breaking limit function (defined as a static
+member function of a script, see also
+\autoref{tip:m:branch:merit}):
+\begin{code}
+static double tbl(const Space& home, double w, double b) {
+  return (w + b) / 2.0;
+}
+\end{code}
+returns the average of the worst merit value \?w? and the best
+merit value \?b?. Using the function \?tbl()? for tie-breaking is
+done by passing it as additional argument. 
+
+\begin{samepage}
+For example, when using \?tbl()? with
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(&tbl), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+\end{samepage}
+the function \?tbl()? is called with $\mathtt{w}=7.0$ and
+$\mathtt{b}=3.0$ and returns $(7.0 + 3.0)/2.0=5.0$. Hence,
+the three variables \?x[0]?, \?x[1]?, and \?x[2]? are considered
+for tie-breaking and random selection will make a choice among
+these three variables.
+
+For example, when using \?tbl()? with
+\begin{code}
+branch(home, x, tiebreak(INT_VAR_SIZE_MAX(&tbl), INT_VAR_RND(r)),
+                INT_VAL_MIN());
+\end{code}
+the function \?tbl()? is called with $\mathtt{w}=3.0$ and
+$\mathtt{b}=7.0$ and returns $(3.0 + 7.0)/2.0=5.0$. Hence,
+only variable \?x[3]? is considered for tie-breaking.
+
+Note that worse and best depends on whether the variable
+selection tries to minimize or maximize the merit value. If a
+tie-breaking limit function returns a value that is worse than
+the worst merit value, all variables are considered for
+tie-breaking. If a function returns a value that is better than
+the best value, the returned value is ignored and the best value
+is considered as limit (in which case, tie-breaking works exactly
+the same as if not using a tie-breaking limit function at all).
+
+\section{Using branch filter functions}
+\label{sec:m:branch:filter}
+
+By default, a variable-value branching continues to branch until
+all variables passed to the branching are assigned. This behavior
+can be changed by using a \emph{branch filter function}.
+
+A branch filter function is called during branching for each
+variable to be branched on. If the filter function returns
+\?true?, the variable is considered for branching. Otherwise, the
+variable is simply ignored.
+
+A branch filter function can be passed as the last (optional)
+argument when calling the \?branch()? function. 
+
+\begin{samepage}
+The type of a branch filter function depends on the variable
+type. For integer variables, the type
+\gecoderef[typedef]{IntBranchFilter} is defined as
+\begin{code}
+typedef bool (*IntBranchFilter)(const Space& home, IntVar x, int i);
+\end{code}
+\end{samepage}
+That is, a branch filter function takes the \?home? space and the
+position \?i? of the variable \?x? as argument. The position \?i?
+refers to the position of the variable \?x? in the array of
+variables used for posting the branching. For Boolean variables,
+the type is \gecoderef[typedef]{BoolBranchFilter}, for set
+variables \gecoderef[typedef]{SetBranchFilter}, and for float
+variables \gecoderef[typedef]{FloatBranchFilter}.
+
+\begin{litcode}[texonly]{branch filter function sketch}
+class Model : public Space {
+protected:
+  IntVarArray x;
+public:
+  Model(void) : ... {
+    \begin{litblock}{anonymous}
+    \end{litblock}
+    \begin{litblock}{post branching}
+    branch(home, x, ..., ..., &filter);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  \end{litblock}
+  \begin{litblock}{define filter function}
+  static bool filter(const Space& home, IntVar y, int i) {
+    return y.size() >= 4;
+  }
+  \end{litblock}
+};
+\end{litcode}
+
+\begin{figure}
+\insertlitcode{branch filter function sketch}
+\caption{Model sketch for branch filter function}
+\label{fig:m:branch:filter:sketch}
+\end{figure}
+
+Assume, for example, that we want to branch only on variables from
+a variable array \?x? for branching with a domain size of at
+least \?4?. Consider the sketch of a model shown in
+\autoref{fig:m:branch:filter:sketch}. 
+
+The branch filter function can be defined as a static member
+function of the class \?Model? as follows:
+\insertlitcode{branch filter function sketch:define filter function}
+
+Specifying that the branching should use the filter function is done
+as follows:
+\insertlitcode{branch filter function sketch:post branching}
+
+In many cases it can be more convenient to perform the actual
+filtering in a \?const? member function. This can be done along
+the lines of \autoref{tip:m:branch:merit}.
+
+
+\section{Assigning integer, Boolean, set, and float variables}
+\label{sec:m:branch:assign}
+
+A special variant of branching is \emph{assigning} variables: for
+a not yet assigned variable the branching creates a single
+alternative which assigns the variable a value. The effect of
+assigning is that assignment is interleaved with constraint
+propagation. That is, after an assignment has been done, the next
+assignment will be done only after the effect of the previous
+assignment has been propagated.
+
+\begin{figure}
+\begin{center}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?INT_ASSIGN_MIN()?  & smallest value\\
+\?INT_ASSIGN_MED()?  & median value (rounding downwards)\\
+\?INT_ASSIGN_MAX()?  & maximum value\\
+\?INT_ASSIGN_RND(r)? & random value\\
+\?INT_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
+\?v? and commit function \?c?\\
+\end{tabular}}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?SET_ASSIGN_MIN_INC()? & include smallest element\\
+\?SET_ASSIGN_MIN_EXC()? & exclude smallest element\\
+\?SET_ASSIGN_MED_INC()? & include median element (rounding downwards)\\
+\?SET_ASSIGN_MED_EXC()? & exclude median element (rounding downwards)\\
+\?SET_ASSIGN_MAX_INC()? & include largest element\\
+\?SET_ASSIGN_MAX_EXC()? & exclude largest element\\
+\?SET_ASSIGN_RND_INC(r)? & include random element\\
+\?SET_ASSIGN_RND_EXC(r)? & exclude random element\\
+\?SET_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
+\?v? and commit function \?c?\\
+\end{tabular}}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?FLOAT_ASSIGN_MIN()? & median value of lower part\\
+\?FLOAT_ASSIGN_MAX()? & median value of upper part\\
+\?FLOAT_ASSIGN_RND(r)? & median value of randomly chosen part\\
+\?FLOAT_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
+\?v? and commit function \?c?\\
+\end{tabular}}
+
+\end{center}
+\caption{Value selection for assigning variables}
+\label{fig:m:branch:assign}
+\end{figure}
+
+For example, the next code fragment assigns all integer variables
+in \?x?  their smallest possible value:
+\begin{code}
+assign(home, x, INT_ASSIGN_MIN());
+\end{code}
+The strategy to select the value for assignment is defined by a
+value of class \gecoderef[class]{IntAssign} (see also
+\gecoderef[group]{TaskModelIntBranchAssign}) for integer and
+Boolean variables, by a value of class
+\gecoderef[class]{SetAssign} (see also 
+\gecoderef[group]{TaskModelSetBranchAssign}) for set variables,
+and by a value of class \gecoderef[class]{FloatAssign} 
+(see also \gecoderef[group]{TaskModelFloatBranchAssign}) for
+float variables.  
+
+\autoref{fig:m:branch:assign} summarizes the
+value selection strategies for assigning integer, Boolean, set,
+and float variables. Here, an argument \?r? refers to
+a random number generator of type \gecoderef[class]{Rnd} which is
+discussed in \autoref{sec:m:branch:rnd}. An argument \?v?
+refers to a value selection function of type
+\gecoderef[typedef]{IntBranchVal} for integer variables,
+\gecoderef[typedef]{BoolBranchVal} for Boolean variables,
+\gecoderef[typedef]{SetBranchVal} for set variables, and
+\gecoderef[typedef]{FloatBranchVal} for float variables. An
+optional argument \?c? refers to a commit function of type
+\gecoderef[typedef]{IntBranchCommit} for integer variables, of
+type \gecoderef[typedef]{BoolBranchCommit} for Boolean variables,
+of type \gecoderef[typedef]{SetBranchCommit} for set variables,
+and of type \gecoderef[typedef]{FloatBranchCommit} for float variables.
+Value and commit function can be used in the same way for
+assigning than for branching as described in
+\autoref{sec:m:branch:userval}. The only difference is
+that the number of the alternative passed to the commit function
+is always zero (as there is only a single alternative). 
+
+An assignment also accepts a branch filter function as described
+in \autoref{sec:m:branch:filter} and can assign a single variable.
+
+\section{Executing code between branchers}
+\label{sec:m:branch:code}
+
+\begin{litcode}[texonly]{exec}
+class Model : public Space {
+public:
+  Model(void) : ... {
+    \begin{litblock}{anonymous}
+    \end{litblock}
+    \begin{litblock}{post branchings}
+    branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
+    branch(home, &Model::post);
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  \end{litblock}
+  \begin{litblock}{define functions}
+  void more(void) {
+    ...
+  }
+  static void post(Space& home) {
+    static_cast<Model&>(home).more();
+  }
+  \end{litblock}
+};
+\end{litcode}
+
+A common scenario is to post some constraints only after part of
+the branching has been executed. This is supported in Gecode by a
+brancher (see \gecoderef[group]{TaskModelBranchExec}) that
+executes a function (either a function or a static member
+function but not a member function). 
+
+\begin{samepage}
+Suppose the following code
+fragment defining a model \?Model?:
+\insertlitcode[direct]{exec} 
+\end{samepage}
+where the constructor posts two branchers 
+\insertlitcode{exec:post branchings}
+\begin{samepage}
+The second branching takes a function pointer to the static
+member function \?Model::post? which is defined as
+\insertlitcode{exec:define functions}
+\end{samepage}
+
+As soon as the first branching is finished, the second branching
+is executed. This branching provides just a single alternative
+that calls the function \?Model::post? with the current space as
+its argument. Then, the function casts the \?home? to \?Model&?
+and calls \?more? on \?home?. While one could post the additional
+constraints and/or branchings in \?Model::post? directly, the
+member function \?Model::more? is more convenient to use.
+
+\tip{Propagation is still explicit}{%
+  It is tempting to believe that the variables in \?x? in the
+  above example are all assigned when \?more()?  is executed.
+  This is not necessarily true.
+
+It will be true for the first time \?more()? is executed. But
+\?more()? will be executed possibly quite often during
+recomputation (see the following Section). And then, the only
+guarantee one can rely on is that the brancher has created
+enough alternatives to guarantee that the variables in \?x? are
+assigned \emph{but only after constraint propagation has been
+  performed} (see \autoref{tip:m:started:status}).  
+}
+

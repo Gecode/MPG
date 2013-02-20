@@ -314,7 +314,7 @@ $\mathtt{x}_i$ in \?x?  and tries to assign $\mathtt{x}_i$ to the
 smallest possible value of $\mathtt{x}_i$.
 
 That is, \?nonemin? is equivalent to the predefined branching
-(see \autoref{sec:m:search:branch:int}) used as
+(see \autoref{sec:m:branch:int}) used as
 \begin{code}
 branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
 \end{code}
@@ -459,7 +459,7 @@ void sizemin(Home home, const IntVarArgs& x);
 branches by selecting the variable in \?x? with smallest domain
 size first and tries to assign the selected variable to its smallest
 possible value. That is, \?sizemin? is equivalent to the
-predefined branching (see \autoref{sec:m:search:branch:int}) if
+predefined branching (see \autoref{sec:m:branch:int}) if
 used as
 \begin{code}
 branch(home, x, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
@@ -502,7 +502,7 @@ void assignmin(Home home, const IntVarArgs& x);
 \end{code}
 assigns all variables in \?x? to their smallest possible
 value. That is, \?assignmin? is equivalent to the predefined
-branching (see \autoref{sec:m:search:branch:assign}) used as
+branching (see \autoref{sec:m:branch:assign}) used as
 \begin{code}
 assign(home, x, INT_ASSIGN_MIN);
 \end{code}

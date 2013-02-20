@@ -246,7 +246,7 @@ variables to the respective letter variable:
 
 We choose a simple branching that selects a variable where the
 quotient of AFC and domain size is largest (see
-\autoref{sec:m:search:branch:int}). The first value for the
+\autoref{sec:m:branch:int}). The first value for the
 selected variable to be tried is the smallest:
 \insertlitcode{crossword:branching}
 

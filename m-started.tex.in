@@ -195,7 +195,7 @@ order.
 
 A space can have several branchers, where the brancher that is
 posted first is also used first for search. More information on
-branchings can be found in \autoref{sec:m:search:branch}.
+branchings can be found in \autoref{chap:m:branch}.
 
 \paragraph{Search support.}
 

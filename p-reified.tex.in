@@ -139,7 +139,7 @@ returns a new value of type \?Home? with the additional
 information added that the propagator to be posted is in fact a
 rewrite of the propagator \?*this?. This information is
 important, for example, for inheriting the AFC (accumulated
-failure count, see \autoref{sec:m:search:branch:int}): the newly
+failure count, see \autoref{sec:m:branch:afc}): the newly
 created propagator will inherit the number of accumulated
 failures from the propagator being rewritten. There will be other
 applications of \?Home? in future versions of Gecode.

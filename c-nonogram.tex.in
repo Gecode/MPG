@@ -141,7 +141,7 @@ followed by the row constraints:
 
 Choosing a branching for nonograms is not obvious. For many nonogram
 puzzles, using an AFC-based branching (see
-\autoref{sec:m:search:branch:int}) is a good idea:
+\autoref{sec:m:branch:int}) is a good idea:
 \insertlitcode{nonogram:branching}
 
 The choice to use \?INT_VAL_MAX()? is because most puzzles will have

@@ -209,7 +209,7 @@ anything about parallelism: it performs no
 synchronization\footnote{That is a slight over-simplification.
   Gecode's kernel performs just enough synchronization to
   maintain global information such as AFC (see
-  \autoref{sec:m:search:branch:int}).} in order to keep
+  \autoref{sec:m:branch:afc}).} in order to keep
 propagation and search simple and efficient.
 
 By default, a space or clones of a space can only be used by a
@@ -395,7 +395,7 @@ of alternatives \?n?.
 
 Choices can actually have a single alternative, for example for
 assigning variables (see
-\autoref{sec:m:search:branch:assign}). This special case should
+\autoref{sec:m:branch:assign}). This special case should
 be optimized as in fact no clone needs to be stored for
 backtracking. Hence:
 \insertlitcode{dfs:single alternative}

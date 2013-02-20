@@ -40,6 +40,11 @@ $\{\mathtt{def},\mathtt{val},\mathtt{bnd},\mathtt{dom}\}$ &
 integer consistency level\\
 \hline
 \multicolumn{3}{c}{}\\\hline
+\multicolumn{3}{|c|}{branching options}\\
+\hline
+\texttt{-decay} & \?double? & decay-factor\\
+\hline
+\multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{search options}\\\hline
 \texttt{-solutions} & \?unsigned int? & how many solutions ($0$ for all)\\
 \texttt{-threads} & \?double? & how many threads \\
@@ -56,7 +61,11 @@ integer consistency level\\
 \texttt{-iterations} & \?unsigned int? & how many iterations per
 sample\\
 \texttt{-print-last} & $\{\mathtt{false},\mathtt{true}\}$ &
-whether to only print the last solution\\\hline
+whether to only print last solution\\
+\texttt{-file-sol} & $\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}$ &
+where to print solutions\\
+\texttt{-file-stat} & $\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}$ &
+where to print statistics\\\hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{user-definable options}\\\hline
 \texttt{-branching} & string & branching options\\

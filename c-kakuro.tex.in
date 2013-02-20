@@ -199,7 +199,7 @@ Vertical hints are of course analogous and are hence omitted.
 
 We choose a branching that selects the variable where the
 quotient of AFC and domain size is largest smallest (see
-\autoref{sec:m:search:branch:int}). Values are tried by interval
+\autoref{sec:m:branch:int}). Values are tried by interval
 bisection:
 \insertlitcode{kakuro naive:branching}
 
