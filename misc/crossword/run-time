@@ -1,6 +1,6 @@
 export PATH="./x64:$PATH"
 export SAMPLES=5
-export THREADS=1
+export THREADS=4
 export TIMEOUT=1200000
 
 
