@@ -1,2 +1,2 @@
 Crossword
-	STOPPED
+	Runtime:         37455.600000ms (0.07% deviation)
