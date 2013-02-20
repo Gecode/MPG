@@ -175,7 +175,7 @@ Boolean variables (of class \gecoderef[class]{IntActivity}). For
 a discussion of AFC and activity, see
 \autoref{sec:m:branch:shared}, both \SpecialArg{\?afc?}
 and \SpecialArg{\?act?} can also be optional arguments of type
-\?double? defining a decay factor. The optional argument \?t?
+\?double? defining a decay-factor. The optional argument \?t?
 refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
@@ -342,7 +342,7 @@ variables (of class \gecoderef[class]{SetAFC}).  An argument
 \gecoderef[class]{SetActivity}). For a discussion of AFC and
 activity, see \autoref{sec:m:branch:shared}, both
 \SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
-arguments of type \?double? defining a decay factor. The optional
+arguments of type \?double? defining a decay-factor. The optional
 argument \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
@@ -447,7 +447,7 @@ variables (of class \gecoderef[class]{FloatAFC}).  An argument
 class \gecoderef[class]{FloatActivity}). For a discussion of AFC
 and activity, see \autoref{sec:m:branch:shared}, both
 \SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
-arguments of type \?double? defining a decay factor. The optional
+arguments of type \?double? defining a decay-factor. The optional
 argument \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
@@ -598,6 +598,8 @@ decay-factor can be omitted and defaults to \?1? (that is, no decay).
 
 AFC for other variable types is analogous.
 
+For an example using a decay-factor with AFC, see
+\autoref{sec:c:crossword:info}.
 
 \subsection{Selection using activity}
 

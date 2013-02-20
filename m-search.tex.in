@@ -21,9 +21,10 @@ highly encouraged to read it.
 \autoref{sec:m:search:parallel} explains how parallel search can
 be used in Gecode and what can be expected of parallel search in
 principle. 
-
 How search engines can be used is explained in
 \autoref{sec:m:search:simple}.
+Restart-based search is discussed in
+\autoref{sec:m:search:restart}. 
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -781,3 +782,8 @@ limit according to the number of available threads.
 }
 
 
+\section{Restart-based search}
+\label{sec:m:search:restart}
+
+For an example using restart-based search, see
+\autoref{sec:c:crossword:info}.
