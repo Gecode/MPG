@@ -460,6 +460,7 @@ Summary
         propagations: 519555681
         nodes:        3836351
         failures:     1918148
+        restarts:     0
         peak depth:   26
         peak memory:  915 KB
 \end{cmd}
@@ -496,6 +497,7 @@ Summary
         propagations: 692676452
         nodes:        5313357
         failures:     2656663
+        restarts:     0
         peak depth:   24
         peak memory:  125 KB
 \end{cmd}
