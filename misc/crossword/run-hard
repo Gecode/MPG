@@ -6,26 +6,12 @@ export BASE=2
 #export TIMEOUT=1200000
 export TIMEOUT=3600000
 
-# Where Gecode cannot solve
-for i in 28; do
-  ./x64/crossword.exe -decay $DECAY -restart geometric \
-	-restart-scale $SCALE -restart-base $BASE \
-	-time $TIMEOUT -threads $THREADS -branching letters \
-	-file words/uk.txt $i | tee logs/hard/uk-$i-$TIMEOUT.txt
-done
-# Where Gecode is slower
-for i in 13 19; do
-  ./x64/crossword.exe -decay $DECAY -restart geometric \
-	-restart-scale $SCALE -restart-base $BASE \
-	-time $TIMEOUT -threads $THREADS -branching letters \
-	-file words/words.txt $i | tee logs/hard/words-$i-$TIMEOUT.txt
-done
 # Where none can solve
 for i in 39 45 49; do
   ./x64/crossword.exe -decay $DECAY -restart geometric \
 	-restart-scale $SCALE -restart-base $BASE \
 	-time $TIMEOUT -threads $THREADS -branching letters \
-	-file words/words.txt $i | tee logs/hard/words-$i-$TIMEOUT.txt
+	-file words/words.txt $i | tee hard/words-$i-$TIMEOUT.txt
 done
 
 
