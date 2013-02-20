@@ -1,0 +1,31 @@
+Crossword
+	jihad*fala*used
+	omega*ahab*reno
+	tabularasa*erin
+	smee*gases*naan
+	****rad***dacca
+	limier*bala****
+	educt**alabama*
+	memoriatechnica
+	*amnesic**airer
+	****amah*unlade
+	naiad***add****
+	alan*atria*aias
+	bait*phyllopoda
+	lade*erne*watap
+	apod*sudd*lyams
+
+
+
+Initial
+	propagators: 368
+	branchers:   1
+
+Summary
+	runtime:      0.437 (437.000 ms)
+	solutions:    1
+	propagations: 6515
+	nodes:        85
+	failures:     1
+	peak depth:   83
+	peak memory:  35610 KB

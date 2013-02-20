@@ -162,10 +162,11 @@ $ptime{"uk"}{23}{10}=680;
 $pnodes{"uk"}{23}{10}=135;
 
 
-foreach $f (glob('logs/1/time-*-*.txt')) {
-  if ($f =~ /.*\/time-(.*)-(.*)\.txt/) {
-    $dict = $1;
-    $num  = $2-10;
+foreach $f (glob('logs/1/*/time-*-*.txt')) {
+  if ($f =~ /.*\/(.*)\/time-(.*)-(.*)\.txt/) {
+    $decay = $1;
+    $dict = $2;
+    $num  = $3-10;
     $inst = $num % 10 + 1;
     if ($num < 10) {
       $size = 15;
@@ -177,16 +178,16 @@ foreach $f (glob('logs/1/time-*-*.txt')) {
       $size = 23;
     }
 
-    $time{$dict}{$size}{$inst} = 0;
-    $nodes{$dict}{$size}{$inst} = 0;
-    $stopped{$dict}{$size}{$inst} = 0;
+    $time{$decay}{$dict}{$size}{$inst} = 0;
+    $nodes{$decay}{$dict}{$size}{$inst} = 0;
+    $stopped{$decay}{$dict}{$size}{$inst} = 0;
 
     open TIME, "<", "$f";
     while ($l = <TIME>) {
       if ($l =~ /STOPPED/) {
-	$stopped{$dict}{$size}{$inst} = 1;
+	$stopped{$decay}{$dict}{$size}{$inst} = 1;
       } elsif ($l =~ /Runtime:[\ ]*([0-9]*)\.([0-9]*)/) {
-	$time{$dict}{$size}{$inst} = "$1.$2" + 0.0;
+	$time{$decay}{$dict}{$size}{$inst} = "$1.$2" + 0.0;
       }
     }
     close TIME;
@@ -195,7 +196,7 @@ foreach $f (glob('logs/1/time-*-*.txt')) {
     open STAT, "<", "$f";
     while ($l = <STAT>) {
       if ($l =~ /nodes:[\ ]*([0-9]*)/) {
-	$nodes{$dict}{$size}{$inst} = "$1" + 0;
+	$nodes{$decay}{$dict}{$size}{$inst} = "$1" + 0;
       }
     }
     close STAT;
@@ -204,8 +205,9 @@ foreach $f (glob('logs/1/time-*-*.txt')) {
 }
 
 open RES, ">", "res-hard.tex";
-foreach $f ("logs/hard/words-1200000-1-19.txt","logs/hard/words-1200000-1-47.txt") {
-  if ($f =~ /.*\/(.*)-.*-1-(.*)\.txt/) {
+foreach $f ("logs/hard/uk-28.txt",
+	    "logs/hard/words-13.txt","logs/hard/words-19.txt") {
+  if ($f =~ /.*\/(.*)-(.*)\.txt/) {
     $dict = $1;
     $num  = $2-10;
     $inst = $num % 10 + 1;
@@ -229,6 +231,9 @@ foreach $f ("logs/hard/words-1200000-1-19.txt","logs/hard/words-1200000-1-47.txt
       }
       if ($l =~ /nodes:[\ ]*([0-9]*)/) {
 	$hnodes{$dict}{$size}{$inst} = "$1" + 0;
+      }
+      if ($l =~ /restarts:[\ ]*([0-9]*)/) {
+	$hrestarts{$dict}{$size}{$inst} = "$1" + 0;
       }
     }
     close TIME;
@@ -258,54 +263,58 @@ foreach $f ("logs/hard/words-1200000-1-19.txt","logs/hard/words-1200000-1-47.txt
     }
     print RES "&\$$sn\$&";
     print RES rate($n,$pn);
+    print RES "&";
+    print RES $hrestarts{$dict}{$size}{$inst};
     print RES "\\\\\n\\hline\n";
   }
 }
 close RES;
 
-foreach $dict ("words","uk") {
-  open RES, ">", "res-$dict.tex";
-  for ($inst = 1; $inst < 11; $inst++) {
-    $i=$inst;
-    if ($i < 10) {
-      $i = "0$i";
-    }
-    print RES "\$\\mathtt\{$i\}\$ ";
-    foreach $size (15,19,21,23) {
-      print RES "\&";
-      if ($stopped{$dict}{$size}{$inst}) {
-	if ($pnodes{$dict}{$size}{$inst} > 0) {
-	  print RES "\\resworse{--}&\\resworse{\\minusrateinfty}&";
-	  print RES "\\resworse{--}&\\resworse{ }";
-	} else {
-	  print RES "\\resbad{--}&\\resbad{\\equalrate}&";
-	  print RES "\\resbad{--}&\\resbad{ }";
-	}
-      } else {
-        $t = int(($time{$dict}{$size}{$inst} / 100) + 0.5);
-        if ($t < 10) {
-          $t = "0$t";
-        } else {
-  	  $t = "$t";
-        }
-        $t =~ s|(.*)([0-9])|$1\.$2|o;
-        print RES "\$$t\$&" . rate($t+0.0,$ptime{$dict}{$size}{$inst});
-	$n = $nodes{$dict}{$size}{$inst};
-	$pn = $pnodes{$dict}{$size}{$inst};
-	if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
-	  $sn = "$1\\,$2\\,$3";
-	} elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
-	  $sn = "$1\\,$2";
-	} else {
-	  $sn = $n;
-	}
-	print RES "&\$$sn\$&";
-        print RES rate($n,$pn);
+foreach $decay ("1.0","0.995","0.99","0.95") {
+  foreach $dict ("words","uk") {
+    open RES, ">", "res-$decay-$dict.tex";
+    for ($inst = 1; $inst < 11; $inst++) {
+      $i=$inst;
+      if ($i < 10) {
+	$i = "0$i";
       }
+      print RES "\$\\mathtt\{$i\}\$ ";
+      foreach $size (15,19,21,23) {
+	print RES "\&";
+	if ($stopped{$decay}{$dict}{$size}{$inst}) {
+	  if ($pnodes{$dict}{$size}{$inst} > 0) {
+	    print RES "\\resworse{--}&\\resworse{\\minusrateinfty}&";
+	    print RES "\\resworse{--}&\\resworse{ }";
+	  } else {
+	    print RES "\\resbad{--}&\\resbad{\\equalrate}&";
+	    print RES "\\resbad{--}&\\resbad{ }";
+	  }
+	} else {
+	  $t = int(($time{$decay}{$dict}{$size}{$inst} / 100) + 0.5);
+	  if ($t < 10) {
+	    $t = "0$t";
+	  } else {
+	    $t = "$t";
+	  }
+	  $t =~ s|(.*)([0-9])|$1\.$2|o;
+	  print RES "\$$t\$&" . rate($t+0.0,$ptime{$dict}{$size}{$inst});
+	  $n = $nodes{$decay}{$dict}{$size}{$inst};
+	  $pn = $pnodes{$dict}{$size}{$inst};
+	  if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
+	    $sn = "$1\\,$2\\,$3";
+	  } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
+	    $sn = "$1\\,$2";
+	  } else {
+	    $sn = $n;
+	  }
+	  print RES "&\$$sn\$&";
+	  print RES rate($n,$pn);
+	}
+      }
+      print RES "\\\\\n\\hline\n";
     }
-    print RES "\\\\\n\\hline\n";
+    close RES;
   }
-  close RES;
 }
 
 

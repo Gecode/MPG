@@ -1,0 +1,39 @@
+Crossword
+	trap*scrub*rebel*amman*
+	homo*poise*atone*gaelic
+	overridden*bhagavadgita
+	restores*debar*gape*err
+	***ewes*fagin*dune*enid
+	amends*robot*cree*discs
+	randy*ball**read*bar***
+	cogs*heidelberg*daresay
+	ere*peals*aunt*pane*era
+	dinosaur*screaming*spit
+	**dial*octet*iota*chase
+	shells*alas*gnat*flares
+	harem*adam*bolts*aura**
+	avid*exemplary*barbital
+	den*abed*ease*juras*ida
+	engaged*adventured*void
+	***can*idea**riga*panel
+	raper*dodd*epoch*tissue
+	ours*cans*drape*cult***
+	ode*bali*miami*colonels
+	misdemeanors*collateral
+	steele*nudge*anion*sino
+	*steal*sneed*leone*scab
+
+
+
+Initial
+	propagators: 902
+	branchers:   1
+
+Summary
+	runtime:      3.089 (3089.000 ms)
+	solutions:    1
+	propagations: 165784
+	nodes:        1104
+	failures:     489
+	peak depth:   155
+	peak memory:  43465 KB

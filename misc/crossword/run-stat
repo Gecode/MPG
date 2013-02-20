@@ -1,13 +1,18 @@
 export PATH="./x64:$PATH"
-export THREADS=1
-export TIMEOUT=1200000
+export TIMEOUT=60000
 
-for decay in 0.95 0.995 0.99 1.0; do
-  for d in uk words; do
-    for ((i=10; i<50; i++)); do
-      ./x64/crossword.exe \
-	  -time $TIMEOUT -threads $THREADS -branching letters -decay $decay \
-	  -file words/$d.txt $i | tee logs/$THREADS/$decay/stat-$d-$i.txt
-    done
+#for d in uk words; do
+#  for ((i=10; i<50; i++)); do
+#    ./x64/crossword.exe \
+#	  -time $TIMEOUT -branching letters \
+#	  -file words/$d.txt $i | tee base/stat-$d-$i.txt
+#  done
+#done
+for d in uk words; do
+  for ((i=10; i<50; i++)); do
+    ./x64/crossword.exe -decay 0.99 -restart geometric \
+	-restart-scale 2000 -restart-base 2 \
+	-time $TIMEOUT -branching letters \
+	-file words/$d.txt $i | tee restart/stat-$d-$i.txt
   done
 done
