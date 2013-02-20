@@ -1,17 +1,37 @@
 Crossword
+RESTART
+	galah*ballard*scapa
+	akaba*anaemia*carap
+	decca*nandine*abaca
+	see*fez*dad*dab*bar
+	ossa*rad***bam*bast
+	***horizontalbar***
+	lavabo*omaha*adages
+	ala*ark*aba*asa*est
+	nora*main*emes*unco
+	teil*end***aga*zion
+	atop*seal*maid*isle
+	nil*ash*ake*sod*tar
+	acacia*inigo*radars
+	***hagiographies***
+	dita*ern***sea*obia
+	eth*ask*boh*alb*abb
+	marsh*icecold*aldea
+	alapa*natalie*belay
+	nawab*grasped*etyma
 
-Search engine stopped...
-	reason: user interrupt 
+
+
 Initial
 	propagators: 598
 	branchers:   1
 
 Summary
-	runtime:      0.281 (281.000 ms)
-	solutions:    0
-	propagations: 1913
-	nodes:        8
-	failures:     0
+	runtime:      0.660 (660.000 ms)
+	solutions:    1
+	propagations: 13887
+	nodes:        181
+	failures:     13
 	restarts:     0
-	peak depth:   8
-	peak memory:  259 KB
+	peak depth:   158
+	peak memory:  7569 KB

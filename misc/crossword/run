@@ -1,0 +1,24 @@
+export PATH="./x64:$PATH"
+export SAMPLES=5
+export TIMEOUT=600000
+
+for d in uk words; do
+  for ((i=10; i<50; i++)); do
+    ./x64/crossword.exe \
+	-time $TIMEOUT -branching letters \
+	-file words/$d.txt $i | tee logs/base/stat-$d-$i.txt
+    ./x64/crossword.exe \
+	-decay 0.99 -restart geometric \
+	-restart-scale 2000 -restart-base 2 \
+	-time $TIMEOUT -branching letters \
+	-file words/$d.txt $i | tee logs/restart/stat-$d-$i.txt
+    ./x64/crossword.exe -mode time -samples $SAMPLES \
+	-time $TIMEOUT -branching letters  \
+  	-file words/$d.txt $i | tee logs/base/time-$d-$i.txt
+    ./x64/crossword.exe -mode time -samples $SAMPLES \
+	-decay 0.99 -restart geometric \
+	-restart-scale 2000 -restart-base 2 \
+	-time $TIMEOUT -branching letters \
+	-file words/$d.txt $i | tee logs/restart/time-$d-$i.txt
+  done
+done

@@ -1,3 +1,7 @@
 Crossword
 RESTART
-	Runtime:           520.000000ms (0.00% deviation)
+RESTART
+RESTART
+RESTART
+RESTART
+	Runtime:           531.000000ms (0.79% deviation)

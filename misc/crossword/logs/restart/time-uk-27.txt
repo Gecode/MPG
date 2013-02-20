@@ -1,0 +1,7 @@
+Crossword
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+	Runtime:           818.200000ms (0.99% deviation)

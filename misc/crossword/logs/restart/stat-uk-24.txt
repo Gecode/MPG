@@ -1,17 +1,37 @@
 Crossword
+RESTART
+	anal**gas*masa*paul
+	bala*cagy*abib*adze
+	adam*ules*data*laid
+	carbomb*oar*acta***
+	***disappropriating
+	calash*asana**danae
+	ela*eath*barn**leir
+	duck*waac**dadd*sae
+	area**graal*gaea***
+	retinitispigmentosa
+	***dada*hevea**ahab
+	asp*bail**ecad*polo
+	icer**lala*klan*ned
+	dacha**cadee*gaiety
+	absenteelandlord***
+	***maam*arb*abdomen
+	chai*leon*lama*iago
+	hags*peag*obas*slam
+	amah*arks*cos**tide
 
-Search engine stopped...
-	reason: user interrupt 
+
+
 Initial
 	propagators: 588
 	branchers:   1
 
 Summary
-	runtime:      0.312 (312.000 ms)
-	solutions:    0
-	propagations: 3318
-	nodes:        22
-	failures:     0
+	runtime:      0.550 (550.000 ms)
+	solutions:    1
+	propagations: 11494
+	nodes:        145
+	failures:     3
 	restarts:     0
-	peak depth:   22
-	peak memory:  1012 KB
+	peak depth:   140
+	peak memory:  4575 KB
