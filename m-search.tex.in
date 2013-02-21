@@ -680,6 +680,8 @@ The default values for the options are defined in the namespace
 \hline
 \?stop? & \?Search::Stop*? & stop object (\?NULL? if none)\\
 \hline
+\?cutoff? & \?Search::Cutoff*? & cutoff object (\?NULL? if none)\\
+\hline
 \end{tabular}
 \end{center}
 \caption{Search options}
@@ -687,14 +689,15 @@ The default values for the options are defined in the namespace
 \end{figure}
 
 The meaning of the values for the search options are
-straightforward but for \?threads?. Assume that your computer has
+straightforward but for \?threads? (\?cutoff? is explained in
+\autoref{sec:m:search:restart}). Assume that your computer has
 $m$ processing units\footnote{This is a very rough
   characterization: a processing unit could be a CPU, a processor
   core, or a multi-threading unit. If you want to find out how
   many processing units Gecode believes your machine has, invoke
   the configuration summary as described in
-  \autoref{tip:m:comfy:conf}.} and that the value for \?threads? is
-$n$.
+  \autoref{tip:m:comfy:conf}.} and that the value for \?threads?
+is $n$.
 \begin{itemize}
 \item If $n=0$, then $m$ threads are used (as many as available
   processing units).
@@ -785,5 +788,98 @@ limit according to the number of available threads.
 \section{Restart-based search}
 \label{sec:m:search:restart}
 
+The idea of restart-based search is to run search with a given
+\emph{cutoff} (here in Gecode we are using the number of failures
+encountered during search) such that when the cutoff is reached
+search is stopped and then restarted with a new and increased
+cutoff.  The whole point is that when search is being restarted
+it is not restarted on exactly the same problem but a slightly
+modified or re-configured problem. Possible modifications include
+but are not limited to:
+\begin{itemize}
+\item Improved information from the search for branching
+  heuristics such as activity (see
+  \autoref{sec:m:branch:activity}) or AFC (see
+  \autoref{sec:m:branch:afc}): the now stopped search has
+  gathered some information from which branching can profit for
+  the next restart of search.
+\item The next search can use different random numbers that
+  controls branching. A typical strategy would be to use
+  tie-breaking for combining a branching heuristic with a random
+  branching heuristic (see \autoref{sec:m:branch:tie}) and
+  control the degree of randomness by a tie-breaking limit
+  function.
+\end{itemize}
+
 For an example using restart-based search, see
 \autoref{sec:c:crossword:info}.
+
+\paragraph{Restart-based search as a meta search engine.}
+
+Restart-based search in Gecode is implemented as a \emph{meta
+  search engine}: the meta search engine uses one of the Gecode
+search engines discussed in~\autoref{sec:m:search:simple} to
+perform search for each individual restart. In fact, any search
+engine that implements the interface defined by
+\gecoderef[class]{EngineBase} can be used by the restart meta
+engine. The meta engine then controls the engine, the cutoff
+values, and how the problem is modified. The interface of the
+meta search engine in Gecode is exactly the same as the interface
+of one of the search engines.
+
+The restart meta search engine \gecoderef[class]{Restart} is
+parametric with respect to both the search engine to be used and
+the script to be solved (a subclass of \gecoderef[class]{Space}).
+For example, when we want to use the \gecoderef[class]{DFS}
+engine for the script \?s? of class type \?Script?, the meta
+engine \?e?
+can be created by (\?o? are mandatory search options, see below):
+\begin{code}
+Restart<DFS,Script> e(s,o);
+\end{code}
+Now \?e? implements exactly the same interface as the normal
+engines (that is, \?next()? for the next solution,
+\?statistics()? for the meta engine's statistic, \?stopped()?
+when the meta engine has been stopped).
+
+The meta engine maintains a \emph{master} space and each time the
+meta engine performs a restart, it passes a clone of the master
+space to the engine. Before it creates the clone, it
+\emph{configures} the master (discussed below).
+
+The meta engine honors all search options as discussed in
+\autoref{sec:m:search:options}. If parallel search is requested,
+the engine used by the meta engine will use the specified number
+of processing units to perform parallel search. The meta engine
+requires that the search options specify a
+\gecoderef[class]{Search::Cutoff} object specifying the cutoff
+sequence.
+
+\tip{Controlling restart-based search with the commandline
+  driver}{
+\label{tip:m:search:restartcmd}%
+The commandline driver transparently supports restart-based
+search. Depending on which options are passed on the commandline,
+either a search engine or the restart-based meta search engine is
+used for search. See \autoref{sec:m:driver:options} for details.
+}
+
+
+\paragraph{Cutoff generators.}
+
+Interface
+
+Luby
+
+Geometric.
+
+Random.
+
+\paragraph{Master configuration.}
+
+ to actually 
+
+
+\paragraph{Interaction with best solution search.}
+
+

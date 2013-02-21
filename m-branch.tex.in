@@ -602,6 +602,7 @@ For an example using a decay-factor with AFC, see
 \autoref{sec:c:crossword:info}.
 
 \subsection{Selection using activity}
+\label{sec:m:branch:activity}
 
 The activity of a variable is a shared criterion and captures how
 much a variable has been involved in constraint propagation.

@@ -140,6 +140,9 @@ options, see \autoref{sec:m:comfy:driver}. As all examples that
 come with Gecode use the script commandline driver, a plethora of
 examples is available (see \gecoderef[group]{Example}).
 
+\paragraph{Commandline options for restart-based search.}
+
+
 \paragraph{Gist inspectors and comparators.}
 
 The driver options can pass inspectors and comparators (see

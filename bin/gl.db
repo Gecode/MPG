@@ -98,8 +98,9 @@ URL class Gecode::Delta classGecode_1_1Delta.html
 URL class Gecode::DerivedView classGecode_1_1DerivedView.html
 URL class Gecode::Driver::BaseOption classGecode_1_1Driver_1_1BaseOption.html
 URL class Gecode::Driver::BoolOption classGecode_1_1Driver_1_1BoolOption.html
-URL class Gecode::Driver::Cutoff classGecode_1_1Driver_1_1Cutoff.html
+URL class Gecode::Driver::CombinedStop classGecode_1_1Driver_1_1CombinedStop.html
 URL class Gecode::Driver::DoubleOption classGecode_1_1Driver_1_1DoubleOption.html
+URL class Gecode::Driver::EngineToMeta classGecode_1_1Driver_1_1EngineToMeta.html
 URL class Gecode::Driver::IntOption classGecode_1_1Driver_1_1IntOption.html
 URL class Gecode::Driver::ScriptBase classGecode_1_1Driver_1_1ScriptBase.html
 URL class Gecode::Driver::StringOption classGecode_1_1Driver_1_1StringOption.html
@@ -107,6 +108,7 @@ URL class Gecode::Driver::StringOption::Value classGecode_1_1Driver_1_1StringOpt
 URL class Gecode::Driver::StringValueOption classGecode_1_1Driver_1_1StringValueOption.html
 URL class Gecode::Driver::UnsignedIntOption classGecode_1_1Driver_1_1UnsignedIntOption.html
 URL class Gecode::DynamicCastFailed classGecode_1_1DynamicCastFailed.html
+URL class Gecode::EngineBase classGecode_1_1EngineBase.html
 URL class Gecode::Exception classGecode_1_1Exception.html
 URL class Gecode::FlatZinc::AST::Array classGecode_1_1FlatZinc_1_1AST_1_1Array.html
 URL class Gecode::FlatZinc::AST::ArrayAccess classGecode_1_1FlatZinc_1_1AST_1_1ArrayAccess.html
@@ -822,6 +824,7 @@ URL class Gecode::REG::Exp classGecode_1_1REG_1_1Exp.html
 URL class Gecode::RangeList classGecode_1_1RangeList.html
 URL class Gecode::Region classGecode_1_1Region.html
 URL class Gecode::Reify classGecode_1_1Reify.html
+URL class Gecode::Restart classGecode_1_1Restart.html
 URL class Gecode::Rnd classGecode_1_1Rnd.html
 URL class Gecode::Search::Cutoff classGecode_1_1Search_1_1Cutoff.html
 URL class Gecode::Search::CutoffGeometric classGecode_1_1Search_1_1CutoffGeometric.html
@@ -830,6 +833,7 @@ URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.htm
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
 URL class Gecode::Search::MemoryStop classGecode_1_1Search_1_1MemoryStop.html
+URL class Gecode::Search::MetaStop classGecode_1_1Search_1_1MetaStop.html
 URL class Gecode::Search::NodeStop classGecode_1_1Search_1_1NodeStop.html
 URL class Gecode::Search::Options classGecode_1_1Search_1_1Options.html
 URL class Gecode::Search::Parallel::BAB classGecode_1_1Search_1_1Parallel_1_1BAB.html
@@ -846,9 +850,11 @@ URL class Gecode::Search::Sequential::DFS classGecode_1_1Search_1_1Sequential_1_
 URL class Gecode::Search::Sequential::Path classGecode_1_1Search_1_1Sequential_1_1Path.html
 URL class Gecode::Search::Sequential::Path::Edge classGecode_1_1Search_1_1Sequential_1_1Path_1_1Edge.html
 URL class Gecode::Search::Sequential::RBS classGecode_1_1Search_1_1Sequential_1_1RBS.html
+URL class Gecode::Search::Sequential::Restart classGecode_1_1Search_1_1Sequential_1_1Restart.html
 URL class Gecode::Search::Statistics classGecode_1_1Search_1_1Statistics.html
 URL class Gecode::Search::Stop classGecode_1_1Search_1_1Stop.html
 URL class Gecode::Search::TimeStop classGecode_1_1Search_1_1TimeStop.html
+URL class Gecode::Search::UninitializedCutoff classGecode_1_1Search_1_1UninitializedCutoff.html
 URL class Gecode::Search::Worker classGecode_1_1Search_1_1Worker.html
 URL class Gecode::Search::WorkerToEngine classGecode_1_1Search_1_1WorkerToEngine.html
 URL class Gecode::Set::ArgumentSizeMismatch classGecode_1_1Set_1_1ArgumentSizeMismatch.html
@@ -1076,9 +1082,6 @@ URL class LangfordNumber classLangfordNumber.html
 URL class LangfordNumberOptions classLangfordNumberOptions.html
 URL class MagicSequence classMagicSequence.html
 URL class MagicSquare classMagicSquare.html
-URL class ManFixPSETask classManFixPSETask.html
-URL class ManFixPTask classManFixPTask.html
-URL class ManFlexTask classManFlexTask.html
 URL class MineSweeper classMineSweeper.html
 URL class Money classMoney.html
 URL class Nonogram classNonogram.html
@@ -2323,6 +2326,8 @@ URL file gecode/search/cutoff.cpp cutoff_8cpp.html
 URL file gecode/search/cutoff.hpp cutoff_8hpp.html
 URL file gecode/search/dfs.cpp dfs_8cpp.html
 URL file gecode/search/dfs.hpp dfs_8hpp.html
+URL file gecode/search/engine-base.hpp engine-base_8hpp.html
+URL file gecode/search/exception.hpp search_2exception_8hpp.html
 URL file gecode/search/options.cpp search_2options_8cpp.html
 URL file gecode/search/options.hpp search_2options_8hpp.html
 URL file gecode/search/parallel/bab.cpp parallel_2bab_8cpp.html
@@ -2336,10 +2341,13 @@ URL file gecode/search/parallel/rbs.cpp parallel_2rbs_8cpp.html
 URL file gecode/search/parallel/rbs.hh parallel_2rbs_8hh.html
 URL file gecode/search/rbs.cpp rbs_8cpp.html
 URL file gecode/search/rbs.hpp rbs_8hpp.html
+URL file gecode/search/restart.cpp restart_8cpp.html
+URL file gecode/search/restart.hpp restart_8hpp.html
 URL file gecode/search/sequential/bab.hh sequential_2bab_8hh.html
 URL file gecode/search/sequential/dfs.hh sequential_2dfs_8hh.html
 URL file gecode/search/sequential/path.hh sequential_2path_8hh.html
 URL file gecode/search/sequential/rbs.hh sequential_2rbs_8hh.html
+URL file gecode/search/sequential/restart.hh restart_8hh.html
 URL file gecode/search/statistics.hpp statistics_8hpp.html
 URL file gecode/search/stop.cpp stop_8cpp.html
 URL file gecode/search/stop.hpp stop_8hpp.html
@@ -2637,6 +2645,8 @@ URL group FuncThrowKernel group__FuncThrowKernel.html
 TITLE group FuncThrowKernel "Kernel exceptions"
 URL group FuncThrowMiniModel group__FuncThrowMiniModel.html
 TITLE group FuncThrowMiniModel "MiniModel exceptions"
+URL group FuncThrowSearch group__FuncThrowSearch.html
+TITLE group FuncThrowSearch "Search exceptions"
 URL group FuncThrowSet group__FuncThrowSet.html
 TITLE group FuncThrowSet "Set exceptions"
 URL group FuncThrowSupport group__FuncThrowSupport.html
@@ -3108,9 +3118,9 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange__2.html
+URL page PageHowToChange_2 PageHowToChange_2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange__3.html
+URL page PageHowToChange_3 PageHowToChange_3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"
