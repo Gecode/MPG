@@ -1,0 +1,48 @@
+Crossword
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+	apropos*laban*abolish
+	pronoun*aside*toronto
+	roberto*tiger*tresses
+	ire*terminologies*pat
+	card*reunite*err*pile
+	otter*stans*roe*dares
+	teacup*ate*gem*airers
+	***opiate*superset***
+	stampede*deletes*ivan
+	tempers*millard*scala
+	arbors*quality*chiles
+	brest*dummies*carport
+	sari*daemons*moriarty
+	***twirling*rodent***
+	appian*led*bed*skirts
+	baron*dis*beaus*snare
+	upon*fen*puddles*gnat
+	top*congressional*kit
+	toolers*artie*examine
+	essence*gilds*coroner
+	reenter*sleet*answers
+
+
+
+Initial
+	propagators: 773
+	branchers:   1
+
+Summary
+	runtime:      1:44:40.485 (6280485.000 ms)
+	solutions:    1
+	propagations: 719894321
+	nodes:        3849308
+	failures:     1923802
+	restarts:     9
+	peak depth:   111
+	peak memory:  320464 KB
