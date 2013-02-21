@@ -1,0 +1,17 @@
+Crossword
+
+Search engine stopped...
+	reason: user interrupt 
+Initial
+	propagators: 773
+	branchers:   1
+
+Summary
+	runtime:      7.076 (7076.000 ms)
+	solutions:    0
+	propagations: 206529
+	nodes:        1016
+	failures:     488
+	restarts:     0
+	peak depth:   58
+	peak memory:  15352 KB

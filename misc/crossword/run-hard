@@ -1,5 +1,5 @@
 export PATH="./x64:$PATH"
-export THREADS=1
+export THREADS=8
 export DECAY=0.99
 export SCALE=2000
 export BASE=2
@@ -12,7 +12,7 @@ for i in 39 45 49; do
   ./x64/crossword.exe -decay $DECAY -restart geometric \
 	-restart-scale $SCALE -restart-base $BASE \
 	-time $TIMEOUT -threads $THREADS -branching letters \
-	-file words/words.txt $i | tee logs/hard/words-$i-$TIMEOUT.txt
+	-file words/words.txt $i | tee logs/hard/words-$i-$THREADS-$TIMEOUT.txt
 done
 
 
