@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	alum**urd*rebec*debag
 	sese*ajar*arrau*avena
 	suqs*baba*gnarr*vagal
@@ -28,10 +29,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.808 (2808.000 ms)
+	runtime:      2.075 (2075.000 ms)
 	solutions:    1
-	propagations: 21758
+	propagations: 21808
 	nodes:        194
 	failures:     19
+	restarts:     0
 	peak depth:   159
-	peak memory:  99595 KB
+	peak memory:  19102 KB

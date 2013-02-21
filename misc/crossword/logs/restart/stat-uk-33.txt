@@ -1,25 +1,26 @@
 Crossword
-	rabanna*izard*marrams
-	euouaes*nomoi*abiotic
-	artform*deeds*eagerly
-	lah*ivorian*bacca*elt
-	ilia*adage*galea*asia
-	slept*ego*saran*trial
-	mystique*bib*paravane
-	***eras*guelf*saba***
-	charet*weigela*yblent
-	eupad*wanle*embay*baa
-	nirl*maned*sabah*abib
-	sae*randr*alban*areal
-	essays*saffian*stadda
-	***abac*liang*barm***
-	engrails*ark*orgiasts
-	nilot*accra*ada*aidan
-	scan*prats*spivs*ceca
-	hod*brede*calculi*its
-	elision*naafi*ringgit
-	lautrec*egret*askance
-	lissome*sabre*shyness
+RESTART
+	rabanna*smash*argalas
+	euouaes*tampa*nourice
+	artform*rheas*aldente
+	let*skolion*sable*gar
+	eale*adage*gauls*cube
+	stere*eta*birle*dhals
+	terminus*mug*appeases
+	***ides*maile*seal***
+	nebneb*kallima*alkane
+	ameer*besat*erect*lap
+	gaed*manor*brahe*nato
+	air*babar*naams*hyrax
+	slypes*fadable*calmly
+	***ahab*hawed*haig***
+	ghanaian*nae*marchman
+	lagan*kabab*pan*kauri
+	alex*semee*tonga*unce
+	sal*cawed*ailanto*dal
+	skatole*lance*aoudads
+	easeful*abaca*insanie
+	shtetel*malax*lethean
 
 
 
@@ -28,10 +29,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6.458 (6458.000 ms)
+	runtime:      3.401 (3401.000 ms)
 	solutions:    1
-	propagations: 40295
-	nodes:        282
-	failures:     64
-	peak depth:   166
-	peak memory:  107401 KB
+	propagations: 56380
+	nodes:        479
+	failures:     165
+	restarts:     0
+	peak depth:   163
+	peak memory:  43608 KB

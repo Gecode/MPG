@@ -1,12 +1,13 @@
 Crossword
-	apse*ababa*abash*spat
-	dial*caleb*crete*argo
-	accelerate*coronaries
-	marco*err*troop*caves
+RESTART
+	apse*ababa*clean*spat
+	dial*caleb*linda*argo
+	accelerate*allegories
+	marco*err*train*raves
 	**itel*maniacs*mini**
-	off*bugeyed*hoped*lag
-	said*cod*van*led*neva
-	acceded*paled*ravages
+	off*bugeyed*steen*lag
+	said*cod*van*sat*neva
+	arcaded*paled*ravages
 	keener*bad*rag*lasers
 	add*ankara*odin*nasty
 	***ocean*****vales***
@@ -28,10 +29,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.418 (2418.000 ms)
+	runtime:      1.654 (1654.000 ms)
 	solutions:    1
-	propagations: 108443
-	nodes:        671
-	failures:     276
-	peak depth:   138
-	peak memory:  36263 KB
+	propagations: 150008
+	nodes:        983
+	failures:     434
+	restarts:     0
+	peak depth:   144
+	peak memory:  15097 KB

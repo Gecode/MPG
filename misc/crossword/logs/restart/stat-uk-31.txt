@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	alec*dirac*galba*chaw
 	cato*agora*alaap*zila
 	myal*gayer*parol*elba
@@ -28,10 +29,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.714 (2714.000 ms)
+	runtime:      1.888 (1888.000 ms)
 	solutions:    1
-	propagations: 24242
-	nodes:        196
+	propagations: 24105
+	nodes:        195
 	failures:     13
-	peak depth:   180
-	peak memory:  97675 KB
+	restarts:     0
+	peak depth:   179
+	peak memory:  27357 KB

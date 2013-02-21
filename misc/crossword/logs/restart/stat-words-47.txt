@@ -1,27 +1,32 @@
 Crossword
-	earmark*alaskan*carcass
-	greater*toshiba*amiable
-	granola*estates*nastier
-	has*mike*sods*tease*lev
-	enos*codeine*dials*neva
-	agnes*wire*darers*linen
-	despot*bard*gasp*nicest
-	***trials*enact*came***
-	abo*rene*erato*membrane
-	memoirs*lease*fades*lax
-	aside*iberia*cager*blip
-	liters*emil*auto*sleeve
-	gets*awake*enrage*allen
-	age*share*bagel*goblets
-	medicaid*based*have*see
-	***carl*mabel*panels***
-	manila*yale*afar*repair
-	alone*barely*opal*dunne
-	smog*aegis*eurasia*rend
-	can*irwin*warm*slim*mad
-	addenda*adagios*isadore
-	realtor*defense*almonds
-	anymore*entreat*neatest
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+	arcades*albania*relapse
+	seagram*diamond*eviller
+	espouse*antenna*baklava
+	pet*geld*gone*pride*yes
+	trap*stipend*atone*pint
+	ivies*seer*spread*bantu
+	censor*tass*hard*laughs
+	***tooler*cribs*carl***
+	ape*nair*drugs*merrimac
+	lantern*waals*soddy*abo
+	incas*thorpe*levee*ursa
+	adopts*ares*five*raster
+	sods*parks*creeds*reins
+	ere*comes*align*terrace
+	darkroom*adage*fake*len
+	***rank*miami*teresa***
+	reruns*yuri*dahl*stream
+	erase*waters*cain*spree
+	vale*aegis*african*aura
+	ass*snail*aloe*egos*dan
+	mutatis*admiral*granite
+	probate*teenage*estates
+	senegal*essayed*deepest
 
 
 
@@ -30,10 +35,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      15:35.424 (935424.000 ms)
+	runtime:      1:20.636 (80636.000 ms)
 	solutions:    1
-	propagations: 33334154
-	nodes:        194466
-	failures:     97173
-	peak depth:   153
-	peak memory:  49480 KB
+	propagations: 14898074
+	nodes:        97504
+	failures:     48135
+	restarts:     4
+	peak depth:   148
+	peak memory:  157393 KB

@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	sadhu*arede*itala*belts
 	abeam*dicot*shiel*lairy
 	headborough*aaron*annal
@@ -13,9 +14,9 @@ Crossword
 	***alb*amnesiacs*mog***
 	avail*apia*tanh*canidae
 	tablature*yegg*naricorn
-	aga*saba*caro*serac*tea
-	paca*dexters*ribes*narc
-	slade*rieve*telex*salet
+	aga*saba*caro*serac*ria
+	paca*dexters*ribes*aesc
+	slade*rieve*telex*sleet
 	***ace*ala*kapok*aha***
 	trimtab*addaxes*slanted
 	bad*atap*iaido*aped*ate
@@ -30,10 +31,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.744 (3744.000 ms)
+	runtime:      2.606 (2606.000 ms)
 	solutions:    1
-	propagations: 30699
-	nodes:        255
-	failures:     29
+	propagations: 30624
+	nodes:        258
+	failures:     30
+	restarts:     0
 	peak depth:   212
-	peak memory:  124138 KB
+	peak memory:  22820 KB

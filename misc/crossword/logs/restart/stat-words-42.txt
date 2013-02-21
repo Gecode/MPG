@@ -1,27 +1,32 @@
 Crossword
-	scalar*swans*ayes*baler
-	nadine*katie*coal*adore
-	apalachicola*ektachrome
-	regally*opera*neva*emil
-	ere**ada***clearer*nine
-	***briefer*heaps**based
-	salaam*ties*era*abel***
-	trauma*erect*stable*age
-	rome*barefoot*abba*amen
-	emerald**stairways*rand
-	wan*meals**drops*eagles
-	**toy*maced*ethel*cog**
-	arable*haven**adair*add
-	babe*atonement**creamer
-	orly*gird*oleander*date
-	see*aeneid*lamar*agates
-	***airs*nap*lima*tapers
-	brawl**danes*leftist***
-	rode*elevate***too**air
-	amos*loci*elmer*inspire
-	carolinian*legislatures
-	enema*edna*erode*lament
-	dosed*rest*reset*snares
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+	strict*shiva*yard*ababa
+	orator*karen*erie*babul
+	liberalizing*accelerate
+	abilene*estes*hare*star
+	red**sal***refined*tent
+	***packard*salts**modes
+	sedate*moor*mae*skew***
+	taipei*aural*mcgill*low
+	agee*vertical*toni*neva
+	retrier**semicolon*agar
+	sri*crowd**plane*easily
+	**two*shift*anita*mat**
+	guiana*isaac**cache*ill
+	iran*leningrad**minimal
+	nine*oxen*sidestep*nato
+	ass*shasta*bator*patchy
+	***sham*eng*memo*obeyed
+	prate**trait*reoccur***
+	rope*othello***par**has
+	olin*foes*tonio*barbara
+	blackfoots*midwesterner
+	eerie*tree*elena*inanna
+	dryly*hyde*yeast*canaan
 
 
 
@@ -30,10 +35,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      39.578 (39578.000 ms)
+	runtime:      2:15.252 (135252.000 ms)
 	solutions:    1
-	propagations: 1352725
-	nodes:        7869
-	failures:     3882
-	peak depth:   135
-	peak memory:  40039 KB
+	propagations: 20151417
+	nodes:        104999
+	failures:     52063
+	restarts:     4
+	peak depth:   112
+	peak memory:  147663 KB

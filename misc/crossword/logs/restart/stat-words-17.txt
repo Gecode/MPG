@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	aviv*baja*yalta
 	levi*aden*agers
 	eras*dark*genus
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.266 (266.000 ms)
+	runtime:      0.203 (203.000 ms)
 	solutions:    1
 	propagations: 13436
 	nodes:        130
 	failures:     35
+	restarts:     0
 	peak depth:   71
-	peak memory:  16630 KB
+	peak memory:  2346 KB

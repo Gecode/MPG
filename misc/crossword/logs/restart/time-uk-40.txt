@@ -4,4 +4,4 @@ RESTART
 RESTART
 RESTART
 RESTART
-	Runtime:          2122.000000ms (0.39% deviation)
+	Runtime:          2099.800000ms (0.40% deviation)

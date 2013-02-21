@@ -1,19 +1,20 @@
 Crossword
-	opus*kali*arabs
-	font*oman*libel
+RESTART
+	abut*mali*arabs
+	lone*ivan*libel
 	friedrich*berra
-	storied*adamant
-	**nina*abo*ames
-	agile*prison***
-	raze*britannica
-	ale*sausage*now
-	bernardine*scar
-	***intent*sealy
-	scab*eng*beep**
-	herbert*arapaho
+	agonies*adamant
+	**nags*abo*ames
+	brigs*prison***
+	ooze*britannica
+	ode*sausage*nag
+	bernardine*fake
+	***intent*bauer
+	arab*eng*bald**
+	lambert*bellini
 	odell*islamabad
-	vanes*aped*glue
-	erase*lacy*eels
+	hones*aped*clio
+	andre*lads*yell
 
 
 
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      42.806 (42806.000 ms)
+	runtime:      6.848 (6848.000 ms)
 	solutions:    1
-	propagations: 1558488
-	nodes:        8570
-	failures:     4264
-	peak depth:   58
-	peak memory:  19828 KB
+	propagations: 327340
+	nodes:        1531
+	failures:     746
+	restarts:     0
+	peak depth:   54
+	peak memory:  11189 KB

@@ -1,11 +1,12 @@
 Crossword
-	asia**tug*jonas*decal
-	band*rene*aleut*irate
-	alfa*eris*waite*aired
-	flo*adept**florence**
-	terms*slurp**mike*tap
-	**mac*aural*hale**ago
-	pianos*separate*maker
+RESTART
+	asia**tug*jonas*assam
+	band*rene*aleut*mecca
+	alfa*eris*malta*bared
+	flo*adept**flotilla**
+	terms*slurp**mute*man
+	**mac*aural*hats**bye
+	pianos*separate*males
 	entitle*seneca*hubert
 	nail*ale*rank*manors*
 	inca*vain*responds***
@@ -28,10 +29,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.419 (1419.000 ms)
+	runtime:      0.920 (920.000 ms)
 	solutions:    1
-	propagations: 53579
-	nodes:        378
-	failures:     141
-	peak depth:   122
-	peak memory:  36487 KB
+	propagations: 44513
+	nodes:        319
+	failures:     111
+	restarts:     0
+	peak depth:   117
+	peak memory:  17560 KB

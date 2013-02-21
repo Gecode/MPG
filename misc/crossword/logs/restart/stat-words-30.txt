@@ -1,25 +1,28 @@
 Crossword
-	alee*loins*dane*accra
-	loan*alsop*agar*solar
-	bernardino*disapprove
-	absolves*kuala*hinges
-	***boar*basie*wire***
-	attlee*vanes*belittle
-	bares*libertarian*hen
-	alas*ease***yard*read
-	ben*insoluble*defense
-	assenter*seer**lanced
-	**later*auras*spree**
-	amuser**parr*schaefer
-	lacerta*planetoid*ore
-	tied*anti***meta*drag
-	ann*linearities*patti
-	retained*odell*bathos
-	***ibex*folly*papa***
-	sparer*camel*parabola
-	cyberspace*everglades
-	alert*ager*rilke*sink
-	betsy*reds*sates*ends
+RESTART
+RESTART
+RESTART
+	adds*davie*malt*assam
+	gary*ebony*oboe*stare
+	evangeline*devastates
+	regarded*brute*habeas
+	***peer*gauls*boil***
+	biased*bulba*ferreira
+	aspen*boilerplate*new
+	laps*hind***ours*sana
+	ear*vagueness*simpler
+	scorings*enos**goatee
+	**pends*hague*ohare**
+	arrack**ores*tottered
+	dailies*islamizes*ale
+	adam*ribs***abed*able
+	pat*scrutinized*filer
+	trenches*moser*serene
+	***arid*spurs*golf***
+	apogee*buena*decorate
+	ridgefield*eliminated
+	alien*cafe*lemma*moan
+	bends*eras*ideal*emma
 
 
 
@@ -28,10 +31,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:51.665 (111665.000 ms)
+	runtime:      36.161 (36161.000 ms)
 	solutions:    1
-	propagations: 3595447
-	nodes:        17605
-	failures:     8771
-	peak depth:   84
-	peak memory:  37190 KB
+	propagations: 4897295
+	nodes:        21491
+	failures:     10667
+	restarts:     2
+	peak depth:   86
+	peak memory:  67934 KB

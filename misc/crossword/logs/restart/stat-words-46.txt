@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	trap*scrub*rebel*amman*
 	homo*poise*atone*gaelic
 	overridden*bhagavadgita
@@ -15,13 +16,13 @@ Crossword
 	avid*exemplary*barbital
 	den*abed*ease*juras*ida
 	engaged*adventured*void
-	***can*idea**riga*panel
-	raper*dodd*epoch*tissue
-	ours*cans*drape*cult***
-	ode*bali*miami*colonels
-	misdemeanors*collateral
-	steele*nudge*anion*sino
-	*steal*sneed*leone*scab
+	***dan*idea**riga*panel
+	comer*dodd*pooch*tissue
+	olin*bans*shape*cult***
+	men*semi*atari*colonels
+	maintenances*collateral
+	armour*nerve*anion*sino
+	*yards*steed*leone*scab
 
 
 
@@ -30,10 +31,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.089 (3089.000 ms)
+	runtime:      5.553 (5553.000 ms)
 	solutions:    1
-	propagations: 165784
-	nodes:        1104
-	failures:     489
-	peak depth:   155
-	peak memory:  43465 KB
+	propagations: 495384
+	nodes:        3158
+	failures:     1519
+	restarts:     0
+	peak depth:   145
+	peak memory:  15324 KB

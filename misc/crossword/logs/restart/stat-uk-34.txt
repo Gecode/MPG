@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	caesar*abomasa*ablest
 	abrade*minicam*bailee
 	baobab*artdeco*eadish
@@ -14,12 +15,12 @@ Crossword
 	either*dibutyl*alegge
 	scerne*entreat*lapses
 	***aid***add***spa***
-	aasia*belie*rad*acock
-	naam*milan*serac*thae
-	ary*caboc*ichabod*die
-	thetas*hulsean*bedell
-	tushes*inulase*resale
-	astone*maratha*adored
+	aasia*aerie*rad*acock
+	ream*axmen*serac*thae
+	are*preif*ichabod*die
+	fatwad*glutaei*bedell
+	atease*reveres*resale
+	teresa*example*adored
 
 
 
@@ -28,10 +29,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.070 (4071.000 ms)
+	runtime:      2.902 (2902.000 ms)
 	solutions:    1
-	propagations: 35278
-	nodes:        304
-	failures:     79
-	peak depth:   162
-	peak memory:  100266 KB
+	propagations: 34042
+	nodes:        285
+	failures:     71
+	restarts:     0
+	peak depth:   156
+	peak memory:  37018 KB

@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	brag*lamar*cuff
 	lila*ababa*oslo
 	agar*ibero*hear
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.297 (297.000 ms)
+	runtime:      0.218 (218.000 ms)
 	solutions:    1
-	propagations: 10849
-	nodes:        112
-	failures:     23
+	propagations: 10870
+	nodes:        114
+	failures:     24
+	restarts:     0
 	peak depth:   70
-	peak memory:  17845 KB
+	peak memory:  10197 KB

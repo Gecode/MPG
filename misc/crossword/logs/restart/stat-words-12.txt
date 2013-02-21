@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	kane*ababa*pans
 	iran*dirac*agee
 	epic*elena*gave
@@ -11,9 +12,9 @@ Crossword
 	erringly*damned
 	***bags*kudo***
 	howell*bonanzas
-	ever*isaac*semi
-	bali*nabla*orin
-	ella*glean*node
+	ever*isaac*sore
+	bali*nabla*once
+	ella*glean*neon
 
 
 
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.468 (468.000 ms)
+	runtime:      0.327 (327.000 ms)
 	solutions:    1
-	propagations: 18979
-	nodes:        143
+	propagations: 19488
+	nodes:        144
 	failures:     43
-	peak depth:   67
-	peak memory:  18293 KB
+	restarts:     0
+	peak depth:   70
+	peak memory:  8053 KB

@@ -1,9 +1,10 @@
 Crossword
-	assam*alfa*bits
-	retraction*rowe
+RESTART
+	assam*alfa*tits
+	retraction*howe
 	electromagnetic
 	ames*unpleasant
-	sad*odes*lit***
+	sad*odes*lie***
 	***dodd*del*era
 	breezy*gas*aviv
 	lapse*bad*alice
@@ -12,8 +13,8 @@ Crossword
 	***dar*gild*age
 	antecedent*curs
 	countermeasures
-	tens*remunerate
-	alee*swap*allan
+	errs*remunerate
+	safe*swap*allan
 
 
 
@@ -22,10 +23,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.491 (5491.000 ms)
+	runtime:      3.666 (3666.000 ms)
 	solutions:    1
-	propagations: 335124
-	nodes:        4509
-	failures:     2227
-	peak depth:   72
-	peak memory:  14405 KB
+	propagations: 364080
+	nodes:        1731
+	failures:     839
+	restarts:     0
+	peak depth:   69
+	peak memory:  7957 KB

@@ -1,23 +1,24 @@
 Crossword
-	sales**scrap**accra
-	clank*claudia*belay
-	abolitionists*usage
-	nasa*again**tissues
-	***romans*stamens**
-	flagler**sharp*atom
-	aided**orients**rae
-	cam**beverage*blots
-	eric*reals***graphs
+RESTART
+	faded**snare**accra
+	amino*dailies*roles
+	implementable*drank
+	rosa*abets**avenues
+	***rotary*cosines**
+	flagler**godot*atom
+	aided**waunona**rae
+	cam**chalmers*blots
+	eric*hails***graphs
 	**nasally*impeach**
 	slight***stahl*koch
 	casey*israelis**boa
-	ant**steeple**spill
-	bars*heads**situate
-	**alberto*cupful***
-	matilda**basin*sail
+	ant**steeple**utica
+	bars*heads**streaks
+	**alberto*malone***
+	matilda**logan*nasa
 	alice*theoretically
-	raves*earners*atoll
-	tress**lands**reese
+	coves*earners*aggie
+	heeds**dress**beads
 
 
 
@@ -26,10 +27,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.214 (3214.000 ms)
+	runtime:      1.529 (1529.000 ms)
 	solutions:    1
-	propagations: 254736
-	nodes:        1916
-	failures:     915
-	peak depth:   107
-	peak memory:  26376 KB
+	propagations: 144274
+	nodes:        1043
+	failures:     477
+	restarts:     0
+	peak depth:   110
+	peak memory:  9929 KB

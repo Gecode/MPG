@@ -1,15 +1,16 @@
 Crossword
+RESTART
 	gerald*freest*haar*hade
 	adonai*europa*anna*alan
 	biochemicaloxygendemand
 	olpe*dan**idea*soulmate
 	ney*arcticterns**leeped
 	****dae*bah*ska*maar***
-	bhopal*red***elpee*hasp
-	rarer*faxed*beall*selah
-	agar*oaf**oneday*craggy
-	censers*absalom*iridial
-	entomb*steepto*ace*edna
+	bhopal*red***elpee*haps
+	rarer*faxed*beall*aecia
+	agar*oaf**oneday*claret
+	censers*absalom*iridize
+	entomb*steepto*ace*edom
 	***neither***doghead***
 	mona*tae*matilda*disbar
 	amalgam*bushtea*manhole
@@ -30,10 +31,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.214 (3214.000 ms)
+	runtime:      2.090 (2090.000 ms)
 	solutions:    1
-	propagations: 28303
-	nodes:        241
-	failures:     43
-	peak depth:   176
-	peak memory:  90184 KB
+	propagations: 27480
+	nodes:        234
+	failures:     41
+	restarts:     0
+	peak depth:   170
+	peak memory:  34794 KB

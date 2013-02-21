@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	heap*drag*shit*foss
 	ills*role*path*idea
 	play*user*area*zeal
@@ -26,10 +27,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.390 (390.000 ms)
+	runtime:      0.281 (281.000 ms)
 	solutions:    1
-	propagations: 28378
-	nodes:        238
-	failures:     70
-	peak depth:   102
-	peak memory:  23787 KB
+	propagations: 24842
+	nodes:        223
+	failures:     64
+	restarts:     0
+	peak depth:   96
+	peak memory:  3481 KB

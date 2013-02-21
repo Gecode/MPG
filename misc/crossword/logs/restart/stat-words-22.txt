@@ -1,23 +1,24 @@
 Crossword
-	abater*attic*aright
-	cabana*rhine*monroe
-	clinic*greta*manama
-	odd*defoe*islam*ham
-	sled*dana*mien*wage
-	tyson*indians*gamed
-	***gable*mcgowan***
-	enemies*spy*talents
-	donald*ear*shutdown
-	goa**dandelion**die
-	escaping*car*octane
-	detains*sip*snarled
-	***regents*weave***
-	astor*layered*eagan
-	chin*emil*utah*dade
-	cap*maori*annal*she
-	esprit*ozone*mashed
-	steele*bends*ampere
-	sadden*ideas*leased
+RESTART
+	abater*abide*canada
+	cabana*rotor*alibis
+	clinic*groom*repast
+	odd*defoe*mimic*shu
+	sled*dana*snob*feet
+	tyson*insider*passe
+	***gable*masonic***
+	enemies*spy*cottage
+	donald*ear*scotsman
+	goa**dandelion**out
+	escaping*car*deluge
+	detains*sip*favorer
+	***regents*hayes***
+	labor*layered*nepal
+	alan*emil*wier*rage
+	get*maori*arden*men
+	extras*ozone*latent
+	relate*bends*isolde
+	siegel*ideas*canaan
 
 
 
@@ -26,10 +27,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      10.156 (10156.000 ms)
+	runtime:      5.943 (5943.000 ms)
 	solutions:    1
-	propagations: 496968
-	nodes:        3267
-	failures:     1592
-	peak depth:   104
-	peak memory:  33415 KB
+	propagations: 473294
+	nodes:        3111
+	failures:     1516
+	restarts:     0
+	peak depth:   109
+	peak memory:  16151 KB

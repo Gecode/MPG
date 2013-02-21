@@ -1,27 +1,32 @@
 Crossword
-	ababa*prima*awash*abide
-	degenerated*babka*panes
-	electrocardiogram*slaps
-	park*agile*treat*pimple
-	tyson*ray*act*metes*pox
-	***nasal*ached*den*cry*
-	phi*dam*acceded*diploma
-	aeneid*spurs*big*slopes
-	ultra*aorta*farad*yarns
-	seer*annie*laramie*kite
-	enrolls*lloyd*cells*ass
-	**drapes*yokes*devout**
-	fee*chloe*zeros*mildest
-	arpa*amasses*balms*ante
-	brent*opted*celia*bleed
-	longed*sew*saran*pulsed
-	endears*severed*car*sly
-	*eel*ian*raced*warms***
-	ion*fetal*cut*air*audit
-	succor*molar*agnes*pore
-	asian*mediterraneanizes
-	alert*algae*impermanent
-	cysts*dyers*byers*genes
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+	adams*accra*aruba*prima
+	disappeared*nasas*lunar
+	extraordinariness*emacs
+	lied*dared*ultra*sappho
+	eerie*ted*ali*slant*pin
+	***safes*scene*tie*bra*
+	sap*sad*farrell*reprove
+	pusher*cages*mob*reopen
+	areas*mavis*nears*world
+	raul*aaron*partook*mile
+	elderly*ratio*hamal*aid
+	**orator*wilma*detect**
+	phi*eared*being*highest
+	land*ravaged*tahoe*inca
+	elsie*lever*sinew*glean
+	altars*lin*peggy*grisly
+	surname*decades*qua*sea
+	*cue*old*saran*dumps***
+	vic*skies*pan*see*hagen
+	entity*fetid*incur*lava
+	gaily*mediterraneanizes
+	atoll*anglo*impermanent
+	sense*odell*masts*party
 
 
 
@@ -30,10 +35,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6:28.082 (388082.000 ms)
+	runtime:      1:59.637 (119637.000 ms)
 	solutions:    1
-	propagations: 24792847
-	nodes:        143715
-	failures:     71812
-	peak depth:   131
-	peak memory:  41671 KB
+	propagations: 23128900
+	nodes:        99078
+	failures:     49289
+	restarts:     4
+	peak depth:   107
+	peak memory:  153822 KB

@@ -1,39 +1,18 @@
 Crossword
-	earmark*alaskan*carcass
-	greater*toshiba*amiable
-	granola*estates*nastier
-	has*mike*sods*tease*lev
-	enos*codeine*dials*neva
-	agnes*wire*darers*linen
-	despot*bard*gasp*nicest
-	***trials*enact*came***
-	abo*rene*erato*membrane
-	memoirs*lease*fades*lax
-	aside*iberia*cager*blip
-	liters*emil*auto*sleeve
-	gets*awake*enrage*allen
-	age*share*bagel*goblets
-	medicaid*based*have*see
-	***carl*mabel*panels***
-	manila*yale*afar*repair
-	alone*barely*opal*dunne
-	smog*aegis*eurasia*rend
-	can*irwin*warm*slim*mad
-	addenda*adagios*isadore
-	realtor*defense*almonds
-	anymore*entreat*neatest
 
-
+Search engine stopped...
+	reason: time limit reached
 
 Initial
 	propagators: 914
 	branchers:   1
 
 Summary
-	runtime:      15:35.424 (935424.000 ms)
-	solutions:    1
-	propagations: 33334154
-	nodes:        194466
-	failures:     97173
-	peak depth:   153
-	peak memory:  49480 KB
+	runtime:      10:00.024 (600024.000 ms)
+	solutions:    0
+	propagations: 31768719
+	nodes:        184162
+	failures:     92050
+	restarts:     0
+	peak depth:   95
+	peak memory:  49478 KB

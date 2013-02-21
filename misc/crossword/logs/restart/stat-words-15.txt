@@ -1,19 +1,25 @@
 Crossword
-	catawba*laplace
-	abigail*aliased
-	menorca*signing
-	plan*kruse*tate
-	***ice*nonce***
-	appeared*shrubs
-	plasterer*ennui
-	pat*edifice*inn
-	liter*cigarette
-	edited*nameless
-	***crete*ere***
-	hugh*cider*char
-	arrived*montana
-	asinine*mooring
-	gadgets*antares
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+	embargo*arachne
+	gordian*retrier
+	griddle*greener
+	semi*issue*adds
+	***sal*yeats***
+	arboreal*dreads
+	mountable*ascii
+	abe*inboard*hal
+	sonic*agreement
+	stalls*intrudes
+	***leaps*ass***
+	than*bambi*seal
+	heretic*inferno
+	arcsine*reeling
+	wooster*dresses
 
 
 
@@ -22,10 +28,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      51.807 (51807.000 ms)
+	runtime:      6:21.686 (381686.000 ms)
 	solutions:    1
-	propagations: 2408765
-	nodes:        14895
-	failures:     7429
-	peak depth:   64
-	peak memory:  21141 KB
+	propagations: 46297243
+	nodes:        221613
+	failures:     110624
+	restarts:     5
+	peak depth:   61
+	peak memory:  88440 KB

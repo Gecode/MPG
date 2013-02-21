@@ -1,19 +1,22 @@
 Crossword
-	flo*foam*scaled
-	language*alcove
-	interferometric
-	paoli*simon*elk
-	***del*teach***
-	ads*solon*hokan
-	mops*air*bernie
-	pretentiousness
-	linens*ore*salt
-	eater*burne*des
-	***laces*ant***
-	off*ghana*golda
-	parliamentarian
-	trains*stagnant
-	smudge*sine*rae
+RESTART
+RESTART
+RESTART
+	die*pact*omelet
+	rockabye*vagina
+	atherosclerosis
+	maori*thing*ads
+	***nab*nasal***
+	jab*honor*rossi
+	amos*oil*aegean
+	circumlocutions
+	onions*gag*cute
+	bosom*sirup*lot
+	***panic*ram***
+	lev*novak*gears
+	orientalization
+	entree*leonardo
+	beards*yves*sew
 
 
 
@@ -22,10 +25,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:21.728 (81728.000 ms)
+	runtime:      12.277 (12277.000 ms)
 	solutions:    1
-	propagations: 9031354
-	nodes:        53648
-	failures:     26807
-	peak depth:   50
-	peak memory:  13924 KB
+	propagations: 3544934
+	nodes:        20350
+	failures:     10128
+	restarts:     2
+	peak depth:   49
+	peak memory:  23227 KB

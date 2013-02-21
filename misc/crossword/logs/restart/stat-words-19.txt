@@ -1,17 +1,36 @@
 Crossword
+RESTART
+RESTART
+RESTART
+RESTART
+	gene*cacti*cite
+	olav*arlen*idea
+	assignment*near
+	deallocate*case
+	****anon*smiled
+	third**upton***
+	hate*appliances
+	oregano*ontario
+	remunerate*tara
+	***laced**niger
+	oswald*dupe****
+	boat*overloaded
+	ergo*tanganyika
+	seer*alden*eden
+	errs*leads*soda
 
-Search engine stopped...
-	reason: time limit reached
+
 
 Initial
 	propagators: 386
 	branchers:   1
 
 Summary
-	runtime:      20:00.001 (1200001.000 ms)
-	solutions:    0
-	propagations: 75469618
-	nodes:        355628
-	failures:     177808
-	peak depth:   56
-	peak memory:  19124 KB
+	runtime:      44.413 (44413.000 ms)
+	solutions:    1
+	propagations: 9727648
+	nodes:        46389
+	failures:     23109
+	restarts:     3
+	peak depth:   57
+	peak memory:  47969 KB

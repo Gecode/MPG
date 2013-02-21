@@ -1,4 +1,5 @@
 Crossword
+RESTART
 	arm**acta*babe*brim
 	feat*mood*oral*rosa
 	anthropomorphically
@@ -26,10 +27,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.281 (281.000 ms)
+	runtime:      0.218 (218.000 ms)
 	solutions:    1
-	propagations: 15138
+	propagations: 15142
 	nodes:        138
 	failures:     16
+	restarts:     0
 	peak depth:   115
-	peak memory:  19208 KB
+	peak memory:  7210 KB

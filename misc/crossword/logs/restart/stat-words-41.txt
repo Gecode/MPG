@@ -1,27 +1,28 @@
 Crossword
-	amber*sage*pepsi*ideal*
-	berea*plea*atlas*torrid
-	adulterers*bhagavadgita
-	tin**macmillan*bald*stu
-	economy**neon*deny*leon
-	***ada*lied**hal**burnt
-	valid*ions*beau*thai***
-	emil*knots*lang*airship
-	ames*otto*has*halve*are
-	lou*ares*pace*tile*brat
-	**tiber*erik*bela*forte
-	stellar*forbear*hoosier
-	manly*offs*oaks*acres**
-	okay*agee*dare*used*beg
-	ken*franc*urn*ursa*sure
-	entreat*tend*alien*prim
-	***hebe*inks*bane*pages
-	cried**and**lane*her***
-	lana*borg*eben**sarcasm
-	ash*aura*bloodbath**doe
-	scatterbrain*organizers
-	saloon*lotte*naur*capes
-	*lemma*ether*seek*entry
+RESTART
+	straw*cede*pepsi*added*
+	trace*axer*atlas*pooled
+	auctioneer*bhagavadgita
+	ice**macmillan*bard*can
+	despoil**neon*bent*pict
+	***eat*cage**del**bathe
+	dwarf*mail*ibid*thai***
+	rill*bandy*nags*handbag
+	ante*rhea*stu*teems*ann
+	bee*bear*reed*eras*olga
+	**rarer*fear*hart*adult
+	kannada*lunched*reposes
+	agate*slob*oars*inert**
+	pats*ohio*rule*aces*rae
+	pie*inter*are*dram*ball
+	andover*imps*nabla*adam
+	***nasa*nate*enos*byers
+	begun**age**liar*dad***
+	alas*bibs*flag**parasol
+	sir*hera*beachhead**two
+	ejaculations*barbarians
+	laguna*edict*otis*urges
+	*hetty*dales*rest*needy
 
 
 
@@ -30,10 +31,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.056 (4056.000 ms)
+	runtime:      1.919 (1919.000 ms)
 	solutions:    1
-	propagations: 177418
-	nodes:        1376
-	failures:     640
-	peak depth:   134
-	peak memory:  38087 KB
+	propagations: 82243
+	nodes:        439
+	failures:     154
+	restarts:     0
+	peak depth:   151
+	peak memory:  24023 KB

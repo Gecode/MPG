@@ -1,7 +1,8 @@
 Crossword
-	ababa*abel*awed*ark
-	local*polo*male*ron
-	anthropomorphic*abo
+RESTART
+	ababa*abel*awed*hal
+	local*polo*male*ely
+	anthropomorphic*ron
 	sea*edit*keel**ibex
 	****ada*coax*pun***
 	pleads*baud*garages
@@ -26,10 +27,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.718 (718.000 ms)
+	runtime:      0.499 (499.000 ms)
 	solutions:    1
-	propagations: 28803
-	nodes:        203
-	failures:     51
-	peak depth:   120
-	peak memory:  18599 KB
+	propagations: 36001
+	nodes:        245
+	failures:     73
+	restarts:     0
+	peak depth:   119
+	peak memory:  12440 KB

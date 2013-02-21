@@ -1,23 +1,24 @@
 Crossword
-	ajar*alga*acne*chad
-	lobe*coin*cool*ainu
-	baud*toni*coal*rene
+RESTART
+	ajar*arpa*acne*chad
+	lobe*bean*cool*ainu
+	baud*bali*coal*rene
 	anthropomorphic*rat
-	***ears*ada**papa**
+	***eats*ada**papa**
 	essays*old*disburse
 	acids*gas*face*scab
 	sam**ink*aries**hub
 	trudeau*guess*maids
 	**lean*array*marc**
 	later*bleak*jackass
-	ida**sages*dan**lac
+	ida**sages*ban**lac
 	lana*ulan*gab*helga
-	amenable*bad*bunyan
-	**odds**ail*dent***
+	amenable*lad*bunyan
+	**odds**sal*girl***
 	abu*disambiguations
-	rash*dana*load*tree
-	ella*ends*erne*lace
-	amyl*days*eyed*elks
+	rash*dada*lois*spat
+	ella*ends*ease*tame
+	amyl*dash*odes*slew
 
 
 
@@ -26,10 +27,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.765 (765.000 ms)
+	runtime:      0.499 (499.000 ms)
 	solutions:    1
-	propagations: 35731
-	nodes:        300
+	propagations: 36863
+	nodes:        295
 	failures:     94
-	peak depth:   137
-	peak memory:  20039 KB
+	restarts:     0
+	peak depth:   126
+	peak memory:  6893 KB

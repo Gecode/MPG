@@ -1,21 +1,22 @@
 Crossword
-	cassias*knaps*zachary
-	amiable*hovel*aboulia
-	loggias*acari*raciest
-	pen*spermatotheca*put
-	abac*alaskan*aba*bise
-	cagot*icier*aia*saner
-	keened*ens*bur*recess
-	***dreams*bacchiac***
-	alienage*mantuan*alfs
-	gummata*karaite*alaap
-	acanth*catalos*plasma
-	ragee*citizen*defused
-	sned*laminar*sororise
+RESTART
+	wadmaal*tirol*zachary
+	amiable*edite*aboulia
+	nosebag*reata*raciest
+	gee*spermatotheca*put
+	abac*anattas*aba*bise
+	nasal*dries*aia*saner
+	seered*ems*bur*recess
+	***beadle*bacchiac***
+	motorway*mantuan*alfs
+	amening*karaite*alaap
+	nappes*catalos*plasma
+	gnarr*citizen*defused
+	silo*laminar*sororise
 	***cramboes*cendre***
-	apneas*ane*dap*ujamaa
-	sools*als*dirac*ataps
-	soil*lao*sraddha*eras
+	uplead*ane*dap*ujamaa
+	poise*als*dirac*ataps
+	ross*lao*sraddha*eras
 	ifs*formularising*ado
 	stomach*remit*minicar
 	tamarau*swazi*blatant
@@ -28,10 +29,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      8.751 (8751.000 ms)
+	runtime:      5.585 (5585.000 ms)
 	solutions:    1
-	propagations: 49981
-	nodes:        323
-	failures:     103
-	peak depth:   135
-	peak memory:  120679 KB
+	propagations: 51653
+	nodes:        365
+	failures:     126
+	restarts:     0
+	peak depth:   141
+	peak memory:  57782 KB

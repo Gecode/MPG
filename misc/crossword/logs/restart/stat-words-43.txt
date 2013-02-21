@@ -1,27 +1,30 @@
 Crossword
-	chaps*ababa*halve*scrap
-	helen*dirac*adieu*phase
-	orono*opera*nadir*lanka
-	softwares*dad*slesinger
-	entailed*ceres*skinners
-	***gems*camelot*ante***
-	across*doria*lap*gelled
-	chant*della*dales*reese
-	hems*nabla*heretic*data
-	eva*aorta*son*salad*den
-	dynamo*statute*lacrosse
-	***rand*erasure*skew***
-	suicidal*entreat*lanced
-	and*natal*zoe*raped*lee
-	bias*yucatan*inked*sara
-	ether*memos*creep*resin
-	reopen*dan*shorn*senses
-	***aces*remains*mass***
-	sparking*damns*saltiest
-	totalling*sea*videotape
-	adobe*doris*meier*risen
-	bills*emile*arena*event
-	sales*redly*nasas*rests
+RESTART
+RESTART
+RESTART
+	class*ached*arose*limps
+	recta*drake*balks*italy
+	eater*manes*await*began
+	averaging*pot*frederico
+	meditate*bares*terraced
+	***lois*trigram*moat***
+	assign*hairy*mid*plight
+	plaza*waxes*bones*solar
+	pane*cabin*brained*nina
+	lit*basic*lao*serif*dec
+	enamel*balance*bullseye
+	***arcs*bazaars*muir***
+	gaborone*candace*tribal
+	ida*amend*rae*reset*ale
+	bini*pegasus*pored*asia
+	beast*dents*julia*plies
+	sullen*lee*perle*urgent
+	***amok*secures*knee***
+	scampers*leper*brisbane
+	parallels*sam*fraternal
+	ababa*soaks*islam*naive
+	rabat*gavin*alice*titan
+	clyde*enema*hyper*scala
 
 
 
@@ -30,10 +33,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      19.484 (19484.000 ms)
+	runtime:      42.120 (42120.000 ms)
 	solutions:    1
-	propagations: 788797
-	nodes:        4230
-	failures:     2054
-	peak depth:   164
-	peak memory:  49704 KB
+	propagations: 4575226
+	nodes:        24493
+	failures:     12006
+	restarts:     2
+	peak depth:   142
+	peak memory:  87779 KB
