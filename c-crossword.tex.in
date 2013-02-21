@@ -303,6 +303,7 @@ more memory-efficient implementation of the same model.
 \newcommand{\exactrate}{\equalrate}
 \newcommand{\resbad}[1]{\cellcolor{GecodeOrange} #1}
 \newcommand{\resworse}[1]{\cellcolor{GecodeRed} #1}
+\newcommand{\resre}[1]{#1}
 \newcommand{\inst}[3]{\texttt{#1-#2$\mathtt{\times}$#2-#3}}
 
 \newcommand{\COMBUS}{\textsc{Combus}}
@@ -339,9 +340,9 @@ constraint programming system such as Gecode.
 All experiments have been run on a laptop with an Intel i7-2860QM
 processor (2.5 GHz, four cores, hyper-threading), 8~GB of main
 memory, running Windows~7 x64 and using Gecode 4.0.0. The model
-has been run with a single thread only. The runtimes are measured as wall-time and are the
-average of five runs. The coefficient of deviation is less than
-3\% and typically less than 1\%.
+has been run with a single thread only. The runtimes are measured
+as wall-time and are the average of five runs. The coefficient of
+deviation is less than 5\% and typically less than 1\%.
 
 The hardware platform used in \cite{DBLP:conf/cp/AnbulaganB08} is
 an Intel Core Duo 2.4 GHz.
@@ -351,7 +352,7 @@ an Intel Core Duo 2.4 GHz.
 The purpose of the comparison is to understand better the
 relative merits of the two different approaches. An exact
 comparison of runtimes is therefore not really meaningful, in
-particular as different hardware platforms are used. 
+particular as different hardware platforms are used.
 
 The comparison makes only approximate statements for runtime and
 number of nodes explored during search. If the runtime for the
@@ -419,15 +420,17 @@ $\mathtt{21}\times\mathtt{21}$, and
 $\mathtt{23}\times\mathtt{23}$ ten different grids \texttt{01}
 to \texttt{10} are used. The runtime is in seconds. 
 
-For the Gecode model as well as \COMBUS{} a timeout of 20
-minutes is used. Orange fields are instances where neither the
-Gecode model nor \COMBUS{} finds a solution (or proves that there
-is none) within 20 minutes. Red fields are instances where
-\COMBUS{} finds a solution but the Gecode model fails to find a
-solution.
+For the Gecode model a timeout of 10~minutes is used, whereas a
+timeout of 20~minutes has been used for \COMBUS{}. Giving the
+Gecode model only half the time is to cater for the difference in
+the hardware platform used. Orange fields are instances where
+neither the Gecode model nor \COMBUS{} finds a solution (or
+proves that there is none) before their respective timeouts. Red
+fields are instances where \COMBUS{} finds a solution but the
+Gecode model fails to find a solution.
 
 Just by judging how many instances can be solved by either
-approach (76 for the Gecode model, 77 for \COMBUS), it becomes
+approach (74 for the Gecode model, 77 for \COMBUS), it becomes
 clear that \COMBUS{} is, as to be expected, the more robust
 approach. Likewise, considering the number of nodes explored
 during search, \COMBUS{} shows the clear advantage of the
@@ -493,25 +496,24 @@ requires considerably more time and expertise.
 
 \paragraph{Using restarts.}
 
-Last, but very definitely not least, one can use restart-based
-search 
-with Gecode, see \autoref{sec:m:search:restart}.  The single
-\texttt{uk} instance that \COMBUS{} could solve within 20 minutes, but that
-Gecode could not, and the two $\mathtt{15\times 15}$ instances
-(\?04? and \?10?) using the \texttt{words} dictionary where
-Gecode performed worse than \COMBUS{} were re-tried with
-restart-based search and using decay for the accumulated failure
-count (AFC).
+To improve the robustness of search, one can use restart-based
+search with Gecode, see \autoref{sec:m:search:restart}. The
+instances are run using a geometric cutoff sequence with base $2$
+and scale-factor $2000$ and a decay-factor of $0.99$ for AFC (see
+\autoref{sec:m:branch:afc}) and the results are shown in
+\autoref{fig:c:crossword:restart}. The number raised to the
+number of nodes shows how many restarts have been carried out
+during search. Note that the choice of
+parameters is standard and in no way optimized for the problem at
+hand. The reason to use decay for AFC is to gradually change the
+AFC information for restarts.
 
- The
-instances are run using a geometric cutoff sequence with base
-\?2? and scale-factor \?2000? and a decay-factor of \?0.99? for
-AFC (see \autoref{sec:m:branch:afc}) and the results are shown in
-\autoref{fig:c:crossword:restart}. Now Gecode can solve exactly the
-same instances as \COMBUS{} and always with at least the same
-efficiency. None of the instances that neither
-\COMBUS{} nor Gecode could solve were helped by restart-based search
-though, even when the timeout was increased to one hour.
+Now Gecode can solve exactly the same instances as \COMBUS{} and
+for all but one with at least the same efficiency. None of the
+instances that neither \COMBUS{} nor Gecode could solve were
+helped by restart-based search though, even when the timeout was
+increased to one hour.
+
 
 
 \paragraph{Acknowledgments.}

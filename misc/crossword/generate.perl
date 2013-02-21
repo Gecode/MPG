@@ -181,6 +181,7 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
     $time{$mode}{$dict}{$size}{$inst} = 0;
     $nodes{$mode}{$dict}{$size}{$inst} = 0;
     $stopped{$mode}{$dict}{$size}{$inst} = 0;
+    $restarts{$mode}{$dict}{$size}{$inst} = 0;
 
     open TIME, "<", "$f";
     while ($l = <TIME>) {
@@ -197,6 +198,8 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
     while ($l = <STAT>) {
       if ($l =~ /nodes:[\ ]*([0-9]*)/) {
 	$nodes{$mode}{$dict}{$size}{$inst} = "$1" + 0;
+      } elsif ($l =~ /restarts:[\ ]*([0-9]*)/) {
+	$restarts{$mode}{$dict}{$size}{$inst} = "$1" + 0;
       }
     }
     close STAT;
@@ -214,6 +217,7 @@ foreach $mode ("base","restart") {
       }
       print RES "\$\\mathtt\{$i\}\$ ";
       foreach $size (15,19,21,23) {
+	$nr = $restarts{$mode}{$dict}{$size}{$inst};
 	print RES "\&";
 	if ($stopped{$mode}{$dict}{$size}{$inst}) {
 	  if ($pnodes{$dict}{$size}{$inst} > 0) {
@@ -224,6 +228,9 @@ foreach $mode ("base","restart") {
 	    print RES "\\resbad{--}&\\resbad{ }";
 	  }
 	} else {
+	  if ($nr) {
+	    print RES "\\resre{";
+	  }
 	  $t = int(($time{$mode}{$dict}{$size}{$inst} / 100) + 0.5);
 	  if ($t < 10) {
 	    $t = "0$t";
@@ -231,7 +238,13 @@ foreach $mode ("base","restart") {
 	    $t = "$t";
 	  }
 	  $t =~ s|(.*)([0-9])|$1\.$2|o;
-	  print RES "\$$t\$&" . rate($t+0.0,$ptime{$dict}{$size}{$inst});
+	  print RES "\$$t\$";
+	  if ($nr) {
+	    print RES "}&\\resre{";
+	  } else {
+	    print RES "&";
+	  }
+	  print RES rate($t+0.0,$ptime{$dict}{$size}{$inst});
 	  $n = $nodes{$mode}{$dict}{$size}{$inst};
 	  $pn = $pnodes{$dict}{$size}{$inst};
 	  if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
@@ -241,8 +254,19 @@ foreach $mode ("base","restart") {
 	  } else {
 	    $sn = $n;
 	  }
-	  print RES "&\$$sn\$&";
+	  if ($nr) {
+	    print RES "}&\\resre{";
+	    print RES "\${$sn}^{$nr}\$";
+	    print RES "}&\\resre{";
+	  } else {
+	    print RES "&";
+	    print RES "\${$sn}^{\\white 0}\$";
+	    print RES "&";
+	  }
 	  print RES rate($n,$pn);
+	  if ($nr) {
+	    print RES "}";
+	  }
 	}
       }
       print RES "\\\\\n\\hline\n";
