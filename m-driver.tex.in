@@ -48,12 +48,25 @@ integer consistency level\\
 \multicolumn{3}{|c|}{search options}\\\hline
 \texttt{-solutions} & \?unsigned int? & how many solutions ($0$ for all)\\
 \texttt{-threads} & \?double? & how many threads \\
-\texttt{-c-d} (\?c_d?) & \?unsigned int? & commit recomputation distance\\
-\texttt{-a-d} (\?a_d?) & \?unsigned int? & adaptive recomputation distance\\
+\texttt{-c-d} & \?unsigned int? & commit recomputation distance\\
+\texttt{-a-d} & \?unsigned int? & adaptive recomputation distance\\
 \texttt{-node} & \?unsigned int? & cutoff for number of nodes\\
 \texttt{-fail} & \?unsigned int? & cutoff for number of failures\\
 \texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\
-\texttt{-interrupt} & $\{\mathtt{false},\mathtt{true}\}$ & whether driver catches Ctrl-C\\\hline
+\texttt{-interrupt} & $\{\mathtt{false},\mathtt{true}\}$ &
+whether driver catches Ctrl-C\\\hline
+\multicolumn{3}{c}{}\\\hline
+\multicolumn{3}{|c|}{restart-based search options}\\\hline
+\texttt{-restart} &
+$\{\mathtt{none},\mathtt{geometric},\mathtt{luby}\}$ &
+enable restarts, define cutoff\\
+\texttt{-restart-scale} &
+\?unsigned int? &
+scale-factor for cutoff values\\
+\texttt{-restart-base} &
+\?double? &
+base for geometric cutoff values\\
+\\\hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{execution options}\\\hline
 \texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},\mathtt{gist}\}$ & script mode to run\\
@@ -88,8 +101,10 @@ commandline option with name \?-name?, the option classes provide
 two functions with name \?name()?: one that takes no argument and
 returns the current value of the option, and one that takes an
 argument of the listed type and sets the option to that value.
-The only exceptions are \texttt{-c-d}, \texttt{-a-d}, and \texttt{-print-last} where the
-member functions are named \?c_d()?, \?a_d()?, and
+If the commandline options contains a hyphen~\?-?, then the
+member function contain an underscore~\?_? instead. For example,
+for the options \texttt{-c-d} and \texttt{-a-d} the
+member functions are named \?c_d()? and \?a_d()?
 \?print_last()? respectively.
 
 The values for \?-threads? are interpreted as described in

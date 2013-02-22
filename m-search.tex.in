@@ -570,6 +570,7 @@ to your program when you want to use search engines.
 \hline
 \?fail? & \?unsigned long int? & failed nodes explored\\
 \?node? & \?unsigned long int? & nodes explored\\
+\?restart? & \?unsigned long int? & restarts performed\\
 \hline
 \?depth? & \?unsigned long int? & maximal depth of explored tree\\
 \hline
@@ -602,7 +603,8 @@ Moreover, all search engines share the same interface:
   the \?statistics()? member function. The function returns an
   object of type \gecoderef[class]{Search::Statistics}. The
   statistics information provided is partially summarized in
-  \autoref{fig:m:search:statistics}.
+  \autoref{fig:m:search:statistics} (see
+  \autoref{sec:m:search:restart} for the meaning of \?restart?).
 \item A search engine can be queried by \?stopped()? whether the
   search engine has been stopped by a \emph{stop object}. Stop
   objects are discussed in \autoref{sec:m:search:stop}.
@@ -790,18 +792,20 @@ limit according to the number of available threads.
 
 The idea of restart-based search is to run search with a given
 \emph{cutoff} (here in Gecode we are using the number of failures
-encountered during search) such that when the cutoff is reached
-search is stopped and then restarted with a new and increased
-cutoff.  The whole point is that when search is being restarted
-it is not restarted on exactly the same problem but a slightly
-modified or re-configured problem. Possible modifications include
-but are not limited to:
+encountered during search as cutoff-measure). When search reaches
+the cutoff, it is stopped and then restarted with a new and
+increased cutoff.
+
+The whole point of restarting search is that it is not restarted
+on exactly the same problem but on a slightly modified or
+re-configured problem. Possible modifications include but are not
+limited to:
 \begin{itemize}
 \item Improved information from the search for branching
   heuristics such as activity (see
   \autoref{sec:m:branch:activity}) or AFC (see
   \autoref{sec:m:branch:afc}): the now stopped search has
-  gathered some information from which branching can profit for
+  gathered some information from which branching can profit from in
   the next restart of search.
 \item The next search can use different random numbers that
   controls branching. A typical strategy would be to use
@@ -809,23 +813,26 @@ but are not limited to:
   branching heuristic (see \autoref{sec:m:branch:tie}) and
   control the degree of randomness by a tie-breaking limit
   function.
+\item The next search uses an entirely  different branching
+  heuristic.
 \end{itemize}
 
-For an example using restart-based search, see
-\autoref{sec:c:crossword:info}.
+For an example illustrating the effect of restart-based search,
+see \autoref{sec:c:crossword:info}. A general overview of
+restart-based search can be found in~\cite{vanBeek:CPH:2006}.
 
 \paragraph{Restart-based search as a meta search engine.}
 
 Restart-based search in Gecode is implemented as a \emph{meta
   search engine}: the meta search engine uses one of the Gecode
 search engines discussed in~\autoref{sec:m:search:simple} to
-perform search for each individual restart. In fact, any search
-engine that implements the interface defined by
-\gecoderef[class]{EngineBase} can be used by the restart meta
-engine. The meta engine then controls the engine, the cutoff
-values, and how the problem is modified. The interface of the
+perform search for each individual restart. In fact, the restart
+meta engine can use any search engine that implements the
+interface defined by \gecoderef[class]{EngineBase}. The meta
+engine then controls the engine, the cutoff values, and how the
+problem is configured before each restart. The interface of the
 meta search engine in Gecode is exactly the same as the interface
-of one of the search engines.
+of a non-meta search engines.
 
 The restart meta search engine \gecoderef[class]{Restart} is
 parametric with respect to both the search engine to be used and
@@ -838,14 +845,9 @@ can be created by (\?o? are mandatory search options, see below):
 Restart<DFS,Script> e(s,o);
 \end{code}
 Now \?e? implements exactly the same interface as the normal
-engines (that is, \?next()? for the next solution,
-\?statistics()? for the meta engine's statistic, \?stopped()?
-when the meta engine has been stopped).
-
-The meta engine maintains a \emph{master} space and each time the
-meta engine performs a restart, it passes a clone of the master
-space to the engine. Before it creates the clone, it
-\emph{configures} the master (discussed below).
+engines (that is, \?next()? to request the next solution,
+\?statistics()? to return the meta engine's statistic, \?stopped()?
+to check whether the meta engine has been stopped).
 
 The meta engine honors all search options as discussed in
 \autoref{sec:m:search:options}. If parallel search is requested,
@@ -867,19 +869,137 @@ used for search. See \autoref{sec:m:driver:options} for details.
 
 \paragraph{Cutoff generators.}
 
-Interface
+The meta engine uses a cutoff generator that generates a sequence
+of cutoff values. A cutoff generator must be implemented by
+inheriting from the class \gecoderef[class]{Search::Cutoff}. This
+abstract class requires that a virtual member function
+\?operator()()? is implemented returning on each call the next
+cutoff value (of type \?unsigned long int?).
 
-Luby
+When using the restart meta engine, an instance of a subclass of
+\gecoderef[class]{Search::Cutoff} must be passed to the engine by
+using the search options (see
+\autoref{sec:m:search:options}). For example, when \?s? is a
+space to be solved and \?c? a cutoff generator, then the restart
+engine can be created by:
+\begin{code}
+Search::Options o;
+o.cutoff = c;
+Restart<DFS,Script> e(s,o);
+\end{code}
 
-Geometric.
+Gecode provides three different commonly used cutoff generators:
+\begin{description}
+\item[Geometric.] A geometric cutoff sequence is defined by the
+  scale-factor \?s? and the base \?b?. Then, the sequence
+  consists of the cutoff values:
+$$
+\mathtt{s}\cdot\mathtt{b}^i\qquad\text{for }i=0,1,2,\ldots
+$$
 
-Random.
+  A cutoff generator \?c? for a geometric cutoff sequence with
+  scale-factor \?s? (of type \?unsigned long int?) and base \?b?
+  (of type \?double?) is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::geometric(s,b);
+\end{smallcode}
+\item[Luby.] A Luby cutoff sequence is based on the Luby-sequence
+  from~\cite{Luby}. The sequence starts with a \?1?. The next
+  part of the sequence is the entire previous sequence (only
+  \?1?) with the last value of the previous sequence (\?1? again)
+  doubled. This construction is then repeated, leading to the
+  sequence:
+$$
+1,1,2,1,1,2,4,1,1,2,1,1,2,4,8,\ldots
+$$
+  To be practically useful, the values in the Luby sequence are
+  scaled by multiplying them with a scale-factor \?s?.
+  
+  A cutoff generator \?c? for a Luby cutoff sequence with scale-factor
+  \?s?  (of type \?unsigned long int?) is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::luby(s);
+\end{smallcode}
+\item[Random.]  A random cutoff sequence consists of uniformly
+  randomly chosen values between a lower bound \?min? and an
+  upper bound \?max?. To focus on rather different values only
+  values from the set of $\mathtt n+1$ values:
+$$
+\setc{\mathtt{min}+\lfloor i\cdot(\mathtt{max}-\mathtt{min})/\mathtt{n}\rfloor}{i=0,\ldots,\mathtt{n}}
+$$
+are chosen randomly.
 
-\paragraph{Master configuration.}
+   A cutoff generator \?c?for a random sequence with lower bound
+   \?min?, upper bound \?max?, and number of values \?n? (all of
+   type \?unsigned long int?)
+   is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::rnd(seed,min,max,n);
+\end{smallcode}
+  where \?seed? (of type \?unsigned int?) defines the seed value
+  for the random number generator used.
+\end{description}
 
- to actually 
 
+\paragraph{Master and slave configuration.}
+
+The meta engine maintains a \emph{master} space and each time the
+meta engine performs a restart, it passes a \emph{slave} space (a
+clone of the master space) to the engine. Configuration is as
+follows: the master is configured, the slave is created, and then
+the slave is configured.
+
+More accurately, it leaves the actual configuration to the user:
+it calls the virtual member function \?configure()? on the master
+space and then calls an overloaded member function \?configure()?
+(that is, with different arguments) on the slave space. In that
+way, by redefining \?configure()?  the user can control how
+master and slave are being configured (this is exactly the same
+idea how \?constrain()? works for best solution search). By
+default, every space implements the two overloaded \?configure()?
+member functions to do nothing (one for the master and one for
+the slave).
+
+For example, a class \?Script? can define the \?configure()?
+member functions as follows:
+\begin{code}
+class Script : public Space {
+  ...
+  virtual void configure(const Space& s, unsigned long int i) {
+    // Configure the master
+    ...
+  }
+  virtual void configure(unsigned long int i) {
+    // Configure the slave
+    ...
+  }
+};
+\end{code}
+where \?i? is the number of the restart (starting from $0$,
+meaning that \?configure()? is called before exploration actually
+starts). The space \?s? passed to the \?configure()? function for
+the master refers either to a solution found in the previous
+restart of the restart meta engine or a space that has been
+explored last during search\footnote{The notion of last is
+  arguably rather fuzzy, in particular when the engine performs
+  parallel search. Future releases of Gecode will lift the fog
+  (to be read: right now we have not the faintest idea how this
+  works).}.  
 
 \paragraph{Interaction with best solution search.}
 
-
+In case you want to use the restart meta engine together with
+best solution search, the \?configure()? function for the master
+must call the \?constrain()? function. That is, the script must
+implement at least:
+\begin{code}
+class Script : public Space {
+  ...
+  virtual void configure(const Space& s, unsigned long int i) {
+    constrain(s);
+    ...
+  }
+};
+\end{code}
+This ensures that the constraint that a next solution found by
+the restart engine is in fact better than the previous solution.

@@ -8,41 +8,42 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2013-02-22}{Documented restart-based search
+    (see \autoref{sec:m:search:restart}), added example
+    (see \autoref{sec:c:crossword:info})}
+  \cle{2013-02-22}{Complete rewrite of how to branch, see
+    \autoref{chap:m:branch}}
   \cle[\AckName{David}{Rijsman}]{2013-02-14}{Added missing copy
-    constructors and assignment operators in 
-    \autoref{sec:p:memory:shared} and \autoref{sec:p:memory:local}}
-  \cle{2013-02-04}{Documented how to implement variable-value
-    branchings
-    (see \autoref{chap:v:branch})}
-  \cle{2013-02-04}{Documented how to implement constraints over
-    float variables
-    (see \autoref{chap:p:floats})}
-  \cle{2013-01-29}{Documented modeling with floats 
-    (see \autoref{chap:m:float}, 
-    \autoref{sec:m:minimodel:float}, 
-    \autoref{sec:m:branch:float}, 
-    and \autoref{par:m:started:mpfr})}
-  \cle{2013-01-25}{Explain new search options for Gist in \autoref{sec:m:gist:preferences}}
-  \cle[\AckName{Benjamin}{Negrevergne}]{2012-12-17}{Fixed typo in \autoref{sec:p:domain:iterators}}
-  \cle{2012-10-19}{Explained how to use half reification
-    (see \autoref{sec:m:integer:halfreify}) and how to implement
-    it (see \autoref{sec:p:reified:half})}
-  \cle{2012-09-07}{Properly explained regions
-    (see \autoref{par:p:memory:region})}
+    constructors and assignment operators in
+    \autoref{sec:p:memory:shared} and
+    \autoref{sec:p:memory:local}} \cle{2013-02-04}{Documented how
+    to implement variable-value branchings (see
+    \autoref{chap:v:branch})} \cle{2013-02-04}{Documented how to
+    implement constraints over float variables (see
+    \autoref{chap:p:floats})} \cle{2013-01-29}{Documented
+    modeling with floats (see \autoref{chap:m:float},
+    \autoref{sec:m:minimodel:float},
+    \autoref{sec:m:branch:float}, and
+    \autoref{par:m:started:mpfr})} \cle{2013-01-25}{Explain new
+    search options for Gist in \autoref{sec:m:gist:preferences}}
+  \cle[\AckName{Benjamin}{Negrevergne}]{2012-12-17}{Fixed typo in
+    \autoref{sec:p:domain:iterators}} \cle{2012-10-19}{Explained
+    how to use half reification (see
+    \autoref{sec:m:integer:halfreify}) and how to implement it
+    (see \autoref{sec:p:reified:half})} \cle{2012-09-07}{Properly
+    explained regions (see \autoref{par:p:memory:region})}
   \cle{2012-08-29}{Documented hardware-based random seed
     generation for random branchers (see
-    \autoref{sec:m:branch:rnd})}
-  \cle{2012-08-27}{Documented \?pow? and \?nroot? constraints
-    (see
+    \autoref{sec:m:branch:rnd})} \cle{2012-08-27}{Documented
+    \?pow? and \?nroot? constraints (see
     \autoref{sec:m:integer:arithmetic} and
     \autoref{sec:m:minimodel:exprrel:int})}
   \cle[\AckName{Max}{Ostrowski}]{2012-08-21}{Fixed explanation of
     advisor deltas (see \autoref{par:p:advisors:delta})}
   \cle{2012-03-06}{Explained activity-based search and shared
-    variable selection criteria (see
-    \autoref{chap:m:branch})} 
-  \cle{2012-03-20}{Released for
-    Gecode 3.7.3} \cle{2012-02-22}{Released for Gecode 3.7.2}
+    variable selection criteria (see \autoref{chap:m:branch})}
+  \cle{2012-03-20}{Released for Gecode 3.7.3}
+  \cle{2012-02-22}{Released for Gecode 3.7.2}
   \cle[\AckName{Pavel}{Bochman}]{2011-11-10}{Added tip that
     compilers for Qt and Gecode must match (see
     \autoref{tip:m:started:samecompiler})}
@@ -126,7 +127,7 @@
   \cle[\AckName{Dan}{Scott}]{2010-06-17}{Explain that the
     compiler defines the platform used on Windows
     (\autoref{tip:m:started:x86x64})} \cle{2010-06-04}{Explained
-    that variables do not have \?init()?  functions as the are
+    that variables do not have \?init()?  functions as they are
     not needed in \autoref{tip:m:integer:init}}
   \cle[\AckName{Andreas}{Karlsson}]{2010-05-10}{Fixed typo in
     \autoref{sec:m:search:recomp}} \cle{2010-05-07}{Documented
@@ -158,10 +159,10 @@
   \cle{2009-10-16}{Explained \?Home?
     (\autoref{tip:m:started:home})} \cle{2009-10-13}{Documented
     AFC-based variable selection for branching
-    (\autoref{sec:m:branch:int})} \cle{2009-10-08}{Fixed
-    link for reporting bugs} \cle{2009-10-05}{Released for Gecode
-    3.2.0} \cle[\AckName{Sverker}{Janson}]{2009-06-15}{Fixed some
-    broken links} \cle{2009-06-08}{Documented branching on single
+    (\autoref{sec:m:branch:int})} \cle{2009-10-08}{Fixed link for
+    reporting bugs} \cle{2009-10-05}{Released for Gecode 3.2.0}
+  \cle[\AckName{Sverker}{Janson}]{2009-06-15}{Fixed some broken
+    links} \cle{2009-06-08}{Documented branching on single
     variables (\autoref{sec:m:branch:basics})}
   \cle{2009-06-08}{Documented element constraint for matrix
     interface (\autoref{par:m:minimodel:matrix:element})}
@@ -175,9 +176,10 @@
   \cle{2009-04-09}{Documented \?wait? post functions
     (\autoref{sec:m:integer:exec}, \autoref{sec:m:set:exec})}
   \cle{2009-03-26}{Released for Gecode 3.0.2}
-  \cle[\AckName{Roberto}{Castañeda Lozano}]{2009-03-26}{Fix for gcc
-    compilation instructions in \autoref{sec:m:started:linux}}
-  \cle{2009-03-24}{Released for Gecode 3.0.1}
+  \cle[\AckName{Roberto}{Castañeda Lozano}]{2009-03-26}{Fix for
+    gcc compilation instructions in
+    \autoref{sec:m:started:linux}} \cle{2009-03-24}{Released for
+    Gecode 3.0.1}
   \cle[\AckName{Håkan}{Kjellerstrand}]{2009-03-23}{Generate
     shorter inter-document references to avoid problems with some
     PDF viewers} \cle{2009-03-13}{Initial release for Gecode

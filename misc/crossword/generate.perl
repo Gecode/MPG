@@ -275,6 +275,66 @@ foreach $mode ("base","restart") {
   }
 }
 
+open RES, ">", "res-hard.tex";
+foreach $f ("logs/hard/words-39-86400000.txt",
+	    "logs/hard/words-45-86400000.txt"
+	   ) {
+  if ($f =~ /.*\/(.*)-(.*)-.*\.txt/) {
+    $dict = $1;
+    $num  = $2-10;
+    $inst = $num % 10 + 1;
+    if ($num < 10) {
+      $size = 15;
+    } elsif ($num < 20) {
+      $size = 19;
+    } elsif ($num < 30) {
+      $size = 21;
+    } else {
+      $size = 23;
+    }
+
+    $htime{$dict}{$size}{$inst} = 0;
+    $hnodes{$dict}{$size}{$inst} = 0;
+    $hrestarts{$dict}{$size}{$inst} = 0;
+
+    open TIME, "<", "$f";
+    while ($l = <TIME>) {
+      if ($l =~ /runtime:[\ ]*([0-9:]*)/) {
+	$htime{$dict}{$size}{$inst} = "$1";
+      }
+      if ($l =~ /nodes:[\ ]*([0-9]*)/) {
+	$hnodes{$dict}{$size}{$inst} = "$1" + 0;
+      }
+      if ($l =~ /restarts:[\ ]*([0-9]*)/) {
+	$hrestarts{$dict}{$size}{$inst} = "$1" + 0;
+      }
+    }
+    close TIME;
+
+    if ($inst < 10) {
+      $i = "0$inst";
+    } else {
+      $i = $inst;
+    }
+    print RES "\\inst\{$dict\}\{$size\}\{$i\}&";
+    $t = $htime{$dict}{$size}{$inst};
+    $n = $hnodes{$dict}{$size}{$inst};
+    if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
+      $sn = "$1\\,$2\\,$3\\,$4";
+    } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
+      $sn = "$1\\,$2\\,$3";
+    } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
+      $sn = "$1\\,$2";
+    } else {
+      $sn = $n;
+    }
+    $r = $hrestarts{$dict}{$size}{$inst};
+    print RES "\$$t\$&\$$sn\$&\$$r\$";
+    print RES "\\\\\n\\hline\n";
+  }
+}
+close RES;
+
 
 
 sub rate {

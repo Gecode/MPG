@@ -514,6 +514,28 @@ instances that neither \COMBUS{} nor Gecode could solve were
 helped by restart-based search though, even when the timeout was
 increased to one hour.
 
+\paragraph{Solve the rest.}
+
+\begin{figure}
+\centering
+\footnotesize
+\renewcommand{\tabcolsep}{3.5pt}
+\begin{tabular}{|l||r|r|r|}
+\hline
+\multicolumn{1}{|c||}{instance} &\multicolumn{1}{c|}{time}&\multicolumn{1}{c|}{nodes}&\multicolumn{1}{c|}{restarts}
+\\
+\hline\hline
+\input misc/crossword/res-hard.tex
+\end{tabular}
+\caption{Results for some hard \texttt{words} dictionary instances}
+\label{fig:c:crossword:hard}
+\end{figure}
+
+
+Even the remaining three \texttt{word} instances have solutions
+and all can be found within one day of runtime, the results are
+shown in \autoref{fig:c:crossword:hard}. The runtime is in the
+format hours:minutes:seconds (measured only by a single run).
 
 
 \paragraph{Acknowledgments.}
