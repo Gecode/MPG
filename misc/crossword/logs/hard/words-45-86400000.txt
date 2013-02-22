@@ -7,3 +7,46 @@ RESTART
 RESTART
 RESTART
 RESTART
+RESTART
+RESTART
+RESTART
+RESTART
+	amerada*spacers*assault
+	saracen*arpanet*roaster
+	staging*fielder*toshiba
+	its*deepen*monolith*lac
+	shut*blasts*wabash*fine
+	terra*intact*best*razor
+	sweating*broil*tightens
+	***code*planner*clot***
+	tackle*prepended*odessa
+	available*ere*silvering
+	corns*lotus*replies*bee
+	king*deter***roams*meal
+	ida*beatnik*santa*parke
+	neglected*nil*densities
+	greece*dedicated*altars
+	***skis*defined*fife***
+	cassette*cents*tolerant
+	otter*ella*getter*renee
+	clan*reside*darned*digs
+	hag*maleness*mashed*mat
+	ingrate*enticed*emanate
+	stealer*acetone*auditor
+	earners*resents*drapers
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      9:01:21.664 (32481664.000 ms)
+	solutions:    1
+	propagations: 3049138606
+	nodes:        14031392
+	failures:     7014628
+	restarts:     11
+	peak depth:   146
+	peak memory:  522879 KB
