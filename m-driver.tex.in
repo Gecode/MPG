@@ -66,7 +66,7 @@ scale-factor for cutoff values\\
 \texttt{-restart-base} &
 \?double? &
 base for geometric cutoff values\\
-\\\hline
+\hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{execution options}\\\hline
 \texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},\mathtt{gist}\}$ & script mode to run\\
@@ -154,9 +154,6 @@ For an example, in particular, how to use the user-defined
 options, see \autoref{sec:m:comfy:driver}. As all examples that
 come with Gecode use the script commandline driver, a plethora of
 examples is available (see \gecoderef[group]{Example}).
-
-\paragraph{Commandline options for restart-based search.}
-
 
 \paragraph{Gist inspectors and comparators.}
 
