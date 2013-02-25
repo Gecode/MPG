@@ -1748,8 +1748,11 @@ in \autoref{fig:v:branch:branch}. It creates an array of integer
 views \?IntView?, expands a possibly missing integer activity
 object, creates an array with a single view selector
 object returned by the function \?viewsel()? as discussed in
-\autoref{sec:v:branch:viewsel}, and posts the view-value brancher
-of class \gecoderef[class]{ViewValBrancher}. The class is
+\autoref{sec:v:branch:viewsel}, posts the view-value brancher
+of class \gecoderef[class]{ViewValBrancher}, and returns a
+brancher handle of class \gecoderef[class]{BrancherHandle} (see
+also \autoref{sec:m:branch:basics}) to the
+posted brancher. The class is
 parametric, where the arguments describe the following:
 \begin{enumerate}
 \item The view type which is \?IntView? in our case.
@@ -2881,28 +2884,28 @@ namespace MPG { namespace Int {
 
 namespace MPG {
   \begin{litblock}{branch function}
-  inline void 
+  inline BrancherHandle
   branch(Home home, const IntVarArgs& x,
          IntVarBranch vars, IntValBranch vals, 
          IntBranchFilter bf=NULL) {
     using namespace Int;
-    if (home.failed()) return;
+    if (home.failed()) return BrancherHandle();
     vars.expand(home,x);
     ViewArray<IntView> xv(home,x);
     ViewSel<IntView>* vs[1] = { 
       viewsel(home,vars) 
     };
-    ViewValBrancher<IntView,1,int,2>::post
+    return ViewValBrancher<IntView,1,int,2>::post
       (home,xv,vs,valselcommit(home,vals),bf);
   }
   \end{litblock}
   \begin{litblock}{branch function with tie-breaking}
-  inline void
+  inline BrancherHandle
   branch(Home home, const IntVarArgs& x,
          TieBreak<IntVarBranch> vars, IntValBranch vals,
          IntBranchFilter bf=NULL) {
     using namespace Int;
-    if (home.failed()) return;
+    if (home.failed()) return BrancherHandle();
     vars.a.expand(home,x);
     \begin{litblock}{normalizing tie-breaking}
     if ((vars.a.select() == IntVarBranch::SEL_NONE) ||
@@ -2924,21 +2927,21 @@ namespace MPG {
       ViewSel<IntView>* vs[1] = { 
         viewsel(home,vars.a)
       };
-      ViewValBrancher<IntView,1,int,2>
+      return ViewValBrancher<IntView,1,int,2>
         ::post(home,xv,vs,valselcommit(home,vals),bf);
       \end{litblock}
     } else if (vars.c.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[2] = { 
         viewsel(home,vars.a), viewsel(home,vars.b)
       };
-      ViewValBrancher<IntView,2,int,2>
+      return ViewValBrancher<IntView,2,int,2>
         ::post(home,xv,vs,valselcommit(home,vals),bf);
     } else if (vars.d.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[3] = { 
         viewsel(home,vars.a), viewsel(home,vars.b),
         viewsel(home,vars.c)
       };
-      ViewValBrancher<IntView,3,int,2>
+      return ViewValBrancher<IntView,3,int,2>
         ::post(home,xv,vs,valselcommit(home,vals),bf);
     } else {
       \begin{litblock}{anonymous}
@@ -2946,7 +2949,7 @@ namespace MPG {
         viewsel(home,vars.a), viewsel(home,vars.b),
         viewsel(home,vars.c), viewsel(home,vars.d)
       };         
-      ViewValBrancher<IntView,4,int,2>
+      return ViewValBrancher<IntView,4,int,2>
         ::post(home,xv,vs,valselcommit(home,vals),bf);
       \end{litblock}
     }
