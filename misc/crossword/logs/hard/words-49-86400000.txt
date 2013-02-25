@@ -10,3 +10,17 @@ RESTART
 RESTART
 RESTART
 RESTART
+
+Initial
+	propagators: 932
+	branchers:   1
+
+Summary
+	runtime:      19:36:20.834 (70580834.000 ms)
+	solutions:    0
+	propagations: 284413731
+	nodes:        16029881
+	failures:     8014614
+	restarts:     11
+	peak depth:   98
+	peak memory:  546750 KB
