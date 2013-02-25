@@ -93,6 +93,32 @@ is equivalent, albeit considerably less efficient, to
 branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
 \end{code}
 
+\paragraph{Brancher handles.}
+
+When creating a brancher, the call to \?branch()? returns a
+brancher handle of class \gecoderef[class]{BrancherHandle}. For
+example, by
+\begin{code}
+BrancherHandle b = branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
+\end{code}
+a new brancher is created and handle \?b? to it is returned.
+
+A brancher handle offers only very few member functions. The most
+important ones are:
+\begin{itemize}
+\item \?b(home)? checks whether the brancher referred to by \?b? is
+  still active.
+\item \?b.kill(home)? for the home space of the brancher deletes
+  the brancher. This is the most useful operation provided by a
+  brancher handle: one can create a brancher for one stage in
+  search and delete it later when it is not any longer useful.
+\end{itemize}
+
+Note that in case the home space is failed, the call to
+\?branch()? might return a brancher handle \?b? that does in
+fact not refer to any brancher. In this case \?b(home)? returns
+\?false? and \?b.kill(home)? does nothing.
+
 
 \section{Branching on integer and Boolean variables}
 \label{sec:m:branch:int}
