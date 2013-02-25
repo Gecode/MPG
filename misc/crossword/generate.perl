@@ -276,8 +276,9 @@ foreach $mode ("base","restart") {
 }
 
 open RES, ">", "res-hard.tex";
-foreach $f ("logs/hard/words-39-86400000.txt",
-	    "logs/hard/words-45-86400000.txt"
+foreach $f ("logs/hard/words-39-0.txt",
+	    "logs/hard/words-45-0.txt",
+	    "logs/hard/words-49-0.txt"
 	   ) {
   if ($f =~ /.*\/(.*)-(.*)-.*\.txt/) {
     $dict = $1;

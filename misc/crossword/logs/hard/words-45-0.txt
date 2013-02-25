@@ -1,0 +1,52 @@
+Crossword
+Restart #1...
+Restart #2...
+Restart #3...
+Restart #4...
+Restart #5...
+Restart #6...
+Restart #7...
+Restart #8...
+Restart #9...
+Restart #10...
+Restart #11...
+Restart #11...
+	amerada*spacers*assault
+	saracen*arpanet*roaster
+	staging*fielder*toshiba
+	its*deepen*monolith*lac
+	shut*blasts*wabash*fine
+	terra*intact*best*razor
+	sweating*broil*tightens
+	***code*planner*clot***
+	tackle*prepended*odessa
+	available*ere*silvering
+	corns*lotus*replies*bee
+	king*deter***roams*meal
+	ida*beatnik*santa*parke
+	neglected*nil*densities
+	greece*dedicated*altars
+	***skis*defined*fife***
+	cassette*cents*tolerant
+	otter*ella*getter*renee
+	clan*reside*darned*digs
+	hag*maleness*mashed*mat
+	ingrate*enticed*emanate
+	stealer*acetone*auditor
+	earners*resents*drapers
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      7:03:14.626 (25394626.000 ms)
+	solutions:    1
+	propagations: 3049138606
+	nodes:        14031392
+	failures:     7014628
+	restarts:     11
+	peak depth:   146
+	peak memory:  522879 KB

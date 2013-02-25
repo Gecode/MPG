@@ -532,10 +532,10 @@ increased to one hour.
 \end{figure}
 
 
-Even the remaining three \texttt{word} instances have solutions
-and all can be found within one day of runtime, the results are
+Even the remaining three \texttt{word} instances can be solved within one day of runtime, the results are
 shown in \autoref{fig:c:crossword:hard}. The runtime is in the
-format hours:minutes:seconds (measured only by a single run).
+format hours:minutes:seconds (measured only by a single
+run). Note that \inst{words}{23}{10} does in fact not have a solution.
 
 
 \paragraph{Acknowledgments.}
