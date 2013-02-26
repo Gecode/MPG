@@ -450,8 +450,7 @@ that only solutions that are better than \?b? are found by search
 starting from \?s?.
 
 The \gecoderef[class]{Space} class actually already implements a
-\?constrain()? function which throws the exception
-\gecoderef[class]{SpaceConstrainUndefined}. That is, a space to
+\?constrain()? function which does nothing. That is, a space to
 be used with a best solution search engine must redefine the
 default \?constrain()? function by inheritance.
 

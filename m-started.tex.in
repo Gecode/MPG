@@ -757,10 +757,7 @@ function defined by the model. Note that every space defines a
 default \?constrain()? member function (to keep the design of
 models simple). If a model does not re-define the \?constrain()?
 member function (either directly or indirectly bu inheriting a
-\?constrain()? function), the default function will be called
-which throws an exception of type
-\gecoderef[class]{SpaceConstrainUndefined} (as this is a modeling
-error).
+\?constrain()? function), the default function will do nothing.
 
 Using Gist for best solution search is straightforward. Instead
 of using \?Gist::dfs?, one uses \?Gist::bab? to put Gist into
