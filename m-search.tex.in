@@ -854,7 +854,7 @@ The meta engine honors all search options as discussed in
 the engine used by the meta engine will use the specified number
 of processing units to perform parallel search. The meta engine
 requires that the search options specify a
-\gecoderef[class]{Search::Cutoff} object specifying the cutoff
+\gecoderef[class]{Search::Cutoff} object defining the cutoff
 sequence.
 
 \tip{Controlling restart-based search with the commandline
@@ -865,7 +865,6 @@ search. Depending on which options are passed on the commandline,
 either a search engine or the restart-based meta search engine is
 used for search. See \autoref{sec:m:driver:options} for details.
 }
-
 
 \paragraph{Cutoff generators.}
 
@@ -922,14 +921,14 @@ Search::Cutoff* c = Search::Cutoff::luby(s);
 \end{smallcode}
 \item[Random.]  A random cutoff sequence consists of uniformly
   randomly chosen values between a lower bound \?min? and an
-  upper bound \?max?. To focus on rather different values only
+  upper bound \?max?. To focus on rather different values, only
   values from the set of $\mathtt n+1$ values:
 $$
 \setc{\mathtt{min}+\lfloor i\cdot(\mathtt{max}-\mathtt{min})/\mathtt{n}\rfloor}{i=0,\ldots,\mathtt{n}}
 $$
 are chosen randomly.
 
-   A cutoff generator \?c?for a random sequence with lower bound
+   A cutoff generator \?c? for a random sequence with lower bound
    \?min?, upper bound \?max?, and number of values \?n? (all of
    type \?unsigned long int?)
    is created by:
@@ -941,6 +940,26 @@ Search::Cutoff* c = Search::Cutoff::rnd(seed,min,max,n);
 \end{description}
 
 
+\paragraph{Asking for a solution.}
+
+When the restart meta engine is asked for a next solution by
+calling \?next()?, there are three possible scenarios:
+\begin{itemize}
+\item \?next()? returns a pointer to a space (which might be
+  \?NULL? in case there are no more solutions). Deleting the
+  space is as with other engines the responsibility of the meta
+  engine's user. Asking the meta engine for another solution will
+  be using the current cutoff value (minus the failed nodes it
+  took to find the current solution).
+\item The meta engine reaches the current cutoff value. It
+  restarts search with the next cutoff value.
+\item The meta engine is stopped by the stop object passed to
+  it. Then \?next()? returns \?NULL? and \?stopped()? returns
+  \?true? (to be able to distinguish this scenario from the one
+  where there are no more solutions).
+\end{itemize}
+
+
 \paragraph{Master and slave configuration.}
 
 The meta engine maintains a \emph{master} space and each time the
@@ -950,26 +969,25 @@ follows: the master is configured, the slave is created, and then
 the slave is configured.
 
 More accurately, it leaves the actual configuration to the user:
-it calls the virtual member function \?configure()? on the master
-space and then calls an overloaded member function \?configure()?
-(that is, with different arguments) on the slave space. In that
-way, by redefining \?configure()?  the user can control how
-master and slave are being configured (this is exactly the same
-idea how \?constrain()? works for best solution search). By
-default, every space implements the two overloaded \?configure()?
-member functions to do nothing (one for the master and one for
-the slave).
+it calls the virtual member function \?master()? on the master
+space and then calls the virtual member function \?slave()?  on
+the slave space. In that way, by redefining \?master()? and
+\?slave()? the user can control how master and slave are being
+configured (this is exactly the same idea how \?constrain()?
+works for best solution search). By default, every space
+implements the two member functions \?master()? and \?slave()? to
+do nothing (one for the master and one for the slave).
 
-For example, a class \?Script? can define the \?configure()?
-member functions as follows:
+For example, a class \?Script? can define the member functions as
+follows:
 \begin{code}
 class Script : public Space {
   ...
-  virtual void configure(const Space& s, unsigned long int i) {
+  virtual void master(unsigned long int i, const Space* s) {
     // Configure the master
     ...
   }
-  virtual void configure(unsigned long int i) {
+  virtual void slave(unsigned long int i) {
     // Configure the slave
     ...
   }
@@ -977,29 +995,15 @@ class Script : public Space {
 \end{code}
 where \?i? is the number of the restart (starting from $0$,
 meaning that \?configure()? is called before exploration actually
-starts). The space \?s? passed to the \?configure()? function for
-the master refers either to a solution found in the previous
-restart of the restart meta engine or a space that has been
-explored last during search\footnote{The notion of last is
-  arguably rather fuzzy, in particular when the engine performs
-  parallel search. Future releases of Gecode will lift the fog
-  (to be read: right now we have not the faintest idea how this
-  works).}.  
+starts). The space \?s? passed to the \?master()? function for
+the master refers either to a solution found or it is \?NULL? in
+case the meta engine performs a restart because it reached the
+cutoff value. 
 
 \paragraph{Interaction with best solution search.}
 
 In case you want to use the restart meta engine together with
-best solution search, the \?configure()? function for the master
-must call the \?constrain()? function. That is, the script must
-implement at least:
-\begin{code}
-class Script : public Space {
-  ...
-  virtual void configure(const Space& s, unsigned long int i) {
-    constrain(s);
-    ...
-  }
-};
-\end{code}
-This ensures that the constraint that a next solution found by
-the restart engine is in fact better than the previous solution.
+best solution search, the \?constrain()? function is called on
+the master space by the restart meta engine just before the
+\?master()? function is called on the master space.
+
