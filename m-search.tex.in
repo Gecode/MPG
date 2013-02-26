@@ -937,6 +937,47 @@ Search::Cutoff* c = Search::Cutoff::rnd(seed,min,max,n);
 \end{smallcode}
   where \?seed? (of type \?unsigned int?) defines the seed value
   for the random number generator used.
+\item[Constant.] A constant cutoff sequence is defined by the
+  scale-factor \?s?. Then, the sequence
+  consists of the cutoff values:
+$$
+\mathtt{s},\mathtt{s},\mathtt{s},\ldots
+$$
+
+\begin{samepage}
+  A cutoff generator \?c? for a constant cutoff sequence with
+  scale-factor \?s? (of type \?unsigned long int?) is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::constant(s);
+\end{smallcode}
+\end{samepage}
+\item[Linear.] A linear cutoff sequence is defined by the
+  scale-factor \?s?. Then, the sequence
+  consists of the cutoff values:
+$$
+1\cdot\mathtt{s},2\cdot\mathtt{s},3\cdot\mathtt{s},\ldots
+$$
+
+  A cutoff generator \?c? for a linear cutoff sequence with
+  scale-factor \?s? (of type \?unsigned long int?) is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::linear(s);
+\end{smallcode}
+\item[Append.] An appended cutoff sequence \?c? for \?n? values
+  from the cutoff sequence $\mathtt{c}_1$ (with values
+  $k_0,k_1,k_2,\ldots$) followed by the values
+  from the cutoff sequence $\mathtt{c}_2$ (with values
+  $l_0,l_1,l_2,\ldots$) consists of the following values:
+  $$
+k_0,k_1,\ldots,k_{\mathtt{n}-2},k_{\mathtt{n}-1},l_0,l_1,l_2,\ldots
+$$
+  A cutoff generator \?c? for an appended cutoff sequence with
+  \?n? (of type \?unsigned int?) values from cutoff generator
+  \?c1? followed by values from cutoff generator \?c2? is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::append(c1,n,c2);
+\end{smallcode}
+
 \end{description}
 
 
