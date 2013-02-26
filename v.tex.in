@@ -1957,6 +1957,7 @@ using Gecode::ValCommitFunction;
 using Gecode::ViewValBrancher;
 using Gecode::TieBreak;
 using Gecode::function_cast;
+using Gecode::BrancherHandle;
 
 \end{litblock}
 
