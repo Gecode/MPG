@@ -250,14 +250,17 @@ dom(home, y, SRT_DISJ, IntSet(4, 6));
 result in the set variable \?x? being a subset of
 $\{1,\dots,10\}$ and a superset of $\{1,2,3\}$, while $4$, $5$,
 and $6$ are not elements of the set $\mathtt{y}$. The domain constraints
-for set variables support reification.
+for set variables support reification. Both \?x? and \?y? can
+also be arrays of set variables where each array element is
+constrained accordingly (but no reification is supported).
 \end{samepage}
 
 In addition to the above constraints,
 \begin{code}
 cardinality(home, x, 3, 5);
 \end{code}
-restricts the cardinality of the set variable \?x? to be between $3$ and $5$.
+restricts the cardinality of the set variable \?x? to be between
+$3$ and $5$. \?x?~can also be an array of set variables.
 
 %\CAT[set]{-}{dom}{TaskModelSetDom}
 
