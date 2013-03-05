@@ -264,6 +264,15 @@ $3$ and $5$. \?x?~can also be an array of set variables.
 
 %\CAT[set]{-}{dom}{TaskModelSetDom}
 
+The domain of a set variable \?x? can be
+constrained according to the domain of another variable set \?d? by
+\begin{code}
+dom(home, x, d);
+\end{code}
+Here, \?x? and \?d? can also be arrays of set
+variables.
+
+
 For examples using domain constraints, see
 \gecoderef[example]{crew}, as well as the redundant constraints
 in \gecoderef[example]{golf}.

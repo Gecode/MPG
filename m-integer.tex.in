@@ -881,6 +881,14 @@ Note that there are no domain constraints for Boolean variables,
 please use relation constraints instead, see
 \autoref{sec:m:integer:rel:bool}.
 
+The domain of an integer or Boolean variable \?x? can be
+constrained according to the domain of another variable \?d? by
+\begin{code}
+dom(home, x, d);
+\end{code}
+Here, \?x? and \?d? can also be arrays of integer or Boolean
+variables.
+
 Domain constraints for a single variable also support
 reification. For examples using domain constraints, see
 \gecoderef[example]{knights:KnightsReified} and

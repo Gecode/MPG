@@ -291,6 +291,31 @@ exist, the reification information combining the Boolean control
 variable and an optional reification mode is passed as the last
 non-optional argument, see \autoref{sec:m:integer:halfreify}.
 
+\subsection{Domain constraints}
+\label{sec:m:float:dom}
+
+\gecoderef[group]{TaskModelFloatDomain} constrain float variables
+and variable arrays to values from a given domain. For example,
+by
+\begin{code}
+dom(home, x, -2.0, 12.0);
+\end{code}
+the values of the variable \?x? (or of all variables in a
+variable array \?x?) are constrained to be between the float
+numbers $-2.0$ and $12.0$.
+Domain constraints also take float values as argument.
+
+The domain of a float variable \?x? can be
+constrained according to the domain of another float variable \?d? by
+\begin{code}
+dom(home, x, d);
+\end{code}
+Here, \?x? and \?d? can also be arrays of float
+variables.
+
+Domain constraints for a single variable also support
+reification.
+
 \subsection{Simple relation constraints}
 \label{sec:m:float:rel}
 

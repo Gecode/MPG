@@ -828,13 +828,17 @@ URL class Gecode::Reify classGecode_1_1Reify.html
 URL class Gecode::Restart classGecode_1_1Restart.html
 URL class Gecode::Rnd classGecode_1_1Rnd.html
 URL class Gecode::Search::Cutoff classGecode_1_1Search_1_1Cutoff.html
+URL class Gecode::Search::CutoffAppend classGecode_1_1Search_1_1CutoffAppend.html
+URL class Gecode::Search::CutoffConstant classGecode_1_1Search_1_1CutoffConstant.html
 URL class Gecode::Search::CutoffGeometric classGecode_1_1Search_1_1CutoffGeometric.html
+URL class Gecode::Search::CutoffLinear classGecode_1_1Search_1_1CutoffLinear.html
 URL class Gecode::Search::CutoffLuby classGecode_1_1Search_1_1CutoffLuby.html
 URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.html
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
 URL class Gecode::Search::FailedSpace classGecode_1_1Search_1_1FailedSpace.html
 URL class Gecode::Search::MemoryStop classGecode_1_1Search_1_1MemoryStop.html
+URL class Gecode::Search::Meta::Restart classGecode_1_1Search_1_1Meta_1_1Restart.html
 URL class Gecode::Search::MetaStop classGecode_1_1Search_1_1MetaStop.html
 URL class Gecode::Search::NodeStop classGecode_1_1Search_1_1NodeStop.html
 URL class Gecode::Search::Options classGecode_1_1Search_1_1Options.html
@@ -852,7 +856,6 @@ URL class Gecode::Search::Sequential::DFS classGecode_1_1Search_1_1Sequential_1_
 URL class Gecode::Search::Sequential::Path classGecode_1_1Search_1_1Sequential_1_1Path.html
 URL class Gecode::Search::Sequential::Path::Edge classGecode_1_1Search_1_1Sequential_1_1Path_1_1Edge.html
 URL class Gecode::Search::Sequential::RBS classGecode_1_1Search_1_1Sequential_1_1RBS.html
-URL class Gecode::Search::Sequential::Restart classGecode_1_1Search_1_1Sequential_1_1Restart.html
 URL class Gecode::Search::Statistics classGecode_1_1Search_1_1Statistics.html
 URL class Gecode::Search::Stop classGecode_1_1Search_1_1Stop.html
 URL class Gecode::Search::TimeStop classGecode_1_1Search_1_1TimeStop.html
@@ -991,7 +994,6 @@ URL class Gecode::Slice classGecode_1_1Slice.html
 URL class Gecode::Space classGecode_1_1Space.html
 URL class Gecode::Space::Branchers classGecode_1_1Space_1_1Branchers.html
 URL class Gecode::Space::Propagators classGecode_1_1Space_1_1Propagators.html
-URL class Gecode::SpaceConstrainUndefined classGecode_1_1SpaceConstrainUndefined.html
 URL class Gecode::SpaceFailed classGecode_1_1SpaceFailed.html
 URL class Gecode::SpaceIllegalAlternative classGecode_1_1SpaceIllegalAlternative.html
 URL class Gecode::SpaceNoBrancher classGecode_1_1SpaceNoBrancher.html
@@ -1199,6 +1201,9 @@ URL class Test::Float::Assignment classTest_1_1Float_1_1Assignment.html
 URL class Test::Float::Basic::Basic classTest_1_1Float_1_1Basic_1_1Basic.html
 URL class Test::Float::Channel::ChannelLinkSingle classTest_1_1Float_1_1Channel_1_1ChannelLinkSingle.html
 URL class Test::Float::CpltAssignment classTest_1_1Float_1_1CpltAssignment.html
+URL class Test::Float::Dom::Create classTest_1_1Float_1_1Dom_1_1Create.html
+URL class Test::Float::Dom::Num classTest_1_1Float_1_1Dom_1_1Num.html
+URL class Test::Float::Dom::Val classTest_1_1Float_1_1Dom_1_1Val.html
 URL class Test::Float::ExtAssignment classTest_1_1Float_1_1ExtAssignment.html
 URL class Test::Float::FloatRelTypes classTest_1_1Float_1_1FloatRelTypes.html
 URL class Test::Float::Linear::Create classTest_1_1Float_1_1Linear_1_1Create.html
@@ -1899,6 +1904,7 @@ URL file gecode/float/branch/val-sel.hpp float_2branch_2val-sel_8hpp.html
 URL file gecode/float/branch/val.hpp float_2branch_2val_8hpp.html
 URL file gecode/float/branch/var.hpp float_2branch_2var_8hpp.html
 URL file gecode/float/branch/view-sel.cpp float_2branch_2view-sel_8cpp.html
+URL file gecode/float/dom.cpp gecode_2float_2dom_8cpp.html
 URL file gecode/float/exception.hpp float_2exception_8hpp.html
 URL file gecode/float/exec.cpp gecode_2float_2exec_8cpp.html
 URL file gecode/float/limits.hpp float_2limits_8hpp.html
@@ -2335,6 +2341,7 @@ URL file gecode/search/dfs.cpp dfs_8cpp.html
 URL file gecode/search/dfs.hpp dfs_8hpp.html
 URL file gecode/search/engine-base.hpp engine-base_8hpp.html
 URL file gecode/search/exception.hpp search_2exception_8hpp.html
+URL file gecode/search/meta/restart.hh restart_8hh.html
 URL file gecode/search/options.cpp search_2options_8cpp.html
 URL file gecode/search/options.hpp search_2options_8hpp.html
 URL file gecode/search/parallel/bab.cpp parallel_2bab_8cpp.html
@@ -2354,7 +2361,6 @@ URL file gecode/search/sequential/bab.hh sequential_2bab_8hh.html
 URL file gecode/search/sequential/dfs.hh sequential_2dfs_8hh.html
 URL file gecode/search/sequential/path.hh sequential_2path_8hh.html
 URL file gecode/search/sequential/rbs.hh sequential_2rbs_8hh.html
-URL file gecode/search/sequential/restart.hh restart_8hh.html
 URL file gecode/search/statistics.hpp statistics_8hpp.html
 URL file gecode/search/stop.cpp stop_8cpp.html
 URL file gecode/search/stop.hpp stop_8hpp.html
@@ -2527,6 +2533,7 @@ URL file test/float.hpp test_2float_8hpp.html
 URL file test/float/arithmetic.cpp test_2float_2arithmetic_8cpp.html
 URL file test/float/basic.cpp float_2basic_8cpp.html
 URL file test/float/channel.cpp test_2float_2channel_8cpp.html
+URL file test/float/dom.cpp test_2float_2dom_8cpp.html
 URL file test/float/linear.cpp test_2float_2linear_8cpp.html
 URL file test/float/mm-lin.cpp float_2mm-lin_8cpp.html
 URL file test/float/rel.cpp test_2float_2rel_8cpp.html
@@ -2736,6 +2743,8 @@ URL group TaskModelFloatBranchVar group__TaskModelFloatBranchVar.html
 TITLE group TaskModelFloatBranchVar "Variable selection for float variables"
 URL group TaskModelFloatChannel group__TaskModelFloatChannel.html
 TITLE group TaskModelFloatChannel "Channel constraints"
+URL group TaskModelFloatDomain group__TaskModelFloatDomain.html
+TITLE group TaskModelFloatDomain "Domain constraints"
 URL group TaskModelFloatExec group__TaskModelFloatExec.html
 TITLE group TaskModelFloatExec "Synchronized execution"
 URL group TaskModelFloatLI group__TaskModelFloatLI.html
@@ -2892,6 +2901,8 @@ URL group TaskTestFloatArithmetic group__TaskTestFloatArithmetic.html
 TITLE group TaskTestFloatArithmetic "Arithmetic constraints"
 URL group TaskTestFloatBasic group__TaskTestFloatBasic.html
 TITLE group TaskTestFloatBasic "Basic setup"
+URL group TaskTestFloatDom group__TaskTestFloatDom.html
+TITLE group TaskTestFloatDom "Domain constraints"
 URL group TaskTestFloatFloat group__TaskTestFloatFloat.html
 TITLE group TaskTestFloatFloat "General test support"
 URL group TaskTestFloatLinear group__TaskTestFloatLinear.html
@@ -3048,6 +3059,7 @@ URL namespace Gecode::MemoryConfig namespaceGecode_1_1MemoryConfig.html
 URL namespace Gecode::MiniModel namespaceGecode_1_1MiniModel.html
 URL namespace Gecode::Search namespaceGecode_1_1Search.html
 URL namespace Gecode::Search::Config namespaceGecode_1_1Search_1_1Config.html
+URL namespace Gecode::Search::Meta namespaceGecode_1_1Search_1_1Meta.html
 URL namespace Gecode::Search::Parallel namespaceGecode_1_1Search_1_1Parallel.html
 URL namespace Gecode::Search::Sequential namespaceGecode_1_1Search_1_1Sequential.html
 URL namespace Gecode::Set namespaceGecode_1_1Set.html
@@ -3071,6 +3083,7 @@ URL namespace Test::Float namespaceTest_1_1Float.html
 URL namespace Test::Float::Arithmetic namespaceTest_1_1Float_1_1Arithmetic.html
 URL namespace Test::Float::Basic namespaceTest_1_1Float_1_1Basic.html
 URL namespace Test::Float::Channel namespaceTest_1_1Float_1_1Channel.html
+URL namespace Test::Float::Dom namespaceTest_1_1Float_1_1Dom.html
 URL namespace Test::Float::Linear namespaceTest_1_1Float_1_1Linear.html
 URL namespace Test::Float::MiniModelLin namespaceTest_1_1Float_1_1MiniModelLin.html
 URL namespace Test::Float::Rel namespaceTest_1_1Float_1_1Rel.html
