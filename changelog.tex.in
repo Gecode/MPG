@@ -11,8 +11,8 @@
   \cle{2013-02-22}{Documented restart-based search
     (see \autoref{sec:m:search:restart}), added example
     (see \autoref{sec:c:crossword:info})}
-  \cle{2013-02-22}{Complete rewrite of how to branch, see
-    \autoref{chap:m:branch}}
+  \cle{2013-02-22}{Complete rewrite of how to branch (you should
+    read it again), see \autoref{chap:m:branch}}
   \cle[\AckName{David}{Rijsman}]{2013-02-14}{Added missing copy
     constructors and assignment operators in
     \autoref{sec:p:memory:shared} and
