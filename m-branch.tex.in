@@ -621,13 +621,14 @@ fails during constraint propagation (by executing the \?status()? function of a 
 see also \autoref{tip:m:started:status}), the AFC of all
 propagators is updated:
 \begin{itemize}
-\item If the propagator \?p? did not fail, the AFC
-  $\mathtt{afc}(\mathtt p)$ of \?p? is updated by a decay-factor
-  $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
-$$\mathtt{afc}(\mathtt p)=\mathtt{d}\cdot\mathtt{afc}(\mathtt p)$$
 \item If the propagator \?p? failed, the AFC
   $\mathtt{afc}(\mathtt p)$ of \?p? is incremented by $1$:
 $$\mathtt{afc}(\mathtt p)=\mathtt{afc}(\mathtt p)+1$$
+
+     For all other propagators \?q?, the AFC
+  $\mathtt{afc}(\mathtt p)$ of \?q? is updated by a decay-factor
+  $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
+$$\mathtt{afc}(\mathtt q)=\mathtt{d}\cdot\mathtt{afc}(\mathtt q)$$
 \item The AFC $\mathtt{afc}(\mathtt x)$ of a variable \?x? is
   then defined as:
   $$\mathtt{afc}(\mathtt
