@@ -309,7 +309,7 @@ creates.  }
   instructional purposes (well, they do create beautiful trees in
   Gist). }
 
-\paragraph{Selecting values near to other values.}
+\paragraph{Selecting values near to a value.}
 
 Assume that by search you have found a solution to your problem
 (say values for an array of integer variables \?x?). What one
@@ -339,25 +339,33 @@ the value that will be tried first is $\mathtt{c}_{\mathtt{i}}$
 (provided it has not been pruned by propagation). Then all values
 close to $\mathtt{c}_{\mathtt{i}}$ will be tried.
 
-For example, assume that $\mathtt{c}_{\mathtt{i}}=2$. Then
+For example, assume that $\mathtt{c}_{\mathtt{i}}=3$. Then
 for the following example domains of $\mathtt{x}_{\mathtt{i}}$,
 the values that are tried
 first (shown as $\text{domain}\to\text{value}$) are:
 $$
-\{0,1,2,3,4\}\to 2 \qquad
-\{0,1,3,4\}\to 1 \qquad
-\{0,3,4\}\to 2 \qquad
-\{0,4\}\to 4
+\begin{array}{c@{\qquad}c@{\qquad}c}
+\{0,1,2,3,4,5,6\}\to 3 &
+\{0,1,2,4,5,6\}\to 2 &
+\{0,1,4,5,6\}\to 4 \\
+\{0,1,5,6\}\to 1 &
+\{0,5,6\}\to 5 &
+\{0,6\}\to 0
+\end{array}
 $$
 That is, when two values are as near as possible, the smaller is
 selected. \?INT_VAL_NEAR_MAX()? selects the larger value instead.
 
 \?INT_VAL_NEAR_INC(c)? chooses the following values to try first:
 $$
-\{0,1,2,3,4\}\to 2 \qquad
-\{0,1,3,4\}\to 3 \qquad
-\{0,1,4\}\to 4 \qquad
+\begin{array}{c@{\qquad}c@{\qquad}c}
+\{0,1,2,3,4,5,6\}\to 3 &
+\{0,1,2,4,5,6\}\to 4 &
+\{0,1,2,5,6\}\to 5 \\
+\{0,1,2,6\}\to 6 &
+\{0,1,2\}\to 2 &
 \{0,1\}\to 1
+\end{array}
 $$
 That is, values are chosen starting from
 $\mathtt{c}_{\mathtt{i}}$ in increasing order if possible and
