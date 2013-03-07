@@ -631,7 +631,6 @@ parallel \\
 \?DFS? & \?dfs? & depth-first left-most & & \YES\\
 \hline
 \?BAB? & \?bab? & branch-and-bound & \YES & \YES\\
-\?RBS? & \?rbs? & depth-first left-most restart & \YES& \YES\\
 \hline
 \end{tabular}
 \end{center}
@@ -649,10 +648,7 @@ available search engines are summarized in
 \?BAB? continues search when a solution is found by adding a
 constraint (through the \?constrain()? function as discussed in
 \autoref{sec:m:started:search-best}) to search for a better
-solution to all remaining nodes of the search tree. \?RBS?
-restarts the search after the constraint has been added to the
-root node of the search tree (again, by using the \?constrain()?
-function).
+solution to all remaining nodes of the search tree. 
 
 
 
@@ -834,7 +830,7 @@ problem is configured before each restart. The interface of the
 meta search engine in Gecode is exactly the same as the interface
 of a non-meta search engines.
 
-The restart meta search engine \gecoderef[class]{Restart} is
+The restart meta search engine \gecoderef[class]{RBS} is
 parametric with respect to both the search engine to be used and
 the script to be solved (a subclass of \gecoderef[class]{Space}).
 For example, when we want to use the \gecoderef[class]{DFS}
@@ -842,7 +838,7 @@ engine for the script \?s? of class type \?Script?, the meta
 engine \?e?
 can be created by (\?o? are mandatory search options, see below):
 \begin{code}
-Restart<DFS,Script> e(s,o);
+RBS<DFS,Script> e(s,o);
 \end{code}
 Now \?e? implements exactly the same interface as the normal
 engines (that is, \?next()? to request the next solution,
@@ -884,7 +880,7 @@ engine can be created by:
 \begin{code}
 Search::Options o;
 o.cutoff = c;
-Restart<DFS,Script> e(s,o);
+RBS<DFS,Script> e(s,o);
 \end{code}
 
 Gecode provides three different commonly used cutoff generators:
