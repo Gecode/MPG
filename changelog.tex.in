@@ -8,6 +8,8 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2013-03-08}{Documented LDSB
+    (see \autoref{sec:m:branch:sym})}
   \cle{2013-02-22}{Documented restart-based search
     (see \autoref{sec:m:search:restart}), added example
     (see \autoref{sec:c:crossword:info})}
