@@ -43,6 +43,8 @@ URL class Gecode::ArgArray classGecode_1_1ArgArray.html
 URL class Gecode::ArgArrayBase classGecode_1_1ArgArrayBase.html
 URL class Gecode::ArrayTraits classGecode_1_1ArrayTraits.html
 URL class Gecode::ArrayTraits<ArgArray<IntSet>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01IntSet_01_4_01_4.html
+URL class Gecode::ArrayTraits<ArgArray<SymmetryHandle>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01SymmetryHandle_01_4_01_4.html
+URL class Gecode::ArrayTraits<ArgArray<VarImpBase*>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01VarImpBase_01_5_01_4_01_4.html
 URL class Gecode::ArrayTraits<BoolVarArgs> classGecode_1_1ArrayTraits_3_01BoolVarArgs_01_4.html
 URL class Gecode::ArrayTraits<BoolVarArray> classGecode_1_1ArrayTraits_3_01BoolVarArray_01_4.html
 URL class Gecode::ArrayTraits<FloatValArgs> classGecode_1_1ArrayTraits_3_01FloatValArgs_01_4.html
@@ -51,6 +53,7 @@ URL class Gecode::ArrayTraits<FloatVarArray> classGecode_1_1ArrayTraits_3_01Floa
 URL class Gecode::ArrayTraits<IntArgs> classGecode_1_1ArrayTraits_3_01IntArgs_01_4.html
 URL class Gecode::ArrayTraits<IntVarArgs> classGecode_1_1ArrayTraits_3_01IntVarArgs_01_4.html
 URL class Gecode::ArrayTraits<IntVarArray> classGecode_1_1ArrayTraits_3_01IntVarArray_01_4.html
+URL class Gecode::ArrayTraits<LiteralArgs> classGecode_1_1ArrayTraits_3_01LiteralArgs_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<FloatVal>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01FloatVal_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<TaskType>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01TaskType_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<int>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01int_01_4_01_4.html
@@ -353,6 +356,8 @@ URL class Gecode::Int::Branch::ValSelAvg classGecode_1_1Int_1_1Branch_1_1ValSelA
 URL class Gecode::Int::Branch::ValSelMax classGecode_1_1Int_1_1Branch_1_1ValSelMax.html
 URL class Gecode::Int::Branch::ValSelMed classGecode_1_1Int_1_1Branch_1_1ValSelMed.html
 URL class Gecode::Int::Branch::ValSelMin classGecode_1_1Int_1_1Branch_1_1ValSelMin.html
+URL class Gecode::Int::Branch::ValSelNearIncDec classGecode_1_1Int_1_1Branch_1_1ValSelNearIncDec.html
+URL class Gecode::Int::Branch::ValSelNearMinMax classGecode_1_1Int_1_1Branch_1_1ValSelNearMinMax.html
 URL class Gecode::Int::Branch::ValSelRangeMax classGecode_1_1Int_1_1Branch_1_1ValSelRangeMax.html
 URL class Gecode::Int::Branch::ValSelRangeMin classGecode_1_1Int_1_1Branch_1_1ValSelRangeMin.html
 URL class Gecode::Int::Branch::ValSelRnd classGecode_1_1Int_1_1Branch_1_1ValSelRnd.html
@@ -490,6 +495,22 @@ URL class Gecode::Int::IntVarImpBwd classGecode_1_1Int_1_1IntVarImpBwd.html
 URL class Gecode::Int::IntVarImpConf classGecode_1_1Int_1_1IntVarImpConf.html
 URL class Gecode::Int::IntVarImpFwd classGecode_1_1Int_1_1IntVarImpFwd.html
 URL class Gecode::Int::IntView classGecode_1_1Int_1_1IntView.html
+URL class Gecode::Int::LDSB::LDSBBrancher classGecode_1_1Int_1_1LDSB_1_1LDSBBrancher.html
+URL class Gecode::Int::LDSB::LDSBChoice classGecode_1_1Int_1_1LDSB_1_1LDSBChoice.html
+URL class Gecode::Int::LDSB::Literal classGecode_1_1Int_1_1LDSB_1_1Literal.html
+URL class Gecode::Int::LDSB::SymmetryImp classGecode_1_1Int_1_1LDSB_1_1SymmetryImp.html
+URL class Gecode::Int::LDSB::SymmetryObject classGecode_1_1Int_1_1LDSB_1_1SymmetryObject.html
+URL class Gecode::Int::LDSB::ValueSequenceSymmetryImp classGecode_1_1Int_1_1LDSB_1_1ValueSequenceSymmetryImp.html
+URL class Gecode::Int::LDSB::ValueSequenceSymmetryObject classGecode_1_1Int_1_1LDSB_1_1ValueSequenceSymmetryObject.html
+URL class Gecode::Int::LDSB::ValueSymmetryImp classGecode_1_1Int_1_1LDSB_1_1ValueSymmetryImp.html
+URL class Gecode::Int::LDSB::ValueSymmetryObject classGecode_1_1Int_1_1LDSB_1_1ValueSymmetryObject.html
+URL class Gecode::Int::LDSB::VariableMap classGecode_1_1Int_1_1LDSB_1_1VariableMap.html
+URL class Gecode::Int::LDSB::VariableSequenceSymmetryImp classGecode_1_1Int_1_1LDSB_1_1VariableSequenceSymmetryImp.html
+URL class Gecode::Int::LDSB::VariableSequenceSymmetryObject classGecode_1_1Int_1_1LDSB_1_1VariableSequenceSymmetryObject.html
+URL class Gecode::Int::LDSB::VariableSymmetryImp classGecode_1_1Int_1_1LDSB_1_1VariableSymmetryImp.html
+URL class Gecode::Int::LDSB::VariableSymmetryObject classGecode_1_1Int_1_1LDSB_1_1VariableSymmetryObject.html
+URL class Gecode::Int::LDSBBadValueSelection classGecode_1_1Int_1_1LDSBBadValueSelection.html
+URL class Gecode::Int::LDSBUnbranchedVariable classGecode_1_1Int_1_1LDSBUnbranchedVariable.html
 URL class Gecode::Int::Linear::BoolNegTraits classGecode_1_1Int_1_1Linear_1_1BoolNegTraits.html
 URL class Gecode::Int::Linear::BoolNegTraits<BoolView> classGecode_1_1Int_1_1Linear_1_1BoolNegTraits_3_01BoolView_01_4.html
 URL class Gecode::Int::Linear::BoolNegTraits<NegBoolView> classGecode_1_1Int_1_1Linear_1_1BoolNegTraits_3_01NegBoolView_01_4.html
@@ -755,6 +776,7 @@ URL class Gecode::Iter::Ranges::ToValues classGecode_1_1Iter_1_1Ranges_1_1ToValu
 URL class Gecode::Iter::Ranges::Union classGecode_1_1Iter_1_1Ranges_1_1Union.html
 URL class Gecode::Iter::Values::Array classGecode_1_1Iter_1_1Values_1_1Array.html
 URL class Gecode::Iter::Values::BitSet classGecode_1_1Iter_1_1Values_1_1BitSet.html
+URL class Gecode::Iter::Values::BitSetOffset classGecode_1_1Iter_1_1Values_1_1BitSetOffset.html
 URL class Gecode::Iter::Values::Inter classGecode_1_1Iter_1_1Values_1_1Inter.html
 URL class Gecode::Iter::Values::Map classGecode_1_1Iter_1_1Values_1_1Map.html
 URL class Gecode::Iter::Values::Minus classGecode_1_1Iter_1_1Values_1_1Minus.html
@@ -825,7 +847,6 @@ URL class Gecode::REG::Exp classGecode_1_1REG_1_1Exp.html
 URL class Gecode::RangeList classGecode_1_1RangeList.html
 URL class Gecode::Region classGecode_1_1Region.html
 URL class Gecode::Reify classGecode_1_1Reify.html
-URL class Gecode::Restart classGecode_1_1Restart.html
 URL class Gecode::Rnd classGecode_1_1Rnd.html
 URL class Gecode::Search::Cutoff classGecode_1_1Search_1_1Cutoff.html
 URL class Gecode::Search::CutoffAppend classGecode_1_1Search_1_1CutoffAppend.html
@@ -838,7 +859,7 @@ URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
 URL class Gecode::Search::FailedSpace classGecode_1_1Search_1_1FailedSpace.html
 URL class Gecode::Search::MemoryStop classGecode_1_1Search_1_1MemoryStop.html
-URL class Gecode::Search::Meta::Restart classGecode_1_1Search_1_1Meta_1_1Restart.html
+URL class Gecode::Search::Meta::RBS classGecode_1_1Search_1_1Meta_1_1RBS.html
 URL class Gecode::Search::MetaStop classGecode_1_1Search_1_1MetaStop.html
 URL class Gecode::Search::NodeStop classGecode_1_1Search_1_1NodeStop.html
 URL class Gecode::Search::Options classGecode_1_1Search_1_1Options.html
@@ -850,12 +871,10 @@ URL class Gecode::Search::Parallel::Engine classGecode_1_1Search_1_1Parallel_1_1
 URL class Gecode::Search::Parallel::Engine::Worker classGecode_1_1Search_1_1Parallel_1_1Engine_1_1Worker.html
 URL class Gecode::Search::Parallel::Path classGecode_1_1Search_1_1Parallel_1_1Path.html
 URL class Gecode::Search::Parallel::Path::Edge classGecode_1_1Search_1_1Parallel_1_1Path_1_1Edge.html
-URL class Gecode::Search::Parallel::RBS classGecode_1_1Search_1_1Parallel_1_1RBS.html
 URL class Gecode::Search::Sequential::BAB classGecode_1_1Search_1_1Sequential_1_1BAB.html
 URL class Gecode::Search::Sequential::DFS classGecode_1_1Search_1_1Sequential_1_1DFS.html
 URL class Gecode::Search::Sequential::Path classGecode_1_1Search_1_1Sequential_1_1Path.html
 URL class Gecode::Search::Sequential::Path::Edge classGecode_1_1Search_1_1Sequential_1_1Path_1_1Edge.html
-URL class Gecode::Search::Sequential::RBS classGecode_1_1Search_1_1Sequential_1_1RBS.html
 URL class Gecode::Search::Statistics classGecode_1_1Search_1_1Statistics.html
 URL class Gecode::Search::Stop classGecode_1_1Search_1_1Stop.html
 URL class Gecode::Search::TimeStop classGecode_1_1Search_1_1TimeStop.html
@@ -917,6 +936,8 @@ URL class Gecode::Set::Int::OverweightValues classGecode_1_1Set_1_1Int_1_1Overwe
 URL class Gecode::Set::Int::ReMaxElement classGecode_1_1Set_1_1Int_1_1ReMaxElement.html
 URL class Gecode::Set::Int::ReMinElement classGecode_1_1Set_1_1Int_1_1ReMinElement.html
 URL class Gecode::Set::Int::Weights classGecode_1_1Set_1_1Int_1_1Weights.html
+URL class Gecode::Set::LDSB::LDSBSetBrancher classGecode_1_1Set_1_1LDSB_1_1LDSBSetBrancher.html
+URL class Gecode::Set::LDSB::VariableMap classGecode_1_1Set_1_1LDSB_1_1VariableMap.html
 URL class Gecode::Set::LUBndSet classGecode_1_1Set_1_1LUBndSet.html
 URL class Gecode::Set::LubDiffRanges classGecode_1_1Set_1_1LubDiffRanges.html
 URL class Gecode::Set::LubRanges classGecode_1_1Set_1_1LubRanges.html
@@ -1003,6 +1024,7 @@ URL class Gecode::StatusStatistics classGecode_1_1StatusStatistics.html
 URL class Gecode::Support::BitSet classGecode_1_1Support_1_1BitSet.html
 URL class Gecode::Support::BitSetBase classGecode_1_1Support_1_1BitSetBase.html
 URL class Gecode::Support::BitSetData classGecode_1_1Support_1_1BitSetData.html
+URL class Gecode::Support::BitSetOffset classGecode_1_1Support_1_1BitSetOffset.html
 URL class Gecode::Support::BlockAllocator classGecode_1_1Support_1_1BlockAllocator.html
 URL class Gecode::Support::BlockClient classGecode_1_1Support_1_1BlockClient.html
 URL class Gecode::Support::DynamicArray classGecode_1_1Support_1_1DynamicArray.html
@@ -1026,6 +1048,8 @@ URL class Gecode::Support::StaticStack classGecode_1_1Support_1_1StaticStack.htm
 URL class Gecode::Support::Thread classGecode_1_1Support_1_1Thread.html
 URL class Gecode::Support::Thread::Run classGecode_1_1Support_1_1Thread_1_1Run.html
 URL class Gecode::Support::Timer classGecode_1_1Support_1_1Timer.html
+URL class Gecode::Symmetries classGecode_1_1Symmetries.html
+URL class Gecode::SymmetryHandle classGecode_1_1SymmetryHandle.html
 URL class Gecode::TernaryPropagator classGecode_1_1TernaryPropagator.html
 URL class Gecode::TieBreak classGecode_1_1TieBreak.html
 URL class Gecode::TooManyBranchers classGecode_1_1TooManyBranchers.html
@@ -1486,6 +1510,42 @@ URL class Test::Int::Unary::OptFixPUnary classTest_1_1Int_1_1Unary_1_1OptFixPUna
 URL class Test::Int::Unary::OptFlexUnary classTest_1_1Int_1_1Unary_1_1OptFlexUnary.html
 URL class Test::Int::Unshare::Bool classTest_1_1Int_1_1Unshare_1_1Bool.html
 URL class Test::Int::Unshare::Int classTest_1_1Int_1_1Unshare_1_1Int.html
+URL class Test::LDSB::LDSB classTest_1_1LDSB_1_1LDSB.html
+URL class Test::LDSB::LDSBLatin classTest_1_1LDSB_1_1LDSBLatin.html
+URL class Test::LDSB::LDSBLatin::Latin classTest_1_1LDSB_1_1LDSBLatin_1_1Latin.html
+URL class Test::LDSB::LDSBSet classTest_1_1LDSB_1_1LDSBSet.html
+URL class Test::LDSB::MatSym1 classTest_1_1LDSB_1_1MatSym1.html
+URL class Test::LDSB::MatSym2 classTest_1_1LDSB_1_1MatSym2.html
+URL class Test::LDSB::MatSym3 classTest_1_1LDSB_1_1MatSym3.html
+URL class Test::LDSB::MatSym4 classTest_1_1LDSB_1_1MatSym4.html
+URL class Test::LDSB::OneArray classTest_1_1LDSB_1_1OneArray.html
+URL class Test::LDSB::OneArraySet classTest_1_1LDSB_1_1OneArraySet.html
+URL class Test::LDSB::Recomputation classTest_1_1LDSB_1_1Recomputation.html
+URL class Test::LDSB::SetValSym1 classTest_1_1LDSB_1_1SetValSym1.html
+URL class Test::LDSB::SetValSym2 classTest_1_1LDSB_1_1SetValSym2.html
+URL class Test::LDSB::SetVarSeqSym1 classTest_1_1LDSB_1_1SetVarSeqSym1.html
+URL class Test::LDSB::SetVarSeqSym2 classTest_1_1LDSB_1_1SetVarSeqSym2.html
+URL class Test::LDSB::SetVarSym1 classTest_1_1LDSB_1_1SetVarSym1.html
+URL class Test::LDSB::SimIntValSym1 classTest_1_1LDSB_1_1SimIntValSym1.html
+URL class Test::LDSB::SimIntValSym2 classTest_1_1LDSB_1_1SimIntValSym2.html
+URL class Test::LDSB::SimIntVarSym1 classTest_1_1LDSB_1_1SimIntVarSym1.html
+URL class Test::LDSB::SimIntVarSym2 classTest_1_1LDSB_1_1SimIntVarSym2.html
+URL class Test::LDSB::TieBreak classTest_1_1LDSB_1_1TieBreak.html
+URL class Test::LDSB::ValSym1 classTest_1_1LDSB_1_1ValSym1.html
+URL class Test::LDSB::ValSym1b classTest_1_1LDSB_1_1ValSym1b.html
+URL class Test::LDSB::ValSym1c classTest_1_1LDSB_1_1ValSym1c.html
+URL class Test::LDSB::ValSym2 classTest_1_1LDSB_1_1ValSym2.html
+URL class Test::LDSB::ValSym2b classTest_1_1LDSB_1_1ValSym2b.html
+URL class Test::LDSB::ValSym3 classTest_1_1LDSB_1_1ValSym3.html
+URL class Test::LDSB::ValSym4 classTest_1_1LDSB_1_1ValSym4.html
+URL class Test::LDSB::ValSym5 classTest_1_1LDSB_1_1ValSym5.html
+URL class Test::LDSB::VarSym1 classTest_1_1LDSB_1_1VarSym1.html
+URL class Test::LDSB::VarSym1b classTest_1_1LDSB_1_1VarSym1b.html
+URL class Test::LDSB::VarSym2 classTest_1_1LDSB_1_1VarSym2.html
+URL class Test::LDSB::VarSym3 classTest_1_1LDSB_1_1VarSym3.html
+URL class Test::LDSB::VarSym4 classTest_1_1LDSB_1_1VarSym4.html
+URL class Test::LDSB::VarSym5 classTest_1_1LDSB_1_1VarSym5.html
+URL class Test::LDSB::VarValSym1 classTest_1_1LDSB_1_1VarValSym1.html
 URL class Test::Options classTest_1_1Options.html
 URL class Test::Search::Best classTest_1_1Search_1_1Best.html
 URL class Test::Search::BranchTypes classTest_1_1Search_1_1BranchTypes.html
@@ -1494,6 +1554,7 @@ URL class Test::Search::Create classTest_1_1Search_1_1Create.html
 URL class Test::Search::DFS classTest_1_1Search_1_1DFS.html
 URL class Test::Search::FailImmediate classTest_1_1Search_1_1FailImmediate.html
 URL class Test::Search::HasSolutions classTest_1_1Search_1_1HasSolutions.html
+URL class Test::Search::RBS classTest_1_1Search_1_1RBS.html
 URL class Test::Search::Test classTest_1_1Search_1_1Test.html
 URL class Test::Search::TestSpace classTest_1_1Search_1_1TestSpace.html
 URL class Test::Set::Channel::ChannelBool classTest_1_1Set_1_1Channel_1_1ChannelBool.html
@@ -1807,8 +1868,6 @@ URL example word-square word-square_8cpp.html
 TITLE example word-square "Word-square puzzle"
 URL example word-square:WordSquare word-square_8cpp.html
 TITLE example word-square:WordSquare "Word-square puzzle"
-URL file changelog.hh changelog_8hh.html
-URL file doxygen.hh doxygen_8hh.html
 URL file examples/all-interval.cpp all-interval_8cpp.html
 URL file examples/alpha.cpp alpha_8cpp.html
 URL file examples/archimedean-spiral.cpp archimedean-spiral_8cpp.html
@@ -1862,7 +1921,6 @@ URL file examples/sudoku.cpp sudoku_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
-URL file fz.cpp fz_8cpp.html
 URL file gecode/driver.hh driver_8hh.html
 URL file gecode/driver/options.cpp driver_2options_8cpp.html
 URL file gecode/driver/options.hpp driver_2options_8hpp.html
@@ -2111,6 +2169,12 @@ URL file gecode/int/gcc/view.hpp int_2gcc_2view_8hpp.html
 URL file gecode/int/int-set-1.hpp int-set-1_8hpp.html
 URL file gecode/int/int-set-2.hpp int-set-2_8hpp.html
 URL file gecode/int/int-set.cpp int-set_8cpp.html
+URL file gecode/int/ldsb.cpp gecode_2int_2ldsb_8cpp.html
+URL file gecode/int/ldsb.hh int_2ldsb_8hh.html
+URL file gecode/int/ldsb/brancher.hpp int_2ldsb_2brancher_8hpp.html
+URL file gecode/int/ldsb/sym-imp.cpp int_2ldsb_2sym-imp_8cpp.html
+URL file gecode/int/ldsb/sym-imp.hpp sym-imp_8hpp.html
+URL file gecode/int/ldsb/sym-obj.cpp sym-obj_8cpp.html
 URL file gecode/int/limits.hpp int_2limits_8hpp.html
 URL file gecode/int/linear-bool.cpp linear-bool_8cpp.html
 URL file gecode/int/linear-int.cpp linear-int_8cpp.html
@@ -2258,6 +2322,7 @@ URL file gecode/iter/ranges-union.hpp ranges-union_8hpp.html
 URL file gecode/iter/ranges-values.hpp ranges-values_8hpp.html
 URL file gecode/iter/values-array.hpp values-array_8hpp.html
 URL file gecode/iter/values-bitset.hpp values-bitset_8hpp.html
+URL file gecode/iter/values-bitsetoffset.hpp values-bitsetoffset_8hpp.html
 URL file gecode/iter/values-inter.hpp values-inter_8hpp.html
 URL file gecode/iter/values-list.hpp values-list_8hpp.html
 URL file gecode/iter/values-map.hpp values-map_8hpp.html
@@ -2324,6 +2389,7 @@ URL file gecode/minimodel/int-arith.cpp int-arith_8cpp.html
 URL file gecode/minimodel/int-expr.cpp int-expr_8cpp.html
 URL file gecode/minimodel/int-rel.cpp int-rel_8cpp.html
 URL file gecode/minimodel/int-rel.hpp int-rel_8hpp.html
+URL file gecode/minimodel/ldsb.hpp ldsb_8hpp.html
 URL file gecode/minimodel/matrix.hpp matrix_8hpp.html
 URL file gecode/minimodel/optimize.hpp optimize_8hpp.html
 URL file gecode/minimodel/reg.cpp reg_8cpp.html
@@ -2341,7 +2407,8 @@ URL file gecode/search/dfs.cpp dfs_8cpp.html
 URL file gecode/search/dfs.hpp dfs_8hpp.html
 URL file gecode/search/engine-base.hpp engine-base_8hpp.html
 URL file gecode/search/exception.hpp search_2exception_8hpp.html
-URL file gecode/search/meta/restart.hh restart_8hh.html
+URL file gecode/search/meta/rbs.cpp meta_2rbs_8cpp.html
+URL file gecode/search/meta/rbs.hh rbs_8hh.html
 URL file gecode/search/options.cpp search_2options_8cpp.html
 URL file gecode/search/options.hpp search_2options_8hpp.html
 URL file gecode/search/parallel/bab.cpp parallel_2bab_8cpp.html
@@ -2351,16 +2418,11 @@ URL file gecode/search/parallel/dfs.hh parallel_2dfs_8hh.html
 URL file gecode/search/parallel/engine.cpp engine_8cpp.html
 URL file gecode/search/parallel/engine.hh engine_8hh.html
 URL file gecode/search/parallel/path.hh parallel_2path_8hh.html
-URL file gecode/search/parallel/rbs.cpp parallel_2rbs_8cpp.html
-URL file gecode/search/parallel/rbs.hh parallel_2rbs_8hh.html
 URL file gecode/search/rbs.cpp rbs_8cpp.html
 URL file gecode/search/rbs.hpp rbs_8hpp.html
-URL file gecode/search/restart.cpp restart_8cpp.html
-URL file gecode/search/restart.hpp restart_8hpp.html
 URL file gecode/search/sequential/bab.hh sequential_2bab_8hh.html
 URL file gecode/search/sequential/dfs.hh sequential_2dfs_8hh.html
 URL file gecode/search/sequential/path.hh sequential_2path_8hh.html
-URL file gecode/search/sequential/rbs.hh sequential_2rbs_8hh.html
 URL file gecode/search/statistics.hpp statistics_8hpp.html
 URL file gecode/search/stop.cpp stop_8cpp.html
 URL file gecode/search/stop.hpp stop_8hpp.html
@@ -2416,6 +2478,10 @@ URL file gecode/set/int.hh gecode_2set_2int_8hh.html
 URL file gecode/set/int/card.hpp card_8hpp.html
 URL file gecode/set/int/minmax.hpp minmax_8hpp.html
 URL file gecode/set/int/weights.hpp weights_8hpp.html
+URL file gecode/set/ldsb.cpp gecode_2set_2ldsb_8cpp.html
+URL file gecode/set/ldsb.hh set_2ldsb_8hh.html
+URL file gecode/set/ldsb/brancher.hpp set_2ldsb_2brancher_8hpp.html
+URL file gecode/set/ldsb/sym-imp.cpp set_2ldsb_2sym-imp_8cpp.html
 URL file gecode/set/limits.hpp set_2limits_8hpp.html
 URL file gecode/set/precede.cpp gecode_2set_2precede_8cpp.html
 URL file gecode/set/precede.hh set_2precede_8hh.html
@@ -2482,10 +2548,11 @@ URL file gecode/set/view/singleton.hpp singleton_8hpp.html
 URL file gecode/support.hh support_8hh.html
 URL file gecode/support/auto-link.hpp auto-link_8hpp.html
 URL file gecode/support/bitset-base.hpp bitset-base_8hpp.html
+URL file gecode/support/bitset-offset.hpp bitset-offset_8hpp.html
 URL file gecode/support/bitset.hpp bitset_8hpp.html
 URL file gecode/support/block-allocator.hpp block-allocator_8hpp.html
 URL file gecode/support/cast.hpp cast_8hpp.html
-URL file gecode/support/config.hpp config_8hpp.html
+URL file gecode/support/config.hpp static_2gecode_2support_2config_8hpp.html
 URL file gecode/support/dynamic-array.hpp dynamic-array_8hpp.html
 URL file gecode/support/dynamic-queue.hpp dynamic-queue_8hpp.html
 URL file gecode/support/dynamic-stack.hpp dynamic-stack_8hpp.html
@@ -2510,8 +2577,12 @@ URL file gecode/support/thread/thread.hpp thread_2thread_8hpp.html
 URL file gecode/support/thread/windows.cpp windows_8cpp.html
 URL file gecode/support/thread/windows.hpp windows_8hpp.html
 URL file gecode/support/timer.hpp timer_8hpp.html
-URL file license.hh license_8hh.html
-URL file stat.hh stat_8hh.html
+URL file gecode/trunk/changelog.hh changelog_8hh.html
+URL file gecode/trunk/doxygen.hh doxygen_8hh.html
+URL file gecode/trunk/license.hh license_8hh.html
+URL file gecode/trunk/stat.hh stat_8hh.html
+URL file gecode/trunk/static/doxygen.hh static_2doxygen_8hh.html
+URL file gecode/trunk/tools/flatzinc/fz.cpp fz_8cpp.html
 URL file test/afc.cpp test_2afc_8cpp.html
 URL file test/array.cpp test_2array_8cpp.html
 URL file test/assign.cpp assign_8cpp.html
@@ -2572,6 +2643,7 @@ URL file test/int/sequence.cpp test_2int_2sequence_8cpp.html
 URL file test/int/sorted.cpp test_2int_2sorted_8cpp.html
 URL file test/int/unary.cpp test_2int_2unary_8cpp.html
 URL file test/int/unshare.cpp test_2int_2unshare_8cpp.html
+URL file test/ldsb.cpp test_2ldsb_8cpp.html
 URL file test/search.cpp search_8cpp.html
 URL file test/set.cpp test_2set_8cpp.html
 URL file test/set.hh test_2set_8hh.html
@@ -2599,6 +2671,10 @@ URL group Func group__Func.html
 TITLE group Func "Common functionality"
 URL group FuncFloatProp group__FuncFloatProp.html
 TITLE group FuncFloatProp "Float propagators"
+URL group FuncFloatSelVal group__FuncFloatSelVal.html
+TITLE group FuncFloatSelVal "Float value selection for brancher"
+URL group FuncFloatSelView group__FuncFloatSelView.html
+TITLE group FuncFloatSelView "Float view selection for brancher"
 URL group FuncFloatValCommit group__FuncFloatValCommit.html
 TITLE group FuncFloatValCommit "Float value commit classes"
 URL group FuncFloatValSel group__FuncFloatValSel.html
@@ -2607,6 +2683,10 @@ URL group FuncFloatViewSel group__FuncFloatViewSel.html
 TITLE group FuncFloatViewSel "Merit-based float view selection for branchers"
 URL group FuncIntProp group__FuncIntProp.html
 TITLE group FuncIntProp "Integer propagators"
+URL group FuncIntSelVal group__FuncIntSelVal.html
+TITLE group FuncIntSelVal "Integer value selection for brancher"
+URL group FuncIntSelView group__FuncIntSelView.html
+TITLE group FuncIntSelView "Integer view selection for brancher"
 URL group FuncIntValCommit group__FuncIntValCommit.html
 TITLE group FuncIntValCommit "Integer value commit classes"
 URL group FuncIntValSel group__FuncIntValSel.html
@@ -2639,6 +2719,10 @@ URL group FuncMemSpace group__FuncMemSpace.html
 TITLE group FuncMemSpace "Space-memory management"
 URL group FuncSetProp group__FuncSetProp.html
 TITLE group FuncSetProp "Set propagators"
+URL group FuncSetSelVal group__FuncSetSelVal.html
+TITLE group FuncSetSelVal "Set value selection for brancher"
+URL group FuncSetSelView group__FuncSetSelView.html
+TITLE group FuncSetSelView "Set view selection for brancher"
 URL group FuncSetValCommit group__FuncSetValCommit.html
 TITLE group FuncSetValCommit "Set value commit classes"
 URL group FuncSetValSel group__FuncSetValSel.html
@@ -2767,6 +2851,8 @@ URL group TaskModelIntBranch group__TaskModelIntBranch.html
 TITLE group TaskModelIntBranch "Branching"
 URL group TaskModelIntBranchAssign group__TaskModelIntBranchAssign.html
 TITLE group TaskModelIntBranchAssign "Value selection for assigning integer and Boolean variables"
+URL group TaskModelIntBranchSymm group__TaskModelIntBranchSymm.html
+TITLE group TaskModelIntBranchSymm "Symmetry declarations"
 URL group TaskModelIntBranchVal group__TaskModelIntBranchVal.html
 TITLE group TaskModelIntBranchVal "Value selection for integer and Boolean variables"
 URL group TaskModelIntBranchVar group__TaskModelIntBranchVar.html
@@ -3039,6 +3125,7 @@ URL namespace Gecode::Int::Element namespaceGecode_1_1Int_1_1Element.html
 URL namespace Gecode::Int::Exec namespaceGecode_1_1Int_1_1Exec.html
 URL namespace Gecode::Int::Extensional namespaceGecode_1_1Int_1_1Extensional.html
 URL namespace Gecode::Int::GCC namespaceGecode_1_1Int_1_1GCC.html
+URL namespace Gecode::Int::LDSB namespaceGecode_1_1Int_1_1LDSB.html
 URL namespace Gecode::Int::Limits namespaceGecode_1_1Int_1_1Limits.html
 URL namespace Gecode::Int::Linear namespaceGecode_1_1Int_1_1Linear.html
 URL namespace Gecode::Int::Member namespaceGecode_1_1Int_1_1Member.html
@@ -3069,6 +3156,7 @@ URL namespace Gecode::Set::Convex namespaceGecode_1_1Set_1_1Convex.html
 URL namespace Gecode::Set::Distinct namespaceGecode_1_1Set_1_1Distinct.html
 URL namespace Gecode::Set::Element namespaceGecode_1_1Set_1_1Element.html
 URL namespace Gecode::Set::Int namespaceGecode_1_1Set_1_1Int.html
+URL namespace Gecode::Set::LDSB namespaceGecode_1_1Set_1_1LDSB.html
 URL namespace Gecode::Set::Limits namespaceGecode_1_1Set_1_1Limits.html
 URL namespace Gecode::Set::Precede namespaceGecode_1_1Set_1_1Precede.html
 URL namespace Gecode::Set::Rel namespaceGecode_1_1Set_1_1Rel.html
@@ -3121,6 +3209,7 @@ URL namespace Test::Int::Sequence namespaceTest_1_1Int_1_1Sequence.html
 URL namespace Test::Int::Sorted namespaceTest_1_1Int_1_1Sorted.html
 URL namespace Test::Int::Unary namespaceTest_1_1Int_1_1Unary.html
 URL namespace Test::Int::Unshare namespaceTest_1_1Int_1_1Unshare.html
+URL namespace Test::LDSB namespaceTest_1_1LDSB.html
 URL namespace Test::Search namespaceTest_1_1Search.html
 URL namespace Test::Set namespaceTest_1_1Set.html
 URL namespace Test::Set::Channel namespaceTest_1_1Set_1_1Channel.html
@@ -3171,6 +3260,7 @@ URL typedef IntScaleView group__TaskActorIntView.html
 URL typedef IntSetArgs group__TaskModelIntArgs.html
 URL typedef IntSharedArray group__TaskModelIntElement.html
 URL typedef LLongScaleView group__TaskActorIntView.html
+URL typedef LiteralArgs namespaceGecode.html
 URL typedef ManFixPSETaskBwd namespaceGecode_1_1Int_1_1Unary.html
 URL typedef ManFixPSETaskFwd namespaceGecode_1_1Int_1_1Unary.html
 URL typedef ManFixPTaskBwd namespaceGecode_1_1Int_1_1Unary.html
