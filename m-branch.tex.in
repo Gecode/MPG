@@ -1208,7 +1208,7 @@ Symmetries are specified by passing an object of type \gecoderef[class]{Symmetri
 
 \insertlitcode{latin square ldsb:symmetry breaking}
 
-For the row- and column symmetries, we need to declare a \?VariableSequenceSymmetry?, which states that certain \emph{sequences} of variables (in this case the rows and columns) are interchangeable:
+For the row and column symmetries, we need to declare a \?VariableSequenceSymmetry?, which states that certain \emph{sequences} of variables (in this case the rows and columns) are interchangeable:
 
 \insertlitcode{latin square ldsb:row/column symmetry}
 
