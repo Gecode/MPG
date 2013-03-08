@@ -241,7 +241,9 @@ EOF
         push(@blockstack, $1);
         $curblock = "";
 	$comment = $1;
-	if ($curcodeopen && !($comment =~ "anonymous")) {
+	if ($curcodeopen &&
+	    !($comment =~ "anonymous") &&
+	    !($comment =~ "ignore")) {
 	  if ($comment =~ /.*\:(.*)/) {
 	    $comment = $1;
 	  }

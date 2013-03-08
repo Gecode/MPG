@@ -21,7 +21,7 @@ Advanced topics for branchings are discussed in the remaining
 sections: local versus shared variable selection
 \ptsmbranchshared, random selection \ptsmbranchrnd, user-defined
 variable \ptsmbranchuservar{} and value \ptsmbranchuserval{}
-selection, tie-breaking \ptsmbranchtie, branch filter functions
+selection, tie-breaking \ptsmbranchtie, dynamic symmetry breaking \ptsmbranchsym, branch filter functions
 \ptsmbranchfilter, assigning variables \ptsmbranchassign, and
 executing code between branchers \ptsmbranchcode.
 
@@ -1141,6 +1141,211 @@ tie-breaking. If a function returns a value that is better than
 the best value, the returned value is ignored and the best value
 is considered as limit (in which case, tie-breaking works exactly
 the same as if not using a tie-breaking limit function at all).
+
+\section{Lightweight Dynamic Symmetry Breaking}
+\label{sec:m:branch:sym}
+
+Gecode supports automatic symmetry breaking with \emph{Lightweight
+  Dynamic Symmetry Breaking} (LDSB~\cite{LDSB}).  To use LDSB, you specify
+your problem's symmetries as part of the \?branch? function.
+
+\begin{figure}
+\insertlitcode{latin square ldsb}
+\caption{A Gecode model for Latin Squares with LDSB}
+\label{fig:m:branch:latin:ldsb}
+\end{figure}
+
+
+Consider the model for the Latin Square problem in~\autoref{fig:m:branch:latin:ldsb}. A Latin Square is an $n\times n$ matrix where each cell takes a value between $0$ and $n-1$ and no two values in a row or a column are the same. This is easily implemented using integer variables and \?alldifferent? constraints.
+
+The model will find many Latin Squares that are essentially the same due to
+symmetry. For example, the four solutions in~\autoref{fig:m:branch:latin:syms} are symmetric: from the top-left solution, we can get the top-right one by exchanging the first two rows, the bottom-left one by exchanging the second and third column, and the bottom-right one by swapping the values $1$ and $3$.
+
+\begin{figure}
+  \centering
+
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    0 & 1 & 2 & 3 \\ \hline
+    1 & 0 & 3 & 2 \\ \hline
+    2 & 3 & 0 & 1 \\ \hline
+    3 & 2 & 1 & 0 \\ \hline
+    \end{tabular}
+    \hspace{1cm}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    1 & 0 & 3 & 2 \\ \hline
+    0 & 1 & 2 & 3 \\ \hline
+    2 & 3 & 0 & 1 \\ \hline
+    3 & 2 & 1 & 0 \\ \hline
+    \end{tabular}
+
+    \vspace{1cm}
+
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    0 & 2 & 1 & 3 \\ \hline
+    1 & 3 & 0 & 2 \\ \hline
+    2 & 0 & 3 & 1 \\ \hline
+    3 & 1 & 2 & 0 \\ \hline
+    \end{tabular}
+    \hspace{1cm}
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    0 & 3 & 2 & 1 \\ \hline
+    3 & 0 & 1 & 2 \\ \hline
+    2 & 1 & 0 & 3 \\ \hline
+    1 & 2 & 3 & 0 \\ \hline
+    \end{tabular}
+
+\caption{Symmetric solutions of the Latin Square problem}
+\label{fig:m:branch:latin:syms}
+\end{figure}
+
+Gecode supports \emph{dynamic symmetry breaking}, i.e., given a specification of the symmetries, it can avoid visiting symmetric states during the search, which can result in dramatically smaller search trees and greatly improved runtime for some problems.
+
+Symmetries are specified by passing an object of type \gecoderef[class]{Symmetries} to the \?branch? function. In the case of Latin Squares, we can easily break the value symmetry as follows:
+
+\insertlitcode{latin square ldsb:symmetry breaking}
+
+For the row- and column symmetries, we need to declare a \?VariableSequenceSymmetry?, which states that certain \emph{sequences} of variables (in this case the rows and columns) are interchangeable:
+
+\insertlitcode{latin square ldsb:row/column symmetry}
+
+Now the number of Latin squares found and the search effort required
+are greatly reduced. The code for the example in~\autoref{fig:m:branch:latin:ldsb} has command line options for toggling between no symmetry breaking and LDSB.
+
+\subsection{Specifying Symmetry}
+
+LDSB supports four basic types of symmetry (see \gecoderef[group]{TaskModelIntBranchSymm}). Collections of symmetries are stored in a \?Symmetries? object,
+which is passed to the \?branch? function.  Any combination of
+symmetries is allowed.
+
+\begin{itemize}
+\item 
+  A \?VariableSymmetry? represents a set of \emph{variables}
+  that are interchangeable.
+\item
+  A \?ValueSymmetry? represents a set of \emph{values} that are
+  interchangeable.
+\item
+  A \?VariableSequenceSymmetry? represents a set of
+  \emph{sequences of variables} that are interchangeable.
+\item
+  A \?ValueSequenceSymmetry? represents a set of \emph{sequences
+    of values} that are interchangeable.
+\end{itemize}
+
+In addition to constructing these symmetries directly, there are also some convenient functions for creating common kinds of symmetry:
+
+\begin{itemize}
+\item \?values_reflect?, to map $L$ to $U$, $L+1$ to $U-1$ and so
+  on, where $L$ and $U$ are the bounds of a variable
+\item \?rows_interchange?, to specify that the rows of a matrix
+  are interchangeable (see \gecoderef[class]{Gecode::Matrix})
+\item \?columns_interchange?, to specify that the columns of a
+  matrix are interchangeable (see \gecoderef[class]{Gecode::Matrix})
+\item \?rows_reflect?, to specify that a matrix's rows can be
+  reflected (first row to last row, second row to second-last row and
+  so on, see \gecoderef[class]{Gecode::Matrix})
+\item \?columns_reflect?, to specify that a matrix's columns can
+  be reflected (see \gecoderef[class]{Gecode::Matrix})
+\item \?diagonal_reflect?, to specify that a matrix can be
+  reflected around its main diagonal (the matrix must be square, see \gecoderef[class]{Gecode::Matrix})
+\end{itemize}
+
+\subsection{Notes}
+
+Symmetry breaking by LDSB is not guaranteed to be complete.  That is,
+a search may still return two distinct solutions that are symmetric.
+
+Combining LDSB with other forms of symmetry breaking --- such as
+static ordering constraints --- is not safe in general, and can cause
+the search to miss some solutions.
+
+LDSB works with integer, Boolean, and set variables, and with any variable selection heuristic. For integer variables, only value selection heuristics that result in the variable being assigned on the left branch (such as \?INT_VAL_MIN?, \?INT_VAL_MED?, \?INT_VAL_MAX? or \verb|INT_VAL_RND|) are supported, other parameters result in an exception.
+
+\begin{litcode}{latin square ldsb}{tack}
+\begin{litblock}{ignore}
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class LatinSquare : public Script {
+protected:
+  const int n;
+  IntVarArray x;
+public:
+  \begin{litblock}{ignore}
+  /// Branching variants
+  enum {
+    SYMMETRY_NONE,      ///< No symmetry breaking
+    SYMMETRY_LDSB       ///< Use LDSB for symmetry breaking
+  };
+
+  \end{litblock}
+  LatinSquare(const SizeOptions& opt)
+    : n(opt.size()), x(*this,n*n,0,n-1) {
+    Matrix<IntVarArgs> m(x, n, n);
+    for (int i=0; i<n; i++)
+      distinct(*this, m.row(i));
+    for (int i=0; i<n; i++)
+      distinct(*this, m.col(i));
+    \begin{litblock}{ignore}
+    if (opt.symmetry() == SYMMETRY_NONE) {
+      branch(*this, x, INT_VAR_NONE(), INT_VAL_MIN());
+    } else {
+    \end{litblock}
+    \begin{litblock}{symmetry breaking}
+      Symmetries syms;
+      syms << ValueSymmetry(IntArgs::create(n,0));
+      \begin{litblock}{row/column symmetry}
+      IntVarArgs rows;
+      for (int r = 0; r < m.height(); r++)
+        rows << m.row(r);
+      syms << VariableSequenceSymmetry(rows, m.width());
+      IntVarArgs cols;
+      for (int c = 0; c < m.width(); c++)
+        cols << m.col(c);
+      syms << VariableSequenceSymmetry(cols, m.height());
+      \end{litblock}
+      branch(*this, x, INT_VAR_NONE(), INT_VAL_MIN(), syms);
+    \end{litblock}
+    \begin{litblock}{ignore}
+    }
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  LatinSquare(bool share, LatinSquare& s)
+    : Script(share, s), n(s.n) {
+    x.update(*this, share, s.x);
+  }
+  virtual Space* copy(bool share) {
+    return new LatinSquare(share,*this);
+  }
+  virtual void print(std::ostream& os) const {
+    os << x << std::endl;
+  }
+  \end{litblock}
+};
+\begin{litblock}{ignore}
+int main(int argc, char* argv[]) {
+  SizeOptions opt("Latin Square");
+  opt.size(8);
+  opt.solutions(1);
+  opt.symmetry(LatinSquare::SYMMETRY_LDSB);
+  opt.symmetry(LatinSquare::SYMMETRY_NONE,"none");
+  opt.symmetry(LatinSquare::SYMMETRY_LDSB,"ldsb");
+  opt.parse(argc,argv);
+  Script::run<LatinSquare,DFS,SizeOptions>(opt);
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+
 
 \section{Using branch filter functions}
 \label{sec:m:branch:filter}

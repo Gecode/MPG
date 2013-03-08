@@ -32,7 +32,8 @@ MODELCPP = \
 	warehouses golf golomb kakuro kakuro-naive crossword \
 	crossword-optimized photo photo-without-modeling-support \
 	bin-packing-naive bin-packing-propagation \
-	bin-packing-branching
+	bin-packing-branching \
+	latin-square-ldsb
 TESTCPP = \
 	less-even-better less-better less-concise less \
 	disequality \
@@ -77,9 +78,9 @@ GCCNOTESTEXE = $(NOTESTCPP:%=notest-%)
 GCCCPPOPT = -NDEBUG -fvisibility=hidden -ffast-math -fno-strict-aliasing \
 	-pthread -O3 -ggdb
 #GCCCPPOPT = -pthread -ggdb
-GCCINCL = -I../gecode/trunk
-GCCLINK = -L../gecode/trunk -lgecodedriver -lgecodegist -lgecodesearch \
-	-lgecodeminimodel -lgecodeset -lgecodescheduling -lgecodegraph \
+GCCINCL = -I../../gecode/trunk
+GCCLINK = -L../../gecode/trunk -lgecodedriver -lgecodegist -lgecodesearch \
+	-lgecodeminimodel -lgecodeset \
 	-lgecodeint -lgecodekernel -lgecodesupport
 
 MAIN = MPG
