@@ -1024,7 +1024,7 @@ class Script : public Space {
     // Configure the master
     ...
   }
-  virtual void slave(unsigned long int i) {
+  virtual void slave(unsigned long int i, const Space* s) {
     // Configure the slave
     ...
   }
@@ -1032,10 +1032,9 @@ class Script : public Space {
 \end{code}
 where \?i? is the number of the restart (starting from $0$,
 meaning that \?configure()? is called before exploration actually
-starts). The space \?s? passed to the \?master()? function for
-the master refers either to a solution found or it is \?NULL? in
-case the meta engine performs a restart because it reached the
-cutoff value. 
+starts). The space \?s? passed refers either to a solution or is
+\?NULL? in case the meta engine performs a restart because it
+reached the cutoff value.
 
 \paragraph{Interaction with best solution search.}
 

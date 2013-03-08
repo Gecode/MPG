@@ -1868,6 +1868,8 @@ URL example word-square word-square_8cpp.html
 TITLE example word-square "Word-square puzzle"
 URL example word-square:WordSquare word-square_8cpp.html
 TITLE example word-square:WordSquare "Word-square puzzle"
+URL file changelog.hh changelog_8hh.html
+URL file doxygen.hh doxygen_8hh.html
 URL file examples/all-interval.cpp all-interval_8cpp.html
 URL file examples/alpha.cpp alpha_8cpp.html
 URL file examples/archimedean-spiral.cpp archimedean-spiral_8cpp.html
@@ -1921,6 +1923,7 @@ URL file examples/sudoku.cpp sudoku_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
+URL file fzn-gecode.cpp fzn-gecode_8cpp.html
 URL file gecode/driver.hh driver_8hh.html
 URL file gecode/driver/options.cpp driver_2options_8cpp.html
 URL file gecode/driver/options.hpp driver_2options_8hpp.html
@@ -2552,7 +2555,7 @@ URL file gecode/support/bitset-offset.hpp bitset-offset_8hpp.html
 URL file gecode/support/bitset.hpp bitset_8hpp.html
 URL file gecode/support/block-allocator.hpp block-allocator_8hpp.html
 URL file gecode/support/cast.hpp cast_8hpp.html
-URL file gecode/support/config.hpp static_2gecode_2support_2config_8hpp.html
+URL file gecode/support/config.hpp config_8hpp.html
 URL file gecode/support/dynamic-array.hpp dynamic-array_8hpp.html
 URL file gecode/support/dynamic-queue.hpp dynamic-queue_8hpp.html
 URL file gecode/support/dynamic-stack.hpp dynamic-stack_8hpp.html
@@ -2577,12 +2580,8 @@ URL file gecode/support/thread/thread.hpp thread_2thread_8hpp.html
 URL file gecode/support/thread/windows.cpp windows_8cpp.html
 URL file gecode/support/thread/windows.hpp windows_8hpp.html
 URL file gecode/support/timer.hpp timer_8hpp.html
-URL file gecode/trunk/changelog.hh changelog_8hh.html
-URL file gecode/trunk/doxygen.hh doxygen_8hh.html
-URL file gecode/trunk/license.hh license_8hh.html
-URL file gecode/trunk/stat.hh stat_8hh.html
-URL file gecode/trunk/static/doxygen.hh static_2doxygen_8hh.html
-URL file gecode/trunk/tools/flatzinc/fz.cpp fz_8cpp.html
+URL file license.hh license_8hh.html
+URL file stat.hh stat_8hh.html
 URL file test/afc.cpp test_2afc_8cpp.html
 URL file test/array.cpp test_2array_8cpp.html
 URL file test/assign.cpp assign_8cpp.html
@@ -2671,10 +2670,6 @@ URL group Func group__Func.html
 TITLE group Func "Common functionality"
 URL group FuncFloatProp group__FuncFloatProp.html
 TITLE group FuncFloatProp "Float propagators"
-URL group FuncFloatSelVal group__FuncFloatSelVal.html
-TITLE group FuncFloatSelVal "Float value selection for brancher"
-URL group FuncFloatSelView group__FuncFloatSelView.html
-TITLE group FuncFloatSelView "Float view selection for brancher"
 URL group FuncFloatValCommit group__FuncFloatValCommit.html
 TITLE group FuncFloatValCommit "Float value commit classes"
 URL group FuncFloatValSel group__FuncFloatValSel.html
@@ -2683,10 +2678,6 @@ URL group FuncFloatViewSel group__FuncFloatViewSel.html
 TITLE group FuncFloatViewSel "Merit-based float view selection for branchers"
 URL group FuncIntProp group__FuncIntProp.html
 TITLE group FuncIntProp "Integer propagators"
-URL group FuncIntSelVal group__FuncIntSelVal.html
-TITLE group FuncIntSelVal "Integer value selection for brancher"
-URL group FuncIntSelView group__FuncIntSelView.html
-TITLE group FuncIntSelView "Integer view selection for brancher"
 URL group FuncIntValCommit group__FuncIntValCommit.html
 TITLE group FuncIntValCommit "Integer value commit classes"
 URL group FuncIntValSel group__FuncIntValSel.html
@@ -2719,10 +2710,6 @@ URL group FuncMemSpace group__FuncMemSpace.html
 TITLE group FuncMemSpace "Space-memory management"
 URL group FuncSetProp group__FuncSetProp.html
 TITLE group FuncSetProp "Set propagators"
-URL group FuncSetSelVal group__FuncSetSelVal.html
-TITLE group FuncSetSelVal "Set value selection for brancher"
-URL group FuncSetSelView group__FuncSetSelView.html
-TITLE group FuncSetSelView "Set view selection for brancher"
 URL group FuncSetValCommit group__FuncSetValCommit.html
 TITLE group FuncSetValCommit "Set value commit classes"
 URL group FuncSetValSel group__FuncSetValSel.html
