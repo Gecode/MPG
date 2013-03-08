@@ -64,7 +64,7 @@ branch(home, x, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
 ...
 branch(home, y, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
 \end{code}
-both calls to \?branch? create a brancher. Search branches first
+both calls to \?branch()? create a brancher. Search branches first
 on the variables \?x? and then on the variables \?y?. Here, it
 does not matter whether propagators are created in between the
 creation of branchers.
@@ -315,13 +315,13 @@ Assume that by search you have found a solution to your problem
 (say values for an array of integer variables \?x?). What one
 might want to try is to find a solution \emph{nearby} when for
 example restarting search (see also
-\autoref{sec:m:search:restart}). For this purpose Gecode offers
+\autoref{sec:m:search:restart}). For this purpose, Gecode offers
 the value selection strategies \?INT_VAL_NEAR_MIN()?,
 \?INT_VAL_NEAR_MAX()?, \?INT_VAL_NEAR_INC()?, and
 \?INT_VAL_NEAR_DEC()?. All of them expect an array of integers as
 an argument.
 
-Let us create an array of integers corresponding to the solution
+Let us create an array of integers \?c? corresponding to the solution
 for the variables in \?x? as follows:
 \begin{code}
 IntArgs c(x.size());
@@ -336,7 +336,7 @@ branch(home, x, INT_VAR_NONE(), INT_VAL_NEAR_MIN(c));
 \end{code}
 Then, during branching for a variable in \?x? at position \?i?
 the value that will be tried first is $\mathtt{c}_{\mathtt{i}}$
-(provided it has not been pruned by propagation). Then all values
+(provided it has not already been pruned by propagation). Then all values
 close to $\mathtt{c}_{\mathtt{i}}$ will be tried.
 
 For example, assume that $\mathtt{c}_{\mathtt{i}}=3$. Then
@@ -353,10 +353,16 @@ $$
 \{0,6\}\to 0
 \end{array}
 $$
-That is, when two values are as near as possible, the smaller is
+That is, when two values are as near as possible, the smaller of
+the two values is
 selected. \?INT_VAL_NEAR_MAX()? selects the larger value instead.
 
-\?INT_VAL_NEAR_INC(c)? chooses the following values to try first:
+\?INT_VAL_NEAR_INC(c)? first tries to choose values in increasing order
+that are at least as large as
+$\mathtt{c}_{\mathtt{i}}$. Then, it tries values smaller
+than $\mathtt{c}_{\mathtt{i}}$ in decreasing order. For example,
+\?INT_VAL_NEAR_INC(c)? for $\mathtt{c}_{\mathtt{i}}=3$ tries the
+values for the following example domains of $\mathtt{x}_{\mathtt{i}}$:
 $$
 \begin{array}{c@{\qquad}c@{\qquad}c}
 \{0,1,2,3,4,5,6\}\to 3 &
@@ -1147,7 +1153,7 @@ the same as if not using a tie-breaking limit function at all).
 
 Gecode supports automatic symmetry breaking with \emph{Lightweight
   Dynamic Symmetry Breaking} (LDSB~\cite{LDSB}).  To use LDSB, you specify
-your problem's symmetries as part of the \?branch? function.
+your problem's symmetries as part of the \?branch()? function.
 
 \begin{figure}
 \insertlitcode{latin square ldsb}
@@ -1164,7 +1170,7 @@ between $0$ and $\mathtt n-1$ and no two values in a row or a
 column are the same. This is easily implemented using integer
 variables and \?distinct? constraints.
 
-The model will find many latin squares that are essentially the same due to
+The model has many solutions that are essentially the same due to
 symmetry. For example, the four solutions in~\autoref{fig:m:branch:latin:syms} are symmetric: from the top-left solution, we can get the top-right one by exchanging the first two rows, the bottom-left one by exchanging the second and third column, and the bottom-right one by swapping the values $1$ and $3$.
 
 \begin{figure}
@@ -1213,7 +1219,7 @@ Gecode supports \emph{dynamic symmetry breaking}, i.e., given a specification of
 Symmetries are specified by passing an object of type
 \gecoderef[class]{Symmetries} to the \?branch()? function. In the
 case of Latin Squares, we can easily break the value symmetry
-(that is, values are interchangeable) as follows:
+(that is, values that are interchangeable) as follows:
 \insertlitcode{latin square ldsb:symmetry breaking}
 Here, \?IntArgs::create(n,0)? creates an array of integers with
 values $\mathtt 0, \mathtt 1, \ldots, \mathtt{n}-1$ which
@@ -1230,7 +1236,7 @@ are greatly reduced. The code for the example in~\autoref{fig:m:branch:latin:lds
 \subsection{Specifying Symmetry}
 
 LDSB supports four basic types of symmetry (see \gecoderef[group]{TaskModelIntBranchSymm}). Collections of symmetries are stored in a \?Symmetries? object,
-which is passed to the \?branch? function.  Any combination of
+which is passed to the \?branch()? function.  Any combination of
 symmetries is allowed.
 
 \begin{itemize}
@@ -1275,7 +1281,7 @@ Combining LDSB with other forms of symmetry breaking --- such as
 static ordering constraints --- is not safe in general, and can cause
 the search to miss some solutions.
 
-LDSB works with integer, Boolean, and set variables, and with any variable selection heuristic. For integer variables, only value selection heuristics that result in the variable being assigned on the left branch (such as \?INT_VAL_MIN()?, \?INT_VAL_MED()?, \?INT_VAL_MAX()? or \?INT_VAL_RND()?) are supported, other parameters throw an exception.
+LDSB works with integer, Boolean, and set variables, and with any variable selection strategy. For integer variables, only value selection strategies that result in the variable being assigned on the left branch (such as \?INT_VAL_MIN()?, \?INT_VAL_MED()?, \?INT_VAL_MAX()? or \?INT_VAL_RND()?) are supported, other parameters throw an exception.
 
 
 
@@ -1525,10 +1531,12 @@ using namespace Gecode;
 
 \end{litblock}
 class LatinSquare : public Script {
+  \begin{litblock}{anonymous}
 protected:
   const int n;
   IntVarArray x;
 public:
+  \end{litblock}
   \begin{litblock}{ignore}
   /// Branching variants
   enum {

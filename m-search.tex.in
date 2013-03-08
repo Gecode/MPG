@@ -801,15 +801,15 @@ limited to:
   heuristics such as activity (see
   \autoref{sec:m:branch:activity}) or AFC (see
   \autoref{sec:m:branch:afc}): the now stopped search has
-  gathered some information from which branching can profit from in
-  the next restart of search.
+  gathered some information of which branching can take advantage
+  in the next restart of search.
 \item The next search can use different random numbers that
   controls branching. A typical strategy would be to use
   tie-breaking for combining a branching heuristic with a random
   branching heuristic (see \autoref{sec:m:branch:tie}) and
   control the degree of randomness by a tie-breaking limit
   function.
-\item The next search uses an entirely  different branching
+\item The next search uses an entirely different branching
   heuristic.
 \end{itemize}
 
@@ -828,7 +828,7 @@ interface defined by \gecoderef[class]{EngineBase}. The meta
 engine then controls the engine, the cutoff values, and how the
 problem is configured before each restart. The interface of the
 meta search engine in Gecode is exactly the same as the interface
-of a non-meta search engines.
+of a non-meta search engine.
 
 The restart meta search engine \gecoderef[class]{RBS} is
 parametric with respect to both the search engine to be used and
@@ -954,11 +954,13 @@ $$
 1\cdot\mathtt{s},2\cdot\mathtt{s},3\cdot\mathtt{s},\ldots
 $$
 
+\begin{samepage}
   A cutoff generator \?c? for a linear cutoff sequence with
   scale-factor \?s? (of type \?unsigned long int?) is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::linear(s);
 \end{smallcode}
+\end{samepage}
 \item[Append.] An appended cutoff sequence \?c? for \?n? values
   from the cutoff sequence $\mathtt{c}_1$ (with values
   $k_0,k_1,k_2,\ldots$) followed by the values
@@ -983,7 +985,8 @@ When the restart meta engine is asked for a next solution by
 calling \?next()?, there are three possible scenarios:
 \begin{itemize}
 \item \?next()? returns a pointer to a space (which might be
-  \?NULL? in case there are no more solutions). Deleting the
+  \?NULL? in case there are no more solutions or the engine has
+  been stopped). Deleting the
   space is as with other engines the responsibility of the meta
   engine's user. Asking the meta engine for another solution will
   be using the current cutoff value (minus the failed nodes it
@@ -1031,10 +1034,10 @@ class Script : public Space {
 };
 \end{code}
 where \?i? is the number of the restart (starting from $0$,
-meaning that \?configure()? is called before exploration actually
-starts). The space \?s? passed refers either to a solution or is
-\?NULL? in case the meta engine performs a restart because it
-reached the cutoff value.
+meaning that \?master()? and \?slave()? are called before
+exploration actually starts). The space \?s? passed refers either
+to a solution or is \?NULL? in case the meta engine performs a
+restart because it reached the cutoff value.
 
 \paragraph{Interaction with best solution search.}
 
