@@ -1137,6 +1137,7 @@ URL class Sat classSat.html
 URL class SatOptions classSatOptions.html
 URL class Schur classSchur.html
 URL class SchurOptions classSchurOptions.html
+URL class SortByWeight classSortByWeight.html
 URL class SportsLeague classSportsLeague.html
 URL class SteelMill classSteelMill.html
 URL class SteelMill::SteelMillBranch classSteelMill_1_1SteelMillBranch.html
@@ -3220,6 +3221,8 @@ URL page PageHowToChange_2 PageHowToChange__2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
 URL page PageHowToChange_3 PageHowToChange__3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
+URL page PageHowToChange_4 PageHowToChange__4.html
+TITLE page PageHowToChange_4 "How to Change from Gecode 3.7.3 to Gecode 4.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"
 URL page PageNotation PageNotation.html
