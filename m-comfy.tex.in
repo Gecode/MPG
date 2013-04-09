@@ -52,16 +52,16 @@ using the same \?linear?  function we have been using in
 \end{figure}
 
 \autoref{fig:m:comfy:smm-best:minimodel} uses the class
-\?MaximizeSpace? for cost-based optimization for Send
-Most Money. The class \?MaximizeSpace?  is also
+\?IntMaximizeSpace? for cost-based optimization for Send
+Most Money. The class \?IntMaximizeSpace?  is also
 included in Gecode's MiniModel module (see
 \autoref{sec:m:minimodel:optimize} and
 \gecoderef[group]{TaskModelMiniModelOptimize}).
 
-The \?MaximizeSpace? class is a sub-class of \?Space? that
+The \?IntMaximizeSpace? class is a sub-class of \?Space? that
 defines a \?constrain()? member function based on the cost of a
 space. Our model must implement a virtual \?cost()? function that
-returns a variable defining the cost (the function must be
+returns an integere variable defining the cost (the function must be
 \?const?). In our example, we extend the model to maintain the
 cost (the amount of money) in a dedicated variable \?money? (note
 that this variable must also be updated during cloning).
@@ -114,16 +114,16 @@ equation involving the appropriate carry variable as follows:
 \end{figure}
 
 \autoref{fig:m:comfy:driver} shows a model for Send Most Money that
-uses the \?MaximizeScript? class as base class (see
-\gecoderef[group]{TaskDriverScript}) rather than \?MaximizeSpace?
+uses the \?IntMaximizeScript? class as base class (see
+\gecoderef[group]{TaskDriverScript}) rather than \?IntMaximizeSpace?
 (likewise, the driver module also offers a \?Script? class to be
 used instead of \?Space?). There are two main differences between
-\?MaximizeScript? and \?MaximizeSpace? (\?Script? and \?Space?).
+\?IntMaximizeScript? and \?IntMaximizeSpace? (\?Script? and \?Space?).
 First, the constructor must accept a constant argument of type
 \?Options?  (actually, it must accept a constant argument of the
 type that is specified for the \?run? member function to be
 explained below) that is used to pass values computed from options
-passed on the commandline. Second, a subclass of \?MaximizeSpace?
+passed on the commandline. Second, a subclass of \?IntMaximizeScript?
 must define a virtual print function that accepts a standard
 output stream as argument.
 
@@ -364,7 +364,7 @@ int main(int argc, char* argv[]) {
 using namespace Gecode;
 
 \end{litblock}
-class SendMostMoney : public MaximizeSpace {
+class SendMostMoney : public IntMaximizeSpace {
 protected:
   IntVarArray l;
   IntVar money;
@@ -387,7 +387,7 @@ public:
     \end{litblock}
   }
   SendMostMoney(bool share, SendMostMoney& s)
-    : MaximizeSpace(share, s) {
+    : IntMaximizeSpace(share, s) {
     l.update(*this, share, s.l);
     money.update(*this, share, s.money);
   }
@@ -426,7 +426,7 @@ int main(int argc, char* argv[]) {
 
 using namespace Gecode;
 
-class SendMostMoney : public MaximizeScript {
+class SendMostMoney : public IntMaximizeScript {
   \begin{litblock}{anonymous}
 protected:
   IntVarArray l;
@@ -474,7 +474,7 @@ public:
   }
   \begin{litblock}{anonymous}
   SendMostMoney(bool share, SendMostMoney& s)
-    : MaximizeScript(share, s) {
+    : IntMaximizeScript(share, s) {
     l.update(*this, share, s.l);
     money.update(*this, share, s.money);
   }

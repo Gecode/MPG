@@ -69,12 +69,14 @@ The outline for the script implementing our model is shown in
 \autoref{fig:c:warehouses:script}. The data definitions are
 as described in the previous section.
 
-As we need to minimize the total cost, the script inherits from
-the class \?MinimizeScript? which is a driver-defined subclass
-(similar to \?Script? and \?Space?) of \?MinimizeSpace? (see
+As we need to minimize the total cost which is an integer
+variable, the script inherits from the class \?IntMinimizeScript?
+which is a driver-defined subclass (similar to \?Script? and
+\?Space?) of \?IntMinimizeSpace? (see
 \autoref{sec:m:minimodel:optimize}), see
 \autoref{sec:m:driver:script}. This in particular means that the
-class must define a virtual \?cost()? function, see below.
+class must define a virtual \?cost()? function returning an
+integer variable, see below.
 
 \paragraph{Variables.}
 
@@ -242,7 +244,7 @@ const int c_supply[n_stores][n_warehouses] = {
   \end{litblock}
 };
 
-class Warehouses : public MinimizeScript {
+class Warehouses : public IntMinimizeScript {
 protected:
   \begin{litblock}{variables}
   IntVarArray  supplier;
@@ -291,7 +293,7 @@ public:
   \end{litblock}
   \begin{litblock}{anonymous}
   // Constructor for cloning \a s
-  Warehouses(bool share, Warehouses& s) : MinimizeScript(share,s) {
+  Warehouses(bool share, Warehouses& s) : IntMinimizeScript(share,s) {
     supplier.update(*this, share, s.supplier);
     open.update(*this, share, s.open);
     c_store.update(*this, share, s.c_store);
@@ -317,7 +319,7 @@ int main(int argc, char* argv[]) {
   Options opt("Warehouses");
   opt.solutions(0);
   opt.parse(argc,argv);
-  MinimizeScript::run<Warehouses,BAB,Options>(opt);
+  IntMinimizeScript::run<Warehouses,BAB,Options>(opt);
   return 0;
 }
 \end{litblock}

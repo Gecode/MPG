@@ -576,9 +576,10 @@ even though some of their combinations are not.
 \section{Support for cost-based optimization}
 \label{sec:m:minimodel:optimize}
 
-\gecoderef[group]{TaskModelMiniModelOptimize} provides two
-subclasses of \?Space?, \?MinimizeSpace? and \?MaximizeSpace? to
-search for a solution of minimal and maximal, respectively, cost.
+\gecoderef[group]{TaskModelMiniModelOptimize} provides subclasses
+of \?Space?, \?IntMinimizeSpace? and \?IntMaximizeSpace? to
+search for a solution of minimal and maximal, respectively,
+integer cost.
 
 \begin{samepage}
 In order to use these abstract classes, a class inheriting from
@@ -597,6 +598,10 @@ For an example, see \autoref{sec:m:comfy:cost}.
   \gecoderef[class]{Int::ValOfUnassignedVar} is thrown.
 }
 
+\gecoderef[group]{TaskModelMiniModelOptimize} also
+provides subclasses \?FloatMinimizeSpace? and
+\?FloatMaximizeSpace? for searching a solution of minimal and
+maximal, respectively, float cost.
 
 \section{Regular expressions for extensional constraints}
 \label{sec:m:minimodel:reg}
