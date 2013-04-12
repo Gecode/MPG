@@ -8,6 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle[\AckName{Roberto}{Castañeda Lozano}]{2013-04-12}{Fixed documentation of user-defined variable
+    selection (the \?_MERIT_? part was missing) 
+    (see \autoref{sec:m:branch:uservar})}
   \cle{2013-03-08}{Documented LDSB
     (see \autoref{sec:m:branch:sym})}
   \cle{2013-02-22}{Documented restart-based search

@@ -139,8 +139,8 @@ Boolean variables.
 \begin{tabular}{l@{\quad}l}
 \?INT_VAR_NONE()? & first unassigned\\
 \?INT_VAR_RND(r)? & randomly\\
-\?INT_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
-\?INT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?INT_VAR_MERIT_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?INT_VAR_MERIT_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
 \?INT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
 \?INT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
 \?INT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
@@ -395,8 +395,8 @@ to your program when you want to branch on set variables.
 \begin{tabular}{l@{\quad}l}
 \?SET_VAR_NONE()? & first unassigned\\
 \?SET_VAR_RND(r)? & randomly\\
-\?SET_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
-\?SET_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?SET_VAR_MERIT_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?SET_VAR_MERIT_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
 \?SET_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
 \?SET_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
 \?SET_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
@@ -500,8 +500,8 @@ to your program when you want to branch on float variables.
 \begin{tabular}{l@{\quad}l}
 \?FLOAT_VAR_NONE()? & first unassigned\\
 \?FLOAT_VAR_RND(r)? & randomly\\
-\?FLOAT_VAR_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
-\?FLOAT_VAR_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?FLOAT_VAR_MERIT_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?FLOAT_VAR_MERIT_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
 \?FLOAT_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
 \?FLOAT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
 \?FLOAT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
@@ -607,7 +607,7 @@ using any information on a variable (\?INT_VAR_NONE()?), select
 variables randomly (\?INT_VAR_RND(r)?, see also
 \autoref{sec:m:branch:rnd}), or use the degree or domain
 of a variable for selection. The user-defined selection criteria
-\?INT_VAR_MIN()? and \?INT_VAR_MAX()? in addition have access to
+\?INT_VAR_MERIT_MIN()? and \?INT_VAR_MERIT_MAX()? in addition have access to
 the home space and the selected variable's position, see
 \autoref{sec:m:branch:uservar} for details.
 
@@ -864,14 +864,14 @@ simply returns the domain size of the integer variable \?x? as
 the merit value. The merit function can be used to select a
 variable with either smallest or largest merit value. By
 \begin{code}
-branch(home, INT_VAR_MIN(&m), INT_VAL_MIN());
+branch(home, INT_VAR_MERIT_MIN(&m), INT_VAL_MIN());
 \end{code}
 a variable with least merit value according to the merit function
 \?m()? is selected (that is, the first variable in the array with
 smallest size). A variable with maximal merit value is selected
 by: 
 \begin{code}
-branch(home, INT_VAR_MAX(&m), INT_VAL_MIN());
+branch(home, INT_VAR_MERIT_MAX(&m), INT_VAL_MIN());
 \end{code}
 
 \tip{Using a member function as merit function}{
@@ -898,7 +898,7 @@ double trampoline(const Space& home, IntVar x, int i) {
 and passing a pointer to \?trampoline()? as an argument, for
 example by
 \begin{code}
-branch(home, INT_VAR_MIN(&trampoline), INT_VAL_MIN());
+branch(home, INT_VAR_MERIT_MIN(&trampoline), INT_VAL_MIN());
 \end{code}
 }
 
