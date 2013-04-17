@@ -1122,6 +1122,7 @@ $$\mathtt{x}_0 \to \left(\mathtt{x}_1 \to
 Again, \?y? can
 also be \?0? or \?1?.
 
+\paragraph{Clause constraint.}
 
 \begin{samepage}
 In order to avoid many propagators for negation, the clause
@@ -1143,7 +1144,16 @@ exception of type \gecoderef[class]{Int::IllegalOperation}.
 
 For an example, see \gecoderef[example]{sat}.
 
+\paragraph{If-then-else constraint.}
 
+An if-then-else constraint can be posted by
+\begin{code}
+ite(home, b, x, y, z);
+\end{code}
+where \?b? is a Boolean variable and \?x?, \?y?, and \?z? are
+integer variables. In case \?b? is one, then
+$\mathtt{x}=\mathtt{z}$ must hold, otherwise
+$\mathtt{y}=\mathtt{z}$ must hold.
 
 \subsection{Arithmetic constraints}
 \label{sec:m:integer:arithmetic}

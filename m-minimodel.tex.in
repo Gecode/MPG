@@ -100,6 +100,7 @@ $\NLE$ & $::=$ & $\NINT$ & integer value\\
        & $|$   & $\operatorname{\texttt{nroot}}(\NLE,\NINT)$ & $n$-th root\\
        & $|$   & $\operatorname{\texttt{element}}(\NVARS,\NLE)$ & array element of integer variables\\
        & $|$   & $\operatorname{\texttt{element}}(\NINTS,\NLE)$ & array element of integers\\
+       & $|$   & $\operatorname{\texttt{ite}}(\NBE,\NLE,\NLE)$ & if-then-else\\
        & $|$   & $\operatorname{\texttt{min}}(\NSE)$ & minimum of a set expression\\
        & $|$   & $\operatorname{\texttt{max}}(\NSE)$ & maximum of a set expression\\
        & $|$   & $\operatorname{\texttt{cardinality}}(\NSE)$ & cardinality of a set expression\\
