@@ -174,6 +174,24 @@ c->commit(*ch,1);
 That is, a choice \?ch? is compatible with the space \?s? from
 which it has been computed and with the clone \?c? of \?s?.
 
+\tip{Printing information about alternatives.}{
+\label{tip:s:started:print}%
+Sometimes it might be helpful to print what the \?commit()?
+function does. For this reason, a space provides a \?print()?
+function that compared to \?commit()? takes an output
+stream of type \?std::ostream&? as additional argument.
+
+For example, the following
+\begin{code}
+s->print(*ch,0,std::out); 
+std::out << std::endl;
+c->print(*ch,1,std::out);
+std::out << std::endl;
+\end{code}
+prints information about what the \?commit()? function in the
+above example actually does.
+}
+
 A search engine for best solution search performs slightly
 different operations. Let us follow an example scenario. First,
 the search engine starts exploring the first

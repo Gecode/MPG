@@ -22,7 +22,8 @@ sections: local versus shared variable selection
 \ptsmbranchshared, random selection \ptsmbranchrnd, user-defined
 variable \ptsmbranchuservar{} and value \ptsmbranchuserval{}
 selection, tie-breaking \ptsmbranchtie, dynamic symmetry breaking \ptsmbranchsym, branch filter functions
-\ptsmbranchfilter, assigning variables \ptsmbranchassign, and
+\ptsmbranchfilter, variable-value print functions
+\ptsmbranchprint, assigning variables \ptsmbranchassign, and
 executing code between branchers \ptsmbranchcode.
 
 \begin{convention}
@@ -50,8 +51,9 @@ The posted brancher assigns all
 variables and then ceases to exist. If more branchers exist,
 search continues with the next brancher.
 
-The \?branch()? function also accepts a branch filter function as
-optional last argument, see \autoref{sec:m:branch:filter}
+The \?branch()? function also accepts a branch filter function
+and a variable-value print function as optional arguments, see
+\autoref{sec:m:branch:filter} and \autoref{sec:m:branch:print}
 for details.
 
 \paragraph{Several branchers.}
@@ -791,6 +793,7 @@ set variable. For float variables, \?FLOAT_VAR_RND(r)? selects a
 random variable and \?FLOAT_VAL_SPLIT_RND(r)? randomly selects
 the lower or upper half of the domain of a float variable.
 
+\begin{samepage}
 The random number generators used for random variable and value
 selection follow a uniform distribution and must be initialized by
 a seed value. For example, a random number generator \?r? is
@@ -799,6 +802,7 @@ must be an \?unsigned int?) by
 \begin{code}
 Rnd r(1U);
 \end{code}
+\end{samepage}
 The seed value can be changed with the \?seed()? function (if
 needed, the \?seed()? function initializes the random number
 generator). For example, by
@@ -1297,8 +1301,8 @@ variable to be branched on. If the filter function returns
 \?true?, the variable is considered for branching. Otherwise, the
 variable is simply ignored.
 
-A branch filter function can be passed as the last (optional)
-argument when calling the \?branch()? function. 
+A branch filter function can be passed as the second to last
+(optional) argument when calling the \?branch()? function.
 
 \begin{samepage}
 The type of a branch filter function depends on the variable
@@ -1360,6 +1364,45 @@ as follows:
 In many cases it can be more convenient to perform the actual
 filtering in a \?const? member function. This can be done along
 the lines of \autoref{tip:m:branch:merit}.
+
+
+\section{Using variable-value print functions}
+\label{sec:m:branch:print}
+
+Search engines such as Gist (see \autoref{sec:m:gist:print}) or
+others (see \autoref{tip:s:started:print}) use \?print()?
+functions provided by branchers to display information about the
+alternatives that are explored during search. The information
+displayed for variable-value branchers can be programmed by using
+a \emph{variable-value print function}.
+
+A variable-value print function can be passed as the last (optional)
+argument when calling the \?branch()? function. 
+
+The type of a variable-value print function depends on the variable
+type. For integer variables, the type
+\gecoderef[typedef]{IntVarValPrint} is defined as
+\begin{code}
+typedef void (*IntVarValPrint)(const Space &home, unsigned int a,
+                               IntVar x, int i, const int& n,
+                               std::ostream& o);
+\end{code}
+That is, a variable-value print function takes the \?home? space,
+the number of the alternative \?a?, the
+position \?i? of the variable \?x?, and the integer value \?n? as
+argument. The information will be printed on the standard output
+stream \?o?. The position \?i?
+refers to the position of the variable \?x? in the array of
+variables used for posting the branching. For Boolean variables,
+the type is \gecoderef[typedef]{BoolVarValPrint}, for set
+variables \gecoderef[typedef]{SetVarValPrint}, and for float
+variables \gecoderef[typedef]{FloatVarValPrint}.
+
+For an example of how to use variable-value print functions, see
+\autoref{chap:c:crossword}.  In many cases it can be more
+convenient to perform the actual printing in a \?const? member
+function. This can be done along the lines of
+\autoref{tip:m:branch:merit}.
 
 
 \section{Assigning integer, Boolean, set, and float variables}

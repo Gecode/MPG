@@ -66,6 +66,9 @@ follows:
   domains of the brancher's views might be weaker, stronger, or
   incomparable to the domains when the choice was created (due to
   recomputation, see \autoref{sec:s:re:compatible}).
+\item The \?print()? function takes a previously created choice
+  and prints some information of one of the choice's
+  alternatives.
 \end{itemize}
 
 Branchers and propagators are both actors, they both inherit from
@@ -418,6 +421,18 @@ is returned. Otherwise, \?ES_OK? is returned as execution
 status. If the commit is for the second alternative (\?a? is
 \?1?), the value \?val? is excluded from the view \?x[pos]?.
 
+\paragraph{Printing information on alternatives.}
+
+The \?print()? function of \?NoneMin? is straightforward, it
+prints on the standard output stream \?o? information about an
+alternative (it prints what \?commit()? does):
+\insertlitcode{none min:print}
+
+The \?print()? function is used for displaying information about
+alternatives explored during search. For example, it is used in
+Gist (see \autoref{sec:m:gist:print}) or can be used in other
+search engines (see \autoref{tip:s:started:print}).
+
 
 \subsection{Improving status and choice}
 \label{sec:b:started:nonemin:improved}
@@ -476,7 +491,7 @@ implementing the \?sizemin? branching. The \?status()? function
 is not shown as it is exactly the same function as for \?NoneMin?
 from the previous section: after all, the brancher is done only
 after all of its views are assigned. Likewise, the \?PosVal?
-choice and the \?commit()? function are unchanged.
+choice and the \?commit()? and \?print()? functions are unchanged.
 
 The \?choice()? function uses the integer \?p? for the position
 of the unassigned view with the so-far smallest domain size and
@@ -524,7 +539,8 @@ only (the second argument to the call of the constructor
 \?Choice?). The \?commit()? function is a specialized version of
 the \?commit()? function defined in
 \autoref{fig:b:started:improved}. It only needs to be capable of
-handling a single alternative.
+handling a single alternative. The same holds true for the
+\?print()? function.
 
 
 \section{Using variable views}
@@ -634,6 +650,18 @@ public:
       return me_failed(x[pos].nq(home,val)) ? ES_FAILED : ES_OK;
   }
   \end{litblock}
+  \begin{litblock}{print}
+  virtual void print(const Space& home, const Choice& c,
+                     unsigned int a,
+                     std::ostream& o) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    if (a == 0)
+      o << "x[" << pos << "] = " << val;
+    else
+      o << "x[" << pos << "] != " << val;
+  }
+  \end{litblock}
 };
 void nonemin(Home home, const IntVarArgs& x) {
   if (home.failed()) return;
@@ -710,6 +738,16 @@ public:
       return me_failed(x[pos].eq(home,val)) ? ES_FAILED : ES_OK;
     else
       return me_failed(x[pos].nq(home,val)) ? ES_FAILED : ES_OK;
+  }
+  virtual void print(const Space& home, const Choice& c,
+                     unsigned int a,
+                     std::ostream& o) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    if (a == 0)
+      o << "x[" << pos << "] = " << val;
+    else
+      o << "x[" << pos << "] != " << val;
   }
   \end{litblock}
 };
@@ -797,6 +835,16 @@ public:
     else
       return me_failed(x[pos].nq(home,val)) ? ES_FAILED : ES_OK;
   }
+  virtual void print(const Space& home, const Choice& c,
+                     unsigned int a,
+                     std::ostream& o) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    if (a == 0)
+      o << "x[" << pos << "] = " << val;
+    else
+      o << "x[" << pos << "] != " << val;
+  }
   \end{litblock}
 };
 \begin{litblock}{anonymous}
@@ -879,6 +927,15 @@ public:
     int pos=pv.pos, val=pv.val;
     return me_failed(x[pos].eq(home,val)) ? ES_FAILED : ES_OK;
   }
+  \begin{litblock}{anonymous}
+  virtual void print(const Space& home, const Choice& c,
+                     unsigned int a,
+                     std::ostream& o) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    o << "x[" << pos << "] = " << val;
+  }
+  \end{litblock}
 };
 \begin{litblock}{anonymous}
 
@@ -958,6 +1015,16 @@ public:
       return me_failed(x[pos].eq(home,val)) ? ES_FAILED : ES_OK;
     else
       return me_failed(x[pos].nq(home,val)) ? ES_FAILED : ES_OK;
+  }
+  virtual void print(const Space& home, const Choice& c,
+                     unsigned int a,
+                     std::ostream& o) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    if (a == 0)
+      o << "x[" << pos << "] = " << val;
+    else
+      o << "x[" << pos << "] != " << val;
   }
   \end{litblock}
 };

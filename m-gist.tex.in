@@ -29,6 +29,8 @@ to your program when you want to use Gist.
 
 \section{The search tree}
 \label{sec:m:gist:tree}
+%% GUIDO: FIX THIS!
+\label{sec:m:gist:print}
 
 \begin{figure}
   {\parindent 0em\mbox{}\hfill

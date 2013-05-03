@@ -298,6 +298,15 @@ public:
     else 
       return me_failed(x[pv.pos].nq(home,pv.val)) ? ES_FAILED : ES_OK;
   }
+  /// Print explanation
+  virtual void print(const Space&, const Gecode::Choice& c, 
+                     unsigned int a,
+                     std::ostream& o) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    o << "x[" << pv.pos << "] "
+      << ((a == 0) ? "=" : "!=")
+      << " " << pv.val;
+  }
   \end{litblock}
 };
 

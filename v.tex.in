@@ -1430,6 +1430,11 @@ extent be controlled by the user by passing pointers to functions:
 \item A branching filter function defines which variables are
   actually considered for branching, see
   \autoref{sec:m:branch:filter}.
+\item A variable value print function defines how to print
+  information on alternatives of variable value branchers during
+  search. Variable value branchers print some default information
+  even if the user does not supply a variable value print
+  function, see \autoref{sec:m:branch:print}.
 \item A merit function can define which variable is selected for
   branching, see \autoref{sec:m:branch:uservar}.
 \item A branch value function selects a value that is used for
@@ -1703,9 +1708,11 @@ course on which value selection strategies are provided). A value
 commit class must inherit from the parametric class
 \gecoderef[class]{ValCommit} and must implement one constructor
 for creation and one for cloning. In addition, it must define a
-commit function that returns a modification event and takes the
+\?commit()? function and a default \?print()? function. The
+\?commit()? function returns a modification event and takes the
 number of the alternative \?a?, a view \?x?, its position \?i?,
-and a value \?n? as arguments: 
+and a value \?n? as arguments, the \?print()? takes an output
+stream \?o? as additional argument:
 \insertlitcode{int.hh:value commit classes}
 
     
@@ -2523,6 +2530,10 @@ namespace MPG { namespace Int {
 namespace MPG {
   typedef bool   (*IntBranchFilter)(const Space& home, 
                                     IntVar x, int i);
+  typedef void   (*IntVarValPrint) (const Space &home, 
+                                    unsigned int a,
+                                    IntVar x, int i, const int& n,
+                                    std::ostream& o);
   typedef double (*IntBranchMerit) (const Space& home, 
                                     IntVar x, int i);
   typedef int    (*IntBranchVal)   (const Space& home, 
@@ -2853,6 +2864,11 @@ namespace MPG { namespace Int {
                     IntView x, int i, int n) {
       return (a == 0) ? x.lq(home,n) : x.gq(home,n+1);
     }
+    void print(const Space&, unsigned int a, IntView, int i, 
+               int n, std::ostream& o) const {
+      o << "x[" << i << "] " 
+        << ((a == 0) ? "<=" : ">") << " " << n;
+    }
   };
   \end{litblock}
   inline ValSelCommitBase<IntView,int>* 
@@ -2888,7 +2904,8 @@ namespace MPG {
   inline BrancherHandle
   branch(Home home, const IntVarArgs& x,
          IntVarBranch vars, IntValBranch vals, 
-         IntBranchFilter bf=NULL) {
+         IntBranchFilter bf=NULL,
+         IntVarValPrint vvp=NULL) {
     using namespace Int;
     if (home.failed()) return BrancherHandle();
     vars.expand(home,x);
@@ -2897,14 +2914,15 @@ namespace MPG {
       viewsel(home,vars) 
     };
     return ViewValBrancher<IntView,1,int,2>::post
-      (home,xv,vs,valselcommit(home,vals),bf);
+      (home,xv,vs,valselcommit(home,vals),bf,vvp);
   }
   \end{litblock}
   \begin{litblock}{branch function with tie-breaking}
   inline BrancherHandle
   branch(Home home, const IntVarArgs& x,
          TieBreak<IntVarBranch> vars, IntValBranch vals,
-         IntBranchFilter bf=NULL) {
+         IntBranchFilter bf=NULL,
+         IntVarValPrint vvp=NULL) {
     using namespace Int;
     if (home.failed()) return BrancherHandle();
     vars.a.expand(home,x);
@@ -2929,21 +2947,21 @@ namespace MPG {
         viewsel(home,vars.a)
       };
       return ViewValBrancher<IntView,1,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf);
+        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
       \end{litblock}
     } else if (vars.c.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[2] = { 
         viewsel(home,vars.a), viewsel(home,vars.b)
       };
       return ViewValBrancher<IntView,2,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf);
+        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
     } else if (vars.d.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[3] = { 
         viewsel(home,vars.a), viewsel(home,vars.b),
         viewsel(home,vars.c)
       };
       return ViewValBrancher<IntView,3,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf);
+        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
     } else {
       \begin{litblock}{anonymous}
       ViewSel<IntView>* vs[4] = { 
@@ -2951,7 +2969,7 @@ namespace MPG {
         viewsel(home,vars.c), viewsel(home,vars.d)
       };         
       return ViewValBrancher<IntView,4,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf);
+        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
       \end{litblock}
     }
   }
