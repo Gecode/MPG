@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="questionnaire">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="productname" type="xs:string"/>
+      <xs:element name="website" type="xs:string"/>
+      <xs:element name="forum" type="xs:string"/>
+      <xs:element name="implementationlanguage" type="xs:string"/>
+      <xs:element name="modelinglanguage" type="xs:string"/>
+      <xs:element name="supportedapis" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="apiname" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedvariabletypes" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="variabletype" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedglobalconstraints" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="constraint" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedsearchalgorithms" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="algorithm" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedvariableselectors" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="selector" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedvalueselectors" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="selector" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedimportformats" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="format" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedexportformats" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="format" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="supportedverticalproblems" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="vertical" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="lpintegration" type="xs:string"/>
+      <xs:element name="br_ml_integration" type="xs:string"/>
+      <xs:element name="licensetype" type="xs:string"/>
+      <xs:element name="documentation" type="xs:string"/>
+      <xs:element name="firtsreleaseyear" type="xs:integer"/>
+      <xs:element name="currentrelease" type="xs:string"/>
+      <xs:element name="downloadstotal" type="xs:integer"/>
+      <xs:element name="downloadscommercial" type="xs:integer"/>
+      <xs:element name="additionalcomments" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="comment" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="submittedby" type="xs:string"/>
+      <xs:element name="submittedwhen" type="xs:date"/>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="organization" type="xs:string"/>
+      <xs:element name="position" type="xs:string"/>
+      <xs:element name="phone" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="orderid" type="xs:string" use="required"/>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>
