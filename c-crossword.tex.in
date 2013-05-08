@@ -7112,7 +7112,9 @@ public:
     \end{litblock}
   }
   \begin{litblock}{print function}
-  static void printletters(const Space& home, unsigned int a,
+  static void printletters(const Space& home, 
+                           const BrancherHandle& bh,
+                           unsigned int a,
                            IntVar, int i, const int& n,
                            std::ostream& o) {
     const Crossword& c = static_cast<const Crossword&>(home);
@@ -14132,7 +14134,9 @@ public:
     \end{litblock}
   }
   \begin{litblock}{anonymous}
-  static void printletters(const Space& home, unsigned int a,
+  static void printletters(const Space& home, 
+                           const BrancherHandle& bh,
+                           unsigned int a,
                            IntVar, int i, const int& n,
                            std::ostream& o) {
     const Crossword& c = static_cast<const Crossword&>(home);

@@ -2531,6 +2531,7 @@ namespace MPG {
   typedef bool   (*IntBranchFilter)(const Space& home, 
                                     IntVar x, int i);
   typedef void   (*IntVarValPrint) (const Space &home, 
+                                    const BrancherHandle& bh,
                                     unsigned int a,
                                     IntVar x, int i, const int& n,
                                     std::ostream& o);

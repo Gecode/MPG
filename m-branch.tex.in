@@ -1383,11 +1383,14 @@ The type of a variable-value print function depends on the variable
 type. For integer variables, the type
 \gecoderef[typedef]{IntVarValPrint} is defined as
 \begin{code}
-typedef void (*IntVarValPrint)(const Space &home, unsigned int a,
+typedef void (*IntVarValPrint)(const Space &home,
+                               const BrancherHandle& bh,
+                               unsigned int a,
                                IntVar x, int i, const int& n,
                                std::ostream& o);
 \end{code}
 That is, a variable-value print function takes the \?home? space,
+a handle to the brancher \?bh?,
 the number of the alternative \?a?, the
 position \?i? of the variable \?x?, and the integer value \?n? as
 argument. The information will be printed on the standard output
