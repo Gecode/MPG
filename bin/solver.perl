@@ -117,6 +117,8 @@ print <<EOF
          <modelinglanguage>C++, MiniZinc, AMPL</modelinglanguage>
          <supportedapis>
                <apiname>C++</apiname>
+               <apiname>MiniZinc</apiname>
+               <apiname>AMPL</apiname>
                <apiname>Python</apiname>
                <apiname>Prolog</apiname>
                <apiname>Haskell</apiname>
@@ -130,15 +132,8 @@ print <<EOF
                <variabletype>float</variabletype>
          </supportedvariabletypes>
          <supportedglobalconstraints>
-EOF
-;
-
-foreach $l (sort(keys(%list))) {
-  print "               <constraint>$l</constraint>\n";
-}
-
-print <<EOF
-               <constraint>many additional not in the global constraint catalogue</constraint>
+               <constraint>more than 70 constraints from the Global Constraint Catalog</constraint>
+               <constraint>many additional constraints not in the Global Constraint Catalog</constraint>
                <constraint>all constraints as defined by MiniZinc</constraint>
          </supportedglobalconstraints>
          <supportedsearchalgorithms>
@@ -148,33 +143,15 @@ print <<EOF
                <algorithm>interactive graphical</algorithm>
          </supportedsearchalgorithms>
          <supportedvariableselectors>
-               <selector>first unassigned</selector>
-               <selector>random</selector>
-               <selector>domain size (smallest and largest)</selector>
-               <selector>user-defined merit function (smallest and largest)</selector>
-               <selector>degree (smallest and largest)</selector>
-               <selector>accumulated failure count (smallest and largest, with decay)</selector>
-               <selector>activity (smallest and largest, with decay)</selector>
-               <selector>minimum value (smallest and largest)</selector>
-               <selector>maximum value (smallest and largest)</selector>
-               <selector>minimum regret (smallest and largest)</selector>
-               <selector>maximum regret (smallest and largest)</selector>
-               <selector>degree divided by size (smallest and largest)</selector>
-               <selector>accumulated failure count divided by size (smallest and largest, with decay)</selector>
-               <selector>activity divided by size (smallest and largest, with decay)</selector>
-
+               <selector>static, random, by size, degree, accumulated failure count, activity, and many users</selector>
+               <selector>by user-defined merit function</selector>
+               <selector>tie-breaking and randomized tie-breaking</selector>
                <selector>freely programmable with documented API</selector>
          </supportedvariableselectors>
          <supportedvalueselectors>
-               <selector>random</selector>
+               <selector>random, smallest, median, largest, splitting, all values</selector>
+               <selector>from previous solution</selector>
                <selector>user-defined value function</selector>
-               <selector>smallest</selector>
-               <selector>largest</selector>
-               <selector>median</selector>
-               <selector>split at median (smallest first, largest first)</selector>
-               <selector>range (smallest first, largest first)</selector>
-               <selector>all values (smallest first, largest first)</selector>
-               <selector>from previous solution (nearest, smaller, larger)</selector>
                <selector>freely programmable with documented API</selector>
          </supportedvalueselectors>
          <supportedverticalproblems>
@@ -186,10 +163,10 @@ print <<EOF
          <firstreleaseyear>2005</firstreleaseyear>
          <currentrelease>$version</currentrelease>
          <downloadstotal>$downloads, also included in Linux distributions (Debian, Ubuntu, Gentoo, OpenSUSE, ...) and FreeBSD</downloadstotal>
+	 <awards>all gold medals in all categories at MiniZinc challenges 2008-2012</awards>
          <additionalcomments>
                <comment>support for automatic symmetry breaking during search (LDSB)</comment>
                <comment>documented C++ APIs for: modeling, implementing constraints, implementing branchers, implementing search engines, implementing new variable types</comment>
-               <comment>winner of all gold medals in all categories at MiniZinc challenges 2008-2012</comment>
          </additionalcomments>
          <submittedby>Christian Schulte</submittedby>
          <submittedwhen>$today</submittedwhen>
