@@ -29,8 +29,6 @@ to your program when you want to use Gist.
 
 \section{The search tree}
 \label{sec:m:gist:tree}
-%% GUIDO: FIX THIS!
-\label{sec:m:gist:print}
 
 \begin{figure}
   {\parindent 0em\mbox{}\hfill
@@ -140,6 +138,7 @@ The last solution that was found, which in branch-and-bound is always the best s
 
 \subsection{Inspecting and comparing nodes}
 \label{sec:m:gist:inspecting_nodes}
+\label{sec:m:gist:print}
 
 \begin{figure}
   {\parindent 0em\mbox{}\hfill
@@ -150,7 +149,20 @@ The last solution that was found, which in branch-and-bound is always the best s
   \label{fig:m:gist:node_menu}
 \end{figure}
 
-Of course just looking at the shape of the tree is most of the time not very enlightening by itself. We want to see the content of the nodes. For this, you can add \emph{inspectors} and \emph{comparators} to Gist. Inspectors and comparators can be called on solution, choice, or failure nodes (but obviously not on open nodes).
+Of course just looking at the shape of the tree is most of the time not very enlightening by itself. We want to see the content of the nodes. For this, you can display information about the \emph{alternatives} in the tree (provided by print functions, see~\autoref{sec:m:branch:print}), and add \emph{inspectors} and \emph{comparators} to Gist. Inspectors and comparators can be called on solution, choice, or failure nodes (but obviously not on open nodes).
+
+\paragraph{Displaying brannching information.}
+
+The \emph{Node} menu (\autoref{fig:m:gist:node_menu}) has two options for displaying information about branches in the tree. Choosing \emph{Label/clear branches} will add information on all branches in the subtree below the currently selected node (or clear that information if it is already present). \emph{Label/clear path} adds that information on the path from the current node to the root. \autoref{fig:m:gist:branches} shows branching information for the Send More Money problem.
+
+\begin{figure}
+  {\parindent 0em\mbox{}\hfill
+  \includegraphics[scale=.5]{images/gist_smm_branches}\hfill
+  \mbox{}}
+  
+  \caption{Branch information in Gist}
+  \label{fig:m:gist:branches}
+\end{figure}
 
 \paragraph{Invoking inspectors and comparators.}
 
