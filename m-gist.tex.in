@@ -151,9 +151,16 @@ The last solution that was found, which in branch-and-bound is always the best s
 
 Of course just looking at the shape of the tree is most of the time not very enlightening by itself. We want to see the content of the nodes. For this, you can display information about the \emph{alternatives} in the tree (provided by print functions, see~\autoref{sec:m:branch:print}), and add \emph{inspectors} and \emph{comparators} to Gist. Inspectors and comparators can be called on solution, choice, or failure nodes (but obviously not on open nodes).
 
-\paragraph{Displaying brannching information.}
+\paragraph{Displaying branching information.}
 
-The \emph{Node} menu (\autoref{fig:m:gist:node_menu}) has two options for displaying information about branches in the tree. Choosing \emph{Label/clear branches} will add information on all branches in the subtree below the currently selected node (or clear that information if it is already present). \emph{Label/clear path} adds that information on the path from the current node to the root. \autoref{fig:m:gist:branches} shows branching information for the Send More Money problem.
+The \emph{Node} menu (\autoref{fig:m:gist:node_menu}) has two
+options for displaying information about branches in the tree.
+Choosing \emph{Label/clear branches} will add information on all
+branches in the subtree below the currently selected node (or
+clear that information if it is already present).
+\emph{Label/clear path} adds that information on the path from
+the current node to the root. \autoref{fig:m:gist:branches} shows
+branching information for the Send More Money problem.
 
 \begin{figure}
   {\parindent 0em\mbox{}\hfill
@@ -163,6 +170,14 @@ The \emph{Node} menu (\autoref{fig:m:gist:node_menu}) has two options for displa
   \caption{Branch information in Gist}
   \label{fig:m:gist:branches}
 \end{figure}
+
+Gist uses print functions provided by the branchers of a
+space. For variable-value branchers as described in
+\autoref{chap:m:branch}, the information displayed for the
+branches can be supplied by the user, see
+\autoref{sec:m:branch:print} for details. Also other branchers
+can define which information is printed for a branch, see
+\autoref{par:b:started:print}. 
 
 \paragraph{Invoking inspectors and comparators.}
 

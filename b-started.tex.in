@@ -422,6 +422,7 @@ status. If the commit is for the second alternative (\?a? is
 \?1?), the value \?val? is excluded from the view \?x[pos]?.
 
 \paragraph{Printing information on alternatives.}
+\label{par:b:started:print}
 
 The \?print()? function of \?NoneMin? is straightforward, it
 prints on the standard output stream \?o? information about an
