@@ -1235,7 +1235,11 @@ For the row and column symmetries, we need to declare a
 \insertlitcode{latin square ldsb:row/column symmetry}
 
 Now the number of Latin squares found and the search effort required
-are greatly reduced. The code for the example in~\autoref{fig:m:branch:latin:ldsb} has command line options for toggling between no symmetry breaking and LDSB.
+are greatly reduced. The code for the example
+in~\autoref{fig:m:branch:latin:ldsb} has command line options for
+toggling between no symmetry breaking and LDSB.
+
+For examples, consider \gecoderef[example]{graph-color} and \gecoderef[example]{steel-mill}.
 
 \subsection{Specifying Symmetry}
 
