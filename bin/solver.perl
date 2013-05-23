@@ -167,6 +167,7 @@ print <<EOF
          <additionalcomments>
                <comment>support for automatic symmetry breaking during search (LDSB)</comment>
                <comment>documented C++ APIs for: modeling, implementing constraints, implementing branchers, implementing search engines, implementing new variable types</comment>
+               <comment>extensively tested (over 50000 test cases)</comment>
          </additionalcomments>
          <submittedby>Christian Schulte</submittedby>
          <submittedwhen>$today</submittedwhen>

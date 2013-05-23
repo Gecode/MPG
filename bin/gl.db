@@ -134,6 +134,8 @@ URL class Gecode::FlatZinc::Alias classGecode_1_1FlatZinc_1_1Alias.html
 URL class Gecode::FlatZinc::AuxVarBrancher classGecode_1_1FlatZinc_1_1AuxVarBrancher.html
 URL class Gecode::FlatZinc::AuxVarBrancher::Choice classGecode_1_1FlatZinc_1_1AuxVarBrancher_1_1Choice.html
 URL class Gecode::FlatZinc::BoolVarSpec classGecode_1_1FlatZinc_1_1BoolVarSpec.html
+URL class Gecode::FlatZinc::BranchInformation classGecode_1_1FlatZinc_1_1BranchInformation.html
+URL class Gecode::FlatZinc::BranchInformationO classGecode_1_1FlatZinc_1_1BranchInformationO.html
 URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
@@ -232,6 +234,7 @@ URL class Gecode::Gist::AboutGist classGecode_1_1Gist_1_1AboutGist.html
 URL class Gecode::Gist::BestNode classGecode_1_1Gist_1_1BestNode.html
 URL class Gecode::Gist::BoundingBox classGecode_1_1Gist_1_1BoundingBox.html
 URL class Gecode::Gist::Branch classGecode_1_1Gist_1_1Branch.html
+URL class Gecode::Gist::BranchLabelCursor classGecode_1_1Gist_1_1BranchLabelCursor.html
 URL class Gecode::Gist::Comparator classGecode_1_1Gist_1_1Comparator.html
 URL class Gecode::Gist::DisposeCursor classGecode_1_1Gist_1_1DisposeCursor.html
 URL class Gecode::Gist::DrawingCursor classGecode_1_1Gist_1_1DrawingCursor.html
@@ -1514,6 +1517,7 @@ URL class Test::Int::Unary::OptFixPUnary classTest_1_1Int_1_1Unary_1_1OptFixPUna
 URL class Test::Int::Unary::OptFlexUnary classTest_1_1Int_1_1Unary_1_1OptFlexUnary.html
 URL class Test::Int::Unshare::Bool classTest_1_1Int_1_1Unshare_1_1Bool.html
 URL class Test::Int::Unshare::Int classTest_1_1Int_1_1Unshare_1_1Int.html
+URL class Test::LDSB::Activity1 classTest_1_1LDSB_1_1Activity1.html
 URL class Test::LDSB::LDSB classTest_1_1LDSB_1_1LDSB.html
 URL class Test::LDSB::LDSBLatin classTest_1_1LDSB_1_1LDSBLatin.html
 URL class Test::LDSB::LDSBLatin::Latin classTest_1_1LDSB_1_1LDSBLatin_1_1Latin.html
@@ -1525,6 +1529,8 @@ URL class Test::LDSB::MatSym4 classTest_1_1LDSB_1_1MatSym4.html
 URL class Test::LDSB::OneArray classTest_1_1LDSB_1_1OneArray.html
 URL class Test::LDSB::OneArraySet classTest_1_1LDSB_1_1OneArraySet.html
 URL class Test::LDSB::Recomputation classTest_1_1LDSB_1_1Recomputation.html
+URL class Test::LDSB::ReflectSym1 classTest_1_1LDSB_1_1ReflectSym1.html
+URL class Test::LDSB::ReflectSym2 classTest_1_1LDSB_1_1ReflectSym2.html
 URL class Test::LDSB::SetValSym1 classTest_1_1LDSB_1_1SetValSym1.html
 URL class Test::LDSB::SetValSym2 classTest_1_1LDSB_1_1SetValSym2.html
 URL class Test::LDSB::SetVarSeqSym1 classTest_1_1LDSB_1_1SetVarSeqSym1.html
@@ -1532,6 +1538,7 @@ URL class Test::LDSB::SetVarSeqSym2 classTest_1_1LDSB_1_1SetVarSeqSym2.html
 URL class Test::LDSB::SetVarSym1 classTest_1_1LDSB_1_1SetVarSym1.html
 URL class Test::LDSB::SimIntValSym1 classTest_1_1LDSB_1_1SimIntValSym1.html
 URL class Test::LDSB::SimIntValSym2 classTest_1_1LDSB_1_1SimIntValSym2.html
+URL class Test::LDSB::SimIntValSym3 classTest_1_1LDSB_1_1SimIntValSym3.html
 URL class Test::LDSB::SimIntVarSym1 classTest_1_1LDSB_1_1SimIntVarSym1.html
 URL class Test::LDSB::SimIntVarSym2 classTest_1_1LDSB_1_1SimIntVarSym2.html
 URL class Test::LDSB::TieBreak classTest_1_1LDSB_1_1TieBreak.html
