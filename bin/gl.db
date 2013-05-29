@@ -138,9 +138,14 @@ URL class Gecode::FlatZinc::BranchInformation classGecode_1_1FlatZinc_1_1BranchI
 URL class Gecode::FlatZinc::BranchInformationO classGecode_1_1FlatZinc_1_1BranchInformationO.html
 URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
+URL class Gecode::FlatZinc::FZPrintingComparator classGecode_1_1FlatZinc_1_1FZPrintingComparator.html
+URL class Gecode::FlatZinc::FZPrintingInspector classGecode_1_1FlatZinc_1_1FZPrintingInspector.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
+URL class Gecode::FlatZinc::GistEngine classGecode_1_1FlatZinc_1_1GistEngine.html
+URL class Gecode::FlatZinc::GistEngine<BAB<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
+URL class Gecode::FlatZinc::GistEngine<DFS<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
 URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
 URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
@@ -220,6 +225,7 @@ URL class Gecode::Float::VariableEmptyDomain classGecode_1_1Float_1_1VariableEmp
 URL class Gecode::FloatAFC classGecode_1_1FloatAFC.html
 URL class Gecode::FloatActivity classGecode_1_1FloatActivity.html
 URL class Gecode::FloatAssign classGecode_1_1FloatAssign.html
+URL class Gecode::FloatNumBranch classGecode_1_1FloatNumBranch.html
 URL class Gecode::FloatVal classGecode_1_1FloatVal.html
 URL class Gecode::FloatValArgs classGecode_1_1FloatValArgs.html
 URL class Gecode::FloatValBranch classGecode_1_1FloatValBranch.html
@@ -841,6 +847,7 @@ URL class Gecode::NonLinFloatExpr classGecode_1_1NonLinFloatExpr.html
 URL class Gecode::NonLinIntExpr classGecode_1_1NonLinIntExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
+URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
@@ -1110,6 +1117,7 @@ URL class IndSet classIndSet.html
 URL class Kakuro classKakuro.html
 URL class Knights classKnights.html
 URL class KnightsCircuit classKnightsCircuit.html
+URL class KnightsInspector classKnightsInspector.html
 URL class KnightsReified classKnightsReified.html
 URL class LangfordNumber classLangfordNumber.html
 URL class LangfordNumberOptions classLangfordNumberOptions.html
@@ -1134,6 +1142,7 @@ URL class Play classPlay.html
 URL class QueenArmies classQueenArmies.html
 URL class QueenArmies::QueenBranch classQueenArmies_1_1QueenBranch.html
 URL class Queens classQueens.html
+URL class QueensInspector classQueensInspector.html
 URL class RRS classRRS.html
 URL class Radiotherapy classRadiotherapy.html
 URL class Radiotherapy::NestedSearch classRadiotherapy_1_1NestedSearch.html
@@ -3228,11 +3237,11 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange__2.html
+URL page PageHowToChange_2 PageHowToChange_2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange__3.html
+URL page PageHowToChange_3 PageHowToChange_3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
-URL page PageHowToChange_4 PageHowToChange__4.html
+URL page PageHowToChange_4 PageHowToChange_4.html
 TITLE page PageHowToChange_4 "How to Change from Gecode 3.7.3 to Gecode 4.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"

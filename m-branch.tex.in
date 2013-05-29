@@ -928,7 +928,7 @@ Variable type & Value function type & Value type\\
 \gecoderef[class]{SetVar} & \gecoderef[typedef]{SetBranchVal} &
 \?int?\\\hline
 \gecoderef[class]{FloatVar} & \gecoderef[typedef]{FloatBranchVal}
-&\gecoderef[typedef]{FloatNum}\\\hline
+&\gecoderef[class]{FloatNumBranch}\\\hline
 \end{tabular}
 \end{center}
 \caption{Branch value functions}
