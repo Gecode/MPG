@@ -8,7 +8,7 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
-  \cle{2013-05-24}{Released for Gecode 4.1.0}
+  \cle{2013-06-13}{Released for Gecode 4.1.0}
   \cle{2013-05-13}{Documented display of branching information in Gist
     (see \autoref{sec:m:gist:print})}
   \cle{2013-05-03}{Documented variable-value print functions for branching
