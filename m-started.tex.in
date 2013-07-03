@@ -820,12 +820,7 @@ the Mac OS install DVD, or from the
 \AURL{http://developer.apple.com/devcenter/mac/index.action}{Apple
   Mac Dev Center}.
 
-Furthermore, you will have to install a binary package of the Qt
-library. There are pre-compiled packages of the open source
-version of Qt on the
-\AURL{http://qt.nokia.com/downloads/qt-for-open-source-cpp-development-on-mac-os-x}{Nokia
-  Qt for Mac} web page. You should download and install the Cocoa
-version (you do not need the debug libraries).
+The binary packages include the Qt library (necessary for Gist).
 
 After installing these prerequisites, simply download and open
 the Gecode disk image for Mac OS, double-click the installer
