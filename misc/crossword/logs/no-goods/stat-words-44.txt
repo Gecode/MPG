@@ -1,0 +1,41 @@
+Crossword
+	obese*blade*pangs*balsa
+	aaron*laban*abort*obeys
+	transparent*gator*roars
+	hot*uris*urban*ward*vie
+	snowier*abounds*whereas
+	***any*skips*old*ore***
+	cling*foray*kneel*serbo
+	rand*canon*pledges*farm
+	ate*rican*clad*riot*bee
+	verderer*alan*galloping
+	extinct*plan*dada*santa
+	***rae*reanalyze*shu***
+	abram*mans*rake*bailiff
+	placement*lice*cambodia
+	pad*dodd*late*sigma*err
+	ibid*peabody*foggy*base
+	asian*allay*array*salts
+	***rip*lot*freer*stu***
+	kickers*choices*mcadams
+	ado*loki*scrap*loom*bow
+	picas*idiot*domesticate
+	poole*lemma*irene*nubia
+	amain*lapel*atlas*abaft
+
+
+
+Initial
+	propagators: 897
+	branchers:   1
+
+Summary
+	runtime:      10.499 (10499.000 ms)
+	solutions:    1
+	propagations: 1656257
+	nodes:        11392
+	failures:     4729
+	restarts:     5
+	no-goods:     184
+	peak depth:   181
+	peak memory:  248868 KB

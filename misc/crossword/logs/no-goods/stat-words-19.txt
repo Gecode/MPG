@@ -1,0 +1,33 @@
+Crossword
+	scud*stans*elks
+	lane*tibet*mini
+	arteriolar*plan
+	promulgate*lace
+	****beat*smocks
+	odors**essay***
+	dine*modifiable
+	oceania*tumbles
+	respectful*leap
+	***parse**teddy
+	angelo*lava****
+	lila*ballerinas
+	lear*initiative
+	acre*annal*clot
+	heed*lairs*hens
+
+
+
+Initial
+	propagators: 386
+	branchers:   1
+
+Summary
+	runtime:      5:39.928 (339928.000 ms)
+	solutions:    1
+	propagations: 89891573
+	nodes:        415289
+	failures:     206609
+	restarts:     14
+	no-goods:     378
+	peak depth:   101
+	peak memory:  276716 KB

@@ -1,0 +1,39 @@
+Crossword
+	sari*ababa*apace*semi
+	aged*basic*labor*aver
+	nucleotide*amalgamate
+	derek*had*amend*cones
+	**uses*tenfold*stag**
+	phi*domingo*aorta*egg
+	lets*mac*uri*nor*flee
+	aliased*byers*bowline
+	tended*are*mao*moines
+	eng*callan*also*reese
+	***loyal*****crass***
+	twain*calf*dearth*ida
+	armada*hal*ear*wilcox
+	hearsay*pabst*papoose
+	oats*red*wei*pat*user
+	eke*hotel*arcaded*ads
+	**ulan*bahrein*roth**
+	abram*sages*cat*greta
+	reinstates*reconsider
+	case*agers*irene*area
+	hums*parse*boast*lamb
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      11.728 (11728.000 ms)
+	solutions:    1
+	propagations: 1933710
+	nodes:        11111
+	failures:     4802
+	restarts:     5
+	no-goods:     192
+	peak depth:   149
+	peak memory:  195296 KB

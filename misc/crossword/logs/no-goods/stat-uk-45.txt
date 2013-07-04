@@ -1,0 +1,41 @@
+Crossword
+	mamilla*shadufs*almanac
+	alerion*tanagra*saeters
+	magenta*eyeflap*prussia
+	mna*kabala*finelegs*tar
+	anes*harass*sclere*kidd
+	larus*sketch*eeks*senna
+	sharpeis*haafs*seepages
+	***tils*ambsace*slit***
+	pataca*elaborate*alonso
+	alexandra*end*rattening
+	nares*erred*scarred*col
+	abed*llama***oncus*hoki
+	raf*bainite*pogos*sasin
+	amadavats*maa*entitling
+	bahada*stibblers*debags
+	***babi*scalars*blae***
+	clubsoda*trema*fuelrods
+	hires*ecce*radars*strop
+	omar*pahari*eidola*simi
+	ken*satyrids*ammans*gar
+	epigoni*odonata*neonate
+	ridotto*balases*encomia
+	stetson*seabass*stadias
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      3:43.877 (223877.000 ms)
+	solutions:    1
+	propagations: 11073471
+	nodes:        59224
+	failures:     27746
+	restarts:     9
+	no-goods:     344
+	peak depth:   169
+	peak memory:  1884256 KB

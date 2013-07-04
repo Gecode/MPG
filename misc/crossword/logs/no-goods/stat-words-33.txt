@@ -1,0 +1,39 @@
+Crossword
+	malabar*baked*abscess
+	avocado*alike*balance
+	daresay*linen*riordan
+	die*smacked*sport*era
+	ella*sloan*deign*walt
+	seers*ian*circa*three
+	trimmest*flo*atheists
+	***lent*loads*eels***
+	arnold*maureen*alkali
+	shoal*simla*rears*van
+	sold*canis*apart*rest
+	ada*arden*there*verse
+	manila*sapiens*debtor
+	***slim*rabat*peru***
+	dialogue*led*messiest
+	inlay*saber*pen*alpha
+	sham*wised*bonus*diem
+	cab*cacti*autumns*sap
+	alameda*nabla*behoove
+	remodel*gibbs*reorder
+	drapers*slash*address
+
+
+
+Initial
+	propagators: 762
+	branchers:   1
+
+Summary
+	runtime:      22.243 (22243.000 ms)
+	solutions:    1
+	propagations: 3103037
+	nodes:        16248
+	failures:     7624
+	restarts:     6
+	no-goods:     179
+	peak depth:   127
+	peak memory:  269560 KB

@@ -1,0 +1,33 @@
+Crossword
+	alas*cowan*dots
+	gait*opera*echo
+	acrobatics*scab
+	resorts**asians
+	***gas*lasers**
+	olden*sap*weigh
+	boo*dental*dora
+	egg*treetop*nan
+	saga*aarhus*ann
+	enema*kay*yalta
+	**dactyl*act***
+	wansee**schools
+	ages*stephenson
+	fuse*three*alga
+	tess*seeds*loop
+
+
+
+Initial
+	propagators: 384
+	branchers:   1
+
+Summary
+	runtime:      1.250 (1250.000 ms)
+	solutions:    1
+	propagations: 178704
+	nodes:        1315
+	failures:     604
+	restarts:     1
+	no-goods:     48
+	peak depth:   76
+	peak memory:  28730 KB

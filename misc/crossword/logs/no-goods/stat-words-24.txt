@@ -1,0 +1,37 @@
+Crossword
+	slam**dam*maps*wehr
+	lobe*gino*agee*area
+	alex*rats*herr*yarn
+	vatican*ado*eras***
+	***canadianizations
+	second*octet**eddie
+	oar*spur*eyed**edna
+	utah*anal**lisa*sal
+	sofa**idaho*errs***
+	anthropomorphically
+	***nail*bella**lila
+	hid*glue**yard*knot
+	egos**saga*idea*eye
+	logic**salad*spends
+	presumptuousness***
+	***tear*ted*orestes
+	aide*dada*rest*argo
+	scar*adam*ekes*year
+	hers*mona*yes**sent
+
+
+
+Initial
+	propagators: 588
+	branchers:   1
+
+Summary
+	runtime:      0.232 (232.000 ms)
+	solutions:    1
+	propagations: 19210
+	nodes:        138
+	failures:     36
+	restarts:     0
+	no-goods:     24
+	peak depth:   89
+	peak memory:  18789 KB

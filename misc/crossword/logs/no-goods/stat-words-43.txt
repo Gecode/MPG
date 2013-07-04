@@ -1,0 +1,41 @@
+Crossword
+	assam*optic*epoch*avail
+	space*norma*berra*pablo
+	solid*weeps*breed*plaid
+	eradicate*uri*saddlebag
+	seducers*paint*marinade
+	***lard*halogen*duet***
+	heroin*vault*ail*griefs
+	aloud*missy*occam*snare
+	teas*lethe*schemer*egan
+	end*sinai*dec*radar*lid
+	dashes*entitle*relabels
+	***oats*gesture*alfa***
+	adapting*doldrum*ithaca
+	man*snark*bee*tales*bar
+	acne*greased*pecos*move
+	scalp*leroy*bares*media
+	salaam*del*helps*camels
+	***brag*nominee*nato***
+	throttle*nodes*minerals
+	wearisome*ned*centralia
+	incas*bilge*irate*inlet
+	greta*allay*caret*adage
+	siren*leads*teddy*lanes
+
+
+
+Initial
+	propagators: 905
+	branchers:   1
+
+Summary
+	runtime:      1:23.518 (83518.000 ms)
+	solutions:    1
+	propagations: 16761146
+	nodes:        80975
+	failures:     39226
+	restarts:     10
+	no-goods:     347
+	peak depth:   161
+	peak memory:  524862 KB

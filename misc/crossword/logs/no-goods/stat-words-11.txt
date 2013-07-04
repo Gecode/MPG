@@ -1,0 +1,33 @@
+Crossword
+	acids*flaw*read
+	camouflage*edna
+	translatability
+	eggs*overstates
+	doe*boor*tex***
+	***barr*del*jab
+	isaacs*far*babe
+	barth*bad*canoe
+	inch*rag*oldest
+	sao*peg*brae***
+	***sag*said*add
+	displacing*slew
+	unaesthetically
+	acre*tananarive
+	laid*adam*baser
+
+
+
+Initial
+	propagators: 389
+	branchers:   1
+
+Summary
+	runtime:      4.305 (4305.000 ms)
+	solutions:    1
+	propagations: 1293031
+	nodes:        6182
+	failures:     2974
+	restarts:     4
+	no-goods:     84
+	peak depth:   71
+	peak memory:  64966 KB

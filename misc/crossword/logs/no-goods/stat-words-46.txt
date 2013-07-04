@@ -1,0 +1,41 @@
+Crossword
+	wept*abide*sedge*ababa*
+	agar*baden*avian*palace
+	casualness*fingerprints
+	onondaga*enact*maid*got
+	***cots*smart*gina*sure
+	mccabe*rabbi*deed*bliss
+	crate*dell**mens*goa***
+	kane*maplecrest*proverb
+	and*lethe*risc*cain*qua
+	yellower*sanhedrin*nuns
+	**ease*amend*naur*beige
+	palmed*soak*adds*kohler
+	aries*liar*pleat*nora**
+	pigs*montclair*azimuths
+	ash*lang*hope*scots*eat
+	letting*financiers*irma
+	***hoe*tone**oman*isaac
+	aryan*bong*salon*orally
+	bean*herd*begun*alva***
+	abu*soap*harem*addicted
+	conglomerate*burdensome
+	kodiak*dozen*urges*orin
+	*tents*obese*snort*nets
+
+
+
+Initial
+	propagators: 902
+	branchers:   1
+
+Summary
+	runtime:      13.881 (13881.000 ms)
+	solutions:    1
+	propagations: 2111269
+	nodes:        10808
+	failures:     4720
+	restarts:     5
+	no-goods:     174
+	peak depth:   132
+	peak memory:  232796 KB

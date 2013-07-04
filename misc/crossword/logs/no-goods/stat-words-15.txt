@@ -1,0 +1,33 @@
+Crossword
+	arapaho*bateman
+	panacea*avarice
+	entreat*roberta
+	skit*threw*cast
+	***ada*erect***
+	maskable*drench
+	interlink*idaho
+	zoe*restart*sum
+	adele*penetrate
+	repels*repealed
+	***flame*arm***
+	last*rider*path
+	artists*attache
+	measure*reenter
+	partner*sextans
+
+
+
+Initial
+	propagators: 397
+	branchers:   1
+
+Summary
+	runtime:      1:02.876 (62876.000 ms)
+	solutions:    1
+	propagations: 10845185
+	nodes:        53960
+	failures:     26546
+	restarts:     9
+	no-goods:     249
+	peak depth:   92
+	peak memory:  202679 KB

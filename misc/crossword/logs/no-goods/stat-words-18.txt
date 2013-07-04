@@ -1,0 +1,33 @@
+Crossword
+	brag*lamar*cuff
+	lila*ababa*oslo
+	agar*ibero*hear
+	barbara*auberge
+	***ads*adler***
+	helga*are*ledge
+	able*jim*elders
+	moo*kampala*los
+	anyhow*ink*alva
+	lydia*ott*pusey
+	***blabs*arc***
+	babbage*clothed
+	ella*argot*iowa
+	leer*poole*owed
+	lewd*ender*ness
+
+
+
+Initial
+	propagators: 379
+	branchers:   1
+
+Summary
+	runtime:      0.235 (235.000 ms)
+	solutions:    1
+	propagations: 10870
+	nodes:        114
+	failures:     24
+	restarts:     0
+	no-goods:     13
+	peak depth:   78
+	peak memory:  17556 KB

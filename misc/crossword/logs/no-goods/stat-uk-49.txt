@@ -1,0 +1,41 @@
+Crossword
+	tsubas*secede*ifs*pampa
+	sanity*avalon*nikaupalm
+	amenabilities*cloistral
+	mix*polaccas*guilds*ana
+	beaks*laths*farci*yonis
+	alga*osmic*tobreak*ras*
+	**glad*snowholes*loathe
+	speaned*gloated*werther
+	coracoid*doled*shebears
+	amazonant*lid*gained***
+	ratan*posada*hersed*psi
+	acer*shtups*merckx*bren
+	bed*caribe*bombay*beery
+	***pataca*pas*esmeralda
+	appanage*pilaf*material
+	sailarm*hellion*caramba
+	argala*topsecret*peri**
+	*amy*scalled*burse*mnas
+	flesh*onion*fitin*asana
+	ran*ettins*redesign*ref
+	altarwise*quadrupletime
+	niellists*unreel*elaeis
+	cades*ess*agenda*getsat
+
+
+
+Initial
+	propagators: 932
+	branchers:   1
+
+Summary
+	runtime:      1:21.446 (81446.000 ms)
+	solutions:    1
+	propagations: 2363660
+	nodes:        11330
+	failures:     5074
+	restarts:     5
+	no-goods:     209
+	peak depth:   162
+	peak memory:  1037979 KB

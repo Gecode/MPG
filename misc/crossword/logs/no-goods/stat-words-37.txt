@@ -1,0 +1,39 @@
+Crossword
+	kane*ababa*ecole*char
+	iran*dirac*yates*role
+	epic*elena*emits*aped
+	valhalla*dales*eddies
+	***axis*cecil*anal***
+	cornea*named*michelin
+	edits**eris*fidel*ada
+	adds*oshea*mates*aden
+	see*odors*baird*lilac
+	erroneous*eire*rudely
+	***tilt**ned**face***
+	pistol*blab*atavistic
+	alien*crate*berea*ale
+	bier*alamo*creed*shod
+	lag*adage*shot**leone
+	oderberg*sarah*gilead
+	***ella*david*race***
+	andrea*lares*bisected
+	beau*inert*teens*tara
+	barn*diver*erase*exit
+	ares*elide*naked*dice
+
+
+
+Initial
+	propagators: 736
+	branchers:   1
+
+Summary
+	runtime:      0.900 (900.000 ms)
+	solutions:    1
+	propagations: 31827
+	nodes:        181
+	failures:     26
+	restarts:     0
+	no-goods:     17
+	peak depth:   149
+	peak memory:  36968 KB

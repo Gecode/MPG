@@ -1,0 +1,33 @@
+Crossword
+	also*akaba*ceil
+	raca*babar*acme
+	alar*ambos*tapa
+	rabanna*bobadil
+	***gad*canal***
+	ardeb*dab*bacca
+	baas*dan*aeneas
+	abc*takable*cep
+	cacaos*jab*base
+	ataps*had*baler
+	***aaron*bab***
+	bandsaw*slabbed
+	idea*idaho*aero
+	gain*taken*gait
+	amla*ahead*etch
+
+
+
+Initial
+	propagators: 379
+	branchers:   1
+
+Summary
+	runtime:      0.480 (480.000 ms)
+	solutions:    1
+	propagations: 6807
+	nodes:        116
+	failures:     1
+	restarts:     0
+	no-goods:     1
+	peak depth:   114
+	peak memory:  38805 KB

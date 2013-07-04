@@ -1,0 +1,41 @@
+Crossword
+	catawba*largest*acrobat
+	overall*alerter*rhenish
+	wistful*panacea*nanette
+	hat*trio*bach*noose*war
+	itel*bengali*psalm*dire
+	doris*seam*eduard*gusto
+	ersatz*iran*arcs*careen
+	***reilly*inlet*mere***
+	spa*wool*bluer*distract
+	montana*mists*walsh*the
+	aster*drapes*loren*clan
+	stands*aden*warp*aboard
+	hurd*iliad*mammal*range
+	ere*realm*gibbs*emitter
+	desserts*picas*laos*ads
+	***ware*saves*dakota***
+	africa*lure*haag*dorcas
+	leash*rebind*cluj*least
+	beds*bangs*retinas*apse
+	ali*radar*seer*acta*sue
+	niagara*apparel*orbital
+	integer*promise*babbage
+	ageless*hottest*spanned
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      35.831 (35831.000 ms)
+	solutions:    1
+	propagations: 4637963
+	nodes:        26023
+	failures:     12188
+	restarts:     7
+	no-goods:     237
+	peak depth:   140
+	peak memory:  368860 KB

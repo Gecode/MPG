@@ -1,0 +1,33 @@
+Crossword
+	thaw*alee*circa
+	iota*surf*omaha
+	tallchief*nadir
+	oracles*oregano
+	**noun*bra*iran
+	lotte*matron***
+	omit*colleagues
+	lac*pinkest*nat
+	anabaptist*sara
+	***athens*belly
+	oral*eng*feat**
+	airfare*battens
+	snoop*geriatric
+	issue*rail*lena
+	seers*ores*eden
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      6.880 (6880.000 ms)
+	solutions:    1
+	propagations: 869469
+	nodes:        4147
+	failures:     1992
+	restarts:     3
+	no-goods:     77
+	peak depth:   60
+	peak memory:  68432 KB

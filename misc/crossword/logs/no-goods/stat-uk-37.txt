@@ -1,0 +1,39 @@
+Crossword
+	babu*carap*snake*gena
+	elan*abaci*tamal*raid
+	abba*galea*raise*acta
+	rearmice*ctene*cipher
+	***gaea*lewes*atap***
+	jaguar*kanak*abigails
+	adrem**adze*beano*dap
+	moed*labia*thong*poco
+	ire*adrad*ubend*oiled
+	endamoeba*dals*arcade
+	***capa**bar**scye***
+	albata*taal*sforzandi
+	deare*nagas*celia*aha
+	dali*aghas*oared*chai
+	ave*agars*bala**could
+	xerafins*fatal*tromso
+	***lana*saame*thae***
+	cedarn*fable*seabeach
+	anal*enoki*acini*idly
+	midi*raita*laker*naam
+	edda*sedan*spasm*gwyn
+
+
+
+Initial
+	propagators: 736
+	branchers:   1
+
+Summary
+	runtime:      1.410 (1410.000 ms)
+	solutions:    1
+	propagations: 19947
+	nodes:        188
+	failures:     2
+	restarts:     0
+	no-goods:     0
+	peak depth:   185
+	peak memory:  87272 KB
