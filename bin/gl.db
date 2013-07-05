@@ -138,9 +138,14 @@ URL class Gecode::FlatZinc::BranchInformation classGecode_1_1FlatZinc_1_1BranchI
 URL class Gecode::FlatZinc::BranchInformationO classGecode_1_1FlatZinc_1_1BranchInformationO.html
 URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
+URL class Gecode::FlatZinc::FZPrintingComparator classGecode_1_1FlatZinc_1_1FZPrintingComparator.html
+URL class Gecode::FlatZinc::FZPrintingInspector classGecode_1_1FlatZinc_1_1FZPrintingInspector.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
+URL class Gecode::FlatZinc::GistEngine classGecode_1_1FlatZinc_1_1GistEngine.html
+URL class Gecode::FlatZinc::GistEngine<BAB<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
+URL class Gecode::FlatZinc::GistEngine<DFS<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
 URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
 URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
@@ -345,6 +350,9 @@ URL class Gecode::Int::BoolVarImp classGecode_1_1Int_1_1BoolVarImp.html
 URL class Gecode::Int::BoolVarImpBase classGecode_1_1Int_1_1BoolVarImpBase.html
 URL class Gecode::Int::BoolVarImpConf classGecode_1_1Int_1_1BoolVarImpConf.html
 URL class Gecode::Int::BoolView classGecode_1_1Int_1_1BoolView.html
+URL class Gecode::Int::Branch::EqNGL classGecode_1_1Int_1_1Branch_1_1EqNGL.html
+URL class Gecode::Int::Branch::GqNGL classGecode_1_1Int_1_1Branch_1_1GqNGL.html
+URL class Gecode::Int::Branch::LqNGL classGecode_1_1Int_1_1Branch_1_1LqNGL.html
 URL class Gecode::Int::Branch::MeritAFCSize classGecode_1_1Int_1_1Branch_1_1MeritAFCSize.html
 URL class Gecode::Int::Branch::MeritActivitySize classGecode_1_1Int_1_1Branch_1_1MeritActivitySize.html
 URL class Gecode::Int::Branch::MeritDegreeSize classGecode_1_1Int_1_1Branch_1_1MeritDegreeSize.html
@@ -353,6 +361,7 @@ URL class Gecode::Int::Branch::MeritMin classGecode_1_1Int_1_1Branch_1_1MeritMin
 URL class Gecode::Int::Branch::MeritRegretMax classGecode_1_1Int_1_1Branch_1_1MeritRegretMax.html
 URL class Gecode::Int::Branch::MeritRegretMin classGecode_1_1Int_1_1Branch_1_1MeritRegretMin.html
 URL class Gecode::Int::Branch::MeritSize classGecode_1_1Int_1_1Branch_1_1MeritSize.html
+URL class Gecode::Int::Branch::NqNGL classGecode_1_1Int_1_1Branch_1_1NqNGL.html
 URL class Gecode::Int::Branch::PosValuesChoice classGecode_1_1Int_1_1Branch_1_1PosValuesChoice.html
 URL class Gecode::Int::Branch::ValCommitEq classGecode_1_1Int_1_1Branch_1_1ValCommitEq.html
 URL class Gecode::Int::Branch::ValCommitGq classGecode_1_1Int_1_1Branch_1_1ValCommitGq.html
@@ -835,13 +844,16 @@ URL class Gecode::MiniModel::TransitionBag classGecode_1_1MiniModel_1_1Transitio
 URL class Gecode::MixBinaryPropagator classGecode_1_1MixBinaryPropagator.html
 URL class Gecode::MixNaryOnePropagator classGecode_1_1MixNaryOnePropagator.html
 URL class Gecode::MixTernaryPropagator classGecode_1_1MixTernaryPropagator.html
+URL class Gecode::NGL classGecode_1_1NGL.html
 URL class Gecode::NaryOnePropagator classGecode_1_1NaryOnePropagator.html
 URL class Gecode::NaryPropagator classGecode_1_1NaryPropagator.html
+URL class Gecode::NoGoods classGecode_1_1NoGoods.html
 URL class Gecode::NoIdxVarImpConf classGecode_1_1NoIdxVarImpConf.html
 URL class Gecode::NonLinFloatExpr classGecode_1_1NonLinFloatExpr.html
 URL class Gecode::NonLinIntExpr classGecode_1_1NonLinIntExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
+URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
@@ -865,6 +877,9 @@ URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.htm
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
 URL class Gecode::Search::MemoryStop classGecode_1_1Search_1_1MemoryStop.html
+URL class Gecode::Search::Meta::NoGoodProp classGecode_1_1Search_1_1Meta_1_1NoGoodProp.html
+URL class Gecode::Search::Meta::NoNGL classGecode_1_1Search_1_1Meta_1_1NoNGL.html
+URL class Gecode::Search::Meta::PathNoGoods classGecode_1_1Search_1_1Meta_1_1PathNoGoods.html
 URL class Gecode::Search::Meta::RBS classGecode_1_1Search_1_1Meta_1_1RBS.html
 URL class Gecode::Search::MetaStop classGecode_1_1Search_1_1MetaStop.html
 URL class Gecode::Search::NodeStop classGecode_1_1Search_1_1NodeStop.html
@@ -891,6 +906,8 @@ URL class Gecode::Set::ArgumentSizeMismatch classGecode_1_1Set_1_1ArgumentSizeMi
 URL class Gecode::Set::ArrayRanges classGecode_1_1Set_1_1ArrayRanges.html
 URL class Gecode::Set::BndSet classGecode_1_1Set_1_1BndSet.html
 URL class Gecode::Set::BndSetRanges classGecode_1_1Set_1_1BndSetRanges.html
+URL class Gecode::Set::Branch::ExcNGL classGecode_1_1Set_1_1Branch_1_1ExcNGL.html
+URL class Gecode::Set::Branch::IncNGL classGecode_1_1Set_1_1Branch_1_1IncNGL.html
 URL class Gecode::Set::Branch::MeritAFCSize classGecode_1_1Set_1_1Branch_1_1MeritAFCSize.html
 URL class Gecode::Set::Branch::MeritActivitySize classGecode_1_1Set_1_1Branch_1_1MeritActivitySize.html
 URL class Gecode::Set::Branch::MeritDegreeSize classGecode_1_1Set_1_1Branch_1_1MeritDegreeSize.html
@@ -1097,6 +1114,7 @@ URL class Gecode::ViewSelMinTbl classGecode_1_1ViewSelMinTbl.html
 URL class Gecode::ViewSelNone classGecode_1_1ViewSelNone.html
 URL class Gecode::ViewSelRnd classGecode_1_1ViewSelRnd.html
 URL class Gecode::ViewValBrancher classGecode_1_1ViewValBrancher.html
+URL class Gecode::ViewValNGL classGecode_1_1ViewValNGL.html
 URL class GoldenSpiral classGoldenSpiral.html
 URL class Golf classGolf.html
 URL class GolfOptions classGolfOptions.html
@@ -1111,6 +1129,7 @@ URL class IndSet classIndSet.html
 URL class Kakuro classKakuro.html
 URL class Knights classKnights.html
 URL class KnightsCircuit classKnightsCircuit.html
+URL class KnightsInspector classKnightsInspector.html
 URL class KnightsReified classKnightsReified.html
 URL class LangfordNumber classLangfordNumber.html
 URL class LangfordNumberOptions classLangfordNumberOptions.html
@@ -1135,6 +1154,7 @@ URL class Play classPlay.html
 URL class QueenArmies classQueenArmies.html
 URL class QueenArmies::QueenBranch classQueenArmies_1_1QueenBranch.html
 URL class Queens classQueens.html
+URL class QueensInspector classQueensInspector.html
 URL class RRS classRRS.html
 URL class Radiotherapy classRadiotherapy.html
 URL class Radiotherapy::NestedSearch classRadiotherapy_1_1NestedSearch.html
@@ -1558,6 +1578,10 @@ URL class Test::LDSB::VarSym3 classTest_1_1LDSB_1_1VarSym3.html
 URL class Test::LDSB::VarSym4 classTest_1_1LDSB_1_1VarSym4.html
 URL class Test::LDSB::VarSym5 classTest_1_1LDSB_1_1VarSym5.html
 URL class Test::LDSB::VarValSym1 classTest_1_1LDSB_1_1VarValSym1.html
+URL class Test::NoGoods::Create classTest_1_1NoGoods_1_1Create.html
+URL class Test::NoGoods::Hamming classTest_1_1NoGoods_1_1Hamming.html
+URL class Test::NoGoods::NoGoods classTest_1_1NoGoods_1_1NoGoods.html
+URL class Test::NoGoods::Queens classTest_1_1NoGoods_1_1Queens.html
 URL class Test::Options classTest_1_1Options.html
 URL class Test::Search::BAB classTest_1_1Search_1_1BAB.html
 URL class Test::Search::BranchTypes classTest_1_1Search_1_1BranchTypes.html
@@ -2091,6 +2115,7 @@ URL file gecode/int/branch/activity.hpp int_2branch_2activity_8hpp.html
 URL file gecode/int/branch/afc.hpp int_2branch_2afc_8hpp.html
 URL file gecode/int/branch/assign.hpp int_2branch_2assign_8hpp.html
 URL file gecode/int/branch/merit.hpp int_2branch_2merit_8hpp.html
+URL file gecode/int/branch/ngl.hpp int_2branch_2ngl_8hpp.html
 URL file gecode/int/branch/traits.hpp int_2branch_2traits_8hpp.html
 URL file gecode/int/branch/val-commit.hpp int_2branch_2val-commit_8hpp.html
 URL file gecode/int/branch/val-sel-commit.cpp int_2branch_2val-sel-commit_8cpp.html
@@ -2424,6 +2449,8 @@ URL file gecode/search/dfs.cpp dfs_8cpp.html
 URL file gecode/search/dfs.hpp dfs_8hpp.html
 URL file gecode/search/engine-base.hpp engine-base_8hpp.html
 URL file gecode/search/exception.hpp search_2exception_8hpp.html
+URL file gecode/search/meta/no-goods.cpp gecode_2search_2meta_2no-goods_8cpp.html
+URL file gecode/search/meta/no-goods.hh no-goods_8hh.html
 URL file gecode/search/meta/rbs.cpp meta_2rbs_8cpp.html
 URL file gecode/search/meta/rbs.hh rbs_8hh.html
 URL file gecode/search/options.cpp search_2options_8cpp.html
@@ -2456,6 +2483,8 @@ URL file gecode/set/branch/activity.hpp set_2branch_2activity_8hpp.html
 URL file gecode/set/branch/afc.hpp set_2branch_2afc_8hpp.html
 URL file gecode/set/branch/assign.hpp set_2branch_2assign_8hpp.html
 URL file gecode/set/branch/merit.hpp set_2branch_2merit_8hpp.html
+URL file gecode/set/branch/ngl.cpp ngl_8cpp.html
+URL file gecode/set/branch/ngl.hpp set_2branch_2ngl_8hpp.html
 URL file gecode/set/branch/traits.hpp set_2branch_2traits_8hpp.html
 URL file gecode/set/branch/val-commit.hpp set_2branch_2val-commit_8hpp.html
 URL file gecode/set/branch/val-sel-commit.cpp set_2branch_2val-sel-commit_8cpp.html
@@ -2656,6 +2685,7 @@ URL file test/int/sorted.cpp test_2int_2sorted_8cpp.html
 URL file test/int/unary.cpp test_2int_2unary_8cpp.html
 URL file test/int/unshare.cpp test_2int_2unshare_8cpp.html
 URL file test/ldsb.cpp test_2ldsb_8cpp.html
+URL file test/no-goods.cpp test_2no-goods_8cpp.html
 URL file test/search.cpp search_8cpp.html
 URL file test/set.cpp test_2set_8cpp.html
 URL file test/set.hh test_2set_8hh.html
@@ -3210,6 +3240,7 @@ URL namespace Test::Int::Sorted namespaceTest_1_1Int_1_1Sorted.html
 URL namespace Test::Int::Unary namespaceTest_1_1Int_1_1Unary.html
 URL namespace Test::Int::Unshare namespaceTest_1_1Int_1_1Unshare.html
 URL namespace Test::LDSB namespaceTest_1_1LDSB.html
+URL namespace Test::NoGoods namespaceTest_1_1NoGoods.html
 URL namespace Test::Search namespaceTest_1_1Search.html
 URL namespace Test::Set namespaceTest_1_1Set.html
 URL namespace Test::Set::Channel namespaceTest_1_1Set_1_1Channel.html
@@ -3229,11 +3260,11 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange__2.html
+URL page PageHowToChange_2 PageHowToChange_2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange__3.html
+URL page PageHowToChange_3 PageHowToChange_3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
-URL page PageHowToChange_4 PageHowToChange__4.html
+URL page PageHowToChange_4 PageHowToChange_4.html
 TITLE page PageHowToChange_4 "How to Change from Gecode 3.7.3 to Gecode 4.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"
