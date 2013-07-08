@@ -2449,8 +2449,8 @@ URL file gecode/search/dfs.cpp dfs_8cpp.html
 URL file gecode/search/dfs.hpp dfs_8hpp.html
 URL file gecode/search/engine-base.hpp engine-base_8hpp.html
 URL file gecode/search/exception.hpp search_2exception_8hpp.html
-URL file gecode/search/meta/no-goods.cpp gecode_2search_2meta_2no-goods_8cpp.html
-URL file gecode/search/meta/no-goods.hh no-goods_8hh.html
+URL file gecode/search/meta/nogoods.cpp gecode_2search_2meta_2nogoods_8cpp.html
+URL file gecode/search/meta/nogoods.hh nogoods_8hh.html
 URL file gecode/search/meta/rbs.cpp meta_2rbs_8cpp.html
 URL file gecode/search/meta/rbs.hh rbs_8hh.html
 URL file gecode/search/options.cpp search_2options_8cpp.html
@@ -2685,7 +2685,7 @@ URL file test/int/sorted.cpp test_2int_2sorted_8cpp.html
 URL file test/int/unary.cpp test_2int_2unary_8cpp.html
 URL file test/int/unshare.cpp test_2int_2unshare_8cpp.html
 URL file test/ldsb.cpp test_2ldsb_8cpp.html
-URL file test/no-goods.cpp test_2no-goods_8cpp.html
+URL file test/nogoods.cpp test_2nogoods_8cpp.html
 URL file test/search.cpp search_8cpp.html
 URL file test/set.cpp test_2set_8cpp.html
 URL file test/set.hh test_2set_8hh.html
