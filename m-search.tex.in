@@ -1066,6 +1066,14 @@ the master space by the restart meta engine just before the
 \section{No-goods from restarts}
 \label{sec:m:search:nogoods}
 
+As discussed in the previous section, the idea of using restarts
+effectively is to restart with an improved problem with the hope
+that search is capable of solving the improved problem. No-goods
+are constraints that can be learned from the configuration of a
+depth-first search engine after it has reached its cutoff. The
+no-goods encode failures during search as constraints: after
+restarting, propagation of the no-goods ensures that decisions
+that lead to failure are avoided.
 
 \begin{figure}
 \centering
@@ -1077,34 +1085,34 @@ the master space by the restart meta engine just before the
  \DefineNode{192.0}{95.0}{n12c}
   \DefineNode{224.0}{67.0}{n122u}
   \DefineNode{224.0}{57.0}{n122c}
-   \DefineNode{240.0}{29.0}{n1222u}
+   \DefineNode{240.0}{27.0}{n1222u}
    \DefineNode{240.0}{19.0}{n1222c}
-   \DefineNode{208.0}{29.0}{n1221u}
+   \DefineNode{208.0}{27.0}{n1221u}
    \DefineNode{208.0}{19.0}{n1221c}
   \DefineNode{160.0}{67.0}{n121u}
   \DefineNode{160.0}{57.0}{n121c}
-   \DefineNode{176.0}{29.0}{n1212u}
+   \DefineNode{176.0}{27.0}{n1212u}
    \DefineNode{176.0}{19.0}{n1212c}
-   \DefineNode{144.0}{29.0}{n1211u}
+   \DefineNode{144.0}{27.0}{n1211u}
    \DefineNode{144.0}{19.0}{n1211c}
  \DefineNode{64.0}{105.0}{n11u}
  \DefineNode{64.0}{95.0}{n11c}
   \DefineNode{96.0}{67.0}{n112u}
   \DefineNode{96.0}{57.0}{n112c}
-   \DefineNode{112.0}{29.0}{n1122u}
+   \DefineNode{112.0}{27.0}{n1122u}
    \DefineNode{112.0}{19.0}{n1122c}
    \DefineFatLink{n112c}{n1122u}
-   \DefineNode{80.0}{29.0}{n1121u}
+   \DefineNode{80.0}{27.0}{n1121u}
    \DefineNode{80.0}{19.0}{n1121c}
    \DefineLink{n112c}{n1121u}
   \DefineFatLink{n11c}{n112u}
   \DefineNode{32.0}{67.0}{n111u}
   \DefineNode{32.0}{57.0}{n111c}
-   \DefineNode{48.0}{29.0}{n1112u}
+   \DefineNode{48.0}{27.0}{n1112u}
    \DefineNode{48.0}{19.0}{n1112c}
    \DefineLink{n111c}{n1112u}
-   \DefineNode{16.0}{29.0}{n1111u}
-   \DefineNode{16.0}{19.0}{n1111c}
+   \DefineNode{16.0}{27.0}{n1111u}
+   \DefineNode{16.0}{190}{n1111c}
    \DefineLink{n111c}{n1111u}
   \DefineLink{n11c}{n111u}
  \DefineFatLink{n1c}{n11u}
@@ -1116,7 +1124,7 @@ the master space by the restart meta engine just before the
   \ChoiceNode{32.0}{57.0}
    \FailedNode{48.0}{19.0}
    \FailedNode{16.0}{19.0}
-\rput(80,124){\makebox(0,0){\footnotesize$\strut \mathtt{x} \leq \mathtt 3$}}
+\rput(80,124){\makebox(0,0){\footnotesize$\strut \mathtt{x} \leq \mathtt 7$}}
 \rput(30,80){\makebox(0,0){\footnotesize$\strut \mathtt{y} = \mathtt 0$}}
 \rput(102,80){\makebox(0,0){\footnotesize$\strut \mathtt{y} \neq \mathtt 0$}}
 \rput(70,38){\makebox(0,0){\footnotesize$\strut \mathtt{z} = \mathtt 3$}}
@@ -1126,6 +1134,59 @@ the master space by the restart meta engine just before the
 \label{fig:m:search:nogoods}
 \end{figure}
 
+Consider the simple example depicted in
+\autoref{fig:m:search:nogoods}. It shows a search tree that has
+been explored by the restart-based search engine with a cutoff of
+$3$~failures. The thick edges in the tree depict the path that is
+stored by a search engine using depth-first search (such as
+\gecoderef[class]{DFS} or \gecoderef[class]{BAB}).
 
-\cite{NogoodsRestarts}
-\cite{gnogoods}
+What can be immediately derived from this configuration is that the
+following two constraints (they correspond to the alternatives shown
+in \autoref{fig:m:search:nogoods}):
+$$
+(\mathtt{x}\leq\mathtt{7})\wedge(\mathtt{y}=\mathtt{0})
+\qquad\text{and}\qquad
+(\mathtt{x}\leq\mathtt{7})\wedge(\mathtt{y}\neq\mathtt{0})\wedge(\mathtt{z}=\mathtt{3})
+$$
+are \emph{no-goods}: they cannot be satisified by any solution of
+the problem (after all, search just proved that).
+
+When restarting search, the negation of the no-goods can be added to the
+master space as constraints and can be propagated. That is, the
+following constraints can be added:
+$$
+\neg\left((\mathtt{x}\leq\mathtt{7})\wedge(\mathtt{y}=\mathtt{0})\right)
+\qquad\text{and}\qquad
+\neg\left((\mathtt{x}\leq\mathtt{7})\wedge(\mathtt{y}\neq\mathtt{0})\wedge(\mathtt{z}=\mathtt{3})\right)
+$$
+or, equivalently, the constraints:
+$$
+(\mathtt{x}>\mathtt{7})\vee(\mathtt{y}\neq\mathtt{0})
+\qquad\text{and}\qquad
+(\mathtt{x}>\mathtt{7})\vee(\mathtt{y}=\mathtt{0})\vee(\mathtt{z}\neq\mathtt{3})
+$$
+Now assume that when restarting, after some search the constraint
+$\mathtt{x}\leq\mathtt{7}$ becomes subsumed. Then, it can be
+propagated that $\mathtt{y}\neq\mathtt{0}$. With other words,
+whenever $\mathtt{x}\leq\mathtt{7}$, then also
+$\mathtt{y}\neq\mathtt{0}$. This explains (if you know about
+resolution, you have figured that already anyway) that it is
+equivalent to use the following two constraints:
+$$
+(\mathtt{x}>\mathtt{7})\vee(\mathtt{y}\neq\mathtt{0})
+\qquad\text{and}\qquad
+(\mathtt{x}>\mathtt{7})\vee(\mathtt{z}\neq\mathtt{3})
+$$
+
+generalization of\cite{gnogoods}, follows idea of \cite{NogoodsRestarts}
+
+parallel search
+
+master function, default function
+
+depth limit
+
+command line
+
+
