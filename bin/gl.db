@@ -138,14 +138,9 @@ URL class Gecode::FlatZinc::BranchInformation classGecode_1_1FlatZinc_1_1BranchI
 URL class Gecode::FlatZinc::BranchInformationO classGecode_1_1FlatZinc_1_1BranchInformationO.html
 URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
-URL class Gecode::FlatZinc::FZPrintingComparator classGecode_1_1FlatZinc_1_1FZPrintingComparator.html
-URL class Gecode::FlatZinc::FZPrintingInspector classGecode_1_1FlatZinc_1_1FZPrintingInspector.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
-URL class Gecode::FlatZinc::GistEngine classGecode_1_1FlatZinc_1_1GistEngine.html
-URL class Gecode::FlatZinc::GistEngine<BAB<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
-URL class Gecode::FlatZinc::GistEngine<DFS<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
 URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
 URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
@@ -853,7 +848,6 @@ URL class Gecode::NonLinFloatExpr classGecode_1_1NonLinFloatExpr.html
 URL class Gecode::NonLinIntExpr classGecode_1_1NonLinIntExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
-URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
@@ -877,9 +871,8 @@ URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.htm
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
 URL class Gecode::Search::MemoryStop classGecode_1_1Search_1_1MemoryStop.html
-URL class Gecode::Search::Meta::NoGoodProp classGecode_1_1Search_1_1Meta_1_1NoGoodProp.html
+URL class Gecode::Search::Meta::NoGoodsProp classGecode_1_1Search_1_1Meta_1_1NoGoodsProp.html
 URL class Gecode::Search::Meta::NoNGL classGecode_1_1Search_1_1Meta_1_1NoNGL.html
-URL class Gecode::Search::Meta::PathNoGoods classGecode_1_1Search_1_1Meta_1_1PathNoGoods.html
 URL class Gecode::Search::Meta::RBS classGecode_1_1Search_1_1Meta_1_1RBS.html
 URL class Gecode::Search::MetaStop classGecode_1_1Search_1_1MetaStop.html
 URL class Gecode::Search::NodeStop classGecode_1_1Search_1_1NodeStop.html
@@ -1129,7 +1122,6 @@ URL class IndSet classIndSet.html
 URL class Kakuro classKakuro.html
 URL class Knights classKnights.html
 URL class KnightsCircuit classKnightsCircuit.html
-URL class KnightsInspector classKnightsInspector.html
 URL class KnightsReified classKnightsReified.html
 URL class LangfordNumber classLangfordNumber.html
 URL class LangfordNumberOptions classLangfordNumberOptions.html
@@ -1154,7 +1146,6 @@ URL class Play classPlay.html
 URL class QueenArmies classQueenArmies.html
 URL class QueenArmies::QueenBranch classQueenArmies_1_1QueenBranch.html
 URL class Queens classQueens.html
-URL class QueensInspector classQueensInspector.html
 URL class RRS classRRS.html
 URL class Radiotherapy classRadiotherapy.html
 URL class Radiotherapy::NestedSearch classRadiotherapy_1_1NestedSearch.html
@@ -2461,11 +2452,13 @@ URL file gecode/search/parallel/dfs.cpp parallel_2dfs_8cpp.html
 URL file gecode/search/parallel/dfs.hh parallel_2dfs_8hh.html
 URL file gecode/search/parallel/engine.cpp engine_8cpp.html
 URL file gecode/search/parallel/engine.hh engine_8hh.html
+URL file gecode/search/parallel/path.cpp parallel_2path_8cpp.html
 URL file gecode/search/parallel/path.hh parallel_2path_8hh.html
 URL file gecode/search/rbs.cpp rbs_8cpp.html
 URL file gecode/search/rbs.hpp rbs_8hpp.html
 URL file gecode/search/sequential/bab.hh sequential_2bab_8hh.html
 URL file gecode/search/sequential/dfs.hh sequential_2dfs_8hh.html
+URL file gecode/search/sequential/path.cpp sequential_2path_8cpp.html
 URL file gecode/search/sequential/path.hh sequential_2path_8hh.html
 URL file gecode/search/statistics.hpp statistics_8hpp.html
 URL file gecode/search/stop.cpp stop_8cpp.html
@@ -3260,11 +3253,11 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange_2.html
+URL page PageHowToChange_2 PageHowToChange__2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange_3.html
+URL page PageHowToChange_3 PageHowToChange__3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
-URL page PageHowToChange_4 PageHowToChange_4.html
+URL page PageHowToChange_4 PageHowToChange__4.html
 TITLE page PageHowToChange_4 "How to Change from Gecode 3.7.3 to Gecode 4.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"

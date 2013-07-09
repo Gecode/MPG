@@ -52,9 +52,7 @@ integer consistency level\\
 \texttt{-a-d} & \?unsigned int? & adaptive recomputation distance\\
 \texttt{-node} & \?unsigned int? & cutoff for number of nodes\\
 \texttt{-fail} & \?unsigned int? & cutoff for number of failures\\
-\texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\
-\texttt{-interrupt} & $\{\mathtt{false},\mathtt{true}\}$ &
-whether driver catches Ctrl-C\\\hline
+\texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\\hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{restart-based search options}\\\hline
 \texttt{-restart} &
@@ -66,6 +64,12 @@ scale-factor for cutoff values\\
 \texttt{-restart-base} &
 \?double? &
 base for geometric cutoff values\\
+\texttt{-nogoods} &
+\?bool? &
+whether to post no-goods\\
+\texttt{-nogoods-limit} &
+\?unsigned int? &
+depth limit for no-good recording\\
 \hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{execution options}\\\hline
@@ -78,9 +82,21 @@ whether to only print last solution\\
 \texttt{-file-sol} & $\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}$ &
 where to print solutions\\
 \texttt{-file-stat} & $\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}$ &
-where to print statistics\\\hline
-\multicolumn{3}{c}{}\\\hline
-\multicolumn{3}{|c|}{user-definable options}\\\hline
+where to print statistics\\
+\texttt{-interrupt} & $\{\mathtt{false},\mathtt{true}\}$ &
+whether driver catches Ctrl-C\\\hline
+\end{tabular}
+\end{center}
+\caption{Predefined commandline options}
+\label{fig:m:driver:options}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+option & type & explanation \\
+\hline
 \texttt{-branching} & string & branching options\\
 \texttt{-model} & string & general model options\\
 \texttt{-propagation} & string & propagation options\\
@@ -88,24 +104,24 @@ where to print statistics\\\hline
 \texttt{-search} & string &  search options\\\hline
 \end{tabular}
 \end{center}
-\caption{Predefined commandline options}
-\label{fig:m:driver:options}
+\caption{User-definable commandline options}
+\label{fig:m:driver:options:user}
 \end{figure}
 
 The commandline driver provides classes
 \gecoderef[class]{Options}, \gecoderef[class]{SizeOptions}, and
 \gecoderef[class]{InstanceOptions} that support parsing
 commandline options. All classes support the options as
-summarized in \autoref{fig:m:driver:options}. Here, for a
-commandline option with name \?-name?, the option classes provide
-two functions with name \?name()?: one that takes no argument and
+summarized in \autoref{fig:m:driver:options} and
+\autoref{fig:m:driver:options:user}. Here, for a commandline
+option with name \?-name?, the option classes provide two
+functions with name \?name()?: one that takes no argument and
 returns the current value of the option, and one that takes an
 argument of the listed type and sets the option to that value.
 If the commandline options contains a hyphen~\?-?, then the
 member function contain an underscore~\?_? instead. For example,
-for the options \texttt{-c-d} and \texttt{-a-d} the
-member functions are named \?c_d()? and \?a_d()?
-\?print_last()? respectively.
+for the options \texttt{-c-d} and \texttt{-a-d} the member
+functions are named \?c_d()? and \?a_d()?.
 
 The values for \?-threads? are interpreted as described in
 \autoref{sec:m:search:options}.
@@ -153,6 +169,9 @@ For an example, in particular, how to use the user-defined
 options, see \autoref{sec:m:comfy:driver}. As all examples that
 come with Gecode use the script commandline driver, a plethora of
 examples is available (see \gecoderef[group]{Example}).
+Also adding additional options is straightforward, for an example see 
+\gecoderef[example]{golf}.
+
 
 \paragraph{Gist inspectors and comparators.}
 

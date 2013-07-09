@@ -68,7 +68,7 @@ MSVCEXE		= $(MODELCPP:%=%.exe)
 MSVCTESTEXE	= $(TESTCPP:%=test-%.exe)
 MSVCNOTESTEXE	= $(NOTESTCPP:%=notest-%.exe)
 MSVCCPPOPT	= -nologo -EHsc -MDd -wd4355	
-#MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
+MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
 MSVCINCL	= -I"../../gecode/trunk"
 MSVCLINK	= /link /LIBPATH:"../../gecode/trunk"
 

@@ -24,7 +24,9 @@ principle.
 How search engines can be used is explained in
 \autoref{sec:m:search:simple}.
 Restart-based search is discussed in
-\autoref{sec:m:search:restart}. 
+\autoref{sec:m:search:restart}, followed by a discussion in
+\autoref{sec:m:search:nogoods} how
+no-goods from restarts can be used,
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -571,6 +573,7 @@ to your program when you want to use search engines.
 \?fail? & \?unsigned long int? & failed nodes explored\\
 \?node? & \?unsigned long int? & nodes explored\\
 \?restart? & \?unsigned long int? & restarts performed\\
+\?nogood? & \?unsigned long int? & no-goods generated\\
 \hline
 \?depth? & \?unsigned long int? & maximal depth of explored tree\\
 \hline
@@ -604,7 +607,8 @@ Moreover, all search engines share the same interface:
   object of type \gecoderef[class]{Search::Statistics}. The
   statistics information provided is partially summarized in
   \autoref{fig:m:search:statistics} (see
-  \autoref{sec:m:search:restart} for the meaning of \?restart?).
+  \autoref{sec:m:search:restart} for the meaning of \?restart?
+  and \autoref{sec:m:search:nogoods} for the meaning of \?nogood?).
 \item A search engine can be queried by \?stopped()? whether the
   search engine has been stopped by a \emph{stop object}. Stop
   objects are discussed in \autoref{sec:m:search:stop}.
@@ -676,6 +680,8 @@ The default values for the options are defined in the namespace
 \hline
 \?clone? & \?bool? & whether engine uses a clone when created\\
 \hline
+\?nogoods_limit? & \?unsigned int? & depth limit for no-good generation\\
+\hline
 \?stop? & \?Search::Stop*? & stop object (\?NULL? if none)\\
 \hline
 \?cutoff? & \?Search::Cutoff*? & cutoff object (\?NULL? if none)\\
@@ -688,7 +694,8 @@ The default values for the options are defined in the namespace
 
 The meaning of the values for the search options are
 straightforward but for \?threads? (\?cutoff? is explained in
-\autoref{sec:m:search:restart}). Assume that your computer has
+\autoref{sec:m:search:restart} and \?nogoods_limit? is explained in
+\autoref{sec:m:search:nogoods}). Assume that your computer has
 $m$ processing units\footnote{This is a very rough
   characterization: a processing unit could be a CPU, a processor
   core, or a multi-threading unit. If you want to find out how
@@ -787,10 +794,9 @@ limit according to the number of available threads.
 \label{sec:m:search:restart}
 
 The idea of restart-based search is to run search with a given
-\emph{cutoff} (here in Gecode we are using the number of failures
-encountered during search as cutoff-measure). When search reaches
-the cutoff, it is stopped and then restarted with a new and
-increased cutoff.
+\emph{cutoff} (Gecode uses the number of failures during search
+as cutoff-measure). When search reaches the cutoff, it is stopped
+and then restarted with a new and typically increased cutoff.
 
 The whole point of restarting search is that it is not restarted
 on exactly the same problem but on a slightly modified or
@@ -811,6 +817,11 @@ limited to:
   function.
 \item The next search uses an entirely different branching
   heuristic.
+\item The next search adds so-called no-goods derived from the
+  now stopped search. No-goods are additional constraints that
+  prevent the restarted search to make decisions during search
+  that lead to failure in the stopped search. No-goods are
+  discussed in detail in \autoref{sec:m:search:nogoods}.
 \end{itemize}
 
 For an example illustrating the effect of restart-based search,
@@ -835,8 +846,8 @@ parametric with respect to both the search engine to be used and
 the script to be solved (a subclass of \gecoderef[class]{Space}).
 For example, when we want to use the \gecoderef[class]{DFS}
 engine for the script \?s? of class type \?Script?, the meta
-engine \?e?
-can be created by (\?o? are mandatory search options, see below):
+engine \?e?  can be created by (\?o? are mandatory search
+options, see below):
 \begin{code}
 RBS<DFS,Script> e(s,o);
 \end{code}
@@ -1015,15 +1026,18 @@ the slave space. In that way, by redefining \?master()? and
 \?slave()? the user can control how master and slave are being
 configured (this is exactly the same idea how \?constrain()?
 works for best solution search). By default, every space
-implements the two member functions \?master()? and \?slave()? to
-do nothing (one for the master and one for the slave).
+implements the two member functions \?master()? and
+\?slave()?. While the default \?slave()? function does nothing,
+the default \?master()? function posts no-goods as explained in
+\autoref{sec:m:search:nogoods}. 
 
 For example, a class \?Script? can define the member functions as
 follows:
 \begin{code}
 class Script : public Space {
   ...
-  virtual void master(unsigned long int i, const Space* s) {
+  virtual void master(unsigned long int i, const Space* s,
+                      NoGoods& ng) {
     // Configure the master
     ...
   }
@@ -1037,7 +1051,9 @@ where \?i? is the number of the restart (starting from $0$,
 meaning that \?master()? and \?slave()? are called before
 exploration actually starts). The space \?s? passed refers either
 to a solution or is \?NULL? in case the meta engine performs a
-restart because it reached the cutoff value.
+restart because it reached the cutoff value. The no-goods \?ng?
+of class \gecoderef[class]{NoGoods} are explained in
+\autoref{sec:m:search:nogoods}.
 
 \paragraph{Interaction with best solution search.}
 
@@ -1046,3 +1062,70 @@ best solution search, the \?constrain()? function is called on
 the master space by the restart meta engine just before the
 \?master()? function is called on the master space.
 
+
+\section{No-goods from restarts}
+\label{sec:m:search:nogoods}
+
+
+\begin{figure}
+\centering
+\psset{xunit=0.04,yunit=0.04,runit=0.04}
+\begin{pspicture}(0,10)(206,152)
+\DefineNode{128.0}{143.0}{n1u}
+\DefineNode{128.0}{133.0}{n1c}
+ \DefineNode{192.0}{105.0}{n12u}
+ \DefineNode{192.0}{95.0}{n12c}
+  \DefineNode{224.0}{67.0}{n122u}
+  \DefineNode{224.0}{57.0}{n122c}
+   \DefineNode{240.0}{29.0}{n1222u}
+   \DefineNode{240.0}{19.0}{n1222c}
+   \DefineNode{208.0}{29.0}{n1221u}
+   \DefineNode{208.0}{19.0}{n1221c}
+  \DefineNode{160.0}{67.0}{n121u}
+  \DefineNode{160.0}{57.0}{n121c}
+   \DefineNode{176.0}{29.0}{n1212u}
+   \DefineNode{176.0}{19.0}{n1212c}
+   \DefineNode{144.0}{29.0}{n1211u}
+   \DefineNode{144.0}{19.0}{n1211c}
+ \DefineNode{64.0}{105.0}{n11u}
+ \DefineNode{64.0}{95.0}{n11c}
+  \DefineNode{96.0}{67.0}{n112u}
+  \DefineNode{96.0}{57.0}{n112c}
+   \DefineNode{112.0}{29.0}{n1122u}
+   \DefineNode{112.0}{19.0}{n1122c}
+   \DefineFatLink{n112c}{n1122u}
+   \DefineNode{80.0}{29.0}{n1121u}
+   \DefineNode{80.0}{19.0}{n1121c}
+   \DefineLink{n112c}{n1121u}
+  \DefineFatLink{n11c}{n112u}
+  \DefineNode{32.0}{67.0}{n111u}
+  \DefineNode{32.0}{57.0}{n111c}
+   \DefineNode{48.0}{29.0}{n1112u}
+   \DefineNode{48.0}{19.0}{n1112c}
+   \DefineLink{n111c}{n1112u}
+   \DefineNode{16.0}{29.0}{n1111u}
+   \DefineNode{16.0}{19.0}{n1111c}
+   \DefineLink{n111c}{n1111u}
+  \DefineLink{n11c}{n111u}
+ \DefineFatLink{n1c}{n11u}
+\ChoiceNode{128.0}{133.0}
+ \ChoiceNode{64.0}{95.0}
+  \ChoiceNode{96.0}{57.0}
+%   \ChoiceNode{112.0}{19.0}
+   \FailedNode{80.0}{19.0}
+  \ChoiceNode{32.0}{57.0}
+   \FailedNode{48.0}{19.0}
+   \FailedNode{16.0}{19.0}
+\rput(80,124){\makebox(0,0){\footnotesize$\strut \mathtt{x} \leq \mathtt 3$}}
+\rput(30,80){\makebox(0,0){\footnotesize$\strut \mathtt{y} = \mathtt 0$}}
+\rput(102,80){\makebox(0,0){\footnotesize$\strut \mathtt{y} \neq \mathtt 0$}}
+\rput(70,38){\makebox(0,0){\footnotesize$\strut \mathtt{z} = \mathtt 3$}}
+\rput(122,38){\makebox(0,0){\footnotesize$\strut \mathtt{z} \neq \mathtt 3$}}
+\end{pspicture}
+\caption{Search tree after cutoff $3$ has been reached}
+\label{fig:m:search:nogoods}
+\end{figure}
+
+
+\cite{NogoodsRestarts}
+\cite{gnogoods}
