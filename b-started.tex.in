@@ -20,10 +20,12 @@ programming branchers by explaining how search engines, spaces,
 and branchers together implement the branching process during
 search. A simple brancher is used as an initial example in
 \autoref{sec:b:started:nonemin}. A brancher that chooses its
-views for branching according to some criterion is demonstrated in
-\autoref{sec:b:started:sizemin}.  \autoref{sec:b:started:assign}
-presents a specialized brancher for assigning views rather than
-branching on them. Variable views for branchers are discussed in
+views for branching according to some criterion is demonstrated
+in \autoref{sec:b:started:sizemin}.
+\autoref{sec:b:started:assign} presents a specialized brancher
+for assigning views rather than branching on them. How branchers
+support no-goods is discussed in \autoref{sec:b:started:nogoods}.
+Variable views for branchers are discussed in
 \autoref{sec:b:started:views}.
 
 
@@ -69,6 +71,13 @@ follows:
 \item The \?print()? function takes a previously created choice
   and prints some information of one of the choice's
   alternatives.
+\item The \?ngl()? function takes a previously created choice and
+  returns a \emph{no-good literal} which then can be used as part
+  of a no-good (see also \autoref{sec:m:search:nogoods}). The
+  no-good literal is an implementation of a typically simple
+  constraint that corresponds to an alternative as described by
+  the choice. No-good literals are mostly orthogonal to the other
+  functions and are hence discussed in the separate section
 \end{itemize}
 
 Branchers and propagators are both actors, they both inherit from
@@ -542,6 +551,10 @@ the \?commit()? function defined in
 \autoref{fig:b:started:improved}. It only needs to be capable of
 handling a single alternative. The same holds true for the
 \?print()? function.
+
+
+\section{Supporting no-goods}
+\label{sec:b:started:nogoods}
 
 
 \section{Using variable views}

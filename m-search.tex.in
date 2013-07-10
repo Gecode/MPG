@@ -20,13 +20,11 @@ highly encouraged to read it.
 
 \autoref{sec:m:search:parallel} explains how parallel search can
 be used in Gecode and what can be expected of parallel search in
-principle. 
-How search engines can be used is explained in
-\autoref{sec:m:search:simple}.
-Restart-based search is discussed in
-\autoref{sec:m:search:restart}, followed by a discussion in
-\autoref{sec:m:search:nogoods} how
-no-goods from restarts can be used,
+principle.  How search engines can be used is explained in
+\autoref{sec:m:search:simple}.  Restart-based search is discussed
+in \autoref{sec:m:search:restart}, followed by a discussion in
+\autoref{sec:m:search:nogoods} how no-goods from restarts can be
+used.
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -1055,6 +1053,7 @@ restart because it reached the cutoff value. The no-goods \?ng?
 of class \gecoderef[class]{NoGoods} are explained in
 \autoref{sec:m:search:nogoods}.
 
+
 \paragraph{Interaction with best solution search.}
 
 In case you want to use the restart meta engine together with
@@ -1070,10 +1069,10 @@ As discussed in the previous section, the idea of using restarts
 effectively is to restart with an improved problem with the hope
 that search is capable of solving the improved problem. No-goods
 are constraints that can be learned from the configuration of a
-depth-first search engine after it has reached its cutoff. The
-no-goods encode failures during search as constraints: after
-restarting, propagation of the no-goods ensures that decisions
-that lead to failure are avoided.
+depth-first search engine after it has stopped. The no-goods
+encode failures during search as constraints: after restarting,
+propagation of the no-goods ensures that decisions that lead to
+failure are avoided.
 
 \begin{figure}
 \centering
@@ -1141,20 +1140,22 @@ $3$~failures. The thick edges in the tree depict the path that is
 stored by a search engine using depth-first search (such as
 \gecoderef[class]{DFS} or \gecoderef[class]{BAB}).
 
-What can be immediately derived from this configuration is that the
-following two constraints (they correspond to the alternatives shown
-in \autoref{fig:m:search:nogoods}):
+What can be immediately derived from this configuration is that
+the following two constraints (they correspond to conjunctions of
+alternatives shown in \autoref{fig:m:search:nogoods}):
 $$
 (\mathtt{x}\leq\mathtt{7})\wedge(\mathtt{y}=\mathtt{0})
 \qquad\text{and}\qquad
 (\mathtt{x}\leq\mathtt{7})\wedge(\mathtt{y}\neq\mathtt{0})\wedge(\mathtt{z}=\mathtt{3})
 $$
-are \emph{no-goods}: they cannot be satisified by any solution of
-the problem (after all, search just proved that).
+are \emph{no-goods}: they cannot be satisfied by any solution
+of the problem (after all, search just proved that). The
+alternatives in the conjunction are also known as \emph{no-good
+  literals}.
 
-When restarting search, the negation of the no-goods can be added to the
-master space as constraints and can be propagated. That is, the
-following constraints can be added:
+When restarting search, the negation of the no-goods can be added
+to the master space as constraints and can be propagated. That
+is, the following constraints can be added:
 $$
 \neg\left((\mathtt{x}\leq\mathtt{7})\wedge(\mathtt{y}=\mathtt{0})\right)
 \qquad\text{and}\qquad
@@ -1162,31 +1163,152 @@ $$
 $$
 or, equivalently, the constraints:
 $$
-(\mathtt{x}>\mathtt{7})\vee(\mathtt{y}\neq\mathtt{0})
+\neg(\mathtt{x}\leq\mathtt{7})\vee\neg(\mathtt{y}=\mathtt{0})
 \qquad\text{and}\qquad
-(\mathtt{x}>\mathtt{7})\vee(\mathtt{y}=\mathtt{0})\vee(\mathtt{z}\neq\mathtt{3})
+\neg(\mathtt{x}\leq\mathtt{7})\vee\neg(\mathtt{y}\neq\mathtt{0})\vee\neg(\mathtt{z}=\mathtt{3})
 $$
-Now assume that when restarting, after some search the constraint
-$\mathtt{x}\leq\mathtt{7}$ becomes subsumed. Then, it can be
-propagated that $\mathtt{y}\neq\mathtt{0}$. With other words,
-whenever $\mathtt{x}\leq\mathtt{7}$, then also
-$\mathtt{y}\neq\mathtt{0}$. This explains (if you know about
-resolution, you have figured that already anyway) that it is
-equivalent to use the following two constraints:
+Now assume that when restarting, after some search the
+constraint $\mathtt{x}\leq\mathtt{7}$ becomes subsumed. Then, it
+can be propagated that $\mathtt{y}\neq\mathtt{0}$. With other
+words, whenever $\mathtt{x}\leq\mathtt{7}$ holds, then also
+$\mathtt{y}\neq\mathtt{0}$ holds. This explains (if you know
+about resolution, you have figured out that one already anyway)
+that it is equivalent to use the following two constraints:
 $$
-(\mathtt{x}>\mathtt{7})\vee(\mathtt{y}\neq\mathtt{0})
+\neg(\mathtt{x}\leq\mathtt{7})\vee\neg(\mathtt{y}=\mathtt{0})
 \qquad\text{and}\qquad
-(\mathtt{x}>\mathtt{7})\vee(\mathtt{z}\neq\mathtt{3})
+\neg(\mathtt{x}\leq\mathtt{7})\vee\neg(\mathtt{z}=\mathtt{3})
 $$
 
-generalization of\cite{gnogoods}, follows idea of \cite{NogoodsRestarts}
+No-goods from restarts in Gecode follow the idea
+from~\cite{NogoodsRestarts}, however the implementation differs.
+Moreover, the no-good literals used in Gecode can be arbitrary
+constraints and hence generalize the ideas from~\cite{gnogoods}
+and~\cite{NogoodsRestarts}. Also no-goods in Gecode support
+choices of arbitrary arity and are not restricted to binary
+choices. For more details, see \autoref{chap:b:started} and in
+particular \autoref{sec:b:started:nogoods}.
 
-parallel search
+\paragraph{Generating and posting no-goods.}
 
-master function, default function
+When the restart-based search engine reaches the current cutoff
+limit or finds a solution it calls the \?master()? member
+function as discussed in the previous section.
 
-depth limit
+The last argument that is passed to the master function is a
+no-good of class \gecoderef[class]{NoGoods}. It has really only
+\?post()? as its single important member function. The following
+\?master()? function posts all constraints corresponding to the
+no-goods that can be derived from a restart (this is also the
+default \?master()? function defined by the class
+\gecoderef[class]{Space}):
+\begin{code}
+virtual void master(unsigned long int i, const Space* s,
+                    NoGoods& ng) {
+  ng.post(*this);
+}
+\end{code}
 
-command line
+In order to post no-goods it must be enabled that a search engine
+maintains its internal state such that no-goods can be extracted.
+This is done by setting the no-goods depth limit (the member
+\?nogoods_limit? of a search option of type \?unsigned int?) to a
+value larger than zero. The value of \?nogoods_limit? describes
+to which depth limit no-goods should be extracted from the path
+of the search tree maintained by the search engine. For example,
+the following code (it assumes that \?c? refers to a cutoff object):
+\begin{code}
+Search::Options o;
+o.cutoff = c;
+o.nogoods_limit = 128;
+RBS<DFS,Script> e(s,o);
+\end{code}
+instructs the search engine to extract no-goods up to a depth
+limit of~\?128?.
+
+The larger the depth limit, the more no-goods can of course be
+extracted. However, this comes at a cost:
+\begin{itemize}
+\item Gecode's search engines use an optimization that is called
+  LAO (last alternative optimization, see also
+  \autoref{sec:s:re:lao}). LAO saves space by avoiding to store
+  choices on the search engine's stack when the last alternative
+  of a choice is being explored. But no-goods can only be
+  extracted when LAO is disabled as the last alternatives are
+  required for the computation of no-goods. LAO is automatically
+  disabled for the part of the search tree with a depth less than
+  the no-goods depth limit. That is, an engine requires more
+  memory during search with a larger depth limit. This can pose
+  an issue for very deep search trees.
+  
+  What also becomes clear from this discussion is that the peak
+  search depth reported by a search engine increases with
+  an increased depth limit.
+\item It is easy to see that no-goods get longer (with more
+  literals) with increasing search tree depth. The larger a
+  no-good gets, the less useful it gets: the likelihood that all
+  literals but one are subsumed but not failed (which is required
+  for propagation) decreases.
+\item When the no-goods are posted a single propagator for all
+  no-goods is created. This propagator requires $O(n)$ memory for
+  $n$ no-good literals. Hence, increasing the depth limit also
+  increases the memory required by the propagator.
+\end{itemize}
+
+\tip{Controlling no-goods with the commandline
+  driver}{
+\label{tip:m:search:cmdnogoods}%
+Whether no-goods are used and which no-goods depth
+limit is used can also be controlled from the commandline via
+the \?-nogoods? and \?-nogoods-limit? commandline options, see
+\autoref{chap:m:driver}. 
+}
+
+\paragraph{No-goods from solutions restarts.}
+
+The \?master()? function shown above posts no-goods even when the
+restart meta search engine has found a solution. When the engine
+continues this means that the same solution might not be found
+again as it has been excluded by a no-good. The situation is even
+slightly more complicated: the solution might not be excluded if
+it has been found at a depth that exceeds the no-good depth
+limit.
+
+If no-goods should not be recorded when a solution has been
+found, the \?master()? function can be redefined as:
+\begin{code}
+virtual void master(unsigned long int i, const Space* s,
+                    NoGoods& ng) {
+  if (s == NULL)
+    ng.post(*this);
+}
+\end{code}
+
+
+\paragraph{Limitations.}
+
+Not all branchers support the generation of no-goods. In that
+case the longest sequence of no-goods starting from the root of
+the search tree up to the first choice that belongs to a brancher
+that does not support no-goods is used.
+
+All pre-defined branchers for integer, Boolean, and set variables
+support no-goods unless user-defined commit functions are used
+(see \autoref{sec:m:branch:userval}). Branchers for float
+variables and branchers for executing code (see
+\autoref{sec:m:branch:code}) do not support no-goods.
+
+\paragraph{No-goods and parallel search.}
+
+The reason why after a restart no-goods can be extracted is
+because search computed the no-goods by exploring entire failed
+subtrees during search. This might not be tree during parallel
+search. While parallel search engines also support the extraction
+of no-goods, the number of no-goods that can be extracted tend to
+be rather small.
+
+
+
+
 
 

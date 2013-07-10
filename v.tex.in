@@ -121,7 +121,7 @@ The second task consists of programming the
   support for implementing variable-value branchings, including
   support for the specification of variable and value selection
   strategies, random and activity-based selection of variables,
-  tie-breaking, filter functions, and much more. How
+  tie-breaking, filter functions, no-goods, and much more. How
   to use Gecode's support for implementing variable-value
   branchings is detailed in \autoref{chap:v:branch}.
 \end{itemize}
@@ -1403,10 +1403,13 @@ branchings using the abstractions provided by Gecode.
 must be defined for variable-value branchings. How functions for
 variable selection and value selection are implemented is
 demonstrated in \autoref{sec:v:branch:varval}.
+\autoref{sec:v:branch:nogoods}
+explains how to add support for no-goods. 
 \autoref{sec:v:branch:viewsel} shows how a function that creates
 an object for selecting views during branching is implemented.
 How functions for selecting values and committing to these values
-are implemented is shown in \autoref{sec:v:branch:valcommit}. How
+are implemented is shown in
+\autoref{sec:v:branch:valcommit}.  How
 the actual branchings are implemented is then detailed in
 \autoref{sec:v:branch:branch}.
 
@@ -1555,6 +1558,10 @@ following value selection functions as examples:
 Note that the last argument of the value selection function
 \?INT_VAL()? is optional, the default behavior will be defined in
 \autoref{sec:v:branch:valcommit}.
+
+
+\section{Support for no-goods}
+\label{sec:v:branch:nogoods}
 
 
 \section{View selection creation}
@@ -1729,7 +1736,6 @@ The classes \gecoderef[class]{ValSelFunction} and
 \gecoderef[class]{ValCommitFunction} are defined by Gecode and
 are parametric with respect to a view. They use the functions as
 specified by the object \?ivb?.
-
 
 
 \section{Branchings}

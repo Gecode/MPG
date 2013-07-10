@@ -8,6 +8,13 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2013-07-10}{Explained how to add support for no-goods to
+    variable-value branchers
+    (see \autoref{sec:v:branch:nogoods})}
+  \cle{2013-07-10}{Explained how to add support for no-goods to branchers
+    (see \autoref{sec:b:started:nogoods})}
+  \cle{2013-07-10}{Explained how to use no-goods from restarts
+    (see \autoref{sec:m:search:nogoods})}
   \cle{2013-06-13}{Released for Gecode 4.1.0}
   \cle{2013-05-13}{Documented display of branching information in Gist
     (see \autoref{sec:m:gist:print})}
