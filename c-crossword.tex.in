@@ -519,6 +519,49 @@ instances that neither \COMBUS{} nor Gecode could solve were
 helped by restart-based search though, even when the timeout was
 increased to one hour.
 
+\begin{figure}
+\centering
+\footnotesize
+\renewcommand{\tabcolsep}{3pt}
+\begin{tabular}{|c||rc|rc||rc|rc||rc|rc||rc|rc|}
+\hline
+\multicolumn{17}{|c|}{\texttt{words} dictionary}\\
+\hline
+&\multicolumn{4}{c||}{$\mathtt{15\times 15}$}
+&\multicolumn{4}{c||}{$\mathtt{19\times 19}$}
+&\multicolumn{4}{c||}{$\mathtt{21\times 21}$}
+&\multicolumn{4}{c|}{$\mathtt{23\times 23}$}\\
+\cline{2-17}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
+\\
+\hline\hline
+\input misc/crossword/res-nogoods-words.tex
+
+\multicolumn{17}{c}{}\\
+\hline
+\multicolumn{17}{|c|}{\texttt{uk} dictionary}\\
+\hline
+&\multicolumn{4}{c||}{$\mathtt{15\times 15}$}
+&\multicolumn{4}{c||}{$\mathtt{19\times 19}$}
+&\multicolumn{4}{c||}{$\mathtt{21\times 21}$}
+&\multicolumn{4}{c|}{$\mathtt{23\times 23}$}\\
+\cline{2-17}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
+&\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
+\\
+\hline\hline
+\input misc/crossword/res-nogoods-uk.tex
+\end{tabular}
+\caption{Comparison of Gecode model using restarts and no-goods with \COMBUS}
+\label{fig:c:crossword:nogoods}
+\end{figure}
+
+
 \paragraph{Solve the rest.}
 
 \begin{figure}

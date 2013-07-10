@@ -187,7 +187,7 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
     while ($l = <TIME>) {
       if ($l =~ /STOPPED/) {
 	$stopped{$mode}{$dict}{$size}{$inst} = 1;
-      } elsif ($l =~ /Runtime:[\ ]*([0-9]*)\.([0-9]*)/) {
+      } elsif ($l =~ /[rR]untime:[\ ]*([0-9]*)\.([0-9]*)/) {
 	$time{$mode}{$dict}{$size}{$inst} = "$1.$2" + 0.0;
       }
     }
@@ -207,7 +207,7 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
   }
 }
 
-foreach $mode ("base","restart") {
+foreach $mode ("base","restart","nogoods") {
   foreach $dict ("words","uk") {
     open RES, ">", "res-$mode-$dict.tex";
     for ($inst = 1; $inst < 11; $inst++) {
