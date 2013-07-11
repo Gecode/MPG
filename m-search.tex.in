@@ -1163,6 +1163,7 @@ $$
 \qquad\text{and}\qquad
 \neg(\mathtt{x}\leq\mathtt{7})\vee\neg(\mathtt{y}\neq\mathtt{0})\vee\neg(\mathtt{z}=\mathtt{3})
 $$
+
 Now assume that when restarting, after some search the
 constraint $\mathtt{x}\leq\mathtt{7}$ becomes subsumed. Then, it
 can be propagated that $\mathtt{y}\neq\mathtt{0}$. With other
@@ -1183,7 +1184,9 @@ constraints and hence generalize the ideas from~\cite{gnogoods}
 and~\cite{NogoodsRestarts}. Also no-goods in Gecode support
 choices of arbitrary arity and are not restricted to binary
 choices. For more details, see \autoref{chap:b:advanced} and in
-particular \autoref{sec:b:advanced:nogoods}.
+particular \autoref{sec:b:advanced:nogoods}. For an example
+illustrating the effect of no-goods from restarts,
+see \autoref{sec:c:crossword:info}.
 
 \paragraph{Generating and posting no-goods.}
 

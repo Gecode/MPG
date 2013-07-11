@@ -74,8 +74,8 @@ follows:
   no-good literal is an implementation of a typically simple
   constraint that corresponds to an alternative as described by
   the choice. No-good literals are mostly orthogonal to the other
-  functions and are hence discussed in the separate section
-  \autoref{sec:b:started:nogoods}.
+  functions and are hence discussed in the next chapter in section
+  \autoref{sec:b:advanced:nogoods}.
 \end{itemize}
 
 Branchers and propagators are both actors, they both inherit from

@@ -494,7 +494,7 @@ requires considerably more time and expertise.
 \hline\hline
 \input misc/crossword/res-nogoods-uk.tex
 \end{tabular}
-\caption{Comparison of Gecode model using restarts with \COMBUS}
+\caption{Comparison of Gecode model using restarts and no-goods with \COMBUS}
 \label{fig:c:crossword:restart}
 \end{figure}
 

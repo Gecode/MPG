@@ -53,11 +53,81 @@ handling a single alternative. The same holds true for the
 \section{Supporting no-goods}
 \label{sec:b:advanced:nogoods}
 
+Supporting no-goods by a brancher is quite simple: every brancher
+has a virtual member function \?ngl()? (for no-good literal) that
+takes the same argument as the \?commit()? member function: a
+space, a choice, and the number of an alternative and returns a
+pointer to a no-good literal of class \gecoderef[class]{NGL}. The
+\?ngl()?  function is called during no-good generation (see
+\autoref{sec:m:search:nogoods}) and the returned no-good literal
+is then used by a propagator that propagates the no-goods (if you
+are curious, the propagator is implemented by
+\gecoderef[class]{Search::Meta::NoGoodsProp}).
+
 \begin{figure}
 \insertlitcode{none min with no-good support}
-\caption{Branchings for \?nonemin? with no-good support}
+\caption{Branching for \?nonemin? with no-good support}
 \label{fig:b:advanced:nogoods}
 \end{figure}
+
+By default, the \?ngl()? function of a brancher returns \?NULL?
+which means that the brancher does not support no-goods. In order
+to support no-goods, a brancher must redefine the \?ngl()?
+function and must define a class for the no-good literals to be
+returned. The class \?EqNGL? implementing a no-good literal for
+equality and the \?ngl()? function is shown in
+\autoref{fig:b:advanced:nogoods}. Otherwise, the brancher is the
+same as the \?nonemin? brancher shown in
+\autoref{fig:b:started:improved}.
+
+\subsection{Returning a no-good literal}
+
+The \?ngl()? function of a brancher has the following options
+when returning a no-good literal:
+\begin{enumerate}
+\item As argued above, it can always return \?NULL? and hence
+  does not support no-goods.
+\item It returns for each alternative of a choice a no-good
+  literal. For our \?NoneMin? brancher this would entail that
+  when \?ngl(home,c,0)? is called, it returns a no-good
+  literal implementing equality between a view and an integer
+  that corresponds to the first alternative (for a given
+  space \?home? and a choice \?c?).
+
+  For the second alternative \?ngl(home,c,1)? a no-good literal
+  implementing disequality should be returned. This would work,
+  but the brancher can do better than that.
+\item When \?ngl(home,c,a)? is called for an alternative
+  where $\mathtt{a}>0$ with a space \?home? and a choice \?c? and
+  \?a? is the last alternative (for \?NoneMin?,
+  $\mathtt{a}=\mathtt{1}$) and the last alternative is the
+  logical negation of all other alternatives, then the \?ngl()?
+  function can return \?NULL?.
+
+  Assume that the alternatives of a choice are
+  $$\mathtt{l}_0\vee\ldots\vee\mathtt{l}_{\mathtt{n}-1}$$ 
+  where
+  \?n? is the arity of the choice and it holds that
+  $$(\mathtt{l}_0\vee\ldots\vee\mathtt{l}_{\mathtt{n}-2})\Leftrightarrow \neg\mathtt{l}_{\mathtt{n}-1}$$
+  is true, then the \?ngl()? can return \?NULL? for the last alternative
+  (that is, $\mathtt{n}-1$).
+
+  Note that this optimization implements the very same idea as
+  discussed at the beginning of \autoref{sec:m:search:nogoods}.
+  Note also that this property is typically only true for binary
+  branchers such as in our example.
+\end{enumerate}
+
+\begin{samepage}
+In our example, we are lucky as the second alternative is indeed
+always the negation of the first alternative. Hence the following
+\?ngl()? function implements no-good literal creation and only
+requires a single class \?EqNGL? for no-good literals
+implementing equality:
+\insertlitcode{none min with no-good support:no-good literal creation}
+\end{samepage}
+
+\subsection{Implementing a no-good literal}
 
 \insertlitcode{none min with no-good support:status}
 
@@ -65,7 +135,7 @@ handling a single alternative. The same holds true for the
 
 \insertlitcode{none min with no-good support:subscribe and cancel}
 
-\insertlitcode{none min with no-good support:no-good literal creation}
+
 
 \section{Using variable views}
 \label{sec:b:advanced:views}
