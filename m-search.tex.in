@@ -1182,8 +1182,8 @@ Moreover, the no-good literals used in Gecode can be arbitrary
 constraints and hence generalize the ideas from~\cite{gnogoods}
 and~\cite{NogoodsRestarts}. Also no-goods in Gecode support
 choices of arbitrary arity and are not restricted to binary
-choices. For more details, see \autoref{chap:b:started} and in
-particular \autoref{sec:b:started:nogoods}.
+choices. For more details, see \autoref{chap:b:advanced} and in
+particular \autoref{sec:b:advanced:nogoods}.
 
 \paragraph{Generating and posting no-goods.}
 

@@ -182,6 +182,7 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
     $nodes{$mode}{$dict}{$size}{$inst} = 0;
     $stopped{$mode}{$dict}{$size}{$inst} = 0;
     $restarts{$mode}{$dict}{$size}{$inst} = 0;
+    $nogoods{$mode}{$dict}{$size}{$inst} = 0;
 
     open TIME, "<", "$f";
     while ($l = <TIME>) {
@@ -200,6 +201,8 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
 	$nodes{$mode}{$dict}{$size}{$inst} = "$1" + 0;
       } elsif ($l =~ /restarts:[\ ]*([0-9]*)/) {
 	$restarts{$mode}{$dict}{$size}{$inst} = "$1" + 0;
+      } elsif ($l =~ /no-goods:[\ ]*([0-9]*)/) {
+	$nogoods{$mode}{$dict}{$size}{$inst} = "$1" + 0;
       }
     }
     close STAT;
@@ -274,6 +277,47 @@ foreach $mode ("base","restart","nogoods") {
     close RES;
   }
 }
+
+open RES, ">", "res-comparison.tex";
+foreach $dict ("words","uk") {
+  for ($inst = 1; $inst < 11; $inst++) {
+    $i=$inst;
+    if ($i < 10) {
+      $i = "0$i";
+    }
+    foreach $size (15,19,21,23) {
+      if (($restarts{"restart"}{$dict}{$size}{$inst} > 0) &&
+	  !$stopped{"restart"}{$dict}{$size}{$inst}) {
+	print RES "\\inst\{$dict\}\{$size\}\{$i\}";
+	foreach $mode ("base","restart","nogoods") {
+	  if ($stopped{$mode}{$dict}{$size}{$inst}) {
+	    print RES "&--&--&--";
+	  } else {
+	    $t = int(($time{$mode}{$dict}{$size}{$inst} / 100) + 0.5);
+	    if ($t < 10) {
+	      $t = "0$t";
+	    } else {
+	      $t = "$t";
+	    }
+	    $t =~ s|(.*)([0-9])|$1\.$2|o;
+	    $n = $nodes{$mode}{$dict}{$size}{$inst};
+	    if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
+	      $sn = "$1\\,$2\\,$3";
+	    } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
+	      $sn = "$1\\,$2";
+	    } else {
+	      $sn = $n;
+	    }
+	    $rn = $restarts{$mode}{$dict}{$size}{$inst};
+	    print RES "& \$$t\$ & \$$sn\$ & \$$rn\$";
+	  }
+	}
+	print RES "\\\\\\hline\n";
+      }
+    }
+  }
+}
+close RES;
 
 open RES, ">", "res-hard.tex";
 foreach $f ("logs/hard/words-39-0.txt",

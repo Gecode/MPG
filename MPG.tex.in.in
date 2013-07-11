@@ -395,7 +395,8 @@ This part presents how to program branchers as
 implementations of branchings.
 }
 
-\tcbstarted{} shows how to implement branchers.
+\tcbstarted{} shows how to implement simple branchers. More
+advanced topics are discussed in \tcbadvanced{}.
 
 How to implement a whole array of variable-value branchings (a
 need that typically arises when implementing new variables) is
@@ -404,7 +405,7 @@ discussed in \autoref{chap:v:branch} of \autoref{part:b}.
 \mypart{1}{Programming branchers}
 
 \include{b-started}
-
+\include{b-advanced}
 
 
 \renewcommand{\partauthors}{Christian Schulte}

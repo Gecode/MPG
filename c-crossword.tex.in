@@ -342,11 +342,11 @@ constraint programming system such as Gecode.
 
 \paragraph{Used hardware and software platform.}
 
-All experiments have been run on a laptop with an Intel i7-2860QM
-processor (2.5 GHz, four cores, hyper-threading), 8~GB of main
-memory, running Windows~7 x64 and using Gecode 4.0.0. The model
-has been run with a single thread only. The runtimes are measured
-as wall-time and are the average of five runs. The coefficient of
+All experiments have been run on a computer with an Intel Xeon
+W3530 processor (2.8 GHz, four cores), 6~GB of main memory,
+running Windows~7 x64 and using Gecode 4.2.0. The model has been
+run with a single thread only. The runtimes are measured as
+wall-time and are the average of five runs. The coefficient of
 deviation is less than 5\% and typically less than 1\%.
 
 The hardware platform used in \cite{DBLP:conf/cp/AnbulaganB08} is
@@ -475,69 +475,6 @@ requires considerably more time and expertise.
 &\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
 \\
 \hline\hline
-\input misc/crossword/res-restart-words.tex
-
-\multicolumn{17}{c}{}\\
-\hline
-\multicolumn{17}{|c|}{\texttt{uk} dictionary}\\
-\hline
-&\multicolumn{4}{c||}{$\mathtt{15\times 15}$}
-&\multicolumn{4}{c||}{$\mathtt{19\times 19}$}
-&\multicolumn{4}{c||}{$\mathtt{21\times 21}$}
-&\multicolumn{4}{c|}{$\mathtt{23\times 23}$}\\
-\cline{2-17}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
-\\
-\hline\hline
-\input misc/crossword/res-restart-uk.tex
-\end{tabular}
-\caption{Comparison of Gecode model using restarts with \COMBUS}
-\label{fig:c:crossword:restart}
-\end{figure}
-
-
-\paragraph{Using restarts.}
-
-To improve the robustness of search, one can use restart-based
-search with Gecode, see \autoref{sec:m:search:restart}. The
-instances are run using a geometric cutoff sequence with base $2$
-and scale-factor $2000$ and a decay-factor of $0.99$ for AFC (see
-\autoref{sec:m:branch:afc}) and the results are shown in
-\autoref{fig:c:crossword:restart}. The number raised to the
-number of nodes shows how many restarts have been carried out
-during search. Note that the choice of
-parameters is standard and in no way optimized for the problem at
-hand. The reason to use decay for AFC is to gradually change the
-AFC information for restarts.
-
-Now Gecode can solve exactly the same instances as \COMBUS{} and
-for all but one with at least the same efficiency. None of the
-instances that neither \COMBUS{} nor Gecode could solve were
-helped by restart-based search though, even when the timeout was
-increased to one hour.
-
-\begin{figure}
-\centering
-\footnotesize
-\renewcommand{\tabcolsep}{3pt}
-\begin{tabular}{|c||rc|rc||rc|rc||rc|rc||rc|rc|}
-\hline
-\multicolumn{17}{|c|}{\texttt{words} dictionary}\\
-\hline
-&\multicolumn{4}{c||}{$\mathtt{15\times 15}$}
-&\multicolumn{4}{c||}{$\mathtt{19\times 19}$}
-&\multicolumn{4}{c||}{$\mathtt{21\times 21}$}
-&\multicolumn{4}{c|}{$\mathtt{23\times 23}$}\\
-\cline{2-17}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c||}{nodes}
-&\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
-\\
-\hline\hline
 \input misc/crossword/res-nogoods-words.tex
 
 \multicolumn{17}{c}{}\\
@@ -557,10 +494,32 @@ increased to one hour.
 \hline\hline
 \input misc/crossword/res-nogoods-uk.tex
 \end{tabular}
-\caption{Comparison of Gecode model using restarts and no-goods with \COMBUS}
-\label{fig:c:crossword:nogoods}
+\caption{Comparison of Gecode model using restarts with \COMBUS}
+\label{fig:c:crossword:restart}
 \end{figure}
 
+
+\paragraph{Using restarts and no-goods.}
+
+To improve the robustness of search, one can use restart-based
+search and no-goods from restarts with Gecode, see
+\autoref{sec:m:search:restart} and
+\autoref{sec:m:search:nogoods}. The instances are run using a
+geometric cutoff sequence with base $1.5$ and scale-factor $500$,
+a decay-factor of $0.99$ for AFC (see
+\autoref{sec:m:branch:afc}), and a no-good depth limit of $256$.
+The results are shown in \autoref{fig:c:crossword:restart}. The
+number raised to the number of nodes shows how many restarts have
+been carried out during search. Note that the choice of
+parameters is standard and in no way optimized for the problem at
+hand. The reason to use decay for AFC is to gradually change the
+AFC information for restarts.
+
+Now Gecode can solve exactly the same instances as \COMBUS{} and
+for all but one with at least the same efficiency. None of the
+instances that neither \COMBUS{} nor Gecode could solve were
+helped by restart-based search though, even when the timeout was
+increased to one hour.
 
 \paragraph{Solve the rest.}
 

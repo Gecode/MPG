@@ -1,4 +1,4 @@
-VERSION = 4.1.0
+VERSION = 4.2.0
 YEAR    = 2013
 
 CHAPSRC = \
@@ -7,7 +7,7 @@ CHAPSRC = \
 	m-branch m-search m-gist m-driver \
 	p-started p-avoid p-reified p-views \
 	p-domain p-advisors p-memory p-sets p-floats \
-	b-started \
+	b-started b-advanced \
 	s-started s-recomputation s-engine \
 	v \
 	c-knights c-nonogram c-magic-sequence c-warehouses \
