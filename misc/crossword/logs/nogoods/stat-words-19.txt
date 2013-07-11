@@ -1,1 +1,33 @@
 Crossword
+	char*least*asks
+	hole*ernie*nell
+	appaloosas*tree
+	despondent*avid
+	****reel*aprons
+	grade**mimic***
+	redo*florentine
+	inertly*antigen
+	nonchalant*coed
+	***hegel**cards
+	habeas*arch****
+	ibis*tabulating
+	loot*analytical
+	lute*famed*come
+	star*flare*knee
+
+
+
+Initial
+	propagators: 386
+	branchers:   1
+
+Summary
+	runtime:      1:16.153 (76153.000 ms)
+	solutions:    1
+	propagations: 15793529
+	nodes:        73027
+	failures:     36109
+	restarts:     8
+	no-goods:     232
+	peak depth:   82
+
