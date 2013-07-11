@@ -58,6 +58,7 @@ NOTESTCPP = \
 	shared-object-and-handle local-object-and-handle \
 	local-object-with-external-resources \
 	none-min none-min-improved size-min assign-min none-min-and-none-max \
+	none-min-with-no-good-support \
 	dfs-binary dfs bab \
 	dfs-using-full-recomputation dfs-using-full-recomputation-and-lao \
 	dfs-using-hybrid-recomputation dfs-using-adaptive-recomputation \

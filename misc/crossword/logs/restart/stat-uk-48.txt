@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	alarm*pshaw*octet*calla
 	roshhashana*tawny*alaap
 	radiocarbondating*gamba
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.930 (2930.000 ms)
+	runtime:      2.574 (2574.000 ms)
 	solutions:    1
 	propagations: 32009
 	nodes:        210
 	failures:     20
 	restarts:     0
+	no-goods:     0
 	peak depth:   182
-	peak memory:  46123 KB
+	peak memory:  95624 KB

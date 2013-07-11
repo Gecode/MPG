@@ -1,9 +1,4 @@
 Crossword
-RESTART
-RESTART
-RESTART
-RESTART
-RESTART
 
 Search engine stopped...
 	reason: time limit reached
@@ -13,11 +8,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      10:00.024 (600024.000 ms)
+	runtime:      10:00.008 (600008.000 ms)
 	solutions:    0
-	propagations: 50679407
-	nodes:        245565
-	failures:     122475
-	restarts:     5
-	peak depth:   89
-	peak memory:  182615 KB
+	propagations: 77737392
+	nodes:        378117
+	failures:     187935
+	restarts:     12
+	no-goods:     0
+	peak depth:   110
+	peak memory:  488759 KB

@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	clod*amass*peale*haas
 	rule*malay*lamar*alba
 	area*informatica*bali
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.827 (827.000 ms)
+	runtime:      0.800 (800.000 ms)
 	solutions:    1
 	propagations: 52648
 	nodes:        343
 	failures:     123
 	restarts:     0
+	no-goods:     0
 	peak depth:   109
-	peak memory:  19191 KB
+	peak memory:  36935 KB

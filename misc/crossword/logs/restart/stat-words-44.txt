@@ -1,28 +1,27 @@
 Crossword
-RESTART
-	elsie*plank*smear*balsa
-	loath*euler*purge*again
-	informatica*isaac*robed
-	dee*lace*reich*rubs*eve
-	erskine*bombard*rattles
-	***ace*olsen*oaf*doe***
-	garth*adair*kodak*walsh
-	alee*addis*females*mate
-	san*adder*bees*clad*rod
-	prettier*carl*goldenrod
-	smeared*bard*many*bayda
-	***lou*cannibals*gas***
-	creep*gate*name*arcadia
-	harshness*dana*smallest
-	ode*yank*fend*boise*ail
-	rich*beetled*carts*anna
-	extol*staid*corey*dregs
-	***web*son*arabs*dec***
-	mislead*scalars*recount
-	imp*chic*holds*vial*toe
-	laugh*nadir*legislation
-	agree*agent*elite*racks
-	nests*helga*dylan*erase
+	assam*sparc*amber*haifa
+	willa*haler*hausa*ennui
+	analyticity*egypt*andes
+	rat*feet*asian*year*ill
+	diehard*citadel*disease
+	***aim*allan*sao*dad***
+	adair*cruel*pious*years
+	liar*namer*trusted*neil
+	bar*bores*beam*deaf*gnu
+	unopened*deny*formalism
+	maniacs*diet*taos*cases
+	***eke*pompadour*tab***
+	peace*pete*cern*judaica
+	allergies*flee*momentum
+	sit*sack*bred*synod*arm
+	toad*baileys*blear*flea
+	straw*snare*fears*haydn
+	***hip*gil*lisps*law***
+	smaller*disarms*tornado
+	pub*haag*naomi*hoop*ran
+	irate*based*erlenmeyers
+	cabal*atari*score*renee
+	alarm*tense*thuds*start
 
 
 
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.182 (3182.000 ms)
+	runtime:      3.073 (3073.000 ms)
 	solutions:    1
-	propagations: 308948
-	nodes:        2781
-	failures:     1323
-	restarts:     0
+	propagations: 284812
+	nodes:        2624
+	failures:     1137
+	restarts:     1
+	no-goods:     0
 	peak depth:   162
-	peak memory:  21466 KB
+	peak memory:  66882 KB

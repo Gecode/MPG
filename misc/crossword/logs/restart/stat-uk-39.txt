@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	wadmaal*tirol*zachary
 	amiable*edite*aboulia
 	nosebag*reata*raciest
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.585 (5585.000 ms)
+	runtime:      5.366 (5366.000 ms)
 	solutions:    1
 	propagations: 51653
 	nodes:        365
 	failures:     126
 	restarts:     0
+	no-goods:     0
 	peak depth:   141
-	peak memory:  57782 KB
+	peak memory:  120231 KB

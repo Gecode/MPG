@@ -324,7 +324,7 @@ copied.
 
 Assume that we want to constrain the integer
 variable \?p? to be the product of \?x?, \?y?, and \?z?. Gecode
-only offers multiplication of two variable, hence a temporary
+only offers multiplication of two variables, hence a temporary
 variable \?t? is created (assume also that we know that the
 values for \?t? are between \?0? and \?1000?):
 \begin{code}

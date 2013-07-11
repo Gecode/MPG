@@ -1,19 +1,19 @@
 Crossword
-	acids*flaw*read
-	camouflage*edna
-	translatability
-	eggs*overstates
-	doe*boor*tex***
-	***barr*del*jab
-	isaacs*far*babe
-	barth*bad*canoe
-	inch*rag*oldest
-	sao*peg*brae***
-	***sag*said*add
-	displacing*slew
-	unaesthetically
-	acre*tananarive
-	laid*adam*baser
+	abaft*slab*amid
+	palliative*rosa
+	indeterminately
+	stew*guidelines
+	hun*sect*ape***
+	***beak*its*pod
+	bemoan*bah*fade
+	enact*ban*bacon
+	lima*jay*pacers
+	ada*bed*dice***
+	***sea*desk*bar
+	descendant*polo
+	internationally
+	even*idealistic
+	type*earl*posse
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.305 (4305.000 ms)
+	runtime:      2.571 (2571.000 ms)
 	solutions:    1
-	propagations: 1293031
-	nodes:        6182
-	failures:     2974
-	restarts:     4
-	no-goods:     84
-	peak depth:   71
-	peak memory:  64966 KB
+	propagations: 472975
+	nodes:        2364
+	failures:     1122
+	restarts:     1
+	no-goods:     47
+	peak depth:   73
+	peak memory:  22538 KB

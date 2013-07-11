@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	**ahead*peace*plaid**
 	*amanda*laban*lacked*
 	bromide*arena*ephesus
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.123 (1123.000 ms)
+	runtime:      1.090 (1090.000 ms)
 	solutions:    1
 	propagations: 34884
 	nodes:        184
 	failures:     29
 	restarts:     0
+	no-goods:     0
 	peak depth:   147
-	peak memory:  29561 KB
+	peak memory:  40520 KB

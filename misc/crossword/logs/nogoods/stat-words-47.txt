@@ -1,27 +1,27 @@
 Crossword
-	catawba*largest*acrobat
-	overall*alerter*rhenish
-	wistful*panacea*nanette
-	hat*trio*bach*noose*war
-	itel*bengali*psalm*dire
-	doris*seam*eduard*gusto
-	ersatz*iran*arcs*careen
-	***reilly*inlet*mere***
-	spa*wool*bluer*distract
-	montana*mists*walsh*the
-	aster*drapes*loren*clan
-	stands*aden*warp*aboard
-	hurd*iliad*mammal*range
-	ere*realm*gibbs*emitter
-	desserts*picas*laos*ads
-	***ware*saves*dakota***
-	africa*lure*haag*dorcas
-	leash*rebind*cluj*least
-	beds*bangs*retinas*apse
-	ali*radar*seer*acta*sue
-	niagara*apparel*orbital
-	integer*promise*babbage
-	ageless*hottest*spanned
+	awesome*coastal*atlanta
+	bananas*anatole*woodard
+	rudders*perilla*aliased
+	ape*scan*noll*veils*tar
+	haag*hygiene*melts*bite
+	acres*suds*spanks*glees
+	masted*yost*ages*guards
+	***seidel*hound*calm***
+	map*torn*versa*nobleman
+	arachne*rosie*waals*are
+	lathe*woolen*bible*alma
+	abrade*oats*wall*soccer
+	riot*mazda*ballad*atone
+	ian*heres*babka*alkalis
+	answered*malay*phil*mat
+	***alga*ponds*gilead***
+	castle*boca*hard*sneers
+	erato*hinkle*gags*depot
+	pins*hands*varying*rite
+	had*synge*dine*nora*saw
+	edmonds*rainier*rosetta
+	unaware*electra*eviller
+	senegal*disease*deafest
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      35.831 (35831.000 ms)
+	runtime:      1:18.562 (78562.000 ms)
 	solutions:    1
-	propagations: 4637963
-	nodes:        26023
-	failures:     12188
-	restarts:     7
-	no-goods:     237
-	peak depth:   140
-	peak memory:  368860 KB
+	propagations: 12738872
+	nodes:        76430
+	failures:     36795
+	restarts:     8
+	no-goods:     543
+	peak depth:   215
+	peak memory:  423184 KB

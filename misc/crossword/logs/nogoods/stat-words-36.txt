@@ -1,25 +1,25 @@
 Crossword
-	sari*ababa*apace*semi
-	aged*basic*labor*aver
-	nucleotide*amalgamate
-	derek*had*amend*cones
-	**uses*tenfold*stag**
-	phi*domingo*aorta*egg
-	lets*mac*uri*nor*flee
-	aliased*byers*bowline
-	tended*are*mao*moines
-	eng*callan*also*reese
-	***loyal*****crass***
-	twain*calf*dearth*ida
-	armada*hal*ear*wilcox
-	hearsay*pabst*papoose
-	oats*red*wei*pat*user
-	eke*hotel*arcaded*ads
-	**ulan*bahrein*roth**
-	abram*sages*cat*greta
-	reinstates*reconsider
-	case*agers*irene*area
-	hums*parse*boast*lamb
+	apse*ababa*clean*spat
+	dial*caleb*linda*argo
+	accelerate*allegories
+	marco*err*train*raves
+	**itel*maniacs*mini**
+	off*bugeyed*steen*lag
+	said*cod*van*sat*neva
+	arcaded*paled*ravages
+	keener*bad*rag*lasers
+	add*ankara*odin*nasty
+	***ocean*****vales***
+	macho*yagi*thebes*mac
+	upland*lab*han*ashore
+	sparser*biped*grained
+	else*lad*del*ian*done
+	des*sleek*amassed*sad
+	**idea*mascara*debt**
+	mafia*eerie*ado*arabs
+	aristocrat*abominable
+	leek*white*dirac*glow
+	lads*noted*scene*gets
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      11.728 (11728.000 ms)
+	runtime:      1.570 (1570.000 ms)
 	solutions:    1
-	propagations: 1933710
-	nodes:        11111
-	failures:     4802
-	restarts:     5
-	no-goods:     192
-	peak depth:   149
-	peak memory:  195296 KB
+	propagations: 150008
+	nodes:        983
+	failures:     434
+	restarts:     0
+	no-goods:     41
+	peak depth:   163
+	peak memory:  36040 KB

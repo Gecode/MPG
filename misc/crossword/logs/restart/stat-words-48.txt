@@ -1,32 +1,27 @@
 Crossword
-RESTART
-RESTART
-RESTART
-RESTART
-RESTART
-	adams*accra*aruba*prima
-	disappeared*nasas*lunar
-	extraordinariness*emacs
-	lied*dared*ultra*sappho
-	eerie*ted*ali*slant*pin
-	***safes*scene*tie*bra*
-	sap*sad*farrell*reprove
-	pusher*cages*mob*reopen
-	areas*mavis*nears*world
-	raul*aaron*partook*mile
-	elderly*ratio*hamal*aid
-	**orator*wilma*detect**
-	phi*eared*being*highest
-	land*ravaged*tahoe*inca
-	elsie*lever*sinew*glean
-	altars*lin*peggy*grisly
-	surname*decades*qua*sea
-	*cue*old*saran*dumps***
-	vic*skies*pan*see*hagen
-	entity*fetid*incur*lava
-	gaily*mediterraneanizes
-	atoll*anglo*impermanent
-	sense*odell*masts*party
+	swaps*aruba*flora*shire
+	paraphrased*raped*tenex
+	extraordinariness*erase
+	neil*paint*andre*reaper
+	dream*gag*egg*algol*pat
+	***yukon*ivies*lou*orr*
+	ali*tin*brandon*antioch
+	bunted*slang*los*delphi
+	acted*meats*gasps*derek
+	tier*scare*threats*dire
+	earring*elsie*drape*ass
+	**retard*yarns*cravat**
+	abe*spare*lethe*theresa
+	bald*storied*ellen*gnat
+	braes*horns*cedar*buena
+	obtain*pea*dared*passer
+	tainted*dnieper*pal*sri
+	*roe*air*embed*gamma***
+	son*creep*par*car*sudan
+	hushes*codes*erich*rome
+	ashen*mediterraneanizes
+	flirt*adieu*intelligent
+	types*teams*beers*lands
 
 
 
@@ -35,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:59.637 (119637.000 ms)
+	runtime:      1:25.129 (85129.000 ms)
 	solutions:    1
-	propagations: 23128900
-	nodes:        99078
-	failures:     49289
-	restarts:     4
-	peak depth:   107
-	peak memory:  153822 KB
+	propagations: 17836248
+	nodes:        70348
+	failures:     34683
+	restarts:     8
+	no-goods:     0
+	peak depth:   124
+	peak memory:  355757 KB

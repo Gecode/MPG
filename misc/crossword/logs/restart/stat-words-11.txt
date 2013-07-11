@@ -1,20 +1,19 @@
 Crossword
-RESTART
-	assam*alfa*tits
-	retraction*howe
-	electromagnetic
-	ames*unpleasant
-	sad*odes*lie***
-	***dodd*del*era
-	breezy*gas*aviv
-	lapse*bad*alice
-	erik*cab*scalar
-	dec*fag*luis***
-	***dar*gild*age
-	antecedent*curs
-	countermeasures
-	errs*remunerate
-	safe*swap*allan
+	abaft*slab*amid
+	palliative*rosa
+	indeterminately
+	stew*guidelines
+	hun*sect*ape***
+	***beak*its*pod
+	bemoan*bah*fade
+	enact*ban*bacon
+	lima*jay*pacers
+	ada*bed*dice***
+	***sea*desk*bar
+	descendant*polo
+	internationally
+	even*idealistic
+	type*earl*posse
 
 
 
@@ -23,11 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.666 (3666.000 ms)
+	runtime:      2.570 (2570.000 ms)
 	solutions:    1
-	propagations: 364080
-	nodes:        1731
-	failures:     839
-	restarts:     0
-	peak depth:   69
-	peak memory:  7957 KB
+	propagations: 472934
+	nodes:        2364
+	failures:     1122
+	restarts:     1
+	no-goods:     0
+	peak depth:   59
+	peak memory:  22504 KB

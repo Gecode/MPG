@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	dali*straw*jacob*slid
 	agar*paoli*aware*peru
 	muir*aimer*blinn*avon
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.045 (1045.000 ms)
+	runtime:      1.000 (1000.000 ms)
 	solutions:    1
 	propagations: 48612
 	nodes:        341
 	failures:     122
 	restarts:     0
+	no-goods:     0
 	peak depth:   122
-	peak memory:  19000 KB
+	peak memory:  36263 KB

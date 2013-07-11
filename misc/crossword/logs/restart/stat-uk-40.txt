@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	gerald*freest*haar*hade
 	adonai*europa*anna*alan
 	biochemicaloxygendemand
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.090 (2090.000 ms)
+	runtime:      2.028 (2028.000 ms)
 	solutions:    1
 	propagations: 27480
 	nodes:        234
 	failures:     41
 	restarts:     0
+	no-goods:     0
 	peak depth:   170
-	peak memory:  34794 KB
+	peak memory:  90184 KB

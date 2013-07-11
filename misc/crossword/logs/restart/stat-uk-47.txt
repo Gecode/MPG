@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	colossi*stibial*inaword
 	adapter*hosanna*panacea
 	monture*essoins*enteral
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.274 (4274.000 ms)
+	runtime:      4.070 (4071.000 ms)
 	solutions:    1
 	propagations: 54954
 	nodes:        408
 	failures:     113
 	restarts:     0
+	no-goods:     0
 	peak depth:   205
-	peak memory:  65721 KB
+	peak memory:  131592 KB

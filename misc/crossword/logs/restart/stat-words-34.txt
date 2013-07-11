@@ -1,26 +1,25 @@
 Crossword
-RESTART
-	abater*scandal*anemia
-	cabana*cocaine*havens
-	clinic*ratings*events
-	odd*debater*essay*toe
-	sled*doped*plead*pans
-	tyson*bed*gland*sales
-	***gab***bra***act***
-	thimbu*aplenty*pariah
-	recall*niagara*enigma
-	are*absorb*riot*sonar
-	mobs*aida***buoy*todd
-	piece*pith*runner*bee
-	enroll*zealand*aeolus
-	degree*escapee*rarest
-	***end***kit***sri***
-	accra*domed*mew*sofas
-	peas*farad*pares*name
-	inn*olden*berlitz*spa
-	estate*galatia*roster
-	coolie*omicron*inhere
-	ernest*nanking*peered
+	abbeys*vibrate*shades
+	callan*amoebas*cobalt
+	claire*careers*amoeba
+	elm*damaged*zaire*mob
+	seen*dated*wayne*cowl
+	strap*pen*minsk*dense
+	***boa***bat***den***
+	pealed*abashes*entrap
+	ornate*restart*serene
+	too*slates*lain*balsa
+	otis*epic***slav*laws
+	mince*echo*fulton*tea
+	actors*lecture*cavern
+	castro*encased*amidst
+	***ion***use***let***
+	cabal*waals*gel*rabbi
+	avon*pabst*canal*eris
+	lev*dinah*reproof*era
+	animal*somalia*armada
+	ignite*erasing*dyadic
+	seeded*seepage*senses
 
 
 
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.430 (4430.000 ms)
+	runtime:      21.795 (21795.000 ms)
 	solutions:    1
-	propagations: 250649
-	nodes:        2161
-	failures:     1033
-	restarts:     0
-	peak depth:   123
-	peak memory:  22039 KB
+	propagations: 3072315
+	nodes:        22004
+	failures:     10260
+	restarts:     5
+	no-goods:     0
+	peak depth:   136
+	peak memory:  219702 KB

@@ -1,25 +1,25 @@
 Crossword
-	malabar*baked*abscess
-	avocado*alike*balance
-	daresay*linen*riordan
-	die*smacked*sport*era
-	ella*sloan*deign*walt
-	seers*ian*circa*three
-	trimmest*flo*atheists
-	***lent*loads*eels***
-	arnold*maureen*alkali
-	shoal*simla*rears*van
-	sold*canis*apart*rest
-	ada*arden*there*verse
-	manila*sapiens*debtor
-	***slim*rabat*peru***
-	dialogue*led*messiest
-	inlay*saber*pen*alpha
-	sham*wised*bonus*diem
-	cab*cacti*autumns*sap
-	alameda*nabla*behoove
-	remodel*gibbs*reorder
-	drapers*slash*address
+	gautama*miami*elkhart
+	abrades*organ*panacea
+	liggett*booth*iciness
+	ali*nearing*asset*tit
+	hens*dials*alloy*bode
+	angus*rye*plead*caner
+	despises*cod*peerless
+	***pros*coded*stem***
+	spleen*marines*hashed
+	hairs*babka*sheik*ada
+	eyes*minis*dirac*budd
+	leg*satin*barer*solid
+	fresco*aerated*halsey
+	***parr*tiled*palo***
+	likelier*ned*telegram
+	amend*leads*bar*snore
+	band*reads*geoff*aura
+	ego*waals*vessels*ten
+	listens*omens*cochise
+	enhance*rosie*truants
+	dearths*betel*saddest
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      22.243 (22243.000 ms)
+	runtime:      41.692 (41692.000 ms)
 	solutions:    1
-	propagations: 3103037
-	nodes:        16248
-	failures:     7624
-	restarts:     6
-	no-goods:     179
-	peak depth:   127
-	peak memory:  269560 KB
+	propagations: 8854308
+	nodes:        48070
+	failures:     23059
+	restarts:     7
+	no-goods:     313
+	peak depth:   169
+	peak memory:  311811 KB

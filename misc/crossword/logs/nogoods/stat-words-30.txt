@@ -1,25 +1,25 @@
 Crossword
-	adam*brake*twas*arbor
-	ramo*aegis*race*waive
-	adolescent*unexpanded
-	bakelite*eases*riders
-	***coca*pests*veto***
-	setups*lemke*easement
-	peale*reassembled*poe
-	erne*bias***eben*aida
-	lit*magnetism*stouter
-	leavings*into**across
-	**links*bones*steam**
-	editor**ager*aliasing
-	lazarus*carnation*zoe
-	emil*palo***bonn*ginn
-	non*attenuating*pence
-	anglican*grade*hinges
-	***olin*olive*rene***
-	aflame*guide*diatribe
-	gravestone*railroaded
-	oaken*arcs*nicks*lean
-	guest*beet*sleet*sana
+	that*salad*acta*shaft
+	hugh*crude*wool*table
+	aberration*adulterous
+	israelis*taker*erases
+	***cape*dunes*ames***
+	rapids*rerun*exposers
+	array*necessaries*mew
+	dion*lana***sear*hebe
+	asp*labellers*labored
+	readable*ache**tangle
+	**genoa*scoot*guide**
+	heaver**held*warrants
+	artisan*idealized*cat
+	bail*toil***aces*lisa
+	ito*bottlenecks*piety
+	bonfires*nodes*basses
+	***enid*acres*hoot***
+	accede*sloan*gilligan
+	bridesmaid*inordinate
+	eater*once*zonal*glow
+	dyers*beer*enemy*sept
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:12.230 (72230.000 ms)
+	runtime:      1:08.141 (68141.000 ms)
 	solutions:    1
-	propagations: 10070091
-	nodes:        38107
-	failures:     18659
+	propagations: 16179153
+	nodes:        70862
+	failures:     34637
 	restarts:     8
-	no-goods:     234
-	peak depth:   120
-	peak memory:  319100 KB
+	no-goods:     364
+	peak depth:   133
+	peak memory:  319330 KB

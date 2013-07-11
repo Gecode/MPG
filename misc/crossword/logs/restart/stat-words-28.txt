@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	ajar*arpa*acne*chad
 	lobe*bean*cool*ainu
 	baud*bali*coal*rene
@@ -33,5 +32,6 @@ Summary
 	nodes:        295
 	failures:     94
 	restarts:     0
+	no-goods:     0
 	peak depth:   126
-	peak memory:  6893 KB
+	peak memory:  20039 KB

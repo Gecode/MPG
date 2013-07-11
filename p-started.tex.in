@@ -12,8 +12,8 @@ over integer and Boolean variables. Part of the concepts
 introduced are specific to integer and Boolean propagators,
 however the techniques how to program efficient propagators are
 largely orthogonal to the type of variables. In
-\autoref{chap:p:sets}, the corresponding concepts for set
-variables are presented.
+\autoref{chap:p:sets} and \autoref{chap:p:floats}, the
+corresponding concepts for set and float variables are presented.
 
 \begin{important}
   This chapter introduces concepts and techniques step-by-step,

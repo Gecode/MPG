@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	anal**gas*masa*paul
 	bala*cagy*abib*adze
 	adam*ules*data*laid
@@ -27,11 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.550 (550.000 ms)
+	runtime:      0.530 (530.000 ms)
 	solutions:    1
 	propagations: 11494
 	nodes:        145
 	failures:     3
 	restarts:     0
+	no-goods:     0
 	peak depth:   140
-	peak memory:  4575 KB
+	peak memory:  49575 KB

@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	octad*aswan*pence*agave
 	thera*reade*rayon*luted
 	torah*abram*onend*cirri
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.460 (5460.000 ms)
+	runtime:      5.272 (5272.000 ms)
 	solutions:    1
 	propagations: 87700
 	nodes:        613
 	failures:     221
 	restarts:     0
+	no-goods:     0
 	peak depth:   195
-	peak memory:  57149 KB
+	peak memory:  143688 KB

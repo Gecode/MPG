@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	shwa*saga*amah*abel
 	hoas*oche*dika*nala
 	ikat*uric*anes*ebbs
@@ -27,11 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.810 (810.000 ms)
+	runtime:      0.780 (780.000 ms)
 	solutions:    1
 	propagations: 15238
 	nodes:        154
 	failures:     1
 	restarts:     0
+	no-goods:     0
 	peak depth:   152
-	peak memory:  13105 KB
+	peak memory:  59880 KB

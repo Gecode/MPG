@@ -1,23 +1,23 @@
 Crossword
-	abac*caba*alec*ethe
-	dona*oven*bego*arab
-	aril*aero*aval*ruhr
-	waltzingmatilda*mao
-	***rata*abe**snip**
-	maraca*alb*panatela
-	aleph*buy*alga*atap
-	cab**raf*champ**ela
-	enraged*areca*abray
-	**oman*bleak*alas**
-	await*baaed*chinwag
-	lad**sabal*kea**ala
-	paca*heap*cap*ulnae
-	scalpels*ohm*anuses
-	**slab**aba*ibis***
-	pat*rehabilitations
-	egis*aura*lacy*area
-	arne*ricy*agha*drab
-	gaga*sasa*hoys*sara
+	shah*haaf*octa*palp
+	lady*anta*maam*alae
+	alap*zoic*anti*lamb
+	memoriatechnica*baa
+	***gaes*maa**abbe**
+	coheir*bab*kabbalah
+	ahead*dan*awdl*glee
+	pia**ean*arede**eon
+	aorists*gyals*amend
+	**taha*caaba*chat**
+	fohns*bigha*gascoal
+	abe**dares*dam**ida
+	liar*eked*fab*omlah
+	lavaboes*aid*spaers
+	**igad**ain*alar***
+	can*davidandgoliath
+	hied*nana*ahab*abba
+	odso*darg*comb*naam
+	case*slee*sway*acre
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      13.410 (13410.000 ms)
+	runtime:      7.940 (7940.000 ms)
 	solutions:    1
-	propagations: 1474720
-	nodes:        56271
-	failures:     25155
-	restarts:     9
-	no-goods:     101
-	peak depth:   170
-	peak memory:  489066 KB
+	propagations: 467978
+	nodes:        13274
+	failures:     5843
+	restarts:     4
+	no-goods:     63
+	peak depth:   161
+	peak memory:  222467 KB

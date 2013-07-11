@@ -1,23 +1,19 @@
 Crossword
-RESTART
-RESTART
-RESTART
-RESTART
-	gene*cacti*cite
-	olav*arlen*idea
-	assignment*near
-	deallocate*case
-	****anon*smiled
-	third**upton***
-	hate*appliances
-	oregano*ontario
-	remunerate*tara
-	***laced**niger
-	oswald*dupe****
-	boat*overloaded
-	ergo*tanganyika
-	seer*alden*eden
-	errs*leads*soda
+	sana*cabot*gris
+	opel*ababa*lost
+	associator*oslo
+	researched*user
+	****poke*incite
+	swaps**renee***
+	each*dispersion
+	antonio*isotope
+	statistics*ewes
+	***occam**tract
+	stager*pose****
+	hebe*evaluative
+	anon*dissimilar
+	levi*inset*ella
+	exec*teens*dyes
 
 
 
@@ -26,11 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      44.413 (44413.000 ms)
+	runtime:      1:11.959 (71959.000 ms)
 	solutions:    1
-	propagations: 9727648
-	nodes:        46389
-	failures:     23109
-	restarts:     3
+	propagations: 21600598
+	nodes:        102894
+	failures:     50969
+	restarts:     9
+	no-goods:     0
 	peak depth:   57
-	peak memory:  47969 KB
+	peak memory:  180281 KB

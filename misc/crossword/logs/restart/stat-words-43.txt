@@ -1,30 +1,27 @@
 Crossword
-RESTART
-RESTART
-RESTART
-	class*ached*arose*limps
-	recta*drake*balks*italy
-	eater*manes*await*began
-	averaging*pot*frederico
-	meditate*bares*terraced
-	***lois*trigram*moat***
-	assign*hairy*mid*plight
-	plaza*waxes*bones*solar
-	pane*cabin*brained*nina
-	lit*basic*lao*serif*dec
-	enamel*balance*bullseye
-	***arcs*bazaars*muir***
-	gaborone*candace*tribal
-	ida*amend*rae*reset*ale
-	bini*pegasus*pored*asia
-	beast*dents*julia*plies
-	sullen*lee*perle*urgent
-	***amok*secures*knee***
-	scampers*leper*brisbane
-	parallels*sam*fraternal
-	ababa*soaks*islam*naive
-	rabat*gavin*alice*titan
-	clyde*enema*hyper*scala
+	actor*baird*abram*slats
+	larva*lucia*cease*hague
+	tries*enemy*admit*ababa
+	overcoats*lac*parameter
+	servants*cilia*nibblers
+	***ills*pageant*cell***
+	palely*cache*dim*deigns
+	snowy*burtt*pedal*snail
+	ants*mardi*rosebud*gina
+	lit*servo*gus*deneb*net
+	meeker*endemic*lacrosse
+	***errs*senator*riot***
+	assyrian*senegal*mitres
+	bit*aaron*rid*legal*are
+	agog*malaria*flail*acre
+	shrug*havoc*suing*speed
+	esmark*nab*tames*shoddy
+	***rank*learned*dial***
+	aliasing*spuds*cecropia
+	barnstorm*pew*packagers
+	abate*lease*ibero*bicep
+	cater*laden*cowed*leone
+	knees*stead*haste*essen
 
 
 
@@ -33,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      42.120 (42120.000 ms)
+	runtime:      54.865 (54865.000 ms)
 	solutions:    1
-	propagations: 4575226
-	nodes:        24493
-	failures:     12006
-	restarts:     2
-	peak depth:   142
-	peak memory:  87779 KB
+	propagations: 6888085
+	nodes:        32741
+	failures:     15821
+	restarts:     6
+	no-goods:     0
+	peak depth:   146
+	peak memory:  325932 KB

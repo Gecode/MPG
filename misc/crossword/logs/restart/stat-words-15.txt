@@ -1,25 +1,19 @@
 Crossword
-RESTART
-RESTART
-RESTART
-RESTART
-RESTART
-RESTART
-	embargo*arachne
-	gordian*retrier
-	griddle*greener
-	semi*issue*adds
-	***sal*yeats***
-	arboreal*dreads
-	mountable*ascii
-	abe*inboard*hal
-	sonic*agreement
-	stalls*intrudes
-	***leaps*ass***
-	than*bambi*seal
-	heretic*inferno
-	arcsine*reeling
-	wooster*dresses
+	aspired*mcadams
+	niagara*algeria
+	sainted*cooling
+	indo*capes*idea
+	***bat*ideal***
+	scallops*snatch
+	celebrate*thule
+	ada*astarte*nat
+	raman*scientist
+	frolic*hennessy
+	***maori*tan***
+	dams*leona*scab
+	alameda*acreage
+	decayed*glassed
+	scenery*seethes
 
 
 
@@ -28,11 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6:21.686 (381686.000 ms)
+	runtime:      3:17.254 (197254.000 ms)
 	solutions:    1
-	propagations: 46297243
-	nodes:        221613
-	failures:     110624
-	restarts:     5
-	peak depth:   61
-	peak memory:  88440 KB
+	propagations: 33692443
+	nodes:        161293
+	failures:     80083
+	restarts:     10
+	no-goods:     0
+	peak depth:   64
+	peak memory:  223486 KB

@@ -32,5 +32,6 @@ Summary
 	nodes:        138
 	failures:     16
 	restarts:     0
+	no-goods:     0
 	peak depth:   115
 	peak memory:  19208 KB

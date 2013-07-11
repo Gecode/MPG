@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	slam**dam*maps*wehr
 	lobe*gino*agee*area
 	alex*rats*herr*yarn
@@ -27,11 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.218 (218.000 ms)
+	runtime:      0.234 (234.000 ms)
 	solutions:    1
 	propagations: 19210
 	nodes:        138
 	failures:     36
 	restarts:     0
+	no-goods:     0
 	peak depth:   74
-	peak memory:  8614 KB
+	peak memory:  19205 KB

@@ -530,7 +530,7 @@ assigns all variables in \?x? to their smallest possible
 value. That is, \?assignmin? is equivalent to the predefined
 branching (see \autoref{sec:m:branch:assign}) used as
 \begin{code}
-assign(home, x, INT_ASSIGN_MIN);
+assign(home, x, INT_ASSIGN_MIN());
 \end{code}
 
 \begin{figure}
@@ -557,6 +557,19 @@ handling a single alternative. The same holds true for the
 \section{Supporting no-goods}
 \label{sec:b:started:nogoods}
 
+\begin{figure}
+\insertlitcode{none min with no-good support}
+\caption{Branchings for \?nonemin? with no-good support}
+\label{fig:b:started:nogoods}
+\end{figure}
+
+\insertlitcode{none min with no-good support:status}
+
+\insertlitcode{none min with no-good support:prune}
+
+\insertlitcode{none min with no-good support:subscribe and cancel}
+
+\insertlitcode{none min with no-good support:no-good literal creation}
 
 \section{Using variable views}
 \label{sec:b:started:views}
@@ -1060,3 +1073,143 @@ void nonemax(Home home, const IntVarArgs& x) {
 \end{litcode}
 
 
+\begin{litcode}{none min with no-good support}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+
+using namespace Gecode;
+
+\end{litblock}
+class EqNGL : public NGL {
+protected:
+  Int::IntView x; int n;
+public:
+  EqNGL(Space& home, Int::IntView x0, int n0)
+    : NGL(home), x(x0), n(n0) {}
+  EqNGL(Space& home, bool share, EqNGL& ngl)
+    : NGL(home, share, ngl), n(ngl.n) {
+    x.update(home, share, ngl.x);
+  }
+  \begin{litblock}{status}
+  virtual NGL::Status status(const Space& home) const {
+    if (x.assigned())
+      return (x.val() == n) ? NGL::SUBSUMED : NGL::FAILED;
+    else 
+      return x.in(n) ? NGL::NONE : NGL::FAILED;
+  }
+  \end{litblock}
+  \begin{litblock}{prune}
+  virtual ExecStatus prune(Space& home) {
+    return me_failed(x.nq(home,n)) ? ES_FAILED : ES_OK;
+  }
+  \end{litblock}
+  \begin{litblock}{subscribe and cancel}
+  virtual void subscribe(Space& home, Propagator& p) {
+    x.subscribe(home, p, Int::PC_INT_VAL);
+  }
+  virtual void cancel(Space& home, Propagator& p) {
+    x.cancel(home, p, Int::PC_INT_VAL);
+  }
+  \end{litblock}
+  virtual NGL* copy(Space& home, bool share) {
+    return new (home) EqNGL(home, share, *this);
+  }
+  virtual size_t dispose(Space& home) {
+    (void) NGL::dispose(home);
+    return sizeof(*this);
+  }
+};
+
+class NoneMin : public Brancher {
+  \begin{litblock}{anonymous}
+protected:
+  ViewArray<Int::IntView> x;
+  mutable int start;
+  class PosVal : public Choice {
+  public:
+    int pos; int val;
+    PosVal(const NoneMin& b, int p, int v)
+      : Choice(b,2), pos(p), val(v) {}
+    virtual size_t size(void) const {
+      return sizeof(*this);
+    }
+    virtual void archive(Archive& e) const {
+      Choice::archive(e);
+      e << pos << val;
+    }
+  };
+  \end{litblock}
+public:
+  \begin{litblock}{anonymous}
+  NoneMin(Home home, ViewArray<Int::IntView>& x0)
+    : Brancher(home), x(x0), start(0) {}
+  static void post(Home home, ViewArray<Int::IntView>& x) {
+    (void) new (home) NoneMin(home,x);
+  }
+  virtual size_t dispose(Space& home) {
+    (void) Brancher::dispose(home);
+    return sizeof(*this);
+  }
+  NoneMin(Space& home, bool share, NoneMin& b)
+    : Brancher(home,share,b), start(b.start) {
+    x.update(home,share,b.x);
+  }
+  virtual Brancher* copy(Space& home, bool share) {
+    return new (home) NoneMin(home,share,*this);
+  }
+  virtual bool status(const Space& home) const {
+    for (int i=start; i<x.size(); i++)
+      if (!x[i].assigned()) {
+        start = i; return true;
+      }
+    return false;
+  }
+  virtual Choice* choice(Space& home) {
+    return new PosVal(*this,start,x[start].min());
+  }
+  virtual Choice* choice(const Space&, Archive& e) {
+    int pos, val;
+    e >> pos >> val;
+    return new PosVal(*this, pos, val);
+  }
+  virtual ExecStatus commit(Space& home, 
+                            const Choice& c,
+                            unsigned int a) {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    if (a == 0)
+      return me_failed(x[pos].eq(home,val)) ? ES_FAILED : ES_OK;
+    else
+      return me_failed(x[pos].nq(home,val)) ? ES_FAILED : ES_OK;
+  }
+  virtual void print(const Space& home, const Choice& c,
+                     unsigned int a,
+                     std::ostream& o) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    if (a == 0)
+      o << "x[" << pos << "] = " << val;
+    else
+      o << "x[" << pos << "] != " << val;
+  }
+  \end{litblock}
+  \begin{litblock}{no-good literal creation}
+  virtual NGL* ngl(Space& home, const Choice& c,
+                   unsigned int a) const {
+    const PosVal& pv = static_cast<const PosVal&>(c);
+    int pos=pv.pos, val=pv.val;
+    if (a == 0)
+      return new (home) EqNGL(home, x[pos], val);
+    else
+      return NULL;
+  }
+  \end{litblock}
+};
+\begin{litblock}{anonymous}
+void nonemin(Home home, const IntVarArgs& x) {
+  if (home.failed()) return;
+  ViewArray<Int::IntView> y(home,x);
+  NoneMin::post(home,y);
+}
+\end{litblock}
+\end{litcode}

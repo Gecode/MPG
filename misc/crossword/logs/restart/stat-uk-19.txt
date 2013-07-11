@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	dirl*parch*tads
 	agee*evohe*elea
 	donerkebab*nabs
@@ -23,11 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.670 (670.000 ms)
+	runtime:      0.671 (671.000 ms)
 	solutions:    1
 	propagations: 9797
 	nodes:        94
 	failures:     15
 	restarts:     0
+	no-goods:     0
 	peak depth:   70
-	peak memory:  16982 KB
+	peak memory:  56852 KB

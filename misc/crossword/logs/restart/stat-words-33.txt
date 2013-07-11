@@ -1,27 +1,25 @@
 Crossword
-RESTART
-RESTART
-	crafter*aries*malabar
-	release*congo*isadore
-	alberta*canon*sinatra
-	die*testers*ahead*hal
-	lard*soaps*stern*bent
-	enter*not*atari*cargo
-	storages*rue*reverser
-	***agar*finer*sale***
-	aggies*castled*diddle
-	lulls*maces*papua*hey
-	lays*polar*perez*pave
-	ann*taped*slang*faber
-	honshu*bewails*tories
-	***weld*shuns*sara***
-	bakeries*icy*augustan
-	amide*geese*orb*moore
-	rode*drank*dregs*lyra
-	ben*cease*polaris*net
-	abashed*maori*amoebae
-	rapture*aspic*planers
-	assumed*speak*hardest
+	america*label*saracen
+	taxicab*ibero*mbabane
+	rutgers*clean*augusta
+	ore*ditches*ducts*sir
+	pint*bauer*corks*nice
+	octal*ibn*hindi*dates
+	sessions*sag*unwisest
+	***teas*cedar*gina***
+	assent*paperer*dallas
+	slurs*levis*faith*ode
+	hams*medea*bench*bide
+	eva*madam*surge*purer
+	nectar*lamprey*firers
+	***aide*noise*mung***
+	cramming*bra*portland
+	helps*sadie*pet*saner
+	aqua*annal*aaron*riga
+	sum*adage*assurer*map
+	senator*midst*cremate
+	isadore*odder*aviator
+	steamed*nasty*renders
 
 
 
@@ -30,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      29.890 (29890.000 ms)
+	runtime:      12.820 (12820.000 ms)
 	solutions:    1
-	propagations: 2132187
-	nodes:        11785
-	failures:     5752
-	restarts:     1
-	peak depth:   130
-	peak memory:  54592 KB
+	propagations: 1585324
+	nodes:        8470
+	failures:     3968
+	restarts:     3
+	no-goods:     0
+	peak depth:   129
+	peak memory:  144326 KB

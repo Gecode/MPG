@@ -538,17 +538,17 @@ public:
     Int::ViewValues<Int::IntView> i(x0), j(x1);
     while (i() && j())
       if (i.val() < j.val()) {
-        GECODE_ME_CHECK(x0.nq(home,i.val())); ++i;
+        GECODE_ME_CHECK(x1.nq(home,i.val())); ++i;
       } else if (j.val() < i.val()) {
-        GECODE_ME_CHECK(x1.nq(home,j.val())); ++j;
+        GECODE_ME_CHECK(x0.nq(home,j.val())); ++j;
       } else {
         ++i; ++j;
       }
     while (i()) {
-      GECODE_ME_CHECK(x0.nq(home,i.val())); ++i;
+      GECODE_ME_CHECK(x1.nq(home,i.val())); ++i;
     }
     while (j()) {
-      GECODE_ME_CHECK(x1.nq(home,j.val())); ++j;
+      GECODE_ME_CHECK(x0.nq(home,j.val())); ++j;
     }
     if (x0.assigned() && x1.assigned())
       return home.ES_SUBSUMED(*this);

@@ -1,28 +1,27 @@
 Crossword
-RESTART
-	trap*scrub*rebel*amman*
-	homo*poise*atone*gaelic
-	overridden*bhagavadgita
-	restores*debar*gape*err
-	***ewes*fagin*dune*enid
-	amends*robot*cree*discs
-	randy*ball**read*bar***
-	cogs*heidelberg*daresay
-	ere*peals*aunt*pane*era
-	dinosaur*screaming*spit
-	**dial*octet*iota*chase
-	shells*alas*gnat*flares
-	harem*adam*bolts*aura**
-	avid*exemplary*barbital
-	den*abed*ease*juras*ida
-	engaged*adventured*void
-	***dan*idea**riga*panel
-	comer*dodd*pooch*tissue
-	olin*bans*shape*cult***
-	men*semi*atari*colonels
-	maintenances*collateral
-	armour*nerve*anion*sino
-	*yards*steed*leone*scab
+	haas*meals*aping*dacca*
+	abba*inlet*canal*isaacs
+	multistage*kinnickinnic
+	steamers*wells*shea*ada
+	***nary*bares*otis*mall
+	effigy*darry*amen*kenya
+	arose*weld**gwen*pus***
+	germ*jacksonian*perhaps
+	aye*garry*milk*pond*cap
+	narbonne*sanderson*acre
+	**urdu*aloha*neil*evoke
+	annals*sana*dial*slimed
+	rangy*fine*menlo*trap**
+	uses*financing*coronado
+	bar*long*bans*byway*nag
+	assails*believably*wind
+	***lad*turf**isis*waste
+	occur*bang*susan*fatten
+	cram*buck*april*saga***
+	cab*felt*slang*ammoniac
+	availability*obtainable
+	manned*canoe*troll*bier
+	*takes*spend*haply*eden
 
 
 
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.553 (5553.000 ms)
+	runtime:      5.351 (5351.000 ms)
 	solutions:    1
-	propagations: 495384
-	nodes:        3158
-	failures:     1519
-	restarts:     0
-	peak depth:   145
-	peak memory:  15324 KB
+	propagations: 810834
+	nodes:        4882
+	failures:     2187
+	restarts:     2
+	no-goods:     0
+	peak depth:   129
+	peak memory:  101831 KB

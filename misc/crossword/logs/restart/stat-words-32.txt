@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	asia**tug*jonas*assam
 	band*rene*aleut*mecca
 	alfa*eris*malta*bared
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.920 (920.000 ms)
+	runtime:      0.910 (910.000 ms)
 	solutions:    1
 	propagations: 44513
 	nodes:        319
 	failures:     111
 	restarts:     0
+	no-goods:     0
 	peak depth:   117
-	peak memory:  17560 KB
+	peak memory:  36295 KB

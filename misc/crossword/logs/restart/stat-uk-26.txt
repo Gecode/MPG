@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	katie*adam*wale*aba
 	alate*vara*arar*beg
 	memoriatechnica*bah
@@ -27,11 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.680 (680.000 ms)
+	runtime:      0.655 (655.000 ms)
 	solutions:    1
 	propagations: 15145
 	nodes:        166
 	failures:     4
 	restarts:     0
+	no-goods:     0
 	peak depth:   161
-	peak memory:  6064 KB
+	peak memory:  48904 KB

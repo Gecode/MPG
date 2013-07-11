@@ -1,27 +1,27 @@
 Crossword
-	assam*optic*epoch*avail
-	space*norma*berra*pablo
-	solid*weeps*breed*plaid
-	eradicate*uri*saddlebag
-	seducers*paint*marinade
-	***lard*halogen*duet***
-	heroin*vault*ail*griefs
-	aloud*missy*occam*snare
-	teas*lethe*schemer*egan
-	end*sinai*dec*radar*lid
-	dashes*entitle*relabels
-	***oats*gesture*alfa***
-	adapting*doldrum*ithaca
-	man*snark*bee*tales*bar
-	acne*greased*pecos*move
-	scalp*leroy*bares*media
-	salaam*del*helps*camels
-	***brag*nominee*nato***
-	throttle*nodes*minerals
-	wearisome*ned*centralia
-	incas*bilge*irate*inlet
-	greta*allay*caret*adage
-	siren*leads*teddy*lanes
+	radii*farad*lagos*grade
+	evens*irene*abash*resin
+	malta*scene*tosca*accra
+	unleashed*pet*paranoiac
+	starched*berea*restrict
+	***isis*minaret*skid***
+	saloon*copes*sri*snider
+	adorn*poled*sousa*gnome
+	bogs*braid*repeals*grid
+	era*arose*fen*raper*ill
+	rename*trailed*chauncey
+	***beep*enrages*abbe***
+	abounded*texases*oldest
+	rum*decal*mel*andre*rho
+	gram*rotated*craig*reap
+	oshea*sedan*cairn*locke
+	stanch*del*shine*sister
+	***acid*nesting*bane***
+	diagonal*stale*darkness
+	ingestion*end*pediatric
+	smart*niece*ising*ghana
+	katie*trial*sense*eaten
+	sneed*yelps*hager*slows
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:23.518 (83518.000 ms)
+	runtime:      55.583 (55583.000 ms)
 	solutions:    1
-	propagations: 16761146
-	nodes:        80975
-	failures:     39226
-	restarts:     10
-	no-goods:     347
-	peak depth:   161
-	peak memory:  524862 KB
+	propagations: 9756199
+	nodes:        48054
+	failures:     23225
+	restarts:     7
+	no-goods:     352
+	peak depth:   175
+	peak memory:  375652 KB

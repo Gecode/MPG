@@ -1,20 +1,19 @@
 Crossword
-RESTART
-	abut*mali*arabs
-	lone*ivan*libel
-	friedrich*berra
-	agonies*adamant
-	**nags*abo*ames
-	brigs*prison***
-	ooze*britannica
-	ode*sausage*nag
-	bernardine*fake
-	***intent*bauer
-	arab*eng*bald**
-	lambert*bellini
-	odell*islamabad
-	hones*aped*clio
-	andre*lads*yell
+	akin*utah*repel
+	vane*saga*inane
+	insulator*glide
+	storage*drainer
+	**mode*abe*very
+	denny*grouse***
+	axis*praisingly
+	tea*feebler*rio
+	accuracies*ness
+	***myriad*guest
+	chap*can*wick**
+	regimen*warlike
+	aware*idealized
+	metes*zeal*deed
+	press*elks*espy
 
 
 
@@ -23,11 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6.848 (6848.000 ms)
+	runtime:      9.619 (9619.000 ms)
 	solutions:    1
-	propagations: 327340
-	nodes:        1531
-	failures:     746
-	restarts:     0
-	peak depth:   54
-	peak memory:  11189 KB
+	propagations: 1089134
+	nodes:        4578
+	failures:     2259
+	restarts:     2
+	no-goods:     0
+	peak depth:   57
+	peak memory:  50988 KB

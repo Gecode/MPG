@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	straw*cede*pepsi*added*
 	trace*axer*atlas*pooled
 	auctioneer*bhagavadgita
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.919 (1919.000 ms)
+	runtime:      1.825 (1825.000 ms)
 	solutions:    1
 	propagations: 82243
 	nodes:        439
 	failures:     154
 	restarts:     0
+	no-goods:     0
 	peak depth:   151
-	peak memory:  24023 KB
+	peak memory:  37800 KB

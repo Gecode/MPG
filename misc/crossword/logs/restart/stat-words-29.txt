@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	arm**acta*babe*brim
 	feat*mood*oral*rosa
 	anthropomorphically
@@ -33,5 +32,6 @@ Summary
 	nodes:        138
 	failures:     16
 	restarts:     0
+	no-goods:     0
 	peak depth:   115
-	peak memory:  7210 KB
+	peak memory:  18631 KB

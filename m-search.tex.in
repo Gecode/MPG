@@ -462,8 +462,8 @@ Summary
         nodes:        3836351
         failures:     1918148
         restarts:     0
+        no-goods:     0
         peak depth:   26
-        peak memory:  915 KB
 \end{cmd}
 \caption{Output for Golomb rulers with eight workers}
 \label{fig:m:search:out:8}
@@ -471,7 +471,7 @@ Summary
 
 
 \begin{samepage}
-  For example, on my machine with eight cores and using Gecode 4.0.0, running
+  For example, on my machine with eight cores and using Gecode 4.2.0, running
   \gecoderef[example]{golomb-ruler} for size $12$ as follows
 \begin{cmd}
 golomb-ruler.exe -threads 8 12
@@ -499,8 +499,8 @@ Summary
         nodes:        5313357
         failures:     2656663
         restarts:     0
+        no-goods:     0
         peak depth:   24
-        peak memory:  125 KB
 \end{cmd}
 \caption{Output for Golomb rulers with one worker}
 \label{fig:m:search:out:1}
@@ -574,8 +574,6 @@ to your program when you want to use search engines.
 \?nogood? & \?unsigned long int? & no-goods generated\\
 \hline
 \?depth? & \?unsigned long int? & maximal depth of explored tree\\
-\hline
-\?memory? & \?size_t? & peak memory allocated\\
 \hline
 \end{tabular}
 \end{center}
@@ -754,8 +752,6 @@ search engine is stopped.
 \multicolumn{1}{|c|}{class} & 
 \multicolumn{1}{c|}{description} \\
 \hline\hline
-\gecoderef[class]{Search::MemoryStop} & memory limit exceeded\\
-\hline
 \gecoderef[class]{Search::NodeStop} & node limit exceeded\\
 \hline
 \gecoderef[class]{Search::FailStop} & failure limit exceeded\\

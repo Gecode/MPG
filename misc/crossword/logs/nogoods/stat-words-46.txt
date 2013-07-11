@@ -1,27 +1,27 @@
 Crossword
-	wept*abide*sedge*ababa*
-	agar*baden*avian*palace
-	casualness*fingerprints
-	onondaga*enact*maid*got
-	***cots*smart*gina*sure
-	mccabe*rabbi*deed*bliss
-	crate*dell**mens*goa***
-	kane*maplecrest*proverb
-	and*lethe*risc*cain*qua
-	yellower*sanhedrin*nuns
-	**ease*amend*naur*beige
-	palmed*soak*adds*kohler
-	aries*liar*pleat*nora**
-	pigs*montclair*azimuths
-	ash*lang*hope*scots*eat
-	letting*financiers*irma
-	***hoe*tone**oman*isaac
-	aryan*bong*salon*orally
-	bean*herd*begun*alva***
-	abu*soap*harem*addicted
-	conglomerate*burdensome
-	kodiak*dozen*urges*orin
-	*tents*obese*snort*nets
+	haas*meals*aping*dacca*
+	abba*inlet*canal*isaacs
+	multistage*kinnickinnic
+	steamers*wells*shea*ada
+	***nary*bares*otis*mall
+	effigy*darry*amen*kenya
+	arose*weld**gwen*pus***
+	germ*jacksonian*perhaps
+	aye*garry*milk*pond*cap
+	narbonne*sanderson*acre
+	**urdu*aloha*neil*evoke
+	annals*sana*dial*slimed
+	rangy*fine*menlo*trap**
+	uses*financing*coronado
+	bar*long*bans*byway*nag
+	assails*believably*wind
+	***lad*turf**isis*waste
+	occur*bang*susan*fatten
+	cram*buck*april*saga***
+	cab*felt*slang*ammoniac
+	availability*obtainable
+	manned*canoe*troll*bier
+	*takes*spend*haply*eden
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      13.881 (13881.000 ms)
+	runtime:      5.335 (5335.000 ms)
 	solutions:    1
-	propagations: 2111269
-	nodes:        10808
-	failures:     4720
-	restarts:     5
-	no-goods:     174
-	peak depth:   132
-	peak memory:  232796 KB
+	propagations: 810860
+	nodes:        4882
+	failures:     2187
+	restarts:     2
+	no-goods:     94
+	peak depth:   141
+	peak memory:  101831 KB

@@ -1,32 +1,27 @@
 Crossword
-RESTART
-RESTART
-RESTART
-RESTART
-RESTART
-	strict*shiva*yard*ababa
-	orator*karen*erie*babul
-	liberalizing*accelerate
-	abilene*estes*hare*star
-	red**sal***refined*tent
-	***packard*salts**modes
-	sedate*moor*mae*skew***
-	taipei*aural*mcgill*low
-	agee*vertical*toni*neva
-	retrier**semicolon*agar
-	sri*crowd**plane*easily
-	**two*shift*anita*mat**
-	guiana*isaac**cache*ill
-	iran*leningrad**minimal
-	nine*oxen*sidestep*nato
-	ass*shasta*bator*patchy
-	***sham*eng*memo*obeyed
-	prate**trait*reoccur***
-	rope*othello***par**has
-	olin*foes*tonio*barbara
-	blackfoots*midwesterner
-	eerie*tree*elena*inanna
-	dryly*hyde*yeast*canaan
+	arabia*midas*star*pabst
+	merest*ababa*ursa*allah
+	acclimatized*masturbate
+	stetson*della*nair*uris
+	sad**sag***erosion*mere
+	***deplete*renal**hides
+	isaiah*tass*act*cain***
+	lenore*tithe*elbows*she
+	owed*rayleigh*arpa*awed
+	nemesis**stoutness*lead
+	ado*acids**smite*homely
+	**man*aruba*epics*nat**
+	jaeger*april**chide*has
+	otto*appearers**descent
+	borg*beer*snatches*rage
+	spy*candid*spray*iberia
+	***path*meg*sand*dusted
+	cabot**sparc*percent***
+	eras*bimodal***oar**ada
+	acts*eris*bosch*palomar
+	saturnalia*upholstering
+	enema*tent*diana*unesco
+	dense*edge*strew*masses
 
 
 
@@ -35,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:15.252 (135252.000 ms)
+	runtime:      31.137 (31137.000 ms)
 	solutions:    1
-	propagations: 20151417
-	nodes:        104999
-	failures:     52063
-	restarts:     4
-	peak depth:   112
-	peak memory:  147663 KB
+	propagations: 4312892
+	nodes:        20686
+	failures:     9977
+	restarts:     5
+	no-goods:     0
+	peak depth:   128
+	peak memory:  226835 KB

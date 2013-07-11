@@ -228,8 +228,8 @@ Summary
         nodes:        33
         failures:     9
         restarts:     0
+        no-goods:     0
         peak depth:   8
-        peak memory:  9 KB
 \end{cmd}
 
 \begin{samepage}

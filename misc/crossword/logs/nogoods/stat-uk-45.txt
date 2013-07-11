@@ -1,27 +1,27 @@
 Crossword
-	mamilla*shadufs*almanac
-	alerion*tanagra*saeters
-	magenta*eyeflap*prussia
-	mna*kabala*finelegs*tar
-	anes*harass*sclere*kidd
-	larus*sketch*eeks*senna
-	sharpeis*haafs*seepages
-	***tils*ambsace*slit***
-	pataca*elaborate*alonso
-	alexandra*end*rattening
-	nares*erred*scarred*col
-	abed*llama***oncus*hoki
-	raf*bainite*pogos*sasin
-	amadavats*maa*entitling
-	bahada*stibblers*debags
-	***babi*scalars*blae***
-	clubsoda*trema*fuelrods
-	hires*ecce*radars*strop
-	omar*pahari*eidola*simi
-	ken*satyrids*ammans*gar
-	epigoni*odonata*neonate
-	ridotto*balases*encomia
-	stetson*seabass*stadias
+	acheval*thanahs*carrara
+	coalize*habitat*aliases
+	alumnae*erectly*libyans
+	cut*anselm*killicks*rai
+	imps*shaman*coarse*bums
+	abacs*orates*wrap*palet
+	sashcord*trade*nathless
+	***oose*dailies*riel***
+	aprons*ointments*leanto
+	railcards*ion*eagerness
+	angie*eolic*eelfare*mat
+	rave*scrod***elegy*dare
+	ore*matador*prase*putin
+	badgering*oba*redtapist
+	abayas*testatrix*epacts
+	***blee*dionaea*slit***
+	sapience*crams*palstave
+	laund*simi*taguan*talak
+	areg*stroll*repugn*simp
+	tor*etaerios*scarab*bow
+	enigmas*sagitta*anatase
+	rilievi*ananias*annabel
+	scepses*languet*lactase
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3:43.877 (223877.000 ms)
+	runtime:      1:34.239 (94239.000 ms)
 	solutions:    1
-	propagations: 11073471
-	nodes:        59224
-	failures:     27746
-	restarts:     9
-	no-goods:     344
-	peak depth:   169
-	peak memory:  1884256 KB
+	propagations: 3604989
+	nodes:        21351
+	failures:     9872
+	restarts:     5
+	no-goods:     277
+	peak depth:   163
+	peak memory:  1108644 KB

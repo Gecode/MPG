@@ -172,7 +172,7 @@ virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
 That means, if \?modified? is \?true? the propagator might not be
 at fixpoint and hence \?ES_NOFIX? is returned. This makes not
 much sense: \?ES_NOFIX? means \emph{that a propagator is not
-  considered to be at fixpoint if it has modified a view!}. If no
+  considered to be at fixpoint if it has modified a view!} If no
 view has been modified the propagator must be at fixpoint and
 just returning \?ES_NOFIX? does the trick.
 

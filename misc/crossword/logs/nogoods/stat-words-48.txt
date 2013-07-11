@@ -1,27 +1,27 @@
 Crossword
-	ababa*prima*asset*slurp
-	degenerated*maori*honer
-	electrocardiogram*amiga
-	park*agile*sears*sweden
-	tyson*ray*cab*yentl*ink
-	***nasal*priam*rae*are*
-	ali*dam*creases*berserk
-	lentil*booth*dec*pascal
-	later*dante*civil*patti
-	aver*genie*faceted*mien
-	herring*caner*renee*ode
-	**retard*nulls*dillon**
-	abe*stead*booze*elkhart
-	bald*serafin*ilona*aloe
-	braes*serra*glint*arise
-	obtain*spa*irate*cretin
-	tainted*anymore*bag*yes
-	*roe*ail*cupid*motor***
-	son*cream*can*gem*sedan
-	hushes*total*arabs*gore
-	ashen*mediterraneanizes
-	flirt*elena*impermanent
-	types*lyman*byers*nasas
+	ababa*prima*alcoa*toper
+	degenerated*maori*inane
+	electrocardiogram*rerun
+	park*agile*beset*sesame
+	tyson*ray*web*robed*mew
+	***nasal*farad*rat*her*
+	sri*dam*pitiers*yucatan
+	candid*santa*eat*pareto
+	utter*picas*gator*peril
+	beef*goren*audited*siva
+	adrenal*scans*natos*zen
+	**dramas*edits*lusaka**
+	fee*berea*atone*relater
+	arpa*diploma*earns*pine
+	brent*sills*jeres*spoon
+	longed*aid*dazed*chance
+	endears*seceded*mae*she
+	*eel*ian*roles*deneb***
+	ion*fetal*lad*set*pablo
+	succor*macon*danes*neal
+	asian*heterogeneousness
+	alert*elide*intersperse
+	cysts*wyner*lyons*arson
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      31.743 (31743.000 ms)
+	runtime:      5:12.078 (312078.000 ms)
 	solutions:    1
-	propagations: 5501185
-	nodes:        25046
-	failures:     12197
-	restarts:     7
-	no-goods:     213
-	peak depth:   146
-	peak memory:  313226 KB
+	propagations: 83954467
+	nodes:        351399
+	failures:     174439
+	restarts:     12
+	no-goods:     472
+	peak depth:   174
+	peak memory:  521840 KB

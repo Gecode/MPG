@@ -1,27 +1,27 @@
 Crossword
-	madder*amber*acts*shone
-	cleave*deane*born*races
-	condemnation*uneasiness
-	ontario*alsop*tara*data
-	yes**net***weirdly*only
-	***bailiff*natos**buses
-	morals*teas*lev*feat***
-	arabic*hauls*memory*dec
-	dote*eternity*race*beau
-	aniline**atavistic*acre
-	moo*starr**remit*tulips
-	**nil*reese*spain*rip**
-	flares*bauer**leeds*hut
-	lila*preselect**siamese
-	eden*oils*sarasota*area
-	ass*russet*dacca*meters
-	***sate*she*bias*averse
-	state**psalm*trigger***
-	pace*promise***son**jar
-	oval*hale*enema*bengali
-	reclaiming*transitioned
-	trial*acta*anita*ignore
-	snare*ness*lenin*chests
+	brands*maine*adds*waldo
+	repeat*actor*diet*alien
+	actinometers*aspersions
+	nullary*amman*move*ante
+	dry**era***teletex*seat
+	***jakarta*zooms**hells
+	cesare*mama*nab*sped***
+	entice*erase*nectar*mac
+	deem*parasite*roar*sana
+	amperes**sacrament*agar
+	ram*irked**haler*shield
+	**ohm*smear*since*ill**
+	esteem*impel**tears*lag
+	mohr*allotment**restate
+	idea*cain*yearning*anon
+	tar*depose*speed*ermine
+	***weds*tag*seal*nieces
+	allow**arrow*stereos***
+	dear*alfalfa***sir**mew
+	anus*dirt*franc*baklava
+	portfolios*bloodstained
+	trier*acre*ladle*online
+	seedy*case*essen*reacts
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:23.554 (83554.000 ms)
+	runtime:      1:23.039 (83039.000 ms)
 	solutions:    1
-	propagations: 17012189
-	nodes:        85526
-	failures:     41622
-	restarts:     10
-	no-goods:     366
-	peak depth:   154
-	peak memory:  425047 KB
+	propagations: 20383354
+	nodes:        110399
+	failures:     54268
+	restarts:     9
+	no-goods:     411
+	peak depth:   173
+	peak memory:  388694 KB

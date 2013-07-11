@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	viner*abac*labia*alban*
 	elide*bach*abaft*seaoak
 	eighteenmo*massaranduba
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.465 (2465.000 ms)
+	runtime:      2.387 (2387.000 ms)
 	solutions:    1
 	propagations: 38137
 	nodes:        366
 	failures:     76
 	restarts:     0
+	no-goods:     0
 	peak depth:   220
-	peak memory:  24422 KB
+	peak memory:  105707 KB

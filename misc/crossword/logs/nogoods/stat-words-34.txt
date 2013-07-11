@@ -1,25 +1,25 @@
 Crossword
-	alpert*beanbag*churns
-	sourer*indiana*aegean
-	tulane*stanton*bahama
-	rip*astoria*ideal*sir
-	asia*saner*knell*lone
-	latch*use*petri*songs
-	***ram***bit***doc***
-	admire*spectra*alkali
-	seeded*catalan*moines
-	spa*mayors*eras*natal
-	urns*lord***itel*nora
-	midas*upon*stowed*inn
-	evelyn*initial*moaned
-	serene*osborne*miners
-	***rod***bee***ann***
-	bound*heals*hub*gusto
-	ergo*dense*lilac*lard
-	ada*sarah*ketchup*mae
-	sanded*connote*batons
-	tidied*trainer*isaacs
-	snappy*setters*cornea
+	upload*babbage*salaam
+	sloane*arragon*arable
+	hankel*seaborg*nebula
+	eng*whitney*tiles*sun
+	reel*ideas*honer*cede
+	strom*ads*waned*baser
+	***boa***lew***fur***
+	bipeds*waupaca*erased
+	abases*initial*encode
+	let*madras*iran*tamil
+	arts*meet***amid*safe
+	niece*stow*omelet*lit
+	carols*aligned*thrice
+	ensure*perilla*eraser
+	***roe***ivy***rot***
+	carey*paine*age*befog
+	abed*ching*groan*slur
+	ira*baird*somatic*ate
+	malton*biscuit*olivia
+	admire*ariadne*barons
+	nester*garbage*emerge
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      23.783 (23783.000 ms)
+	runtime:      20.850 (20850.000 ms)
 	solutions:    1
-	propagations: 4100927
-	nodes:        25907
-	failures:     11960
-	restarts:     7
-	no-goods:     284
-	peak depth:   154
-	peak memory:  298499 KB
+	propagations: 3162004
+	nodes:        22083
+	failures:     10322
+	restarts:     5
+	no-goods:     338
+	peak depth:   178
+	peak memory:  219712 KB

@@ -1,19 +1,19 @@
 Crossword
-	abo*mira*octave
-	ransomer*choral
-	precipitateness
-	arson*niger*ate
-	***ted*fetus***
-	rap*susie*bambi
-	alum*mac*aileen
-	disappointments
-	avails*ail*mute
-	renee*allah*set
-	***radii*sob***
-	sri*sorts*regal
-	compassionately
-	alpine*educator
-	besets*sane*sea
+	ike*liar*spirit
+	marcotte*laredo
+	philosophically
+	sneak*prank*yes
+	***dec*eagan***
+	arm*dress*gangs
+	neal*ire*jesuit
+	incommensurable
+	stevie*tab*lila
+	essen*fatal*ask
+	***digit*leg***
+	hom*serif*naive
+	epistemological
+	rushes*neatness
+	assure*seth*dee
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:00.997 (60997.000 ms)
+	runtime:      1:22.827 (82827.000 ms)
 	solutions:    1
-	propagations: 19259286
-	nodes:        80931
-	failures:     40096
-	restarts:     10
-	no-goods:     225
-	peak depth:   69
-	peak memory:  146522 KB
+	propagations: 17996458
+	nodes:        75029
+	failures:     37205
+	restarts:     8
+	no-goods:     228
+	peak depth:   73
+	peak memory:  120883 KB

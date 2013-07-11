@@ -13,4 +13,4 @@ Summary
 	restarts:     0
 	no-goods:     0
 	peak depth:   0
-	peak memory:  44 KB
+	peak memory:  87 KB

@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	gyps*serac*apse*immit
 	eoan*akaba*laer*vaasa
 	lyreguitar*cockpaddle
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.216 (2216.000 ms)
+	runtime:      2.231 (2231.000 ms)
 	solutions:    1
 	propagations: 25247
 	nodes:        162
 	failures:     19
 	restarts:     0
+	no-goods:     0
 	peak depth:   135
-	peak memory:  26841 KB
+	peak memory:  105735 KB

@@ -1,27 +1,27 @@
 Crossword
-	tsubas*secede*ifs*pampa
-	sanity*avalon*nikaupalm
-	amenabilities*cloistral
-	mix*polaccas*guilds*ana
-	beaks*laths*farci*yonis
-	alga*osmic*tobreak*ras*
-	**glad*snowholes*loathe
-	speaned*gloated*werther
-	coracoid*doled*shebears
-	amazonant*lid*gained***
-	ratan*posada*hersed*psi
-	acer*shtups*merckx*bren
-	bed*caribe*bombay*beery
-	***pataca*pas*esmeralda
-	appanage*pilaf*material
-	sailarm*hellion*caramba
-	argala*topsecret*peri**
-	*amy*scalled*burse*mnas
-	flesh*onion*fitin*asana
-	ran*ettins*redesign*ref
-	altarwise*quadrupletime
-	niellists*unreel*elaeis
-	cades*ess*agenda*getsat
+	reship*shtetl*ewe*lahti
+	elpaso*pahari*ciclatoun
+	coelenterates*bluemerle
+	ada*realales*moirai*sip
+	pekoe*elsan*pilei*adept
+	sair*bless*penises*aft*
+	**nide*resurrect*tamara
+	dagging*diseurs*larmier
+	attiring*celts*membered
+	gauntness*fiz*lamias***
+	abbas*iterum*tigons*das
+	bael*israel*salina*wept
+	als*arsine*remand*pampa
+	***prions*pea*corsetier
+	infradig*vapor*toltecan
+	carabid*pesewas*parrals
+	erinys*pentalpha*saar**
+	*rec*eternal*aitch*gapo
+	roses*orfes*arrah*decad
+	awl*chisel*antabuse*tui
+	dianoetic*availableness
+	innermost*ransel*ararat
+	ogdon*ita*elates*gemels
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:21.446 (81446.000 ms)
+	runtime:      1:12.319 (72319.000 ms)
 	solutions:    1
-	propagations: 2363660
-	nodes:        11330
-	failures:     5074
-	restarts:     5
-	no-goods:     209
-	peak depth:   162
-	peak memory:  1037979 KB
+	propagations: 2671072
+	nodes:        13267
+	failures:     6128
+	restarts:     4
+	no-goods:     202
+	peak depth:   167
+	peak memory:  844701 KB

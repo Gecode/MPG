@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	kane*ababa*ecole*char
 	iran*dirac*yates*role
 	epic*elena*emits*aped
@@ -29,11 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.889 (889.000 ms)
+	runtime:      0.860 (860.000 ms)
 	solutions:    1
 	propagations: 31827
 	nodes:        181
 	failures:     26
 	restarts:     0
+	no-goods:     0
 	peak depth:   149
-	peak memory:  18423 KB
+	peak memory:  37128 KB

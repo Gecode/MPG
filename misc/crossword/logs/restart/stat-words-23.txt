@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	occam*salerno*scans
 	ghana*trudeau*cabal
 	dirty*eminent*abase
@@ -27,11 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.452 (452.000 ms)
+	runtime:      0.437 (437.000 ms)
 	solutions:    1
 	propagations: 42077
 	nodes:        353
 	failures:     129
 	restarts:     0
+	no-goods:     0
 	peak depth:   110
-	peak memory:  9688 KB
+	peak memory:  22535 KB

@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	haceks*abaci*befall
 	azalea*bason*acacia
 	sinker*roams*bateau
@@ -27,11 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.500 (1500.000 ms)
+	runtime:      1.435 (1435.000 ms)
 	solutions:    1
 	propagations: 22423
 	nodes:        219
 	failures:     54
 	restarts:     0
+	no-goods:     0
 	peak depth:   120
-	peak memory:  13884 KB
+	peak memory:  90375 KB

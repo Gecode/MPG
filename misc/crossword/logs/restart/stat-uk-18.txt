@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	also*akaba*ceil
 	raca*babar*acme
 	alar*ambos*tapa
@@ -23,11 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.480 (480.000 ms)
+	runtime:      0.468 (468.000 ms)
 	solutions:    1
 	propagations: 6807
 	nodes:        116
 	failures:     1
 	restarts:     0
+	no-goods:     0
 	peak depth:   114
-	peak memory:  1980 KB
+	peak memory:  38966 KB

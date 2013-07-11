@@ -65,7 +65,7 @@ scale-factor for cutoff values\\
 \?double? &
 base for geometric cutoff values\\
 \texttt{-nogoods} &
-\?bool? &
+$\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
 whether to post no-goods\\
 \texttt{-nogoods-limit} &
 \?unsigned int? &
@@ -77,13 +77,13 @@ depth limit for no-good recording\\
 \texttt{-samples} & \?unsigned int? & how many samples\\
 \texttt{-iterations} & \?unsigned int? & how many iterations per
 sample\\
-\texttt{-print-last} & $\{\mathtt{false},\mathtt{true}\}$ &
+\texttt{-print-last} & $\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
 whether to only print last solution\\
 \texttt{-file-sol} & $\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}$ &
 where to print solutions\\
 \texttt{-file-stat} & $\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}$ &
 where to print statistics\\
-\texttt{-interrupt} & $\{\mathtt{false},\mathtt{true}\}$ &
+\texttt{-interrupt} & $\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
 whether driver catches Ctrl-C\\\hline
 \end{tabular}
 \end{center}

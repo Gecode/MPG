@@ -1,28 +1,27 @@
 Crossword
-RESTART
-	duetto*grappa*lad*masai
-	inlaid*racial*eremitism
-	spermatotheca*cabaletta
-	cop*isoptera*dynamo*arm
-	ephod*lieus*retes*ratas
-	dear*panel*techier*mud*
-	**nide*gneissoid*elands
-	asteism*sashays*cringle
-	tailcoat*nails*chaldaea
-	opalesces*ire*sheila***
-	cosed*cameat*measle*rho
-	irid*calash*cadets*mead
-	ass*sobers*gelati*paine
-	***threat*zen*naethings
-	unironed*dante*essences
-	finials*firearm*tantara
-	oscula*powerloom*rear**
-	*son*wallaba*treks*inca
-	pened*leila*biota*snail
-	and*adonai*bacchiac*tea
-	whirligig*musicalchairs
-	luteinise*alison*twinge
-	steds*ahs*cleese*sarges
+	palmed*panama*ida*madid
+	omerta*egises*nigrosine
+	leishmaniasis*foretaste
+	als*aeration*fixive*per
+	nihil*blast*ranis*score
+	damn*patte*derides*asp*
+	**adar*yerbamate*talars
+	tunicae*dietine*medalet
+	orichalc*eland*piarists
+	guatemala*ard*teslas***
+	asses*lunacy*earded*has
+	teed*fangle*amices*tofu
+	ess*samiel*ctenes*limit
+	***anneal*dal*operagoer
+	ecstatic*micah*tremella
+	raetian*washtub*tierods
+	snails*gashelmet*grig**
+	*abc*maliced*behan*soca
+	paean*lotos*sleer*shuln
+	ana*auburn*oceanaut*mog
+	tittivate*adaptableness
+	stearates*palier*elanet
+	yenta*ads*elders*sepads
 
 
 
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      20.101 (20101.000 ms)
+	runtime:      1:12.479 (72479.000 ms)
 	solutions:    1
-	propagations: 420442
-	nodes:        2350
-	failures:     1121
-	restarts:     0
+	propagations: 2688092
+	nodes:        13476
+	failures:     6259
+	restarts:     4
+	no-goods:     0
 	peak depth:   140
-	peak memory:  78746 KB
+	peak memory:  844677 KB

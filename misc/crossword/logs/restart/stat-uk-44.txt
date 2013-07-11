@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	sadhu*arede*itala*belts
 	abeam*dicot*shiel*lairy
 	headborough*aaron*annal
@@ -31,11 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.606 (2606.000 ms)
+	runtime:      2.496 (2496.000 ms)
 	solutions:    1
 	propagations: 30624
 	nodes:        258
 	failures:     30
 	restarts:     0
+	no-goods:     0
 	peak depth:   212
-	peak memory:  22820 KB
+	peak memory:  122632 KB

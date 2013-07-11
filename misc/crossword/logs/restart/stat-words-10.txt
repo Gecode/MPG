@@ -1,5 +1,4 @@
 Crossword
-RESTART
 	frau*basal*anna
 	earn*ababa*dean
 	superseded*dust
@@ -23,11 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.341 (1341.000 ms)
+	runtime:      1.300 (1300.000 ms)
 	solutions:    1
 	propagations: 126965
 	nodes:        922
 	failures:     437
 	restarts:     0
+	no-goods:     0
 	peak depth:   62
-	peak memory:  10437 KB
+	peak memory:  18292 KB
