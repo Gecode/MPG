@@ -1,1 +1,39 @@
 Crossword
+	that*salad*acta*shaft
+	hugh*crude*wool*table
+	aberration*adulterous
+	israelis*taker*erases
+	***cape*dunes*ames***
+	rapids*rerun*exposers
+	array*necessaries*mew
+	dion*lana***sear*hebe
+	asp*labellers*labored
+	readable*ache**tangle
+	**genoa*scoot*guide**
+	heaver**held*warrants
+	artisan*idealized*cat
+	bail*toil***aces*lisa
+	ito*bottlenecks*piety
+	bonfires*nodes*basses
+	***enid*acres*hoot***
+	accede*sloan*gilligan
+	bridesmaid*inordinate
+	eater*once*zonal*glow
+	dyers*beer*enemy*sept
+
+
+
+Initial
+	propagators: 756
+	branchers:   1
+
+Summary
+	runtime:      1:31.291 (91291.000 ms)
+	solutions:    1
+	propagations: 16179153
+	nodes:        70862
+	failures:     34637
+	restarts:     8
+	no-goods:     364
+	peak depth:   133
+
