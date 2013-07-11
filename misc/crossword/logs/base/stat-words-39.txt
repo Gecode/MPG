@@ -1,19 +1,1 @@
 Crossword
-
-Search engine stopped...
-	reason: time limit reached
-
-Initial
-	propagators: 773
-	branchers:   1
-
-Summary
-	runtime:      10:00.021 (600021.000 ms)
-	solutions:    0
-	propagations: 44722132
-	nodes:        253135
-	failures:     126538
-	restarts:     0
-	no-goods:     0
-	peak depth:   119
-	peak memory:  39911 KB
