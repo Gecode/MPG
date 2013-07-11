@@ -20,5 +20,10 @@ for i in 39 45 49; do
 	-time $TIMEOUT -branching letters \
 	-file words/words.txt $i | tee logs/hard/words-restart-$i-$TIMEOUT.txt
 done
+for i in 39 45 49; do
+  ./x64/crossword.exe -decay $DECAY \
+	-time $TIMEOUT -branching letters \
+	-file words/words.txt $i | tee logs/hard/words-base-$i-$TIMEOUT.txt
+done
 
 
