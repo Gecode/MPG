@@ -1,1 +1,19 @@
 Crossword
+
+Search engine stopped...
+	reason: time limit reached
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      10:00.021 (600021.000 ms)
+	solutions:    0
+	propagations: 45784040
+	nodes:        168914
+	failures:     83979
+	restarts:     10
+	no-goods:     235
+	peak depth:   94
+
