@@ -28,7 +28,7 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.970 (4970.000 ms)
+	runtime:      6.441 (6441.000 ms)
 	solutions:    1
 	propagations: 420759
 	nodes:        3695
@@ -36,4 +36,4 @@ Summary
 	restarts:     0
 	no-goods:     0
 	peak depth:   144
-	peak memory:  39689 KB
+
