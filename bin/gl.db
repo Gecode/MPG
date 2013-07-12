@@ -870,7 +870,6 @@ URL class Gecode::Search::CutoffLuby classGecode_1_1Search_1_1CutoffLuby.html
 URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.html
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
-URL class Gecode::Search::MemoryStop classGecode_1_1Search_1_1MemoryStop.html
 URL class Gecode::Search::Meta::NoGoodsProp classGecode_1_1Search_1_1Meta_1_1NoGoodsProp.html
 URL class Gecode::Search::Meta::NoNGL classGecode_1_1Search_1_1Meta_1_1NoNGL.html
 URL class Gecode::Search::Meta::RBS classGecode_1_1Search_1_1Meta_1_1RBS.html
