@@ -8,9 +8,9 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
-  \cle{2013-07-10}{Explained how to add support for no-goods to
+  \cle{2013-07-10}{Explained support for no-goods for
     variable-value branchers
-    (see \autoref{sec:v:branch:nogoods})}
+    (see \autoref{sec:v:branch:valcommit})}
   \cle{2013-07-10}{Explained how to add support for no-goods to branchers
     (see \autoref{sec:b:advanced:nogoods})}
   \cle{2013-07-10}{Explained how to use no-goods from restarts

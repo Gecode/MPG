@@ -1403,13 +1403,12 @@ branchings using the abstractions provided by Gecode.
 must be defined for variable-value branchings. How functions for
 variable selection and value selection are implemented is
 demonstrated in \autoref{sec:v:branch:varval}.
-\autoref{sec:v:branch:nogoods}
-explains how to add support for no-goods. 
 \autoref{sec:v:branch:viewsel} shows how a function that creates
 an object for selecting views during branching is implemented.
 How functions for selecting values and committing to these values
 are implemented is shown in
-\autoref{sec:v:branch:valcommit}.  How
+\autoref{sec:v:branch:valcommit}. This section also explains how
+add support for no-goods to a variable-value brancher. How
 the actual branchings are implemented is then detailed in
 \autoref{sec:v:branch:branch}.
 
@@ -1559,9 +1558,6 @@ Note that the last argument of the value selection function
 \?INT_VAL()? is optional, the default behavior will be defined in
 \autoref{sec:v:branch:valcommit}.
 
-
-\section{Support for no-goods}
-\label{sec:v:branch:nogoods}
 
 
 \section{View selection creation}
@@ -1715,12 +1711,43 @@ course on which value selection strategies are provided). A value
 commit class must inherit from the parametric class
 \gecoderef[class]{ValCommit} and must implement one constructor
 for creation and one for cloning. In addition, it must define a
-\?commit()? function and a default \?print()? function. The
-\?commit()? function returns a modification event and takes the
-number of the alternative \?a?, a view \?x?, its position \?i?,
-and a value \?n? as arguments, the \?print()? takes an output
-stream \?o? as additional argument:
-\insertlitcode{int.hh:value commit classes}
+\?commit()? function, an \?ngl()? function (to be discussed
+later), and a default \?print()? function. The \?commit()?
+function returns a modification event and takes the number of the
+alternative \?a?, a view \?x?, its position \?i?, and a value
+\?n? as arguments. The \?print()? function takes an output stream
+\?o? as additional argument:
+\insertlitcode{int.hh:value commit class}
+
+\paragraph{No-good support.}
+
+The value commit class must also implement a function \?ngl()?
+that returns a no-good literal for an alternative. The idea is
+exactly the same as described in
+\autoref{sec:b:advanced:nogoods}, the only difference is that the
+\?ngl()? function here gets a view and a value as arguments
+rather than a choice.
+
+The \?ngl()? function of the \?ValCommitLq? class returns a
+no-good literal implemented by the class \?LqNGL? for the first
+alternative and \?NULL? for the second alternative as follows:
+\insertlitcode{int.hh:no-good literal creation}
+
+\begin{samepage}
+The no-good literal class \?LqNGL? used by the \?ngl()? function
+is defined as follows:
+\insertlitcode{int.hh:no-good literal class}
+\end{samepage}
+
+It inherits from the template class
+\gecoderef[class]{ViewValNGL}, which expects a view type, a value
+type, and a propagation condition as argument. The definition of
+the constructors, the \?copy()?  function, the \?status()?
+function, and the \?prune()? function are exactly as discussed in
+\autoref{sec:b:advanced:nogoods}. The remaining functions for
+disposal and subscription are pre-defined by
+\gecoderef[class]{ViewValNGL}.
+
 
     
 \paragraph{User-defined value selection and commit functions.}
@@ -1963,6 +1990,12 @@ using Gecode::MeritDegree;
 using Gecode::MeritActivity;
 using Gecode::ValSel;
 using Gecode::ValCommit;
+using Gecode::NGL;
+using Gecode::ExecStatus;
+using Gecode::ES_FAILED;
+using Gecode::ES_OK;
+using Gecode::me_failed;
+using Gecode::ViewValNGL;
 using Gecode::ValSelCommit;
 using Gecode::ValSelCommitBase;
 using Gecode::ValSelFunction;
@@ -2858,7 +2891,44 @@ namespace MPG { namespace Int {
   };
   \end{litblock}
   \end{litblock}
-  \begin{litblock}{value commit classes}
+  \begin{litblock}{value commit class}
+  \begin{litblock}{no-good literal class}
+  class LqNGL : public ViewValNGL<IntView,int,PC_INT_BND> {
+    using ViewValNGL<IntView,int,PC_INT_BND>::x;
+    using ViewValNGL<IntView,int,PC_INT_BND>::n;
+  public:
+    LqNGL(Space& home, IntView x, int n);
+    LqNGL(Space& home, bool share, LqNGL& ngl);
+    virtual NGL* copy(Space& home, bool share);
+    virtual NGL::Status status(const Space& home) const;
+    virtual ExecStatus prune(Space& home);
+  };
+  \end{litblock}
+  \begin{litblock}{anonymous}
+  inline
+  LqNGL::LqNGL(Space& home, IntView x, int n)
+    : ViewValNGL<IntView,int,PC_INT_BND>(home,x,n) {}
+  inline
+  LqNGL::LqNGL(Space& home, bool share, LqNGL& ngl)
+    : ViewValNGL<IntView,int,PC_INT_BND>(home,share,ngl) {}
+  inline NGL*
+  LqNGL::copy(Space& home, bool share) {
+    return new (home) LqNGL(home,share,*this);
+  }
+  inline NGL::Status
+  LqNGL::status(const Space&) const {
+    if (x.max() <= n)
+      return NGL::SUBSUMED;
+    else if (x.min() > n)
+      return NGL::FAILED;
+    else
+      return NGL::NONE;
+  }
+  inline ExecStatus
+  LqNGL::prune(Space& home) {
+    return me_failed(x.gq(home,n+1)) ? ES_FAILED : ES_OK;
+  }
+  \end{litblock}
   class ValCommitLq : public ValCommit<IntView,int> {
   public:
     \begin{litblock}{anonymous}
@@ -2871,11 +2941,21 @@ namespace MPG { namespace Int {
                     IntView x, int i, int n) {
       return (a == 0) ? x.lq(home,n) : x.gq(home,n+1);
     }
-    void print(const Space&, unsigned int a, IntView, int i, 
-               int n, std::ostream& o) const {
+    void print(const Space&, unsigned int a, 
+               IntView, int i, int n, 
+               std::ostream& o) const {
       o << "x[" << i << "] " 
         << ((a == 0) ? "<=" : ">") << " " << n;
     }
+    \begin{litblock}{no-good literal creation}
+    NGL* ngl(Space& home, unsigned int a, 
+             IntView x, int n) const {
+      if (a == 0)
+        return new (home) LqNGL(home,x,n);
+      else
+        return NULL;
+    }
+    \end{litblock}
   };
   \end{litblock}
   inline ValSelCommitBase<IntView,int>* 

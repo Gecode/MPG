@@ -53,16 +53,16 @@ handling a single alternative. The same holds true for the
 \section{Supporting no-goods}
 \label{sec:b:advanced:nogoods}
 
-Supporting no-goods by a brancher is quite simple: every brancher
-has a virtual member function \?ngl()? (for no-good literal) that
-takes the same argument as the \?commit()? member function: a
-space, a choice, and the number of an alternative and returns a
-pointer to a no-good literal of class \gecoderef[class]{NGL}. The
-\?ngl()?  function is called during no-good generation (see
-\autoref{sec:m:search:nogoods}) and the returned no-good literal
-is then used by a propagator that propagates the no-goods (if you
-are curious, the propagator is implemented by
-\gecoderef[class]{Search::Meta::NoGoodsProp}).
+Supporting no-goods by a brancher is straightforward: every
+brancher has a virtual member function \?ngl()? (for no-good
+literal) that takes the same arguments as the \?commit()? member
+function: a space, a choice, and the number of the alternative
+and returns a pointer to a no-good literal of class
+\gecoderef[class]{NGL}. The \?ngl()?  function is called during
+no-good generation (see \autoref{sec:m:search:nogoods}) and the
+returned no-good literal is then used by a no-good propagator
+that propagates the no-goods (if you are curious, the propagator
+is implemented by \gecoderef[class]{Search::Meta::NoGoodsProp}).
 
 \begin{figure}
 \insertlitcode{none min with no-good support}
@@ -70,23 +70,22 @@ are curious, the propagator is implemented by
 \label{fig:b:advanced:nogoods}
 \end{figure}
 
-By default, the \?ngl()? function of a brancher returns \?NULL?
+By default, the \?ngl()? function of a brancher returns \?NULL?,
 which means that the brancher does not support no-goods. In order
 to support no-goods, a brancher must redefine the \?ngl()?
-function and must define a class for the no-good literals to be
-returned. The class \?EqNGL? implementing a no-good literal for
-equality and the \?ngl()? function is shown in
-\autoref{fig:b:advanced:nogoods}. Otherwise, the brancher is the
-same as the \?nonemin? brancher shown in
+function and must define a class (or several classes) for the
+no-good literals to be returned. The class \?EqNGL? implementing
+a no-good literal for equality and the \?ngl()? function is shown
+in \autoref{fig:b:advanced:nogoods}. Otherwise, the brancher is
+the same as the \?nonemin? brancher shown in
 \autoref{fig:b:started:improved}.
 
-\subsection{Returning a no-good literal}
+\subsection{Returning no-good literals}
 
-The \?ngl()? function of a brancher has the following options
-when returning a no-good literal:
-\begin{enumerate}
-\item As argued above, it can always return \?NULL? and hence
-  does not support no-goods.
+The \?ngl()? function of a brancher has the following options:
+\begin{itemize}
+\item As mentioned above, it can always return \?NULL? and hence
+  the brancher does not support no-goods.
 \item It returns for each alternative of a choice a no-good
   literal. For our \?NoneMin? brancher this would entail that
   when \?ngl(home,c,0)? is called, it returns a no-good
@@ -96,44 +95,115 @@ when returning a no-good literal:
 
   For the second alternative \?ngl(home,c,1)? a no-good literal
   implementing disequality should be returned. This would work,
-  but the brancher can do better than that.
+  but the brancher can do better than that as is explained
+  below.
 \item When \?ngl(home,c,a)? is called for an alternative
   where $\mathtt{a}>0$ with a space \?home? and a choice \?c? and
   \?a? is the last alternative (for \?NoneMin?,
   $\mathtt{a}=\mathtt{1}$) and the last alternative is the
   logical negation of all other alternatives, then the \?ngl()?
-  function can return \?NULL?.
+  function can return \?NULL? as an optimization.
 
   Assume that the alternatives of a choice are
   $$\mathtt{l}_0\vee\ldots\vee\mathtt{l}_{\mathtt{n}-1}$$ 
-  where
-  \?n? is the arity of the choice and it holds that
-  $$(\mathtt{l}_0\vee\ldots\vee\mathtt{l}_{\mathtt{n}-2})\Leftrightarrow \neg\mathtt{l}_{\mathtt{n}-1}$$
-  is true, then the \?ngl()? can return \?NULL? for the last alternative
-  (that is, $\mathtt{n}-1$).
+  where \?n? is the arity of the choice and it holds that
+  $$(\mathtt{l}_0\vee\ldots\vee\mathtt{l}_{\mathtt{n}-2})
+  \Leftrightarrow \neg\mathtt{l}_{\mathtt{n}-1}$$ is true, then
+  the \?ngl()? function can return \?NULL? for the last
+  alternative (that is, for the alternative $\mathtt{n}-1$).
 
   Note that this optimization implements the very same idea as
   discussed at the beginning of \autoref{sec:m:search:nogoods}.
-  Note also that this property is typically only true for binary
-  branchers such as in our example.
-\end{enumerate}
+  Note also that this property is typically only true for
+  branchers with binary choices such as in our example.
+\end{itemize}
 
 \begin{samepage}
-In our example, we are lucky as the second alternative is indeed
-always the negation of the first alternative. Hence the following
+In our example, the second alternative is indeed
+the negation of the first alternative. Hence the following
 \?ngl()? function implements no-good literal creation and only
 requires a single class \?EqNGL? for no-good literals
 implementing equality:
 \insertlitcode{none min with no-good support:no-good literal creation}
 \end{samepage}
 
-\subsection{Implementing a no-good literal}
+\subsection{Implementing no-good literals}
 
-\insertlitcode{none min with no-good support:status}
+No-good literals implement constraints that correspond to
+alternatives of choices. But instead of implementing these
+constraints by a propagator, they have a specialized
+implementation that is used by a no-good propagator. All
+concepts needed to implement a no-good literal are concepts that
+are familiar from implementing a propagator.
 
-\insertlitcode{none min with no-good support:prune}
+A no-good literal inherits from the class \gecoderef[class]{NGL}
+and must implement the following constructors and functions:
+\begin{itemize}
+\item Unsurprisingly, a no-good literal must implement
+  constructors for creation and cloning and member functions
+  \?copy()? for copying and \?dispose()? for disposal. They are
+  straightforward and are shown in
+  \autoref{fig:b:advanced:nogoods}.
+\item It must implement a \?status()? function that checks
+  whether the no-good literal is subsumed (the function returns
+  \?NGL::SUBSUMED?), failed (the function returns
+  \?NGL::FAILED?), or neither (the function returns
+  \?NGL::NONE?). The return type is \?NGL::Status? as defined in
+  the \gecoderef[class]{NGL} class.
 
-\insertlitcode{none min with no-good support:subscribe and cancel}
+  It is important to understand that the no-good propagator using
+  no-good literals can only perform propagation if some of its
+  no-good literals become subsumed. Hence, the test for
+  subsumption used in \?status()? should try to detect
+  subsumption as early as possible.
+
+  Testing subsumption for our \?EqNGL? no-good literal is
+  straightforward:
+\insertsmalllitcode{none min with no-good support:status}
+
+\item The \?prune()? function propagates the negation of the
+  constraint that the no-good literal implements.
+
+  Again, the \?prune()? function for \?NoneMin? is
+  straightforward:
+\insertsmalllitcode{none min with no-good support:prune}
+
+\item A no-good literal must implement a \?subscribe()? and a
+  \?cancel()? function that subscribe and cancel the no-good
+  propagator to the no-good literal's views.
+
+  As mentioned above, the earlier the \?status()? function
+  detects subsumption, the more constraint propagation can be
+  expected from the no-good propagator. Hence, it is important to
+  choose the propagation condition for subscriptions such that
+  whenever there is a modification to the view that could result
+  in subsumption the no-good propagator is executed.
+
+  For the \?EqNGL? no-good literal, we choose the propagation
+  condition for subscriptions to be \?Int::PC_INT_VAL? (see
+  \autoref{sec:p:started:propcond} for a discussion of
+  propagation conditions). This choice reflects the fact that
+  subsumption can only be decided after the view \?x? has been
+  assigned:
+\insertsmalllitcode{none min with no-good support:subscribe and cancel}
+\end{itemize}
+
+In case a no-good literal uses members that must be deallocated
+when the home-space is deleted, the no-good literal's class must
+redefine the virtual member functions \?notice()? and
+\?dispose()?, for example by:
+\begin{code}
+virtual bool notice(void) const {
+  return true;
+}
+virtual size_t dispose(Space& home) {
+  ...
+}
+\end{code}
+If \?notice()? returns \?true?, the no-good propagator ensures
+that the no-good literal's \?dispose()? function is called
+whenever the propagator's home-space is deleted.
+
 
 
 
