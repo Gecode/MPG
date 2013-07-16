@@ -1,0 +1,39 @@
+Crossword
+	hostage*abase*vaginas
+	octopus*sawed*alabama
+	leanest*slain*glinted
+	cam*sterilization*urn
+	ones*seagate*ant*brae
+	mints*minds*bra*deeds
+	basalt*des*pig*kansas
+	***tailed*fireside***
+	selected*sanctum*fast
+	alaskan*ranches*diver
+	gunmen*belched*facade
+	edgar*betties*parings
+	seen*berries*socrates
+	***laotians*fitter***
+	freida*big*sue*sliced
+	lanka*fen*lungs*leave
+	ante*sir*kennels*spec
+	ski*modifiability*ira
+	hitting*argue*coveted
+	enlarge*tours*elevate
+	deepest*event*resents
+
+
+
+Initial
+	propagators: 773
+	branchers:   1
+
+Summary
+	runtime:      8:17:50.640 (29870640.000 ms)
+	solutions:    1
+	propagations: 1617885461
+	nodes:        30436047
+	failures:     15215159
+	restarts:     23
+	no-goods:     1257
+	peak depth:   257
+

@@ -1,0 +1,41 @@
+Crossword
+	scrolls*screams*suspect
+	plateau*trivial*estella
+	loiters*auberge*maureen
+	its*repels*redesign*van
+	cued*serial*ravine*lane
+	erred*candor*lena*dater
+	restarts*ecole*orbiters
+	***eros*drawing*save***
+	learns*listeners*gasser
+	expresses*ere*attentive
+	acted*combs*daniels*lid
+	kind*tonio***gapes*send
+	ate*parasol*goren*dance
+	gospelers*ego*instances
+	ensure*decorated*incest
+	***mind*donates*grit***
+	artistic*namer*presides
+	reach*gate*sergei*hoist
+	cole*heresy*sorted*nasa
+	ape*deserted*reeves*leg
+	densest*romania*evening
+	intense*ageless*romance
+	assayed*nanette*snigger
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      2 days, 19:01:22.345 (241282345.000 ms)
+	solutions:    1
+	propagations: 3570556601
+	nodes:        155527780
+	failures:     77758415
+	restarts:     27
+	no-goods:     1988
+	peak depth:   284
+

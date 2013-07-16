@@ -1,0 +1,39 @@
+Crossword
+	factual*wires*facaded
+	aphasia*atari*avarice
+	bribers*revel*mantels
+	rim*resurrections*hip
+	iced*reliant*rut*papa
+	cores*scots*has*parsi
+	static*ere*san*harder
+	***ethers*caligula***
+	starters*captain*poem
+	teaming*balling*shale
+	erring*perkins*thesis
+	prong*bearing*thereto
+	sana*dancing*sorensen
+	***trenches*toyota***
+	maniac*her*pan*welder
+	above*mad*daunt*diode
+	lime*ken*petters*anus
+	ali*instrumentals*ace
+	benares*urine*capitan
+	anatole*nests*everett
+	relents*tress*decades
+
+
+
+Initial
+	propagators: 773
+	branchers:   1
+
+Summary
+	runtime:      47:24.123 (2844123.000 ms)
+	solutions:    1
+	propagations: 282446968
+	nodes:        1312756
+	failures:     654713
+	restarts:     15
+	no-goods:     0
+	peak depth:   112
+

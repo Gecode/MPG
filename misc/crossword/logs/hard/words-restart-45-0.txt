@@ -1,0 +1,41 @@
+Crossword
+	crackle*cheated*raiders
+	lebanon*hormone*escapee
+	iceberg*urgings*scoring
+	met*errors*derision*sam
+	bits*yawner*sorest*come
+	evens*vessel*seat*alden
+	redeemed*heads*lossiest
+	***avid*tongued*rise***
+	shakes*pretender*rinsed
+	peninsula*ere*palestine
+	rages*saver*salient*tan
+	aver*deter***roles*subs
+	gel*portray*acrid*scale
+	universes*eat*insulates
+	escape*recasting*sanest
+	***sped*darting*bend***
+	fastened*snort*portable
+	asher*bats*reefer*sloan
+	stir*cashes*dreads*saul
+	car*motherer*valets*sri
+	irksome*bovines*relates
+	stealer*elegant*evident
+	mergers*senates*departs
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      1 days, 17:08:30.905 (148110905.000 ms)
+	solutions:    1
+	propagations: 821224723
+	nodes:        102971386
+	failures:     51481052
+	restarts:     26
+	no-goods:     0
+	peak depth:   145
+
