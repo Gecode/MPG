@@ -1184,9 +1184,7 @@ constraints and hence generalize the ideas from~\cite{gnogoods}
 and~\cite{NogoodsRestarts}. Also no-goods in Gecode support
 choices of arbitrary arity and are not restricted to binary
 choices. For more details, see \autoref{chap:b:advanced} and in
-particular \autoref{sec:b:advanced:nogoods}. For an example
-illustrating the effect of no-goods from restarts,
-see \autoref{sec:c:crossword:info}.
+particular \autoref{sec:b:advanced:nogoods}.
 
 \paragraph{Generating and posting no-goods.}
 
