@@ -750,6 +750,15 @@ initializes the activity information \?act? for the variables in \?x?
 with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
 optional and defaults to no decay ($\mathtt{d}=1$).
 
+The activity of each variable in an array \?x? can be initialized
+by a merit function, see \autoref{sec:m:branch:uservar}. If \?bm?
+is a merit function, then
+\begin{code}
+IntActivity act(home,x,0.99,&bm);
+\end{code}
+initializes the activity of \?x[i]? to the value returned by
+\?bm(home,x[i],i)?.
+
 The decay-factor can be changed later, say to
 $\mathtt{d}=\mathtt{0.95}$, by
 \begin{code}

@@ -2635,8 +2635,10 @@ namespace MPG {
     IntActivity(void);
     IntActivity(const IntActivity& a);
     IntActivity& operator =(const IntActivity& a);
-    IntActivity(Home home, const IntVarArgs& x, double d=1.0);
-    void init(Home home, const IntVarArgs& x, double d=1.0);
+    IntActivity(Home home, const IntVarArgs& x, double d=1.0,
+                IntBranchMerit bm=NULL);
+    void init(Home home, const IntVarArgs& x, double d=1.0,
+              IntBranchMerit bm=NULL);
   };
   \begin{litblock}{anonymous}
   inline
@@ -2649,14 +2651,16 @@ namespace MPG {
     return static_cast<IntActivity&>(Activity::operator =(a));
   }
   inline
-  IntActivity::IntActivity(Home home, const IntVarArgs& x, double d) {
+  IntActivity::IntActivity(Home home, const IntVarArgs& x, double d,
+                           IntBranchMerit bm) {
     ViewArray<Int::IntView> y(home,x);
-    Activity::init(home,y,d);
+    Activity::init(home,y,d,bm);
   }
   inline void
-  IntActivity::init(Home home, const IntVarArgs& x, double d) {
+  IntActivity::init(Home home, const IntVarArgs& x, double d,
+                    IntBracnhMerit bm) {
     ViewArray<Int::IntView> y(home,x);
-    Activity::init(home,y,d);
+    Activity::init(home,y,d,bm);
   }
   \end{litblock}
 }
