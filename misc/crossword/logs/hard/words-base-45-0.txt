@@ -1,0 +1,41 @@
+Crossword
+	cochran*potomac*estates
+	acreage*orinoco*student
+	leaning*situate*toronto
+	cat*delete*sturgeon*fir
+	ones*sirens*sacred*dote
+	mires*gorton*team*sally
+	pastures*amino*mercedes
+	***tree*placard*doom***
+	scales*hostesses*sponge
+	novelties*ira*fasteners
+	emery*basic*shelled*mac
+	errs*peter***eater*penh
+	zan*foresee*artie*paste
+	educators*art*interview
+	sesame*secreting*noises
+	***kind*solving*soul***
+	splinter*ayers*lossiest
+	caine*teas*letter*toper
+	rung*saints*darned*nice
+	eli*shingles*leaned*sum
+	winston*lincoln*electro
+	engrave*ensured*stealer
+	desired*seeders*sadness
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      1 days, 6:05:37.775 (108337775.000 ms)
+	solutions:    1
+	propagations: 4141621108
+	nodes:        19537295
+	failures:     9768614
+	restarts:     0
+	no-goods:     0
+	peak depth:   124
+

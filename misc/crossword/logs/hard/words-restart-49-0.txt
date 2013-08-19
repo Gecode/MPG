@@ -1,1 +1,16 @@
 Crossword
+
+Initial
+	propagators: 932
+	branchers:   1
+
+Summary
+	runtime:      2 days, 21:15:59.375 (249359375.000 ms)
+	solutions:    0
+	propagations: 3755076430
+	nodes:        103788087
+	failures:     51892129
+	restarts:     26
+	no-goods:     0
+	peak depth:   98
+
