@@ -1299,7 +1299,7 @@ variables and branchers for executing code (see
 
 The reason why after a restart no-goods can be extracted is
 because search computed the no-goods by exploring entire failed
-subtrees during search. This might not be tree during parallel
+subtrees during search. This might not be true during parallel
 search. While parallel search engines also support the extraction
 of no-goods, the number of no-goods that can be extracted tend to
 be rather small.
