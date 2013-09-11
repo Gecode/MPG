@@ -229,12 +229,12 @@ several ranges;\\
 & otherwise, values greater than mean\\
 \?INT_VALUES_MIN()? & all values starting from smallest\\
 \?INT_VALUES_MAX()? & all values starting from largest\\
-\?INT_NEAR_MIN(n)? & values near to value in array \?n?\\
+\?INT_VAL_NEAR_MIN(n)? & values near to value in array \?n?\\
 &takes smaller value in case of ties\\
-\?INT_NEAR_MAX(n)? & values near to value in array \?n?\\
+\?INT_VAL_NEAR_MAX(n)? & values near to value in array \?n?\\
 &takes larger value in case of ties\\
-\?INT_NEAR_INC(n)? & values larger than value in array \?n? first\\
-\?INT_NEAR_DEC(n)? & values smaller than value in array \?n? first\\
+\?INT_VAL_NEAR_INC(n)? & values larger than value in array \?n? first\\
+\?INT_VAL_NEAR_DEC(n)? & values smaller than value in array \?n? first\\
 \end{tabular}
 \end{center}
 \caption{Integer and Boolean value selection}
