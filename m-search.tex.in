@@ -975,10 +975,33 @@ Search::Cutoff* c = Search::Cutoff::linear(s);
 k_0,k_1,\ldots,k_{\mathtt{n}-2},k_{\mathtt{n}-1},l_0,l_1,l_2,\ldots
 $$
   A cutoff generator \?c? for an appended cutoff sequence with
-  \?n? (of type \?unsigned int?) values from cutoff generator
+  \?n? (of type \?unsigned long int?) values from cutoff generator
   \?c1? followed by values from cutoff generator \?c2? is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::append(c1,n,c2);
+\end{smallcode}
+
+\item[Repeat.] A repeated cutoff sequence \?c? with repeat factor
+  \?n? (of type \?unsigned long int?) 
+  for the cutoff sequence $\mathtt{c}'$ (with values
+  $k_0,k_1,k_2,\ldots$) consists of the following values:
+  $$
+\begin{array}{c@{}c@{}c@{}l}
+\underbrace{k_0,k_0,\ldots,k_0},&
+\underbrace{k_1,k_1,\ldots,k_1},&
+\underbrace{k_2,k_2,\ldots,k_2},&
+\ldots\\
+\mbox{\?n? times}&
+\mbox{\?n? times}&
+\mbox{\?n? times}
+\end{array}
+$$
+  A cutoff generator \?c? for a repeated cutoff sequence with
+  repeat factor
+  \?n? (of type \?unsigned long int?) and values from the cutoff generator
+  \?c1? is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::repeat(c1,n);
 \end{smallcode}
 
 \end{description}
