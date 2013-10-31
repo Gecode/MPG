@@ -2,7 +2,6 @@ export PATH="./x64:$PATH"
 export DECAY=0.99
 export SCALE=500
 export BASE=1.5
-export NGL=256
 export SAMPLES=5
 export TIMEOUT=600000
 
@@ -16,12 +15,12 @@ for d in uk words; do
 	-restart-scale $SCALE -restart-base $BASE \
 	-time $TIMEOUT -branching letters \
 	-file words/$d.txt $i | tee logs/restart/stat-$d-$i.txt
-    ./x64/crossword.exe \
-	-decay $DECAY -restart geometric \
-	-restart-scale $SCALE -restart-base $BASE \
-	-nogoods true -nogoods-limit $NGL \
-	-time $TIMEOUT -branching letters \
-	-file words/$d.txt $i | tee logs/nogoods/stat-$d-$i.txt
+#    ./x64/crossword.exe \
+#	-decay $DECAY -restart geometric \
+#	-restart-scale $SCALE -restart-base $BASE \
+#	-nogoods true -nogoods-limit $NGL \
+#	-time $TIMEOUT -branching letters \
+#	-file words/$d.txt $i | tee logs/nogoods/stat-$d-$i.txt
     ./x64/crossword.exe -mode time -samples $SAMPLES \
 	-time $TIMEOUT -branching letters  \
   	-file words/$d.txt $i | tee logs/base/time-$d-$i.txt
@@ -30,11 +29,11 @@ for d in uk words; do
 	-restart-scale $SCALE -restart-base $BASE \
 	-time $TIMEOUT -branching letters \
 	-file words/$d.txt $i | tee logs/restart/time-$d-$i.txt
-    ./x64/crossword.exe -mode time -samples $SAMPLES \
-	-decay $DECAY -restart geometric \
-	-restart-scale $SCALE -restart-base $BASE \
-	-nogoods true -nogoods-limit $NGL \
-	-time $TIMEOUT -branching letters \
-	-file words/$d.txt $i | tee logs/nogoods/time-$d-$i.txt
+#   ./x64/crossword.exe -mode time -samples $SAMPLES \
+#	-decay $DECAY -restart geometric \
+#	-restart-scale $SCALE -restart-base $BASE \
+#	-nogoods true -nogoods-limit $NGL \
+#	-time $TIMEOUT -branching letters \
+#	-file words/$d.txt $i | tee logs/nogoods/time-$d-$i.txt
   done
 done
