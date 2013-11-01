@@ -1,27 +1,27 @@
 Crossword
-	haas*meals*aping*dacca*
-	abba*inlet*canal*isaacs
-	multistage*kinnickinnic
-	steamers*wells*shea*ada
-	***nary*bares*otis*mall
-	effigy*darry*amen*kenya
-	arose*weld**gwen*pus***
-	germ*jacksonian*perhaps
-	aye*garry*milk*pond*cap
-	narbonne*sanderson*acre
-	**urdu*aloha*neil*evoke
-	annals*sana*dial*slimed
-	rangy*fine*menlo*trap**
-	uses*financing*coronado
-	bar*long*bans*byway*nag
-	assails*believably*wind
-	***lad*turf**isis*waste
-	occur*bang*susan*fatten
-	cram*buck*april*saga***
-	cab*felt*slang*ammoniac
-	availability*obtainable
-	manned*canoe*troll*bier
-	*takes*spend*haply*eden
+	adam*pedro*autos*dacca*
+	babe*aloud*drawl*isaacs
+	brutalized*kinnickinnic
+	antedate*ising*thea*ada
+	***race*stone*this*call
+	oblige*foils*chen*kenya
+	leone*line**hoar*bad***
+	slug*banishment*polecat
+	old*music*ears*bini*orr
+	nastiest*ransoming*cute
+	**penn*emery*lark*lenin
+	iberia*nags*west*seated
+	teams*peru*forth*case**
+	elks*disclaims*proverbs
+	mae*ties*able*flute*sea
+	syrians*greenblatt*burt
+	***nut*volt**each*sunny
+	hiatt*bely*untie*hacker
+	oslo*band*stahl*silk***
+	ray*cart*bette*watanabe
+	distributive*shouldered
+	easier*rater*dance*lead
+	*hated*agers*alger*lady
 
 
 
@@ -30,11 +30,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      7.186 (7186.000 ms)
+	runtime:      7.769 (7769.000 ms)
 	solutions:    1
-	propagations: 810834
-	nodes:        4882
-	failures:     2187
+	propagations: 535715
+	nodes:        3238
+	failures:     1491
 	restarts:     2
 	no-goods:     0
 	peak depth:   129

@@ -1,27 +1,27 @@
 Crossword
-	arabia*midas*star*pabst
-	merest*ababa*ursa*allah
-	acclimatized*masturbate
-	stetson*della*nair*uris
-	sad**sag***erosion*mere
-	***deplete*renal**hides
-	isaiah*tass*act*cain***
-	lenore*tithe*elbows*she
-	owed*rayleigh*arpa*awed
-	nemesis**stoutness*lead
-	ado*acids**smite*homely
-	**man*aruba*epics*nat**
-	jaeger*april**chide*has
-	otto*appearers**descent
-	borg*beer*snatches*rage
-	spy*candid*spray*iberia
-	***path*meg*sand*dusted
-	cabot**sparc*percent***
-	eras*bimodal***oar**ada
-	acts*eris*bosch*palomar
-	saturnalia*upholstering
-	enema*tent*diana*unesco
-	dense*edge*strew*masses
+	cicada*elope*scow*ample
+	anabel*laban*pore*barer
+	stubblefield*andalusian
+	teletex*nylon*gave*cove
+	elk**gad***wearied*ares
+	***teaming*saran**grist
+	hobart*vera*rat*rhea***
+	alexei*aside*burial*gab
+	mile*ointment*list*hera
+	evident**endurance*anti
+	yet*ascii**scots*driest
+	**tar*homed*kneed*orr**
+	baldly*dares**dress*ali
+	avid*emigrates**swatted
+	dens*mini*nagasaki*hive
+	erg*helena*rocks*trivia
+	***pond*all*skis*caress
+	scare**steep*smashed***
+	lore*topical***mob**dam
+	epic*aviv*rural*alabama
+	disengages*melodramatic
+	geese*lola*babka*deluge
+	ernst*styx*slain*enemas
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      41.687 (41687.000 ms)
+	runtime:      40.950 (40950.000 ms)
 	solutions:    1
-	propagations: 4312892
-	nodes:        20686
-	failures:     9977
-	restarts:     5
+	propagations: 1885197
+	nodes:        9444
+	failures:     4609
+	restarts:     4
 	no-goods:     0
-	peak depth:   128
+	peak depth:   133
 

@@ -1,19 +1,19 @@
 Crossword
-	bob*afar*thawed
-	ablative*regime
-	boustrophedonic
-	eerie*wrong*elk
-	***ass*ended***
-	ohm*these*hoard
-	dead*are*polloi
-	disadvantageous
-	entree*tip*dusk
-	reset*fatal*des
-	***debit*leg***
-	hog*celia*naive
-	epistemological
-	barhop*neatness
-	elders*seth*dee
+	hoe*whim*larvae
+	emaciate*amoeba
+	misunderstander
+	steed*limit*all
+	***del*tunes***
+	asp*robot*upper
+	laid*tar*greene
+	illustriousness
+	bookie*owl*true
+	intel*punch*set
+	***sills*hat***
+	era*count*rigor
+	nonconservative
+	octane*seasonal
+	skewer*sets*sly
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      9.625 (9625.000 ms)
+	runtime:      11.653 (11653.000 ms)
 	solutions:    1
-	propagations: 1749280
-	nodes:        7476
-	failures:     3648
-	restarts:     3
+	propagations: 848267
+	nodes:        4009
+	failures:     1974
+	restarts:     2
 	no-goods:     0
-	peak depth:   46
+	peak depth:   48
 

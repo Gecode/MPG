@@ -1,27 +1,27 @@
 Crossword
-	swaps*aruba*flora*shire
-	paraphrased*raped*tenex
-	extraordinariness*erase
-	neil*paint*andre*reaper
-	dream*gag*egg*algol*pat
-	***yukon*ivies*lou*orr*
-	ali*tin*brandon*antioch
-	bunted*slang*los*delphi
-	acted*meats*gasps*derek
-	tier*scare*threats*dire
-	earring*elsie*drape*ass
-	**retard*yarns*cravat**
-	abe*spare*lethe*theresa
-	bald*storied*ellen*gnat
-	braes*horns*cedar*buena
-	obtain*pea*dared*passer
-	tainted*dnieper*pal*sri
-	*roe*air*embed*gamma***
-	son*creep*par*car*sudan
-	hushes*codes*erich*rome
-	ashen*mediterraneanizes
-	flirt*adieu*intelligent
-	types*teams*beers*lands
+	ababa*prima*scale*leper
+	degenerated*mabel*inane
+	electrocardiogram*torus
+	park*agile*clean*sesame
+	tyson*ray*bid*meter*met
+	***nepal*genes*dot*her*
+	ape*arm*seagram*puritan
+	valery*ainus*tom*pareto
+	ayers*aides*lilac*peril
+	inca*purer*bundled*siva
+	letters*dirac*strap*zen
+	**robots*cubic*seneca**
+	ado*burtt*peale*atwater
+	mimi*diaries*eagle*bide
+	irene*abase*rages*diode
+	decked*spa*rival*dennis
+	echelon*saracen*ban*see
+	*tar*rob*cedar*harem***
+	won*kirov*van*man*buffs
+	arises*rider*panda*slat
+	lacey*understandability
+	stale*geese*allegorical
+	hells*hooks*boyle*ankle
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:57.193 (117193.000 ms)
+	runtime:      2:41.304 (161304.000 ms)
 	solutions:    1
-	propagations: 17836248
-	nodes:        70348
-	failures:     34683
-	restarts:     8
+	propagations: 8597221
+	nodes:        36168
+	failures:     17903
+	restarts:     7
 	no-goods:     0
-	peak depth:   124
+	peak depth:   111
 

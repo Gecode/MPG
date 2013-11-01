@@ -1,23 +1,23 @@
 Crossword
-	abas*arba*dick*baas
-	east*talc*wali*albi
-	slae*twae*agon*nabk
-	carryingthrough*baa
-	***lacs*oaf**came**
-	favela*and*normalcy
-	abate*die*capa*alae
-	lac**bad*kabab**ela
-	aculeus*haikh*aleph
-	**ueys*banns*brat**
-	ramee*bulge*pibroch
-	abc**cella*rad**iou
-	mela*rase*qat*oflag
-	adelaide*auf*smeeth
-	**abib**ali*adar***
-	can*aberdeenterrier
-	aged*arar*sati*acta
-	shri*gibe*clag*reak
-	hasp*enid*earn*idle
+	arbs*bram*swap*baba
+	lala*aesc*capo*abac
+	egal*lace*east*aide
+	caesalpiniaceae*ted
+	***obas*rat**urao**
+	camlet*don*alfalfas
+	aread*gae*alae*baht
+	bad**hae*sadhu**lao
+	abieses*bares*melba
+	**ceas*alloa*haar**
+	gnarl*blain*carnied
+	ram**rebec*rad**gau
+	idea*agas*bab*buhls
+	ganglion*oaf*fustet
+	**taal**ada*kana***
+	via*chattelmortgage
+	ella*elea*bala*elal
+	hili*amex*egad*rads
+	maya*demy*kiss*snee
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      19.860 (19860.000 ms)
+	runtime:      1:11.926 (71926.000 ms)
 	solutions:    1
-	propagations: 1058961
-	nodes:        31329
-	failures:     14204
-	restarts:     6
+	propagations: 970843
+	nodes:        33045
+	failures:     16092
+	restarts:     7
 	no-goods:     0
-	peak depth:   147
+	peak depth:   141
 

@@ -1,25 +1,25 @@
 Crossword
-	america*label*saracen
-	taxicab*ibero*mbabane
-	rutgers*clean*augusta
-	ore*ditches*ducts*sir
-	pint*bauer*corks*nice
-	octal*ibn*hindi*dates
-	sessions*sag*unwisest
-	***teas*cedar*gina***
-	assent*paperer*dallas
-	slurs*levis*faith*ode
-	hams*medea*bench*bide
-	eva*madam*surge*purer
-	nectar*lamprey*firers
-	***aide*noise*mung***
-	cramming*bra*portland
-	helps*sadie*pet*saner
-	aqua*annal*aaron*riga
-	sum*adage*assurer*map
-	senator*midst*cremate
-	isadore*odder*aviator
-	steamed*nasty*renders
+	argonne*fleet*mallard
+	therein*renee*amoebae
+	renewed*evils*generic
+	one*scolded*scene*ale
+	piss*erode*wield*idea
+	oscar*say*shell*avers
+	shoveled*phi*lacrosse
+	***acid*waals*nair***
+	prague*ragweed*geyser
+	euler*fatal*ceres*pro
+	arid*aiken*trays*mira
+	cab*otter*crete*donor
+	elisha*debauch*meters
+	***ward*dandy*seat***
+	bakeries*loy*galloped
+	amide*geese*art*terre
+	rode*drama*iliad*semi
+	ben*cease*brennan*fir
+	abashed*rarer*ireland
+	rapture*giant*splicer
+	assumed*edges*maltese
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      17.066 (17066.000 ms)
+	runtime:      53.929 (53929.000 ms)
 	solutions:    1
-	propagations: 1585324
-	nodes:        8470
-	failures:     3968
-	restarts:     3
+	propagations: 2194424
+	nodes:        11903
+	failures:     5818
+	restarts:     4
 	no-goods:     0
-	peak depth:   129
+	peak depth:   101
 

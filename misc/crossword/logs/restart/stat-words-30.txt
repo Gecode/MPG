@@ -1,25 +1,25 @@
 Crossword
-	sale*dirac*arpa*aruba
-	egan*irish*mead*basin
-	tuscaloosa*harassment
-	hesitant*peace*hoarse
-	***rots*smart*lard***
-	circle*atari*barbados
-	odell*transcribes*owe
-	lise*mimi***utah*amid
-	dot*perennial*nodding
-	streamed*edge**lounge
-	**altos*salad*adele**
-	snider**prep*alerters
-	canonic*assessors*rat
-	akin*zorn***apes*tina
-	len*balustrades*rangy
-	edgerton*rabin*merges
-	***nair*maple*past***
-	adagio*santa*maleness
-	beginnings*trilateral
-	leone*toni*eared*siva
-	edged*swat*seedy*seem
+	alas*brows*idea*acids
+	finn*radii*mans*renal
+	annotating*propaganda
+	reawaken*meets*russet
+	***bled*juras*brie***
+	agreed*manic*slanders
+	reels*handshaking*due
+	unit*mace***ring*pile
+	ben*vegetated*devoted
+	assailed*sole**melody
+	**elton*chain*leger**
+	abroad**redo*canadian
+	bathers*instructs*abo
+	asia*aces***ores*blot
+	ban*amorphously*tilde
+	alginate*estes*prayed
+	***sits*galen*plan***
+	somali*eldon*trainees
+	arabicizes*structural
+	risen*cree*irene*anti
+	ankle*east*lykes*lest
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:35.609 (95609.000 ms)
+	runtime:      39.780 (39780.000 ms)
 	solutions:    1
-	propagations: 15631016
-	nodes:        69767
-	failures:     34211
-	restarts:     8
+	propagations: 2038242
+	nodes:        8665
+	failures:     4244
+	restarts:     4
 	no-goods:     0
-	peak depth:   90
+	peak depth:   83
 

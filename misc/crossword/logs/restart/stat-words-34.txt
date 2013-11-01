@@ -1,25 +1,25 @@
 Crossword
-	abbeys*vibrate*shades
-	callan*amoebas*cobalt
-	claire*careers*amoeba
-	elm*damaged*zaire*mob
-	seen*dated*wayne*cowl
-	strap*pen*minsk*dense
-	***boa***bat***den***
-	pealed*abashes*entrap
-	ornate*restart*serene
-	too*slates*lain*balsa
-	otis*epic***slav*laws
-	mince*echo*fulton*tea
-	actors*lecture*cavern
-	castro*encased*amidst
-	***ion***use***let***
-	cabal*waals*gel*rabbi
-	avon*pabst*canal*eris
-	lev*dinah*reproof*era
-	animal*somalia*armada
-	ignite*erasing*dyadic
-	seeded*seepage*senses
+	assort*pulaski*caviar
+	chewer*agonies*uganda
+	collie*clatter*patton
+	ewe*napkins*nadir*erg
+	dens*trees*plead*free
+	erato*orr*slyly*pends
+	***ugh***pea***bum***
+	amanda*saracen*arabic
+	ranger*alameda*helena
+	rut*nearby*duty*reads
+	ires*mica***cues*smut
+	vines*dana*warsaw*ill
+	annals*situate*change
+	league*marshes*hedged
+	***age***eel***sad***
+	emits*jesus*apt*terra
+	rene*bases*braid*rail
+	rag*babka*erected*cow
+	agreer*imagine*capita
+	teared*malabar*cheney
+	armers*oneness*alters
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      29.119 (29119.000 ms)
+	runtime:      38.329 (38329.000 ms)
 	solutions:    1
-	propagations: 3072315
-	nodes:        22004
-	failures:     10260
+	propagations: 2166332
+	nodes:        16001
+	failures:     7792
 	restarts:     5
 	no-goods:     0
-	peak depth:   136
+	peak depth:   149
 

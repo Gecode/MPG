@@ -1,27 +1,27 @@
 Crossword
-	actor*baird*abram*slats
-	larva*lucia*cease*hague
-	tries*enemy*admit*ababa
-	overcoats*lac*parameter
-	servants*cilia*nibblers
-	***ills*pageant*cell***
-	palely*cache*dim*deigns
-	snowy*burtt*pedal*snail
-	ants*mardi*rosebud*gina
-	lit*servo*gus*deneb*net
-	meeker*endemic*lacrosse
-	***errs*senator*riot***
-	assyrian*senegal*mitres
-	bit*aaron*rid*legal*are
-	agog*malaria*flail*acre
-	shrug*havoc*suing*speed
-	esmark*nab*tames*shoddy
-	***rank*learned*dial***
-	aliasing*spuds*cecropia
-	barnstorm*pew*packagers
-	abate*lease*ibero*bicep
-	cater*laden*cowed*leone
-	knees*stead*haste*essen
+	modal*askew*armed*appia
+	abase*solar*fauna*clang
+	decca*slate*feign*caste
+	ascension*sri*recruiter
+	meanness*starr*learners
+	***dent*delimit*spat***
+	repast*revel*dud*steaks
+	axons*defer*deneb*extol
+	celt*learn*perilla*tara
+	era*della*can*stabs*ran
+	strewn*mulatto*abrading
+	***rats*disturb*save***
+	papering*thereof*honshu
+	eve*flora*ire*molar*ken
+	cats*swollen*abram*mudd
+	kirov*sugar*isaac*range
+	slices*par*entry*becker
+	***irks*evolved*beam***
+	palatine*adler*billings
+	abilities*ear*reptilian
+	panic*frees*shore*globe
+	abuse*fills*eased*nabla
+	lasts*selma*slats*sneed
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:14.645 (74645.000 ms)
+	runtime:      4:09.366 (249366.000 ms)
 	solutions:    1
-	propagations: 6888085
-	nodes:        32741
-	failures:     15821
-	restarts:     6
+	propagations: 17788679
+	nodes:        95165
+	failures:     47252
+	restarts:     9
 	no-goods:     0
-	peak depth:   146
+	peak depth:   142
 
