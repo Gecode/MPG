@@ -320,9 +320,9 @@ foreach $dict ("words","uk") {
 close RES;
 
 open RES, ">", "res-hard.tex";
-foreach $f ("logs/hard/words-39-0.txt",
-	    "logs/hard/words-45-0.txt",
-	    "logs/hard/words-49-0.txt"
+foreach $f ("logs/hard/words-restart-39-0.txt",
+	    "logs/hard/words-restart-45-0.txt",
+	    "logs/hard/words-restart-49-0.txt"
 	   ) {
   if ($f =~ /.*\/(.*)-(.*)-.*\.txt/) {
     $dict = $1;
