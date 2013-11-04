@@ -6,6 +6,8 @@ Initial
 
 Summary
 	runtime:      1 days, 7:20:02.046 (112802046.000 ms)
+	HAND EDITED!
+	runtime:      31:20:02.046 (112802046.000 ms)
 	solutions:    0
 	propagations: 3534957810
 	nodes:        12342956
