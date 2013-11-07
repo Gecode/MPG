@@ -1,25 +1,25 @@
 Crossword
-	that*salad*acta*shaft
-	hugh*crude*wool*table
-	aberration*adulterous
-	israelis*taker*erases
-	***cape*dunes*ames***
-	rapids*rerun*exposers
-	array*necessaries*mew
-	dion*lana***sear*hebe
-	asp*labellers*labored
-	readable*ache**tangle
-	**genoa*scoot*guide**
-	heaver**held*warrants
-	artisan*idealized*cat
-	bail*toil***aces*lisa
-	ito*bottlenecks*piety
-	bonfires*nodes*basses
-	***enid*acres*hoot***
-	accede*sloan*gilligan
-	bridesmaid*inordinate
-	eater*once*zonal*glow
-	dyers*beer*enemy*sept
+	toes*alibi*baja*ababa
+	abby*manes*egos*caleb
+	seersucker*dissociate
+	synapses*adele*corral
+	***cued*heave*scud***
+	absurd*delhi*spaniard
+	tress*artillerist*bar
+	lice*grit***mini*robe
+	abo*bellyache*somalis
+	sentinel*door**nevins
+	**dozen*lowry*fades**
+	slater**eras*relishes
+	aerator*venezuela*mao
+	bail*safe***idly*peru
+	eve*likelihoods*rants
+	restated*lenny*martha
+	***enid*flees*five***
+	sparse*peels*baseness
+	harrisburg*egocentric
+	organ*emma*loser*aida
+	prong*gail*fasts*leer
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:31.291 (91291.000 ms)
+	runtime:      1:10.418 (70418.000 ms)
 	solutions:    1
-	propagations: 16179153
-	nodes:        70862
-	failures:     34637
-	restarts:     8
-	no-goods:     364
-	peak depth:   133
+	propagations: 3481805
+	nodes:        15381
+	failures:     7599
+	restarts:     5
+	no-goods:     211
+	peak depth:   107
 

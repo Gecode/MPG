@@ -1,27 +1,27 @@
 Crossword
-	acheval*thanahs*carrara
-	coalize*habitat*aliases
-	alumnae*erectly*libyans
-	cut*anselm*killicks*rai
-	imps*shaman*coarse*bums
-	abacs*orates*wrap*palet
-	sashcord*trade*nathless
-	***oose*dailies*riel***
-	aprons*ointments*leanto
-	railcards*ion*eagerness
-	angie*eolic*eelfare*mat
-	rave*scrod***elegy*dare
-	ore*matador*prase*putin
-	badgering*oba*redtapist
-	abayas*testatrix*epacts
-	***blee*dionaea*slit***
-	sapience*crams*palstave
-	laund*simi*taguan*talak
-	areg*stroll*repugn*simp
-	tor*etaerios*scarab*bow
-	enigmas*sagitta*anatase
-	rilievi*ananias*annabel
-	scepses*languet*lactase
+	catawba*acreage*caranna
+	heinous*paysfor*orarion
+	arpents*preterm*regmata
+	roc*seacob*habitans*get
+	abac*ashram*ranula*gala
+	ditas*sitcom*cens*tares
+	ecstasis*hooch*decimate
+	***amen*concrew*ahab***
+	grilse*bolshevik*aristo
+	responsum*eat*nectaries
+	avian*clift*endarts*mat
+	nids*saice***assai*torr
+	dso*plumbum*aghas*scopa
+	porphyrio*ait*arhythmic
+	areole*coalsacks*arista
+	***toss*kraaled*alec***
+	taffetas*graal*sneaksby
+	imaum*puku*cyanin*metro
+	pail*thrust*anadem*daud
+	pre*beefteas*dralon*til
+	langaha*cystoid*idolise
+	encored*hesione*deliver
+	steanes*adorned*allness
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:59.044 (119044.000 ms)
+	runtime:      2:02.679 (122679.000 ms)
 	solutions:    1
-	propagations: 3604989
-	nodes:        21351
-	failures:     9872
-	restarts:     5
-	no-goods:     277
+	propagations: 1919334
+	nodes:        11361
+	failures:     5492
+	restarts:     4
+	no-goods:     256
 	peak depth:   163
 

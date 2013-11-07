@@ -1,27 +1,27 @@
 Crossword
-	ababa*prima*alcoa*toper
-	degenerated*maori*inane
-	electrocardiogram*rerun
-	park*agile*beset*sesame
-	tyson*ray*web*robed*mew
-	***nasal*farad*rat*her*
-	sri*dam*pitiers*yucatan
-	candid*santa*eat*pareto
-	utter*picas*gator*peril
-	beef*goren*audited*siva
-	adrenal*scans*natos*zen
-	**dramas*edits*lusaka**
-	fee*berea*atone*relater
-	arpa*diploma*earns*pine
-	brent*sills*jeres*spoon
-	longed*aid*dazed*chance
-	endears*seceded*mae*she
-	*eel*ian*roles*deneb***
-	ion*fetal*lad*set*pablo
-	succor*macon*danes*neal
-	asian*heterogeneousness
-	alert*elide*intersperse
-	cysts*wyner*lyons*arson
+	adams*accra*epoch*appia
+	disappeared*papua*leans
+	extraordinariness*darts
+	lied*dared*agent*cesare
+	eerie*ted*fir*solon*mat
+	***safes*silas*mac*dec*
+	wei*sad*polemic*colette
+	hunter*faber*nap*aeneas
+	altos*sines*scrap*verbs
+	leer*sober*cheetah*bile
+	erratum*lethe*dirac*zen
+	**rhodes*drier*ottawa**
+	abe*wader*altar*aerates
+	bald*natalie*peaks*gilt
+	braes*yukon*phase*roomy
+	obtain*pep*deals*cannel
+	tainted*decades*jab*sri
+	*roe*aim*zonal*cubic***
+	son*creon*nil*san*draco
+	hushes*naive*mario*iran
+	ashen*miscellaneousness
+	flirt*acton*interrogate
+	types*payne*deans*beset
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      7:09.147 (429147.000 ms)
+	runtime:      6:18.566 (378566.000 ms)
 	solutions:    1
-	propagations: 83954467
-	nodes:        351399
-	failures:     174439
-	restarts:     12
-	no-goods:     472
-	peak depth:   174
+	propagations: 23865337
+	nodes:        111121
+	failures:     55370
+	restarts:     9
+	no-goods:     371
+	peak depth:   161
 

@@ -1,19 +1,19 @@
 Crossword
-	akin*utah*repel
-	vane*saga*inane
-	insulator*glide
-	storage*drainer
-	**mode*abe*very
-	denny*grouse***
-	axis*praisingly
-	tea*feebler*rio
-	accuracies*ness
-	***myriad*guest
-	chap*can*wick**
-	regimen*warlike
-	aware*idealized
-	metes*zeal*deed
-	press*elks*espy
+	alga*bead*osaka
+	lard*anti*villa
+	anomalies*adair
+	recited*salerno
+	**eros*den*amen
+	abram*linger***
+	rail*mastermind
+	abe*sincere*mae
+	bystanders*damn
+	***honors*beget
+	chao*own*bali**
+	redrawn*bikinis
+	elder*ejaculate
+	pleat*robe*area
+	torus*seep*hymn
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      12.076 (12076.000 ms)
+	runtime:      17.831 (17831.000 ms)
 	solutions:    1
-	propagations: 1089270
-	nodes:        4578
-	failures:     2259
+	propagations: 713951
+	nodes:        3120
+	failures:     1530
 	restarts:     2
-	no-goods:     46
-	peak depth:   73
+	no-goods:     57
+	peak depth:   68
 

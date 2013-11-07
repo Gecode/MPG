@@ -1,27 +1,27 @@
 Crossword
-	scrolls*screams*suspect
-	plateau*trivial*estella
-	loiters*auberge*maureen
-	its*repels*redesign*van
-	cued*serial*ravine*lane
-	erred*candor*lena*dater
-	restarts*ecole*orbiters
-	***eros*drawing*save***
-	learns*listeners*gasser
-	expresses*ere*attentive
-	acted*combs*daniels*lid
-	kind*tonio***gapes*send
-	ate*parasol*goren*dance
-	gospelers*ego*instances
-	ensure*decorated*incest
-	***mind*donates*grit***
-	artistic*namer*presides
-	reach*gate*sergei*hoist
-	cole*heresy*sorted*nasa
-	ape*deserted*reeves*leg
-	densest*romania*evening
-	intense*ageless*romance
-	assayed*nanette*snigger
+	schemas*airfare*sabbath
+	alabama*smolder*allegra
+	gambled*speeder*reunion
+	gum*endear*delaware*tug
+	idea*denier*detect*vase
+	nitty*nilsen*care*dater
+	gathered*slept*enticers
+	***laid*heavier*siva***
+	access*bartender*gandhi
+	chatterer*ere*seventeen
+	caves*hands*suppers*cat
+	eras*hirey***sours*fore
+	nil*lindsey*dents*baden
+	torpedoes*ewe*seasoners
+	styled*defaulted*coarse
+	***awed*dashers*past***
+	chicanas*state*dentists
+	honey*rest*neared*scare
+	outs*skated*stones*slit
+	ode*montanan*mussel*aft
+	sincere*denizen*tremble
+	endures*ireland*availer
+	sisters*assents*lenders
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2 days, 19:01:22.345 (241282345.000 ms)
+	runtime:      19:18:53.082 (69533082.000 ms)
 	solutions:    1
-	propagations: 3570556601
-	nodes:        155527780
-	failures:     77758415
-	restarts:     27
-	no-goods:     1988
-	peak depth:   284
+	propagations: 2379632333
+	nodes:        10673073
+	failures:     5336199
+	restarts:     21
+	no-goods:     1311
+	peak depth:   251
 

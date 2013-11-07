@@ -1,27 +1,27 @@
 Crossword
-	reship*shtetl*ewe*lahti
-	elpaso*pahari*ciclatoun
-	coelenterates*bluemerle
-	ada*realales*moirai*sip
-	pekoe*elsan*pilei*adept
-	sair*bless*penises*aft*
-	**nide*resurrect*tamara
-	dagging*diseurs*larmier
-	attiring*celts*membered
-	gauntness*fiz*lamias***
-	abbas*iterum*tigons*das
-	bael*israel*salina*wept
-	als*arsine*remand*pampa
-	***prions*pea*corsetier
-	infradig*vapor*toltecan
-	carabid*pesewas*parrals
-	erinys*pentalpha*saar**
-	*rec*eternal*aitch*gapo
-	roses*orfes*arrah*decad
-	awl*chisel*antabuse*tui
-	dianoetic*availableness
-	innermost*ransel*ararat
-	ogdon*ita*elates*gemels
+	arcana*suchas*una*truss
+	seldom*inhale*perchance
+	quadragesimal*saloonbar
+	uri*shareman*uptill*era
+	agree*graal*preen*isaac
+	teat*saame*musangs*arb*
+	**urde*servitors*caudad
+	moderns*daikons*jambees
+	orinasal*sorns*palladio
+	ogenmelon*los*teslas***
+	lenes*truman*crapes*kat
+	vats*swipes*chasid*caro
+	its*ptoses*brigid*cutin
+	***phares*gau*inearthed
+	titlarks*farms*galapago
+	enrages*fidgets*natures
+	laager*cobdenite*aero**
+	*ida*scaured*graip*smee
+	adult*algid*smirk*peels
+	mac*randal*stanhope*tut
+	abidances*sparganiaceae
+	slaisters*rimier*ecarte
+	sends*rae*inpart*semsem
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:32.543 (92543.000 ms)
+	runtime:      6:06.179 (366179.000 ms)
 	solutions:    1
-	propagations: 2671072
-	nodes:        13267
-	failures:     6128
-	restarts:     4
-	no-goods:     202
-	peak depth:   167
+	propagations: 5996402
+	nodes:        32372
+	failures:     15926
+	restarts:     6
+	no-goods:     324
+	peak depth:   171
 

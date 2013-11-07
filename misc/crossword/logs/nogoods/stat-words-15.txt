@@ -1,19 +1,19 @@
 Crossword
-	babbage*promise
-	unaided*radioed
-	stimson*endowed
-	silo*dales*cady
-	***dee*anode***
-	arkansan*mental
-	shillings*merge
-	kin*actuate*ore
-	ender*saturated
-	dosage*geniuses
-	***sense*its***
-	slat*gases*twos
-	coleman*minerva
-	average*maureen
-	reenter*antenna
+	science*cascade
+	carrara*aliased
+	aviator*parried
+	bess*sneer*gary
+	***its*armco***
+	barnabas*shears
+	emigrants*asset
+	gig*brewing*ice
+	anise*watergate
+	nodule*regional
+	***bland*and***
+	hats*reset*solo
+	abilene*widened
+	allowed*evinced
+	getters*seeders
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:19.176 (79176.000 ms)
+	runtime:      6:52.855 (412855.000 ms)
 	solutions:    1
-	propagations: 9727804
-	nodes:        47214
-	failures:     23313
-	restarts:     7
-	no-goods:     152
-	peak depth:   75
+	propagations: 17559880
+	nodes:        87391
+	failures:     43599
+	restarts:     9
+	no-goods:     274
+	peak depth:   87
 

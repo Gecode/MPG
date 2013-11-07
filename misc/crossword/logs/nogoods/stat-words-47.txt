@@ -1,27 +1,27 @@
 Crossword
-	awesome*coastal*atlanta
-	bananas*anatole*woodard
-	rudders*perilla*aliased
-	ape*scan*noll*veils*tar
-	haag*hygiene*melts*bite
-	acres*suds*spanks*glees
-	masted*yost*ages*guards
-	***seidel*hound*calm***
-	map*torn*versa*nobleman
-	arachne*rosie*waals*are
-	lathe*woolen*bible*alma
-	abrade*oats*wall*soccer
-	riot*mazda*ballad*atone
-	ian*heres*babka*alkalis
-	answered*malay*phil*mat
-	***alga*ponds*gilead***
-	castle*boca*hard*sneers
-	erato*hinkle*gags*depot
-	pins*hands*varying*rite
-	had*synge*dine*nora*saw
-	edmonds*rainier*rosetta
-	unaware*electra*eviller
-	senegal*disease*deafest
+	ghanian*bazaars*chapels
+	reticle*overlap*laramie
+	artless*babbage*america
+	moe*dots*iron*cares*new
+	mist*popular*micky*gene
+	antic*rape*sloane*sense
+	resell*rods*idle*seated
+	***reopen*pales*parr***
+	bad*aged*cabal*allusive
+	avignon*aztec*gleam*nan
+	laces*street*priam*bell
+	litter*arcs*arab*iberia
+	alas*allah*alibis*altar
+	set*smoky*plums*carting
+	trespass*dogma*bulb*ate
+	***made*milan*ordeal***
+	regina*weak*isle*cravat
+	earls*kidnap*tins*adele
+	brae*cilia*alundum*sham
+	ann*santo*grad*alar*imp
+	tedious*croatia*fiancee
+	espouse*readied*unfolds
+	stanley*extends*retreat
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:45.243 (105243.000 ms)
+	runtime:      4:22.611 (262611.000 ms)
 	solutions:    1
-	propagations: 12738872
-	nodes:        76430
-	failures:     36795
-	restarts:     8
-	no-goods:     543
-	peak depth:   215
+	propagations: 15440598
+	nodes:        100418
+	failures:     49833
+	restarts:     9
+	no-goods:     677
+	peak depth:   205
 

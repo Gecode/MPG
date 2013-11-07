@@ -1,25 +1,25 @@
 Crossword
-	upload*babbage*salaam
-	sloane*arragon*arable
-	hankel*seaborg*nebula
-	eng*whitney*tiles*sun
-	reel*ideas*honer*cede
-	strom*ads*waned*baser
-	***boa***lew***fur***
-	bipeds*waupaca*erased
-	abases*initial*encode
-	let*madras*iran*tamil
-	arts*meet***amid*safe
-	niece*stow*omelet*lit
-	carols*aligned*thrice
-	ensure*perilla*eraser
-	***roe***ivy***rot***
-	carey*paine*age*befog
-	abed*ching*groan*slur
-	ira*baird*somatic*ate
-	malton*biscuit*olivia
-	admire*ariadne*barons
-	nester*garbage*emerge
+	access*malabar*salaam
+	bright*asinine*uganda
+	ranger*scandal*padded
+	ode*austere*lager*elm
+	alma*teens*rotor*erie
+	deans*add*caged*pusan
+	***ice***cap***big***
+	postal*schmitt*exerts
+	oceans*phaedra*tenure
+	net*tidied*sikh*liman
+	tate*earl***bier*amid
+	inert*disc*runner*ale
+	airmen*teaming*meager
+	casino*savages*ulcers
+	***ned***era***sit***
+	annex*isaac*erg*comic
+	bees*edict*broad*ruth
+	rag*franc*grabber*the
+	urania*because*bazaar
+	petals*adapter*agency
+	treble*densest*rental
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      28.003 (28003.000 ms)
+	runtime:      27.503 (27503.000 ms)
 	solutions:    1
-	propagations: 3162004
-	nodes:        22083
-	failures:     10322
-	restarts:     5
-	no-goods:     338
-	peak depth:   178
+	propagations: 1428358
+	nodes:        10812
+	failures:     5235
+	restarts:     4
+	no-goods:     315
+	peak depth:   179
 

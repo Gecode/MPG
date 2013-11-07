@@ -1,25 +1,25 @@
 Crossword
-	gautama*miami*elkhart
-	abrades*organ*panacea
-	liggett*booth*iciness
-	ali*nearing*asset*tit
-	hens*dials*alloy*bode
-	angus*rye*plead*caner
-	despises*cod*peerless
-	***pros*coded*stem***
-	spleen*marines*hashed
-	hairs*babka*sheik*ada
-	eyes*minis*dirac*budd
-	leg*satin*barer*solid
-	fresco*aerated*halsey
-	***parr*tiled*palo***
-	likelier*ned*telegram
-	amend*leads*bar*snore
-	band*reads*geoff*aura
-	ego*waals*vessels*ten
-	listens*omens*cochise
-	enhance*rosie*truants
-	dearths*betel*saddest
+	albania*blase*habitat
+	raiders*laban*anatole
+	rotates*adele*missile
+	act*sneaked*memos*lit
+	noel*essen*raven*fish
+	goren*sky*baser*canoe
+	ensnares*tub*realigns
+	***ibid*areas*deer***
+	beheld*frantic*gashes
+	arena*dacca*nadir*art
+	salt*foray*bakes*mine
+	asp*dread*betel*doria
+	leslie*dialers*morsel
+	***avon*ababa*demo***
+	tasmania*abe*selector
+	ocean*class*hap*score
+	scar*cease*earls*oats
+	hub*danny*elliott*she
+	isotope*lares*raritan
+	berates*urine*evident
+	arguers*mckay*departs
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      55.554 (55554.000 ms)
+	runtime:      1:07.844 (67844.000 ms)
 	solutions:    1
-	propagations: 8854308
-	nodes:        48070
-	failures:     23059
-	restarts:     7
-	no-goods:     313
-	peak depth:   169
+	propagations: 2650707
+	nodes:        14361
+	failures:     7011
+	restarts:     5
+	no-goods:     202
+	peak depth:   141
 

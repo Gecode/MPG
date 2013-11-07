@@ -1,27 +1,27 @@
 Crossword
-	brands*maine*adds*waldo
-	repeat*actor*diet*alien
-	actinometers*aspersions
-	nullary*amman*move*ante
-	dry**era***teletex*seat
-	***jakarta*zooms**hells
-	cesare*mama*nab*sped***
-	entice*erase*nectar*mac
-	deem*parasite*roar*sana
-	amperes**sacrament*agar
-	ram*irked**haler*shield
-	**ohm*smear*since*ill**
-	esteem*impel**tears*lag
-	mohr*allotment**restate
-	idea*cain*yearning*anon
-	tar*depose*speed*ermine
-	***weds*tag*seal*nieces
-	allow**arrow*stereos***
-	dear*alfalfa***sir**mew
-	anus*dirt*franc*baklava
-	portfolios*bloodstained
-	trier*acre*ladle*online
-	seedy*case*essen*reacts
+	operas*mardi*afar*abaft
+	piracy*avian*rena*salle
+	eliminations*travesties
+	recoded*steel*obey*abet
+	ash**ran***concede*vice
+	***segment*trail**riser
+	dmitri*paws*ego*maya***
+	aeneas*amain*supine*web
+	nice*talented*sand*char
+	terrain**guarantee*lisa
+	ere*scalp**lager*scotty
+	**ark*loads*bosom*age**
+	assess*urine**snarl*sal
+	rain*iliadizes**relapse
+	anne*gasp*practice*data
+	bag*amdahl*acrid*spaced
+	***clay*eel*hale*tapers
+	troll**brave*peasant***
+	race*shannon***sob**spa
+	acta*hera*vella*flashes
+	changeable*mountaineers
+	tense*rein*aorta*stella
+	sleet*drag*spain*henley
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:52.450 (112450.000 ms)
+	runtime:      3:55.701 (235701.000 ms)
 	solutions:    1
-	propagations: 20383354
-	nodes:        110399
-	failures:     54268
-	restarts:     9
-	no-goods:     411
-	peak depth:   173
+	propagations: 13628478
+	nodes:        69740
+	failures:     34650
+	restarts:     8
+	no-goods:     431
+	peak depth:   170
 

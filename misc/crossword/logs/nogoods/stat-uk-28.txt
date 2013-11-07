@@ -1,23 +1,23 @@
 Crossword
-	shah*haaf*octa*palp
-	lady*anta*maam*alae
-	alap*zoic*anti*lamb
-	memoriatechnica*baa
-	***gaes*maa**abbe**
-	coheir*bab*kabbalah
-	ahead*dan*awdl*glee
-	pia**ean*arede**eon
-	aorists*gyals*amend
-	**taha*caaba*chat**
-	fohns*bigha*gascoal
-	abe**dares*dam**ida
-	liar*eked*fab*omlah
-	lavaboes*aid*spaers
-	**igad**ain*alar***
-	can*davidandgoliath
-	hied*nana*ahab*abba
-	odso*darg*comb*naam
-	case*slee*sway*acre
+	alec*caff*sybo*scab
+	data*orra*coax*arba
+	anal*aeon*ugli*webb
+	waltzingmatilda*maa
+	***rata*ada**ache**
+	maraca*fid*bestadde
+	aleph*dal*base*herl
+	age**gab*racks**lab
+	sanddab*fancy*adage
+	**dail*candy*abac**
+	abomb*garda*chakras
+	bar**babar*baa**ela
+	else*igad*bab*caman
+	teetotal*fad*razeed
+	**mads**ais*dado***
+	ene*electrokinetics
+	kens*idea*choc*ikat
+	kata*carp*hate*sora
+	apse*emes*etas*enow
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      9.890 (9890.000 ms)
+	runtime:      13.868 (13868.000 ms)
 	solutions:    1
-	propagations: 467978
-	nodes:        13274
-	failures:     5843
-	restarts:     4
-	no-goods:     63
+	propagations: 265183
+	nodes:        21655
+	failures:     10404
+	restarts:     6
+	no-goods:     93
 	peak depth:   161
 
