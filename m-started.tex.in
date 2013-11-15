@@ -893,10 +893,6 @@ To setup Gecode for your particular system, you may need to add
 one or more of the following options to \?configure?:
 
 \begin{itemize}
-\item When using the GNU compiler gcc on Windows instead of the Microsoft
-   compiler, add
-   \?CC=gcc CXX=g++? to your
-   invocation of \?configure?.
 \item To install Gecode somewhere else than the default
    \?/usr/local?, please use the commandline \?--prefix=[...]? switch.
 \item You can enable and disable the individual modules Gecode consists of
@@ -1026,13 +1022,7 @@ needs.
 
 \subsubsection{Example configurations}
 
-To compile Gecode on a \textbf{Windows machine using the GNU compiler}, use
-
-\begin{cmd}
-./configure CC=gcc CXX=g++
-\end{cmd}
-
-\noindent To compile only the Gecode library \textbf{without examples} on a Unix machine, use
+To compile only the Gecode library \textbf{without examples} on a Unix machine, use
 
 \begin{cmd}
 ./configure --disable-examples
@@ -1051,15 +1041,6 @@ inlining anything, use
 \begin{cmd}
 ./configure --enable-debug
 \end{cmd}
-
-\noindent To compile on \textbf{Cygwin}, but linking against the \textbf{Windows 
-libraries} instead of the Cygwin libraries, use
-
-\begin{cmd}
-./configure CC="gcc-4 -mno-cygwin" CXX="g++-4 -mno-cygwin"
-\end{cmd}
-Note that we only support building static libraries on Cygwin and that
-you cannot use the standard gcc that comes with Cygwin. 
 
 \noindent To compile on a system using a different than the default compiler,
 and a \?/bin/sh? that is not bash compatible (for example, on a
