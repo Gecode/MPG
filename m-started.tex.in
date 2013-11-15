@@ -870,7 +870,7 @@ We currently support:
 \item Microsoft Visual \CPP{} compilers for Windows. The Microsoft
   Visual \CPP{} Express Edition is available free of charge
   from \AURL{http://www.microsoft.com/Express}{Microsoft}.
-\item GNU Compiler Collection (gcc) for Windows and Unix flavors
+\item GNU Compiler Collection (gcc) for Unix flavors
   such as Linux and MacOS X. The GNU gcc is open source software
   and available from \AURL{http://gcc.gnu.org/}{the GCC home
     page}. It is included in all Linux distributions and the
