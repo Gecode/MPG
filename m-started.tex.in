@@ -796,9 +796,9 @@ Microsoft Visual Studio. Note that Visual Express
 Editions are available free of charge from 
 \AURL{http://www.microsoft.com/Express}{Microsoft}.
 
-Pre-compiled binaries are available for Microsoft Visual
-\CPP~2008 and~2010. The binary
-packages include everything needed (in particular, Qt for Gist).
+Pre-compiled binaries are available for several versions of
+Microsoft Visual \CPP. The binary packages include everything
+needed (in particular, Qt for Gist).
 
 \tip{Compiling on Windows for \?x86? versus \?x64?}{
 \label{tip:m:started:x86x64}%
@@ -807,7 +807,7 @@ on Gecode's website offers Windows packages for two different
 platforms: one for \?x86? (32~bit) and one for \?x64? (64~bit).
 When downloading and installing one of these packages you should
 make sure that the package's platform matches the compiler you are using
-(the Windows platform does not matter). The freely available
+(the Windows platform does not matter). Some freely available
 Express Editions of Visual Studio only support \?x86?.
 }
 
