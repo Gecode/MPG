@@ -2075,7 +2075,7 @@ an example using the no-overlap constraint, see
 \\
 \ncarc[arcangleA=30,arcangleB=30]{->}{0}{1}%
 \ncline{->}{0}{2}%
-\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{0}{3}%
 \ncarc[arcangleA=30,arcangleB=30]{->}{1}{2}%
 \ncarc[arcangleA=30,arcangleB=30]{->}{1}{0}%
 \ncarc[arcangleA=30,arcangleB=30]{->}{2}{3}%
@@ -2183,7 +2183,7 @@ $$
 \\
 \ncarc[arcangleA=30,arcangleB=30]{->}{0}{1}%
 \ncline{->}{0}{2}%
-\ncarc[arcangleA=30,arcangleB=30]{->}{3}{0}%
+\ncarc[arcangleA=30,arcangleB=30]{->}{0}{3}%
 \ncarc[arcangleA=30,arcangleB=30]{->}{1}{2}%
 \ncarc[arcangleA=30,arcangleB=30]{->}{1}{0}%
 \ncarc[arcangleA=30,arcangleB=30]{->}{2}{3}%
