@@ -303,6 +303,8 @@ URL class Gecode::Int::Arithmetic::NaryMaxBnd classGecode_1_1Int_1_1Arithmetic_1
 URL class Gecode::Int::Arithmetic::NaryMaxDom classGecode_1_1Int_1_1Arithmetic_1_1NaryMaxDom.html
 URL class Gecode::Int::Arithmetic::NrootBnd classGecode_1_1Int_1_1Arithmetic_1_1NrootBnd.html
 URL class Gecode::Int::Arithmetic::NrootDom classGecode_1_1Int_1_1Arithmetic_1_1NrootDom.html
+URL class Gecode::Int::Arithmetic::NrootPlusBnd classGecode_1_1Int_1_1Arithmetic_1_1NrootPlusBnd.html
+URL class Gecode::Int::Arithmetic::NrootPlusDom classGecode_1_1Int_1_1Arithmetic_1_1NrootPlusDom.html
 URL class Gecode::Int::Arithmetic::PowBnd classGecode_1_1Int_1_1Arithmetic_1_1PowBnd.html
 URL class Gecode::Int::Arithmetic::PowDom classGecode_1_1Int_1_1Arithmetic_1_1PowDom.html
 URL class Gecode::Int::Arithmetic::PowOps classGecode_1_1Int_1_1Arithmetic_1_1PowOps.html
@@ -314,6 +316,10 @@ URL class Gecode::Int::Arithmetic::SqrOps classGecode_1_1Int_1_1Arithmetic_1_1Sq
 URL class Gecode::Int::Arithmetic::ValuesMapNroot classGecode_1_1Int_1_1Arithmetic_1_1ValuesMapNroot.html
 URL class Gecode::Int::Arithmetic::ValuesMapNrootSigned classGecode_1_1Int_1_1Arithmetic_1_1ValuesMapNrootSigned.html
 URL class Gecode::Int::Arithmetic::ValuesMapPow classGecode_1_1Int_1_1Arithmetic_1_1ValuesMapPow.html
+URL class Gecode::Int::BinPacking::ConflictGraph classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph.html
+URL class Gecode::Int::BinPacking::ConflictGraph::Neighbors classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1Neighbors.html
+URL class Gecode::Int::BinPacking::ConflictGraph::NodeSet classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1NodeSet.html
+URL class Gecode::Int::BinPacking::ConflictGraph::Nodes classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1Nodes.html
 URL class Gecode::Int::BinPacking::Item classGecode_1_1Int_1_1BinPacking_1_1Item.html
 URL class Gecode::Int::BinPacking::Pack classGecode_1_1Int_1_1BinPacking_1_1Pack.html
 URL class Gecode::Int::BinPacking::SizeSet classGecode_1_1Int_1_1BinPacking_1_1SizeSet.html
@@ -868,6 +874,7 @@ URL class Gecode::Search::CutoffGeometric classGecode_1_1Search_1_1CutoffGeometr
 URL class Gecode::Search::CutoffLinear classGecode_1_1Search_1_1CutoffLinear.html
 URL class Gecode::Search::CutoffLuby classGecode_1_1Search_1_1CutoffLuby.html
 URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.html
+URL class Gecode::Search::CutoffRepeat classGecode_1_1Search_1_1CutoffRepeat.html
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
 URL class Gecode::Search::Meta::NoGoodsProp classGecode_1_1Search_1_1Meta_1_1NoGoodsProp.html
@@ -1058,6 +1065,7 @@ URL class Gecode::Support::LinearCongruentialGenerator classGecode_1_1Support_1_
 URL class Gecode::Support::Lock classGecode_1_1Support_1_1Lock.html
 URL class Gecode::Support::Mutex classGecode_1_1Support_1_1Mutex.html
 URL class Gecode::Support::QuickSortStack classGecode_1_1Support_1_1QuickSortStack.html
+URL class Gecode::Support::RawBitSetBase classGecode_1_1Support_1_1RawBitSetBase.html
 URL class Gecode::Support::Runnable classGecode_1_1Support_1_1Runnable.html
 URL class Gecode::Support::StaticStack classGecode_1_1Support_1_1StaticStack.html
 URL class Gecode::Support::Thread classGecode_1_1Support_1_1Thread.html
@@ -1131,6 +1139,7 @@ URL class ManFixPTask classManFixPTask.html
 URL class ManFlexTask classManFlexTask.html
 URL class MineSweeper classMineSweeper.html
 URL class Money classMoney.html
+URL class MultiBinPacking classMultiBinPacking.html
 URL class Nonogram classNonogram.html
 URL class OpenShop classOpenShop.html
 URL class OpenShop::PrintTask classOpenShop_1_1PrintTask.html
@@ -1797,6 +1806,10 @@ URL example money money_8cpp.html
 TITLE example money "SEND+MORE=MONEY puzzle"
 URL example money:Money money_8cpp.html
 TITLE example money:Money "SEND+MORE=MONEY puzzle"
+URL example multi-bin-packing multi-bin-packing_8cpp.html
+TITLE example multi-bin-packing "Multi-dimensional bin packing"
+URL example multi-bin-packing:MultiBinPacking multi-bin-packing_8cpp.html
+TITLE example multi-bin-packing:MultiBinPacking "Multi-dimensional bin packing"
 URL example nonogram nonogram_8cpp.html
 TITLE example nonogram "Nonogram"
 URL example nonogram:Nonogram nonogram_8cpp.html
@@ -1930,6 +1943,7 @@ URL file examples/magic-sequence.cpp magic-sequence_8cpp.html
 URL file examples/magic-square.cpp magic-square_8cpp.html
 URL file examples/minesweeper.cpp minesweeper_8cpp.html
 URL file examples/money.cpp money_8cpp.html
+URL file examples/multi-bin-packing.cpp multi-bin-packing_8cpp.html
 URL file examples/nonogram.cpp nonogram_8cpp.html
 URL file examples/open-shop.cpp open-shop_8cpp.html
 URL file examples/ortho-latin.cpp ortho-latin_8cpp.html
@@ -2074,7 +2088,6 @@ URL file gecode/int/arithmetic.cpp gecode_2int_2arithmetic_8cpp.html
 URL file gecode/int/arithmetic.hh int_2arithmetic_8hh.html
 URL file gecode/int/arithmetic/abs.hpp abs_8hpp.html
 URL file gecode/int/arithmetic/divmod.hpp divmod_8hpp.html
-URL file gecode/int/arithmetic/math.hpp math_8hpp.html
 URL file gecode/int/arithmetic/max.hpp max_8hpp.html
 URL file gecode/int/arithmetic/mult.cpp mult_8cpp.html
 URL file gecode/int/arithmetic/mult.hpp int_2arithmetic_2mult_8hpp.html
@@ -2086,6 +2099,8 @@ URL file gecode/int/array.cpp gecode_2int_2array_8cpp.html
 URL file gecode/int/array.hpp int_2array_8hpp.html
 URL file gecode/int/bin-packing.cpp gecode_2int_2bin-packing_8cpp.html
 URL file gecode/int/bin-packing.hh bin-packing_8hh.html
+URL file gecode/int/bin-packing/conflict-graph.cpp conflict-graph_8cpp.html
+URL file gecode/int/bin-packing/conflict-graph.hpp conflict-graph_8hpp.html
 URL file gecode/int/bin-packing/propagate.cpp propagate_8cpp.html
 URL file gecode/int/bin-packing/propagate.hpp bin-packing_2propagate_8hpp.html
 URL file gecode/int/bool.cpp gecode_2int_2bool_8cpp.html

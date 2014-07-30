@@ -1,5 +1,5 @@
-VERSION = 4.2.1
-YEAR    = 2013
+VERSION = 4.2.2
+YEAR    = 2014
 
 CHAPSRC = \
 	intro \

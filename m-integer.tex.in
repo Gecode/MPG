@@ -1862,7 +1862,11 @@ on~\cite{MehlhornThiel:CP:2000}
 \label{sec:m:integer:bpp}
 
 \gecoderef[group]{TaskModelIntBinPacking} constrain how items
-can be packed into bins. The bin-packing constraint is posted as
+can be packed into bins. 
+
+\paragraph{Single-dimensional bin-packing constraints.}
+
+The bin-packing constraint is posted as
 \begin{code}
 binpacking(home, l, b, s);
 \end{code}
@@ -1902,6 +1906,80 @@ a specialized branching for bin-packing, see
 \autoref{chap:c:bpp} and
 \gecoderef[example]{bin-packing}.
 
+\paragraph{Multi-dimensional bin-packing constraints.}
+
+The multi-dimensional bin-packing constraint is posted as
+\begin{code}
+binpacking(home, d, l, b, s, c);
+\end{code}
+where \?d? is a positive integer (the \emph{dimension}), \?l? is
+an array of integer variables (the \emph{load} variables), \?b?
+is an array of integer variables (the \emph{bin} variables), \?s?
+is an array of non-negative integers (the item \emph{sizes}), and
+\?c? is an array of non-negative integers (the bin
+\emph{capacities}).
+
+In the following $n$ refers to the number of items and $m$ refers
+to the number of bins.  The bin variables~\?b? determine for each
+item~$i$ ($0\leq i<n$) into which bin~$\mathtt{b}_i$ it is
+packed.  The load variables \?l?  determine the load
+$\mathtt{l}_{j\cdot \mathtt{d} + k}$ for each bin~$j$ ($0\leq
+j<m$) and dimension~$k$ ($0\leq k<\mathtt{d}$).  The
+size of an item~$i$ ($0\leq i<n$) in dimension~$k$ ($0\leq
+k<\mathtt{d}$) is defined by the item size
+$\mathtt{s}_{i\cdot\mathtt{d} + k}$. The capacity of all bins~$j$
+($0\leq j<m)$ in dimension~$k$ ($0\leq k<\mathtt{d}$) is defined
+by $\mathtt{c}_k$. Naturally, the number of bin variables, load
+variables, item sizes, and capacities must satisfy that
+$|\mathtt{b}|=n$, $|\mathtt{l}|=m\cdot\mathtt{d}$,
+$|\mathtt{s}|=n\cdot\mathtt{d}$, and $|\mathtt{c}|=\mathtt{d}$.
+
+The multi-dimensional bin-packing constraint enforces that
+all items are packed into bins
+$$
+\mathtt{b}_i\in\{0,\ldots,m-1\}
+\qquad\mbox{for }0\leq i<n
+$$
+and that the load of each bin corresponds to
+the items packed into it for each dimension
+$$
+\mathtt{l}_{j\cdot \mathtt{d} + k} 
+= 
+\sum_{\setc{i\in\{0,\ldots,n-1\}}%
+{\mathtt{b}_{j\cdot\mathtt{d}+k}=i}}\mathtt{s}_{i\cdot\mathtt{d}+k}
+\qquad\mbox{for }0\leq j<m, 0\leq k<\mathtt{d}
+$$
+Furthermore, the load variables must satisfy the capacity
+constraints
+$$
+\mathtt{l}_{j\cdot \mathtt{d} + k} \leq \mathtt{c}_k
+\qquad\mbox{for }0\leq j<m, 0\leq k<\mathtt{d}
+$$
+
+In addition to posting propagators, the post function
+\begin{code}
+IntSet m = binpacking(home, d, l, b, s, c);
+\end{code}
+returns an integer set~\?m? of type \gecoderef[class]{IntSet}.
+The set~\?m? contains a maximal number of conflicting items that must be
+packed into pairwise distinct bins where the items are chosen to
+maximize the conflict with other items. This information can be used
+for symmetry breaking.
+
+\begin{important}
+  Posting the constraint (not propagating it) has exponential
+  complexity in the number of items. This is due to the use of
+  the Bron-Kerbosch algorithm~\cite{BronKerbosch:1973,CazalsKarande:2008} for
+  finding all sets of conflicting items.
+\end{important}
+
+The constraint is implemented by the decomposition introduced
+in~\cite{GualandiLombardi:2013} using a single-dimensional
+bin-packing constraint for each dimension together with derived
+constraints capturing capacity conflicts. 
+For an example using the multi-dimensional bin-packing
+constraint see
+\gecoderef[example]{multi-bin-packing}.
 
 
 
