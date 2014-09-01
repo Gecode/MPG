@@ -8,6 +8,10 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 \begin{changelog}
+  \cle{2014-09-01}{Released for Gecode 4.3.0}
+  \cle{2014-07-27}{Documented multi-dimensional bin-packing
+    constraints. 
+    (see \autoref{sec:m:integer:bpp})}
   \cle[\AckName{Léonard}{Benedetti}]{2014-06-30}{Added missing
     edges in \autoref{fig:m:integer:circuit} and
     \autoref{fig:m:integer:costcircuit}}
