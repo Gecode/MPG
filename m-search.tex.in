@@ -793,7 +793,7 @@ as cutoff-measure). When search reaches the cutoff, it is stopped
 and then restarted with a new and typically increased cutoff.
 
 The whole point of restarting search is that it is not restarted
-on exactly the same problem but on a slightly modified or
+on exactly the same problem but on a modified or
 re-configured problem. Possible modifications include but are not
 limited to:
 \begin{itemize}
@@ -816,13 +816,20 @@ limited to:
   prevent the restarted search to make decisions during search
   that lead to failure in the stopped search. No-goods are
   discussed in detail in \autoref{sec:m:search:nogoods}.
+\item The next search ``keeps'' only a randomly selected part of
+  a previous solution and tries to find a different solution.
+  This is often used for optimization problems and is known as
+  LNS (Large Neighborhood Search)~\cite{LNS}. How restart-based
+  can be used for LNS is discussed in
+  \autoref{sec:m:search:restart:lns}.
 \end{itemize}
 
 For an example illustrating the effect of restart-based search,
 see \autoref{sec:c:crossword:info}. A general overview of
 restart-based search can be found in~\cite{vanBeek:CPH:2006}.
 
-\paragraph{Restart-based search as a meta search engine.}
+\subsection{Restart-based search as a meta search engine}
+\label{sec:m:search:restart:meta}
 
 Restart-based search in Gecode is implemented as a \emph{meta
   search engine}: the meta search engine uses one of the Gecode
@@ -847,7 +854,7 @@ RBS<DFS,Script> e(s,o);
 \end{code}
 Now \?e? implements exactly the same interface as the normal
 engines (that is, \?next()? to request the next solution,
-\?statistics()? to return the meta engine's statistic, \?stopped()?
+\?statistics()? to return the meta engine's statistic, and \?stopped()?
 to check whether the meta engine has been stopped).
 
 The meta engine honors all search options as discussed in
@@ -867,14 +874,17 @@ either a search engine or the restart-based meta search engine is
 used for search. See \autoref{sec:m:driver:options} for details.
 }
 
-\paragraph{Cutoff generators.}
+\subsection{Cutoff generators}
+\label{sec:m:search:restart:cutoff}
 
 The meta engine uses a cutoff generator that generates a sequence
 of cutoff values. A cutoff generator must be implemented by
 inheriting from the class \gecoderef[class]{Search::Cutoff}. This
-abstract class requires that a virtual member function
-\?operator()()? is implemented returning on each call the next
-cutoff value (of type \?unsigned long int?).
+abstract class requires that two virtual member functions
+\?operator()()? and \?operator++()? are implemented, where the
+first returns the current cutoff value and the second increments
+to the next cutoff value and returns it. Cutoff values are of
+type \?unsigned long int?.
 
 When using the restart meta engine, an instance of a subclass of
 \gecoderef[class]{Search::Cutoff} must be passed to the engine by
@@ -888,7 +898,7 @@ o.cutoff = c;
 RBS<DFS,Script> e(s,o);
 \end{code}
 
-Gecode provides three different commonly used cutoff generators:
+Gecode provides some commonly used cutoff generators:
 \begin{description}
 \item[Geometric.] A geometric cutoff sequence is defined by the
   scale-factor \?s? and the base \?b?. Then, the sequence
@@ -981,6 +991,21 @@ $$
 Search::Cutoff* c = Search::Cutoff::append(c1,n,c2);
 \end{smallcode}
 
+\item[Merge.] A merged cutoff sequence \?c? for values
+  from the cutoff sequence $\mathtt{c}_1$ (with values
+  $k_0,k_1,k_2,\ldots$) merged with the values
+  from the cutoff sequence $\mathtt{c}_2$ (with values
+  $l_0,l_1,l_2,\ldots$) consists of the following values:
+  $$
+   k_0,l_0,k_1,l_1,k_2,l_2,\ldots
+  $$
+  A cutoff generator \?c? for a merged cutoff sequence with
+  values from cutoff generator
+  \?c1? merged with values from cutoff generator \?c2? is created by:
+\begin{smallcode}
+Search::Cutoff* c = Search::Cutoff::merge(c1,c2);
+\end{smallcode}
+
 \item[Repeat.] A repeated cutoff sequence \?c? with repeat factor
   \?n? (of type \?unsigned long int?) 
   for the cutoff sequence $\mathtt{c}'$ (with values
@@ -1007,7 +1032,8 @@ Search::Cutoff* c = Search::Cutoff::repeat(c1,n);
 \end{description}
 
 
-\paragraph{Asking for a solution.}
+\subsection{Computing a next solution}
+\label{sec:m:search:restart:next}
 
 When the restart meta engine is asked for a next solution by
 calling \?next()?, there are three possible scenarios:
@@ -1016,9 +1042,14 @@ calling \?next()?, there are three possible scenarios:
   \?NULL? in case there are no more solutions or the engine has
   been stopped). Deleting the
   space is as with other engines the responsibility of the meta
-  engine's user. Asking the meta engine for another solution will
-  be using the current cutoff value (minus the failed nodes it
-  took to find the current solution).
+  engine's user. 
+
+  By default, asking the meta engine for another solution will
+  perform a restart. However, this behavior can be changed such
+  that the current cutoff value (minus the failed nodes it
+  took to find the current solution) is used for finding a next
+  solution. For details, see
+  \autoref{sec:m:search:restart:configure}.
 \item The meta engine reaches the current cutoff value. It
   restarts search with the next cutoff value.
 \item The meta engine is stopped by the stop object passed to
@@ -1028,57 +1059,204 @@ calling \?next()?, there are three possible scenarios:
 \end{itemize}
 
 
-\paragraph{Master and slave configuration.}
+\subsection{Master and slave configuration}
+\label{sec:m:search:restart:configure}
 
 The meta engine maintains a \emph{master} space and each time the
 meta engine performs a restart, it passes a \emph{slave} space (a
 clone of the master space) to the engine. Configuration is as
-follows: the master is configured, the slave is created, and then
-the slave is configured.
+follows: the master is configured, the slave is created as a
+clone of the master, and then
+the slave is configured. Initially, when the meta engine starts
+and creates a first slave space, it also configures the slave
+space.
 
 More accurately, it leaves the actual configuration to the user:
 it calls the virtual member function \?master()? on the master
 space and then calls the virtual member function \?slave()?  on
-the slave space. In that way, by redefining \?master()? and
-\?slave()? the user can control how master and slave are being
-configured (this is exactly the same idea how \?constrain()?
-works for best solution search). By default, every space
-implements the two member functions \?master()? and
-\?slave()?. While the default \?slave()? function does nothing,
-the default \?master()? function posts no-goods as explained in
-\autoref{sec:m:search:nogoods}. 
+the slave space. As mentioned above, the \?slave()? function is
+also called the first time a slave is created. In that way, by
+redefining \?master()? and \?slave()? the user can control how
+master and slave are being configured (this is exactly the same
+idea how \?constrain()?  works for best solution search).
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{function} & 
+\multicolumn{1}{c|}{type} & 
+\multicolumn{1}{c|}{meaning} \\
+\hline\hline
+\?restart()? & \?unsigned long int? & number of restart\\
+\?solution()? & \?unsigned long int? & number of solutions since
+last restart\\
+\?fail()? & \?unsigned long int? & number of failures since
+last restart\\
+\?last()? & \?const Space*? & last solution found (or \?NULL?)\\
+\?nogoods()? & \?const NoGoods&? & no-goods recorded from restart\\
+\hline
+\end{tabular}
+\end{center}
+\caption[Current restart information]{Current restart information
+member functions}
+\label{fig:m:search:cri}
+\end{figure}
+
+By default, every space implements the two member functions
+\?master()? and \?slave()?. Both functions take an argument of
+class \gecoderef[class]{CRI} (for \textbf{c}urrent
+\textbf{r}estart \textbf{i}nformation) that contains information
+about the current restart. The class \?CRI? provides the member
+functions as shown in \autoref{fig:m:search:cri}.
+
+The default \?slave()? function does nothing. The default
+\?master()? function does the following:
+\begin{itemize}
+\item It calls the \?constrain()? member function with the last
+  solution found as argument (if a solution has already been
+  found).
+\item It possibly posts no-goods as explained in
+  \autoref{sec:m:search:nogoods}.
+\item It returns \?true? forcing a restart even if a solution
+  has been found. Returning \?false? instead would continue
+  search without a restart.
+\end{itemize}
 
 For example, a class \?Script? can define the member functions as
 follows:
 \begin{code}
 class Script : public Space {
   ...
-  virtual void master(unsigned long int i, const Space* s,
-                      NoGoods& ng) {
+  virtual bool master(const CRI& cri) {
     // Configure the master
     ...
+    // Whether to restart or not
+    return true;
   }
-  virtual void slave(unsigned long int i, const Space* s) {
+  virtual void slave(const CRI& cri) {
     // Configure the slave
     ...
   }
 };
 \end{code}
-where \?i? is the number of the restart (starting from $0$,
-meaning that \?master()? and \?slave()? are called before
-exploration actually starts). The space \?s? passed refers either
-to a solution or is \?NULL? in case the meta engine performs a
-restart because it reached the cutoff value. The no-goods \?ng?
-of class \gecoderef[class]{NoGoods} are explained in
-\autoref{sec:m:search:nogoods}.
+
+\begin{figure}
+\begin{code}
+virtual bool master(const CRI& cri) {
+  if (cri.last() != NULL)
+    constrain(*cri.last());
+  cri.nogoods().post(*this);
+  return true;
+}
+void Space::slave(const CRI&) {
+}
+\end{code}
+\caption{Default \?master()? and \?slave()? functions}
+\label{fig:m:search:restart:default}
+\end{figure}
+
+The default \?master()? and \?slave()? member functions are shown
+in \autoref{fig:m:search:restart:default}.
 
 
-\paragraph{Interaction with best solution search.}
+\subsection{Large Neighborhood Search}
+\label{sec:m:search:restart:lns}
 
-In case you want to use the restart meta engine together with
-best solution search, the \?constrain()? function is called on
-the master space by the restart meta engine just before the
-\?master()? function is called on the master space.
+The design of restart-based search in Gecode is general enough to
+support LNS (Large Neighborhood Search)~~\cite{LNS}. The idea of
+LNS is quite simple, where LNS looks for a good solution:
+\begin{itemize}
+\item Search finds a first solution where typically preference is
+  given to find a reasonably good solution quickly.
+\item During LNS, a new problem is generated that only keeps part
+  of the so-far best solution (typically, the part to keep is
+  randomly selected). This is often referred to as
+  \emph{relaxing} the so-far best solution. Then, search tries
+  to find a next and better solution within a given cutoff.
+
+  If the cutoff is reached without finding a solution, search can
+  either decide to terminate or randomly retry again.
+\end{itemize}
+
+\begin{litcode}[texonly]{model sketch for LNS}
+class Model : public Space {
+protected:
+  Rnd r;
+public:
+  Model(void) : ... {
+    // Initialize master
+    \begin{litblock}{anonymous}
+    \end{litblock}
+  }
+  void first(void) {
+    // Initialize slave for first solution
+    \begin{litblock}{anonymous}
+    \end{litblock}
+  }
+  void next(const Model& b) {
+    // Initialize slave for next solution
+    \begin{litblock}{anonymous}
+    \end{litblock}
+  }
+  \begin{litblock}{anonymous}
+  \end{litblock}
+  \begin{litblock}{slave function}
+  virtual void master(slave CRI& cri) {
+    if (cri.restart() == 0)
+      first();
+    else
+      next(static_cast<const Model&>(*cri.last()));
+  }
+  \end{litblock}
+  virtual bool master(const CRI& cri) {
+    \begin{litblock}{anonymous}
+    if (cri.last() != NULL)
+      constrain(*cri.last());
+    cri.nogoods().post(*this);
+    return true;
+    \end{litblock}
+  }
+};
+\end{litcode}
+
+\begin{figure}
+\insertlitcode{model sketch for LNS}
+\caption{Model sketch for LNS}
+\label{fig:m:search:restart:sketch}
+\end{figure}
+
+\autoref{fig:m:search:restart:sketch} sketches a model that
+supports LNS. The constructor \?Model()? initializes the model
+with all variables and constraints that are common for
+finding the first solution as well as for finding further
+solutions. Note that the model has a random number generator of
+class \gecoderef[class]{Rnd} as member \?r? to illustrate that
+typically some form of randomness is needed for
+restarting. However, in a real life problem additional data
+structures might be needed.
+
+The \?first()? function is responsible for posting additional
+constraints and branchings such that search can find the first
+solution. The \?next()? function takes the so-far best solution
+\?b? and posts additional constraints and branchings to find a
+next and better solution than \?b?. This will typically mean that
+some but not all variables in the current space are assigned to
+values as defined by the so-far best solution \?b? or that
+additional constraints are posted that depend on \?b?.
+
+\begin{samepage}
+Both \?first()? and \?best()? are executed on the slave space
+when the restart-based search engine performs a restart or
+executes search for the first time. This can be achieved by
+defining the \?slave()? function as follows:
+\insertlitcode{model sketch for LNS:slave function}
+\end{samepage}
+The default \?master()? function as shown in
+\autoref{sec:m:search:restart:configure} is already general
+enough to support LNS.
+
+
 
 
 \section{No-goods from restarts}
@@ -1215,17 +1393,19 @@ When the restart-based search engine reaches the current cutoff
 limit or finds a solution it calls the \?master()? member
 function as discussed in the previous section.
 
-The last argument that is passed to the master function is a
-no-good of class \gecoderef[class]{NoGoods}. It has really only
+From the argument of class \gecoderef[class]{CRI} that is passed to the \?master()? function a
+no-good of class \gecoderef[class]{NoGoods} can be retrieved by
+calling the \?nogoods()? function. A no-good It has really only
 \?post()? as its single important member function. The following
 \?master()? function posts all constraints corresponding to the
 no-goods that can be derived from a restart (this is also the
 default \?master()? function defined by the class
-\gecoderef[class]{Space}):
+\gecoderef[class]{Space}, see also \autoref{sec:m:search:restart:configure}):
 \begin{code}
-virtual void master(unsigned long int i, const Space* s,
-                    NoGoods& ng) {
-  ng.post(*this);
+virtual bool master(const CRI& cri) {
+  ...
+  cri.nogoods().post(*this);
+  ...
 }
 \end{code}
 
@@ -1269,7 +1449,7 @@ extracted. However, this comes at a cost:
   no-good gets, the less useful it gets: the likelihood that all
   literals but one are subsumed but not failed (which is required
   for propagation) decreases.
-\item When the no-goods are posted a single propagator for all
+\item When the no-goods are posted, a single propagator for all
   no-goods is created. This propagator requires $O(n)$ memory for
   $n$ no-good literals. Hence, increasing the depth limit also
   increases the memory required by the propagator.
@@ -1294,13 +1474,14 @@ slightly more complicated: the solution might not be excluded if
 it has been found at a depth that exceeds the no-good depth
 limit.
 
-If no-goods should not be recorded when a solution has been
+If no-goods should not be posted when a solution has been
 found, the \?master()? function can be redefined as:
 \begin{code}
-virtual void master(unsigned long int i, const Space* s,
-                    NoGoods& ng) {
-  if (s == NULL)
-    ng.post(*this);
+virtual bool master(const CRI& cri) {
+  ...
+  if (cri.solution() == 0)
+    cri.nogoods().post(*this);
+  ...
 }
 \end{code}
 

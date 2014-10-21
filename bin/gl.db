@@ -84,6 +84,7 @@ URL class Gecode::BranchTraits<IntVar> classGecode_1_1BranchTraits_3_01IntVar_01
 URL class Gecode::BranchTraits<SetVar> classGecode_1_1BranchTraits_3_01SetVar_01_4.html
 URL class Gecode::Brancher classGecode_1_1Brancher.html
 URL class Gecode::BrancherHandle classGecode_1_1BrancherHandle.html
+URL class Gecode::CRI classGecode_1_1CRI.html
 URL class Gecode::Choice classGecode_1_1Choice.html
 URL class Gecode::ChooseMax classGecode_1_1ChooseMax.html
 URL class Gecode::ChooseMin classGecode_1_1ChooseMin.html
@@ -317,7 +318,8 @@ URL class Gecode::Int::Arithmetic::ValuesMapNroot classGecode_1_1Int_1_1Arithmet
 URL class Gecode::Int::Arithmetic::ValuesMapNrootSigned classGecode_1_1Int_1_1Arithmetic_1_1ValuesMapNrootSigned.html
 URL class Gecode::Int::Arithmetic::ValuesMapPow classGecode_1_1Int_1_1Arithmetic_1_1ValuesMapPow.html
 URL class Gecode::Int::BinPacking::ConflictGraph classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph.html
-URL class Gecode::Int::BinPacking::ConflictGraph::Neighbors classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1Neighbors.html
+URL class Gecode::Int::BinPacking::ConflictGraph::Clique classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1Clique.html
+URL class Gecode::Int::BinPacking::ConflictGraph::Node classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1Node.html
 URL class Gecode::Int::BinPacking::ConflictGraph::NodeSet classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1NodeSet.html
 URL class Gecode::Int::BinPacking::ConflictGraph::Nodes classGecode_1_1Int_1_1BinPacking_1_1ConflictGraph_1_1Nodes.html
 URL class Gecode::Int::BinPacking::Item classGecode_1_1Int_1_1BinPacking_1_1Item.html
@@ -1336,8 +1338,11 @@ URL class Test::Int::Arithmetic::SqrtXY classTest_1_1Int_1_1Arithmetic_1_1SqrtXY
 URL class Test::Int::Assignment classTest_1_1Int_1_1Assignment.html
 URL class Test::Int::Basic::Basic classTest_1_1Int_1_1Basic_1_1Basic.html
 URL class Test::Int::BinPacking::BPT classTest_1_1Int_1_1BinPacking_1_1BPT.html
+URL class Test::Int::BinPacking::CliqueMBPT classTest_1_1Int_1_1BinPacking_1_1CliqueMBPT.html
+URL class Test::Int::BinPacking::CliqueMBPT::TestSpace classTest_1_1Int_1_1BinPacking_1_1CliqueMBPT_1_1TestSpace.html
 URL class Test::Int::BinPacking::Create classTest_1_1Int_1_1BinPacking_1_1Create.html
 URL class Test::Int::BinPacking::LoadBinAssignment classTest_1_1Int_1_1BinPacking_1_1LoadBinAssignment.html
+URL class Test::Int::BinPacking::MBPT classTest_1_1Int_1_1BinPacking_1_1MBPT.html
 URL class Test::Int::Bool::BinConstXX classTest_1_1Int_1_1Bool_1_1BinConstXX.html
 URL class Test::Int::Bool::BinConstXY classTest_1_1Int_1_1Bool_1_1BinConstXY.html
 URL class Test::Int::Bool::BinXXX classTest_1_1Int_1_1Bool_1_1BinXXX.html
