@@ -240,17 +240,6 @@ function. Furthermore, the Gecode kernel must be informed that
 the \?dispose()? function must be called when the propagator's home
 space is deleted, see \autoref{sec:p:started:waive}.
 
-\paragraph{Reporting allocated memory.}
-
-A propagator that has allocated non-space memory must implement
-the virtual member function \?allocated()? that returns the
-amount (as a value of type \?size_t?) of non-space memory
-allocated by the propagator. The function \?allocated()? is used
-by the function \?allocated()? for a space to compute the total
-amount of memory allocated by a space. Note that only propagators
-are considered that have registered for disposal with a space
-(only these propagators can have non-space memory allocated anyway).
-
 
 \paragraph{When to allocate.}
 
