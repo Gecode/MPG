@@ -9,6 +9,7 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2014-11-06}{Released for Gecode 4.3.2}
   \cle{2014-10-22}{Released for Gecode 4.3.1}
   \cle{2014-10-20}{Documented changed restart-based search in
     \autoref{sec:m:search:restart} and added information on how
