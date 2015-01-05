@@ -1110,7 +1110,14 @@ class \gecoderef[class]{CRI} (for \textbf{c}urrent
 about the current restart. The class \?CRI? provides the member
 functions as shown in \autoref{fig:m:search:cri}.
 
-The default \?slave()? function does nothing. The default
+The default \?slave()? function does nothing and returns \?true?, indicating
+that the search in the slave space is going to be complete. This means that if
+the search in the slave space finishes exhaustively, the meta search will also
+finish. Returning \?false? instead would indicate that the slave search is
+incomplete, for example if it only explores a limited neighbourhood of the
+previous solution.
+
+The default
 \?master()? function does the following:
 \begin{itemize}
 \item It calls the \?constrain()? member function with the last
@@ -1134,22 +1141,25 @@ class Script : public Space {
     // Whether to restart or not
     return true;
   }
-  virtual void slave(const CRI& cri) {
+  virtual bool slave(const CRI& cri) {
     // Configure the slave
     ...
+    // Search is complete
+    return true;
   }
 };
 \end{code}
 
 \begin{figure}
 \begin{code}
-virtual bool master(const CRI& cri) {
+virtual bool Space::master(const CRI& cri) {
   if (cri.last() != NULL)
     constrain(*cri.last());
   cri.nogoods().post(*this);
   return true;
 }
-void Space::slave(const CRI&) {
+virtual bool Space::slave(const CRI&) {
+  return true;
 }
 \end{code}
 \caption{Default \?master()? and \?slave()? functions}
@@ -1202,11 +1212,14 @@ public:
   \begin{litblock}{anonymous}
   \end{litblock}
   \begin{litblock}{slave function}
-  virtual void master(slave CRI& cri) {
-    if (cri.restart() == 0)
+  virtual bool slave(const CRI& cri) {
+    if (cri.restart() == 0) {
       first();
-    else
+      return true;
+    } else {
       next(static_cast<const Model&>(*cri.last()));
+      return false;
+    }
   }
   \end{litblock}
   virtual bool master(const CRI& cri) {
@@ -1246,10 +1259,13 @@ values as defined by the so-far best solution \?b? or that
 additional constraints are posted that depend on \?b?.
 
 \begin{samepage}
-Both \?first()? and \?best()? are executed on the slave space
+Both \?first()? and \?next()? are executed on the slave space
 when the restart-based search engine performs a restart or
 executes search for the first time. This can be achieved by
-defining the \?slave()? function as follows:
+defining the \?slave()? function as follows. Note how it returns \?true?
+to indicate that the search is going to be complete for the first restart,
+but \?false? for subsequent restarts, which only explore a neighbourhood and
+are therefore incomplete:
 \insertlitcode{model sketch for LNS:slave function}
 \end{samepage}
 The default \?master()? function as shown in
