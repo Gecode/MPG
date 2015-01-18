@@ -142,6 +142,7 @@ URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
+URL class Gecode::FlatZinc::FznRnd classGecode_1_1FlatZinc_1_1FznRnd.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
 URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
 URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
@@ -290,6 +291,7 @@ URL class Gecode::Int::ArgumentSame classGecode_1_1Int_1_1ArgumentSame.html
 URL class Gecode::Int::ArgumentSizeMismatch classGecode_1_1Int_1_1ArgumentSizeMismatch.html
 URL class Gecode::Int::Arithmetic::AbsBnd classGecode_1_1Int_1_1Arithmetic_1_1AbsBnd.html
 URL class Gecode::Int::Arithmetic::AbsDom classGecode_1_1Int_1_1Arithmetic_1_1AbsDom.html
+URL class Gecode::Int::Arithmetic::ArgMax classGecode_1_1Int_1_1Arithmetic_1_1ArgMax.html
 URL class Gecode::Int::Arithmetic::DivBnd classGecode_1_1Int_1_1Arithmetic_1_1DivBnd.html
 URL class Gecode::Int::Arithmetic::DivMod classGecode_1_1Int_1_1Arithmetic_1_1DivMod.html
 URL class Gecode::Int::Arithmetic::DivPlusBnd classGecode_1_1Int_1_1Arithmetic_1_1DivPlusBnd.html
@@ -436,8 +438,6 @@ URL class Gecode::Int::Distinct::TerDom classGecode_1_1Int_1_1Distinct_1_1TerDom
 URL class Gecode::Int::Distinct::Val classGecode_1_1Int_1_1Distinct_1_1Val.html
 URL class Gecode::Int::Dom::ReIntSet classGecode_1_1Int_1_1Dom_1_1ReIntSet.html
 URL class Gecode::Int::Dom::ReRange classGecode_1_1Int_1_1Dom_1_1ReRange.html
-URL class Gecode::Int::Element::IdxView classGecode_1_1Int_1_1Element_1_1IdxView.html
-URL class Gecode::Int::Element::IdxViewArray classGecode_1_1Int_1_1Element_1_1IdxViewArray.html
 URL class Gecode::Int::Element::Int classGecode_1_1Int_1_1Element_1_1Int.html
 URL class Gecode::Int::Element::Int::ByVal classGecode_1_1Int_1_1Element_1_1Int_1_1ByVal.html
 URL class Gecode::Int::Element::Int::IdxVal classGecode_1_1Int_1_1Element_1_1Int_1_1IdxVal.html
@@ -454,12 +454,6 @@ URL class Gecode::Int::Element::RelTestDom<VA,ConstIntView> classGecode_1_1Int_1
 URL class Gecode::Int::Element::View classGecode_1_1Int_1_1Element_1_1View.html
 URL class Gecode::Int::Element::ViewBnd classGecode_1_1Int_1_1Element_1_1ViewBnd.html
 URL class Gecode::Int::Element::ViewDom classGecode_1_1Int_1_1Element_1_1ViewDom.html
-URL class Gecode::Int::Element::ViewToVarArg classGecode_1_1Int_1_1Element_1_1ViewToVarArg.html
-URL class Gecode::Int::Element::ViewToVarArg<BoolView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01BoolView_01_4.html
-URL class Gecode::Int::Element::ViewToVarArg<Gecode::Set::ConstSetView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1ConstSetView_01_4.html
-URL class Gecode::Int::Element::ViewToVarArg<Gecode::Set::SetView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SetView_01_4.html
-URL class Gecode::Int::Element::ViewToVarArg<Gecode::Set::SingletonView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SingletonView_01_4.html
-URL class Gecode::Int::Element::ViewToVarArg<IntView> classGecode_1_1Int_1_1Element_1_1ViewToVarArg_3_01IntView_01_4.html
 URL class Gecode::Int::Exec::When classGecode_1_1Int_1_1Exec_1_1When.html
 URL class Gecode::Int::Extensional::Base classGecode_1_1Int_1_1Extensional_1_1Base.html
 URL class Gecode::Int::Extensional::Basic classGecode_1_1Int_1_1Extensional_1_1Basic.html
@@ -504,6 +498,8 @@ URL class Gecode::Int::GCC::Val classGecode_1_1Int_1_1GCC_1_1Val.html
 URL class Gecode::Int::GCC::ValNode classGecode_1_1Int_1_1GCC_1_1ValNode.html
 URL class Gecode::Int::GCC::VarNode classGecode_1_1Int_1_1GCC_1_1VarNode.html
 URL class Gecode::Int::GCC::VarValGraph classGecode_1_1Int_1_1GCC_1_1VarValGraph.html
+URL class Gecode::Int::IdxView classGecode_1_1Int_1_1IdxView.html
+URL class Gecode::Int::IdxViewArray classGecode_1_1Int_1_1IdxViewArray.html
 URL class Gecode::Int::IllegalOperation classGecode_1_1Int_1_1IllegalOperation.html
 URL class Gecode::Int::IntDelta classGecode_1_1Int_1_1IntDelta.html
 URL class Gecode::Int::IntVarImp classGecode_1_1Int_1_1IntVarImp.html
@@ -731,6 +727,13 @@ URL class Gecode::Int::ViewRanges<MinusView> classGecode_1_1Int_1_1ViewRanges_3_
 URL class Gecode::Int::ViewRanges<NegBoolView> classGecode_1_1Int_1_1ViewRanges_3_01NegBoolView_01_4.html
 URL class Gecode::Int::ViewRanges<OffsetView> classGecode_1_1Int_1_1ViewRanges_3_01OffsetView_01_4.html
 URL class Gecode::Int::ViewRanges<ZeroIntView> classGecode_1_1Int_1_1ViewRanges_3_01ZeroIntView_01_4.html
+URL class Gecode::Int::ViewToVarArg classGecode_1_1Int_1_1ViewToVarArg.html
+URL class Gecode::Int::ViewToVarArg<BoolView> classGecode_1_1Int_1_1ViewToVarArg_3_01BoolView_01_4.html
+URL class Gecode::Int::ViewToVarArg<Gecode::Set::ConstSetView> classGecode_1_1Int_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1ConstSetView_01_4.html
+URL class Gecode::Int::ViewToVarArg<Gecode::Set::SetView> classGecode_1_1Int_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SetView_01_4.html
+URL class Gecode::Int::ViewToVarArg<Gecode::Set::SingletonView> classGecode_1_1Int_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SingletonView_01_4.html
+URL class Gecode::Int::ViewToVarArg<IntView> classGecode_1_1Int_1_1ViewToVarArg_3_01IntView_01_4.html
+URL class Gecode::Int::ViewToVarArg<MinusView> classGecode_1_1Int_1_1ViewToVarArg_3_01MinusView_01_4.html
 URL class Gecode::Int::ViewValGraph::BiLink classGecode_1_1Int_1_1ViewValGraph_1_1BiLink.html
 URL class Gecode::Int::ViewValGraph::CombPtrFlag classGecode_1_1Int_1_1ViewValGraph_1_1CombPtrFlag.html
 URL class Gecode::Int::ViewValGraph::Edge classGecode_1_1Int_1_1ViewValGraph_1_1Edge.html
@@ -875,6 +878,7 @@ URL class Gecode::Search::CutoffConstant classGecode_1_1Search_1_1CutoffConstant
 URL class Gecode::Search::CutoffGeometric classGecode_1_1Search_1_1CutoffGeometric.html
 URL class Gecode::Search::CutoffLinear classGecode_1_1Search_1_1CutoffLinear.html
 URL class Gecode::Search::CutoffLuby classGecode_1_1Search_1_1CutoffLuby.html
+URL class Gecode::Search::CutoffMerge classGecode_1_1Search_1_1CutoffMerge.html
 URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.html
 URL class Gecode::Search::CutoffRepeat classGecode_1_1Search_1_1CutoffRepeat.html
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
@@ -1212,6 +1216,7 @@ URL class Test::Branch::SetTest classTest_1_1Branch_1_1SetTest.html
 URL class Test::Branch::SetTestSpace classTest_1_1Branch_1_1SetTestSpace.html
 URL class Test::BrancherHandle classTest_1_1BrancherHandle.html
 URL class Test::BrancherHandle::TestSpace classTest_1_1BrancherHandle_1_1TestSpace.html
+URL class Test::FlatZinc::FlatZincTest classTest_1_1FlatZinc_1_1FlatZincTest.html
 URL class Test::Float::Arithmetic::AbsXX classTest_1_1Float_1_1Arithmetic_1_1AbsXX.html
 URL class Test::Float::Arithmetic::AbsXY classTest_1_1Float_1_1Arithmetic_1_1AbsXY.html
 URL class Test::Float::Arithmetic::Div classTest_1_1Float_1_1Arithmetic_1_1Div.html
@@ -1304,6 +1309,10 @@ URL class Test::Float::Trigonometric::TanXY classTest_1_1Float_1_1Trigonometric_
 URL class Test::Float::Trigonometric::TanXYSol classTest_1_1Float_1_1Trigonometric_1_1TanXYSol.html
 URL class Test::Int::Arithmetic::AbsXX classTest_1_1Int_1_1Arithmetic_1_1AbsXX.html
 URL class Test::Int::Arithmetic::AbsXY classTest_1_1Int_1_1Arithmetic_1_1AbsXY.html
+URL class Test::Int::Arithmetic::ArgMax classTest_1_1Int_1_1Arithmetic_1_1ArgMax.html
+URL class Test::Int::Arithmetic::ArgMaxShared classTest_1_1Int_1_1Arithmetic_1_1ArgMaxShared.html
+URL class Test::Int::Arithmetic::ArgMin classTest_1_1Int_1_1Arithmetic_1_1ArgMin.html
+URL class Test::Int::Arithmetic::ArgMinShared classTest_1_1Int_1_1Arithmetic_1_1ArgMinShared.html
 URL class Test::Int::Arithmetic::Create classTest_1_1Int_1_1Arithmetic_1_1Create.html
 URL class Test::Int::Arithmetic::Div classTest_1_1Int_1_1Arithmetic_1_1Div.html
 URL class Test::Int::Arithmetic::DivMod classTest_1_1Int_1_1Arithmetic_1_1DivMod.html
@@ -1666,9 +1675,9 @@ URL example all-interval all-interval_8cpp.html
 TITLE example all-interval "All-interval series"
 URL example all-interval:AllInterval all-interval_8cpp.html
 TITLE example all-interval:AllInterval "All-interval series"
-URL example alpha alpha_8cpp.html
+URL example alpha examples_2alpha_8cpp.html
 TITLE example alpha "Alpha puzzle"
-URL example alpha:Alpha alpha_8cpp.html
+URL example alpha:Alpha examples_2alpha_8cpp.html
 TITLE example alpha:Alpha "Alpha puzzle"
 URL example archimedean-spiral archimedean-spiral_8cpp.html
 TITLE example archimedean-spiral "Archimedean spiral"
@@ -1742,7 +1751,7 @@ TITLE example efpa "Equidistant Frequency Permutation Arrays"
 URL example efpa:EFPA efpa_8cpp.html
 TITLE example efpa:EFPA "Equidistant Frequency Permutation Arrays"
 URL example efpa:EFPAOptions efpa_8cpp.html
-URL example eq20 eq20_8cpp.html
+URL example eq20 examples_2eq20_8cpp.html
 TITLE example eq20 "Solving 20 linear equations"
 URL example golden-spiral golden-spiral_8cpp.html
 TITLE example golden-spiral "Golden spiral"
@@ -1779,17 +1788,17 @@ TITLE example kakuro "Kakuro"
 URL example kakuro:DistinctLinear kakuro_8cpp.html
 URL example kakuro:Kakuro kakuro_8cpp.html
 TITLE example kakuro:Kakuro "Kakuro"
-URL example knights knights_8cpp.html
+URL example knights examples_2knights_8cpp.html
 TITLE example knights "n-Knight's tour"
-URL example knights:Choice knights_8cpp.html
-URL example knights:Knights knights_8cpp.html
-URL example knights:KnightsCircuit knights_8cpp.html
+URL example knights:Choice examples_2knights_8cpp.html
+URL example knights:Knights examples_2knights_8cpp.html
+URL example knights:KnightsCircuit examples_2knights_8cpp.html
 TITLE example knights:KnightsCircuit "n-Knights tour (model using circuit)"
-URL example knights:KnightsInspector knights_8cpp.html
+URL example knights:KnightsInspector examples_2knights_8cpp.html
 TITLE example knights:KnightsInspector "n-Knight's tour"
-URL example knights:KnightsReified knights_8cpp.html
+URL example knights:KnightsReified examples_2knights_8cpp.html
 TITLE example knights:KnightsReified "n-Knight's tour (simple model)"
-URL example knights:Warnsdorff knights_8cpp.html
+URL example knights:Warnsdorff examples_2knights_8cpp.html
 URL example langford-number langford-number_8cpp.html
 TITLE example langford-number "Langford's number problem"
 URL example langford-number:LangfordNumber langford-number_8cpp.html
@@ -1839,9 +1848,9 @@ URL example perfect-square perfect-square_8cpp.html
 TITLE example perfect-square "Packing squares into a rectangle"
 URL example perfect-square:PerfectSquare perfect-square_8cpp.html
 TITLE example perfect-square:PerfectSquare "Packing squares into a rectangle"
-URL example photo photo_8cpp.html
+URL example photo examples_2photo_8cpp.html
 TITLE example photo "Placing people on a photo"
-URL example photo:Photo photo_8cpp.html
+URL example photo:Photo examples_2photo_8cpp.html
 TITLE example photo:Photo "Placing people on a photo"
 URL example queen-armies queen-armies_8cpp.html
 TITLE example queen-armies "Peaceable co-existing armies of queens"
@@ -1892,22 +1901,22 @@ URL example steiner steiner_8cpp.html
 TITLE example steiner "Steiner triples"
 URL example steiner:Steiner steiner_8cpp.html
 TITLE example steiner:Steiner "Steiner triples"
-URL example sudoku sudoku_8cpp.html
+URL example sudoku examples_2sudoku_8cpp.html
 TITLE example sudoku "Solving Sudoku puzzles using both set and integer"
-URL example sudoku:Sudoku sudoku_8cpp.html
-URL example sudoku:SudokuInt sudoku_8cpp.html
+URL example sudoku:Sudoku examples_2sudoku_8cpp.html
+URL example sudoku:SudokuInt examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuInt "Solving Sudoku puzzles using integer constraints"
-URL example sudoku:SudokuMixed sudoku_8cpp.html
+URL example sudoku:SudokuMixed examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuMixed "Solving Sudoku puzzles using both set and integer"
-URL example sudoku:SudokuSet sudoku_8cpp.html
+URL example sudoku:SudokuSet examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuSet "Solving Sudoku puzzles using set constraints"
 URL example tsp tsp_8cpp.html
 TITLE example tsp "Travelling salesman problem (TSP)"
 URL example tsp:TSP tsp_8cpp.html
 TITLE example tsp:TSP "Travelling salesman problem (TSP)"
-URL example warehouses warehouses_8cpp.html
+URL example warehouses examples_2warehouses_8cpp.html
 TITLE example warehouses "Locating warehouses"
-URL example warehouses:Warehouses warehouses_8cpp.html
+URL example warehouses:Warehouses examples_2warehouses_8cpp.html
 TITLE example warehouses:Warehouses "Locating warehouses"
 URL example word-square word-square_8cpp.html
 TITLE example word-square "Word-square puzzle"
@@ -1916,7 +1925,7 @@ TITLE example word-square:WordSquare "Word-square puzzle"
 URL file changelog.hh changelog_8hh.html
 URL file doxygen.hh doxygen_8hh.html
 URL file examples/all-interval.cpp all-interval_8cpp.html
-URL file examples/alpha.cpp alpha_8cpp.html
+URL file examples/alpha.cpp examples_2alpha_8cpp.html
 URL file examples/archimedean-spiral.cpp archimedean-spiral_8cpp.html
 URL file examples/bacp.cpp bacp_8cpp.html
 URL file examples/bibd.cpp bibd_8cpp.html
@@ -1933,7 +1942,7 @@ URL file examples/dominating-queens.cpp dominating-queens_8cpp.html
 URL file examples/domino.cpp domino_8cpp.html
 URL file examples/donald.cpp donald_8cpp.html
 URL file examples/efpa.cpp efpa_8cpp.html
-URL file examples/eq20.cpp eq20_8cpp.html
+URL file examples/eq20.cpp examples_2eq20_8cpp.html
 URL file examples/golden-spiral.cpp golden-spiral_8cpp.html
 URL file examples/golf.cpp golf_8cpp.html
 URL file examples/golomb-ruler.cpp golomb-ruler_8cpp.html
@@ -1942,7 +1951,7 @@ URL file examples/grocery.cpp grocery_8cpp.html
 URL file examples/hamming.cpp hamming_8cpp.html
 URL file examples/ind-set.cpp ind-set_8cpp.html
 URL file examples/kakuro.cpp kakuro_8cpp.html
-URL file examples/knights.cpp knights_8cpp.html
+URL file examples/knights.cpp examples_2knights_8cpp.html
 URL file examples/langford-number.cpp langford-number_8cpp.html
 URL file examples/magic-sequence.cpp magic-sequence_8cpp.html
 URL file examples/magic-square.cpp magic-square_8cpp.html
@@ -1955,7 +1964,7 @@ URL file examples/ortho-latin.cpp ortho-latin_8cpp.html
 URL file examples/partition.cpp partition_8cpp.html
 URL file examples/pentominoes.cpp pentominoes_8cpp.html
 URL file examples/perfect-square.cpp perfect-square_8cpp.html
-URL file examples/photo.cpp photo_8cpp.html
+URL file examples/photo.cpp examples_2photo_8cpp.html
 URL file examples/queen-armies.cpp queen-armies_8cpp.html
 URL file examples/queens.cpp queens_8cpp.html
 URL file examples/radiotherapy.cpp radiotherapy_8cpp.html
@@ -1965,9 +1974,9 @@ URL file examples/scowl.hpp scowl_8hpp.html
 URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
-URL file examples/sudoku.cpp sudoku_8cpp.html
+URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
-URL file examples/warehouses.cpp warehouses_8cpp.html
+URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
 URL file fzn-gecode.cpp fzn-gecode_8cpp.html
 URL file gecode/driver.hh driver_8hh.html
@@ -1975,10 +1984,10 @@ URL file gecode/driver/options.cpp driver_2options_8cpp.html
 URL file gecode/driver/options.hpp driver_2options_8hpp.html
 URL file gecode/driver/script.cpp script_8cpp.html
 URL file gecode/driver/script.hpp script_8hpp.html
-URL file gecode/flatzinc.hh flatzinc_8hh.html
+URL file gecode/flatzinc.hh gecode_2flatzinc_8hh.html
 URL file gecode/flatzinc/ast.hh ast_8hh.html
 URL file gecode/flatzinc/conexpr.hh conexpr_8hh.html
-URL file gecode/flatzinc/flatzinc.cpp flatzinc_8cpp.html
+URL file gecode/flatzinc/flatzinc.cpp gecode_2flatzinc_2flatzinc_8cpp.html
 URL file gecode/flatzinc/option.hh option_8hh.html
 URL file gecode/flatzinc/parser.hh parser_8hh.html
 URL file gecode/flatzinc/plugin.hh plugin_8hh.html
@@ -2092,6 +2101,7 @@ URL file gecode/int.hh gecode_2int_8hh.html
 URL file gecode/int/arithmetic.cpp gecode_2int_2arithmetic_8cpp.html
 URL file gecode/int/arithmetic.hh int_2arithmetic_8hh.html
 URL file gecode/int/arithmetic/abs.hpp abs_8hpp.html
+URL file gecode/int/arithmetic/argmax.hpp argmax_8hpp.html
 URL file gecode/int/arithmetic/divmod.hpp divmod_8hpp.html
 URL file gecode/int/arithmetic/max.hpp max_8hpp.html
 URL file gecode/int/arithmetic/mult.cpp mult_8cpp.html
@@ -2218,6 +2228,8 @@ URL file gecode/int/gcc/dom.hpp gcc_2dom_8hpp.html
 URL file gecode/int/gcc/post.hpp int_2gcc_2post_8hpp.html
 URL file gecode/int/gcc/val.hpp int_2gcc_2val_8hpp.html
 URL file gecode/int/gcc/view.hpp int_2gcc_2view_8hpp.html
+URL file gecode/int/idx-view.hh idx-view_8hh.html
+URL file gecode/int/idx-view.hpp idx-view_8hpp.html
 URL file gecode/int/int-set-1.hpp int-set-1_8hpp.html
 URL file gecode/int/int-set-2.hpp int-set-2_8hpp.html
 URL file gecode/int/int-set.cpp int-set_8cpp.html
@@ -2651,6 +2663,93 @@ URL file test/branch/float.cpp test_2branch_2float_8cpp.html
 URL file test/branch/int.cpp test_2branch_2int_8cpp.html
 URL file test/branch/set.cpp test_2branch_2set_8cpp.html
 URL file test/brancher-handle.cpp brancher-handle_8cpp.html
+URL file test/flatzinc.cpp test_2flatzinc_8cpp.html
+URL file test/flatzinc.hh test_2flatzinc_8hh.html
+URL file test/flatzinc/2dpacking.cpp 2dpacking_8cpp.html
+URL file test/flatzinc/alpha.cpp test_2flatzinc_2alpha_8cpp.html
+URL file test/flatzinc/battleships1.cpp battleships1_8cpp.html
+URL file test/flatzinc/battleships10.cpp battleships10_8cpp.html
+URL file test/flatzinc/battleships2.cpp battleships2_8cpp.html
+URL file test/flatzinc/battleships3.cpp battleships3_8cpp.html
+URL file test/flatzinc/battleships4.cpp battleships4_8cpp.html
+URL file test/flatzinc/battleships5.cpp battleships5_8cpp.html
+URL file test/flatzinc/battleships7.cpp battleships7_8cpp.html
+URL file test/flatzinc/battleships9.cpp battleships9_8cpp.html
+URL file test/flatzinc/blocksworld_instance_1.cpp blocksworld__instance__1_8cpp.html
+URL file test/flatzinc/blocksworld_instance_2.cpp blocksworld__instance__2_8cpp.html
+URL file test/flatzinc/bool_clause.cpp bool__clause_8cpp.html
+URL file test/flatzinc/bug232.cpp bug232_8cpp.html
+URL file test/flatzinc/bug319.cpp bug319_8cpp.html
+URL file test/flatzinc/bugfix_r6746.cpp bugfix__r6746_8cpp.html
+URL file test/flatzinc/bugfix_r7854.cpp bugfix__r7854_8cpp.html
+URL file test/flatzinc/cumulatives.cpp test_2flatzinc_2cumulatives_8cpp.html
+URL file test/flatzinc/cutstock.cpp cutstock_8cpp.html
+URL file test/flatzinc/empty_domain_1.cpp empty__domain__1_8cpp.html
+URL file test/flatzinc/empty_domain_2.cpp empty__domain__2_8cpp.html
+URL file test/flatzinc/eq20.cpp test_2flatzinc_2eq20_8cpp.html
+URL file test/flatzinc/factory_planning_instance.cpp factory__planning__instance_8cpp.html
+URL file test/flatzinc/golomb.cpp golomb_8cpp.html
+URL file test/flatzinc/int_set_as_type1.cpp int__set__as__type1_8cpp.html
+URL file test/flatzinc/int_set_as_type2.cpp int__set__as__type2_8cpp.html
+URL file test/flatzinc/jobshop.cpp jobshop_8cpp.html
+URL file test/flatzinc/jobshop2x2.cpp jobshop2x2_8cpp.html
+URL file test/flatzinc/knights.cpp test_2flatzinc_2knights_8cpp.html
+URL file test/flatzinc/langford2.cpp langford2_8cpp.html
+URL file test/flatzinc/latin_squares_fd.cpp latin__squares__fd_8cpp.html
+URL file test/flatzinc/magicsq_3.cpp magicsq__3_8cpp.html
+URL file test/flatzinc/magicsq_4.cpp magicsq__4_8cpp.html
+URL file test/flatzinc/magicsq_5.cpp magicsq__5_8cpp.html
+URL file test/flatzinc/multidim_knapsack_simple.cpp multidim__knapsack__simple_8cpp.html
+URL file test/flatzinc/no_warn_empty_domain.cpp no__warn__empty__domain_8cpp.html
+URL file test/flatzinc/oss.cpp oss_8cpp.html
+URL file test/flatzinc/output_test.cpp output__test_8cpp.html
+URL file test/flatzinc/packing.cpp packing_8cpp.html
+URL file test/flatzinc/perfsq.cpp perfsq_8cpp.html
+URL file test/flatzinc/perfsq2.cpp perfsq2_8cpp.html
+URL file test/flatzinc/photo.cpp test_2flatzinc_2photo_8cpp.html
+URL file test/flatzinc/product_fd.cpp product__fd_8cpp.html
+URL file test/flatzinc/product_lp.cpp product__lp_8cpp.html
+URL file test/flatzinc/quasigroup_qg5.cpp quasigroup__qg5_8cpp.html
+URL file test/flatzinc/queen_cp2.cpp queen__cp2_8cpp.html
+URL file test/flatzinc/queen_ip.cpp queen__ip_8cpp.html
+URL file test/flatzinc/queens4.cpp queens4_8cpp.html
+URL file test/flatzinc/radiation.cpp radiation_8cpp.html
+URL file test/flatzinc/sat_arith1.cpp sat__arith1_8cpp.html
+URL file test/flatzinc/sat_array_bool_and.cpp sat__array__bool__and_8cpp.html
+URL file test/flatzinc/sat_array_bool_or.cpp sat__array__bool__or_8cpp.html
+URL file test/flatzinc/sat_cmp_reif.cpp sat__cmp__reif_8cpp.html
+URL file test/flatzinc/sat_eq_reif.cpp sat__eq__reif_8cpp.html
+URL file test/flatzinc/simple_sat.cpp simple__sat_8cpp.html
+URL file test/flatzinc/singHoist2.cpp singHoist2_8cpp.html
+URL file test/flatzinc/steiner_triples.cpp steiner__triples_8cpp.html
+URL file test/flatzinc/sudoku.cpp test_2flatzinc_2sudoku_8cpp.html
+URL file test/flatzinc/template_design.cpp template__design_8cpp.html
+URL file test/flatzinc/tenpenki_1.cpp tenpenki__1_8cpp.html
+URL file test/flatzinc/tenpenki_2.cpp tenpenki__2_8cpp.html
+URL file test/flatzinc/tenpenki_3.cpp tenpenki__3_8cpp.html
+URL file test/flatzinc/tenpenki_4.cpp tenpenki__4_8cpp.html
+URL file test/flatzinc/tenpenki_5.cpp tenpenki__5_8cpp.html
+URL file test/flatzinc/tenpenki_6.cpp tenpenki__6_8cpp.html
+URL file test/flatzinc/test_approx_bnb.cpp test__approx__bnb_8cpp.html
+URL file test/flatzinc/test_array_just_right.cpp test__array__just__right_8cpp.html
+URL file test/flatzinc/test_assigned_var_bounds_bad.cpp test__assigned__var__bounds__bad_8cpp.html
+URL file test/flatzinc/test_flatzinc_output_anns.cpp test__flatzinc__output__anns_8cpp.html
+URL file test/flatzinc/test_fzn_arith.cpp test__fzn__arith_8cpp.html
+URL file test/flatzinc/test_fzn_arrays.cpp test__fzn__arrays_8cpp.html
+URL file test/flatzinc/test_fzn_coercions.cpp test__fzn__coercions_8cpp.html
+URL file test/flatzinc/test_fzn_comparison.cpp test__fzn__comparison_8cpp.html
+URL file test/flatzinc/test_fzn_logic.cpp test__fzn__logic_8cpp.html
+URL file test/flatzinc/test_fzn_sets.cpp test__fzn__sets_8cpp.html
+URL file test/flatzinc/test_int_div.cpp test__int__div_8cpp.html
+URL file test/flatzinc/test_int_mod.cpp test__int__mod_8cpp.html
+URL file test/flatzinc/test_int_ranges_as_values.cpp test__int__ranges__as__values_8cpp.html
+URL file test/flatzinc/test_seq_search.cpp test__seq__search_8cpp.html
+URL file test/flatzinc/timetabling.cpp timetabling_8cpp.html
+URL file test/flatzinc/trucking.cpp trucking_8cpp.html
+URL file test/flatzinc/warehouses.cpp test_2flatzinc_2warehouses_8cpp.html
+URL file test/flatzinc/warehouses_small.cpp warehouses__small_8cpp.html
+URL file test/flatzinc/wolf_goat_cabbage.cpp wolf__goat__cabbage_8cpp.html
+URL file test/flatzinc/zebra.cpp zebra_8cpp.html
 URL file test/float.cpp test_2float_8cpp.html
 URL file test/float.hh test_2float_8hh.html
 URL file test/float.hpp test_2float_8hpp.html
@@ -3209,6 +3308,7 @@ URL namespace Test namespaceTest.html
 URL namespace Test::Array namespaceTest_1_1Array.html
 URL namespace Test::Assign namespaceTest_1_1Assign.html
 URL namespace Test::Branch namespaceTest_1_1Branch.html
+URL namespace Test::FlatZinc namespaceTest_1_1FlatZinc.html
 URL namespace Test::Float namespaceTest_1_1Float.html
 URL namespace Test::Float::Arithmetic namespaceTest_1_1Float_1_1Arithmetic.html
 URL namespace Test::Float::Basic namespaceTest_1_1Float_1_1Basic.html
