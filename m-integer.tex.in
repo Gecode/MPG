@@ -1220,6 +1220,21 @@ min(home, x, y);
 constrains \?y? to be the minimum of the variables in \?x?
 (\?max? is analogous). 
 
+Also constraints for the arguments of minimum and maximum are
+available. For an integer variable array \?x? and an integer
+variable \?y?
+\begin{code}
+argmin(home, x, y);
+\end{code}
+constrains \?y? to be $\argmin(\mathtt{x})$. By default,
+\?argmin? uses tie-breaking and constrains \?y? to be the first
+position of the minimum in \?x?. By posting
+\begin{code}
+argmin(home, x, y, false);
+\end{code}
+no tie-breaking is used. Of course, \?argmax? is analogous. 
+\?argmin? and \?argmax? without tie-breaking are domain consistent.
+
 \subsection{Linear constraints}
 \label{sec:m:integer:linear}
 
