@@ -9,6 +9,7 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2015-01-20}{Released for Gecode 4.3.3}
   \cle{2015-01-19}{Documented the argument of minimum and maximum
     constraints (see \autoref{sec:m:integer:arithmetic})}
   \cle{2014-11-06}{Released for Gecode 4.3.2}
