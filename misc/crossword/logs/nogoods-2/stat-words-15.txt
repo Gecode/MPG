@@ -1,0 +1,33 @@
+Crossword
+	science*cascade
+	carrara*aliased
+	aviator*parried
+	bess*sneer*gary
+	***its*armco***
+	barnabas*shears
+	emigrants*asset
+	gig*brewing*ice
+	anise*watergate
+	nodule*regional
+	***bland*and***
+	hats*reset*solo
+	abilene*widened
+	allowed*evinced
+	getters*seeders
+
+
+
+Initial
+	propagators: 397
+	branchers:   1
+
+Summary
+	runtime:      8:03.070 (483070.000 ms)
+	solutions:    1
+	propagations: 17559880
+	nodes:        87391
+	failures:     43599
+	restarts:     9
+	no-goods:     230
+	peak depth:   87
+

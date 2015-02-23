@@ -1,0 +1,37 @@
+Crossword
+	gustav*ababa*manama
+	ankara*lilac*adored
+	blared*balsa*verona
+	lit*susan*edwin*map
+	eked*zinc*bees*pact
+	derek*diorama*buses
+	***berea*elysees***
+	starred*ill*erratic
+	erlang*ada*clannish
+	lee**albatross**eli
+	marjorie*ian*unwrap
+	attends*bog*truisms
+	***western*meets***
+	cases*erasmus*serra
+	hell*bras*otto*dean
+	ago*rossi*rasps*wig
+	neared*eliot*awhile
+	canine*rinse*laurel
+	enemas*sakes*speeds
+
+
+
+Initial
+	propagators: 621
+	branchers:   1
+
+Summary
+	runtime:      1:19.373 (79373.000 ms)
+	solutions:    1
+	propagations: 4087314
+	nodes:        22754
+	failures:     11244
+	restarts:     6
+	no-goods:     161
+	peak depth:   139
+

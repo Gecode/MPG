@@ -1,0 +1,41 @@
+Crossword
+	catawba*acreage*caranna
+	heinous*paysfor*orarion
+	arpents*preterm*regmata
+	roc*seacob*habitans*get
+	abac*ashram*ranula*gala
+	ditas*sitcom*cens*tares
+	ecstasis*hooch*decimate
+	***amen*concrew*ahab***
+	grilse*bolshevik*aristo
+	responsum*eat*nectaries
+	avian*clift*endarts*mat
+	nids*saice***assai*torr
+	dso*plumbum*aghas*scopa
+	porphyrio*ait*arhythmic
+	areole*coalsacks*arista
+	***toss*kraaled*alec***
+	taffetas*graal*sneaksby
+	imaum*puku*cyanin*metro
+	pail*thrust*anadem*daud
+	pre*beefteas*dralon*til
+	langaha*cystoid*idolise
+	encored*hesione*deliver
+	steanes*adorned*allness
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      2:27.498 (147498.000 ms)
+	solutions:    1
+	propagations: 1919037
+	nodes:        11361
+	failures:     5492
+	restarts:     4
+	no-goods:     196
+	peak depth:   163
+

@@ -1,0 +1,41 @@
+Crossword
+	accra*divan*loads*satan
+	baler*aside*appia*adore
+	aloft*pleat*stern*rakes
+	beseeches*woe*sacrament
+	aberrant*cobra*chicanas
+	***eire*daresay*omen***
+	spinal*gorky*raw*entrap
+	yentl*gilds*solar*slope
+	reds*golds*mantles*yarn
+	uri*eater*cab*adapt*din
+	psalms*suburbs*odiously
+	***abed*mortars*snag***
+	gorgeous*baiting*ashman
+	abe*dunce*bah*enact*ale
+	peer*seagull*leash*byte
+	essen*slyly*darts*cubed
+	deemed*apt*aires*airers
+	***bees*trailed*dunn***
+	chordate*agnes*caresses
+	heralding*rum*samaritan
+	alone*lease*means*adage
+	lends*emile*algae*merle
+	knots*satyr*small*asked
+
+
+
+Initial
+	propagators: 905
+	branchers:   1
+
+Summary
+	runtime:      5:56.336 (356336.000 ms)
+	solutions:    1
+	propagations: 22278654
+	nodes:        118150
+	failures:     58699
+	restarts:     10
+	no-goods:     613
+	peak depth:   196
+

@@ -1,0 +1,41 @@
+Crossword
+	ghanian*bazaars*chapels
+	reticle*overlap*laramie
+	artless*babbage*america
+	moe*dots*iron*cares*new
+	mist*popular*micky*gene
+	antic*rape*sloane*sense
+	resell*rods*idle*seated
+	***reopen*pales*parr***
+	bad*aged*cabal*allusive
+	avignon*aztec*gleam*nan
+	laces*street*priam*bell
+	litter*arcs*arab*iberia
+	alas*allah*alibis*altar
+	set*smoky*plums*carting
+	trespass*dogma*bulb*ate
+	***made*milan*ordeal***
+	regina*weak*isle*cravat
+	earls*kidnap*tins*adele
+	brae*cilia*alundum*sham
+	ann*santo*grad*alar*imp
+	tedious*croatia*fiancee
+	espouse*readied*unfolds
+	stanley*extends*retreat
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      5:04.762 (304762.000 ms)
+	solutions:    1
+	propagations: 15440598
+	nodes:        100418
+	failures:     49833
+	restarts:     9
+	no-goods:     602
+	peak depth:   205
+

@@ -1,0 +1,41 @@
+Crossword
+	assam*sparc*amber*haifa
+	willa*haler*hausa*ennui
+	analyticity*egypt*andes
+	rat*feet*asian*year*ill
+	diehard*citadel*disease
+	***aim*allan*sao*dad***
+	adair*cruel*pious*years
+	liar*namer*trusted*neil
+	bar*bores*beam*deaf*gnu
+	unopened*deny*formalism
+	maniacs*diet*taos*cases
+	***eke*pompadour*tab***
+	peace*pete*cern*judaica
+	allergies*flee*momentum
+	sit*sack*bred*synod*arm
+	toad*baileys*blear*flea
+	straw*snare*fears*haydn
+	***hip*gil*lisps*law***
+	smaller*disarms*tornado
+	pub*haag*naomi*hoop*ran
+	irate*based*erlenmeyers
+	cabal*atari*score*renee
+	alarm*tense*thuds*start
+
+
+
+Initial
+	propagators: 897
+	branchers:   1
+
+Summary
+	runtime:      4.556 (4556.000 ms)
+	solutions:    1
+	propagations: 171393
+	nodes:        1514
+	failures:     636
+	restarts:     1
+	no-goods:     37
+	peak depth:   190
+

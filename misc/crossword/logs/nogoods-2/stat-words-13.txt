@@ -1,0 +1,33 @@
+Crossword
+	hoe*whim*larvae
+	emaciate*amoeba
+	misunderstander
+	steed*limit*all
+	***del*tunes***
+	asp*robot*upper
+	laid*tar*greene
+	illustriousness
+	bookie*owl*true
+	intel*punch*set
+	***sills*hat***
+	era*count*rigor
+	nonconservative
+	octane*seasonal
+	skewer*sets*sly
+
+
+
+Initial
+	propagators: 392
+	branchers:   1
+
+Summary
+	runtime:      13.151 (13151.000 ms)
+	solutions:    1
+	propagations: 848784
+	nodes:        4009
+	failures:     1974
+	restarts:     2
+	no-goods:     61
+	peak depth:   63
+

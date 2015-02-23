@@ -1,0 +1,41 @@
+Crossword
+	adams*accra*epoch*appia
+	disappeared*papua*leans
+	extraordinariness*darts
+	lied*dared*agent*cesare
+	eerie*ted*fir*solon*mat
+	***safes*silas*mac*dec*
+	wei*sad*polemic*colette
+	hunter*faber*nap*aeneas
+	altos*sines*scrap*verbs
+	leer*sober*cheetah*bile
+	erratum*lethe*dirac*zen
+	**rhodes*drier*ottawa**
+	abe*wader*altar*aerates
+	bald*natalie*peaks*gilt
+	braes*yukon*phase*roomy
+	obtain*pep*deals*cannel
+	tainted*decades*jab*sri
+	*roe*aim*zonal*cubic***
+	son*creon*nil*san*draco
+	hushes*naive*mario*iran
+	ashen*miscellaneousness
+	flirt*acton*interrogate
+	types*payne*deans*beset
+
+
+
+Initial
+	propagators: 913
+	branchers:   1
+
+Summary
+	runtime:      7:15.116 (435116.000 ms)
+	solutions:    1
+	propagations: 23864833
+	nodes:        111121
+	failures:     55370
+	restarts:     9
+	no-goods:     316
+	peak depth:   161
+

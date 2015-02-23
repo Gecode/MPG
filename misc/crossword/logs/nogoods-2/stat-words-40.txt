@@ -1,0 +1,16 @@
+Crossword
+
+Initial
+	propagators: 0
+	branchers:   0
+
+Summary
+	runtime:      0.000 (0.000 ms)
+	solutions:    0
+	propagations: 0
+	nodes:        0
+	failures:     2
+	restarts:     0
+	no-goods:     0
+	peak depth:   0
+

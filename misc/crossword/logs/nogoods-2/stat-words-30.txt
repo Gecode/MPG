@@ -1,0 +1,39 @@
+Crossword
+	toes*alibi*baja*ababa
+	abby*manes*egos*caleb
+	seersucker*dissociate
+	synapses*adele*corral
+	***cued*heave*scud***
+	absurd*delhi*spaniard
+	tress*artillerist*bar
+	lice*grit***mini*robe
+	abo*bellyache*somalis
+	sentinel*door**nevins
+	**dozen*lowry*fades**
+	slater**eras*relishes
+	aerator*venezuela*mao
+	bail*safe***idly*peru
+	eve*likelihoods*rants
+	restated*lenny*martha
+	***enid*flees*five***
+	sparse*peels*baseness
+	harrisburg*egocentric
+	organ*emma*loser*aida
+	prong*gail*fasts*leer
+
+
+
+Initial
+	propagators: 756
+	branchers:   1
+
+Summary
+	runtime:      1:21.791 (81791.000 ms)
+	solutions:    1
+	propagations: 3481805
+	nodes:        15381
+	failures:     7599
+	restarts:     5
+	no-goods:     160
+	peak depth:   107
+

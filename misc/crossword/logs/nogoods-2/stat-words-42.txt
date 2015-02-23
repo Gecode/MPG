@@ -1,0 +1,41 @@
+Crossword
+	operas*mardi*afar*abaft
+	piracy*avian*rena*salle
+	eliminations*travesties
+	recoded*steel*obey*abet
+	ash**ran***concede*vice
+	***segment*trail**riser
+	dmitri*paws*ego*maya***
+	aeneas*amain*supine*web
+	nice*talented*sand*char
+	terrain**guarantee*lisa
+	ere*scalp**lager*scotty
+	**ark*loads*bosom*age**
+	assess*urine**snarl*sal
+	rain*iliadizes**relapse
+	anne*gasp*practice*data
+	bag*amdahl*acrid*spaced
+	***clay*eel*hale*tapers
+	troll**brave*peasant***
+	race*shannon***sob**spa
+	acta*hera*vella*flashes
+	changeable*mountaineers
+	tense*rein*aorta*stella
+	sleet*drag*spain*henley
+
+
+
+Initial
+	propagators: 891
+	branchers:   1
+
+Summary
+	runtime:      4:30.645 (270645.000 ms)
+	solutions:    1
+	propagations: 13627816
+	nodes:        69740
+	failures:     34650
+	restarts:     8
+	no-goods:     352
+	peak depth:   170
+
