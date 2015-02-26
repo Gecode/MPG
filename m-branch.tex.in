@@ -714,7 +714,8 @@ For an example using a decay-factor with AFC, see
 \label{sec:m:branch:activity}
 
 The activity of a variable is a shared criterion and captures how
-much a variable has been involved in constraint propagation.
+often the domain of a variable has been reduced during constraint
+propagation.
 
 The activity of a variable is maintained by constraint
 propagation as follows. Each time constraint propagation finishes

@@ -9,6 +9,8 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle[\AckName{Roberto}{Castañeda Lozano}]{2015-02-26}{Improved
+    explanation of activity.}
   \cle{2015-01-20}{Released for Gecode 4.3.3}
   \cle{2015-01-19}{Documented the argument of minimum and maximum
     constraints (see \autoref{sec:m:integer:arithmetic})}
@@ -28,50 +30,54 @@
   \cle{2013-07-19}{Released for Gecode 4.2.0}
   \cle{2013-07-10}{Explained support for no-goods for
     variable-value branchers (see
-    \autoref{sec:v:branch:valcommit})} \cle{2013-07-10}{Explained
-    how to add support for no-goods to branchers (see
-    \autoref{sec:b:advanced:nogoods})} \cle{2013-07-10}{Explained
-    how to use no-goods from restarts (see
-    \autoref{sec:m:search:nogoods})} \cle{2013-06-13}{Released
-    for Gecode 4.1.0} \cle{2013-05-13}{Documented display of
-    branching information in Gist (see
-    \autoref{sec:m:gist:print})} \cle{2013-05-03}{Documented
-    variable-value print functions for branching (see
-    \autoref{sec:m:branch:print})} \cle{2013-03-14}{Released for
-    Gecode 4.0.0} \cle[\AckName{Roberto}{Castañeda
-    Lozano}]{2013-04-12}{Fixed documentation of user-defined
-    variable selection (the \?_MERIT_? part was missing) (see
-    \autoref{sec:m:branch:uservar})} \cle{2013-03-08}{Documented
-    LDSB (see \autoref{sec:m:branch:sym})}
+    \autoref{sec:v:branch:valcommit})}
+  \cle{2013-07-10}{Explained how to add support for no-goods to
+    branchers (see \autoref{sec:b:advanced:nogoods})}
+  \cle{2013-07-10}{Explained how to use no-goods from restarts
+    (see \autoref{sec:m:search:nogoods})}
+  \cle{2013-06-13}{Released for Gecode 4.1.0} 
+  \cle{2013-05-13}{Documented display of branching information in
+    Gist (see \autoref{sec:m:gist:print})}
+  \cle{2013-05-03}{Documented variable-value print functions for
+    branching (see \autoref{sec:m:branch:print})}
+  \cle{2013-03-14}{Released for Gecode 4.0.0}
+  \cle[\AckName{Roberto}{Castañeda Lozano}]{2013-04-12}{Fixed
+    documentation of user-defined variable selection (the
+    \?_MERIT_? part was missing) (see
+    \autoref{sec:m:branch:uservar})}
+  \cle{2013-03-08}{Documented LDSB (see
+    \autoref{sec:m:branch:sym})}
   \cle{2013-02-22}{Documented restart-based search (see
     \autoref{sec:m:search:restart}), added example (see
-    \autoref{sec:c:crossword:info})} \cle{2013-02-22}{Complete
-    rewrite of how to branch (you should read it again), see
-    \autoref{chap:m:branch}}
+    \autoref{sec:c:crossword:info})}
+  \cle{2013-02-22}{Complete rewrite of how to branch (you should
+    read it again), see \autoref{chap:m:branch}}
   \cle[\AckName{David}{Rijsman}]{2013-02-14}{Added missing copy
     constructors and assignment operators in
     \autoref{sec:p:memory:shared} and
-    \autoref{sec:p:memory:local}} \cle{2013-02-04}{Documented how
-    to implement variable-value branchings (see
-    \autoref{chap:v:branch})} \cle{2013-02-04}{Documented how to
-    implement constraints over float variables (see
-    \autoref{chap:p:floats})} \cle{2013-01-29}{Documented
-    modeling with floats (see \autoref{chap:m:float},
-    \autoref{sec:m:minimodel:float},
+    \autoref{sec:p:memory:local}}
+  \cle{2013-02-04}{Documented how to implement variable-value
+    branchings (see \autoref{chap:v:branch})}
+  \cle{2013-02-04}{Documented how to implement constraints over
+    float variables (see \autoref{chap:p:floats})}
+  \cle{2013-01-29}{Documented modeling with floats (see
+    \autoref{chap:m:float}, \autoref{sec:m:minimodel:float},
     \autoref{sec:m:branch:float}, and
-    \autoref{par:m:started:mpfr})} \cle{2013-01-25}{Explain new
-    search options for Gist in \autoref{sec:m:gist:preferences}}
+    \autoref{par:m:started:mpfr})}
+  \cle{2013-01-25}{Explain new search options for Gist in
+    \autoref{sec:m:gist:preferences}}
   \cle[\AckName{Benjamin}{Negrevergne}]{2012-12-17}{Fixed typo in
-    \autoref{sec:p:domain:iterators}} \cle{2012-10-19}{Explained
-    how to use half reification (see
+    \autoref{sec:p:domain:iterators}}
+  \cle{2012-10-19}{Explained how to use half reification (see
     \autoref{sec:m:integer:halfreify}) and how to implement it
-    (see \autoref{sec:p:reified:half})} \cle{2012-09-07}{Properly
-    explained regions (see \autoref{par:p:memory:region})}
+    (see \autoref{sec:p:reified:half})}
+  \cle{2012-09-07}{Properly explained regions (see
+    \autoref{par:p:memory:region})}
   \cle{2012-08-29}{Documented hardware-based random seed
     generation for random branchers (see
-    \autoref{sec:m:branch:rnd})} \cle{2012-08-27}{Documented
-    \?pow? and \?nroot? constraints (see
-    \autoref{sec:m:integer:arithmetic} and
+    \autoref{sec:m:branch:rnd})}
+  \cle{2012-08-27}{Documented \?pow? and \?nroot? constraints
+    (see \autoref{sec:m:integer:arithmetic} and
     \autoref{sec:m:minimodel:exprrel:int})}
   \cle[\AckName{Max}{Ostrowski}]{2012-08-21}{Fixed explanation of
     advisor deltas (see \autoref{par:p:advisors:delta})}
