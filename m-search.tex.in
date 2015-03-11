@@ -767,8 +767,13 @@ search engine is stopped.
 
 Gecode provides several predefined stop objects, see
 \gecoderef[group]{TaskModelSearchStop}. For an overview see
-\autoref{fig:m:search:stop}.
-
+\autoref{fig:m:search:stop}. Objects of these classes can be
+created conveniently by, for example:
+\begin{code}
+Stop* s = Search::Stop::node(l);
+\end{code}
+The class \gecoderef[class]{Search::Stop} also provides similar
+static functions \?fail()? and \?time()?.
 
 \tip{Number of threads for stop objects}{%
 As mentioned above, each thread in parallel search uses the very same
@@ -913,6 +918,9 @@ $$
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::geometric(s,b);
 \end{smallcode}
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffGeometric}.
+
 \item[Luby.] A Luby cutoff sequence is based on the Luby-sequence
   from~\cite{Luby}. The sequence starts with a \?1?. The next
   part of the sequence is the entire previous sequence (only
@@ -930,6 +938,8 @@ $$
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::luby(s);
 \end{smallcode}
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffLuby}.
 \item[Random.]  A random cutoff sequence consists of uniformly
   randomly chosen values between a lower bound \?min? and an
   upper bound \?max?. To focus on rather different values, only
@@ -948,12 +958,16 @@ Search::Cutoff* c = Search::Cutoff::rnd(seed,min,max,n);
 \end{smallcode}
   where \?seed? (of type \?unsigned int?) defines the seed value
   for the random number generator used.
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffRandom}.
 \item[Constant.] A constant cutoff sequence is defined by the
   scale-factor \?s?. Then, the sequence
   consists of the cutoff values:
 $$
 \mathtt{s},\mathtt{s},\mathtt{s},\ldots
 $$
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffConstant}.
 
 \begin{samepage}
   A cutoff generator \?c? for a constant cutoff sequence with
@@ -976,6 +990,9 @@ $$
 Search::Cutoff* c = Search::Cutoff::linear(s);
 \end{smallcode}
 \end{samepage}
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffLinear}.
+
 \item[Append.] An appended cutoff sequence \?c? for \?n? values
   from the cutoff sequence $\mathtt{c}_1$ (with values
   $k_0,k_1,k_2,\ldots$) followed by the values
@@ -990,6 +1007,8 @@ $$
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::append(c1,n,c2);
 \end{smallcode}
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffAppend}.
 
 \item[Merge.] A merged cutoff sequence \?c? for values
   from the cutoff sequence $\mathtt{c}_1$ (with values
@@ -1005,6 +1024,8 @@ Search::Cutoff* c = Search::Cutoff::append(c1,n,c2);
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::merge(c1,c2);
 \end{smallcode}
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffMerge}.
 
 \item[Repeat.] A repeated cutoff sequence \?c? with repeat factor
   \?n? (of type \?unsigned long int?) 
@@ -1028,6 +1049,8 @@ $$
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::repeat(c1,n);
 \end{smallcode}
+The generator is implemented by the class
+\gecoderef[class]{Search::CutoffRepeat}.
 
 \end{description}
 
