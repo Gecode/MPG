@@ -43,6 +43,7 @@ integer consistency level\\
 \multicolumn{3}{|c|}{branching options}\\
 \hline
 \texttt{-decay} & \?double? & decay-factor\\
+\texttt{-seed} & \?unsigned int? & seed for random numbers\\
 \hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{search options}\\\hline
@@ -52,7 +53,9 @@ integer consistency level\\
 \texttt{-a-d} & \?unsigned int? & adaptive recomputation distance\\
 \texttt{-node} & \?unsigned int? & cutoff for number of nodes\\
 \texttt{-fail} & \?unsigned int? & cutoff for number of failures\\
-\texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\\hline
+\texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\
+\texttt{-step} & \?double? & improvement step for floats\\
+\hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{restart-based search options}\\\hline
 \texttt{-restart} &
