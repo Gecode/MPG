@@ -117,7 +117,7 @@ class MagicSequence : public Script {
   IntVarArray x;
 public:
   MagicSequence(const SizeOptions& opt)
-    : x(*this,opt.size(),0,opt.size()-1) {
+    : Script(opt), x(*this,opt.size(),0,opt.size()-1) {
     \begin{litblock}{counting constraints}
     for (int i=0; i<x.size(); i++)
       count(*this, x, i, IRT_EQ, x[i]);
@@ -173,7 +173,7 @@ class MagicSequence : public Script {
   IntVarArray x;
 public:
   MagicSequence(const SizeOptions& opt)
-    : x(*this,opt.size(),0,opt.size()-1) {
+    : Script(opt), x(*this,opt.size(),0,opt.size()-1) {
     // Global counting constraint
     count(*this, x, x, opt.icl());
     // Implied constraint

@@ -602,7 +602,11 @@ For an example, see \autoref{sec:m:comfy:cost}.
 \gecoderef[group]{TaskModelMiniModelOptimize} also
 provides subclasses \?FloatMinimizeSpace? and
 \?FloatMaximizeSpace? for searching a solution of minimal and
-maximal, respectively, float cost.
+maximal, respectively, float cost. Note that the constructor of
+these classes take an optional argument of type \?FloatNum?
+that defines the improvement step: a better solution is found
+only if it is better than the previous solution and the
+improvement step.
 
 \section{Regular expressions for extensional constraints}
 \label{sec:m:minimodel:reg}

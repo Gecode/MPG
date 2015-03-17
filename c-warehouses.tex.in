@@ -253,9 +253,10 @@ protected:
   IntVar       c_total;
   \end{litblock}
 public:
-  Warehouses(const Options&)
+  Warehouses(const Options& opt)
     \begin{litblock}{variable initialization}
-    : supplier(*this, n_stores, 0, n_warehouses-1),
+    : IntMinimizeScript(opt),
+      supplier(*this, n_stores, 0, n_warehouses-1),
       open(*this, n_warehouses, 0, 1),
       c_store(*this, n_stores)
     \end{litblock}

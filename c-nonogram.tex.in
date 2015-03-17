@@ -221,7 +221,7 @@ class Nonogram : public Script {
   }
 public:
   Nonogram(const Options& opt)
-    : width(spec[0]), height(spec[1]),
+    : Script(opt), width(spec[0]), height(spec[1]),
       b(*this,width*height,0,1) {
     Matrix<BoolVarArray> m(b, width, height);
     \begin{litblock}{intialize hint pointer}

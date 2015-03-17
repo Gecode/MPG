@@ -262,12 +262,13 @@ model the Golomb ruler problem, see~\cite{Golomb}.
 using namespace Gecode;
 
 \end{litblock}
-class GolombRuler : public MinimizeScript {
+class GolombRuler : public IntMinimizeScript {
 protected:
   IntVarArray m;
 public:
   GolombRuler(const SizeOptions& opt)
-    : m(*this,opt.size(),0,
+    : IntMinimizeScript(opt),
+      m(*this,opt.size(),0,
         (opt.size() < 31) 
           ? (1 << (opt.size()-1)) - 1 
           : Int::Limits::max) {
@@ -311,7 +312,7 @@ public:
   }
   // Constructor for cloning \a s
   GolombRuler(bool share, GolombRuler& s)
-    : MinimizeScript(share,s) {
+    : IntMinimizeScript(share,s) {
     m.update(*this, share, s.m);
   }
   // Copy during cloning
@@ -327,7 +328,7 @@ int main(int argc, char* argv[]) {
   opt.solutions(0);
   opt.size(10);
   opt.parse(argc,argv);
-  MinimizeScript::run<GolombRuler,BAB,SizeOptions>(opt);
+  IntMinimizeScript::run<GolombRuler,BAB,SizeOptions>(opt);
   return 0;
 }
 \end{litblock}

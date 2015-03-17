@@ -7073,7 +7073,8 @@ protected:
   IntVarArray letters;
 public:
   Crossword(const Options& opt)
-    : w(grid[0]), h(grid[1]), letters(*this,w*h,'a','z') {
+    : Script(opt), w(grid[0]), h(grid[1]),
+      letters(*this,w*h,'a','z') {
     \begin{litblock}{set up}
     const int* g = &grid[2];
     Matrix<IntVarArray> ml(letters, w, h);
@@ -14099,7 +14100,8 @@ protected:
 public:
   \end{litblock}
   Crossword(const Options& opt)
-    : w(grid[0]), h(grid[1]), letters(*this,w*h,'a','z') {
+    : Script(opt), w(grid[0]), h(grid[1]),
+      letters(*this,w*h,'a','z') {
     \begin{litblock}{anonymous}
     const int* g = &grid[2];
     Matrix<IntVarArray> ml(letters, w, h);

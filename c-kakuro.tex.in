@@ -447,7 +447,7 @@ public:
   }
   \end{litblock}
   Kakuro(const Options& opt)
-    : w(board[0]),  h(board[1]), f(*this,w*h) {
+    : Script(opt), w(board[0]),  h(board[1]), f(*this,w*h) {
     \begin{litblock}{field initialization}
     IntVar black(*this,0,0);
     for (int i=0; i<w*h; i++)
@@ -621,7 +621,7 @@ public:
   \end{litblock}
   \begin{litblock}{anonymous}
   Kakuro(const Options& opt)
-    : w(board[0]),  h(board[1]), f(*this,w*h) {
+    : Script(opt), w(board[0]),  h(board[1]), f(*this,w*h) {
     IntVar black(*this,0,0);
     for (int i=0; i<w*h; i++)
       f[i] = black;

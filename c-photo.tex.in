@@ -111,12 +111,13 @@ int spec[n_prefs][2] = {
   {Peter,Susan}, {Peter,Paul}
 };
 
-class Photo : public MinimizeScript {
+class Photo : public IntMinimizeScript {
   IntVarArray pos;
   IntVar      violations;
 public:
   Photo(const Options& opt)
-    : pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
+    : IntMinimizeScript(opt),
+      pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
     \begin{litblock}{constrain positions}
     distinct(*this, pos, ICL_BND);
     \end{litblock}
@@ -138,7 +139,7 @@ public:
     return violations;
   }  
   \begin{litblock}{anonymous}
-  Photo(bool share, Photo& p) : MinimizeScript(share,p) {
+  Photo(bool share, Photo& p) : IntMinimizeScript(share,p) {
     pos.update(*this, share, p.pos);
     violations.update(*this, share, p.violations);
   }
@@ -165,7 +166,7 @@ int main(int argc, char* argv[]) {
   Options opt("Photo");
   opt.solutions(0);
   opt.parse(argc,argv);
-  MinimizeScript::run<Photo,BAB,Options>(opt);
+  IntMinimizeScript::run<Photo,BAB,Options>(opt);
   return 0;
 }
 \end{litblock}
@@ -198,12 +199,13 @@ int spec[n_prefs][2] = {
   {Peter,Susan}, {Peter,Paul}
 };
 
-class Photo : public MinimizeScript {
+class Photo : public IntMinimizeScript {
   IntVarArray pos;
   IntVar      violations;
 public:
   Photo(const Options& opt)
-    : pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
+    : IntMinimizeScript(opt),
+      pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
     distinct(*this, pos, ICL_BND);
 \end{litblock}
     BoolVarArgs viol(*this,n_prefs,0,1);
@@ -223,7 +225,7 @@ public:
   virtual IntVar cost(void) const {
     return violations;
   }  
-  Photo(bool share, Photo& p) : MinimizeScript(share,p) {
+  Photo(bool share, Photo& p) : IntMinimizeScript(share,p) {
     pos.update(*this, share, p.pos);
     violations.update(*this, share, p.violations);
   }
@@ -248,7 +250,7 @@ int main(int argc, char* argv[]) {
   Options opt("Photo");
   opt.solutions(0);
   opt.parse(argc,argv);
-  MinimizeScript::run<Photo,BAB,Options>(opt);
+  IntMinimizeScript::run<Photo,BAB,Options>(opt);
   return 0;
 }
 \end{litblock}

@@ -66,8 +66,8 @@ protected:
   IntVarArray m;
 public:
   /// Actual model
-  Golomb(void)
-    : m(*this,10,0,Int::Limits::max) {
+  Golomb(const Options& opt)
+    : MinimizeScript(opt), m(*this,10,0,Int::Limits::max) {
 
     // Assume first mark to be zero
     rel(*this, m[0], IRT_EQ, 0);
@@ -126,7 +126,8 @@ public:
  */
 int
 main(int argc, char* argv[]) {
-  Golomb* a = new Golomb;
+  Options opt("Golomb");
+  Golomb* a = new Golomb(opt);
   if (Golomb* s = static_cast<Golomb*>(bab(a)))
     s->print(std::cout);
   return 0;

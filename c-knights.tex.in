@@ -342,7 +342,7 @@ public:
     \end{litblock}
   }
   Knights(const SizeOptions& opt)
-    : n(opt.size()), succ(*this,n*n,0,n*n-1) {
+    : Script(opt), n(opt.size()), succ(*this,n*n,0,n*n-1) {
    \begin{litblock}{knight's moves}
     for (int i=0; i<n*n; i++)
       dom(*this, succ[i], neighbors(i));

@@ -641,7 +641,7 @@ int upper(void) {
   return u+1;
 }
 \end{litblock}
-class BinPacking : public MinimizeScript {
+class BinPacking : public IntMinimizeScript {
 protected:
   const int l;
   const int u;  
@@ -650,7 +650,8 @@ protected:
   IntVar bins;
 public:
   BinPacking(const Options& opt) 
-    : l(lower()), u(upper()),
+    : IntMinimizeScript(opt),
+      l(lower()), u(upper()),
       load(*this, u, 0, c), 
       bin(*this, n, 0, u-1), bins(*this, l, u) {
     \begin{litblock}{excess bins}
@@ -692,7 +693,7 @@ public:
   \begin{litblock}{anonymous}
   // Constructor for cloning s
   BinPacking(bool share, BinPacking& s) 
-    : MinimizeScript(share,s), l(s.l), u(s.u) {
+    : IntMinimizeScript(share,s), l(s.l), u(s.u) {
     load.update(*this, share, s.load);
     bin.update(*this, share, s.bin);
     bins.update(*this, share, s.bins);
@@ -733,7 +734,7 @@ int main(int argc, char* argv[]) {
   Options opt("BinPacking");
   opt.solutions(0);
   opt.parse(argc,argv);
-  MinimizeScript::run<BinPacking,BAB,Options>(opt);
+  IntMinimizeScript::run<BinPacking,BAB,Options>(opt);
   return 0;
 }
 \end{litblock}
@@ -782,7 +783,7 @@ int upper(void) {
   return u+1;
 }
 \end{litblock}
-class BinPacking : public MinimizeScript {
+class BinPacking : public IntMinimizeScript {
   \begin{litblock}{anonymous}
 protected:
   const int l;
@@ -797,7 +798,8 @@ public:
     : ... {
     \end{litblock}
     \begin{litblock}{anonymous}
-    : l(lower()), u(upper()),
+    : IntMinimizeScript(opt),
+      l(lower()), u(upper()),
       load(*this, u, 0, c), 
       bin(*this, n, 0, u-1), bins(*this, l, u) {
     // excess bins
@@ -826,7 +828,7 @@ public:
   }
   // Constructor for cloning s
   BinPacking(bool share, BinPacking& s) 
-    : MinimizeScript(share,s), l(s.l), u(s.u) {
+    : IntMinimizeScript(share,s), l(s.l), u(s.u) {
     load.update(*this, share, s.load);
     bin.update(*this, share, s.bin);
     bins.update(*this, share, s.bins);
@@ -867,7 +869,7 @@ int main(int argc, char* argv[]) {
   Options opt("BinPacking");
   opt.solutions(0);
   opt.parse(argc,argv);
-  MinimizeScript::run<BinPacking,BAB,Options>(opt);
+  IntMinimizeScript::run<BinPacking,BAB,Options>(opt);
   return 0;
 }
 \end{litblock}
@@ -1094,7 +1096,7 @@ void cdbf(Home home, const IntVarArgs& l, const IntVarArgs& b,
 }
 \end{litblock}
 
-class BinPacking : public MinimizeScript {
+class BinPacking : public IntMinimizeScript {
   \begin{litblock}{anonymous}
 protected:
   const int l;
@@ -1109,7 +1111,8 @@ public:
     : ... {
     \end{litblock}
     \begin{litblock}{anonymous}
-    : l(lower()), u(upper()),
+    : IntMinimizeScript(opt),
+      l(lower()), u(upper()),
       load(*this, u, 0, c), 
       bin(*this, n, 0, u-1), bins(*this, l, u) {
     // excess bins
@@ -1136,7 +1139,7 @@ public:
   }
   // Constructor for cloning s
   BinPacking(bool share, BinPacking& s) 
-    : MinimizeScript(share,s), l(s.l), u(s.u) {
+    : IntMinimizeScript(share,s), l(s.l), u(s.u) {
     load.update(*this, share, s.load);
     bin.update(*this, share, s.bin);
     bins.update(*this, share, s.bins);
@@ -1177,7 +1180,7 @@ int main(int argc, char* argv[]) {
   Options opt("BinPacking");
   opt.solutions(0);
   opt.parse(argc,argv);
-  MinimizeScript::run<BinPacking,BAB,Options>(opt);
+  IntMinimizeScript::run<BinPacking,BAB,Options>(opt);
   return 0;
 }
 \end{litblock}

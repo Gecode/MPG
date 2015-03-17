@@ -117,15 +117,22 @@ equation involving the appropriate carry variable as follows:
 uses the \?IntMaximizeScript? class as base class (see
 \gecoderef[group]{TaskDriverScript}) rather than \?IntMaximizeSpace?
 (likewise, the driver module also offers a \?Script? class to be
-used instead of \?Space?). There are two main differences between
-\?IntMaximizeScript? and \?IntMaximizeSpace? (\?Script? and \?Space?).
-First, the constructor must accept a constant argument of type
-\?Options?  (actually, it must accept a constant argument of the
-type that is specified for the \?run? member function to be
-explained below) that is used to pass values computed from options
-passed on the commandline. Second, a subclass of \?IntMaximizeScript?
-must define a virtual print function that accepts a standard
-output stream as argument.
+used instead of \?Space?). There are three main differences between
+\?IntMaximizeScript? and \?IntMaximizeSpace? (\?Script? and
+\?Space?):
+\begin{enumerate}
+\item The constructor must accept a constant argument of type
+  \?Options?  (actually, it must accept a constant argument of
+  the type that is specified for the \?run? member function to be
+  explained below) that is used to pass values computed from
+  options passed on the commandline.
+\item The constructor of a subclass of \?IntMaximizeScript? or
+  any other script class must call the constructor
+  \?IntMaximizeScript? with an argument of type \?Options?.
+\item A subclass of \?IntMaximizeScript?  must define a virtual
+  print function that accepts a standard output stream as
+  argument.
+\end{enumerate}
 
 Note that one has to include
 \CppInline{\litstr{<gecode/driver.hh>}} for a model that uses the
@@ -437,7 +444,8 @@ public:
     MODEL_SINGLE, MODEL_CARRY
   };
   SendMostMoney(const Options& opt)
-    : l(*this, 8, 0, 9), money(*this,0,100000) {
+    : IntMaximizeScript(opt),
+      l(*this, 8, 0, 9), money(*this,0,100000) {
     \begin{litblock}{anonymous}
     IntVar s(l[0]), e(l[1]), n(l[2]), d(l[3]), m(l[4]), 
            o(l[5]), t(l[6]), y(l[7]);
