@@ -839,9 +839,7 @@ restart-based search can be found in~\cite{vanBeek:CPH:2006}.
 Restart-based search in Gecode is implemented as a \emph{meta
   search engine}: the meta search engine uses one of the Gecode
 search engines discussed in~\autoref{sec:m:search:simple} to
-perform search for each individual restart. In fact, the restart
-meta engine can use any search engine that implements the
-interface defined by \gecoderef[class]{EngineBase}. The meta
+perform search for each individual restart. The meta
 engine then controls the engine, the cutoff values, and how the
 problem is configured before each restart. The interface of the
 meta search engine in Gecode is exactly the same as the interface

@@ -9,6 +9,10 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2015-03-18}{Improved and update documentation of
+    optimization spaces and scripts
+    (see \autoref{sec:m:minimodel:optimize} and 
+    \autoref{sec:m:driver:script}).}
   \cle[\AckName{Roberto}{Castañeda Lozano}]{2015-02-26}{Improved
     explanation of activity.}
   \cle{2015-01-20}{Released for Gecode 4.3.3}

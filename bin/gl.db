@@ -106,6 +106,8 @@ URL class Gecode::Driver::BoolOption classGecode_1_1Driver_1_1BoolOption.html
 URL class Gecode::Driver::CombinedStop classGecode_1_1Driver_1_1CombinedStop.html
 URL class Gecode::Driver::DoubleOption classGecode_1_1Driver_1_1DoubleOption.html
 URL class Gecode::Driver::EngineToMeta classGecode_1_1Driver_1_1EngineToMeta.html
+URL class Gecode::Driver::ExtractStepOption classGecode_1_1Driver_1_1ExtractStepOption.html
+URL class Gecode::Driver::IgnoreStepOption classGecode_1_1Driver_1_1IgnoreStepOption.html
 URL class Gecode::Driver::IntOption classGecode_1_1Driver_1_1IntOption.html
 URL class Gecode::Driver::ScriptBase classGecode_1_1Driver_1_1ScriptBase.html
 URL class Gecode::Driver::StringOption classGecode_1_1Driver_1_1StringOption.html
@@ -113,7 +115,6 @@ URL class Gecode::Driver::StringOption::Value classGecode_1_1Driver_1_1StringOpt
 URL class Gecode::Driver::StringValueOption classGecode_1_1Driver_1_1StringValueOption.html
 URL class Gecode::Driver::UnsignedIntOption classGecode_1_1Driver_1_1UnsignedIntOption.html
 URL class Gecode::DynamicCastFailed classGecode_1_1DynamicCastFailed.html
-URL class Gecode::EngineBase classGecode_1_1EngineBase.html
 URL class Gecode::Exception classGecode_1_1Exception.html
 URL class Gecode::FlatZinc::AST::Array classGecode_1_1FlatZinc_1_1AST_1_1Array.html
 URL class Gecode::FlatZinc::AST::ArrayAccess classGecode_1_1FlatZinc_1_1AST_1_1ArrayAccess.html
@@ -222,6 +223,8 @@ URL class Gecode::Float::VariableEmptyDomain classGecode_1_1Float_1_1VariableEmp
 URL class Gecode::FloatAFC classGecode_1_1FloatAFC.html
 URL class Gecode::FloatActivity classGecode_1_1FloatActivity.html
 URL class Gecode::FloatAssign classGecode_1_1FloatAssign.html
+URL class Gecode::FloatMaximizeSpace classGecode_1_1FloatMaximizeSpace.html
+URL class Gecode::FloatMinimizeSpace classGecode_1_1FloatMinimizeSpace.html
 URL class Gecode::FloatNumBranch classGecode_1_1FloatNumBranch.html
 URL class Gecode::FloatVal classGecode_1_1FloatVal.html
 URL class Gecode::FloatValArgs classGecode_1_1FloatValArgs.html
@@ -748,6 +751,8 @@ URL class Gecode::IntAFC classGecode_1_1IntAFC.html
 URL class Gecode::IntActivity classGecode_1_1IntActivity.html
 URL class Gecode::IntArgs classGecode_1_1IntArgs.html
 URL class Gecode::IntAssign classGecode_1_1IntAssign.html
+URL class Gecode::IntMaximizeSpace classGecode_1_1IntMaximizeSpace.html
+URL class Gecode::IntMinimizeSpace classGecode_1_1IntMinimizeSpace.html
 URL class Gecode::IntSet classGecode_1_1IntSet.html
 URL class Gecode::IntSet::MinInc classGecode_1_1IntSet_1_1MinInc.html
 URL class Gecode::IntSetInit classGecode_1_1IntSetInit.html
@@ -836,8 +841,6 @@ URL class Gecode::MiniModel::ArithNonLinFloatExpr classGecode_1_1MiniModel_1_1Ar
 URL class Gecode::MiniModel::ArithNonLinIntExpr classGecode_1_1MiniModel_1_1ArithNonLinIntExpr.html
 URL class Gecode::MiniModel::ExpInfo classGecode_1_1MiniModel_1_1ExpInfo.html
 URL class Gecode::MiniModel::FinalBag classGecode_1_1MiniModel_1_1FinalBag.html
-URL class Gecode::MiniModel::FloatOptimizeSpace classGecode_1_1MiniModel_1_1FloatOptimizeSpace.html
-URL class Gecode::MiniModel::IntOptimizeSpace classGecode_1_1MiniModel_1_1IntOptimizeSpace.html
 URL class Gecode::MiniModel::NodeInfo classGecode_1_1MiniModel_1_1NodeInfo.html
 URL class Gecode::MiniModel::PosInfo classGecode_1_1MiniModel_1_1PosInfo.html
 URL class Gecode::MiniModel::PosSet classGecode_1_1MiniModel_1_1PosSet.html
@@ -882,11 +885,12 @@ URL class Gecode::Search::CutoffMerge classGecode_1_1Search_1_1CutoffMerge.html
 URL class Gecode::Search::CutoffRandom classGecode_1_1Search_1_1CutoffRandom.html
 URL class Gecode::Search::CutoffRepeat classGecode_1_1Search_1_1CutoffRepeat.html
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
+URL class Gecode::Search::EngineBase classGecode_1_1Search_1_1EngineBase.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
 URL class Gecode::Search::Meta::NoGoodsProp classGecode_1_1Search_1_1Meta_1_1NoGoodsProp.html
 URL class Gecode::Search::Meta::NoNGL classGecode_1_1Search_1_1Meta_1_1NoNGL.html
 URL class Gecode::Search::Meta::RBS classGecode_1_1Search_1_1Meta_1_1RBS.html
-URL class Gecode::Search::MetaStop classGecode_1_1Search_1_1MetaStop.html
+URL class Gecode::Search::Meta::RestartStop classGecode_1_1Search_1_1Meta_1_1RestartStop.html
 URL class Gecode::Search::NodeStop classGecode_1_1Search_1_1NodeStop.html
 URL class Gecode::Search::Options classGecode_1_1Search_1_1Options.html
 URL class Gecode::Search::Parallel::BAB classGecode_1_1Search_1_1Parallel_1_1BAB.html
@@ -1157,6 +1161,7 @@ URL class PerfectSquare classPerfectSquare.html
 URL class Photo classPhoto.html
 URL class PhotoSpec classPhotoSpec.html
 URL class Play classPlay.html
+URL class QCP classQCP.html
 URL class QueenArmies classQueenArmies.html
 URL class QueenArmies::QueenBranch classQueenArmies_1_1QueenBranch.html
 URL class Queens classQueens.html
@@ -1852,6 +1857,11 @@ URL example photo examples_2photo_8cpp.html
 TITLE example photo "Placing people on a photo"
 URL example photo:Photo examples_2photo_8cpp.html
 TITLE example photo:Photo "Placing people on a photo"
+URL example qcp qcp_8cpp.html
+TITLE example qcp "Quasigroup completion"
+URL example qcp:QCP qcp_8cpp.html
+TITLE example qcp:QCP "Quasigroup completion"
+URL example qcp:QCPOptions qcp_8cpp.html
 URL example queen-armies queen-armies_8cpp.html
 TITLE example queen-armies "Peaceable co-existing armies of queens"
 URL example queen-armies:Choice queen-armies_8cpp.html
@@ -1965,6 +1975,7 @@ URL file examples/partition.cpp partition_8cpp.html
 URL file examples/pentominoes.cpp pentominoes_8cpp.html
 URL file examples/perfect-square.cpp perfect-square_8cpp.html
 URL file examples/photo.cpp examples_2photo_8cpp.html
+URL file examples/qcp.cpp qcp_8cpp.html
 URL file examples/queen-armies.cpp queen-armies_8cpp.html
 URL file examples/queens.cpp queens_8cpp.html
 URL file examples/radiotherapy.cpp radiotherapy_8cpp.html
@@ -2455,6 +2466,7 @@ URL file gecode/minimodel/int-rel.cpp int-rel_8cpp.html
 URL file gecode/minimodel/int-rel.hpp int-rel_8hpp.html
 URL file gecode/minimodel/ldsb.hpp ldsb_8hpp.html
 URL file gecode/minimodel/matrix.hpp matrix_8hpp.html
+URL file gecode/minimodel/optimize.cpp optimize_8cpp.html
 URL file gecode/minimodel/optimize.hpp optimize_8hpp.html
 URL file gecode/minimodel/reg.cpp reg_8cpp.html
 URL file gecode/minimodel/reg.hpp reg_8hpp.html
@@ -2470,10 +2482,12 @@ URL file gecode/search/cutoff.hpp cutoff_8hpp.html
 URL file gecode/search/dfs.cpp dfs_8cpp.html
 URL file gecode/search/dfs.hpp dfs_8hpp.html
 URL file gecode/search/engine-base.hpp engine-base_8hpp.html
+URL file gecode/search/engine.cpp engine_8cpp.html
+URL file gecode/search/engine.hpp engine_8hpp.html
 URL file gecode/search/exception.hpp search_2exception_8hpp.html
 URL file gecode/search/meta/nogoods.cpp gecode_2search_2meta_2nogoods_8cpp.html
 URL file gecode/search/meta/nogoods.hh nogoods_8hh.html
-URL file gecode/search/meta/rbs.cpp meta_2rbs_8cpp.html
+URL file gecode/search/meta/rbs.cpp rbs_8cpp.html
 URL file gecode/search/meta/rbs.hh rbs_8hh.html
 URL file gecode/search/options.cpp search_2options_8cpp.html
 URL file gecode/search/options.hpp search_2options_8hpp.html
@@ -2481,11 +2495,10 @@ URL file gecode/search/parallel/bab.cpp parallel_2bab_8cpp.html
 URL file gecode/search/parallel/bab.hh parallel_2bab_8hh.html
 URL file gecode/search/parallel/dfs.cpp parallel_2dfs_8cpp.html
 URL file gecode/search/parallel/dfs.hh parallel_2dfs_8hh.html
-URL file gecode/search/parallel/engine.cpp engine_8cpp.html
+URL file gecode/search/parallel/engine.cpp parallel_2engine_8cpp.html
 URL file gecode/search/parallel/engine.hh engine_8hh.html
 URL file gecode/search/parallel/path.cpp parallel_2path_8cpp.html
 URL file gecode/search/parallel/path.hh parallel_2path_8hh.html
-URL file gecode/search/rbs.cpp rbs_8cpp.html
 URL file gecode/search/rbs.hpp rbs_8hpp.html
 URL file gecode/search/sequential/bab.hh sequential_2bab_8hh.html
 URL file gecode/search/sequential/dfs.hh sequential_2dfs_8hh.html
@@ -3399,9 +3412,7 @@ URL typedef FloatBranchFilter group__TaskModelFloatBranch.html
 URL typedef FloatBranchMerit group__TaskModelFloatBranch.html
 URL typedef FloatBranchVal group__TaskModelFloatBranch.html
 URL typedef FloatMaximizeScript group__TaskDriverScript.html
-URL typedef FloatMaximizeSpace group__TaskModelMiniModelOptimize.html
 URL typedef FloatMinimizeScript group__TaskDriverScript.html
-URL typedef FloatMinimizeSpace group__TaskModelMiniModelOptimize.html
 URL typedef FloatNum group__TaskModelFloatVars.html
 URL typedef FloatVarValPrint namespaceGecode.html
 URL typedef IntBranchCommit group__TaskModelIntBranch.html
@@ -3409,9 +3420,7 @@ URL typedef IntBranchFilter group__TaskModelIntBranch.html
 URL typedef IntBranchMerit group__TaskModelIntBranch.html
 URL typedef IntBranchVal group__TaskModelIntBranch.html
 URL typedef IntMaximizeScript group__TaskDriverScript.html
-URL typedef IntMaximizeSpace group__TaskModelMiniModelOptimize.html
 URL typedef IntMinimizeScript group__TaskDriverScript.html
-URL typedef IntMinimizeSpace group__TaskModelMiniModelOptimize.html
 URL typedef IntScaleView group__TaskActorIntView.html
 URL typedef IntSetArgs group__TaskModelIntArgs.html
 URL typedef IntSharedArray group__TaskModelIntElement.html
@@ -3425,9 +3434,9 @@ URL typedef ManFixPTaskFwd namespaceGecode_1_1Int_1_1Unary.html
 URL typedef ManFlexTaskBwd namespaceGecode_1_1Int_1_1Unary.html
 URL typedef ManFlexTaskFwd namespaceGecode_1_1Int_1_1Unary.html
 URL typedef MaximizeScript group__TaskDriverScript.html
-URL typedef MaximizeSpace group__TaskModelMiniModelOptimize.html
+URL typedef MaximizeSpace namespaceGecode.html
 URL typedef MinimizeScript group__TaskDriverScript.html
-URL typedef MinimizeSpace group__TaskModelMiniModelOptimize.html
+URL typedef MinimizeSpace namespaceGecode.html
 URL typedef ModEvent group__TaskVarMEPC.html
 URL typedef ModEventDelta group__TaskActor.html
 URL typedef OptFixPSETaskBwd namespaceGecode_1_1Int_1_1Unary.html

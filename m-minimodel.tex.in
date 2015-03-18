@@ -374,13 +374,13 @@ therefore be written as
 rel(home, s == (x & (y | z)));
 \end{code}
 
-As noted above, set relations can be reified, turning them into Boolen expressions. The following code posts the constraint that \?b? is true if and only if \?x? is the complement of \?y?:
+As noted above, set relations can be reified, turning them into Boolean expressions. The following code posts the constraint that \?b? is true if and only if \?x? is the complement of \?y?:
 \begin{code}
 BoolVar b = expr(home, (x == -y));
 \end{code}
 
 \begin{samepage}
-Intead of a set variable, you can always use a constant \?IntSet?, for example for reifying the fact that \?x? is empty:
+Instead of a set variable, you can always use a constant \?IntSet?, for example for reifying the fact that \?x? is empty:
 \begin{code}
 BoolVar b = expr(home, (x == IntSet::empty));
 \end{code}
@@ -577,14 +577,22 @@ even though some of their combinations are not.
 \section{Support for cost-based optimization}
 \label{sec:m:minimodel:optimize}
 
-\gecoderef[group]{TaskModelMiniModelOptimize} provides subclasses
-of \?Space?, \?IntMinimizeSpace? and \?IntMaximizeSpace? to
-search for a solution of minimal and maximal, respectively,
-integer cost.
+\gecoderef[group]{TaskModelMiniModelOptimize} provides several
+subclasses of \gecoderef[class]{Space} for cost-based
+optimization. \gecoderef[class]{IntMinimizeSpace} and
+\gecoderef[class]{IntMaximizeSpace} support search for a solution
+of minimal and maximal, respectively, integer cost.
+\gecoderef[class]{FloatMinimizeSpace} and
+\gecoderef[class]{FloatMaximizeSpace} support search for a
+solution of minimal and maximal, respectively, float
+cost, possibly with an improvement step (see below).
+
+\paragraph{Optimizing integer cost.}
 
 \begin{samepage}
 In order to use these abstract classes, a class inheriting from
-them must implement a virtual cost function of type
+\gecoderef[class]{IntMinimizeSpace} and
+\gecoderef[class]{IntMaximizeSpace} must implement a virtual cost function of type
 \begin{code}
 virtual IntVar cost(void) const { ... }
 \end{code}
@@ -599,14 +607,32 @@ For an example, see \autoref{sec:m:comfy:cost}.
   \gecoderef[class]{Int::ValOfUnassignedVar} is thrown.
 }
 
-\gecoderef[group]{TaskModelMiniModelOptimize} also
-provides subclasses \?FloatMinimizeSpace? and
-\?FloatMaximizeSpace? for searching a solution of minimal and
-maximal, respectively, float cost. Note that the constructor of
-these classes take an optional argument of type \?FloatNum?
-that defines the improvement step: a better solution is found
-only if it is better than the previous solution and the
-improvement step.
+\paragraph{Optimizing float cost with improvement step.}
+\label{sec:m:minimodel:optimize:float}
+
+The classes \gecoderef[class]{FloatMinimizeSpace} and
+\gecoderef[class]{FloatMaximizeSpace} support searching a
+solution of minimal and maximal, respectively, float cost.
+
+Note that the constructor of these classes take an optional
+argument of type \?FloatNum? that defines the improvement step:
+a better solution is found only if it is better than the previous
+solution and the improvement step. For example, suppose
+\begin{code}
+class WithStep : public FloatMinimizeSpace {
+public:
+  WithStep(void) : FloatMinimizeSpace(0.25), ... {
+    ...
+  }
+};
+\end{code}
+that searching for a best solution of \?WithStep? finds a
+solution \?s? with cost value \?c=s.cost().val()?. Then, the next
+solution must have a cost that is strictly smaller than
+$\mathtt{c}-\mathtt{s}$. For
+\gecoderef[class]{FloatMaximizeSpace}, the next solution must
+have a cost that is strictly larger than $\mathtt{c}+\mathtt{s}$.
+
 
 \section{Regular expressions for extensional constraints}
 \label{sec:m:minimodel:reg}

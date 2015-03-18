@@ -52,19 +52,20 @@ using the same \?linear?  function we have been using in
 \end{figure}
 
 \autoref{fig:m:comfy:smm-best:minimodel} uses the class
-\?IntMaximizeSpace? for cost-based optimization for Send
-Most Money. The class \?IntMaximizeSpace?  is also
+\gecoderef[class]{IntMaximizeSpace} for cost-based optimization for Send
+Most Money. The class is also
 included in Gecode's MiniModel module (see
 \autoref{sec:m:minimodel:optimize} and
 \gecoderef[group]{TaskModelMiniModelOptimize}).
 
-The \?IntMaximizeSpace? class is a sub-class of \?Space? that
-defines a \?constrain()? member function based on the cost of a
-space. Our model must implement a virtual \?cost()? function that
-returns an integere variable defining the cost (the function must be
-\?const?). In our example, we extend the model to maintain the
-cost (the amount of money) in a dedicated variable \?money? (note
-that this variable must also be updated during cloning).
+The \gecoderef[class]{IntMaximizeSpace} class is a sub-class of
+\gecoderef[class]{Space} that defines a \?constrain()? member
+function based on the cost of a space. Our model must implement a
+virtual \?cost()? function that returns an integere variable
+defining the cost (the function must be \?const?). In our
+example, we extend the model to maintain the cost (the amount of
+money) in a dedicated variable \?money? (note that this variable
+must also be updated during cloning).
 
 \begin{samepage}
 The cost function then just returns the amount of money as

@@ -193,12 +193,20 @@ objects of class \gecoderef[class]{Options} and
 \gecoderef[class]{SizeOptions}. 
 
 In particular, the driver module defines scripts
-\?MinimizeScript? and \?MaximizeScript? that can be used for
-finding best solutions based on a virtual \?cost()?  function,
-see also \autoref{sec:m:comfy:cost} and \autoref{sec:m:minimodel:optimize}.
+\?IntMinimizeScript?, \?IntMaximizeScript?,
+\?FloatMinimizeScript?, and \?FloatMaximizeScript? that can be
+used for finding best solutions based on a virtual \?cost()?
+function, see also \autoref{sec:m:comfy:cost} and
+\autoref{sec:m:minimodel:optimize}. 
+
+Subclasses of \?FloatMinimizeScript? and \?FloatMaximizeScript?
+use the value passed on the command line option \?-step? as value
+for the improvement step (see
+\autoref{sec:m:minimodel:optimize:float}). For an example, see 
+\gecoderef[example]{golden-spiral}.
 
 As scripts are absolutely straightforward, all can be understood
 by following some examples. For an example see
-\autoref{sec:m:comfy:driver} or all examples that
-come with Gecode, see \gecoderef[group]{Example}.
+\autoref{sec:m:comfy:driver} or all examples that come with
+Gecode, see \gecoderef[group]{Example}.
 
