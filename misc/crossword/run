@@ -1,6 +1,6 @@
 export PATH="./x64:$PATH"
-export DECAY=0.99
-export SCALE=500
+export DECAY=0.995
+export SCALE=250
 export BASE=1.5
 export SAMPLES=5
 export NGL=256
