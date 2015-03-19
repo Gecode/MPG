@@ -1,4 +1,4 @@
-VERSION = 4.3.3
+VERSION = 4.4.0
 YEAR    = 2015
 
 CHAPSRC = \
