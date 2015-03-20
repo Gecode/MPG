@@ -1,23 +1,23 @@
 Crossword
-	gustav*ababa*manama
-	ankara*lilac*adored
-	blared*balsa*verona
-	lit*susan*edwin*map
-	eked*zinc*bees*pact
-	derek*diorama*buses
-	***berea*elysees***
-	starred*ill*erratic
-	erlang*ada*clannish
-	lee**albatross**eli
-	marjorie*ian*unwrap
-	attends*bog*truisms
-	***western*meets***
-	cases*erasmus*serra
-	hell*bras*otto*dean
-	ago*rossi*rasps*wig
-	neared*eliot*awhile
-	canine*rinse*laurel
-	enemas*sakes*speeds
+	adverb*crags*rushes
+	reeler*habit*athena
+	marina*amour*faulty
+	inn*tulsa*sooth*pie
+	enos*need*ekes*kerr
+	saner*grasped*mares
+	***rapes*epsilon***
+	arbiter*ice*punjabi
+	deafer*ott*mackinac
+	any**versatile**ito
+	meditate*red*reason
+	seaside*six*anglers
+	***america*wreak***
+	atlas*noonday*nylon
+	chic*cant*agar*lore
+	ail*ellis*tonic*ada
+	crimea*amain*slater
+	ideals*nerve*kochab
+	assess*sneer*steely
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:08.796 (68796.000 ms)
+	runtime:      45.724 (45724.000 ms)
 	solutions:    1
-	propagations: 4087314
-	nodes:        22754
-	failures:     11244
+	propagations: 2208461
+	nodes:        12967
+	failures:     6325
 	restarts:     6
-	no-goods:     223
-	peak depth:   139
+	no-goods:     211
+	peak depth:   127
 

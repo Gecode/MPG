@@ -1,25 +1,25 @@
 Crossword
-	alas*brows*idea*acids
-	finn*radii*mans*renal
-	annotating*propaganda
-	reawaken*meets*russet
-	***bled*juras*brie***
-	agreed*manic*slanders
-	reels*handshaking*due
-	unit*mace***ring*pile
-	ben*vegetated*devoted
-	assailed*sole**melody
-	**elton*chain*leger**
-	abroad**redo*canadian
-	bathers*instructs*abo
-	asia*aces***ores*blot
-	ban*amorphously*tilde
-	alginate*estes*prayed
-	***sits*galen*plan***
-	somali*eldon*trainees
-	arabicizes*structural
-	risen*cree*irene*anti
-	ankle*east*lykes*lest
+	alba*anita*face*laban
+	roar*coral*olav*ilona
+	contacting*resembling
+	speeders*elect*erases
+	***rode*frisk*stay***
+	aspire*paine*hoarsely
+	ethan*bilaterally*mao
+	sail*taos***alva*perk
+	oil*jitterbug*enlarge
+	procurer*erne**gorges
+	**soles*reeds*burke**
+	adonis**else*clarence
+	hapgood*astrology*car
+	echo*meal***pace*mica
+	ace*seismograph*beets
+	darlings*peals*bessie
+	***aden*beads*bars***
+	atones*henri*martians
+	lancashire*anesthesia
+	after*aver*taste*sick
+	storm*peas*ether*take
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      39.780 (39780.000 ms)
+	runtime:      1:40.745 (100745.000 ms)
 	solutions:    1
-	propagations: 2038242
-	nodes:        8665
-	failures:     4244
-	restarts:     4
+	propagations: 4025750
+	nodes:        15760
+	failures:     7771
+	restarts:     6
 	no-goods:     0
-	peak depth:   83
+	peak depth:   97
 

@@ -1,27 +1,27 @@
 Crossword
-	cicada*elope*scow*ample
-	anabel*laban*pore*barer
-	stubblefield*andalusian
-	teletex*nylon*gave*cove
-	elk**gad***wearied*ares
-	***teaming*saran**grist
-	hobart*vera*rat*rhea***
-	alexei*aside*burial*gab
-	mile*ointment*list*hera
-	evident**endurance*anti
-	yet*ascii**scots*driest
-	**tar*homed*kneed*orr**
-	baldly*dares**dress*ali
-	avid*emigrates**swatted
-	dens*mini*nagasaki*hive
-	erg*helena*rocks*trivia
-	***pond*all*skis*caress
-	scare**steep*smashed***
-	lore*topical***mob**dam
-	epic*aviv*rural*alabama
-	disengages*melodramatic
-	geese*lola*babka*deluge
-	ernst*styx*slain*enemas
+	chafer*sumac*bare*abash
+	lenore*prima*anal*bantu
+	interchannel*referendum
+	crossly*sinai*sane*arpa
+	kin**ads***instead*neon
+	***dnieper*stahl**zaire
+	vacuum*ires*one*pros***
+	inanna*color*attlee*war
+	line*brasilia*iran*levi
+	loosely**cognizant*used
+	ann*deals**staid*sartre
+	**ice*natal*inner*gap**
+	arcane*urges**grate*ham
+	moan*streetcar**prepare
+	idle*then*sarasota*alms
+	des*beings*recta*navies
+	***bass*toe*seas*steady
+	alden**chime*dreamed***
+	been*harelip***ski**eli
+	aged*ivan*lobes*ithacan
+	superminis*commentators
+	emery*ainu*humor*evolve
+	dense*nags*stage*repeat
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      40.950 (40950.000 ms)
+	runtime:      1:25.987 (85987.000 ms)
 	solutions:    1
-	propagations: 1885197
-	nodes:        9444
-	failures:     4609
-	restarts:     4
+	propagations: 2728407
+	nodes:        12783
+	failures:     6275
+	restarts:     6
 	no-goods:     0
-	peak depth:   133
+	peak depth:   116
 

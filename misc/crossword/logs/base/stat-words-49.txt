@@ -8,11 +8,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      10:00.039 (600039.000 ms)
+	runtime:      10:00.070 (600070.000 ms)
 	solutions:    0
-	propagations: 15684987
-	nodes:        57262
-	failures:     28628
+	propagations: 12957160
+	nodes:        48398
+	failures:     24194
 	restarts:     0
 	no-goods:     0
 	peak depth:   63

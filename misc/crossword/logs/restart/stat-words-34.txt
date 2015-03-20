@@ -1,25 +1,25 @@
 Crossword
-	assort*pulaski*caviar
-	chewer*agonies*uganda
-	collie*clatter*patton
-	ewe*napkins*nadir*erg
-	dens*trees*plead*free
-	erato*orr*slyly*pends
-	***ugh***pea***bum***
-	amanda*saracen*arabic
-	ranger*alameda*helena
-	rut*nearby*duty*reads
-	ires*mica***cues*smut
-	vines*dana*warsaw*ill
-	annals*situate*change
-	league*marshes*hedged
-	***age***eel***sad***
-	emits*jesus*apt*terra
-	rene*bases*braid*rail
-	rag*babka*erected*cow
-	agreer*imagine*capita
-	teared*malabar*cheney
-	armers*oneness*alters
+	dogmas*chateau*smears
+	annuli*regards*hannah
+	slogan*alameda*indira
+	him*naivete*ebony*men
+	enos*irene*inlay*east
+	deneb*ada*adder*salty
+	***ram***ail***nor***
+	cobble*cordial*ortega
+	across*rumania*tehran
+	see*assets*glue*rerun
+	haag*yeas***eras*nate
+	ended*amid*breton*tax
+	ritter*edition*resume
+	sahara*deviant*thomas
+	***wee***ads***sri***
+	sneak*caine*mac*ultra
+	puny*songs*sonar*soar
+	rat*oaten*puritan*bid
+	enroll*modesto*parade
+	acadia*iranian*imagen
+	depend*centers*deport
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      38.329 (38329.000 ms)
+	runtime:      24.648 (24648.000 ms)
 	solutions:    1
-	propagations: 2166332
-	nodes:        16001
-	failures:     7792
-	restarts:     5
+	propagations: 991064
+	nodes:        6590
+	failures:     3121
+	restarts:     4
 	no-goods:     0
-	peak depth:   149
+	peak depth:   125
 

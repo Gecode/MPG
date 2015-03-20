@@ -1,19 +1,19 @@
 Crossword
-	hoe*whim*larvae
-	emaciate*amoeba
-	misunderstander
-	steed*limit*all
-	***del*tunes***
-	asp*robot*upper
-	laid*tar*greene
-	illustriousness
-	bookie*owl*true
-	intel*punch*set
-	***sills*hat***
-	era*count*rigor
-	nonconservative
-	octane*seasonal
-	skewer*sets*sly
+	ass*bela*ablate
+	consular*ariser
+	transistorizing
+	aegis*simon*ado
+	***peg*fangs***
+	pad*drain*elder
+	ekes*arc*frayne
+	pretentiousness
+	sorest*ads*true
+	inept*bleed*set
+	***sinai*dec***
+	she*month*banal
+	compassionately
+	opiate*emission
+	welled*sole*len
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      11.653 (11653.000 ms)
+	runtime:      12.776 (12776.000 ms)
 	solutions:    1
-	propagations: 848267
-	nodes:        4009
-	failures:     1974
-	restarts:     2
+	propagations: 981456
+	nodes:        5126
+	failures:     2515
+	restarts:     4
 	no-goods:     0
-	peak depth:   48
+	peak depth:   47
 

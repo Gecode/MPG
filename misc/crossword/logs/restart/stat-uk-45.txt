@@ -1,27 +1,27 @@
 Crossword
-	inweave*absorbs*gingals
-	dorados*seabeet*anaemia
-	overact*melissa*wadmaal
-	len*maraes*tetrapla*rit
-	inti*balata*tuttut*casa
-	saist*darics*dsos*manet
-	estrepes*nicad*petuntse
-	***anis*ignores*sasa***
-	losers*unsounder*shacko
-	outlearnt*utu*septenary
-	oleic*abrus*tituled*nas
-	kaws*alaap***ketas*seat
-	ska*hipknob*jetty*dalle
-	earbashes*oda*teaseller
-	entail*dipsector*octads
-	***glen*trocars*trap***
-	siameses*omani*sherlock
-	yclad*moan*yappie*buchu
-	naan*vallum*sirrah*gear
-	arb*detained*toitoi*als
-	pianino*scribal*rumania
-	samurai*oilcake*arabica
-	enabled*nosebag*limacel
+	battues*uddered*vaguest
+	aboulia*meataxe*alannah
+	baaings*bidents*radicle
+	als*aesces*narceine*lin
+	cots*rialto*sorted*lana
+	oneer*ensile*rynd*sever
+	sedgiest*cells*albiness
+	***moat*favelas*yett***
+	cadets*illegally*fainsi
+	ovenready*lym*ettercaps
+	malty*mesas*acetals*rio
+	etas*spahi***april*prep
+	sat*opulent*lysin*realo
+	tredrille*roe*outcasted
+	ossein*ytterbium*entera
+	***moan*sealant*unce***
+	modellos*atone*interess
+	azine*real*polska*derma
+	raft*tmeses*nevada*rood
+	kef*headland*getoff*toe
+	knowall*ovoidal*reality
+	aaronic*percent*earache
+	asmoday*esthete*dressed
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:49.587 (169587.000 ms)
+	runtime:      48.672 (48672.000 ms)
 	solutions:    1
-	propagations: 2847668
-	nodes:        17609
-	failures:     8573
-	restarts:     5
+	propagations: 400318
+	nodes:        2496
+	failures:     1128
+	restarts:     2
 	no-goods:     0
-	peak depth:   134
+	peak depth:   150
 

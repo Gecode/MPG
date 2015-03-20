@@ -1,27 +1,27 @@
 Crossword
-	operas*mardi*afar*abaft
-	piracy*avian*rena*salle
-	eliminations*travesties
-	recoded*steel*obey*abet
-	ash**ran***concede*vice
-	***segment*trail**riser
-	dmitri*paws*ego*maya***
-	aeneas*amain*supine*web
-	nice*talented*sand*char
-	terrain**guarantee*lisa
-	ere*scalp**lager*scotty
-	**ark*loads*bosom*age**
-	assess*urine**snarl*sal
-	rain*iliadizes**relapse
-	anne*gasp*practice*data
-	bag*amdahl*acrid*spaced
-	***clay*eel*hale*tapers
-	troll**brave*peasant***
-	race*shannon***sob**spa
-	acta*hera*vella*flashes
-	changeable*mountaineers
-	tense*rein*aorta*stella
-	sleet*drag*spain*henley
+	cicada*tuple*opts*stamp
+	anabel*asian*frau*armco
+	intelligence*formations
+	needler*deems*czar*free
+	err**gab***attract*lair
+	***coinage*saran**bells
+	havana*mops*yes*spur***
+	awaken*basal*ethers*ram
+	sale*clitoris*iowa*neva
+	trustee**miltonist*aces
+	yea*isaac**auras*eaters
+	**tar*drips*bette*mop**
+	arises*crops**essay*ted
+	book*practices**pulsate
+	bans*ainu*nowadays*ache
+	ads*cinema*texan*called
+	***land*fun*song*utters
+	abhor**metes*needles***
+	leer*payroll***lot**ski
+	pace*else*licks*rations
+	emulations*denotational
+	rebel*arco*enema*entice
+	trail*seed*steen*stacks
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3:55.701 (235701.000 ms)
+	runtime:      2:18.466 (138466.000 ms)
 	solutions:    1
-	propagations: 13628478
-	nodes:        69740
-	failures:     34650
+	propagations: 6696652
+	nodes:        37388
+	failures:     18460
 	restarts:     8
-	no-goods:     431
-	peak depth:   170
+	no-goods:     298
+	peak depth:   166
 

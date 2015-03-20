@@ -1,27 +1,27 @@
 Crossword
-	adams*accra*epoch*appia
-	disappeared*papua*leans
-	extraordinariness*darts
-	lied*dared*agent*cesare
-	eerie*ted*fir*solon*mat
-	***safes*silas*mac*dec*
-	wei*sad*polemic*colette
-	hunter*faber*nap*aeneas
-	altos*sines*scrap*verbs
-	leer*sober*cheetah*bile
-	erratum*lethe*dirac*zen
-	**rhodes*drier*ottawa**
-	abe*wader*altar*aerates
-	bald*natalie*peaks*gilt
-	braes*yukon*phase*roomy
-	obtain*pep*deals*cannel
-	tainted*decades*jab*sri
-	*roe*aim*zonal*cubic***
-	son*creon*nil*san*draco
-	hushes*naive*mario*iran
-	ashen*miscellaneousness
-	flirt*acton*interrogate
-	types*payne*deans*beset
+	swaps*aruba*accra*blurs
+	paraphrased*lares*linen
+	extraordinariness*amiga
+	neil*paint*haste*trader
+	dream*gag*los*ellie*ink
+	***yukon*fader*lag*are*
+	ali*tin*comedic*berserk
+	tandem*wares*gap*rascal
+	acted*pests*cobra*patti
+	reel*crier*derails*mien
+	israeli*samoa*lamar*ode
+	**dynamo*noose*malign**
+	fee*grass*smear*deprave
+	arpa*accedes*roles*olin
+	brent*yates*plain*waite
+	longed*rub*slide*bantam
+	endears*patties*cat*yea
+	*eel*ian*rarer*barer***
+	ion*fetal*lad*per*revel
+	succor*token*tosca*gino
+	asian*misunderstandings
+	alert*avert*resistances
+	cysts*nests*akers*daily
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6:18.566 (378566.000 ms)
+	runtime:      1:18.359 (78359.000 ms)
 	solutions:    1
-	propagations: 23865337
-	nodes:        111121
-	failures:     55370
-	restarts:     9
-	no-goods:     371
-	peak depth:   161
+	propagations: 3359787
+	nodes:        15325
+	failures:     7505
+	restarts:     6
+	no-goods:     187
+	peak depth:   131
 

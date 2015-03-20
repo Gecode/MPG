@@ -1,25 +1,25 @@
 Crossword
-	albania*blase*habitat
-	raiders*laban*anatole
-	rotates*adele*missile
-	act*sneaked*memos*lit
-	noel*essen*raven*fish
-	goren*sky*baser*canoe
-	ensnares*tub*realigns
-	***ibid*areas*deer***
-	beheld*frantic*gashes
-	arena*dacca*nadir*art
-	salt*foray*bakes*mine
-	asp*dread*betel*doria
-	leslie*dialers*morsel
-	***avon*ababa*demo***
-	tasmania*abe*selector
-	ocean*class*hap*score
-	scar*cease*earls*oats
-	hub*danny*elliott*she
-	isotope*lares*raritan
-	berates*urine*evident
-	arguers*mckay*departs
+	catawba*hausa*amiable
+	readies*essen*bargain
+	erratic*ahead*science
+	mob*sneered*races*gem
+	abel*gnats*zeros*mini
+	tiles*dry*bowen*dense
+	eclipses*arm*adjudges
+	***boar*ababa*sane***
+	shanty*bravado*mcadam
+	oasis*force*mcgee*hue
+	lutz*greek*picas*dada
+	one*coors*mixup*habit
+	stream*stroker*vomits
+	***abed*sated*tabs***
+	baptizes*des*canberra
+	ashen*focal*rob*sleep
+	scan*solar*realm*slop
+	ere*aaron*nucleic*ire
+	midwife*adele*alameda
+	abrades*dared*unravel
+	nearest*anode*seeders
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:07.844 (67844.000 ms)
+	runtime:      23.618 (23618.000 ms)
 	solutions:    1
-	propagations: 2650707
-	nodes:        14361
-	failures:     7011
-	restarts:     5
-	no-goods:     202
-	peak depth:   141
+	propagations: 853428
+	nodes:        4931
+	failures:     2315
+	restarts:     4
+	no-goods:     121
+	peak depth:   144
 

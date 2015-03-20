@@ -1,27 +1,27 @@
 Crossword
-	modal*askew*armed*appia
-	abase*solar*fauna*clang
-	decca*slate*feign*caste
-	ascension*sri*recruiter
-	meanness*starr*learners
-	***dent*delimit*spat***
-	repast*revel*dud*steaks
-	axons*defer*deneb*extol
-	celt*learn*perilla*tara
-	era*della*can*stabs*ran
-	strewn*mulatto*abrading
-	***rats*disturb*save***
-	papering*thereof*honshu
-	eve*flora*ire*molar*ken
-	cats*swollen*abram*mudd
-	kirov*sugar*isaac*range
-	slices*par*entry*becker
-	***irks*evolved*beam***
-	palatine*adler*billings
-	abilities*ear*reptilian
-	panic*frees*shore*globe
-	abuse*fills*eased*nabla
-	lasts*selma*slats*sneed
+	wader*aware*carib*babes
+	adele*radix*odell*abort
+	ropes*badge*canoe*crane
+	procotols*coo*anastasia
+	settlers*huron*attested
+	***runs*retinal*sari***
+	alcott*myron*dud*biotic
+	borne*fader*bicep*anode
+	lies*curbs*marines*sail
+	ere*farce*tan*decks*sol
+	repair*ordinal*boycotts
+	***peas*giggled*slur***
+	sciences*shelves*abrams
+	old*dacca*try*flora*nat
+	nail*stables*prank*ante
+	groom*slain*close*drier
+	samoan*ate*crash*pigeon
+	***knob*enchant*base***
+	demanded*slice*calendar
+	orchestra*ink*versatile
+	roger*tonic*peale*siren
+	ideal*enoch*oasis*enact
+	seedy*renee*treat*sacks
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4:09.366 (249366.000 ms)
+	runtime:      4:02.253 (242253.000 ms)
 	solutions:    1
-	propagations: 17788679
-	nodes:        95165
-	failures:     47252
-	restarts:     9
+	propagations: 12755038
+	nodes:        66755
+	failures:     33042
+	restarts:     10
 	no-goods:     0
-	peak depth:   142
+	peak depth:   136
 

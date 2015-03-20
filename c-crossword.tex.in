@@ -499,7 +499,7 @@ requires considerably more time and expertise.
 \end{figure}
 
 
-\paragraph{Using restarts.}
+\paragraph{Using restarts and no-goods.}
 
 To improve the robustness of search, one can use restart-based
 search and no-goods from restarts with Gecode, see
@@ -539,10 +539,10 @@ increased to one hour.
 \end{figure}
 
 
-Even the remaining three \texttt{word} instances can be solved within one day of runtime, the results are
-shown in \autoref{fig:c:crossword:hard}. The runtime is in the
-format hours:minutes:seconds (measured only by a single
-run). 
+Even the remaining three \texttt{word} instances can be solved
+within one day of runtime, the results are shown in
+\autoref{fig:c:crossword:hard}. The runtime is in the format
+hours:minutes:seconds (measured only by a single run).
 
 \begin{figure}
 \centering
@@ -554,27 +554,48 @@ run).
 \rput(#1,#2){\rput(0.5,0.5){\makebox(0,0){\footnotesize$\strut$\texttt{#3}}}}
 }
 \begin{pspicture}(21,21)
-\sol{0}{0}{a}\sol{1}{0}{p}\sol{2}{0}{r}\sol{3}{0}{o}\sol{4}{0}{p}\sol{5}{0}{o}\sol{6}{0}{s}\bfield{7}{0}\sol{8}{0}{l}\sol{9}{0}{a}\sol{10}{0}{b}\sol{11}{0}{a}\sol{12}{0}{n}\bfield{13}{0}\sol{14}{0}{a}\sol{15}{0}{b}\sol{16}{0}{o}\sol{17}{0}{l}\sol{18}{0}{i}\sol{19}{0}{s}\sol{20}{0}{h}
-\sol{0}{1}{p}\sol{1}{1}{r}\sol{2}{1}{o}\sol{3}{1}{n}\sol{4}{1}{o}\sol{5}{1}{u}\sol{6}{1}{n}\bfield{7}{1}\sol{8}{1}{a}\sol{9}{1}{s}\sol{10}{1}{i}\sol{11}{1}{d}\sol{12}{1}{e}\bfield{13}{1}\sol{14}{1}{t}\sol{15}{1}{o}\sol{16}{1}{r}\sol{17}{1}{o}\sol{18}{1}{n}\sol{19}{1}{t}\sol{20}{1}{o}
-\sol{0}{2}{r}\sol{1}{2}{o}\sol{2}{2}{b}\sol{3}{2}{e}\sol{4}{2}{r}\sol{5}{2}{t}\sol{6}{2}{o}\bfield{7}{2}\sol{8}{2}{t}\sol{9}{2}{i}\sol{10}{2}{g}\sol{11}{2}{e}\sol{12}{2}{r}\bfield{13}{2}\sol{14}{2}{t}\sol{15}{2}{r}\sol{16}{2}{e}\sol{17}{2}{s}\sol{18}{2}{s}\sol{19}{2}{e}\sol{20}{2}{s}
-\sol{0}{3}{i}\sol{1}{3}{r}\sol{2}{3}{e}\bfield{3}{3}\sol{4}{3}{t}\sol{5}{3}{e}\sol{6}{3}{r}\sol{7}{3}{m}\sol{8}{3}{i}\sol{9}{3}{n}\sol{10}{3}{o}\sol{11}{3}{l}\sol{12}{3}{o}\sol{13}{3}{g}\sol{14}{3}{i}\sol{15}{3}{e}\sol{16}{3}{s}\bfield{17}{3}\sol{18}{3}{p}\sol{19}{3}{a}\sol{20}{3}{t}
-\sol{0}{4}{c}\sol{1}{4}{a}\sol{2}{4}{r}\sol{3}{4}{d}\bfield{4}{4}\sol{5}{4}{r}\sol{6}{4}{e}\sol{7}{4}{u}\sol{8}{4}{n}\sol{9}{4}{i}\sol{10}{4}{t}\sol{11}{4}{e}\bfield{12}{4}\sol{13}{4}{e}\sol{14}{4}{r}\sol{15}{4}{r}\bfield{16}{4}\sol{17}{4}{p}\sol{18}{4}{i}\sol{19}{4}{l}\sol{20}{4}{e}
-\sol{0}{5}{o}\sol{1}{5}{t}\sol{2}{5}{t}\sol{3}{5}{e}\sol{4}{5}{r}\bfield{5}{5}\sol{6}{5}{s}\sol{7}{5}{t}\sol{8}{5}{a}\sol{9}{5}{n}\sol{10}{5}{s}\bfield{11}{5}\sol{12}{5}{r}\sol{13}{5}{o}\sol{14}{5}{e}\bfield{15}{5}\sol{16}{5}{d}\sol{17}{5}{a}\sol{18}{5}{r}\sol{19}{5}{e}\sol{20}{5}{s}
-\sol{0}{6}{t}\sol{1}{6}{e}\sol{2}{6}{a}\sol{3}{6}{c}\sol{4}{6}{u}\sol{5}{6}{p}\bfield{6}{6}\sol{7}{6}{a}\sol{8}{6}{t}\sol{9}{6}{e}\bfield{10}{6}\sol{11}{6}{g}\sol{12}{6}{e}\sol{13}{6}{m}\bfield{14}{6}\sol{15}{6}{a}\sol{16}{6}{i}\sol{17}{6}{r}\sol{18}{6}{e}\sol{19}{6}{r}\sol{20}{6}{s}
-\bfield{0}{7}\bfield{1}{7}\bfield{2}{7}\sol{3}{7}{o}\sol{4}{7}{p}\sol{5}{7}{i}\sol{6}{7}{a}\sol{7}{7}{t}\sol{8}{7}{e}\bfield{9}{7}\sol{10}{7}{s}\sol{11}{7}{u}\sol{12}{7}{p}\sol{13}{7}{e}\sol{14}{7}{r}\sol{15}{7}{s}\sol{16}{7}{e}\sol{17}{7}{t}\bfield{18}{7}\bfield{19}{7}\bfield{20}{7}
-\sol{0}{8}{s}\sol{1}{8}{t}\sol{2}{8}{a}\sol{3}{8}{m}\sol{4}{8}{p}\sol{5}{8}{e}\sol{6}{8}{d}\sol{7}{8}{e}\bfield{8}{8}\sol{9}{8}{d}\sol{10}{8}{e}\sol{11}{8}{l}\sol{12}{8}{e}\sol{13}{8}{t}\sol{14}{8}{e}\sol{15}{8}{s}\bfield{16}{8}\sol{17}{8}{i}\sol{18}{8}{v}\sol{19}{8}{a}\sol{20}{8}{n}
-\sol{0}{9}{t}\sol{1}{9}{e}\sol{2}{9}{m}\sol{3}{9}{p}\sol{4}{9}{e}\sol{5}{9}{r}\sol{6}{9}{s}\bfield{7}{9}\sol{8}{9}{m}\sol{9}{9}{i}\sol{10}{9}{l}\sol{11}{9}{l}\sol{12}{9}{a}\sol{13}{9}{r}\sol{14}{9}{d}\bfield{15}{9}\sol{16}{9}{s}\sol{17}{9}{c}\sol{18}{9}{a}\sol{19}{9}{l}\sol{20}{9}{a}
-\sol{0}{10}{a}\sol{1}{10}{r}\sol{2}{10}{b}\sol{3}{10}{o}\sol{4}{10}{r}\sol{5}{10}{s}\bfield{6}{10}\sol{7}{10}{q}\sol{8}{10}{u}\sol{9}{10}{a}\sol{10}{10}{l}\sol{11}{10}{i}\sol{12}{10}{t}\sol{13}{10}{y}\bfield{14}{10}\sol{15}{10}{c}\sol{16}{10}{h}\sol{17}{10}{i}\sol{18}{10}{l}\sol{19}{10}{e}\sol{20}{10}{s}
-\sol{0}{11}{b}\sol{1}{11}{r}\sol{2}{11}{e}\sol{3}{11}{s}\sol{4}{11}{t}\bfield{5}{11}\sol{6}{11}{d}\sol{7}{11}{u}\sol{8}{11}{m}\sol{9}{11}{m}\sol{10}{11}{i}\sol{11}{11}{e}\sol{12}{11}{s}\bfield{13}{11}\sol{14}{11}{c}\sol{15}{11}{a}\sol{16}{11}{r}\sol{17}{11}{p}\sol{18}{11}{o}\sol{19}{11}{r}\sol{20}{11}{t}
-\sol{0}{12}{s}\sol{1}{12}{a}\sol{2}{12}{r}\sol{3}{12}{i}\bfield{4}{12}\sol{5}{12}{d}\sol{6}{12}{a}\sol{7}{12}{e}\sol{8}{12}{m}\sol{9}{12}{o}\sol{10}{12}{n}\sol{11}{12}{s}\bfield{12}{12}\sol{13}{12}{m}\sol{14}{12}{o}\sol{15}{12}{r}\sol{16}{12}{i}\sol{17}{12}{a}\sol{18}{12}{r}\sol{19}{12}{t}\sol{20}{12}{y}
-\bfield{0}{13}\bfield{1}{13}\bfield{2}{13}\sol{3}{13}{t}\sol{4}{13}{w}\sol{5}{13}{i}\sol{6}{13}{r}\sol{7}{13}{l}\sol{8}{13}{i}\sol{9}{13}{n}\sol{10}{13}{g}\bfield{11}{13}\sol{12}{13}{r}\sol{13}{13}{o}\sol{14}{13}{d}\sol{15}{13}{e}\sol{16}{13}{n}\sol{17}{13}{t}\bfield{18}{13}\bfield{19}{13}\bfield{20}{13}
-\sol{0}{14}{a}\sol{1}{14}{p}\sol{2}{14}{p}\sol{3}{14}{i}\sol{4}{14}{a}\sol{5}{14}{n}\bfield{6}{14}\sol{7}{14}{l}\sol{8}{14}{e}\sol{9}{14}{d}\bfield{10}{14}\sol{11}{14}{b}\sol{12}{14}{e}\sol{13}{14}{d}\bfield{14}{14}\sol{15}{14}{s}\sol{16}{14}{k}\sol{17}{14}{i}\sol{18}{14}{r}\sol{19}{14}{t}\sol{20}{14}{s}
-\sol{0}{15}{b}\sol{1}{15}{a}\sol{2}{15}{r}\sol{3}{15}{o}\sol{4}{15}{n}\bfield{5}{15}\sol{6}{15}{d}\sol{7}{15}{i}\sol{8}{15}{s}\bfield{9}{15}\sol{10}{15}{b}\sol{11}{15}{e}\sol{12}{15}{a}\sol{13}{15}{u}\sol{14}{15}{s}\bfield{15}{15}\sol{16}{15}{s}\sol{17}{15}{n}\sol{18}{15}{a}\sol{19}{15}{r}\sol{20}{15}{e}
-\sol{0}{16}{u}\sol{1}{16}{p}\sol{2}{16}{o}\sol{3}{16}{n}\bfield{4}{16}\sol{5}{16}{f}\sol{6}{16}{e}\sol{7}{16}{n}\bfield{8}{16}\sol{9}{16}{p}\sol{10}{16}{u}\sol{11}{16}{d}\sol{12}{16}{d}\sol{13}{16}{l}\sol{14}{16}{e}\sol{15}{16}{s}\bfield{16}{16}\sol{17}{16}{g}\sol{18}{16}{n}\sol{19}{16}{a}\sol{20}{16}{t}
-\sol{0}{17}{t}\sol{1}{17}{o}\sol{2}{17}{p}\bfield{3}{17}\sol{4}{17}{c}\sol{5}{17}{o}\sol{6}{17}{n}\sol{7}{17}{g}\sol{8}{17}{r}\sol{9}{17}{e}\sol{10}{17}{s}\sol{11}{17}{s}\sol{12}{17}{i}\sol{13}{17}{o}\sol{14}{17}{n}\sol{15}{17}{a}\sol{16}{17}{l}\bfield{17}{17}\sol{18}{17}{k}\sol{19}{17}{i}\sol{20}{17}{t}
-\sol{0}{18}{t}\sol{1}{18}{o}\sol{2}{18}{o}\sol{3}{18}{l}\sol{4}{18}{e}\sol{5}{18}{r}\sol{6}{18}{s}\bfield{7}{18}\sol{8}{18}{a}\sol{9}{18}{r}\sol{10}{18}{t}\sol{11}{18}{i}\sol{12}{18}{e}\bfield{13}{18}\sol{14}{18}{e}\sol{15}{18}{x}\sol{16}{18}{a}\sol{17}{18}{m}\sol{18}{18}{i}\sol{19}{18}{n}\sol{20}{18}{e}
-\sol{0}{19}{e}\sol{1}{19}{s}\sol{2}{19}{s}\sol{3}{19}{e}\sol{4}{19}{n}\sol{5}{19}{c}\sol{6}{19}{e}\bfield{7}{19}\sol{8}{19}{g}\sol{9}{19}{i}\sol{10}{19}{l}\sol{11}{19}{d}\sol{12}{19}{s}\bfield{13}{19}\sol{14}{19}{c}\sol{15}{19}{o}\sol{16}{19}{r}\sol{17}{19}{o}\sol{18}{19}{n}\sol{19}{19}{e}\sol{20}{19}{r}
-\sol{0}{20}{r}\sol{1}{20}{e}\sol{2}{20}{e}\sol{3}{20}{n}\sol{4}{20}{t}\sol{5}{20}{e}\sol{6}{20}{r}\bfield{7}{20}\sol{8}{20}{s}\sol{9}{20}{l}\sol{10}{20}{e}\sol{11}{20}{e}\sol{12}{20}{t}\bfield{13}{20}\sol{14}{20}{a}\sol{15}{20}{n}\sol{16}{20}{s}\sol{17}{20}{w}\sol{18}{20}{e}\sol{19}{20}{r}\sol{20}{20}{s}
+% abashes*maude*realest
+\sol{0}{20}{a}\sol{1}{20}{b}\sol{2}{20}{a}\sol{3}{20}{s}\sol{4}{20}{h}\sol{5}{20}{e}\sol{6}{20}{s}\bfield{7}{20}\sol{8}{20}{m}\sol{9}{20}{a}\sol{10}{20}{u}\sol{11}{20}{d}\sol{12}{20}{e}\bfield{13}{20}\sol{14}{20}{r}\sol{15}{20}{e}\sol{16}{20}{a}\sol{17}{20}{l}\sol{18}{20}{e}\sol{19}{20}{s}\sol{20}{20}{t}
+% radiant*owner*argonne
+\sol{0}{19}{r}\sol{1}{19}{a}\sol{2}{19}{d}\sol{3}{19}{i}\sol{4}{19}{a}\sol{5}{19}{n}\sol{6}{19}{t}\bfield{7}{19}\sol{8}{19}{o}\sol{9}{19}{w}\sol{10}{19}{n}\sol{11}{19}{e}\sol{12}{19}{r}\bfield{13}{19}\sol{14}{19}{a}\sol{15}{19}{r}\sol{16}{19}{g}\sol{17}{19}{o}\sol{18}{19}{n}\sol{19}{19}{n}\sol{20}{19}{e}
+% clarity*radar*guesses
+\sol{0}{18}{c}\sol{1}{18}{l}\sol{2}{18}{a}\sol{3}{18}{r}\sol{4}{18}{i}\sol{5}{18}{t}\sol{6}{18}{y}\bfield{7}{18}\sol{8}{18}{r}\sol{9}{18}{a}\sol{10}{18}{d}\sol{11}{18}{a}\sol{12}{18}{r}\bfield{13}{18}\sol{14}{18}{g}\sol{15}{18}{u}\sol{16}{18}{e}\sol{17}{18}{s}\sol{18}{18}{s}\sol{19}{18}{e}\sol{20}{18}{s}
+% ham*relationships*nat
+\sol{0}{17}{h}\sol{1}{17}{a}\sol{2}{17}{m}\bfield{3}{17}\sol{4}{17}{r}\sol{5}{17}{e}\sol{6}{17}{l}\sol{7}{17}{a}\sol{8}{17}{t}\sol{9}{17}{i}\sol{10}{17}{o}\sol{11}{17}{n}\sol{12}{17}{s}\sol{13}{17}{h}\sol{14}{17}{i}\sol{15}{17}{p}\sol{16}{17}{s}\bfield{17}{17}\sol{18}{17}{n}\sol{19}{17}{a}\sol{20}{17}{t}
+% ansi*rebates*ant*make
+\sol{0}{16}{a}\sol{1}{16}{n}\sol{2}{16}{s}\sol{3}{16}{i}\bfield{4}{16}\sol{5}{16}{r}\sol{6}{16}{e}\sol{7}{16}{b}\sol{8}{16}{a}\sol{9}{16}{t}\sol{10}{16}{e}\sol{11}{16}{s}\bfield{12}{16}\sol{13}{16}{a}\sol{14}{16}{n}\sol{15}{16}{t}\bfield{16}{16}\sol{17}{16}{m}\sol{18}{16}{a}\sol{19}{16}{k}\sol{20}{16}{e}
+% icons*dares*dug*airer
+\sol{0}{15}{i}\sol{1}{15}{c}\sol{2}{15}{o}\sol{3}{15}{n}\sol{4}{15}{s}\bfield{5}{15}\sol{6}{15}{d}\sol{7}{15}{a}\sol{8}{15}{r}\sol{9}{15}{e}\sol{10}{15}{s}\bfield{11}{15}\sol{12}{15}{d}\sol{13}{15}{u}\sol{14}{15}{g}\bfield{15}{15}\sol{16}{15}{a}\sol{17}{15}{i}\sol{18}{15}{r}\sol{19}{15}{e}\sol{20}{15}{r}
+% center*ted*den*ulcers
+\sol{0}{14}{c}\sol{1}{14}{e}\sol{2}{14}{n}\sol{3}{14}{t}\sol{4}{14}{e}\sol{5}{14}{r}\bfield{6}{14}\sol{7}{14}{t}\sol{8}{14}{e}\sol{9}{14}{d}\bfield{10}{14}\sol{11}{14}{d}\sol{12}{14}{e}\sol{13}{14}{n}\bfield{14}{14}\sol{15}{14}{u}\sol{16}{14}{l}\sol{17}{14}{c}\sol{18}{14}{e}\sol{19}{14}{r}\sol{20}{14}{s}
+% ***erased*bitterer***
+\bfield{0}{13}\bfield{1}{13}\bfield{2}{13}\sol{3}{13}{e}\sol{4}{13}{r}\sol{5}{13}{a}\sol{6}{13}{s}\sol{7}{13}{e}\sol{8}{13}{d}\bfield{9}{13}\sol{10}{13}{b}\sol{11}{13}{i}\sol{12}{13}{t}\sol{13}{13}{t}\sol{14}{13}{e}\sol{15}{13}{r}\sol{16}{13}{e}\sol{17}{13}{r}\bfield{18}{13}\bfield{19}{13}\bfield{20}{13}
+% latrines*arraign*odds
+\sol{0}{12}{l}\sol{1}{12}{a}\sol{2}{12}{t}\sol{3}{12}{r}\sol{4}{12}{i}\sol{5}{12}{n}\sol{6}{12}{e}\sol{7}{12}{s}\bfield{8}{12}\sol{9}{12}{a}\sol{10}{12}{r}\sol{11}{12}{r}\sol{12}{12}{a}\sol{13}{12}{i}\sol{14}{12}{g}\sol{15}{12}{n}\bfield{16}{12}\sol{17}{12}{o}\sol{18}{12}{d}\sol{19}{12}{d}\sol{20}{12}{s}
+% elevate*abating*spire
+\sol{0}{11}{e}\sol{1}{11}{l}\sol{2}{11}{e}\sol{3}{11}{v}\sol{4}{11}{a}\sol{5}{11}{t}\sol{6}{11}{e}\bfield{7}{11}\sol{8}{11}{a}\sol{9}{11}{b}\sol{10}{11}{a}\sol{11}{11}{t}\sol{12}{11}{i}\sol{13}{11}{n}\sol{14}{11}{g}\bfield{15}{11}\sol{16}{11}{s}\sol{17}{11}{p}\sol{18}{11}{i}\sol{19}{11}{r}\sol{20}{11}{e}
+% pixels*abasing*heroin
+\sol{0}{10}{p}\sol{1}{10}{i}\sol{2}{10}{x}\sol{3}{10}{e}\sol{4}{10}{l}\sol{5}{10}{s}\bfield{6}{10}\sol{7}{10}{a}\sol{8}{10}{b}\sol{9}{10}{a}\sol{10}{10}{s}\sol{11}{10}{i}\sol{12}{10}{n}\sol{13}{10}{g}\bfield{14}{10}\sol{15}{10}{h}\sol{16}{10}{e}\sol{17}{10}{r}\sol{18}{10}{o}\sol{19}{10}{i}\sol{20}{10}{n}
+% evans*dresses*recoded
+\sol{0}{9}{e}\sol{1}{9}{v}\sol{2}{9}{a}\sol{3}{9}{n}\sol{4}{9}{s}\bfield{5}{9}\sol{6}{9}{d}\sol{7}{9}{r}\sol{8}{9}{e}\sol{9}{9}{s}\sol{10}{9}{s}\sol{11}{9}{e}\sol{12}{9}{s}\bfield{13}{9}\sol{14}{9}{r}\sol{15}{9}{e}\sol{16}{9}{c}\sol{17}{9}{o}\sol{18}{9}{d}\sol{19}{9}{e}\sol{20}{9}{d}
+% rent*neither*chargers
+\sol{0}{8}{r}\sol{1}{8}{e}\sol{2}{8}{n}\sol{3}{8}{t}\bfield{4}{8}\sol{5}{8}{n}\sol{6}{8}{e}\sol{7}{8}{i}\sol{8}{8}{t}\sol{9}{8}{h}\sol{10}{8}{e}\sol{11}{8}{r}\bfield{12}{8}\sol{13}{8}{c}\sol{14}{8}{h}\sol{15}{8}{a}\sol{16}{8}{r}\sol{17}{8}{g}\sol{18}{8}{e}\sol{19}{8}{r}\sol{20}{8}{s}
+% ***isolates*tooler***
+\bfield{0}{7}\bfield{1}{7}\bfield{2}{7}\sol{3}{7}{i}\sol{4}{7}{s}\sol{5}{7}{o}\sol{6}{7}{l}\sol{7}{7}{a}\sol{8}{7}{t}\sol{9}{7}{e}\sol{10}{7}{s}\bfield{11}{7}\sol{12}{7}{t}\sol{13}{7}{o}\sol{14}{7}{o}\sol{15}{7}{l}\sol{16}{7}{e}\sol{17}{7}{r}\bfield{18}{7}\bfield{19}{7}\bfield{20}{7}
+% maroon*ned*dig*stacks
+\sol{0}{6}{m}\sol{1}{6}{a}\sol{2}{6}{r}\sol{3}{6}{o}\sol{4}{6}{o}\sol{5}{6}{n}\bfield{6}{6}\sol{7}{6}{n}\sol{8}{6}{e}\sol{9}{6}{d}\bfield{10}{6}\sol{11}{6}{d}\sol{12}{6}{i}\sol{13}{6}{g}\bfield{14}{6}\sol{15}{6}{s}\sol{16}{6}{t}\sol{17}{6}{a}\sol{18}{6}{c}\sol{19}{6}{k}\sol{20}{6}{s}
+% amend*aid*deneb*smart
+\sol{0}{5}{a}\sol{1}{5}{m}\sol{2}{5}{e}\sol{3}{5}{n}\sol{4}{5}{d}\bfield{5}{5}\sol{6}{5}{a}\sol{7}{5}{i}\sol{8}{5}{d}\bfield{9}{5}\sol{10}{5}{d}\sol{11}{5}{e}\sol{12}{5}{n}\sol{13}{5}{e}\sol{14}{5}{b}\bfield{15}{5}\sol{16}{5}{s}\sol{17}{5}{m}\sol{18}{5}{a}\sol{19}{5}{r}\sol{20}{5}{t}
+% loss*ass*refines*spur
+\sol{0}{4}{l}\sol{1}{4}{o}\sol{2}{4}{s}\sol{3}{4}{s}\bfield{4}{4}\sol{5}{4}{a}\sol{6}{4}{s}\sol{7}{4}{s}\bfield{8}{4}\sol{9}{4}{r}\sol{10}{4}{e}\sol{11}{4}{f}\sol{12}{4}{i}\sol{13}{4}{n}\sol{14}{4}{e}\sol{15}{4}{s}\bfield{16}{4}\sol{17}{4}{s}\sol{18}{4}{p}\sol{19}{4}{u}\sol{20}{4}{r}
+% leo*instrumentals*tea
+\sol{0}{3}{l}\sol{1}{3}{e}\sol{2}{3}{o}\bfield{3}{3}\sol{4}{3}{i}\sol{5}{3}{n}\sol{6}{3}{s}\sol{7}{3}{t}\sol{8}{3}{r}\sol{9}{3}{u}\sol{10}{3}{m}\sol{11}{3}{e}\sol{12}{3}{n}\sol{13}{3}{t}\sol{14}{3}{a}\sol{15}{3}{l}\sol{16}{3}{s}\bfield{17}{3}\sol{18}{3}{t}\sol{19}{3}{e}\sol{20}{3}{a}
+% abridge*alice*realign
+\sol{0}{2}{a}\sol{1}{2}{b}\sol{2}{2}{r}\sol{3}{2}{i}\sol{4}{2}{d}\sol{5}{2}{g}\sol{6}{2}{e}\bfield{7}{2}\sol{8}{2}{a}\sol{9}{2}{l}\sol{10}{2}{i}\sol{11}{2}{c}\sol{12}{2}{e}\bfield{13}{2}\sol{14}{2}{r}\sol{15}{2}{e}\sol{16}{2}{a}\sol{17}{2}{l}\sol{18}{2}{i}\sol{19}{2}{g}\sol{20}{2}{n}
+% rattler*nests*derived
+\sol{0}{1}{r}\sol{1}{1}{a}\sol{2}{1}{t}\sol{3}{1}{t}\sol{4}{1}{l}\sol{5}{1}{e}\sol{6}{1}{r}\bfield{7}{1}\sol{8}{1}{n}\sol{9}{1}{e}\sol{10}{1}{s}\sol{11}{1}{t}\sol{12}{1}{s}\bfield{13}{1}\sol{14}{1}{d}\sol{15}{1}{e}\sol{16}{1}{r}\sol{17}{1}{i}\sol{18}{1}{v}\sol{19}{1}{e}\sol{20}{1}{d}
+% dessert*dress*spiders
+\sol{0}{0}{d}\sol{1}{0}{e}\sol{2}{0}{s}\sol{3}{0}{s}\sol{4}{0}{e}\sol{5}{0}{r}\sol{6}{0}{t}\bfield{7}{0}\sol{8}{0}{d}\sol{9}{0}{r}\sol{10}{0}{e}\sol{11}{0}{s}\sol{12}{0}{s}\bfield{13}{0}\sol{14}{0}{s}\sol{15}{0}{p}\sol{16}{0}{i}\sol{17}{0}{d}\sol{18}{0}{e}\sol{19}{0}{r}\sol{20}{0}{s}
 
 \multiput(0,0)(1,0){21}{%
   \multiput(0,0)(0,1){21}{%
@@ -596,30 +617,52 @@ run).
 \rput(#1,#2){\rput(0.5,0.5){\makebox(0,0){\footnotesize$\strut$\texttt{#3}}}}
 }
 \begin{pspicture}(23,23)
-\sol{0}{0}{a}\sol{1}{0}{m}\sol{2}{0}{e}\sol{3}{0}{r}\sol{4}{0}{a}\sol{5}{0}{d}\sol{6}{0}{a}\bfield{7}{0}\sol{8}{0}{s}\sol{9}{0}{p}\sol{10}{0}{a}\sol{11}{0}{c}\sol{12}{0}{e}\sol{13}{0}{r}\sol{14}{0}{s}\bfield{15}{0}\sol{16}{0}{a}\sol{17}{0}{s}\sol{18}{0}{s}\sol{19}{0}{a}\sol{20}{0}{u}\sol{21}{0}{l}\sol{22}{0}{t}
-\sol{0}{1}{s}\sol{1}{1}{a}\sol{2}{1}{r}\sol{3}{1}{a}\sol{4}{1}{c}\sol{5}{1}{e}\sol{6}{1}{n}\bfield{7}{1}\sol{8}{1}{a}\sol{9}{1}{r}\sol{10}{1}{p}\sol{11}{1}{a}\sol{12}{1}{n}\sol{13}{1}{e}\sol{14}{1}{t}\bfield{15}{1}\sol{16}{1}{r}\sol{17}{1}{o}\sol{18}{1}{a}\sol{19}{1}{s}\sol{20}{1}{t}\sol{21}{1}{e}\sol{22}{1}{r}
-\sol{0}{2}{s}\sol{1}{2}{t}\sol{2}{2}{a}\sol{3}{2}{g}\sol{4}{2}{i}\sol{5}{2}{n}\sol{6}{2}{g}\bfield{7}{2}\sol{8}{2}{f}\sol{9}{2}{i}\sol{10}{2}{e}\sol{11}{2}{l}\sol{12}{2}{d}\sol{13}{2}{e}\sol{14}{2}{r}\bfield{15}{2}\sol{16}{2}{t}\sol{17}{2}{o}\sol{18}{2}{s}\sol{19}{2}{h}\sol{20}{2}{i}\sol{21}{2}{b}\sol{22}{2}{a}
-\sol{0}{3}{i}\sol{1}{3}{t}\sol{2}{3}{s}\bfield{3}{3}\sol{4}{3}{d}\sol{5}{3}{e}\sol{6}{3}{e}\sol{7}{3}{p}\sol{8}{3}{e}\sol{9}{3}{n}\bfield{10}{3}\sol{11}{3}{m}\sol{12}{3}{o}\sol{13}{3}{n}\sol{14}{3}{o}\sol{15}{3}{l}\sol{16}{3}{i}\sol{17}{3}{t}\sol{18}{3}{h}\bfield{19}{3}\sol{20}{3}{l}\sol{21}{3}{a}\sol{22}{3}{c}
-\sol{0}{4}{s}\sol{1}{4}{h}\sol{2}{4}{u}\sol{3}{4}{t}\bfield{4}{4}\sol{5}{4}{b}\sol{6}{4}{l}\sol{7}{4}{a}\sol{8}{4}{s}\sol{9}{4}{t}\sol{10}{4}{s}\bfield{11}{4}\sol{12}{4}{w}\sol{13}{4}{a}\sol{14}{4}{b}\sol{15}{4}{a}\sol{16}{4}{s}\sol{17}{4}{h}\bfield{18}{4}\sol{19}{4}{f}\sol{20}{4}{i}\sol{21}{4}{n}\sol{22}{4}{e}
-\sol{0}{5}{t}\sol{1}{5}{e}\sol{2}{5}{r}\sol{3}{5}{r}\sol{4}{5}{a}\bfield{5}{5}\sol{6}{5}{i}\sol{7}{5}{n}\sol{8}{5}{t}\sol{9}{5}{a}\sol{10}{5}{c}\sol{11}{5}{t}\bfield{12}{5}\sol{13}{5}{b}\sol{14}{5}{e}\sol{15}{5}{s}\sol{16}{5}{t}\bfield{17}{5}\sol{18}{5}{r}\sol{19}{5}{a}\sol{20}{5}{z}\sol{21}{5}{o}\sol{22}{5}{r}
-\sol{0}{6}{s}\sol{1}{6}{w}\sol{2}{6}{e}\sol{3}{6}{a}\sol{4}{6}{t}\sol{5}{6}{i}\sol{6}{6}{n}\sol{7}{6}{g}\bfield{8}{6}\sol{9}{6}{b}\sol{10}{6}{r}\sol{11}{6}{o}\sol{12}{6}{i}\sol{13}{6}{l}\bfield{14}{6}\sol{15}{6}{t}\sol{16}{6}{i}\sol{17}{6}{g}\sol{18}{6}{h}\sol{19}{6}{t}\sol{20}{6}{e}\sol{21}{6}{n}\sol{22}{6}{s}
-\bfield{0}{7}\bfield{1}{7}\bfield{2}{7}\sol{3}{7}{c}\sol{4}{7}{o}\sol{5}{7}{d}\sol{6}{7}{e}\bfield{7}{7}\sol{8}{7}{p}\sol{9}{7}{l}\sol{10}{7}{a}\sol{11}{7}{n}\sol{12}{7}{n}\sol{13}{7}{e}\sol{14}{7}{r}\bfield{15}{7}\sol{16}{7}{c}\sol{17}{7}{l}\sol{18}{7}{o}\sol{19}{7}{t}\bfield{20}{7}\bfield{21}{7}\bfield{22}{7}
-\sol{0}{8}{t}\sol{1}{8}{a}\sol{2}{8}{c}\sol{3}{8}{k}\sol{4}{8}{l}\sol{5}{8}{e}\bfield{6}{8}\sol{7}{8}{p}\sol{8}{8}{r}\sol{9}{8}{e}\sol{10}{8}{p}\sol{11}{8}{e}\sol{12}{8}{n}\sol{13}{8}{d}\sol{14}{8}{e}\sol{15}{8}{d}\bfield{16}{8}\sol{17}{8}{o}\sol{18}{8}{d}\sol{19}{8}{e}\sol{20}{8}{s}\sol{21}{8}{s}\sol{22}{8}{a}
-\sol{0}{9}{a}\sol{1}{9}{v}\sol{2}{9}{a}\sol{3}{9}{i}\sol{4}{9}{l}\sol{5}{9}{a}\sol{6}{9}{b}\sol{7}{9}{l}\sol{8}{9}{e}\bfield{9}{9}\sol{10}{9}{e}\sol{11}{9}{r}\sol{12}{9}{e}\bfield{13}{9}\sol{14}{9}{s}\sol{15}{9}{i}\sol{16}{9}{l}\sol{17}{9}{v}\sol{18}{9}{e}\sol{19}{9}{r}\sol{20}{9}{i}\sol{21}{9}{n}\sol{22}{9}{g}
-\sol{0}{10}{c}\sol{1}{10}{o}\sol{2}{10}{r}\sol{3}{10}{n}\sol{4}{10}{s}\bfield{5}{10}\sol{6}{10}{l}\sol{7}{10}{o}\sol{8}{10}{t}\sol{9}{10}{u}\sol{10}{10}{s}\bfield{11}{10}\sol{12}{10}{r}\sol{13}{10}{e}\sol{14}{10}{p}\sol{15}{10}{l}\sol{16}{10}{i}\sol{17}{10}{e}\sol{18}{10}{s}\bfield{19}{10}\sol{20}{10}{b}\sol{21}{10}{e}\sol{22}{10}{e}
-\sol{0}{11}{k}\sol{1}{11}{i}\sol{2}{11}{n}\sol{3}{11}{g}\bfield{4}{11}\sol{5}{11}{d}\sol{6}{11}{e}\sol{7}{11}{t}\sol{8}{11}{e}\sol{9}{11}{r}\bfield{10}{11}\bfield{11}{11}\bfield{12}{11}\sol{13}{11}{r}\sol{14}{11}{o}\sol{15}{11}{a}\sol{16}{11}{m}\sol{17}{11}{s}\bfield{18}{11}\sol{19}{11}{m}\sol{20}{11}{e}\sol{21}{11}{a}\sol{22}{11}{l}
-\sol{0}{12}{i}\sol{1}{12}{d}\sol{2}{12}{a}\bfield{3}{12}\sol{4}{12}{b}\sol{5}{12}{e}\sol{6}{12}{a}\sol{7}{12}{t}\sol{8}{12}{n}\sol{9}{12}{i}\sol{10}{12}{k}\bfield{11}{12}\sol{12}{12}{s}\sol{13}{12}{a}\sol{14}{12}{n}\sol{15}{12}{t}\sol{16}{12}{a}\bfield{17}{12}\sol{18}{12}{p}\sol{19}{12}{a}\sol{20}{12}{r}\sol{21}{12}{k}\sol{22}{12}{e}
-\sol{0}{13}{n}\sol{1}{13}{e}\sol{2}{13}{g}\sol{3}{13}{l}\sol{4}{13}{e}\sol{5}{13}{c}\sol{6}{13}{t}\sol{7}{13}{e}\sol{8}{13}{d}\bfield{9}{13}\sol{10}{13}{n}\sol{11}{13}{i}\sol{12}{13}{l}\bfield{13}{13}\sol{14}{13}{d}\sol{15}{13}{e}\sol{16}{13}{n}\sol{17}{13}{s}\sol{18}{13}{i}\sol{19}{13}{t}\sol{20}{13}{i}\sol{21}{13}{e}\sol{22}{13}{s}
-\sol{0}{14}{g}\sol{1}{14}{r}\sol{2}{14}{e}\sol{3}{14}{e}\sol{4}{14}{c}\sol{5}{14}{e}\bfield{6}{14}\sol{7}{14}{d}\sol{8}{14}{e}\sol{9}{14}{d}\sol{10}{14}{i}\sol{11}{14}{c}\sol{12}{14}{a}\sol{13}{14}{t}\sol{14}{14}{e}\sol{15}{14}{d}\bfield{16}{14}\sol{17}{14}{a}\sol{18}{14}{l}\sol{19}{14}{t}\sol{20}{14}{a}\sol{21}{14}{r}\sol{22}{14}{s}
-\bfield{0}{15}\bfield{1}{15}\bfield{2}{15}\sol{3}{15}{s}\sol{4}{15}{k}\sol{5}{15}{i}\sol{6}{15}{s}\bfield{7}{15}\sol{8}{15}{d}\sol{9}{15}{e}\sol{10}{15}{f}\sol{11}{15}{i}\sol{12}{15}{n}\sol{13}{15}{e}\sol{14}{15}{d}\bfield{15}{15}\sol{16}{15}{f}\sol{17}{15}{i}\sol{18}{15}{f}\sol{19}{15}{e}\bfield{20}{15}\bfield{21}{15}\bfield{22}{15}
-\sol{0}{16}{c}\sol{1}{16}{a}\sol{2}{16}{s}\sol{3}{16}{s}\sol{4}{16}{e}\sol{5}{16}{t}\sol{6}{16}{t}\sol{7}{16}{e}\bfield{8}{16}\sol{9}{16}{c}\sol{10}{16}{e}\sol{11}{16}{n}\sol{12}{16}{t}\sol{13}{16}{s}\bfield{14}{16}\sol{15}{16}{t}\sol{16}{16}{o}\sol{17}{16}{l}\sol{18}{16}{e}\sol{19}{16}{r}\sol{20}{16}{a}\sol{21}{16}{n}\sol{22}{16}{t}
-\sol{0}{17}{o}\sol{1}{17}{t}\sol{2}{17}{t}\sol{3}{17}{e}\sol{4}{17}{r}\bfield{5}{17}\sol{6}{17}{e}\sol{7}{17}{l}\sol{8}{17}{l}\sol{9}{17}{a}\bfield{10}{17}\sol{11}{17}{g}\sol{12}{17}{e}\sol{13}{17}{t}\sol{14}{17}{t}\sol{15}{17}{e}\sol{16}{17}{r}\bfield{17}{17}\sol{18}{17}{r}\sol{19}{17}{e}\sol{20}{17}{n}\sol{21}{17}{e}\sol{22}{17}{e}
-\sol{0}{18}{c}\sol{1}{18}{l}\sol{2}{18}{a}\sol{3}{18}{n}\bfield{4}{18}\sol{5}{18}{r}\sol{6}{18}{e}\sol{7}{18}{s}\sol{8}{18}{i}\sol{9}{18}{d}\sol{10}{18}{e}\bfield{11}{18}\sol{12}{18}{d}\sol{13}{18}{a}\sol{14}{18}{r}\sol{15}{18}{n}\sol{16}{18}{e}\sol{17}{18}{d}\bfield{18}{18}\sol{19}{18}{d}\sol{20}{18}{i}\sol{21}{18}{g}\sol{22}{18}{s}
-\sol{0}{19}{h}\sol{1}{19}{a}\sol{2}{19}{g}\bfield{3}{19}\sol{4}{19}{m}\sol{5}{19}{a}\sol{6}{19}{l}\sol{7}{19}{e}\sol{8}{19}{n}\sol{9}{19}{e}\sol{10}{19}{s}\sol{11}{19}{s}\bfield{12}{19}\sol{13}{19}{m}\sol{14}{19}{a}\sol{15}{19}{s}\sol{16}{19}{h}\sol{17}{19}{e}\sol{18}{19}{d}\bfield{19}{19}\sol{20}{19}{m}\sol{21}{19}{a}\sol{22}{19}{t}
-\sol{0}{20}{i}\sol{1}{20}{n}\sol{2}{20}{g}\sol{3}{20}{r}\sol{4}{20}{a}\sol{5}{20}{t}\sol{6}{20}{e}\bfield{7}{20}\sol{8}{20}{e}\sol{9}{20}{n}\sol{10}{20}{t}\sol{11}{20}{i}\sol{12}{20}{c}\sol{13}{20}{e}\sol{14}{20}{d}\bfield{15}{20}\sol{16}{20}{e}\sol{17}{20}{m}\sol{18}{20}{a}\sol{19}{20}{n}\sol{20}{20}{a}\sol{21}{20}{t}\sol{22}{20}{e}
-\sol{0}{21}{s}\sol{1}{21}{t}\sol{2}{21}{e}\sol{3}{21}{a}\sol{4}{21}{l}\sol{5}{21}{e}\sol{6}{21}{r}\bfield{7}{21}\sol{8}{21}{a}\sol{9}{21}{c}\sol{10}{21}{e}\sol{11}{21}{t}\sol{12}{21}{o}\sol{13}{21}{n}\sol{14}{21}{e}\bfield{15}{21}\sol{16}{21}{a}\sol{17}{21}{u}\sol{18}{21}{d}\sol{19}{21}{i}\sol{20}{21}{t}\sol{21}{21}{o}\sol{22}{21}{r}
-\sol{0}{22}{e}\sol{1}{22}{a}\sol{2}{22}{r}\sol{3}{22}{n}\sol{4}{22}{e}\sol{5}{22}{r}\sol{6}{22}{s}\bfield{7}{22}\sol{8}{22}{r}\sol{9}{22}{e}\sol{10}{22}{s}\sol{11}{22}{e}\sol{12}{22}{n}\sol{13}{22}{t}\sol{14}{22}{s}\bfield{15}{22}\sol{16}{22}{d}\sol{17}{22}{r}\sol{18}{22}{a}\sol{19}{22}{p}\sol{20}{22}{e}\sol{21}{22}{r}\sol{22}{22}{s}
-
+% ecstasy*laidlaw*barbara
+\sol{0}{22}{e}\sol{1}{22}{c}\sol{2}{22}{s}\sol{3}{22}{t}\sol{4}{22}{a}\sol{5}{22}{s}\sol{6}{22}{y}\bfield{7}{22}\sol{8}{22}{l}\sol{9}{22}{a}\sol{10}{22}{i}\sol{11}{22}{d}\sol{12}{22}{l}\sol{13}{22}{a}\sol{14}{22}{w}\bfield{15}{22}\sol{16}{22}{b}\sol{17}{22}{a}\sol{18}{22}{r}\sol{19}{22}{b}\sol{20}{22}{a}\sol{21}{22}{r}\sol{22}{22}{a}
+% notable*indiana*eleanor
+\sol{0}{21}{n}\sol{1}{21}{o}\sol{2}{21}{t}\sol{3}{21}{a}\sol{4}{21}{b}\sol{5}{21}{l}\sol{6}{21}{e}\bfield{7}{21}\sol{8}{21}{i}\sol{9}{21}{n}\sol{10}{21}{d}\sol{11}{21}{i}\sol{12}{21}{a}\sol{13}{21}{n}\sol{14}{21}{a}\bfield{15}{21}\sol{16}{21}{e}\sol{17}{21}{l}\sol{18}{21}{e}\sol{19}{21}{a}\sol{20}{21}{n}\sol{21}{21}{o}\sol{22}{21}{r}
+% surreal*staring*wisdoms
+\sol{0}{20}{s}\sol{1}{20}{u}\sol{2}{20}{r}\sol{3}{20}{r}\sol{4}{20}{e}\sol{5}{20}{a}\sol{6}{20}{l}\bfield{7}{20}\sol{8}{20}{s}\sol{9}{20}{t}\sol{10}{20}{a}\sol{11}{20}{r}\sol{12}{20}{i}\sol{13}{20}{n}\sol{14}{20}{g}\bfield{15}{20}\sol{16}{20}{w}\sol{17}{20}{i}\sol{18}{20}{s}\sol{19}{20}{d}\sol{20}{20}{o}\sol{21}{20}{m}\sol{22}{20}{s}
+% uri*dilate*transact*mae
+\sol{0}{19}{u}\sol{1}{19}{r}\sol{2}{19}{i}\bfield{3}{19}\sol{4}{19}{d}\sol{5}{19}{i}\sol{6}{19}{l}\sol{7}{19}{a}\sol{8}{19}{t}\sol{9}{19}{e}\bfield{10}{19}\sol{11}{19}{t}\sol{12}{19}{r}\sol{13}{19}{a}\sol{14}{19}{n}\sol{15}{19}{s}\sol{16}{19}{a}\sol{17}{19}{c}\sol{18}{19}{t}\bfield{19}{19}\sol{20}{19}{m}\sol{21}{19}{a}\sol{22}{19}{e}
+% rand*novels*specie*mann
+\sol{0}{18}{r}\sol{1}{18}{a}\sol{2}{18}{n}\sol{3}{18}{d}\bfield{4}{18}\sol{5}{18}{n}\sol{6}{18}{o}\sol{7}{18}{v}\sol{8}{18}{e}\sol{9}{18}{l}\sol{10}{18}{s}\bfield{11}{18}\sol{12}{18}{s}\sol{13}{18}{p}\sol{14}{18}{e}\sol{15}{18}{c}\sol{16}{18}{i}\sol{17}{18}{e}\bfield{18}{18}\sol{19}{18}{m}\sol{20}{18}{a}\sol{21}{18}{n}\sol{22}{18}{n}
+% egged*widows*oral*cilia
+\sol{0}{17}{e}\sol{1}{17}{g}\sol{2}{17}{g}\sol{3}{17}{e}\sol{4}{17}{d}\bfield{5}{17}\sol{6}{17}{w}\sol{7}{17}{i}\sol{8}{17}{d}\sol{9}{17}{o}\sol{10}{17}{w}\sol{11}{17}{s}\bfield{12}{17}\sol{13}{17}{o}\sol{14}{17}{r}\sol{15}{17}{a}\sol{16}{17}{l}\bfield{17}{17}\sol{18}{17}{c}\sol{19}{17}{i}\sol{20}{17}{l}\sol{21}{17}{i}\sol{22}{17}{a}
+% despised*panel*betrayal
+\sol{0}{16}{d}\sol{1}{16}{e}\sol{2}{16}{s}\sol{3}{16}{p}\sol{4}{16}{i}\sol{5}{16}{s}\sol{6}{16}{e}\sol{7}{16}{d}\bfield{8}{16}\sol{9}{16}{p}\sol{10}{16}{a}\sol{11}{16}{n}\sol{12}{16}{e}\sol{13}{16}{l}\bfield{14}{16}\sol{15}{16}{b}\sol{16}{16}{e}\sol{17}{16}{t}\sol{18}{16}{r}\sol{19}{16}{a}\sol{20}{16}{y}\sol{21}{16}{a}\sol{22}{16}{l}
+% ***ovid*demerit*does***
+\bfield{0}{15}\bfield{1}{15}\bfield{2}{15}\sol{3}{15}{o}\sol{4}{15}{v}\sol{5}{15}{i}\sol{6}{15}{d}\bfield{7}{15}\sol{8}{15}{d}\sol{9}{15}{e}\sol{10}{15}{m}\sol{11}{15}{e}\sol{12}{15}{r}\sol{13}{15}{i}\sol{14}{15}{t}\bfield{15}{15}\sol{16}{15}{d}\sol{17}{15}{o}\sol{18}{15}{e}\sol{19}{15}{s}\bfield{20}{15}\bfield{21}{15}\bfield{22}{15}
+% fossil*disperses*demand
+\sol{0}{14}{f}\sol{1}{14}{o}\sol{2}{14}{s}\sol{3}{14}{s}\sol{4}{14}{i}\sol{5}{14}{l}\bfield{6}{14}\sol{7}{14}{d}\sol{8}{14}{i}\sol{9}{14}{s}\sol{10}{14}{p}\sol{11}{14}{e}\sol{12}{14}{r}\sol{13}{14}{s}\sol{14}{14}{e}\sol{15}{14}{s}\bfield{16}{14}\sol{17}{14}{d}\sol{18}{14}{e}\sol{19}{14}{m}\sol{20}{14}{a}\sol{21}{14}{n}\sol{22}{14}{d}
+% antidotes*ere*macadamia
+\sol{0}{13}{a}\sol{1}{13}{n}\sol{2}{13}{t}\sol{3}{13}{i}\sol{4}{13}{d}\sol{5}{13}{o}\sol{6}{13}{t}\sol{7}{13}{e}\sol{8}{13}{s}\bfield{9}{13}\sol{10}{13}{e}\sol{11}{13}{r}\sol{12}{13}{e}\bfield{13}{13}\sol{14}{13}{m}\sol{15}{13}{a}\sol{16}{13}{c}\sol{17}{13}{a}\sol{18}{13}{d}\sol{19}{13}{a}\sol{20}{13}{m}\sol{21}{13}{i}\sol{22}{13}{a}
+% state*raped*deploys*per
+\sol{0}{12}{s}\sol{1}{12}{t}\sol{2}{12}{a}\sol{3}{12}{t}\sol{4}{12}{e}\bfield{5}{12}\sol{6}{12}{r}\sol{7}{12}{a}\sol{8}{12}{p}\sol{9}{12}{e}\sol{10}{12}{d}\bfield{11}{12}\sol{12}{12}{d}\sol{13}{12}{e}\sol{14}{12}{p}\sol{15}{12}{l}\sol{16}{12}{o}\sol{17}{12}{y}\sol{18}{12}{s}\bfield{19}{12}\sol{20}{12}{p}\sol{21}{12}{e}\sol{22}{12}{r}
+% cars*barer***allis*folk
+\sol{0}{11}{c}\sol{1}{11}{a}\sol{2}{11}{r}\sol{3}{11}{s}\bfield{4}{11}\sol{5}{11}{b}\sol{6}{11}{a}\sol{7}{11}{r}\sol{8}{11}{e}\sol{9}{11}{r}\bfield{10}{11}\bfield{11}{11}\bfield{12}{11}\sol{13}{11}{a}\sol{14}{11}{l}\sol{15}{11}{l}\sol{16}{11}{i}\sol{17}{11}{s}\bfield{18}{11}\sol{19}{11}{f}\sol{20}{11}{o}\sol{21}{11}{l}\sol{22}{11}{k}
+% irk*federal*drain*pause
+\sol{0}{10}{i}\sol{1}{10}{r}\sol{2}{10}{k}\bfield{3}{10}\sol{4}{10}{f}\sol{5}{10}{e}\sol{6}{10}{d}\sol{7}{10}{e}\sol{8}{10}{r}\sol{9}{10}{a}\sol{10}{10}{l}\bfield{11}{10}\sol{12}{10}{d}\sol{13}{10}{r}\sol{14}{10}{a}\sol{15}{10}{i}\sol{16}{10}{n}\bfield{17}{10}\sol{18}{10}{p}\sol{19}{10}{a}\sol{20}{10}{u}\sol{21}{10}{s}\sol{22}{10}{e}
+% silliness*owe*testicles
+\sol{0}{9}{s}\sol{1}{9}{i}\sol{2}{9}{l}\sol{3}{9}{l}\sol{4}{9}{i}\sol{5}{9}{n}\sol{6}{9}{e}\sol{7}{9}{s}\sol{8}{9}{s}\bfield{9}{9}\sol{10}{9}{o}\sol{11}{9}{w}\sol{12}{9}{e}\bfield{13}{9}\sol{14}{9}{t}\sol{15}{9}{e}\sol{16}{9}{s}\sol{17}{9}{t}\sol{18}{9}{i}\sol{19}{9}{c}\sol{20}{9}{l}\sol{21}{9}{e}\sol{22}{9}{s}
+% toying*terrifies*intent
+\sol{0}{8}{t}\sol{1}{8}{o}\sol{2}{8}{y}\sol{3}{8}{i}\sol{4}{8}{n}\sol{5}{8}{g}\bfield{6}{8}\sol{7}{8}{t}\sol{8}{8}{e}\sol{9}{8}{r}\sol{10}{8}{r}\sol{11}{8}{i}\sol{12}{8}{f}\sol{13}{8}{i}\sol{14}{8}{e}\sol{15}{8}{s}\bfield{16}{8}\sol{17}{8}{i}\sol{18}{8}{n}\sol{19}{8}{t}\sol{20}{8}{e}\sol{21}{8}{n}\sol{22}{8}{t}
+% ***near*deepens*reno***
+\bfield{0}{7}\bfield{1}{7}\bfield{2}{7}\sol{3}{7}{n}\sol{4}{7}{e}\sol{5}{7}{a}\sol{6}{7}{r}\bfield{7}{7}\sol{8}{7}{d}\sol{9}{7}{e}\sol{10}{7}{e}\sol{11}{7}{p}\sol{12}{7}{e}\sol{13}{7}{n}\sol{14}{7}{s}\bfield{15}{7}\sol{16}{7}{r}\sol{17}{7}{e}\sol{18}{7}{n}\sol{19}{7}{o}\bfield{20}{7}\bfield{21}{7}\bfield{22}{7}
+% repelled*snead*federals
+\sol{0}{6}{r}\sol{1}{6}{e}\sol{2}{6}{p}\sol{3}{6}{e}\sol{4}{6}{l}\sol{5}{6}{l}\sol{6}{6}{e}\sol{7}{6}{d}\bfield{8}{6}\sol{9}{6}{s}\sol{10}{6}{n}\sol{11}{6}{e}\sol{12}{6}{a}\sol{13}{6}{d}\bfield{14}{6}\sol{15}{6}{f}\sol{16}{6}{e}\sol{17}{6}{d}\sol{18}{6}{e}\sol{19}{6}{r}\sol{20}{6}{a}\sol{21}{6}{l}\sol{22}{6}{s}
+% emory*part*stiles*devil
+\sol{0}{5}{e}\sol{1}{5}{m}\sol{2}{5}{o}\sol{3}{5}{r}\sol{4}{5}{y}\bfield{5}{5}\sol{6}{5}{p}\sol{7}{5}{a}\sol{8}{5}{r}\sol{9}{5}{t}\bfield{10}{5}\sol{11}{5}{s}\sol{12}{5}{t}\sol{13}{5}{i}\sol{14}{5}{l}\sol{15}{5}{e}\sol{16}{5}{s}\bfield{17}{5}\sol{18}{5}{d}\sol{19}{5}{e}\sol{20}{5}{v}\sol{21}{5}{i}\sol{22}{5}{l}
+% wars*mutual*scorch*demo
+\sol{0}{4}{w}\sol{1}{4}{a}\sol{2}{4}{r}\sol{3}{4}{s}\bfield{4}{4}\sol{5}{4}{m}\sol{6}{4}{u}\sol{7}{4}{t}\sol{8}{4}{u}\sol{9}{4}{a}\sol{10}{4}{l}\bfield{11}{4}\sol{12}{4}{s}\sol{13}{4}{c}\sol{14}{4}{o}\sol{15}{4}{r}\sol{16}{4}{c}\sol{17}{4}{h}\bfield{18}{4}\sol{19}{4}{d}\sol{20}{4}{e}\sol{21}{4}{m}\sol{22}{4}{o}
+% ant*molested*annual*rip
+\sol{0}{3}{a}\sol{1}{3}{n}\sol{2}{3}{t}\bfield{3}{3}\sol{4}{3}{m}\sol{5}{3}{o}\sol{6}{3}{l}\sol{7}{3}{e}\sol{8}{3}{s}\sol{9}{3}{t}\sol{10}{3}{e}\sol{11}{3}{d}\bfield{12}{3}\sol{13}{3}{a}\sol{14}{3}{n}\sol{15}{3}{n}\sol{16}{3}{u}\sol{17}{3}{a}\sol{18}{3}{l}\bfield{19}{3}\sol{20}{3}{r}\sol{21}{3}{i}\sol{22}{3}{p}
+% ruinous*situate*emanate
+\sol{0}{2}{r}\sol{1}{2}{u}\sol{2}{2}{i}\sol{3}{2}{n}\sol{4}{2}{o}\sol{5}{2}{u}\sol{6}{2}{s}\bfield{7}{2}\sol{8}{2}{s}\sol{9}{2}{i}\sol{10}{2}{t}\sol{11}{2}{u}\sol{12}{2}{a}\sol{13}{2}{t}\sol{14}{2}{e}\bfield{15}{2}\sol{16}{2}{e}\sol{17}{2}{m}\sol{18}{2}{a}\sol{19}{2}{n}\sol{20}{2}{a}\sol{21}{2}{t}\sol{22}{2}{e}
+% decease*inhaler*ravager
+\sol{0}{1}{d}\sol{1}{1}{e}\sol{2}{1}{c}\sol{3}{1}{e}\sol{4}{1}{a}\sol{5}{1}{s}\sol{6}{1}{e}\bfield{7}{1}\sol{8}{1}{i}\sol{9}{1}{n}\sol{10}{1}{h}\sol{11}{1}{a}\sol{12}{1}{l}\sol{13}{1}{e}\sol{14}{1}{r}\bfield{15}{1}\sol{16}{1}{r}\sol{17}{1}{a}\sol{18}{1}{v}\sol{19}{1}{a}\sol{20}{1}{g}\sol{21}{1}{e}\sol{22}{1}{r}
+% slotted*ageless*slayers
+\sol{0}{0}{s}\sol{1}{0}{l}\sol{2}{0}{o}\sol{3}{0}{t}\sol{4}{0}{t}\sol{5}{0}{e}\sol{6}{0}{d}\bfield{7}{0}\sol{8}{0}{a}\sol{9}{0}{g}\sol{10}{0}{e}\sol{11}{0}{l}\sol{12}{0}{e}\sol{13}{0}{s}\sol{14}{0}{s}\bfield{15}{0}\sol{16}{0}{s}\sol{17}{0}{l}\sol{18}{0}{a}\sol{19}{0}{y}\sol{20}{0}{e}\sol{21}{0}{r}\sol{22}{0}{s}
 \multiput(0,0)(1,0){23}{%
   \multiput(0,0)(0,1){23}{%
     \psframe[linecolor=black,linewidth=0.2pt,dimen=inner](0,0)(1,1)%

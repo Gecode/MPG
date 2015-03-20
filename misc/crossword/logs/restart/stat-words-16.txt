@@ -1,19 +1,19 @@
 Crossword
-	alga*bead*osaka
-	lard*anti*villa
-	anomalies*adair
-	recited*salerno
-	**eros*den*amen
-	abram*linger***
-	rail*mastermind
-	abe*sincere*mae
-	bystanders*damn
-	***honors*beget
-	chao*own*bali**
-	redrawn*bikinis
-	elder*ejaculate
-	pleat*robe*area
-	torus*seep*hymn
+	arab*haag*assam
+	robe*abby*bulba
+	classroom*blear
+	seniors*neatest
+	**deny*lax*apes
+	clogs*hasten***
+	hone*mattresses
+	abe*martial*ado
+	pediatrics*alga
+	***lyrics*never
+	emil*one*tara**
+	winning*bugatti
+	infer*tarrytown
+	norse*odin*erik
+	grass*nags*dens
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      17.799 (17799.000 ms)
+	runtime:      3.540 (3540.000 ms)
 	solutions:    1
-	propagations: 713176
-	nodes:        3120
-	failures:     1530
-	restarts:     2
+	propagations: 141948
+	nodes:        836
+	failures:     394
+	restarts:     1
 	no-goods:     0
-	peak depth:   58
+	peak depth:   54
 

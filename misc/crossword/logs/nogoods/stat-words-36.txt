@@ -1,25 +1,25 @@
 Crossword
-	apse*ababa*clean*spat
-	dial*caleb*linda*argo
-	accelerate*allegories
-	marco*err*train*raves
-	**itel*maniacs*mini**
-	off*bugeyed*steen*lag
-	said*cod*van*sat*neva
-	arcaded*paled*ravages
-	keener*bad*rag*lasers
-	add*ankara*odin*nasty
-	***ocean*****vales***
-	macho*yagi*thebes*mac
-	upland*lab*han*ashore
-	sparser*biped*grained
-	else*lad*del*ian*done
-	des*sleek*amassed*sad
-	**idea*mascara*debt**
-	mafia*eerie*ado*arabs
-	aristocrat*abominable
-	leek*white*dirac*glow
-	lads*noted*scene*gets
+	emma*snare*blase*demo
+	rail*aimer*rilke*ivan
+	installing*infiltrate
+	essay*eat*began*agnes
+	**ires*baleful*ekes**
+	abo*speller*afire*vat
+	lena*one*sea*ace*vile
+	leading*stand*echelon
+	abrams*bee*tab*tailed
+	hey*poorer*idea*bless
+	***furry*****addis***
+	nasal*babe*basset*bra
+	artist*nap*ant*barren
+	surreal*dimly*bathing
+	abos*ray*cab*sat*odes
+	san*group*couches*get
+	**gray*carrara*dime**
+	aches*mario*sri*nehru
+	phosphates*auctioneer
+	silt*irate*sleet*lain
+	ends*tenor*harms*odds
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.997 (1997.000 ms)
+	runtime:      3.635 (3635.000 ms)
 	solutions:    1
-	propagations: 150008
-	nodes:        983
-	failures:     434
-	restarts:     0
-	no-goods:     41
-	peak depth:   163
+	propagations: 146503
+	nodes:        901
+	failures:     347
+	restarts:     1
+	no-goods:     37
+	peak depth:   148
 

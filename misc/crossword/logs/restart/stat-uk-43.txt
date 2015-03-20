@@ -1,27 +1,27 @@
 Crossword
-	octad*aswan*pence*agave
-	thera*reade*rayon*luted
-	torah*abram*onend*cirri
-	arapaimas*abc*teutonist
-	resubmit*ctene*seaheath
-	***nips*cholent*stoa***
-	adages*kaids*ian*alpaca
-	belah*barca*banal*simon
-	ells*banda*keckled*graz
-	aha*bahai*era*aaron*ita
-	mihrab*kannada*semantic
-	***ella*caramba*dada***
-	sapheads*salaams*tibcat
-	ela*rhumb*gen*aesir*aga
-	barf*snooped*adela*aval
-	ureic*cubed*deedy*edema
-	myrrhs*sat*gadus*anorak
-	***eats*creates*fohn***
-	furcraea*ideas*tineidae
-	charabanc*bab*releasers
-	luged*niobe*avale*riles
-	erase*embar*simar*snide
-	fusts*debag*eases*egads
+	scams*begar*isaac*aroma
+	telia*adage*china*demob
+	educt*negev*henze*afara
+	dalailama*eli*tacamahac
+	dracaena*anana*calisaya
+	***etna*mzungus*lich***
+	echoed*baaed*dak*taipan
+	claud*blind*bihar*loofa
+	lats*cauls*amoebae*naoi
+	arc*coarb*abo*layup*col
+	tahina*baclava*borschts
+	***dich*gaining*naia***
+	ramadhan*madeira*sobbed
+	abe*aedes*sos*abrin*aba
+	forb*denizen*atsea*albi
+	tugra*degas*ogeed*creel
+	steeps*sim*scary*cloddy
+	***apod*lariats*saam***
+	shakerag*nacre*jipyapas
+	hydrangea*lei*divertive
+	ephas*annal*naeve*oiled
+	ohone*bantu*airer*asana
+	lacks*aloes*sands*dewan
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6.474 (6474.000 ms)
+	runtime:      13.353 (13353.000 ms)
 	solutions:    1
-	propagations: 87700
-	nodes:        613
-	failures:     221
-	restarts:     0
+	propagations: 125012
+	nodes:        851
+	failures:     299
+	restarts:     1
 	no-goods:     0
-	peak depth:   195
+	peak depth:   183
 

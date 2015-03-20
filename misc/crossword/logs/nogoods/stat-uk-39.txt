@@ -1,21 +1,21 @@
 Crossword
-	wadmaal*tirol*zachary
-	amiable*edite*aboulia
-	nosebag*reata*raciest
-	gee*spermatotheca*put
-	abac*anattas*aba*bise
-	nasal*dries*aia*saner
-	seered*ems*bur*recess
-	***beadle*bacchiac***
-	motorway*mantuan*alfs
-	amening*karaite*alaap
-	nappes*catalos*plasma
-	gnarr*citizen*defused
-	silo*laminar*sororise
+	cassias*knaps*zachary
+	amiable*hovel*aboulia
+	loggias*acari*raciest
+	pen*spermatotheca*put
+	abac*alaskan*aba*bise
+	cagot*icier*aia*saner
+	keened*ens*bur*recess
+	***dreams*bacchiac***
+	alienage*mantuan*alfs
+	gummata*karaite*alaap
+	acanth*catalos*plasma
+	ragee*citizen*defused
+	sned*laminar*sororise
 	***cramboes*cendre***
-	uplead*ane*dap*ujamaa
-	poise*als*dirac*ataps
-	ross*lao*sraddha*eras
+	apneas*ane*dap*ujamaa
+	sools*als*dirac*ataps
+	soil*lao*sraddha*eras
 	ifs*formularising*ado
 	stomach*remit*minicar
 	tamarau*swazi*blatant
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6.552 (6552.000 ms)
+	runtime:      8.080 (8081.000 ms)
 	solutions:    1
-	propagations: 51653
-	nodes:        365
-	failures:     126
+	propagations: 48613
+	nodes:        328
+	failures:     105
 	restarts:     0
-	no-goods:     41
-	peak depth:   153
+	no-goods:     0
+	peak depth:   150
 

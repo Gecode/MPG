@@ -1,19 +1,19 @@
 Crossword
-	aloha*line*axel
-	namer*aged*lena
-	swarthmore*anon
-	inns*aaron*rick
-	****ear***omaha
-	straps*arab****
-	pooch**digests*
+	bread*sale*base
+	eerie*prod*oral
+	landscaped*sore
+	area*araby*oman
+	****abe***omaha
+	bloats*arab****
+	react**digests*
 	anthropomorphic
 	*shearer**leona
-	****iran*micron
-	occam***ban****
-	haag*dirac*avis
-	anne*adolescent
-	roar*teas*utica
-	eels*emma*malay
+	****cern*micron
+	rabat***ban****
+	adam*dirac*avis
+	maya*adolescent
+	ages*yeas*utica
+	ness*sara*malay
 
 
 
@@ -22,11 +22,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.494 (494.000 ms)
+	runtime:      0.608 (608.000 ms)
 	solutions:    1
-	propagations: 25288
-	nodes:        182
-	failures:     69
+	propagations: 24506
+	nodes:        186
+	failures:     65
 	restarts:     0
 	no-goods:     0
 	peak depth:   63

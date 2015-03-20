@@ -1,19 +1,19 @@
 Crossword
-	mermaid*attache
-	ariadne*drilled
-	ingrate*dancing
-	less*embed*hose
-	***her*adele***
-	parapets*ramada
-	abolished*tyler
-	cog*stabile*ill
-	trust*tolerable
-	steels*albanian
-	***leper*ali***
-	beak*laden*lamb
-	adviser*revival
-	snorkel*asinine
-	hawkins*seceded
+	galahad*asocial
+	alabama*madonna
+	ravaged*alerted
+	bran*nadia*rows
+	***dad*inane***
+	embodies*macros
+	roundness*stout
+	ate*ugliest*stu
+	sonic*specified
+	erased*adherers
+	***adept*are***
+	laid*sheep*edit
+	ammonia*gilmore
+	impress*greases
+	rosette*soonest
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      56.290 (56290.000 ms)
+	runtime:      4:07.386 (247386.000 ms)
 	solutions:    1
-	propagations: 2409629
-	nodes:        11976
-	failures:     5931
-	restarts:     4
+	propagations: 9827782
+	nodes:        50416
+	failures:     25099
+	restarts:     9
 	no-goods:     0
-	peak depth:   67
+	peak depth:   75
 

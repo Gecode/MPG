@@ -1,27 +1,27 @@
 Crossword
-	ghanian*bazaars*chapels
-	reticle*overlap*laramie
-	artless*babbage*america
-	moe*dots*iron*cares*new
-	mist*popular*micky*gene
-	antic*rape*sloane*sense
-	resell*rods*idle*seated
-	***reopen*pales*parr***
-	bad*aged*cabal*allusive
-	avignon*aztec*gleam*nan
-	laces*street*priam*bell
-	litter*arcs*arab*iberia
-	alas*allah*alibis*altar
-	set*smoky*plums*carting
-	trespass*dogma*bulb*ate
-	***made*milan*ordeal***
-	regina*weak*isle*cravat
-	earls*kidnap*tins*adele
-	brae*cilia*alundum*sham
-	ann*santo*grad*alar*imp
-	tedious*croatia*fiancee
-	espouse*readied*unfolds
-	stanley*extends*retreat
+	despair*almanac*cajoles
+	expanse*weibull*opulent
+	spatula*estonia*mandate
+	pod*saga*beds*ibero*dip
+	isis*maguire*smart*seth
+	tents*nasa*steals*carla
+	edging*tens*rand*bunsen
+	***ringed*alert*galt***
+	eva*fans*fleas*purports
+	loretta*gated*clara*oak
+	algae*weider*jaime*asia
+	scurry*abed*save*latent
+	tail*verbs*rapids*lotte
+	inn*kelly*modal*adapter
+	cogently*cabin*snob*ads
+	***data*mares*haddad***
+	advice*acid*tool*dmitri
+	prick*clinic*crab*aaron
+	pent*crane*agendas*less
+	oat*faint*area*shop*mat
+	imagine*orleans*anatole
+	negator*sumeria*malaria
+	tresses*hearsay*aroused
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4:22.611 (262611.000 ms)
+	runtime:      1:24.084 (84084.000 ms)
 	solutions:    1
-	propagations: 15440598
-	nodes:        100418
-	failures:     49833
-	restarts:     9
-	no-goods:     677
-	peak depth:   205
+	propagations: 2676653
+	nodes:        16469
+	failures:     7999
+	restarts:     6
+	no-goods:     280
+	peak depth:   181
 

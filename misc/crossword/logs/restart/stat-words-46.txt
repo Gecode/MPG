@@ -1,27 +1,27 @@
 Crossword
-	adam*pedro*autos*dacca*
-	babe*aloud*drawl*isaacs
-	brutalized*kinnickinnic
-	antedate*ising*thea*ada
-	***race*stone*this*call
-	oblige*foils*chen*kenya
-	leone*line**hoar*bad***
-	slug*banishment*polecat
-	old*music*ears*bini*orr
-	nastiest*ransoming*cute
-	**penn*emery*lark*lenin
-	iberia*nags*west*seated
-	teams*peru*forth*case**
-	elks*disclaims*proverbs
-	mae*ties*able*flute*sea
-	syrians*greenblatt*burt
-	***nut*volt**each*sunny
-	hiatt*bely*untie*hacker
-	oslo*band*stahl*silk***
-	ray*cart*bette*watanabe
-	distributive*shouldered
-	easier*rater*dance*lead
-	*hated*agers*alger*lady
+	paws*abuse*occam*adieu*
+	anal*berea*prone*dianne
+	socialists*tastefulness
+	onondaga*edict*kill*met
+	***gate*smack*rent*dane
+	oblige*myers*desk*bests
+	leone*mann**fiat*mae***
+	drug*monotheism*carmela
+	end*farad*errs*rand*lab
+	nestling*diameters*lura
+	**paid*earns*need*necks
+	thebes*alee*stan*lavish
+	heals*abba*alert*used**
+	rake*islamabad*escalate
+	ere*brie*blot*areas*tan
+	etruria*houseflies*fist
+	***gas*beam**lind*dante
+	apple*bert*bragg*larger
+	duly*soda*deign*pant***
+	ate*clap*cramp*purchase
+	indoeuropean*overseeing
+	raging*sadie*lingo*snug
+	*melts*trend*eaten*tubs
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      7.769 (7769.000 ms)
+	runtime:      3.183 (3183.000 ms)
 	solutions:    1
-	propagations: 535715
-	nodes:        3238
-	failures:     1491
-	restarts:     2
+	propagations: 154026
+	nodes:        946
+	failures:     368
+	restarts:     1
 	no-goods:     0
-	peak depth:   129
+	peak depth:   139
 

@@ -1,27 +1,27 @@
 Crossword
-	roomers*accrues*aphasia
-	envelop*daresay*placate
-	stellar*amulets*rustler
-	par*amos*pear*thigh*ira
-	eras*sunbelt*deals*beat
-	cilia*liar*enemas*dante
-	tolled*disk*ibis*tilted
-	***travel*optic*less***
-	mew*odor*pratt*sarcasms
-	amasses*fiery*tames*tap
-	ratio*streak*gibbs*dada
-	knells*warn*cool*abater
-	hark*plans*fidget*ellie
-	ate*clank*alcoa*agreers
-	meddling*sleet*colt*rat
-	***iota*cigar*maseru***
-	barons*shea*odin*nathan
-	erode*apogee*enos*maori
-	apse*grace*demigod*hume
-	mae*faint*cure*anal*del
-	entails*atlanta*origins
-	retiree*wearied*melanie
-	stamens*sanders*arabian
+	spatula*arcadia*alaskan
+	locator*warmers*balance
+	attract*epaulet*orators
+	shu*hahn*hill*ogden*wet
+	hoar*luggage*knees*vial
+	elton*rule*trains*tinge
+	deeded*yale*apse*ragged
+	***scaled*ralph*memo***
+	bar*klan*carla*liberate
+	ovaries*casey*janus*vex
+	eaten*spares*serif*carp
+	ortega*used*disk*farina
+	till*vases*medusa*dolan
+	ice*salad*males*growers
+	aeration*burps*boer*dye
+	***vale*ranch*laguna***
+	sabers*geld*ices*beggar
+	inert*onsets*avis*deere
+	nary*adair*medicis*slab
+	age*views*pyle*sled*abe
+	tracers*tearing*idiotic
+	ravages*orinoco*cardiac
+	amerada*related*antenna
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:28.467 (88467.000 ms)
+	runtime:      1:40.683 (100683.000 ms)
 	solutions:    1
-	propagations: 3014037
-	nodes:        18310
-	failures:     8940
-	restarts:     5
+	propagations: 3801769
+	nodes:        22904
+	failures:     11175
+	restarts:     7
 	no-goods:     0
-	peak depth:   137
+	peak depth:   145
 

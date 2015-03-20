@@ -1,19 +1,19 @@
 Crossword
-	ames*ababa*acne
-	bore*rabat*rain
-	benevolent*clog
-	anemometer*hebe
-	****tart*isabel
-	scare**eaten***
-	hale*burlingame
-	isfahan*modeled
-	neapolitan*late
-	***plato**essen
-	aileen*ritz****
-	idea*censorship
-	dear*evaluative
-	ease*rider*oral
-	sled*slots*pent
+	amid*caner*haas
+	lore*awoke*once
+	elaborates*rite
+	centigrade*stem
+	****loeb*treads
+	allay**lotus***
+	deed*flemishing
+	anomaly*antonio
+	manicuring*edna
+	***shoal**broad
+	amuser*lace****
+	bali*emigration
+	otto*sacramento
+	vern*cries*acid
+	eras*estes*mass
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      45.365 (45365.000 ms)
+	runtime:      1:01.059 (61059.000 ms)
 	solutions:    1
-	propagations: 3012803
-	nodes:        14232
-	failures:     7045
-	restarts:     5
-	no-goods:     189
-	peak depth:   92
+	propagations: 3866614
+	nodes:        18218
+	failures:     9029
+	restarts:     7
+	no-goods:     203
+	peak depth:   77
 

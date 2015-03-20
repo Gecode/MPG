@@ -1,23 +1,23 @@
 Crossword
-	gilead*agape*clamps
-	rookie*dolan*radial
-	intern*alert*inanna
-	lit*sedge*erred*nat
-	lair*bait*need*dime
-	sneak*coastal*ahead
-	***blocs*catawba***
-	barbara*oil*babbage
-	elaine*has*detailed
-	rid**scarsdale**leg
-	evanston*orr*repose
-	aerated*cry*berated
-	***visible*radio***
-	altar*cradles*cluck
-	deal*liar*avid*iron
-	van*calve*genoa*are
-	engels*ender*uganda
-	nellie*scars*babied
-	tremor*tense*treads
+	costed*amiga*thesis
+	unlike*satin*relent
+	seamen*prong*armata
+	tit*debit*susie*men
+	odes*bare*blot*wand
+	madam*sensual*binds
+	***babes*arrowed***
+	labeled*big*mortars
+	iberia*ion*northrup
+	lag**citations**uri
+	abandons*had*turban
+	canyons*ron*cereals
+	***lesotho*dodge***
+	labor*feeders*edgar
+	eden*walt*rate*sara
+	ski*carlo*apart*sri
+	linton*erase*napkin
+	ingest*rider*sleeve
+	essays*scars*tented
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      19.157 (19157.000 ms)
+	runtime:      39.141 (39141.000 ms)
 	solutions:    1
-	propagations: 1177592
-	nodes:        7232
-	failures:     3526
-	restarts:     3
+	propagations: 1978103
+	nodes:        11786
+	failures:     5715
+	restarts:     6
 	no-goods:     0
-	peak depth:   96
+	peak depth:   91
 

@@ -1,41 +1,19 @@
 Crossword
-	ababa*prima*scale*leper
-	degenerated*mabel*inane
-	electrocardiogram*torus
-	park*agile*clean*sesame
-	tyson*ray*bid*meter*met
-	***nepal*genes*dot*her*
-	ape*arm*seagram*puritan
-	valery*ainus*tom*pareto
-	ayers*aides*lilac*peril
-	inca*purer*bundled*siva
-	letters*dirac*strap*zen
-	**robots*cubic*seneca**
-	ado*burtt*peale*atwater
-	mimi*diaries*eagle*bide
-	irene*abase*rages*diode
-	decked*spa*rival*dennis
-	echelon*saracen*ban*see
-	*tar*rob*cedar*harem***
-	won*kirov*van*man*buffs
-	arises*rider*panda*slat
-	lacey*understandability
-	stale*geese*allegorical
-	hells*hooks*boyle*ankle
 
-
+Search engine stopped...
+	reason: time limit reached
 
 Initial
 	propagators: 913
 	branchers:   1
 
 Summary
-	runtime:      2:41.304 (161304.000 ms)
-	solutions:    1
-	propagations: 8597221
-	nodes:        36168
-	failures:     17903
-	restarts:     7
+	runtime:      10:00.026 (600026.000 ms)
+	solutions:    0
+	propagations: 28129433
+	nodes:        115717
+	failures:     57606
+	restarts:     11
 	no-goods:     0
-	peak depth:   111
+	peak depth:   112
 

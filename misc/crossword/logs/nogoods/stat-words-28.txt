@@ -1,23 +1,23 @@
 Crossword
-	ajar*arpa*acne*chad
-	lobe*bean*cool*ainu
-	baud*bali*coal*rene
-	anthropomorphic*rat
-	***eats*ada**papa**
-	essays*old*disburse
-	acids*gas*face*scab
-	sam**ink*aries**hub
-	trudeau*guess*maids
-	**lean*array*marc**
-	later*bleak*jackass
-	ida**sages*ban**lac
-	lana*ulan*gab*helga
-	amenable*lad*bunyan
-	**odds**sal*girl***
-	abu*disambiguations
-	rash*dada*lois*spat
-	ella*ends*ease*tame
-	amyl*dash*odes*slew
+	barb*ache*romp*haag
+	lieu*blum*alar*apse
+	anal*lamb*dali*spin
+	burglarproofing*rae
+	***iota*ann**cage**
+	change*ace*abeyance
+	lingo*lie*deal*stay
+	are**had*risky**ike
+	destroy*canoe*laced
+	**team*bicep*bone**
+	ethan*cater*deutsch
+	die**plied*sad**hoe
+	gets*hats*cry*acids
+	editions*phi*scopes
+	**curs**pea*warn***
+	ada*appropriateness
+	bald*hail*loki*opal
+	orly*once*ewen*riga
+	skye*read*sang*scab
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.608 (608.000 ms)
+	runtime:      1.202 (1202.000 ms)
 	solutions:    1
-	propagations: 36863
-	nodes:        295
-	failures:     94
-	restarts:     0
-	no-goods:     28
-	peak depth:   134
+	propagations: 57907
+	nodes:        766
+	failures:     279
+	restarts:     1
+	no-goods:     35
+	peak depth:   149
 

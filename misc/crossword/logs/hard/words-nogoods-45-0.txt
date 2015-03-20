@@ -1,27 +1,27 @@
 Crossword
-	schemas*airfare*sabbath
-	alabama*smolder*allegra
-	gambled*speeder*reunion
-	gum*endear*delaware*tug
-	idea*denier*detect*vase
-	nitty*nilsen*care*dater
-	gathered*slept*enticers
-	***laid*heavier*siva***
-	access*bartender*gandhi
-	chatterer*ere*seventeen
-	caves*hands*suppers*cat
-	eras*hirey***sours*fore
-	nil*lindsey*dents*baden
-	torpedoes*ewe*seasoners
-	styled*defaulted*coarse
-	***awed*dashers*past***
-	chicanas*state*dentists
-	honey*rest*neared*scare
-	outs*skated*stones*slit
-	ode*montanan*mussel*aft
-	sincere*denizen*tremble
-	endures*ireland*availer
-	sisters*assents*lenders
+	ecstasy*laidlaw*barbara
+	notable*indiana*eleanor
+	surreal*staring*wisdoms
+	uri*dilate*transact*mae
+	rand*novels*specie*mann
+	egged*widows*oral*cilia
+	despised*panel*betrayal
+	***ovid*demerit*does***
+	fossil*disperses*demand
+	antidotes*ere*macadamia
+	state*raped*deploys*per
+	cars*barer***allis*folk
+	irk*federal*drain*pause
+	silliness*owe*testicles
+	toying*terrifies*intent
+	***near*deepens*reno***
+	repelled*snead*federals
+	emory*part*stiles*devil
+	wars*mutual*scorch*demo
+	ant*molested*annual*rip
+	ruinous*situate*emanate
+	decease*inhaler*ravager
+	slotted*ageless*slayers
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      19:18:53.082 (69533082.000 ms)
+	runtime:      10:15:46.767 (36946767.000 ms)
 	solutions:    1
-	propagations: 2379632333
-	nodes:        10673073
-	failures:     5336199
-	restarts:     21
-	no-goods:     1311
-	peak depth:   251
+	propagations: 1021499924
+	nodes:        4253481
+	failures:     2126451
+	restarts:     20
+	no-goods:     870
+	peak depth:   217
 

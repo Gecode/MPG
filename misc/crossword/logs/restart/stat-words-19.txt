@@ -1,19 +1,19 @@
 Crossword
-	dash*beset*dumb
-	aloe*awake*itel
-	narratives*situ
-	antagonist*scar
-	****ergo*ideals
-	beads**ulcer***
-	erne*irrelevant
-	sistine*seminar
-	scientists*cope
-	***scent**tense
-	mortar*abba****
-	area*antarctica
-	limb*collateral
-	toil*tress*emil
-	ante*sarah*many
+	gape*farad*maim
+	agar*anode*else
+	serializes*roam
+	persistent*chao
+	****deal*isaacs
+	liars**linen***
+	anne*predictive
+	startle*letitia
+	tolerances*less
+	***gouda**belay
+	braids*tame****
+	ears*italianize
+	abet*bewildered
+	dane*laban*road
+	star*erase*only
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      48.126 (48126.000 ms)
+	runtime:      1:21.635 (81635.000 ms)
 	solutions:    1
-	propagations: 3015406
-	nodes:        15148
-	failures:     7508
-	restarts:     5
+	propagations: 4211314
+	nodes:        19926
+	failures:     9878
+	restarts:     7
 	no-goods:     0
-	peak depth:   57
+	peak depth:   60
 

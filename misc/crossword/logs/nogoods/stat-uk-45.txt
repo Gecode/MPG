@@ -1,27 +1,27 @@
 Crossword
-	catawba*acreage*caranna
-	heinous*paysfor*orarion
-	arpents*preterm*regmata
-	roc*seacob*habitans*get
-	abac*ashram*ranula*gala
-	ditas*sitcom*cens*tares
-	ecstasis*hooch*decimate
-	***amen*concrew*ahab***
-	grilse*bolshevik*aristo
-	responsum*eat*nectaries
-	avian*clift*endarts*mat
-	nids*saice***assai*torr
-	dso*plumbum*aghas*scopa
-	porphyrio*ait*arhythmic
-	areole*coalsacks*arista
-	***toss*kraaled*alec***
-	taffetas*graal*sneaksby
-	imaum*puku*cyanin*metro
-	pail*thrust*anadem*daud
-	pre*beefteas*dralon*til
-	langaha*cystoid*idolise
-	encored*hesione*deliver
-	steanes*adorned*allness
+	cosmism*attacks*minicab
+	acantha*sealion*alabama
+	resales*pleurae*senoras
+	was*lessee*melanous*ish
+	anas*patrol*sakers*hose
+	siris*cassis*byte*haler
+	hailmary*afire*stayless
+	***lare*outleap*hili***
+	aspire*turboprop*redrag
+	stuttgart*ode*wildgeese
+	sagos*busby*ledgers*man
+	urge*tempi***relay*eure
+	ami*boleros*ogres*kudus
+	gaspereau*tau*kathakali
+	ephebe*undebased*erases
+	***sorb*grabbag*mair***
+	strapoil*alaap*bitbybit
+	maars*fisc*siphon*aorta
+	ammo*bottom*niobic*tael
+	rap*buchanan*niacin*bro
+	trisula*figures*ataghan
+	lackall*fairest*maleate
+	yukatas*ancress*slammed
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:02.679 (122679.000 ms)
+	runtime:      1:56.689 (116689.000 ms)
 	solutions:    1
-	propagations: 1919334
-	nodes:        11361
-	failures:     5492
+	propagations: 1110802
+	nodes:        6710
+	failures:     3163
 	restarts:     4
-	no-goods:     256
-	peak depth:   163
+	no-goods:     120
+	peak depth:   172
 

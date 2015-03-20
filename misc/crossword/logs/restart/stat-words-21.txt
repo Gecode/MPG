@@ -1,23 +1,23 @@
 Crossword
-	faded**snare**accra
-	amino*dailies*roles
-	implementable*drank
-	rosa*abets**avenues
-	***rotary*cosines**
-	flagler**godot*atom
-	aided**waunona**rae
-	cam**chalmers*blots
-	eric*hails***graphs
-	**nasally*impeach**
-	slight***stahl*koch
-	casey*israelis**boa
-	ant**steeple**utica
-	bars*heads**streaks
-	**alberto*malone***
-	matilda**logan*nasa
-	alice*theoretically
-	coves*earners*aggie
-	heeds**dress**beads
+	rilke**balsa**panel
+	adair*dadaism*snore
+	yoknapatawpha*annie
+	sled*atoms**dilutes
+	***ravens*grammar**
+	acceded**clamp*lava
+	loads**behaves**nab
+	bat**pervades*hesse
+	axel*await***camped
+	**genteel*arcadia**
+	apogee***blear*true
+	worst*thousand**eng
+	eli**creator**linda
+	doze*heart**blanton
+	**arrests*bleach***
+	patrons**waals*uris
+	axial*embarrassment
+	clone*surgery*panda
+	tends**gassy**anton
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.887 (1887.000 ms)
+	runtime:      2.652 (2652.000 ms)
 	solutions:    1
-	propagations: 144274
-	nodes:        1043
-	failures:     477
-	restarts:     0
+	propagations: 125470
+	nodes:        778
+	failures:     337
+	restarts:     1
 	no-goods:     0
-	peak depth:   110
+	peak depth:   82
 

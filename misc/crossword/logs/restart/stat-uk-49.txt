@@ -1,27 +1,27 @@
 Crossword
-	flasks*archie*age*paula
-	eluant*tarocs*consignor
-	radioisotopes*cocklofts
-	uni*trimeter*tiloil*roe
-	loofs*micas*rider*steps
-	asci*sisal*nureyev*reh*
-	**arne*episemons*animas
-	mascara*snippet*alapage
-	absonant*emeus*mnemonic
-	ebenaceae*urs*moated***
-	nates*ciders*galeas*rum
-	acts*edging*tenors*bevy
-	dye*atolls*cometo*vacua
-	***bootee*pho*hobbinoll
-	residues*krabs*virginal
-	alegars*haikais*cuisses
-	diacid*heyerdahl*cato**
-	*moa*isadora*liane*elba
-	birth*aloes*borne*uriel
-	ana*adland*solation*dak
-	sanssouci*mobilelibrary
-	ingrowths*acater*seated
-	stein*eat*aachen*edgers
+	eassel*ambage*cit*bacca
+	scerne*caudal*enrollers
+	chainprinters*ptomaines
+	oar*usefully*sheass*ope
+	recti*doree*sward*habit
+	tahr*porer*mealies*sit*
+	**weel*mridamgam*cottar
+	kraaled*seareed*secreta
+	aardvark*slaes*apprised
+	rereading*lud*closed***
+	starn*beefed*sharia*pay
+	tins*abears*noints*pipa
+	sat*fulcra*bourns*orgic
+	***boreas*her*tacamahac
+	timewarp*sorra*habanera
+	amulets*photons*ragdays
+	rallye*geophytic*chid**
+	*gae*spatula*adams*aesc
+	betsy*alula*brere*aldea
+	eat*farand*beckiron*nan
+	abodement*partitionment
+	clearings*arnica*fiasco
+	hesse*tae*snecks*senses
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4:45.441 (285441.000 ms)
+	runtime:      49.857 (49857.000 ms)
 	solutions:    1
-	propagations: 4466665
-	nodes:        25816
-	failures:     12653
-	restarts:     6
+	propagations: 386463
+	nodes:        2061
+	failures:     913
+	restarts:     2
 	no-goods:     0
-	peak depth:   140
+	peak depth:   128
 

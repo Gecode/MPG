@@ -1,23 +1,23 @@
 Crossword
-	alec*caff*sybo*scab
-	data*orra*coax*arba
-	anal*aeon*ugli*webb
-	waltzingmatilda*maa
-	***rata*ada**ache**
-	maraca*fid*bestadde
-	aleph*dal*base*herl
-	age**gab*racks**lab
-	sanddab*fancy*adage
-	**dail*candy*abac**
-	abomb*garda*chakras
-	bar**babar*baa**ela
-	else*igad*bab*caman
-	teetotal*fad*razeed
-	**mads**ais*dado***
-	ene*electrokinetics
-	kens*idea*choc*ikat
-	kata*carp*hate*sora
-	apse*emes*etas*enow
+	slap*aged*webb*scab
+	aida*cato*alar*thro
+	anal*clan*sale*saim
+	memoriatechnica*maa
+	***oath*gay**chub**
+	bickie*dab*briarean
+	loyal*dal*gaea*dree
+	awa**fad*denes**cru
+	bandsaw*kayak*plook
+	**oaks*hamal*naan**
+	pacha*aaron*manxcat
+	elo**aryan*bab**ela
+	cobb*pads*rad*herse
+	seaacorn*aid*galton
+	**lahs**egg*ahab***
+	aba*atherosclerosis
+	rama*aeon*doab*waka
+	abib*slae*adar*eras
+	banc*yens*gape*data
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      13.868 (13868.000 ms)
+	runtime:      20.546 (20546.000 ms)
 	solutions:    1
-	propagations: 265183
-	nodes:        21655
-	failures:     10404
-	restarts:     6
-	no-goods:     93
-	peak depth:   161
+	propagations: 1355809
+	nodes:        292873
+	failures:     145476
+	restarts:     14
+	no-goods:     228
+	peak depth:   185
 

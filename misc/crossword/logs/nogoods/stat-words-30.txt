@@ -1,25 +1,25 @@
 Crossword
-	toes*alibi*baja*ababa
-	abby*manes*egos*caleb
-	seersucker*dissociate
-	synapses*adele*corral
-	***cued*heave*scud***
-	absurd*delhi*spaniard
-	tress*artillerist*bar
-	lice*grit***mini*robe
-	abo*bellyache*somalis
-	sentinel*door**nevins
-	**dozen*lowry*fades**
-	slater**eras*relishes
-	aerator*venezuela*mao
-	bail*safe***idly*peru
-	eve*likelihoods*rants
-	restated*lenny*martha
-	***enid*flees*five***
-	sparse*peels*baseness
-	harrisburg*egocentric
-	organ*emma*loser*aida
-	prong*gail*fasts*leer
+	saga*speak*bare*acres
+	anus*ellie*over*chart
+	statically*mauritania
+	himalaya*habib*muster
+	***tons*moral*spat***
+	sprint*roles*reelects
+	leona*pedestrians*ron
+	once*sire***idle*rena
+	oak*cucumbers*strider
+	plebeian*alee**revise
+	**felts*ryder*caleb**
+	adelia**odes*debating
+	lullaby*carefully*lou
+	sale*leak***only*pity
+	one*reassembles*mitre
+	percents*needs*buoyed
+	***hues*stags*penn***
+	splits*cheng*conceals
+	wholesaler*anesthesia
+	aimer*file*rodeo*ring
+	bless*told*stern*sake
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:10.418 (70418.000 ms)
+	runtime:      57.938 (57938.000 ms)
 	solutions:    1
-	propagations: 3481805
-	nodes:        15381
-	failures:     7599
+	propagations: 2129332
+	nodes:        8785
+	failures:     4289
 	restarts:     5
-	no-goods:     211
-	peak depth:   107
+	no-goods:     169
+	peak depth:   127
 

@@ -1,19 +1,19 @@
 Crossword
-	science*cascade
-	carrara*aliased
-	aviator*parried
-	bess*sneer*gary
-	***its*armco***
-	barnabas*shears
-	emigrants*asset
-	gig*brewing*ice
-	anise*watergate
-	nodule*regional
-	***bland*and***
-	hats*reset*solo
-	abilene*widened
-	allowed*evinced
-	getters*seeders
+	baiting*saginaw
+	ontario*crevice
+	inexact*relents
+	semi*koran*rest
+	***can*emacs***
+	watanabe*shoves
+	alabamans*enema
+	dam*lentils*rib
+	emery*denotable
+	sorest*reverser
+	***stave*era***
+	else*pedal*blip
+	courier*mafiosi
+	harvard*oceanic
+	offense*keenest
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      6:52.855 (412855.000 ms)
+	runtime:      1:35.426 (95426.000 ms)
 	solutions:    1
-	propagations: 17559880
-	nodes:        87391
-	failures:     43599
-	restarts:     9
-	no-goods:     274
-	peak depth:   87
+	propagations: 3737121
+	nodes:        19437
+	failures:     9651
+	restarts:     7
+	no-goods:     139
+	peak depth:   92
 

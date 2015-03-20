@@ -1,19 +1,19 @@
 Crossword
-	frau*basal*anna
-	earn*ababa*dean
-	superseded*dust
-	slashed**earths
-	***cod*mender**
-	synod*mad*osaka
-	lao*emilio*slav
-	ott*sinatra*ira
-	peak*doreen*zen
-	estes*aid*ghent
-	**inanna*eli***
-	stodgy**painted
-	nina*laboratory
-	anal*odell*egan
-	gall*natos*dose
+	semi*alpha*amos
+	iran*carib*lima
+	tallahoosa*anew
+	estates**basins
+	***its*smacks**
+	mardi*she*eater
+	eva*ramada*neva
+	ran*editing*rot
+	lids*attune*eke
+	elope*hem*added
+	**martyr*sri***
+	slicer**reelect
+	ooze*affordable
+	ager*proof*teas
+	pods*sorts*ends
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.638 (1638.000 ms)
+	runtime:      1.575 (1575.000 ms)
 	solutions:    1
-	propagations: 126965
-	nodes:        922
-	failures:     437
-	restarts:     0
+	propagations: 95460
+	nodes:        733
+	failures:     328
+	restarts:     1
 	no-goods:     0
-	peak depth:   62
+	peak depth:   63
 

@@ -11,9 +11,9 @@ Crossword
 	erringly*damned
 	***bags*kudo***
 	howell*bonanzas
-	ever*isaac*sore
-	bali*nabla*once
-	ella*glean*neon
+	ever*isaac*semi
+	bali*nabla*orin
+	ella*glean*node
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.390 (390.000 ms)
+	runtime:      0.437 (437.000 ms)
 	solutions:    1
-	propagations: 19488
-	nodes:        144
-	failures:     43
+	propagations: 18993
+	nodes:        139
+	failures:     41
 	restarts:     0
-	no-goods:     15
-	peak depth:   72
+	no-goods:     0
+	peak depth:   70
 

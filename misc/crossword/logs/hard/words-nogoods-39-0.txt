@@ -1,25 +1,25 @@
 Crossword
-	caracas*dacca*accents
-	avocado*error*barbara
-	veteran*sparc*arabian
-	era*spontaneously*lid
-	mate*trained*tea*fine
-	agent*agnes*pod*loner
-	nestor*get*hap*barges
-	***railed*boniface***
-	caressed*captain*snag
-	adopted*talking*stall
-	lauren*bullies*stadia
-	egged*sermons*realign
-	been*hermits*cortland
-	***editions*sodium***
-	argued*big*got*fresco
-	burrs*del*malta*entry
-	ames*air*fervors*toes
-	san*environmental*rat
-	indiana*arden*urinate
-	nielson*scent*ravager
-	galleys*pelts*oneness
+	abashes*maude*realest
+	radiant*owner*argonne
+	clarity*radar*guesses
+	ham*relationships*nat
+	ansi*rebates*ant*make
+	icons*dares*dug*airer
+	center*ted*den*ulcers
+	***erased*bitterer***
+	latrines*arraign*odds
+	elevate*abating*spire
+	pixels*abasing*heroin
+	evans*dresses*recoded
+	rent*neither*chargers
+	***isolates*tooler***
+	maroon*ned*dig*stacks
+	amend*aid*deneb*smart
+	loss*ass*refines*spur
+	leo*instrumentals*tea
+	abridge*alice*realign
+	rattler*nests*derived
+	dessert*dress*spiders
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      13:02:35.255 (46955255.000 ms)
+	runtime:      8:04:14.879 (29054879.000 ms)
 	solutions:    1
-	propagations: 2350479173
-	nodes:        12248307
-	failures:     6123857
+	propagations: 1051123817
+	nodes:        5057102
+	failures:     2528201
 	restarts:     21
-	no-goods:     1277
-	peak depth:   267
+	no-goods:     983
+	peak depth:   234
 

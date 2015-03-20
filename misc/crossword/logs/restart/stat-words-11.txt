@@ -1,19 +1,19 @@
 Crossword
-	abaft*slab*amid
-	palliative*rosa
-	indeterminately
-	stew*guidelines
-	hun*sect*ape***
-	***beak*its*pod
-	bemoan*bah*fade
-	enact*ban*bacon
-	lima*jay*pacers
-	ada*bed*dice***
-	***sea*desk*bar
-	descendant*polo
-	internationally
-	even*idealistic
-	type*earl*posse
+	plane*alva*trap
+	laceration*rica
+	interpretations
+	eked*penetrates
+	dad*deus*oil***
+	***haas*elm*rap
+	amdahl*mae*bela
+	raoul*bar*banal
+	gill*arc*majors
+	ode*ada*myra***
+	***add*ward*dar
+	posteriori*trio
+	exponentiations
+	teem*scandalous
+	ends*sana*pepsi
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.276 (3276.000 ms)
+	runtime:      5.881 (5881.000 ms)
 	solutions:    1
-	propagations: 264766
-	nodes:        1327
-	failures:     621
-	restarts:     1
+	propagations: 359666
+	nodes:        1679
+	failures:     810
+	restarts:     2
 	no-goods:     0
-	peak depth:   59
+	peak depth:   58
 
