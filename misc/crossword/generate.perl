@@ -344,7 +344,7 @@ foreach $f ("logs/hard/words-nogoods-39-0.txt",
 
     open TIME, "<", "$f";
     while ($l = <TIME>) {
-      if ($l =~ /runtime:[\ ]*([0-9:]*)/) {
+      if ($l =~ /runtime:[\ ]*(.*) \(/) {
 	$htime{$dict}{$size}{$inst} = "$1";
       }
       if ($l =~ /nodes:[\ ]*([0-9]*)/) {

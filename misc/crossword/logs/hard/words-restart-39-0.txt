@@ -1,25 +1,25 @@
 Crossword
-	grosses*raman*baptism
-	renault*emile*atlanta
-	alameda*vents*bounced
-	men*segmentations*lin
-	maim*reorder*roe*sine
-	asset*dosed*fan*dunes
-	remark*ned*pan*fibers
-	***nailed*families***
-	sprinted*horizon*tall
-	pranced*coronet*mateo
-	ridges*settles*wanton
-	idols*virtues*porting
-	gene*contend*vertices
-	***showcase*persia***
-	gassed*lit*can*tatter
-	emily*han*bares*nerve
-	rosy*wei*belated*dies
-	met*pharmacopoeia*sri
-	abigail*adore*donated
-	nanette*remit*educate
-	seethed*knees*resents
+	rosella*dakar*appeals
+	untried*ebony*melanie
+	starved*nadia*erotica
+	sam*educationally*mew
+	eris*scotian*pie*mine
+	lines*trunk*spa*jesse
+	loaned*erg*ate*maimed
+	***squire*swingers***
+	assaults*scandal*thud
+	mantels*strikes*pease
+	avails*theater*margin
+	zeros*wrapper*dissent
+	eden*seethed*testings
+	***agitated*hasten***
+	scalar*den*get*sugars
+	tally*air*loath*relic
+	abby*len*bedroom*rave
+	moe*congressional*ben
+	portage*allen*elevate
+	estonia*sling*steamer
+	reopens*heeds*tartary
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      10:54:39.933 (39279933.000 ms)
+	runtime:      10:58:06.704 (39486704.000 ms)
 	solutions:    1
-	propagations: 1889124355
-	nodes:        9757377
-	failures:     4878342
-	restarts:     20
+	propagations: 1759982255
+	nodes:        9072711
+	failures:     4535922
+	restarts:     22
 	no-goods:     0
-	peak depth:   132
+	peak depth:   121
 

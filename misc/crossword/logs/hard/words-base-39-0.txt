@@ -1,25 +1,25 @@
 Crossword
-	strange*ababa*alameda
-	cholera*cones*coronet
-	reciter*kodak*compact
-	ark*senselessness*bee
-	peer*retreat*ode*alas
-	estes*raman*roe*guest
-	rasped*man*pan*mitres
-	***reopen*santiago***
-	friedman*density*cape
-	linseed*bottoms*cocoa
-	elders*bedtime*mirror
-	skins*margins*morrill
-	heat*barring*mercedes
-	***abetting*lowell***
-	airbag*leg*aid*seamed
-	smelt*des*remus*steve
-	have*but*perilla*exec
-	ago*perturbations*ira
-	mileage*route*policed
-	entries*inker*educate
-	deserts*seeds*regents
+	batista*isaac*bahamas
+	averted*sally*elegant
+	yonkers*ovals*loretta
+	pin*proclamations*rob
+	odes*arragon*rig*toil
+	recur*bates*cot*brine
+	tropic*ned*fan*loaded
+	***evaded*meridian***
+	barrages*coerced*skim
+	oracles*cordial*cairo
+	record*genteel*fatter
+	enemy*harvard*marlene
+	rasp*falters*deceases
+	***utopians*lenten***
+	roster*lie*doc*ortega
+	ached*den*raper*silas
+	year*era*persian*cars
+	ban*eventualities*pro
+	unnamed*ended*dresser
+	rioting*scene*everett
+	nanette*shred*resists
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:31:39.502 (9099502.000 ms)
+	runtime:      14:52:03.077 (53523077.000 ms)
 	solutions:    1
-	propagations: 415410744
-	nodes:        2251310
-	failures:     1125620
+	propagations: 3194794288
+	nodes:        17972163
+	failures:     8986044
 	restarts:     0
 	no-goods:     0
-	peak depth:   126
+	peak depth:   127
 
