@@ -9,6 +9,8 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle[\AckName{Joseph}{Scott}]{2015-03-31}{Fixed typo in example
+    of \autoref{part:v}.}
   \cle{2015-03-20}{Released for Gecode 4.4.0}
   \cle{2015-03-18}{Improved and update documentation of
     optimization spaces and scripts
