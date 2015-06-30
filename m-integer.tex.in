@@ -1218,7 +1218,9 @@ is, for an integer variable array \?x? and an integer variable
 min(home, x, y);
 \end{code}
 constrains \?y? to be the minimum of the variables in \?x?
-(\?max? is analogous). 
+(\?max? is analogous)
+\GCCAT{\CAT[int]{min,max}{rel}{TaskModelArith}}. 
+
 
 Also constraints for the arguments of minimum and maximum are
 available. For an integer variable array \?x? and an integer
@@ -1226,14 +1228,18 @@ variable \?y?
 \begin{code}
 argmin(home, x, y);
 \end{code}
-constrains \?y? to be $\argmin(\mathtt{x})$. By default,
+constrains \?y? to be $\argmin(\mathtt{x})$, that is, the element
+in \?x? at position \?y? is equal to $\min(\mathtt{x})$
+\GCCAT{\CAT[int]{min_index}{rel}{TaskModelArith}}.
+By default,
 \?argmin? uses tie-breaking and constrains \?y? to be the first
 position of the minimum in \?x?. By posting
 \begin{code}
 argmin(home, x, y, false);
 \end{code}
 no tie-breaking is used. Of course, \?argmax? is analogous. 
-\?argmin? and \?argmax? without tie-breaking are domain consistent.
+\?argmin? and \?argmax? without tie-breaking are domain consistent
+\GCCAT{\CAT[int]{max_index}{rel}{TaskModelArith}}.
 
 \subsection{Linear constraints}
 \label{sec:m:integer:linear}
