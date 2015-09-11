@@ -58,7 +58,7 @@ while ($l = <>) {
   if ($l =~ /\\label\{(sec:m:.*)\}/) {
     $label = $1;
   }
-  if ($l =~ /\\CAT\[([^\]]*)\]{([^}]*)}{([^}]*)}{([^}]*)}/) {
+  if ($l =~ /\\CAT\[([^\]]*)\]\{([^\}]*)\}\{([^\}]*)\}\{([^\}]*)\}/) {
     my $section = $1; my $gccnames = $2; my $gecodename = $3; my $ref = $4;
     foreach $gce (split(',',$gccnames)) {
       my $key = "$gce-$section";

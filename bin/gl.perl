@@ -125,16 +125,16 @@ $year = shift @ARGV;
 
 while ($l = <>) {
   $line++;
-  if ($l =~ /\\begin{litcode}\[texonly\]{(.*)}/) {
+  if ($l =~ /\\begin\{litcode\}\[texonly\]\{(.*)\}/) {
     if ($inlitcode == 1) {
       die "Found nested \\begin{litcode} in line $line."
     }
     $inlitcode = 1;
     $curcode = $1;
     $curcodeopen = 0;
-  } elsif ($l =~ /\\begin{litcode}[^{]/) {
+  } elsif ($l =~ /\\begin\{litcode\}[^\{]/) {
     die "Missing argument to \\begin{litcode} in line $line."
-  } elsif ($l =~ /\\begin{litcode}{(.*)}{(.*)}/) {
+  } elsif ($l =~ /\\begin\{litcode\}\{(.*)\}\{(.*)\}/) {
     if ($inlitcode == 1) {
       die "Found nested \\begin{litcode} in line $line."
     }
@@ -194,7 +194,7 @@ print $curcodefile <<EOF
 EOF
 ;
 
-  } elsif ($l =~ /\\end{litcode}/) {
+  } elsif ($l =~ /\\end\{litcode\}/) {
     if ($inlitcode == 0) {
       die "Found unmatched \\end{litcode} in line $line."
     }
@@ -217,22 +217,22 @@ EOF
 	  if ($isstring == 0) {
 	    $isstring = 1;
 	    foreach my $kw (@keywords) {
-	      $entry =~ s/\b($kw)\b/{\\litkw{$1}}/g;
+	      $entry =~ s/\b($kw)\b/\{\\litkw\{$1\}\}/g;
 	    }
 	  } else {
 	    $isstring = 0;
-	    $entry = "{\\litstr{$entry}}";
+	    $entry = "\{\\litstr\{$entry\}\}";
 	  }
-	  $entry =~ s/ /\\lits{}/g;
+	  $entry =~ s/ /\\lits\{\}/g;
 	  $l = $l . $entry;
 	}
-	$l = $l . "}" . $post;
+	$l = $l . "\}" . $post;
       }
       $l = "$l\n";
     }
     push(@document, $l);
   } else {
-    if ($l =~ /\\begin{litblock}{(.*)}/) {
+    if ($l =~ /\\begin\{litblock\}\{(.*)\}/) {
       if ($1 eq "texonly") {
         $intexonlyblock = 1;
         push(@blockstack, $1);
@@ -247,7 +247,7 @@ EOF
 	  if ($comment =~ /.*\:(.*)/) {
 	    $comment = $1;
 	  }
-	  $l =~ s|\\begin{litblock}.*|// $comment|;
+	  $l =~ s|\\begin\{litblock\}.*|// $comment|;
 	  print $curcodefile $l;
 	}
       }
@@ -258,7 +258,7 @@ EOF
       if (($intexonlyblock == 0) && $curcodeopen) {
         print $curcodefile $l;
       }
-    } elsif ($l =~ /(\s*)\\end{litblock}/) {
+    } elsif ($l =~ /(\s*)\\end\{litblock\}/) {
       my $whitespace = $1;
       my $n = pop(@blockstack);
       my $t = $n;
@@ -275,7 +275,7 @@ EOF
           $curblock .= $whitespace."...\n";
         } elsif (!($n eq "ignore")) {
           $curblock .= 
-            $whitespace."\\litref{lit:".$curcode.":".$n."}{$t}\n";
+            $whitespace."\\litref\{lit:".$curcode.":".$n."\}\{$t\}\n";
         }
       }
     } elsif ($l =~ /\*\//) {
@@ -299,10 +299,10 @@ EOF
 $incode = 0;
 $fst    = 0;
 foreach my $line (@document) {
-  if (($line =~ /\\end{code}/) ||
-      ($line =~ /\\end{smallcode}/) ||
-      ($line =~ /\\end{cmd}/) ||
-      ($line =~ /\\end{smallcmd}/)) {
+  if (($line =~ /\\end\{code\}/) ||
+      ($line =~ /\\end\{smallcode\}/) ||
+      ($line =~ /\\end\{cmd\}/) ||
+      ($line =~ /\\end\{smallcmd\}/)) {
     $incode = 0; $fst = 0;
     print "}\n"
   } elsif ($incode) {
@@ -312,32 +312,32 @@ foreach my $line (@document) {
       $fst = 0;
     }
     fontify($line);
-  } elsif ($line =~ /\\insertlitcode\[direct\]{(.*)}/) {
+  } elsif ($line =~ /\\insertlitcode\[direct\]\{(.*)\}/) {
     if (! (exists $blocknames{$1})) {
       die "No block $1 defined.";
     }
     outputBlock($1, $blocknames{$1}, $blocks{$1},0,0);
-  } elsif ($line =~ /\\insertlitcode{(.*)}/) {
+  } elsif ($line =~ /\\insertlitcode\{(.*)\}/) {
     if (! (exists $blocknames{$1})) {
       die "No block $1 defined.";
     }
     outputBlock($1, $blocknames{$1}, $blocks{$1},1,0);
-  } elsif ($line =~ /\\insertsmalllitcode{(.*)}/) {
+  } elsif ($line =~ /\\insertsmalllitcode\{(.*)\}/) {
     if (! (exists $blocknames{$1})) {
       die "No block $1 defined.";
     }
     outputBlock($1, $blocknames{$1}, $blocks{$1},1,1);
-  } elsif ($line =~ /\\begin{code}/) {
-    print "\\litcodeblock{\%\n";
+  } elsif ($line =~ /\\begin\{code\}/) {
+    print "\\litcodeblock\{\%\n";
     $incode = 1; $fst = 1;
-  } elsif ($line =~ /\\begin{smallcode}/) {
-    print "\\smalllitcodeblock{\%\n";
+  } elsif ($line =~ /\\begin\{smallcode\}/) {
+    print "\\smalllitcodeblock\{\%\n";
     $incode = 1; $fst = 1;
-  } elsif ($line =~ /\\begin{cmd}/) {
-    print "\\litcmdblock{\%\n";
+  } elsif ($line =~ /\\begin\{cmd\}/) {
+    print "\\litcmdblock\{\%\n";
     $incode = 1; $fst = 1;
-  } elsif ($line =~ /\\begin{smallcmd}/) {
-    print "\\smalllitcmdblock{\%\n";
+  } elsif ($line =~ /\\begin\{smallcmd\}/) {
+    print "\\smalllitcmdblock\{\%\n";
     $incode = 1; $fst = 1;
   } else {
     print replaceDocRefs($line);
@@ -347,9 +347,9 @@ foreach my $line (@document) {
 sub outputBlock {
   my $blockref = $_[0];
   my $dl = $download{$blockref};
-  $blockref =~ s/ /\\lits{}/g;
+  $blockref =~ s/ /\\lits\{\}/g;
   my $blockname = $_[1];
-  $blockname =~ s/ /\\lits{}/g;
+  $blockname =~ s/ /\\lits\{\}/g;
   my $code = $_[2];
   $code =~ /(\s*)/;
   my $withlabel = $_[3];
@@ -357,15 +357,15 @@ sub outputBlock {
   my $whitespace = length($1);
   my @codelines = split(/\n/,$code);
   if ($small) {
-    print "\\smalllitcodeblock{\%\n";
+    print "\\smalllitcodeblock\{\%\n";
   } else {
-    print "\\litcodeblock{\%\n";
+    print "\\litcodeblock\{\%\n";
   }
   if ($withlabel) {
     if ($dl) {
-      print "\\noindent\\litfile{lit:$blockref}{$blockname}{$dl}\\\\\n";
+      print "\\noindent\\litfile\{lit:$blockref\}\{$blockname\}\{$dl\}\\\\\n";
     } else {
-      print "\\noindent\\litlabel{lit:$blockref}{$blockname}\\\\\n";
+      print "\\noindent\\litlabel\{lit:$blockref\}\{$blockname\}\\\\\n";
     }
   } else {
     print "\\noindent";
@@ -381,11 +381,11 @@ sub outputBlock {
       fontify(substr($line,$whitespace));
     } else {
       $line = substr($line,$whitespace);
-      $line =~ s/ /\\lits{}/g;
-      print "\\lits\\lits{}".$line;
+      $line =~ s/ /\\lits\{\}/g;
+      print "\\lits\\lits\{\}".$line;
     }
   }
-  print "}\n"
+  print "\}\n"
 }
 
 sub fontify {
@@ -393,9 +393,9 @@ sub fontify {
   my $line = $_[0];
   print "\\lits\\lits{}";
   if ($line =~ /^\#([a-zA-Z]+) (.*)/) {
-    print "\\litkw{\\#$1}\\lits{}\\litstr{" . quote($2) . "}";
+    print "\\litkw\{\\#$1\}\\lits{}\\litstr\{" . quote($2) . "\}";
   } elsif ($line =~ /^\#([a-zA-Z]+)/) {
-    print "\\litkw{\\#$1}";
+    print "\\litkw\{\\#$1\}";
   } else {
     my $comment = "";
     if ($line =~ /(.*?)\/\/(.*)/) {
@@ -409,17 +409,17 @@ sub fontify {
       if ($isstring == 0) {
         $isstring = 1;
 	foreach my $kw (@keywords) {
-          $entry =~ s/\b($kw)\b/{\\litkw{$1}}/g;
+          $entry =~ s/\b($kw)\b/\{\\litkw\{$1\}\}/g;
         }
       } else {
         $isstring = 0;
-        $entry = "{\\litstr{$entry}}";
+        $entry = "\{\\litstr\{$entry\}\}";
       }
-      $entry =~ s/ /\\lits{}/g;
+      $entry =~ s/ /\\lits\{\}/g;
       print $entry;
     }
     if (! ($comment eq "")) {
-      print "{\\litc{//$comment}}";
+      print "\{\\litc\{//$comment\}\}";
     }
   }
 }
@@ -440,7 +440,7 @@ sub quote {
 sub replaceDocRefs {
   my $l = $_[0];
   chop($l);
-  while ($l =~ /(.*)\\gecoderef\[([^\]]*)\]{([^}]*)}(.*)/) {
+  while ($l =~ /(.*)\\gecoderef\[([^\]]*)\]\{([^}]*)\}(.*)/) {
     my $prefix = $1; my $suffix = $4;
     my $kind = $2; my $ref = $3;
     my $u1 = $url{$kind}{$ref};
@@ -457,11 +457,11 @@ sub replaceDocRefs {
     if (($kind =~ /example/) || ($kind =~ /group/) || ($kind =~ /page/)) {
       $text = $title{$kind}{$ref};
     } else {
-      $text = "\\CppInline{" . &quote($ref) . "}";
+      $text = "\\CppInline\{" . &quote($ref) . "\}";
     }
-    $l = $prefix."\\litdocref{$u}{$text}".$suffix;
+    $l = $prefix."\\litdocref\{$u\}\{$text\}".$suffix;
   }
-  while ($l =~ /(.*)\\CAT\[([^\]]*)\]{([^}]*)}{([^}]*)}{([^}]*)}(.*)/) {
+  while ($l =~ /(.*)\\CAT\[([^\]]*)\]\{([^}]*)\}\{([^\}]*)\}\{([^\}]*)\}(.*)/) {
     my $prefix = $1; my $suffix = $6;
     my $gccat = $3;
     if ($gccat =~ /-/) {
