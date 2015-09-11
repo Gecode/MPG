@@ -159,7 +159,7 @@ accordingly.
 
 Finally, all distances must be pairwise distinct (see
 \autoref{sec:m:integer:distinct}) where bounds propagation is
-requested (see \autoref{sec:m:integer:icl}):
+requested (see \autoref{sec:m:integer:ipl}):
 \insertlitcode{golomb:distances must be distinct}
 Intuitively, bounds propagation is sufficient as also the
 propagation for the distances is using bounds propagation.
@@ -292,7 +292,7 @@ public:
         rel(*this, d[k], IRT_GQ, (j-i)*(j-i+1)/2);
     \end{litblock}
     \begin{litblock}{distances must be distinct}
-    distinct(*this, d, ICL_BND);
+    distinct(*this, d, IPL_BND);
     \end{litblock}
     \begin{litblock}{symmetry breaking}
     if (n > 2)

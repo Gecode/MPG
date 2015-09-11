@@ -56,7 +56,7 @@ constraint, the variables in the \?pos? array
 must be pairwise distinct (see \autoref{sec:m:integer:distinct}): 
 \insertlitcode{photo:constrain positions}
 We choose the bounds consistent variant of \?distinct? (by giving
-the extra argument \?ICL_BND?, see \autoref{sec:m:integer:icl})
+the extra argument \?IPL_BND?, see \autoref{sec:m:integer:ipl})
 as also the other propagators perform only bounds reasoning.
 
 The remaining constraints implement the preferences and turn them
@@ -119,7 +119,7 @@ public:
     : IntMinimizeScript(opt),
       pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
     \begin{litblock}{constrain positions}
-    distinct(*this, pos, ICL_BND);
+    distinct(*this, pos, IPL_BND);
     \end{litblock}
     \begin{litblock}{compute violations}
     BoolVarArgs viol(n_prefs);
@@ -206,7 +206,7 @@ public:
   Photo(const Options& opt)
     : IntMinimizeScript(opt),
       pos(*this,n,0,n-1), violations(*this,0,n_prefs) {
-    distinct(*this, pos, ICL_BND);
+    distinct(*this, pos, IPL_BND);
 \end{litblock}
     BoolVarArgs viol(*this,n_prefs,0,1);
     for (int i=0; i<n_prefs; i++) {

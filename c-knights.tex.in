@@ -129,8 +129,8 @@ enforces that the tour of knight's moves forms a Hamiltonian
 circuit: 
 \insertlitcode{knights:Hamiltonian circuit}
 We request domain propagation for the \?circuit? constraint by
-providing \?ICL_DOM? as argument (see
-\autoref{sec:m:integer:icl}).\footnote{Of course, domain
+providing \?IPL_DOM? as argument (see
+\autoref{sec:m:integer:ipl}).\footnote{Of course, domain
   propagation for \?circuit? does not achieve domain consistency,
   as the problem of finding Hamiltonian circuits is
   NP-complete~\cite[p.~199]{GareyJohnson:79}.} Intuitively, we
@@ -351,7 +351,7 @@ public:
     rel(*this, succ[0], IRT_EQ, f(1,2));
     \end{litblock}
     \begin{litblock}{Hamiltonian circuit}
-    circuit(*this, succ, ICL_DOM);
+    circuit(*this, succ, IPL_DOM);
     \end{litblock}
     warnsdorff(*this, succ);
   }

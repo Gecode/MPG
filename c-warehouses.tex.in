@@ -134,8 +134,8 @@ Here, the array of integer sets \?c? defines how many stores can
 be supplied by a warehouse, where $\mathtt{c}_w$ contains every
 legal number of occurrences of $w$ in \?supplier?. To achieve
 strong propagation for the \?count? constraint, we choose domain
-propagation by providing the additional argument \?ICL_DOM? (see
-\autoref{sec:m:integer:icl}).
+propagation by providing the additional argument \?IPL_DOM? (see
+\autoref{sec:m:integer:ipl}).
 
 For a given warehouse $w$ the following must hold: if the
 number of stores $s$ supplied by $w$ is at least one, then
@@ -266,7 +266,7 @@ public:
       IntSetArgs c(n_warehouses);
       for (int w=0; w<n_warehouses; w++)
         c[w] = IntSet(0,capacity[w]);
-      count(*this, supplier, c, ICL_DOM);
+      count(*this, supplier, c, IPL_DOM);
       \end{litblock}
     }
     \begin{litblock}{open warehouses}

@@ -35,9 +35,9 @@ option & type & explanation \\
 \hline
 \multicolumn{3}{|c|}{propagation options}\\
 \hline
-\texttt{-icl} &
+\texttt{-ipl} &
 $\{\mathtt{def},\mathtt{val},\mathtt{bnd},\mathtt{dom}\}$ &
-integer consistency level\\
+integer propagation level\\
 \hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{branching options}\\

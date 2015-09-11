@@ -723,61 +723,64 @@ rel(home, x, IRT_EQ, y, imp(b));
 \end{code}
 
 
-\subsection{Selecting the consistency level}
-\label{sec:m:integer:icl}
+\subsection{Selecting the propagation level}
+\label{sec:m:integer:ipl}
 
 For many constraints, Gecode provides different propagators with
-different levels of consistency. All constraint post functions take an
-optional argument of type \?IntConLevel? (see
+different levels of propagation. All constraint post functions take an
+optional argument of type \?IntPropLevel? (see
 \gecoderef[group]{TaskModelInt}) controlling which propagator is
 chosen for a particular constraint.
 
-The different values for \?IntConLevel? have the following
+The different values for \?IntPropLevel? have the following
 meaning:
 \begin{itemize}
-\item \?ICL_VAL?: perform value propagation. A typical example is
+\item \?IPL_VAL?: perform value propagation. A typical example is
   naive \?distinct?: wait until a variable becomes assigned to a
   value $n$, then prune $n$ from all other variables.
 
-\item \?ICL_BND?: perform bounds propagation or achieve bounds
+\item \?IPL_BND?: perform bounds propagation or achieve bounds
   consistency. This captures both bounds consistency over the
-  integers (for example, for \?distinct?, see \autoref{sec:m:integer:distinct}) or bounds consistency
-  over the real numbers (for example, for \?linear?, see \autoref{sec:m:integer:linear}). For more
-  information on bounds consistency over integers or real
-  numbers, see~\cite{bounds-consistency}. 
+  integers (for example, for \?distinct?, see
+  \autoref{sec:m:integer:distinct}) or bounds consistency over
+  the real numbers (for example, for \?linear?, see
+  \autoref{sec:m:integer:linear}). For more information on bounds
+  consistency over integers or real numbers,
+  see~\cite{bounds-consistency}.
   
   Some propagators that are selected might not even achieve
   bounds consistency but the idea is that the propagator performs
   propagation by reasoning on the bounds of variable domains.
 
-\item \?ICL_DOM?: perform domain propagation or achieve domain
-  consistency. Most propagators selected by \?ICL_DOM? achieve
+\item \?IPL_DOM?: perform domain propagation or achieve domain
+  consistency. Most propagators selected by \?IPL_DOM? achieve
   domain consistency but some just perform propagation by taking
   entire variable domains for propagation into account (for
   example, \?circuit?, see \autoref{sec:m:integer:circuit}).
 
-\item \?ICL_DEF?: choose default consistency level for this
+\item \?IPL_DEF?: choose default propagation level for this
   constraint.
 \end{itemize}
 
 Whether bounds or domain consistency is achieved and the default
-consistency level for a constraint are mentioned in the reference
+propagation level for a constraint are mentioned in the reference
 documentation for each post function.
 
-\tip{Different consistency levels have different costs}{
-Note that propagators of different consistency
-level for the very same constraint can have vastly different cost. In
-general, propagation for \?ICL_VAL? will be cheapest, while
-propagation for \?ICL_DOM? will be most expensive. 
+\tip{Different propagation levels have different costs}{
+  Note that propagators of different propagation level for the
+  very same constraint can have vastly different cost. In
+  general, propagation for \?IPL_VAL? will be cheapest, while
+  propagation for \?IPL_DOM? will be most expensive.
 
-The reference documentation for a constraint lists whether propagation for a
-particular consistency level might have prohibitive cost for a
-large number of variables or a large number of values in the
-variables' domains. For example, for the \?linear? constraint
-with $n$ variables and at most $d$ values for each variable, the
-complexity to perform bounds propagation (that is, \?ICL_BND?) is
-$O(n)$ whereas the complexity for domain propagation (that is,
-\?ICL_DOM?) is $O(d^n)$.  }
+  The reference documentation for a constraint lists whether a
+  particular propagation level might have prohibitive cost for a
+  large number of variables or a large number of values in the
+  variables' domains. For example, for the \?linear? constraint
+  with $n$ variables and at most $d$ values for each variable,
+  the complexity to perform bounds propagation (that is,
+  \?IPL_BND?) is $O(n)$ whereas the complexity for domain
+  propagation (that is, \?IPL_DOM?) is $O(d^n)$.
+}
 
 \subsection{Exceptions}
 
@@ -2460,7 +2463,7 @@ IntArgs u(4, 1,1,1,2);
 cumulative(home, 2, s, d, u);
 \end{code}
 The capacity can be an integer variable or a nonnegative integer.
-The resource usage must be stricly
+The resource usage must be strictly
 positive. As for unary, there exist versions with optional,
 flexible, and flexible and optional tasks.
 

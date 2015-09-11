@@ -183,8 +183,8 @@ hint of length $8$ with value $s$. Then, the fields covered by
 the hint take on all but one digit. That is, all fields must be
 different from $\sum_{i=1}^9 i -s = 9(9+1)/2 -s$. Taking these
 two observations into account, the constraints for a hint can be
-posted as follows, where the value \?ICL_DOM? requests domain
-propagation (see \autoref{sec:m:integer:icl}):
+posted as follows, where the value \?IPL_DOM? requests domain
+propagation (see \autoref{sec:m:integer:ipl}):
 \insertlitcode{kakuro naive:posting hint constraints}
 
 Note that there are other special cases where no \?linear?
@@ -440,10 +440,10 @@ public:
   \begin{litblock}{posting hint constraints}
   void hint(const IntVarArgs& x, int s) {
     if (x.size() < 8)
-      linear(*this, x, IRT_EQ, s, ICL_DOM);
+      linear(*this, x, IRT_EQ, s, IPL_DOM);
     else if (x.size() == 8)
       rel(*this, x, IRT_NQ, 9*(9+1)/2 - s);
-    distinct(*this, x, ICL_DOM);
+    distinct(*this, x, IPL_DOM);
   }
   \end{litblock}
   Kakuro(const Options& opt)
@@ -613,7 +613,7 @@ public:
     case 8:
       rel(*this, x, IRT_NQ, 9*(9+1)/2 - s);
     case 9:
-      distinct(*this, x, ICL_DOM); break;
+      distinct(*this, x, IPL_DOM); break;
     default:
       distinctlinear(*this, x, s); break;
     }

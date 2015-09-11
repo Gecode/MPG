@@ -160,15 +160,18 @@ rel(home, a+tmp1 == 0);
 Like the post functions for integer and Boolean constraints
 presented in \autoref{sec:m:integer:post}, posting integer
 expressions and relations supports an optional argument of type
-\?IntConLevel? to select the consistency level. For more
+\?IntPropLevel? to select the propagation level. For more
 information, see \gecoderef[group]{TaskModelMiniModelPost} and 
 \autoref{sec:m:integer:generic}. 
 
-Using the \?expr? function, you can enforce a particular decomposition, and you can specify the consistency level for each subexpression. For example,
+Using the \?expr()? function, you can enforce a particular
+decomposition, and you can specify the propagation level for each
+subexpression. For example,
 \begin{code}
-rel(home, x+expr(home,y*z,ICL_DOM) == 0);
+rel(home, x+expr(home,y*z,IPL_DOM) == 0);
 \end{code}
-will propagate domain consistency for the multiplication, but bounds consistency (the default) for the sum.
+will perform domain propagation for the multiplication, but
+bounds propagation (the default) for the sum.
 
 An \?element? expression such as \?element(x,e)?, where \?x? is an array of integers or integer variables, and \?e? is an integer expression, corresponds to an array access \?x[e]?, implemented using an \?element? constraint (see \autoref{sec:m:integer:element}).
 
@@ -300,7 +303,7 @@ rel(home, (x1+d1 <= x2) || (x2+d2 <= x1) ||
 Like the post functions for integer and Boolean variables
 presented above, posting Boolean
 expressions and relations supports an optional argument of type
-\?IntConLevel? to select the consistency level. For more
+\?IntPropLevel? to select the propagation level. For more
 information, see \autoref{sec:m:integer:generic}. 
 
 Boolean expressions also include reified set relations, which will be covered below.
