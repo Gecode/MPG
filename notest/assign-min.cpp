@@ -72,7 +72,7 @@ public:
       q(le[16]), r(le[17]), s(le[18]), t(le[19]), u(le[20]),
       v(le[21]), w(le[22]), x(le[23]), y(le[24]), z(le[25]);
 
-    distinct(*this, le, opt.icl());
+    distinct(*this, le, opt.ipl());
 
     switch (opt.branching()) {
     case BRANCH_NONE:

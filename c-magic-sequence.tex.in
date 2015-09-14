@@ -175,7 +175,7 @@ public:
   MagicSequence(const SizeOptions& opt)
     : Script(opt), x(*this,opt.size(),0,opt.size()-1) {
     // Global counting constraint
-    count(*this, x, x, opt.icl());
+    count(*this, x, x, opt.ipl());
     // Implied constraint
     linear(*this, IntArgs::create(x.size(),-1,1), x, IRT_EQ, 0);
     // Branching

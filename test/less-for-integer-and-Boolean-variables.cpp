@@ -10,7 +10,7 @@ class LessInt : public Test {
 public:
   /// Create and register test
   LessInt(void)
-    : Test("Less::Int",2,-3,3,false,icl) {}
+    : Test("Less::Int",2,-3,3,false) {}
   /// Test whether \a x is solution
   virtual bool solution(const Assignment& x) const {
     return x[0] < x[1];
@@ -26,7 +26,7 @@ class LessBool : public Test {
 public:
   /// Create and register test
   LessBool(void)
-    : Test("Less::Bool",2,0,1,false,icl) {}
+    : Test("Less::Bool",2,0,1,false) {}
   /// Test whether \a x is solution
   virtual bool solution(const Assignment& x) const {
     return x[0] < x[1];

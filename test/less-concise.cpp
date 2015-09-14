@@ -15,7 +15,7 @@ namespace Test { namespace Int {
     public:
       /// Create and register test
       LessTest(void)
-        : Test("Less::Concise",2,-3,3,false,icl) {}
+        : Test("Less::Concise",2,-3,3,false) {}
       /// Test whether \a x is solution
       virtual bool solution(const Assignment& x) const {
         return x[0] < x[1];
