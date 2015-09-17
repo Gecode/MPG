@@ -2432,6 +2432,12 @@ none of the tasks overlaps in time (see
 \gecoderef[group]{TaskModelIntScheduling})
 \GCCAT{\CAT[int]{disjunctive}{unary}{TaskModelIntScheduling}}.
 
+\tip{Tasks with duration zero}{%
+Tasks with duration zero are still useful for modeling: even
+though the do not take any time to be executed on the resource,
+they prevent that any other task can run at the same time.
+}
+
 \paragraph{Selecting the propagation level.}
 
 All propagators implementing \?unary? perform overload-checking. The
@@ -2464,6 +2470,10 @@ unary(home, s, d,
 \end{code}
 It performs time-tabling in addition to the advanced
 algorithms.
+
+All algorithms require $O(n \log n)$ runtime for $n$ tasks,
+however basic propagation is more efficient than advanced
+propagation.
 
 \paragraph{Optional tasks.}
 
@@ -2544,9 +2554,13 @@ The propagators implementing the \?cumulative? constraint always
 perform overload checking~\cite{Vilim:CPAIOR:2009}. Basic
 propagation performs time-tabling, see for example~\cite{CBS},
 and can be selected by giving \?IPL_BASIC? as additional integer
-propagation level argument. Advanced propagation (selected by
+propagation level argument. The cost of basic propagation is
+$O(n\log n)$ for $n$ tasks. Advanced propagation (selected by
 \?IPL_ADVANCED?) performs edge-finding~\cite{Vilim:CP:2009}
 \GCCAT{\CAT[int]{cumulative}{cumulative}{TaskModelIntScheduling}}.
+The cost of advanced propagation is
+$O(kn\log n)$ for $n$ tasks where $k$ is the number of different
+resource usage values.
 Basic and advanced propagation can be combined as described in
 \autoref{sec:m:integer:unary}.
 
