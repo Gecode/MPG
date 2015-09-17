@@ -9,6 +9,8 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2015-09-17}{Documented new integer propagation levels
+    (see \autoref{sec:m:integer:ipl}).}
   \cle[\AckName{Joseph}{Scott}]{2015-03-31}{Fixed typo in example
     of \autoref{part:v}.}
   \cle{2015-03-20}{Released for Gecode 4.4.0}

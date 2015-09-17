@@ -732,8 +732,8 @@ optional argument of type \?IntPropLevel? (see
 \gecoderef[group]{TaskModelInt}) controlling which propagator is
 chosen for a particular constraint.
 
-The different values for \?IntPropLevel? have the following
-meaning:
+The different simple values for \?IntPropLevel? have the
+following meaning:
 \begin{itemize}
 \item \?IPL_VAL?: perform value propagation. A typical example is
   naive \?distinct?: wait until a variable becomes assigned to a
@@ -765,6 +765,31 @@ meaning:
 Whether bounds or domain consistency is achieved and the default
 propagation level for a constraint are mentioned in the reference
 documentation for each post function.
+
+In addition to the basic propagation levels listed above, the
+following pre-defined values exist:
+\begin{itemize}
+\item \?IPL_SPEED?: try to optimize propagation for execution
+  performance, possibly at the expense of using more memory.
+\item \?IPL_MEMORY?: try to optimize propagation for memory
+  consumption, possibly at the expense of being less efficient.
+\item \?IPL_BASIC?: try to optimize for execution performance at
+  the expense of performing less propagation.
+\item \?IPL_ADVANCED?: try to optimize for more propagation at
+  the expensive of being less efficient.
+\end{itemize}
+The propagation levels can be specified as disjunctions, for
+example \?IPL_DEF|IPL_MEMORY? requests default propagation that
+saves memory which is equivalent to \?IPL_MEMORY? (the \?IPL_DEF?
+can always be omitted). Note that in particular the combination
+\?IPL_BASIC|IPL_ADVANCED? is meaningful requesting both basic
+and advanced propagation to be performed.
+
+Extensional constraints using tuple sets, see
+\autoref{sec:m:integer:extensional}, support propagation levels
+with \?IPL_SPEED? and \?IPL_MEMORY?, whereas some scheduling
+constraints, see \autoref{sec:m:integer:scheduling}, support
+basic and advanced propagation levels.
 
 \tip{Different propagation levels have different costs}{
   Note that propagators of different propagation level for the
@@ -1070,10 +1095,12 @@ values of the type \?BoolOpType? (see
 \autoref{fig:m:integer:bot} lists the available Boolean operation
 types.
 
+\begin{samepage}
 For example, for Boolean variables \?x?, \?y?, and \?z?,
 \begin{code}
 rel(home, x, BOT_AND, y, z);
 \end{code}
+\end{samepage}
 posts the constraint
 $\mathtt{x}\wedge\mathtt{y}=\mathtt{z}$. Similarly,
 \begin{code}
@@ -1518,11 +1545,13 @@ $$
 \#\{\mathtt{x}_0,\ldots,\mathtt{x}_{|\mathtt{x}|-1}\}=\mathtt y
 $$
 
+\begin{samepage}
 Instead of \?IRT_EQ? any other integer relation type can be used,
 see \autoref{fig:m:integer:irt} for an overview. For example,
 \begin{code}
 nvalues(home, x, IRT_LQ, y);
 \end{code}
+\end{samepage}
 constrains the number of distinct values in \?x? to be less than
 or equal to \?y?. The array \?x? can also be an array of Boolean
 variables and \?y? can be an integer value.
@@ -1850,6 +1879,19 @@ protocol using a tuple set is done by
 BoolVarArray x(home, 3, 0, 1);
 extensional(home, x, t);
 \end{code}
+Propagation for extensional constraints using tuple sets can
+either give preference to execution speed or memory consumption
+by passing an appropriate integer propagation level (see
+\autoref{sec:m:integer:ipl}) argument. For example, to prefer
+execution speed (the default) the constraint can be posted as:
+\begin{code}
+extensional(home, x, t, IPL_SPEED);
+\end{code}
+In order to optimize for memory, the constraint can be posted as:
+\begin{code}
+extensional(home, x, t, IPL_MEMORY);
+\end{code}
+
 For examples of extensional constraints using tuple sets, see
 \autoref{chap:c:kakuro}, 
 \gecoderef[example]{black-hole}, and \gecoderef[example]{kakuro}.
@@ -2387,12 +2429,43 @@ unary(home, s, d);
 \end{code}
 constrains the start times in \?s? such that the execution of
 none of the tasks overlaps in time (see
-\gecoderef[group]{TaskModelIntScheduling}).
-
-All propagators implementing \?unary? use
-overload-checking, detectable precedences, not-first-not-last,
-and edge-finding, following~\cite{Vilim:2007}
+\gecoderef[group]{TaskModelIntScheduling})
 \GCCAT{\CAT[int]{disjunctive}{unary}{TaskModelIntScheduling}}.
+
+\paragraph{Selecting the propagation level.}
+
+All propagators implementing \?unary? perform overload-checking. The
+propagators can be posted offering basic or advanced propagation,
+where basic propagation only is the default. Basic propagation
+is selected if the constraint is posted with an
+additional integer propagation level argument (see
+\autoref{sec:m:integer:ipl}) as
+\begin{code}
+unary(home, s, d, IPL_BASIC);
+\end{code}
+Basic propagation performs time-tabling, see for
+example~\cite{CBS}, in addition to overload checking.
+
+Advanced propagation is selected by
+\begin{code}
+unary(home, s, d, IPL_ADVANCED);
+\end{code}
+and performs overload-checking, detectable precedences, not-first-not-last,
+and edge-finding, following~\cite{Vilim:2007}.
+
+Basic and advanced propagation can be combined by
+\begin{code}
+unary(home, s, d, IPL_BASIC_ADVANCED);
+\end{code}
+which is more convenient than the equivalent
+\begin{code}
+unary(home, s, d, 
+      static_cast<IntPropLevel>(IPL_BASIC | IPL_ADVANCED));
+\end{code}
+It performs time-tabling in addition to the advanced
+algorithms.
+
+\paragraph{Optional tasks.}
 
 A common variant for unary resource constraints is where tasks
 can be optional: each task $t$ has a Boolean variable $b$
@@ -2467,10 +2540,15 @@ The resource usage must be strictly
 positive. As for unary, there exist versions with optional,
 flexible, and flexible and optional tasks.
 
-The propagators implementing the \?cumulative? constraint use
-time-tabling, overload checking~\cite{Vilim:CPAIOR:2009}, and
-edge-finding~\cite{Vilim:CP:2009}
+The propagators implementing the \?cumulative? constraint always
+perform overload checking~\cite{Vilim:CPAIOR:2009}. Basic
+propagation performs time-tabling, see for example~\cite{CBS},
+and can be selected by giving \?IPL_BASIC? as additional integer
+propagation level argument. Advanced propagation (selected by
+\?IPL_ADVANCED?) performs edge-finding~\cite{Vilim:CP:2009}
 \GCCAT{\CAT[int]{cumulative}{cumulative}{TaskModelIntScheduling}}.
+Basic and advanced propagation can be combined as described in
+\autoref{sec:m:integer:unary}.
 
 \paragraph{Cumulative multi-resource constraint.}
 

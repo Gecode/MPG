@@ -109,6 +109,7 @@ URL class Gecode::Driver::EngineToMeta classGecode_1_1Driver_1_1EngineToMeta.htm
 URL class Gecode::Driver::ExtractStepOption classGecode_1_1Driver_1_1ExtractStepOption.html
 URL class Gecode::Driver::IgnoreStepOption classGecode_1_1Driver_1_1IgnoreStepOption.html
 URL class Gecode::Driver::IntOption classGecode_1_1Driver_1_1IntOption.html
+URL class Gecode::Driver::IplOption classGecode_1_1Driver_1_1IplOption.html
 URL class Gecode::Driver::ScriptBase classGecode_1_1Driver_1_1ScriptBase.html
 URL class Gecode::Driver::StringOption classGecode_1_1Driver_1_1StringOption.html
 URL class Gecode::Driver::StringOption::Value classGecode_1_1Driver_1_1StringOption_1_1Value.html
@@ -408,7 +409,6 @@ URL class Gecode::Int::Count::IntBase classGecode_1_1Int_1_1Count_1_1IntBase.htm
 URL class Gecode::Int::Count::LqInt classGecode_1_1Int_1_1Count_1_1LqInt.html
 URL class Gecode::Int::Count::LqView classGecode_1_1Int_1_1Count_1_1LqView.html
 URL class Gecode::Int::Count::ViewBase classGecode_1_1Int_1_1Count_1_1ViewBase.html
-URL class Gecode::Int::Cumulative::Event classGecode_1_1Int_1_1Cumulative_1_1Event.html
 URL class Gecode::Int::Cumulative::ExtOmegaNode classGecode_1_1Int_1_1Cumulative_1_1ExtOmegaNode.html
 URL class Gecode::Int::Cumulative::ExtOmegaTree classGecode_1_1Int_1_1Cumulative_1_1ExtOmegaTree.html
 URL class Gecode::Int::Cumulative::ManFixPSETask classGecode_1_1Int_1_1Cumulative_1_1ManFixPSETask.html
@@ -457,6 +457,7 @@ URL class Gecode::Int::Element::RelTestDom<VA,ConstIntView> classGecode_1_1Int_1
 URL class Gecode::Int::Element::View classGecode_1_1Int_1_1Element_1_1View.html
 URL class Gecode::Int::Element::ViewBnd classGecode_1_1Int_1_1Element_1_1ViewBnd.html
 URL class Gecode::Int::Element::ViewDom classGecode_1_1Int_1_1Element_1_1ViewDom.html
+URL class Gecode::Int::Event classGecode_1_1Int_1_1Event.html
 URL class Gecode::Int::Exec::When classGecode_1_1Int_1_1Exec_1_1When.html
 URL class Gecode::Int::Extensional::Base classGecode_1_1Int_1_1Extensional_1_1Base.html
 URL class Gecode::Int::Extensional::Basic classGecode_1_1Int_1_1Extensional_1_1Basic.html
@@ -606,6 +607,9 @@ URL class Gecode::Int::NotZeroOne classGecode_1_1Int_1_1NotZeroOne.html
 URL class Gecode::Int::Offset classGecode_1_1Int_1_1Offset.html
 URL class Gecode::Int::OffsetView classGecode_1_1Int_1_1OffsetView.html
 URL class Gecode::Int::OutOfLimits classGecode_1_1Int_1_1OutOfLimits.html
+URL class Gecode::Int::PLA classGecode_1_1Int_1_1PLA.html
+URL class Gecode::Int::PLB classGecode_1_1Int_1_1PLB.html
+URL class Gecode::Int::PLBA classGecode_1_1Int_1_1PLBA.html
 URL class Gecode::Int::Precede::Single classGecode_1_1Int_1_1Precede_1_1Single.html
 URL class Gecode::Int::Precede::Single::Index classGecode_1_1Int_1_1Precede_1_1Single_1_1Index.html
 URL class Gecode::Int::ReBinaryPropagator classGecode_1_1Int_1_1ReBinaryPropagator.html
@@ -1464,7 +1468,8 @@ URL class Test::Int::GCC::IntAllMinMaxDef classTest_1_1Int_1_1GCC_1_1IntAllMinMa
 URL class Test::Int::GCC::IntSome classTest_1_1Int_1_1GCC_1_1IntSome.html
 URL class Test::Int::GCC::VarAll classTest_1_1Int_1_1GCC_1_1VarAll.html
 URL class Test::Int::GCC::VarSome classTest_1_1Int_1_1GCC_1_1VarSome.html
-URL class Test::Int::IntConLevels classTest_1_1Int_1_1IntConLevels.html
+URL class Test::Int::IntPropBasicAdvanced classTest_1_1Int_1_1IntPropBasicAdvanced.html
+URL class Test::Int::IntPropLevels classTest_1_1Int_1_1IntPropLevels.html
 URL class Test::Int::IntRelTypes classTest_1_1Int_1_1IntRelTypes.html
 URL class Test::Int::Linear::BoolInt classTest_1_1Int_1_1Linear_1_1BoolInt.html
 URL class Test::Int::Linear::BoolVar classTest_1_1Int_1_1Linear_1_1BoolVar.html
@@ -1550,6 +1555,7 @@ URL class Test::Int::Sorted::PermVar classTest_1_1Int_1_1Sorted_1_1PermVar.html
 URL class Test::Int::Sorted::SortIntMin classTest_1_1Int_1_1Sorted_1_1SortIntMin.html
 URL class Test::Int::Test classTest_1_1Int_1_1Test.html
 URL class Test::Int::TestSpace classTest_1_1Int_1_1TestSpace.html
+URL class Test::Int::Unary::Create classTest_1_1Int_1_1Unary_1_1Create.html
 URL class Test::Int::Unary::ManFixPUnary classTest_1_1Int_1_1Unary_1_1ManFixPUnary.html
 URL class Test::Int::Unary::ManFlexUnary classTest_1_1Int_1_1Unary_1_1ManFlexUnary.html
 URL class Test::Int::Unary::OptFixPUnary classTest_1_1Int_1_1Unary_1_1OptFixPUnary.html
@@ -2183,14 +2189,16 @@ URL file gecode/int/count/view-gq.hpp view-gq_8hpp.html
 URL file gecode/int/count/view-lq.hpp view-lq_8hpp.html
 URL file gecode/int/cumulative.cpp gecode_2int_2cumulative_8cpp.html
 URL file gecode/int/cumulative.hh cumulative_8hh.html
-URL file gecode/int/cumulative/basic.hpp cumulative_2basic_8hpp.html
 URL file gecode/int/cumulative/edge-finding.hpp cumulative_2edge-finding_8hpp.html
 URL file gecode/int/cumulative/limits.hpp int_2cumulative_2limits_8hpp.html
 URL file gecode/int/cumulative/man-prop.hpp cumulative_2man-prop_8hpp.html
 URL file gecode/int/cumulative/opt-prop.hpp cumulative_2opt-prop_8hpp.html
 URL file gecode/int/cumulative/overload.hpp cumulative_2overload_8hpp.html
+URL file gecode/int/cumulative/post.hpp int_2cumulative_2post_8hpp.html
+URL file gecode/int/cumulative/subsumption.hpp cumulative_2subsumption_8hpp.html
 URL file gecode/int/cumulative/task-view.hpp cumulative_2task-view_8hpp.html
 URL file gecode/int/cumulative/task.hpp cumulative_2task_8hpp.html
+URL file gecode/int/cumulative/time-tabling.hpp cumulative_2time-tabling_8hpp.html
 URL file gecode/int/cumulative/tree.hpp cumulative_2tree_8hpp.html
 URL file gecode/int/cumulatives.cpp gecode_2int_2cumulatives_8cpp.html
 URL file gecode/int/cumulatives.hh cumulatives_8hh.html
@@ -2223,7 +2231,7 @@ URL file gecode/int/exec/when.hpp when_8hpp.html
 URL file gecode/int/extensional.cpp gecode_2int_2extensional_8cpp.html
 URL file gecode/int/extensional.hh extensional_8hh.html
 URL file gecode/int/extensional/base.hpp extensional_2base_8hpp.html
-URL file gecode/int/extensional/basic.hpp extensional_2basic_8hpp.html
+URL file gecode/int/extensional/basic.hpp basic_8hpp.html
 URL file gecode/int/extensional/dfa.cpp dfa_8cpp.html
 URL file gecode/int/extensional/dfa.hpp dfa_8hpp.html
 URL file gecode/int/extensional/incremental.hpp incremental_8hpp.html
@@ -2244,6 +2252,7 @@ URL file gecode/int/idx-view.hpp idx-view_8hpp.html
 URL file gecode/int/int-set-1.hpp int-set-1_8hpp.html
 URL file gecode/int/int-set-2.hpp int-set-2_8hpp.html
 URL file gecode/int/int-set.cpp int-set_8cpp.html
+URL file gecode/int/ipl.hpp ipl_8hpp.html
 URL file gecode/int/ldsb.cpp gecode_2int_2ldsb_8cpp.html
 URL file gecode/int/ldsb.hh int_2ldsb_8hh.html
 URL file gecode/int/ldsb/brancher.hpp int_2ldsb_2brancher_8hpp.html
@@ -2317,6 +2326,7 @@ URL file gecode/int/support-values.hh support-values_8hh.html
 URL file gecode/int/support-values.hpp support-values_8hpp.html
 URL file gecode/int/task.hh task_8hh.html
 URL file gecode/int/task/array.hpp int_2task_2array_8hpp.html
+URL file gecode/int/task/event.hpp event_8hpp.html
 URL file gecode/int/task/fwd-to-bwd.hpp fwd-to-bwd_8hpp.html
 URL file gecode/int/task/iter.hpp int_2task_2iter_8hpp.html
 URL file gecode/int/task/man-to-opt.hpp man-to-opt_8hpp.html
@@ -2332,9 +2342,11 @@ URL file gecode/int/unary/man-prop.hpp unary_2man-prop_8hpp.html
 URL file gecode/int/unary/not-first-not-last.hpp not-first-not-last_8hpp.html
 URL file gecode/int/unary/opt-prop.hpp unary_2opt-prop_8hpp.html
 URL file gecode/int/unary/overload.hpp unary_2overload_8hpp.html
-URL file gecode/int/unary/subsumption.hpp subsumption_8hpp.html
+URL file gecode/int/unary/post.hpp int_2unary_2post_8hpp.html
+URL file gecode/int/unary/subsumption.hpp unary_2subsumption_8hpp.html
 URL file gecode/int/unary/task-view.hpp unary_2task-view_8hpp.html
 URL file gecode/int/unary/task.hpp unary_2task_8hpp.html
+URL file gecode/int/unary/time-tabling.hpp unary_2time-tabling_8hpp.html
 URL file gecode/int/unary/tree.hpp unary_2tree_8hpp.html
 URL file gecode/int/unshare.cpp gecode_2int_2unshare_8cpp.html
 URL file gecode/int/val-set.hh val-set_8hh.html
