@@ -554,7 +554,12 @@ side of \?=? specify that some modification events are special:
 \end{itemize}
 
 Any variable implementation must define special events with
-\?=NONE?, \?=FAILED?, and \?=ASSIGNED?.
+\?=NONE?, \?=FAILED?, \?=ASSIGNED?, and \?=SUBSCRIBE?. In case
+there are only three modification events (all of them special
+with \?=NONE?, \?=FAILED?, \?=ASSIGNED?), the modification event
+used for scheduling a propagator (that is, \?=SUBSCRIBE?) is
+defined to be the event for a varibale becoming assigned (that
+is, \?=ASSIGNED?).
 
 The section for modification events also defines how
 modification events are combined with a \?Combine?
