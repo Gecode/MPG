@@ -57,10 +57,13 @@ integer propagation level\\
 \texttt{-step} & \?double? & improvement step for floats\\
 \hline
 \multicolumn{3}{c}{}\\\hline
-\multicolumn{3}{|c|}{restart-based search options}\\\hline
+\multicolumn{3}{|c|}{restart-based and portfolio search options}\\\hline
 \texttt{-restart} &
-$\{\mathtt{none},\mathtt{geometric},\mathtt{luby}\}$ &
+$\{\mathtt{none},\mathtt{constant},\mathtt{linear},$ &
 enable restarts, define cutoff\\
+ &
+$\;\mathtt{geometric},\mathtt{luby}\}$
+& \\
 \texttt{-restart-scale} &
 \?unsigned int? &
 scale-factor for cutoff values\\
@@ -73,6 +76,12 @@ whether to post no-goods\\
 \texttt{-nogoods-limit} &
 \?unsigned int? &
 depth limit for no-good recording\\
+\texttt{-assets} &
+\?unsigned int? &
+number of assets in a portfolio\\
+\texttt{-share} &
+\?bool? &
+whether to share AFC information\\
 \hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{execution options}\\\hline

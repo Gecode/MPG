@@ -515,6 +515,9 @@ sequential search is used. The number of threads to be used for
 search is controlled by the search options passed to a search
 engine, see the following section for details.
 
+Gecode also provides parallel portfolio search which is discussed
+in \autoref{sec:m:search:portfolio}.
+
 \tip{Do not optimize by branching alone}{%
 \label{tip:m:search:parbab}%
 \begin{samepage}
@@ -678,6 +681,10 @@ The default values for the options are defined in the namespace
 \hline
 \?nogoods_limit? & \?unsigned int? & depth limit for no-good generation\\
 \hline
+\?assets? & \?unsigned int? & number of assets in a portfolio\\
+\hline
+\?share? & \?bool? & whether AFC is shared between restarts or assets\\
+\hline
 \?stop? & \?Search::Stop*? & stop object (\?NULL? if none)\\
 \hline
 \?cutoff? & \?Search::Cutoff*? & cutoff object (\?NULL? if none)\\
@@ -690,7 +697,9 @@ The default values for the options are defined in the namespace
 
 The meaning of the values for the search options are
 straightforward but for \?threads? (\?cutoff? is explained in
-\autoref{sec:m:search:restart} and \?nogoods_limit? is explained in
+\autoref{sec:m:search:restart}, \?assets? is explained in
+\autoref{sec:m:search:portfolio}, \?share? is explained in 
+\autoref{tip:m:search:share}, and \?nogoods_limit? is explained in
 \autoref{sec:m:search:nogoods}). Assume that your computer has
 $m$ processing units\footnote{This is a very rough
   characterization: a processing unit could be a CPU, a processor
@@ -839,11 +848,13 @@ restart-based search can be found in~\cite{vanBeek:CPH:2006}.
 Restart-based search in Gecode is implemented as a \emph{meta
   search engine}: the meta search engine uses one of the Gecode
 search engines discussed in~\autoref{sec:m:search:simple} to
-perform search for each individual restart. The meta
-engine then controls the engine, the cutoff values, and how the
-problem is configured before each restart. The interface of the
-meta search engine in Gecode is exactly the same as the interface
-of a non-meta search engine.
+perform search for each individual restart. The meta engine then
+controls the engine, the cutoff values, and how the problem is
+configured before each restart. The interface of the meta search
+engine in Gecode is exactly the same as the interface of a
+non-meta search engine. In addition to the restart meta search
+engine, Gecode offers a portfolio meta search engine which is
+described in \autoref{sec:m:search:portfolio}.
 
 The restart meta search engine \gecoderef[class]{RBS} is
 parametric with respect to both the search engine to be used and
@@ -1109,6 +1120,10 @@ idea how \?constrain()?  works for best solution search).
 \multicolumn{1}{c|}{type} & 
 \multicolumn{1}{c|}{meaning} \\
 \hline\hline
+\?type()? & \?MetaInfo::Type? & type of meta informartion\\
+\hline\hline
+\multicolumn{3}{c}{restart-based information}\\
+\hline
 \?restart()? & \?unsigned long int? & number of restart\\
 \?solution()? & \?unsigned long int? & number of solutions since
 last restart\\
@@ -1116,30 +1131,40 @@ last restart\\
 last restart\\
 \?last()? & \?const Space*? & last solution found (or \?NULL?)\\
 \?nogoods()? & \?const NoGoods&? & no-goods recorded from restart\\
+\hline\hline
+\multicolumn{3}{c}{portfolio information}\\
+\hline
+\?asset()? & \?unsigned int? & number of asset (slave)\\
 \hline
 \end{tabular}
 \end{center}
-\caption[Current restart information]{Current restart information
-member functions}
-\label{fig:m:search:cri}
+\caption[Meta information]{Meta information member functions}
+\label{fig:m:search:mi}
 \end{figure}
 
 By default, every space implements the two member functions
 \?master()? and \?slave()?. Both functions take an argument of
-class \gecoderef[class]{CRI} (for \textbf{c}urrent
-\textbf{r}estart \textbf{i}nformation) that contains information
-about the current restart. The class \?CRI? provides the member
-functions as shown in \autoref{fig:m:search:cri}.
+class \gecoderef[class]{MetaInfo} that contains information about
+the current restart (and also for different assets in a
+portfolio, see \autoref{section:m:search:portfolio}). The class
+\?MetaInfo? provides the member functions as shown in
+\autoref{fig:m:search:mi}.
 
-The default \?slave()? function does nothing and returns \?true?, indicating
-that the search in the slave space is going to be complete. This means that if
-the search in the slave space finishes exhaustively, the meta search will also
-finish. Returning \?false? instead would indicate that the slave search is
-incomplete, for example if it only explores a limited neighbourhood of the
-previous solution.
+For a meta information object \?mi?, the function \?mi.type()?
+returns either \?MetaInfo::RESTART? or \?MetaInfo::PORTFOLIO?. In
+this section, we are only interested in the functions that are
+concerned with restart-based search.
 
-The default
-\?master()? function does the following:
+The default \?slave()? function does nothing and returns \?true?,
+indicating that the search in the slave space is going to be
+complete. This means that if the search in the slave space
+finishes exhaustively, the meta search will also finish.
+Returning \?false? instead would indicate that the slave search
+is incomplete, for example if it only explores a limited
+neighbourhood of the previous solution.
+
+The default \?master()? function does the following (for a
+restart, that is):
 \begin{itemize}
 \item It calls the \?constrain()? member function with the last
   solution found as argument (if a solution has already been
@@ -1156,13 +1181,13 @@ follows:
 \begin{code}
 class Script : public Space {
   ...
-  virtual bool master(const CRI& cri) {
+  virtual bool master(const MetaInfo& mi) {
     // Configure the master
     ...
     // Whether to restart or not
     return true;
   }
-  virtual bool slave(const CRI& cri) {
+  virtual bool slave(const MetaInfo& mi) {
     // Configure the slave
     ...
     // Search is complete
@@ -1173,13 +1198,18 @@ class Script : public Space {
 
 \begin{figure}
 \begin{code}
-virtual bool Space::master(const CRI& cri) {
-  if (cri.last() != NULL)
-    constrain(*cri.last());
-  cri.nogoods().post(*this);
-  return true;
+virtual bool Space::master(const MetaInfo& mi) {
+  switch (mi.type()) {
+  case MetaInfo::RESTART:
+    if (mi.last() != NULL)
+      constrain(*mi.last());
+    mi.nogoods().post(*this);
+    return true;
+  case MetaInfo::PORTFOLIO:
+    ...
+  }
 }
-virtual bool Space::slave(const CRI&) {
+virtual bool Space::slave(const MetaInfo& mi) {
   return true;
 }
 \end{code}
@@ -1188,14 +1218,15 @@ virtual bool Space::slave(const CRI&) {
 \end{figure}
 
 The default \?master()? and \?slave()? member functions are shown
-in \autoref{fig:m:search:restart:default}.
+in \autoref{fig:m:search:restart:default}, where the part that is
+concerned with portfolio search is omitted.
 
 
 \subsection{Large Neighborhood Search}
 \label{sec:m:search:restart:lns}
 
 The design of restart-based search in Gecode is general enough to
-support LNS (Large Neighborhood Search)~~\cite{LNS}. The idea of
+support LNS (Large Neighborhood Search)~\cite{LNS}. The idea of
 LNS is quite simple, where LNS looks for a good solution:
 \begin{itemize}
 \item Search finds a first solution where typically preference is
@@ -1293,6 +1324,51 @@ The default \?master()? function as shown in
 \autoref{sec:m:search:restart:configure} is already general
 enough to support LNS.
 
+
+\section{Portfolio search}
+\label{sec:m:search:portfolio}
+
+The idea of portfolio search is to run several copies, where each
+copy is called an \emph{asset} or a \emph{slave}, of the same
+problem independently where each copy use a different branching
+heuristic. The goal is to increase the likelihood of finding a
+solution to the problem quickly and hence to increase robustness
+of search. Portfolio search in Gecode is provided as a meta
+search engine, for the general idea of a meta search engine,
+please consult \autoref{sec:m:search:restart:meta}. For more
+information on portfolios in constraint programming,
+see~\cite{portfolio}.
+
+\subsection{Portfolio search as a meta search engine}
+\label{sec:m:search:portfolio:meta}
+
+number of assets.
+
+how to control how the assets differ.
+
+\subsection{Master and slave configuration}
+\label{sec:m:search:portfolio:configure}
+
+the functions
+
+BEISPIEL!
+
+\autoref{fig:m:search:mi}
+
+\tip{Not sharing branching information among assets}{
+\label{tip:m:search:share}
+}
+
+\tip{Kill your branchers}{
+\label{tip:m:search:kill}
+}
+
+\subsection{Parallel and sequential portfolios}
+\label{sec:m:search:portfolio:parallel}
+
+
+\subsection{Arbitrary portfolios}
+\label{sec:m:search:portfolio:arbitrary}
 
 
 

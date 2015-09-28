@@ -95,7 +95,7 @@ is equivalent, albeit considerably less efficient, to
 branch(home, x, INT_VAR_NONE(), INT_VAL_MIN());
 \end{code}
 
-\paragraph{Brancher handles.}
+\paragraph{Brancher handles and killing branchers.}
 
 When creating a brancher, the call to \?branch()? returns a
 brancher handle of class \gecoderef[class]{BrancherHandle}. For
@@ -114,6 +114,9 @@ important ones are:
   the brancher. This is the most useful operation provided by a
   brancher handle: one can create a brancher for one stage of
   search and delete it later when it is not any longer useful.
+\item The static member function \?BrancherHandle::killall(home)?
+  deletes all branchers in the space \?home?. See also
+  \autoref{tip:m:search:kill}.
 \end{itemize}
 
 Note that in case the home space is failed, the call to
