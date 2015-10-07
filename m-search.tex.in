@@ -1230,6 +1230,8 @@ concerned with portfolio search is omitted.
 \label{tip:m:search:share:rbs}
 }
 
+BEST SOLUTION SEARCH!
+
 
 
 \subsection{Large Neighborhood Search}
@@ -1377,7 +1379,7 @@ BEISPIEL!
 \label{sec:m:search:portfolio:parallel}
 
 
-\subsection{Arbitrary portfolios}
+\subsection{Mixed portfolios}
 \label{sec:m:search:portfolio:arbitrary}
 
 
