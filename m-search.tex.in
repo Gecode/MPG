@@ -861,14 +861,15 @@ engine, Gecode offers a portfolio meta search engine which is
 described in \autoref{sec:m:search:portfolio}.
 
 The restart meta search engine \gecoderef[class]{RBS} is
-parametric with respect to both the search engine to be used and
-the script to be solved (a subclass of \gecoderef[class]{Space}).
+parametric with respect to both 
+the script to be solved (a subclass of \gecoderef[class]{Space})
+and the search engine to be used.
 For example, when we want to use the \gecoderef[class]{DFS}
 engine for the script \?s? of class type \?Script?, the meta
 engine \?e?  can be created by (\?o? are mandatory search
 options, see below):
 \begin{code}
-RBS<DFS,Script> e(s,o);
+RBS<Script,DFS> e(s,o);
 \end{code}
 Now \?e? implements exactly the same interface as the normal
 engines (that is, \?next()? to request the next solution,
@@ -913,7 +914,7 @@ engine can be created by:
 \begin{code}
 Search::Options o;
 o.cutoff = c;
-RBS<DFS,Script> e(s,o);
+RBS<Script,DFS> e(s,o);
 \end{code}
 
 Gecode provides some commonly used cutoff generators:
@@ -1384,14 +1385,14 @@ BEISPIEL!
 \section{No-goods from restarts}
 \label{sec:m:search:nogoods}
 
-As discussed in the previous section, the idea of using restarts
-effectively is to restart with an improved problem with the hope
-that search is capable of solving the improved problem. No-goods
-are constraints that can be learned from the configuration of a
-depth-first search engine after it has stopped. The no-goods
-encode failures during search as constraints: after restarting,
-propagation of the no-goods ensures that decisions that lead to
-failure are avoided.
+As discussed in \autoref{m:search:restart}, the idea of using
+restarts effectively is to restart with an improved problem with
+the hope that search is capable of solving the improved problem.
+No-goods are constraints that can be learned from the
+configuration of a depth-first search engine after it has
+stopped. The no-goods encode failures during search as
+constraints: after restarting, propagation of the no-goods
+ensures that decisions that lead to failure are avoided.
 
 \begin{figure}
 \centering
@@ -1543,7 +1544,7 @@ the following code (it assumes that \?c? refers to a cutoff object):
 Search::Options o;
 o.cutoff = c;
 o.nogoods_limit = 128;
-RBS<DFS,Script> e(s,o);
+RBS<Script,DFS> e(s,o);
 \end{code}
 instructs the search engine to extract no-goods up to a depth
 limit of~\?128?.
@@ -1556,7 +1557,7 @@ extracted. However, this comes at a cost:
   \autoref{sec:s:re:lao}). LAO saves space by avoiding to store
   choices on the search engine's stack when the last alternative
   of a choice is being explored. But no-goods can only be
-  extracted when LAO is disabled as the last alternatives are
+  extracted if LAO is disabled as the last alternatives are
   required for the computation of no-goods. LAO is automatically
   disabled for the part of the search tree with a depth less than
   the no-goods depth limit. That is, an engine requires more
