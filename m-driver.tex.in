@@ -79,9 +79,6 @@ depth limit for no-good recording\\
 \texttt{-assets} &
 \?unsigned int? &
 number of assets in a portfolio\\
-\texttt{-share} &
-\?bool? &
-whether to share AFC information\\
 \hline
 \multicolumn{3}{c}{}\\\hline
 \multicolumn{3}{|c|}{execution options}\\\hline

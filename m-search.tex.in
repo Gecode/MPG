@@ -683,7 +683,8 @@ The default values for the options are defined in the namespace
 \hline
 \?assets? & \?unsigned int? & number of assets in a portfolio\\
 \hline
-\?share? & \?bool? & whether AFC is shared between restarts or assets\\
+\?share_rbs? & \?bool? & whether AFC is shared between restarts\\
+\?share_pbs? & \?bool? & whether AFC is shared between assets\\
 \hline
 \?stop? & \?Search::Stop*? & stop object (\?NULL? if none)\\
 \hline
@@ -698,9 +699,12 @@ The default values for the options are defined in the namespace
 The meaning of the values for the search options are
 straightforward but for \?threads? (\?cutoff? is explained in
 \autoref{sec:m:search:restart}, \?assets? is explained in
-\autoref{sec:m:search:portfolio}, \?share? is explained in 
-\autoref{tip:m:search:share}, and \?nogoods_limit? is explained in
-\autoref{sec:m:search:nogoods}). Assume that your computer has
+\autoref{sec:m:search:portfolio}, \?share_rbs? and \?share_pbs?
+are explained in \autoref{tip:m:search:share:rbs} and
+\autoref{tip:m:search:share:rbs}, while \?nogoods_limit? is
+explained in \autoref{sec:m:search:nogoods}).
+
+Assume that your computer has
 $m$ processing units\footnote{This is a very rough
   characterization: a processing unit could be a CPU, a processor
   core, or a multi-threading unit. If you want to find out how
@@ -1221,6 +1225,11 @@ The default \?master()? and \?slave()? member functions are shown
 in \autoref{fig:m:search:restart:default}, where the part that is
 concerned with portfolio search is omitted.
 
+\tip{Sharing branching information among restarts}{
+\label{tip:m:search:share:rbs}
+}
+
+
 
 \subsection{Large Neighborhood Search}
 \label{sec:m:search:restart:lns}
@@ -1356,7 +1365,7 @@ BEISPIEL!
 \autoref{fig:m:search:mi}
 
 \tip{Not sharing branching information among assets}{
-\label{tip:m:search:share}
+\label{tip:m:search:share:pbs}
 }
 
 \tip{Kill your branchers}{
