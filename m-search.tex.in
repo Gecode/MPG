@@ -904,6 +904,14 @@ essential to use the \gecoderef[class]{BAB} engine when used as
 part of a portfolio-based search engine, see
 \autoref{sec:m:search:portfolio:arbitrary}.
 
+\paragraph{Parallel search.}
+
+The restart-based search engine supports parallel search in that
+the engine used for performing the restarts can be run in
+parallel. The number of threads used can be described by the
+search options passed to the restart-based search engine as
+described in \autoref{sec:m:search:parallel}.
+
 \tip{Controlling restart-based search with the commandline
   driver}{
 \label{tip:m:search:restartcmd}%
@@ -1249,12 +1257,12 @@ concerned with portfolio search is omitted.
 \tip{Sharing branching information among restarts}{
 \label{tip:m:search:share:rbs}%
 By default, the accumulated failure count (AFC) of a variable
-(see \autoref{sec:m:branch:afc}) is
-maintained between restarts. This is also typically the desited
-behavior as it learns from failures in previous
-restarts. However, whether the AFC is shared among restarts can
-be determined by the \?share_afc?
-}
+(see \autoref{sec:m:branch:afc}) is maintained between restarts.
+This is also typically the desired behavior as it learns from
+failures in previous restarts. However, whether the AFC is shared
+among restarts can be determined by the \?share_afc? member of
+the search options passed to the restart-based search engine, see
+also autoref{sec:m:search:options}.  }
 
 
 
@@ -1366,14 +1374,15 @@ enough to support LNS.
 
 The idea of portfolio search is to run several copies, where each
 copy is called an \emph{asset} or a \emph{slave}, of the same
-problem independently where each copy use a different branching
-heuristic. The goal is to increase the likelihood of finding a
-solution to the problem quickly and hence to increase robustness
-of search. Portfolio search in Gecode is provided as a meta
-search engine, for the general idea of a meta search engine,
-please consult \autoref{sec:m:search:restart:meta}. For more
-information on portfolios in constraint programming,
-see~\cite{portfolio}.
+problem independently where each copy typically uses a different
+branching heuristic (the copies might of course also differ in
+how the same problem is modeled). The goal is to increase the
+likelihood of finding a solution to the problem quickly and hence
+to increase search robustness.  Portfolio search in Gecode is
+provided as a meta search engine, for the general idea of a meta
+search engine, please consult
+\autoref{sec:m:search:restart:meta}. For more information on
+portfolios in constraint programming, see~\cite{portfolio}.
 
 \subsection{Portfolio search as a meta search engine}
 \label{sec:m:search:portfolio:meta}
