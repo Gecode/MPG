@@ -55,7 +55,7 @@ URL class Gecode::ArrayTraits<IntVarArgs> classGecode_1_1ArrayTraits_3_01IntVarA
 URL class Gecode::ArrayTraits<IntVarArray> classGecode_1_1ArrayTraits_3_01IntVarArray_01_4.html
 URL class Gecode::ArrayTraits<LiteralArgs> classGecode_1_1ArrayTraits_3_01LiteralArgs_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<FloatVal>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01FloatVal_01_4_01_4.html
-URL class Gecode::ArrayTraits<PrimArgArray<Search::Builder*>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01Search_1_1Builder_01_5_01_4_01_4.html
+URL class Gecode::ArrayTraits<PrimArgArray<SEB>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01SEB_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<TaskType>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01TaskType_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<int>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01int_01_4_01_4.html
 URL class Gecode::ArrayTraits<SEBs> classGecode_1_1ArrayTraits_3_01SEBs_01_4.html
@@ -926,6 +926,7 @@ URL class Gecode::Search::Parallel::Engine classGecode_1_1Search_1_1Parallel_1_1
 URL class Gecode::Search::Parallel::Engine::Worker classGecode_1_1Search_1_1Parallel_1_1Engine_1_1Worker.html
 URL class Gecode::Search::Parallel::Path classGecode_1_1Search_1_1Parallel_1_1Path.html
 URL class Gecode::Search::Parallel::Path::Edge classGecode_1_1Search_1_1Parallel_1_1Path_1_1Edge.html
+URL class Gecode::Search::PbsBuilder classGecode_1_1Search_1_1PbsBuilder.html
 URL class Gecode::Search::RbsBuilder classGecode_1_1Search_1_1RbsBuilder.html
 URL class Gecode::Search::Sequential::BAB classGecode_1_1Search_1_1Sequential_1_1BAB.html
 URL class Gecode::Search::Sequential::DFS classGecode_1_1Search_1_1Sequential_1_1DFS.html
@@ -3502,6 +3503,7 @@ URL typedef PosSetAllocator namespaceGecode_1_1MiniModel.html
 URL typedef ProcessStack namespaceGecode_1_1Int_1_1Channel.html
 URL typedef PropCond group__TaskVarMEPC.html
 URL typedef RandomGenerator group__FuncSupport.html
+URL typedef SEB namespaceGecode.html
 URL typedef Script group__TaskDriverScript.html
 URL typedef SetBranchCommit group__TaskModelSetBranch.html
 URL typedef SetBranchFilter group__TaskModelSetBranch.html

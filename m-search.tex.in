@@ -884,6 +884,26 @@ requires that the search options specify a
 \gecoderef[class]{Search::Cutoff} object defining the cutoff
 sequence.
 
+\paragraph{Best solution search.}
+
+Restart-based search can be used for both finding any solution or
+finding a best solution. For searching for a best solution, the
+meta engine should be used with the \gecoderef[class]{BAB}
+engine, for example as:
+\begin{code}
+RBS<Script,BAB> e(s,o);
+\end{code}
+
+The behavior whether the engine performs a restart when a better
+solution is performed or whether the \?BAB? engine continues to
+find a better solution with a restart can be controlled as
+described in \autoref{sec:m:search:restart:configure}.
+
+When using restart-based search for finding a best solution it is
+essential to use the \gecoderef[class]{BAB} engine when used as
+part of a portfolio-based search engine, see
+\autoref{sec:m:search:portfolio:arbitrary}.
+
 \tip{Controlling restart-based search with the commandline
   driver}{
 \label{tip:m:search:restartcmd}%
@@ -1227,10 +1247,14 @@ in \autoref{fig:m:search:restart:default}, where the part that is
 concerned with portfolio search is omitted.
 
 \tip{Sharing branching information among restarts}{
-\label{tip:m:search:share:rbs}
+\label{tip:m:search:share:rbs}%
+By default, the accumulated failure count (AFC) of a variable
+(see \autoref{sec:m:branch:afc}) is
+maintained between restarts. This is also typically the desited
+behavior as it learns from failures in previous
+restarts. However, whether the AFC is shared among restarts can
+be determined by the \?share_afc?
 }
-
-BEST SOLUTION SEARCH!
 
 
 
@@ -1357,6 +1381,8 @@ see~\cite{portfolio}.
 number of assets.
 
 how to control how the assets differ.
+
+threads versus assets
 
 \subsection{Master and slave configuration}
 \label{sec:m:search:portfolio:configure}
