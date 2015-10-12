@@ -22,9 +22,10 @@ highly encouraged to read it.
 be used in Gecode and what can be expected of parallel search in
 principle.  How search engines can be used is explained in
 \autoref{sec:m:search:simple}.  Restart-based search is discussed
-in \autoref{sec:m:search:restart}, followed by a discussion in
-\autoref{sec:m:search:nogoods} how no-goods from restarts can be
-used.
+in \autoref{sec:m:search:restart} and portfolio-based search is
+discussed in \autoref{sec:m:search:portfolio}. This is followed
+by a discussion in \autoref{sec:m:search:nogoods} how no-goods
+from restarts can be used.
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -1262,7 +1263,7 @@ This is also typically the desired behavior as it learns from
 failures in previous restarts. However, whether the AFC is shared
 among restarts can be determined by the \?share_afc? member of
 the search options passed to the restart-based search engine, see
-also autoref{sec:m:search:options}.  }
+also \autoref{sec:m:search:options}.  }
 
 
 
@@ -1387,11 +1388,36 @@ portfolios in constraint programming, see~\cite{portfolio}.
 \subsection{Portfolio search as a meta search engine}
 \label{sec:m:search:portfolio:meta}
 
-number of assets.
+Portfolio search is, like restart-based search, implemented as a
+meta search engine. The meta engine creates one slave search engine per
+asset of the portfolio and coordinates their execution. 
+The portfolio search engine has two interfaces, a simple one that
+is very similar to the interfaces of non-meta search engines and
+of restart-based search engines, and a second interface that is
+considerably more powerful in that it can mix different types of
+search engines in one portfolio. The advanced interface is
+described in \autoref{sec:m:search:portfolio:arbitrary}.
 
-how to control how the assets differ.
+The key parameter for portfolio search is the number of
+assets. For example, a portfolio engine with four assets can be
+created by:
+\begin{code}
+Search::Options o;
+o.assets = 4;
+PBS<Script,DFS> e(s,o);
+\end{code]
+Here, for each assets an engine of type \?DFS? is created for a
+clone of the master space \?s?. 
 
-threads versus assets
+Before the clones are created, the \?master()? member function as
+implemented by the 
+\?Script? class is called. On each clone, the \?slave()? function
+is called where the slave function is called with information
+about the number of the asset (ranging from \?0? to \?3?, the
+number of assets minus one). The following section explains the
+details of how the master and the slaves are configured, whereas
+\autoref{sec:m:search:portfolio:parallel} explains how assets of
+a portfolio are executed sequentially or in parallel.
 
 \subsection{Master and slave configuration}
 \label{sec:m:search:portfolio:configure}
