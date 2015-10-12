@@ -1156,7 +1156,7 @@ idea how \?constrain()?  works for best solution search).
 \hline\hline
 \?type()? & \?MetaInfo::Type? & type of meta informartion\\
 \hline\hline
-\multicolumn{3}{c}{restart-based information}\\
+\multicolumn{3}{|c|}{restart-based information}\\
 \hline
 \?restart()? & \?unsigned long int? & number of restart\\
 \?solution()? & \?unsigned long int? & number of solutions since
@@ -1166,7 +1166,7 @@ last restart\\
 \?last()? & \?const Space*? & last solution found (or \?NULL?)\\
 \?nogoods()? & \?const NoGoods&? & no-goods recorded from restart\\
 \hline\hline
-\multicolumn{3}{c}{portfolio information}\\
+\multicolumn{3}{|c|}{portfolio information}\\
 \hline
 \?asset()? & \?unsigned int? & number of asset (slave)\\
 \hline
