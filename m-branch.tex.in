@@ -115,8 +115,7 @@ important ones are:
   brancher handle: one can create a brancher for one stage of
   search and delete it later when it is not any longer useful.
 \item The static member function \?BrancherHandle::killall(home)?
-  deletes all branchers in the space \?home?. See also
-  \autoref{tip:m:search:kill}.
+  deletes all branchers in the space \?home?.
 \end{itemize}
 
 Note that in case the home space is failed, the call to

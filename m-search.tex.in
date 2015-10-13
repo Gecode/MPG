@@ -1231,29 +1231,38 @@ class Script : public Space {
 \end{code}
 
 \begin{figure}
-\begin{code}
+\begin{litcode}[texonly]{default master and slave functions}
 virtual bool Space::master(const MetaInfo& mi) {
   switch (mi.type()) {
   case MetaInfo::RESTART:
+    \begin{litblock}{restart-based search}
     if (mi.last() != NULL)
       constrain(*mi.last());
     mi.nogoods().post(*this);
     return true;
+    \end{litblock}
   case MetaInfo::PORTFOLIO:
-    ...
+    \begin{litblock}{portfolio search}
+    BrancherHandle::killall(*this);
+    break;
+    \end{litblock}
+  default:
+    break;
   }
+  return true;
 }
 virtual bool Space::slave(const MetaInfo& mi) {
   return true;
 }
-\end{code}
+\end{litcode}
 \caption{Default \?master()? and \?slave()? functions}
 \label{fig:m:search:restart:default}
 \end{figure}
 
 The default \?master()? and \?slave()? member functions are shown
-in \autoref{fig:m:search:restart:default}, where the part that is
-concerned with portfolio search is omitted.
+in \autoref{fig:m:search:restart:default}. The parts that is
+specific for restart-based search is as follows:
+\insertlitcode{default master and slave functions:restart-based search}
 
 \tip{Sharing branching information among restarts}{
 \label{tip:m:search:share:rbs}%
@@ -1379,11 +1388,13 @@ problem independently where each copy typically uses a different
 branching heuristic (the copies might of course also differ in
 how the same problem is modeled). The goal is to increase the
 likelihood of finding a solution to the problem quickly and hence
-to increase search robustness.  Portfolio search in Gecode is
+to increase search robustness.  
+
+Portfolio search in Gecode is
 provided as a meta search engine, for the general idea of a meta
 search engine, please consult
 \autoref{sec:m:search:restart:meta}. For more information on
-portfolios in constraint programming, see~\cite{portfolio}.
+portfolios in constraint programming, see~\cite{portfolios}.
 
 \subsection{Portfolio search as a meta search engine}
 \label{sec:m:search:portfolio:meta}
@@ -1405,8 +1416,8 @@ created by:
 Search::Options o;
 o.assets = 4;
 PBS<Script,DFS> e(s,o);
-\end{code]
-Here, for each assets an engine of type \?DFS? is created for a
+\end{code}
+Here, for each asset an engine of type \?DFS? is created for a
 clone of the master space \?s?. 
 
 Before the clones are created, the \?master()? member function as
@@ -1422,28 +1433,221 @@ a portfolio are executed sequentially or in parallel.
 \subsection{Master and slave configuration}
 \label{sec:m:search:portfolio:configure}
 
-the functions
+The \?master()? function provided by a script is called exactly
+once on the master space from which clones are created for each
+asset. The purpose of the \?master()? function can be to setup
+certain aspects of a script specific to using a portfolio.
 
-BEISPIEL!
+The portfolio-specific part of the default \?master()? function
+is as follows, the entire \?master()? function is shown in
+\autoref{fig:m:search:restart:default}: 
+\insertlitcode{default master and slave functions:portfolio search}
+That is, by default all branchers contained in the master space
+are deleted before the slave spaces are created, for more on
+killing branchers see \autoref{sec:m:branch:basics}. This provides
+the opportunity to create branchers specific to each asset by the
+\?slave()? function.
 
-\autoref{fig:m:search:mi}
+The default \?slave()? function does nothing, in order to be
+meaningful for portfolio search a user needs to define
+one. Assume that you have four different variants of your model,
+each using a different brancher. Then the following \?slave()?
+function creates branchers specific for each asset:
+\begin{code}
+virtual bool slave(const MetaInfo& mi) {
+  if (mi.type() == MetaInfo::PORTFOLIO) {
+    switch (mi.asset() & 3) {
+    case 0: branch(...); break;
+    case 1: branch(...); break;
+    case 2: branch(...); break;
+    case 3: branch(...); break;
+  }
+  return true;
+}
+\end{code}
+where the function \?mi.asset()? returns the number of the asset
+being created. Creating more than four asset
+seems to be not that useful, but in
+\autoref{sec:m:search:portfolio:arbitrary} we are going to
+discuss how different search engines can be run in one
+portfolio. Here one could imagine a portfolio that includes an
+engine running sequential search together with an engine that
+runs exactly the same script, however with parallel search using
+more than one thread.
+Note that the return value of the \?slave()? has no meaning for
+portfolio search (but it has for restart-based search).
+
+For an example, see \gecoderef[example]{qcp}.
 
 \tip{Not sharing branching information among assets}{
-\label{tip:m:search:share:pbs}
+\label{tip:m:search:share:pbs}%
+In contrast to restart-based search, each asset in a portfolio
+should be as different from each other as possible. Therefore,
+typically no information about the accumulated failure count (AFC) of
+a variable (see \autoref{sec:m:branch:afc}) should be shared
+among different assets in a portfolio. This can be controlled by
+the \?share_pbs? field in the search options as described in
+\autoref{sec:m:search:options} (as said, the default value is
+\?false?). 
 }
 
-\tip{Kill your branchers}{
-\label{tip:m:search:kill}
-}
+\tip{Kill your branchers, or maybe not$\ldots$}{
+\label{tip:m:search:kill}%
+Instead of killing your branchers in the master space of a
+portfolio as shown above, a different option is to not post them
+in the master space of a portfolio in the first place. Whether a
+script should become the master of a portfolio is typically easy
+to detect when using the options provided by the script
+commandline driver. Here the number of assets can be queried by
+the \?assets()? member function. If the value returned is larger
+than \?0? the script will be run in a portfolio.  }
 
 \subsection{Parallel and sequential portfolios}
 \label{sec:m:search:portfolio:parallel}
 
+Whether the assets in a portfolio are run in parallel or just
+concurrently is controlled by the number of assets in relation to
+the number of threads requested. The way how threads are
+allocated to assets is designed to be \emph{conservative}: there
+will be never more threads running than requested, possibly at
+the expense of running fewer assets than requested.
+
+\paragraph{Sequential portfolios.}
+
+A sequential portfolio consisting of $n$ assets is executed in a
+simple round-robin scheme: the first asset is given a certain slice,
+measured in the number of failures encountered during search
+for that asset. If a solution is found within this slice, the
+portfolio search engine reports this solution (as a result of its
+\?next()? function). If no solution is found, the portfolio
+engine allocates a slice for the second assets, and so on. If the
+last asset exceeds its slice, search continues with the first
+asset again.
+
+The size of the slice can be controlled by the options passed to
+the portfolio engine. For example,
+\begin{code}
+Search::Options o;
+o.assets = 3;
+o.slice  = 50;
+PBS<Script,BAB> e(s,o);
+\end{code}
+creates a portfolio with three assets, where a slice is
+$50$~failures. The default value for a slice is defined in the
+namespace \gecoderef[namespace]{Search::Config}.
+
+\paragraph{Parallel portfolios.}
+
+If parallel execution is requested (the numbers of threads
+requested is greater than one, see
+\autoref{sec:m:search:options}), a parallel portfolio engine is
+created where each asset is run in its own thread. For example,
+\begin{code}
+Search::Options o;
+o.assets = 3;
+o.threads = 3;
+PBS<Script,DFS> e(s,o);
+\end{code}
+will create three threads each running a (sequential) depth-first
+search engine.
+
+As mentioned before, threads are created conservatively. That is,
+\begin{code}
+Search::Options o;
+o.assets = 4;
+o.threads = 2;
+PBS<Script,DFS> e(s,o);
+\end{code}
+creates only two threads for two assets.
+
+If more threads than assets are requested, the remaining
+threads are passed on to the assets. For example, 
+\begin{code}
+Search::Options o;
+o.assets = 2;
+o.threads = 4;
+PBS<Script,DFS> e(s,o);
+\end{code}
+creates a portfolio with assets where each asset is a parallel
+search engine using two threads. In more detail, requesting $n$
+assets and $m$ threads and $m>n$, then for each asset
+$$\lfloor \frac{m}{n} \rfloor$$
+threads are requested.
+
+\tip{Always use parallel portfolios}{ The only reasons for not
+  using parallel portfolios is that the excuting platform does
+  not have threads (then sequential instead of parallel
+  portfolios are chosen automatically) or for debugging.
+  Otherwise, an operating system scheduling several threads even
+  on a single processing unit might be a better approach.  
+}
 
 \subsection{Mixed portfolios}
 \label{sec:m:search:portfolio:arbitrary}
 
+The interface discussed in the previous section creates only
+assets where each asset runs the same search engine. This is
+often not desirable. For example, a common strategy is to mix
+assets using search with and without restarts.
 
+Therefore a more expressive interface to portfolio search is
+provided that is based on the idea of \emph{search engine
+  builders} (SEB). A search engine builder is defined by its \emph{type}
+and is created using search options
+as input (that is, each engine to be built can have its own
+search options). Then the portfolio search engine creates an
+engine as defined by the type and the options of all SEBs passed
+as arguments. The type of a SEB can be either \?dfs? (depth-first
+search), \?bab? (branch-and-bound solution search for a best
+solution), \?rbs? (restart-based search), or \?pbs? (portfolio
+search). The types \?dfs? and \?bab? are parametric with respect
+to a script type (as the engines \?DFS? and \?BAB? are) and the
+\?rbs? and \?pbs? types are parametric with respect to both the
+script type and the engine type (as the meta engines \?RBS? and
+\?PBS? are).
+
+Consider the following example: we would like to create a
+portfolio for the master space \?master? of type \?Script? which
+consists of the following assets:
+\begin{enumerate}
+\item A depth-first search engine using two threads; and
+\item Another depth-first search engine using a single thread; and
+\item A restart-based meta engine using a depth-first engine with
+  a single thread and a
+  Luby cutoff sequence with scale factor \?10? (see
+  \autoref{sec:m:search:restart:cutoff}).
+\end{enumerate}
+The portfolio engine should use one thread for each asset.
+
+The respective portfolio based engine can be created as follows:
+\begin{code}
+Search::Options s0, s1, s2;
+s0.threads = 2;
+s1.threads = 1;
+s2.threads = 1;
+s2.cutoff  = Search::Cutoff::luby(10);
+Search::Options s;
+s.threads = 3;
+PBS<Script> e(master, dfs<Script>(s0),
+                      dfs<Script>(s1),
+                      rbs<Script,DFS<(s2), s);
+\end{code}
+Note that the number of assets is defined by the number of SEBs
+passed as argument and not by \?s.assets?.
+
+In case more than four assets are needed, one can use arrays of
+SEBs of type \gecoderef[class]{SEBs}. The example from above
+could then be expressed as:
+\begin{code}
+SEBs sebs(3, dfs<Script>(s0),
+             dfs<Script>(s1),
+             rbs<Script,DFS<(s2));
+PBS<Script> e(master, sebs, s);
+\end{code}
+where the definitions of \?s?, \?s0?, \?s1?, and \?s2? are
+exactly as before and are not shown.
+
+\paragraph{Best solution search.}
 
 \section{No-goods from restarts}
 \label{sec:m:search:nogoods}
