@@ -1154,7 +1154,7 @@ idea how \?constrain()?  works for best solution search).
 \multicolumn{1}{c|}{type} & 
 \multicolumn{1}{c|}{meaning} \\
 \hline\hline
-\?type()? & \?MetaInfo::Type? & type of meta informartion\\
+\?type()? & \?MetaInfo::Type? & type of meta information\\
 \hline\hline
 \multicolumn{3}{|c|}{restart-based information}\\
 \hline
@@ -1195,7 +1195,7 @@ complete. This means that if the search in the slave space
 finishes exhaustively, the meta search will also finish.
 Returning \?false? instead would indicate that the slave search
 is incomplete, for example if it only explores a limited
-neighbourhood of the previous solution.
+neighborhood of the previous solution.
 
 The default \?master()? function does the following (for a
 restart, that is):
@@ -1318,22 +1318,23 @@ public:
   \begin{litblock}{anonymous}
   \end{litblock}
   \begin{litblock}{slave function}
-  virtual bool slave(const CRI& cri) {
-    if (cri.restart() == 0) {
-      first();
-      return true;
+  virtual bool slave(const MetaInfo& mi) {
+    if (mi.type() == MetaInfo::RESTART) {
+      if (mi.restart() == 0) {
+        first();
+        return true;
+      } else {
+        next(static_cast<const Model&>(*mi.last()));
+        return false;
+      }
     } else {
-      next(static_cast<const Model&>(*cri.last()));
-      return false;
+      ...
     }
   }
   \end{litblock}
-  virtual bool master(const CRI& cri) {
+  virtual bool master(const MetaInfo& mi) {
     \begin{litblock}{anonymous}
-    if (cri.last() != NULL)
-      constrain(*cri.last());
-    cri.nogoods().post(*this);
-    return true;
+    ...
     \end{litblock}
   }
 };
@@ -1370,7 +1371,7 @@ when the restart-based search engine performs a restart or
 executes search for the first time. This can be achieved by
 defining the \?slave()? function as follows. Note how it returns \?true?
 to indicate that the search is going to be complete for the first restart,
-but \?false? for subsequent restarts, which only explore a neighbourhood and
+but \?false? for subsequent restarts, which only explore a neighborhood and
 are therefore incomplete:
 \insertlitcode{model sketch for LNS:slave function}
 \end{samepage}
@@ -1436,7 +1437,7 @@ a portfolio are executed sequentially or in parallel.
 The \?master()? function provided by a script is called exactly
 once on the master space from which clones are created for each
 asset. The purpose of the \?master()? function can be to setup
-certain aspects of a script specific to using a portfolio.
+certain aspects of a script specific to portfolio search.
 
 The portfolio-specific part of the default \?master()? function
 is as follows, the entire \?master()? function is shown in
@@ -1466,18 +1467,18 @@ virtual bool slave(const MetaInfo& mi) {
 }
 \end{code}
 where the function \?mi.asset()? returns the number of the asset
-being created. Creating more than four asset
-seems to be not that useful, but in
-\autoref{sec:m:search:portfolio:arbitrary} we are going to
-discuss how different search engines can be run in one
+being created. Creating more than four asset seems to be not that
+useful, but in \autoref{sec:m:search:portfolio:arbitrary} we are
+going to discuss how different search engines can be run in one
 portfolio. Here one could imagine a portfolio that includes an
 engine running sequential search together with an engine that
 runs exactly the same script, however with parallel search using
-more than one thread.
-Note that the return value of the \?slave()? has no meaning for
-portfolio search (but it has for restart-based search).
+more than one thread.  Note that the return value of the
+\?slave()? function has no meaning for portfolio search (but it
+has for restart-based search).
 
-For an example, see \gecoderef[example]{qcp}.
+For an example using several branchers using different random
+seeds in a portfolio, see \gecoderef[example]{qcp}.
 
 \tip{Not sharing branching information among assets}{
 \label{tip:m:search:share:pbs}%
@@ -1500,7 +1501,7 @@ script should become the master of a portfolio is typically easy
 to detect when using the options provided by the script
 commandline driver. Here the number of assets can be queried by
 the \?assets()? member function. If the value returned is larger
-than \?0? the script will be run in a portfolio.  }
+than~\?0?, the script will be run in a portfolio.  }
 
 \subsection{Parallel and sequential portfolios}
 \label{sec:m:search:portfolio:parallel}
@@ -1508,7 +1509,7 @@ than \?0? the script will be run in a portfolio.  }
 Whether the assets in a portfolio are run in parallel or just
 concurrently is controlled by the number of assets in relation to
 the number of threads requested. The way how threads are
-allocated to assets is designed to be \emph{conservative}: there
+allocated to assets is \emph{conservative}: there
 will be never more threads running than requested, possibly at
 the expense of running fewer assets than requested.
 
@@ -1520,7 +1521,7 @@ measured in the number of failures encountered during search
 for that asset. If a solution is found within this slice, the
 portfolio search engine reports this solution (as a result of its
 \?next()? function). If no solution is found, the portfolio
-engine allocates a slice for the second assets, and so on. If the
+engine gives a slice to the second assets, and so on. If the
 last asset exceeds its slice, search continues with the first
 asset again.
 
@@ -1571,15 +1572,15 @@ PBS<Script,DFS> e(s,o);
 creates a portfolio with assets where each asset is a parallel
 search engine using two threads. In more detail, requesting $n$
 assets and $m$ threads and $m>n$, then for each asset
-$$\lfloor \frac{m}{n} \rfloor$$
+$$\left\lfloor \frac{m}{n} \right\rfloor$$
 threads are requested.
 
 \tip{Always use parallel portfolios}{ The only reasons for not
-  using parallel portfolios is that the excuting platform does
-  not have threads (then sequential instead of parallel
-  portfolios are chosen automatically) or for debugging.
+  using parallel portfolios is that the executing platform does
+  not have threads (then a sequential instead of a parallel
+  portfolio is chosen automatically) or for debugging.
   Otherwise, an operating system scheduling several threads even
-  on a single processing unit might be a better approach.  
+  on a single processing unit tends to be the better approach.  
 }
 
 \subsection{Mixed portfolios}
@@ -1619,7 +1620,7 @@ consists of the following assets:
 \end{enumerate}
 The portfolio engine should use one thread for each asset.
 
-The respective portfolio based engine can be created as follows:
+The respective portfolio engine can be created as follows:
 \begin{code}
 Search::Options s0, s1, s2;
 s0.threads = 2;
@@ -1630,10 +1631,14 @@ Search::Options s;
 s.threads = 3;
 PBS<Script> e(master, dfs<Script>(s0),
                       dfs<Script>(s1),
-                      rbs<Script,DFS<(s2), s);
+                      rbs<Script,DFS>(s2), s);
 \end{code}
 Note that the number of assets is defined by the number of SEBs
-passed as argument and not by \?s.assets?.
+passed as argument and not by \?s.assets? as with the simpler
+interface. Executing a function such as \?dfs()? in fact creates
+a new SEB \?seb? that eventually must be deleted by 
+\?delete seb?. When creating a portfolio engine from a SEB, the engine
+takes care of deleting the SEB.
 
 In case more than four assets are needed, one can use arrays of
 SEBs of type \gecoderef[class]{SEBs}. The example from above
@@ -1641,18 +1646,26 @@ could then be expressed as:
 \begin{code}
 SEBs sebs(3, dfs<Script>(s0),
              dfs<Script>(s1),
-             rbs<Script,DFS<(s2));
+             rbs<Script,DFS>(s2));
 PBS<Script> e(master, sebs, s);
 \end{code}
 where the definitions of \?s?, \?s0?, \?s1?, and \?s2? are
-exactly as before and are not shown.
+exactly as before and are omitted.
 
 \paragraph{Best solution search.}
+
+Whether a portfolio search engine created from SEBs performs best
+solution search is determined by the SEBs. If the SEBs are
+created by \?bab<Script>()?, \?rbs<Script,BAB>()?, or
+\?pbs<Script,BAB>()? then the engine performs best solution
+search. Mixing best solution search SEBs with non-best solution
+search SEBs throws an exception of type
+\gecoderef[class]{Search::MixedBest}. 
 
 \section{No-goods from restarts}
 \label{sec:m:search:nogoods}
 
-As discussed in \autoref{m:search:restart}, the idea of using
+As discussed in \autoref{sec:m:search:restart}, the idea of using
 restarts effectively is to restart with an improved problem with
 the hope that search is capable of solving the improved problem.
 No-goods are constraints that can be learned from the
@@ -1783,7 +1796,7 @@ When the restart-based search engine reaches the current cutoff
 limit or finds a solution it calls the \?master()? member
 function as discussed in the previous section.
 
-From the argument of class \gecoderef[class]{CRI} that is passed to the \?master()? function a
+From the argument of class \gecoderef[class]{MetaInfo} that is passed to the \?master()? function a
 no-good of class \gecoderef[class]{NoGoods} can be retrieved by
 calling the \?nogoods()? function. A no-good It has really only
 \?post()? as its single important member function. The following
@@ -1792,9 +1805,9 @@ no-goods that can be derived from a restart (this is also the
 default \?master()? function defined by the class
 \gecoderef[class]{Space}, see also \autoref{sec:m:search:restart:configure}):
 \begin{code}
-virtual bool master(const CRI& cri) {
+virtual bool master(const MetaInfo& mi) {
   ...
-  cri.nogoods().post(*this);
+  mi.nogoods().post(*this);
   ...
 }
 \end{code}
@@ -1867,10 +1880,10 @@ limit.
 If no-goods should not be posted when a solution has been
 found, the \?master()? function can be redefined as:
 \begin{code}
-virtual bool master(const CRI& cri) {
+virtual bool master(const MetaInfo& mi) {
   ...
-  if (cri.solution() == 0)
-    cri.nogoods().post(*this);
+  if (mi.solution() == 0)
+    mi.nogoods().post(*this);
   ...
 }
 \end{code}
