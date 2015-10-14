@@ -9,6 +9,8 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2015-10-14}{Documented portfolio search (see
+    \autoref{sec:m:search:portfolio}).}
   \cle[\AckName{Joseph}{Scott}]{2015-09-17}{Explained when
     \?=SCHEDULE? modification events are needed (see
     \autoref{sec:v:varimp:spec}).}
