@@ -955,12 +955,14 @@ $$
 \mathtt{s}\cdot\mathtt{b}^i\qquad\text{for }i=0,1,2,\ldots
 $$
 
+\begin{samepage}
   A cutoff generator \?c? for a geometric cutoff sequence with
   scale-factor \?s? (of type \?unsigned long int?) and base \?b?
   (of type \?double?) is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::geometric(s,b);
 \end{smallcode}
+\end{samepage}
 The generator is implemented by the class
 \gecoderef[class]{Search::CutoffGeometric}.
 
@@ -1180,7 +1182,7 @@ By default, every space implements the two member functions
 \?master()? and \?slave()?. Both functions take an argument of
 class \gecoderef[class]{MetaInfo} that contains information about
 the current restart (and also for different assets in a
-portfolio, see \autoref{section:m:search:portfolio}). The class
+portfolio, see \autoref{sec:m:search:portfolio}). The class
 \?MetaInfo? provides the member functions as shown in
 \autoref{fig:m:search:mi}.
 
@@ -1397,7 +1399,7 @@ search engine, please consult
 \autoref{sec:m:search:restart:meta}. For more information on
 portfolios in constraint programming, see~\cite{portfolios}.
 
-\subsection{Portfolio search as a meta search engine}
+\subsection{Simple portfolio search as a meta search engine}
 \label{sec:m:search:portfolio:meta}
 
 Portfolio search is, like restart-based search, implemented as a
@@ -1545,8 +1547,7 @@ requested is greater than one, see
 created where each asset is run in its own thread. For example,
 \begin{code}
 Search::Options o;
-o.assets = 3;
-o.threads = 3;
+o.assets = 3; o.threads = 3;
 PBS<Script,DFS> e(s,o);
 \end{code}
 will create three threads each running a (sequential) depth-first
@@ -1555,8 +1556,7 @@ search engine.
 As mentioned before, threads are created conservatively. That is,
 \begin{code}
 Search::Options o;
-o.assets = 4;
-o.threads = 2;
+o.assets = 4; o.threads = 2;
 PBS<Script,DFS> e(s,o);
 \end{code}
 creates only two threads for two assets.
@@ -1565,22 +1565,31 @@ If more threads than assets are requested, the remaining
 threads are passed on to the assets. For example, 
 \begin{code}
 Search::Options o;
-o.assets = 2;
-o.threads = 4;
+o.assets = 2; o.threads = 4;
 PBS<Script,DFS> e(s,o);
 \end{code}
 creates a portfolio with assets where each asset is a parallel
 search engine using two threads. In more detail, requesting $n$
 assets and $m$ threads and $m>n$, then for each asset
-$$\left\lfloor \frac{m}{n} \right\rfloor$$
-threads are requested.
+$\left\lfloor \frac{m}{n} \right\rfloor$ threads are requested.
 
 \tip{Always use parallel portfolios}{ The only reasons for not
   using parallel portfolios is that the executing platform does
   not have threads (then a sequential instead of a parallel
-  portfolio is chosen automatically) or for debugging.
+  portfolio is chosen automatically anyway) or for debugging.
   Otherwise, an operating system scheduling several threads even
   on a single processing unit tends to be the better approach.  
+}
+
+\tip{Controling portfolios from the commandline}{ 
+  The commandline driver transparently supports portfolio search.
+  Depending on which options are passed on the commandline,
+  either a search engine or a portfolio engine is used for
+  search. The number of assets (by \?-assets?), the size of a
+  slice for a sequential portfolio (by \?-slice?), and the number
+  of threads for a parallel portfolio (by \?-threads?) can be
+  specified. See \autoref{sec:m:driver:options} for details.
+
 }
 
 \subsection{Mixed portfolios}
@@ -1640,7 +1649,8 @@ a new SEB \?seb? that eventually must be deleted by
 \?delete seb?. When creating a portfolio engine from a SEB, the engine
 takes care of deleting the SEB.
 
-In case more than four assets are needed, one can use arrays of
+\begin{samepage}
+In case more than four assets are needed, one needs to use arrays of
 SEBs of type \gecoderef[class]{SEBs}. The example from above
 could then be expressed as:
 \begin{code}
@@ -1651,6 +1661,7 @@ PBS<Script> e(master, sebs, s);
 \end{code}
 where the definitions of \?s?, \?s0?, \?s1?, and \?s2? are
 exactly as before and are omitted.
+\end{samepage}
 
 \paragraph{Best solution search.}
 
@@ -1661,6 +1672,30 @@ created by \?bab<Script>()?, \?rbs<Script,BAB>()?, or
 search. Mixing best solution search SEBs with non-best solution
 search SEBs throws an exception of type
 \gecoderef[class]{Search::MixedBest}. 
+
+\tip{Mixing parallel and sequential portfolios}{
+In case a really large number of assets \?n? is required but one
+needs to keep the number of threads \?m? sufficiently small, one
+can use SEBs to create a parallel portfolio search engine consisting of assets
+which are sequential portfolios themselves. Let us assume in the
+following for simplicity that \?n? is a multiple of \?m? and that
+\?master? is the master space of type \?Script?.
+
+Then the following code snippet creates a parallel portfolio containing
+\?m? assets each being a sequential portfolio having
+$\frac{\mathtt{n}}{\mathtt{m}}$ assets:
+\begin{code}
+SEBs sebs(m);
+for (int i=0; i<m; i++) {
+  Search::Options o;
+  o.assets = n / m;
+  sebs[i] = pbs<Script,DFS>(o);
+}
+Search::Options o;
+o.threads = m;
+PBS<Script> e(master, sebs, o);
+\end{code}
+}
 
 \section{No-goods from restarts}
 \label{sec:m:search:nogoods}

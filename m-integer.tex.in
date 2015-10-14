@@ -1892,7 +1892,7 @@ In order to optimize for memory, the constraint can be posted as:
 extensional(home, x, t, IPL_MEMORY);
 \end{code}
 
-For examples of extensional constraints using tuple sets, see
+For several examples of extensional constraints using tuple sets, see
 \autoref{chap:c:kakuro}, 
 \gecoderef[example]{black-hole}, and \gecoderef[example]{kakuro}.
 
