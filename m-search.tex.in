@@ -1233,36 +1233,14 @@ class Script : public Space {
 \end{code}
 
 \begin{figure}
-\begin{litcode}[texonly]{default master and slave functions}
-virtual bool Space::master(const MetaInfo& mi) {
-  switch (mi.type()) {
-  case MetaInfo::RESTART:
-    \begin{litblock}{restart-based search}
-    if (mi.last() != NULL)
-      constrain(*mi.last());
-    mi.nogoods().post(*this);
-    return true;
-    \end{litblock}
-  case MetaInfo::PORTFOLIO:
-    \begin{litblock}{portfolio search}
-    BrancherHandle::killall(*this);
-    break;
-    \end{litblock}
-  default:
-    break;
-  }
-  return true;
-}
-virtual bool Space::slave(const MetaInfo& mi) {
-  return true;
-}
-\end{litcode}
+\insertlitcode{default master and slave functions}
 \caption{Default \?master()? and \?slave()? functions}
 \label{fig:m:search:restart:default}
 \end{figure}
 
 The default \?master()? and \?slave()? member functions are shown
-in \autoref{fig:m:search:restart:default}. The parts that is
+in \autoref{fig:m:search:restart:default}. The part of the
+\?master()? function that is
 specific for restart-based search is as follows:
 \insertlitcode{default master and slave functions:restart-based search}
 
@@ -1441,6 +1419,8 @@ once on the master space from which clones are created for each
 asset. The purpose of the \?master()? function can be to setup
 certain aspects of a script specific to portfolio search.
 
+\insertlitcode{default master and slave functions:portfolio search}
+
 The portfolio-specific part of the default \?master()? function
 is as follows, the entire \?master()? function is shown in
 \autoref{fig:m:search:restart:default}: 
@@ -1469,7 +1449,8 @@ virtual bool slave(const MetaInfo& mi) {
 }
 \end{code}
 where the function \?mi.asset()? returns the number of the asset
-being created. Creating more than four asset seems to be not that
+being created. Creating more than four asset for this
+particular example seems to be not that
 useful, but in \autoref{sec:m:search:portfolio:arbitrary} we are
 going to discuss how different search engines can be run in one
 portfolio. Here one could imagine a portfolio that includes an
@@ -1602,7 +1583,7 @@ assets using search with and without restarts.
 
 Therefore a more expressive interface to portfolio search is
 provided that is based on the idea of \emph{search engine
-  builders} (SEB). A search engine builder is defined by its \emph{type}
+  builders} (SEBs). A search engine builder is defined by its \emph{type}
 and is created using search options
 as input (that is, each engine to be built can have its own
 search options). Then the portfolio search engine creates an
@@ -1947,6 +1928,30 @@ of no-goods, the number of no-goods that can be extracted tend to
 be rather small.
 
 
+\begin{litcode}[texonly]{default master and slave functions}
+virtual bool Space::master(const MetaInfo& mi) {
+  switch (mi.type()) {
+  case MetaInfo::RESTART:
+    \begin{litblock}{restart-based search}
+    if (mi.last() != NULL)
+      constrain(*mi.last());
+    mi.nogoods().post(*this);
+    return true;
+    \end{litblock}
+  case MetaInfo::PORTFOLIO:
+    \begin{litblock}{portfolio search}
+    BrancherHandle::killall(*this);
+    break;
+    \end{litblock}
+  default:
+    break;
+  }
+  return true;
+}
+virtual bool Space::slave(const MetaInfo& mi) {
+  return true;
+}
+\end{litcode}
 
 
 
