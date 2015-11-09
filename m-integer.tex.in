@@ -1358,10 +1358,33 @@ $$\mathtt{x}_i+\mathtt{c}_i \neq\mathtt{x}_j+\mathtt{c}_j
 \qquad\mbox{for }0\leq i,j< |\mathtt{x}|\mbox{ and }i\neq j
 $$
 
+Additionally, two variants of \?distinct? are available where not
+all variables need to be pairwise different. Posting
+\begin{code}
+distinct(home, x, c);
+\end{code}
+for an array of integer variables \?x? and an integer value \?c?
+constrains all variables in \?x? to be different or equal
+to \?c?:
+$$\mathtt{x}_i=\mathtt{c}\vee\mathtt{x}_j=\mathtt{c}\vee\mathtt{x}_i \neq\mathtt{x}_j 
+\qquad\mbox{for }0\leq i,j< |\mathtt{x}|\mbox{ and }i\neq j
+$$
+
+For an array of Boolean variables \?b? and an array of integer
+variables \?x? of same size, posting
+\begin{code}
+distinct(home, b, x);
+\end{code}
+constrains all variables in \?x? to be different provided the
+respective Boolean variable is one:
+$$\mathtt{b}_i=0\vee\mathtt{b}_j=0\vee\mathtt{x}_i \neq\mathtt{x}_j 
+\qquad\mbox{for }0\leq i,j< |\mathtt{x}|\mbox{ and }i\neq j
+$$
+
 Gecode offers value (the default), bounds (based
 on~\cite{distinctbnd}), and domain propagation (based
 on~\cite{Regin94}) for \?distinct?
-\GCCAT{\CAT[int]{alldifferent,alldifferent_cst}{linear}{TaskModelIntDistinct}}.
+\GCCAT{\CAT[int]{alldifferent,alldifferent_cst,alldifferent_except_0}{distinct}{TaskModelIntDistinct}}.
 
 For examples, see in particular \autoref{chap:c:golomb},
 \gecoderef[example]{queens}, and
