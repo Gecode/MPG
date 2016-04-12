@@ -481,18 +481,25 @@ been installed.}
   A setup that works well for us is to install
   \AURL{http://www.cygwin.com}{Cygwin} and Microsoft Visual
   Studio (Microsoft distributes a free
-  \AURL{http://www.microsoft.com/Express/}{Express Edition}). 
+  \AURL{https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx}{Community Edition}). 
   
   The easiest way to use the Microsoft Visual Studio \CPP{}
   compiler (\?cl?) from Cygwin is to add a line that loads the
   file \?vcvarsall.bat? to the
   \?Cygwin.bat? file that starts Cygwin. The file  \?vcvarsall.bat? comes
   with Microsoft Visual Studio (for example, it is used to start
-  the Visual Studio Command Prompt). On my machine using Visual
-  \CPP{} 2008 Express Edition, the added line is
+  the Visual Studio Command Prompt). On my machine using the Visual
+  Studio 2015 Community Edition, the added line is
 \begin{cmd}
-call "c:\Program Files\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+call "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
 \end{cmd}
+  for the 32-bit compiler version (\texttt{x86}) and
+\begin{cmd}
+call "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+\end{cmd}
+  for the 64-bit compiler version (\texttt{x64}). The line needs
+  to be after the \texttt{\@echo~off} command at the beginning of
+  the file.
  
   Or, you start the Visual Studio Command Prompt first, and then
   start the bash shell by hand with
