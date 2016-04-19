@@ -190,9 +190,55 @@ and the code might even benefit from better cache behavior.
 
 The \?heap? (a global variable, see
 \gecoderef[group]{FuncMemHeap}) is nothing but a \CPP-wrapper
-around \?malloc()? and \?free()? as provided by the underlying
+around memory allocation functions typically provided by the
+underlying 
 operating system. In case memory is exhausted, an exception of
-type \gecoderef[class]{MemoryExhausted} is thrown.
+type \gecoderef[class]{MemoryExhausted} is thrown. The default
+memory allocator can be replaced by a user-defined memory
+allocator as discussed below.
+
+\paragraph{Using a different memory allocator.}
+\label{par:p:memory:allocator}
+
+The \?heap? object uses an object \?allocator? of class
+\gecoderef[class]{Allocator}. The class provides the basic
+operations for allocation, re-allocation, de-allocation, and
+copying of memory areas. By default, the \?allocator? object uses
+functions such as \?malloc()? and \?free()? from the underlying
+operating system.
+
+\begin{figure}
+\begin{code}
+namespace Gecode { namespace Support {
+
+  class Allocator {
+  public:
+    // Default constructor
+    Allocator(void);
+    // Allocate memory block of size n
+    void* alloc(size_t n);
+    // Return address of reallocated memory block p of size n 
+    void* realloc(void* p, size_t n);
+    // Free memory block p
+    void free(void* p);
+    // Copy n bytes from s to d and return d
+    void* memcpy(void *d, const void *s, size_t n);
+  };
+
+}}
+\end{code}
+\caption{Declaration of an \?Allocator? class}
+\label{fig:p:memory:allocator}
+\end{figure}
+
+If a different allocator is needed, Gecode can be configured to
+not enable the default allocator (see
+\autoref{par:s:started:allocator}). Then an \?Allocator? class
+must be defined in the namespace \?Gecode::Support? that
+implements the interface shown in
+\autoref{fig:p:memory:allocator}. The declaration must occur
+before any Gecode header file is included.
+
 
 
 \paragraph{Space-allocated freelists.}

@@ -1074,6 +1074,22 @@ machine. Configure with
       --with-sdk=/Developer/SDKs/MacOSX10.4u.sdk
 \end{cmd}
 
+\paragraph{Disabling the default memory allocator.}
+\label{par:s:started:allocator}
+
+By default, Gecode uses a default memory allocator based on the C
+standard library functions \?malloc()? and \?free()?. This
+default allocator can be disabled by
+
+\begin{cmd}
+./configure --disable-allocator
+\end{cmd}
+
+If the default allocator is disabled, one must supply the
+implementation of an allocator, this is explained in 
+\autoref{par:p:memory:allocator}.
+
+
 \paragraph{Passing options for compilation.}
 
 Additional options for compilation can be passed to the compiler
