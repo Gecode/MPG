@@ -237,7 +237,9 @@ namespace Gecode { namespace Support {
 
 If a different allocator is needed, Gecode can be configured to
 not enable the default allocator (see
-\autoref{par:s:started:allocator}). Then an \?Allocator? class
+\autoref{par:s:started:allocator}). If Gecode has been configured
+without the default allocator the macro \?GECODE_ALLOCATOR? is
+undefined. Then an \?Allocator? class
 must be defined in the namespace \?Gecode::Support? that
 implements the interface shown in
 \autoref{fig:p:memory:allocator}. The declaration must occur
