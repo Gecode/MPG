@@ -209,6 +209,8 @@ operating system.
 
 \begin{figure}
 \begin{code}
+#ifndef GECODE_ALLOCATOR
+
 namespace Gecode { namespace Support {
 
   class Allocator {
@@ -226,6 +228,8 @@ namespace Gecode { namespace Support {
   };
 
 }}
+
+#endif
 \end{code}
 \caption{Declaration of an \?Allocator? class}
 \label{fig:p:memory:allocator}
