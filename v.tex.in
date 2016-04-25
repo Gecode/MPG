@@ -124,6 +124,12 @@ The second task consists of programming the
   tie-breaking, filter functions, no-goods, and much more. How
   to use Gecode's support for implementing variable-value
   branchings is detailed in \autoref{chap:v:branch}.
+
+  In case one implements \emph{reified} constraints, it is
+  possible to use these reified constraints together with Boolean
+  expressions and relations as provided by the MiniModel modeling
+  support. For an example, please consider
+  \autoref{sec:m:minimodel:boolmisc}.
 \end{itemize}
 
 \paragraph{Putting everything together.}

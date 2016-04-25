@@ -6,6 +6,7 @@ URL class BIBD classBIBD.html
 URL class BIBDOptions classBIBDOptions.html
 URL class BinPacking classBinPacking.html
 URL class BlackHole classBlackHole.html
+URL class BoolDomExpr classBoolDomExpr.html
 URL class CDBF classCDBF.html
 URL class CDBF::Choice classCDBF_1_1Choice.html
 URL class CarSequencing classCarSequencing.html
@@ -74,7 +75,7 @@ URL class Gecode::BElementExpr classGecode_1_1BElementExpr.html
 URL class Gecode::BaseOptions classGecode_1_1BaseOptions.html
 URL class Gecode::BinaryPropagator classGecode_1_1BinaryPropagator.html
 URL class Gecode::BoolExpr classGecode_1_1BoolExpr.html
-URL class Gecode::BoolExpr::MiscExpr classGecode_1_1BoolExpr_1_1MiscExpr.html
+URL class Gecode::BoolExpr::Misc classGecode_1_1BoolExpr_1_1Misc.html
 URL class Gecode::BoolExpr::Node classGecode_1_1BoolExpr_1_1Node.html
 URL class Gecode::BoolVar classGecode_1_1BoolVar.html
 URL class Gecode::BoolVarArgs classGecode_1_1BoolVarArgs.html
@@ -433,6 +434,7 @@ URL class Gecode::Int::Cumulatives::Val classGecode_1_1Int_1_1Cumulatives_1_1Val
 URL class Gecode::Int::Distinct::Bnd classGecode_1_1Int_1_1Distinct_1_1Bnd.html
 URL class Gecode::Int::Distinct::Dom classGecode_1_1Int_1_1Distinct_1_1Dom.html
 URL class Gecode::Int::Distinct::DomCtrl classGecode_1_1Int_1_1Distinct_1_1DomCtrl.html
+URL class Gecode::Int::Distinct::EqIte classGecode_1_1Int_1_1Distinct_1_1EqIte.html
 URL class Gecode::Int::Distinct::Graph classGecode_1_1Int_1_1Distinct_1_1Graph.html
 URL class Gecode::Int::Distinct::HallInfo classGecode_1_1Int_1_1Distinct_1_1HallInfo.html
 URL class Gecode::Int::Distinct::MaxIncIdx classGecode_1_1Int_1_1Distinct_1_1MaxIncIdx.html
@@ -619,6 +621,7 @@ URL class Gecode::Int::ReMixBinaryPropagator classGecode_1_1Int_1_1ReMixBinaryPr
 URL class Gecode::Int::ReUnaryPropagator classGecode_1_1Int_1_1ReUnaryPropagator.html
 URL class Gecode::Int::Rel::EqBnd classGecode_1_1Int_1_1Rel_1_1EqBnd.html
 URL class Gecode::Int::Rel::EqDom classGecode_1_1Int_1_1Rel_1_1EqDom.html
+URL class Gecode::Int::Rel::EqVal classGecode_1_1Int_1_1Rel_1_1EqVal.html
 URL class Gecode::Int::Rel::Le classGecode_1_1Int_1_1Rel_1_1Le.html
 URL class Gecode::Int::Rel::LexLqLe classGecode_1_1Int_1_1Rel_1_1LexLqLe.html
 URL class Gecode::Int::Rel::LexNq classGecode_1_1Int_1_1Rel_1_1LexNq.html
@@ -1439,7 +1442,9 @@ URL class Test::Int::Cumulatives::CumulativeAssignment classTest_1_1Int_1_1Cumul
 URL class Test::Int::Cumulatives::Cumulatives classTest_1_1Int_1_1Cumulatives_1_1Cumulatives.html
 URL class Test::Int::Cumulatives::Event classTest_1_1Int_1_1Cumulatives_1_1Event.html
 URL class Test::Int::Distinct::Distinct classTest_1_1Int_1_1Distinct_1_1Distinct.html
+URL class Test::Int::Distinct::Except classTest_1_1Int_1_1Distinct_1_1Except.html
 URL class Test::Int::Distinct::Offset classTest_1_1Int_1_1Distinct_1_1Offset.html
+URL class Test::Int::Distinct::Optional classTest_1_1Int_1_1Distinct_1_1Optional.html
 URL class Test::Int::Distinct::Pathological classTest_1_1Int_1_1Distinct_1_1Pathological.html
 URL class Test::Int::Distinct::Pathological::TestSpace classTest_1_1Int_1_1Distinct_1_1Pathological_1_1TestSpace.html
 URL class Test::Int::Distinct::Random classTest_1_1Int_1_1Distinct_1_1Random.html
@@ -1517,6 +1522,7 @@ URL class Test::Int::MiniModelArithmetic::Mult classTest_1_1Int_1_1MiniModelArit
 URL class Test::Int::MiniModelArithmetic::Plus classTest_1_1Int_1_1MiniModelArithmetic_1_1Plus.html
 URL class Test::Int::MiniModelArithmetic::Sqr classTest_1_1Int_1_1MiniModelArithmetic_1_1Sqr.html
 URL class Test::Int::MiniModelArithmetic::Sqrt classTest_1_1Int_1_1MiniModelArithmetic_1_1Sqrt.html
+URL class Test::Int::MiniModelBoolean::BoolElement classTest_1_1Int_1_1MiniModelBoolean_1_1BoolElement.html
 URL class Test::Int::MiniModelBoolean::BoolExprInt classTest_1_1Int_1_1MiniModelBoolean_1_1BoolExprInt.html
 URL class Test::Int::MiniModelBoolean::BoolExprVar classTest_1_1Int_1_1MiniModelBoolean_1_1BoolExprVar.html
 URL class Test::Int::MiniModelBoolean::BoolInstr classTest_1_1Int_1_1MiniModelBoolean_1_1BoolInstr.html
@@ -1639,6 +1645,7 @@ URL class Test::Search::FailImmediate classTest_1_1Search_1_1FailImmediate.html
 URL class Test::Search::HasSolutions classTest_1_1Search_1_1HasSolutions.html
 URL class Test::Search::PBS classTest_1_1Search_1_1PBS.html
 URL class Test::Search::RBS classTest_1_1Search_1_1RBS.html
+URL class Test::Search::SEBPBS classTest_1_1Search_1_1SEBPBS.html
 URL class Test::Search::SolveImmediate classTest_1_1Search_1_1SolveImmediate.html
 URL class Test::Search::Test classTest_1_1Search_1_1Test.html
 URL class Test::Search::TestSpace classTest_1_1Search_1_1TestSpace.html
@@ -1950,6 +1957,11 @@ URL example sudoku:SudokuMixed examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuMixed "Solving Sudoku puzzles using both set and integer"
 URL example sudoku:SudokuSet examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuSet "Solving Sudoku puzzles using set constraints"
+URL example test examples_2test_8cpp.html
+TITLE example test "Alpha puzzle"
+URL example test:Alpha examples_2test_8cpp.html
+TITLE example test:Alpha "Alpha puzzle"
+URL example test:BoolDomExpr examples_2test_8cpp.html
 URL example tsp tsp_8cpp.html
 TITLE example tsp "Travelling salesman problem (TSP)"
 URL example tsp:TSP tsp_8cpp.html
@@ -2016,6 +2028,7 @@ URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
 URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
+URL file examples/test.cpp examples_2test_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
@@ -2062,6 +2075,7 @@ URL file gecode/float/branch/val.hpp float_2branch_2val_8hpp.html
 URL file gecode/float/branch/var.hpp float_2branch_2var_8hpp.html
 URL file gecode/float/branch/view-sel.cpp float_2branch_2view-sel_8cpp.html
 URL file gecode/float/dom.cpp gecode_2float_2dom_8cpp.html
+URL file gecode/float/exception.cpp float_2exception_8cpp.html
 URL file gecode/float/exception.hpp float_2exception_8hpp.html
 URL file gecode/float/exec.cpp gecode_2float_2exec_8cpp.html
 URL file gecode/float/limits.hpp float_2limits_8hpp.html
@@ -2232,6 +2246,8 @@ URL file gecode/int/distinct.hh int_2distinct_8hh.html
 URL file gecode/int/distinct/bnd.hpp distinct_2bnd_8hpp.html
 URL file gecode/int/distinct/dom-ctrl.hpp dom-ctrl_8hpp.html
 URL file gecode/int/distinct/dom.hpp distinct_2dom_8hpp.html
+URL file gecode/int/distinct/eqite.cpp eqite_8cpp.html
+URL file gecode/int/distinct/eqite.hpp eqite_8hpp.html
 URL file gecode/int/distinct/graph.hpp distinct_2graph_8hpp.html
 URL file gecode/int/distinct/ter-dom.hpp ter-dom_8hpp.html
 URL file gecode/int/distinct/val.hpp int_2distinct_2val_8hpp.html
@@ -2247,6 +2263,7 @@ URL file gecode/int/element/int.hpp gecode_2int_2element_2int_8hpp.html
 URL file gecode/int/element/pair.cpp pair_8cpp.html
 URL file gecode/int/element/pair.hpp pair_8hpp.html
 URL file gecode/int/element/view.hpp int_2element_2view_8hpp.html
+URL file gecode/int/exception.cpp int_2exception_8cpp.html
 URL file gecode/int/exception.hpp int_2exception_8hpp.html
 URL file gecode/int/exec.cpp gecode_2int_2exec_8cpp.html
 URL file gecode/int/exec.hh exec_8hh.html
@@ -2469,6 +2486,7 @@ URL file gecode/kernel/brancher-view-val.hpp brancher-view-val_8hpp.html
 URL file gecode/kernel/brancher-view.hpp brancher-view_8hpp.html
 URL file gecode/kernel/core.cpp core_8cpp.html
 URL file gecode/kernel/core.hpp core_8hpp.html
+URL file gecode/kernel/exception.cpp kernel_2exception_8cpp.html
 URL file gecode/kernel/exception.hpp kernel_2exception_8hpp.html
 URL file gecode/kernel/global-afc.hpp global-afc_8hpp.html
 URL file gecode/kernel/macros.hpp kernel_2macros_8hpp.html
@@ -2491,6 +2509,7 @@ URL file gecode/kernel/wait.hh wait_8hh.html
 URL file gecode/minimodel.hh minimodel_8hh.html
 URL file gecode/minimodel/bool-expr.cpp bool-expr_8cpp.html
 URL file gecode/minimodel/bool-expr.hpp bool-expr_8hpp.html
+URL file gecode/minimodel/exception.cpp minimodel_2exception_8cpp.html
 URL file gecode/minimodel/exception.hpp minimodel_2exception_8hpp.html
 URL file gecode/minimodel/float-arith.cpp float-arith_8cpp.html
 URL file gecode/minimodel/float-expr.cpp float-expr_8cpp.html
@@ -2521,6 +2540,7 @@ URL file gecode/search/dfs.cpp dfs_8cpp.html
 URL file gecode/search/dfs.hpp dfs_8hpp.html
 URL file gecode/search/engine.cpp engine_8cpp.html
 URL file gecode/search/engine.hpp engine_8hpp.html
+URL file gecode/search/exception.cpp search_2exception_8cpp.html
 URL file gecode/search/exception.hpp search_2exception_8hpp.html
 URL file gecode/search/meta/dead.cpp dead_8cpp.html
 URL file gecode/search/meta/dead.hh dead_8hh.html
@@ -2605,6 +2625,7 @@ URL file gecode/set/element/disjoint.hpp disjoint_8hpp.html
 URL file gecode/set/element/inter.hpp element_2inter_8hpp.html
 URL file gecode/set/element/union.hpp element_2union_8hpp.html
 URL file gecode/set/element/unionConst.hpp unionConst_8hpp.html
+URL file gecode/set/exception.cpp set_2exception_8cpp.html
 URL file gecode/set/exception.hpp set_2exception_8hpp.html
 URL file gecode/set/exec.cpp gecode_2set_2exec_8cpp.html
 URL file gecode/set/int.cpp gecode_2set_2int_8cpp.html
@@ -2680,6 +2701,8 @@ URL file gecode/set/view/print.hpp set_2view_2print_8hpp.html
 URL file gecode/set/view/set.hpp gecode_2set_2view_2set_8hpp.html
 URL file gecode/set/view/singleton.hpp singleton_8hpp.html
 URL file gecode/support.hh support_8hh.html
+URL file gecode/support/allocator.cpp allocator_8cpp.html
+URL file gecode/support/allocator.hpp allocator_8hpp.html
 URL file gecode/support/auto-link.hpp auto-link_8hpp.html
 URL file gecode/support/bitset-base.hpp bitset-base_8hpp.html
 URL file gecode/support/bitset-offset.hpp bitset-offset_8hpp.html
@@ -2690,7 +2713,7 @@ URL file gecode/support/config.hpp config_8hpp.html
 URL file gecode/support/dynamic-array.hpp dynamic-array_8hpp.html
 URL file gecode/support/dynamic-queue.hpp dynamic-queue_8hpp.html
 URL file gecode/support/dynamic-stack.hpp dynamic-stack_8hpp.html
-URL file gecode/support/exception.cpp exception_8cpp.html
+URL file gecode/support/exception.cpp support_2exception_8cpp.html
 URL file gecode/support/exception.hpp support_2exception_8hpp.html
 URL file gecode/support/heap.cpp heap_8cpp.html
 URL file gecode/support/heap.hpp heap_8hpp.html
@@ -2880,7 +2903,7 @@ URL file test/set/rel-op-const.cpp rel-op-const_8cpp.html
 URL file test/set/rel-op.cpp test_2set_2rel-op_8cpp.html
 URL file test/set/rel.cpp test_2set_2rel_8cpp.html
 URL file test/set/sequence.cpp test_2set_2sequence_8cpp.html
-URL file test/test.cpp test_8cpp.html
+URL file test/test.cpp test_2test_8cpp.html
 URL file test/test.hh test_8hh.html
 URL file test/test.hpp test_8hpp.html
 URL group Example group__Example.html

@@ -9,6 +9,9 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2016-04-25}{Documented how Boolean expressions and
+    relations can be extended by new reified constraints (see
+    \autoref{sec:m:minimodel:boolmisc}).}
   \cle{2016-04-19}{Documented how to use a different memory allocator (see
     \autoref{par:p:memory:allocator}).}
   \cle{2015-10-14}{Documented portfolio search (see

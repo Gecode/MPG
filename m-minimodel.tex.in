@@ -461,6 +461,86 @@ the value of the expression.
 Instead of a float variable, you can always use a constant of type
 \gecoderef[class]{FloatVal}.
 
+\subsection{Extending Boolean expressions and relations}
+\label{sec:m:minimodel:boolmisc}
+
+Boolean expressions and relations can easily be extended. A
+typical case for extension is when a new variable type is added
+(see also \autoref{part:v}) and that there are also reified
+constraints using the new variable type that should be included
+in Boolean expressions and relations.
+
+As an example, we assume that we would like to extend Boolean
+expressions and relations by a domain expression \?dom()? (as a
+more convenient form of domain constraints as described in
+\autoref{sec:m:integer:dom}), so for example
+\begin{code}
+IntVar x(home,-10,10);
+rel(home, dom(x,1,5));
+\end{code}
+constrains the domain of \?x? to $\{1,2,3,4,5\}$ whereas
+\begin{code}
+IntVar x(home,-10,10);
+rel(home, !dom(x,1,5));
+\end{code}
+constrains the domain of \?x? to
+$\{-10,-9,\ldots,0,6,7,\ldots,10\}$. The domain expression can be
+used together with other Boolean expressions. For example, if
+both~\?x? and~\?y? are integer variables, then the following is
+possible:
+\begin{code}
+rel(home, dom(x,3,4) && !(y > 4));
+\end{code}
+
+\begin{figure}
+\insertlitcode{Boolean domain expression}
+\caption{The class \?BoolDomExpr? and the \?dom()? function}
+\label{fig:m:minimodel:domexpr}
+\end{figure}
+
+
+In order to extend Boolean expressions one must implement the
+following:
+\begin{itemize}
+\item A function \?dom(IntVar x, int l, int u)? that creates a
+  Boolean expression where~\?x? is the variable and~\?l? and~\?u?
+  are the lower and upper bound for the domain.
+\item A class \?BoolDomExpr? that inherits from the class
+  \gecoderef[class]{BoolExpr::Misc}. An object of the class is
+  created by our \?dom()? function and the modeling layer uses
+  a virtual member function \?post()? to post a constraint when
+  the \?rel()? or \?expr()? functions require this. 
+\end{itemize}
+
+
+\paragraph{The \?dom()? function.}
+
+The definition of the \?dom()? function is straightforward and as
+follows:
+\insertlitcode{Boolean domain expression:create Boolean domain expression}
+
+It returns a new Boolean expression that contains an object of
+class \?BoolDomExpr? that can be used by the \?rel()? and
+\?expr()? functions.
+
+\paragraph{The Boolean domain expression class.}
+
+The class is shown in \autoref{fig:minimodel:domexpr}. An object
+of class \?BoolDomExpr?
+stores the information needed for the actual post function: the
+variable~\?x? and lower and upper bounds~\?l? and~\?u?. Note that
+our class does not need a destructor, it is only shown
+as a reminder for classes that actually need a destructor!
+
+The \?post()? member function is defined as follows:
+\insertlitcode{Boolean domain expression:post member function}
+where the posted expression must constrain the Boolean
+variable~\?b? with integer propagation level \?ipl?. If \?neg? is
+\?true?, a negated constraint must be posted.
+
+
+
+
 \section{Matrix interface for arrays}
 \label{sec:m:minimodel:matrix}
 
@@ -812,3 +892,32 @@ $$z=\bigcup_{i\in y}\{x_i\}$$
 Conversely, \?roots(home, x, y, z)? constrains \?y? to be the roots of the elements in \?z?, i.e., those indices mapping to elements in \?z?:
 $$y=\bigcup_{i\in z}\{j\ |\ x_j=i\}$$
 \GCCAT{\CAT[mm-set]{roots}{roots}{TaskModelMiniModelSetAlias}}.
+
+
+\begin{litcode}{Boolean domain expression}{schulte}
+class BoolDomExpr : public BoolExpr::Misc {
+protected:
+  IntVar x; int l, u;
+public:
+  BoolDomExpr(IntVar x0, int l0, int u0)
+    : x(x0), l(l0), u(u0) {}
+  \begin{litblock}{post member function}
+  virtual void post(Space& home, BoolVar b, bool neg,
+                    IntPropLevel ipl) {
+    if (neg) {
+      const int nlu[2][2] = { { Int::Limits::min, l-1 },
+                              { u+1, Int::Limits::max } };
+      dom(home, x, IntSet(nlu,2), b);
+    } else {
+      dom(home, x, l, u, b);
+    }
+  }
+  \end{litblock}
+  virtual ~ReDomExpr(void) {}
+};
+\begin{litblock}{create Boolean domain expression}
+BoolExpr dom(IntVar x, int l, int u) {
+  return BoolExpr(new BoolDomExpr(x,l,u));
+}
+\end{litblock}
+\end{litcode}

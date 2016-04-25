@@ -201,7 +201,7 @@ allocator as discussed below.
 \label{par:p:memory:allocator}
 
 The \?heap? object uses an object \?allocator? of class
-\gecoderef[class]{Allocator}. The class provides the basic
+\gecoderef[class]{Support::Allocator}. The class provides the basic
 operations for allocation, re-allocation, de-allocation, and
 copying of memory areas. By default, the \?allocator? object uses
 functions such as \?malloc()? and \?free()? from the underlying
