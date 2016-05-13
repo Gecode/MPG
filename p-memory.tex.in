@@ -350,7 +350,7 @@ shared object is deleted (implemented by reference counting). In
 addition, shared handles provide an \?update()? function that
 creates a new copy of the shared object in case the copy is to be
 used by a different thread (that is, the Boolean \?share?
-argument is true).
+argument is \?false?).
 
 \begin{figure}
 \insertlitcode{shared object and handle}
