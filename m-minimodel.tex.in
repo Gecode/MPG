@@ -902,7 +902,7 @@ public:
   BoolDomExpr(IntVar x0, int l0, int u0)
     : x(x0), l(l0), u(u0) {}
   \begin{litblock}{post member function}
-  virtual void post(Space& home, BoolVar b, bool neg,
+  virtual void post(Home home, BoolVar b, bool neg,
                     IntPropLevel ipl) {
     if (neg) {
       const int nlu[2][2] = { { Int::Limits::min, l-1 },

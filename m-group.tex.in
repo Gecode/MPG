@@ -1,0 +1,168 @@
+% -*- mode: LaTeX; -*- 
+\chapter{Groups and tracing}
+\label{chap:m:group}
+
+Groups are a mean to control certain execution aspects of
+propagators and branchers. Tracing can be used for tracing
+constraint propagation during execution. Groups are ultimately
+linked to tracing, as the generated traces can be filtered
+according to group membership.
+
+\paragraph{Overview.}
+
+\mbox{}\autoref{sec:m:group:prop} explains groups of propagators,
+whereas \autoref{sec:m:group:branch} explains groups of
+branchers. The tracing support that comes with Gecode is
+explained in \autoref{sec:m:group:trace} and
+\autoref{sec:m:group:tracers} shows how tracers (the objects that
+process trace information) can be defined.
+
+\section{Propagator groups}
+\label{sec:m:group:prop}
+
+Each propagator belongs to exactly one \emph{propagator group} of
+type \gecoderef[class]{PropagatorGroup}. When a propagator is
+created, it is conceptually added to a group. Group membership of
+a propagator remains stable during copying of spaces.
+
+\paragraph{Adding propagators to groups.}
+
+The following code fragment creates a propagator group \?pg?:
+\begin{code}
+PropagatorGroup pg;
+\end{code}
+A propagator can be added to the group \?pg? by passing the group
+as additional information adjoined to the \?home? information when
+the propagator is posted. For example when assuming that \?home?
+refers to a space, then
+\begin{code}
+distinct(home(pg), x);
+\end{code}
+adds all propagators created by the constraint post function
+\?distinct()? to the propagator group \?pg?. Equivalently, one
+can also use:
+\begin{code}
+distinct(pg(home), x);
+\end{code}
+
+If no propagator group is specified when a propagator is created,
+then the propagator is added to the default propagator group
+\?PropagatorGroup::default?. 
+
+\paragraph{Operations on propagator groups.}
+
+The number of propagators in a group can be computed by the
+\?size()? member function. The following expression:
+\begin{code}
+pg.size(home);
+\end{code}
+evaluates to the number of propagators in the group \?pg?. Each
+group has a unique identifier of type \?unsigned int? which can
+be accessed by:
+\begin{code}
+pg.id();
+\end{code}
+
+One can iterate over all propagators in a group. For example
+\begin{code}
+for (Propagators p(home,pg); p() ++p)
+  std::cout << p.propagator.id() << std::endl;
+\end{code}
+prints the unique identifier of each propagator contained in
+group \?pg?. Note that a propagator also provides access to the
+group it belongs to, assume that \?p? is of type \?Propagator&?,
+then
+\begin{code}
+p.group();
+\end{code}
+evaluates to the group \?p? belongs to.
+
+The propagators of a group can be disabled and enabled. By
+\begin{code}
+pg.disable(home);
+\end{code}
+all propagators in \?pg? are disabled in that they are not any
+longer performing any propagation (for more details on disabling
+and enabling propagators, see also
+\autoref{par:p:started:disable}). Similarly, propagators can be
+enabled by
+\begin{code}
+pg.enable(home);
+\end{code}
+By default, enabling a disabled propagator will schedule the
+propagator for execution if necessary. Hence, next time the
+\?status()? function of the propagator's home space is executed,
+the propagator will be executed again. It is also possible to
+enable propagators in a group without scheduling them by:
+\begin{code}
+pg.enable(home,false);
+\end{code}
+
+All propagators in a group can be killed by
+\begin{code}
+pg.kill(home);
+\end{code}
+
+For convenience, there is one special propagator group
+\?PropagatorGroup::all? which refers to all propagators in a
+space (one can think of it as the union of all propagator
+groups). For example,
+\begin{code}
+PropagatorGroup::all.size(home);
+\end{code}
+evaluates to the number of all propagators in the space \?home?.
+
+
+\section{Brancher groups}
+\label{sec:m:group:branch}
+
+Brancher groups contain branchers and each brancher belongs to
+exactly one brancher group of type
+\gecoderef[class]{BrancherGroup}. Brancher groups are very
+similar to propagator groups as described in the previous
+section:
+\begin{itemize}
+\item A brancher group \?bg? is created as follows:
+\begin{smallcode}
+BrancherGroup bg;
+\end{smallcode}
+\item  A brancher is added to the group \?bg? by passing the group
+as additional information adjoined to the \?home? information when
+the propagator is posted. For example, the brancher created by
+\begin{smallcode}
+branch(home(bg), x, INT_VAR_NONE(), INT_VAL_MIN());
+\end{smallcode}
+adds the newly created brancher created to the brancher group \?bg?. Equivalently, one
+can also write \?bg(home)? instead of \?home(bg)?.
+\item
+If no brancher group is specified,
+then the brancher is added to the default group
+\?BrancherGroup::default?. 
+\item The number of branchers in a group can be computed by the
+\?size()? member function. Each
+group has a unique identifier of type \?unsigned int? which can
+be accessed by \?bg.id()?.
+\item One can iterate over all branchers in a group by using the
+  iterator class \gecoderef[class]{Branchers}.
+\item Each brancher provides access to the
+group it belongs to, assume that \?b? is of type \?Brancher&?,
+then 
+\begin{smallcode}
+b.group();
+\end{smallcode}
+evaluates to the group \?b? belongs to.
+\item 
+All branchers in a group can be killed by
+\begin{smallcode}
+bg.kill(home);
+\end{smallcode}
+\item There is one special brancher group
+\?BrancherGroup::all? which refers to all branchers in a space.
+\end{itemize}
+
+\section{Tracing}
+\label{sec:m:group:trace}
+
+\section{Tracers}
+\label{sec:m:group:tracers}
+

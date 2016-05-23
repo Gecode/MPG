@@ -219,6 +219,9 @@ domains. A domain that is a fixpoint means that input and output
 for a propagator are the same and hence the propagator did not
 perform any propagation.
 
+\paragraph{Disabling and enabling propagators.}
+\label{par:p:started:disable}
+
 
 \section{Background reading}
 \label{sec:p:started:back}

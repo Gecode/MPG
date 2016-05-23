@@ -211,6 +211,8 @@ available functionality for modeling and solving:
   interactive search tool for developing constraint models.
 \item \tcmdriver{} summarizes the commandline driver for Ge\-code
   models.
+\item \tcmgroup{} explains how to use groups for tracing
+  constraint propagation.
 \end{itemize}
 
 \vfill
@@ -232,6 +234,7 @@ available functionality for modeling and solving:
 \include{m-search}
 \include{m-gist}
 \include{m-driver}
+\include{m-group}
 
 
 

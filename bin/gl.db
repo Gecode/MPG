@@ -6,7 +6,6 @@ URL class BIBD classBIBD.html
 URL class BIBDOptions classBIBDOptions.html
 URL class BinPacking classBinPacking.html
 URL class BlackHole classBlackHole.html
-URL class BoolDomExpr classBoolDomExpr.html
 URL class CDBF classCDBF.html
 URL class CDBF::Choice classCDBF_1_1Choice.html
 URL class CarSequencing classCarSequencing.html
@@ -77,6 +76,7 @@ URL class Gecode::BinaryPropagator classGecode_1_1BinaryPropagator.html
 URL class Gecode::BoolExpr classGecode_1_1BoolExpr.html
 URL class Gecode::BoolExpr::Misc classGecode_1_1BoolExpr_1_1Misc.html
 URL class Gecode::BoolExpr::Node classGecode_1_1BoolExpr_1_1Node.html
+URL class Gecode::BoolTraceDelta classGecode_1_1BoolTraceDelta.html
 URL class Gecode::BoolVar classGecode_1_1BoolVar.html
 URL class Gecode::BoolVarArgs classGecode_1_1BoolVarArgs.html
 URL class Gecode::BoolVarArray classGecode_1_1BoolVarArray.html
@@ -86,7 +86,9 @@ URL class Gecode::BranchTraits<FloatVar> classGecode_1_1BranchTraits_3_01FloatVa
 URL class Gecode::BranchTraits<IntVar> classGecode_1_1BranchTraits_3_01IntVar_01_4.html
 URL class Gecode::BranchTraits<SetVar> classGecode_1_1BranchTraits_3_01SetVar_01_4.html
 URL class Gecode::Brancher classGecode_1_1Brancher.html
+URL class Gecode::BrancherGroup classGecode_1_1BrancherGroup.html
 URL class Gecode::BrancherHandle classGecode_1_1BrancherHandle.html
+URL class Gecode::Branchers classGecode_1_1Branchers.html
 URL class Gecode::Choice classGecode_1_1Choice.html
 URL class Gecode::ChooseMax classGecode_1_1ChooseMax.html
 URL class Gecode::ChooseMin classGecode_1_1ChooseMin.html
@@ -116,9 +118,11 @@ URL class Gecode::Driver::ScriptBase classGecode_1_1Driver_1_1ScriptBase.html
 URL class Gecode::Driver::StringOption classGecode_1_1Driver_1_1StringOption.html
 URL class Gecode::Driver::StringOption::Value classGecode_1_1Driver_1_1StringOption_1_1Value.html
 URL class Gecode::Driver::StringValueOption classGecode_1_1Driver_1_1StringValueOption.html
+URL class Gecode::Driver::TraceOption classGecode_1_1Driver_1_1TraceOption.html
 URL class Gecode::Driver::UnsignedIntOption classGecode_1_1Driver_1_1UnsignedIntOption.html
 URL class Gecode::DynamicCastFailed classGecode_1_1DynamicCastFailed.html
 URL class Gecode::Exception classGecode_1_1Exception.html
+URL class Gecode::ExecInfo classGecode_1_1ExecInfo.html
 URL class Gecode::FlatZinc::AST::Array classGecode_1_1FlatZinc_1_1AST_1_1Array.html
 URL class Gecode::FlatZinc::AST::ArrayAccess classGecode_1_1FlatZinc_1_1AST_1_1ArrayAccess.html
 URL class Gecode::FlatZinc::AST::Atom classGecode_1_1FlatZinc_1_1AST_1_1Atom.html
@@ -183,6 +187,7 @@ URL class Gecode::Float::Branch::ValSelGq classGecode_1_1Float_1_1Branch_1_1ValS
 URL class Gecode::Float::Branch::ValSelLq classGecode_1_1Float_1_1Branch_1_1ValSelLq.html
 URL class Gecode::Float::Branch::ValSelRnd classGecode_1_1Float_1_1Branch_1_1ValSelRnd.html
 URL class Gecode::Float::FloatDelta classGecode_1_1Float_1_1FloatDelta.html
+URL class Gecode::Float::FloatTraceView classGecode_1_1Float_1_1FloatTraceView.html
 URL class Gecode::Float::FloatVarImp classGecode_1_1Float_1_1FloatVarImp.html
 URL class Gecode::Float::FloatVarImpBase classGecode_1_1Float_1_1FloatVarImpBase.html
 URL class Gecode::Float::FloatVarImpConf classGecode_1_1Float_1_1FloatVarImpConf.html
@@ -229,6 +234,7 @@ URL class Gecode::FloatAssign classGecode_1_1FloatAssign.html
 URL class Gecode::FloatMaximizeSpace classGecode_1_1FloatMaximizeSpace.html
 URL class Gecode::FloatMinimizeSpace classGecode_1_1FloatMinimizeSpace.html
 URL class Gecode::FloatNumBranch classGecode_1_1FloatNumBranch.html
+URL class Gecode::FloatTraceDelta classGecode_1_1FloatTraceDelta.html
 URL class Gecode::FloatVal classGecode_1_1FloatVal.html
 URL class Gecode::FloatValArgs classGecode_1_1FloatValArgs.html
 URL class Gecode::FloatValBranch classGecode_1_1FloatValBranch.html
@@ -239,6 +245,8 @@ URL class Gecode::FloatVarBranch classGecode_1_1FloatVarBranch.html
 URL class Gecode::FreeList classGecode_1_1FreeList.html
 URL class Gecode::FunctionBranch classGecode_1_1FunctionBranch.html
 URL class Gecode::FunctionBranch::Description classGecode_1_1FunctionBranch_1_1Description.html
+URL class Gecode::GPI classGecode_1_1GPI.html
+URL class Gecode::GPI::Info classGecode_1_1GPI_1_1Info.html
 URL class Gecode::Gist::AboutGist classGecode_1_1Gist_1_1AboutGist.html
 URL class Gecode::Gist::BestNode classGecode_1_1Gist_1_1BestNode.html
 URL class Gecode::Gist::BoundingBox classGecode_1_1Gist_1_1BoundingBox.html
@@ -286,8 +294,7 @@ URL class Gecode::Gist::UnhideAllCursor classGecode_1_1Gist_1_1UnhideAllCursor.h
 URL class Gecode::Gist::UnstopAllCursor classGecode_1_1Gist_1_1UnstopAllCursor.html
 URL class Gecode::Gist::VarComparator classGecode_1_1Gist_1_1VarComparator.html
 URL class Gecode::Gist::VisualNode classGecode_1_1Gist_1_1VisualNode.html
-URL class Gecode::GlobalAFC classGecode_1_1GlobalAFC.html
-URL class Gecode::GlobalAFC::Counter classGecode_1_1GlobalAFC_1_1Counter.html
+URL class Gecode::Group classGecode_1_1Group.html
 URL class Gecode::Heap classGecode_1_1Heap.html
 URL class Gecode::HeapAllocated classGecode_1_1HeapAllocated.html
 URL class Gecode::HeapChunk classGecode_1_1HeapChunk.html
@@ -358,6 +365,7 @@ URL class Gecode::Int::Bool::Or classGecode_1_1Int_1_1Bool_1_1Or.html
 URL class Gecode::Int::Bool::OrTrueSubsumed classGecode_1_1Int_1_1Bool_1_1OrTrueSubsumed.html
 URL class Gecode::Int::Bool::QuadOrTrue classGecode_1_1Int_1_1Bool_1_1QuadOrTrue.html
 URL class Gecode::Int::Bool::TerOrTrue classGecode_1_1Int_1_1Bool_1_1TerOrTrue.html
+URL class Gecode::Int::BoolTraceView classGecode_1_1Int_1_1BoolTraceView.html
 URL class Gecode::Int::BoolVarImp classGecode_1_1Int_1_1BoolVarImp.html
 URL class Gecode::Int::BoolVarImpBase classGecode_1_1Int_1_1BoolVarImpBase.html
 URL class Gecode::Int::BoolVarImpConf classGecode_1_1Int_1_1BoolVarImpConf.html
@@ -510,6 +518,7 @@ URL class Gecode::Int::IdxView classGecode_1_1Int_1_1IdxView.html
 URL class Gecode::Int::IdxViewArray classGecode_1_1Int_1_1IdxViewArray.html
 URL class Gecode::Int::IllegalOperation classGecode_1_1Int_1_1IllegalOperation.html
 URL class Gecode::Int::IntDelta classGecode_1_1Int_1_1IntDelta.html
+URL class Gecode::Int::IntTraceView classGecode_1_1Int_1_1IntTraceView.html
 URL class Gecode::Int::IntVarImp classGecode_1_1Int_1_1IntVarImp.html
 URL class Gecode::Int::IntVarImp::RangeList classGecode_1_1Int_1_1IntVarImp_1_1RangeList.html
 URL class Gecode::Int::IntVarImpBase classGecode_1_1Int_1_1IntVarImpBase.html
@@ -769,6 +778,7 @@ URL class Gecode::IntSetInit<IntArgs> classGecode_1_1IntSetInit_3_01IntArgs_01_4
 URL class Gecode::IntSetInit<IntSet> classGecode_1_1IntSetInit_3_01IntSet_01_4.html
 URL class Gecode::IntSetRanges classGecode_1_1IntSetRanges.html
 URL class Gecode::IntSetValues classGecode_1_1IntSetValues.html
+URL class Gecode::IntTraceDelta classGecode_1_1IntTraceDelta.html
 URL class Gecode::IntValBranch classGecode_1_1IntValBranch.html
 URL class Gecode::IntVar classGecode_1_1IntVar.html
 URL class Gecode::IntVarArgs classGecode_1_1IntVarArgs.html
@@ -876,9 +886,12 @@ URL class Gecode::PBS classGecode_1_1PBS.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
+URL class Gecode::PostInfo classGecode_1_1PostInfo.html
 URL class Gecode::PrimArgArray classGecode_1_1PrimArgArray.html
 URL class Gecode::PropCost classGecode_1_1PropCost.html
 URL class Gecode::Propagator classGecode_1_1Propagator.html
+URL class Gecode::PropagatorGroup classGecode_1_1PropagatorGroup.html
+URL class Gecode::Propagators classGecode_1_1Propagators.html
 URL class Gecode::RBS classGecode_1_1RBS.html
 URL class Gecode::REG classGecode_1_1REG.html
 URL class Gecode::REG::Exp classGecode_1_1REG_1_1Exp.html
@@ -1037,6 +1050,7 @@ URL class Gecode::Set::RelOp::UnionN classGecode_1_1Set_1_1RelOp_1_1UnionN.html
 URL class Gecode::Set::Sequence::Seq classGecode_1_1Set_1_1Sequence_1_1Seq.html
 URL class Gecode::Set::Sequence::SeqU classGecode_1_1Set_1_1Sequence_1_1SeqU.html
 URL class Gecode::Set::SetDelta classGecode_1_1Set_1_1SetDelta.html
+URL class Gecode::Set::SetTraceView classGecode_1_1Set_1_1SetTraceView.html
 URL class Gecode::Set::SetVarImp classGecode_1_1Set_1_1SetVarImp.html
 URL class Gecode::Set::SetVarImpBase classGecode_1_1Set_1_1SetVarImpBase.html
 URL class Gecode::Set::SetVarImpConf classGecode_1_1Set_1_1SetVarImpConf.html
@@ -1056,6 +1070,9 @@ URL class Gecode::SetCmpRel classGecode_1_1SetCmpRel.html
 URL class Gecode::SetExpr classGecode_1_1SetExpr.html
 URL class Gecode::SetExpr::Node classGecode_1_1SetExpr_1_1Node.html
 URL class Gecode::SetRel classGecode_1_1SetRel.html
+URL class Gecode::SetTraceDelta classGecode_1_1SetTraceDelta.html
+URL class Gecode::SetTraceDelta::Glb classGecode_1_1SetTraceDelta_1_1Glb.html
+URL class Gecode::SetTraceDelta::Lub classGecode_1_1SetTraceDelta_1_1Lub.html
 URL class Gecode::SetValBranch classGecode_1_1SetValBranch.html
 URL class Gecode::SetVar classGecode_1_1SetVar.html
 URL class Gecode::SetVarArgs classGecode_1_1SetVarArgs.html
@@ -1075,14 +1092,16 @@ URL class Gecode::SharedMemory classGecode_1_1SharedMemory.html
 URL class Gecode::SizeOptions classGecode_1_1SizeOptions.html
 URL class Gecode::Slice classGecode_1_1Slice.html
 URL class Gecode::Space classGecode_1_1Space.html
-URL class Gecode::Space::Branchers classGecode_1_1Space_1_1Branchers.html
-URL class Gecode::Space::Propagators classGecode_1_1Space_1_1Propagators.html
 URL class Gecode::SpaceFailed classGecode_1_1SpaceFailed.html
 URL class Gecode::SpaceIllegalAlternative classGecode_1_1SpaceIllegalAlternative.html
 URL class Gecode::SpaceNoBrancher classGecode_1_1SpaceNoBrancher.html
 URL class Gecode::SpaceNotCloned classGecode_1_1SpaceNotCloned.html
 URL class Gecode::SpaceNotStable classGecode_1_1SpaceNotStable.html
 URL class Gecode::StatusStatistics classGecode_1_1StatusStatistics.html
+URL class Gecode::StdBoolTracer classGecode_1_1StdBoolTracer.html
+URL class Gecode::StdFloatTracer classGecode_1_1StdFloatTracer.html
+URL class Gecode::StdIntTracer classGecode_1_1StdIntTracer.html
+URL class Gecode::StdSetTracer classGecode_1_1StdSetTracer.html
 URL class Gecode::Support::BitSet classGecode_1_1Support_1_1BitSet.html
 URL class Gecode::Support::BitSetBase classGecode_1_1Support_1_1BitSetBase.html
 URL class Gecode::Support::BitSetData classGecode_1_1Support_1_1BitSetData.html
@@ -1113,9 +1132,24 @@ URL class Gecode::Support::Thread::Run classGecode_1_1Support_1_1Thread_1_1Run.h
 URL class Gecode::Support::Timer classGecode_1_1Support_1_1Timer.html
 URL class Gecode::Symmetries classGecode_1_1Symmetries.html
 URL class Gecode::SymmetryHandle classGecode_1_1SymmetryHandle.html
+URL class Gecode::TFE classGecode_1_1TFE.html
+URL class Gecode::TFE::Node classGecode_1_1TFE_1_1Node.html
 URL class Gecode::TernaryPropagator classGecode_1_1TernaryPropagator.html
 URL class Gecode::TieBreak classGecode_1_1TieBreak.html
 URL class Gecode::TooManyBranchers classGecode_1_1TooManyBranchers.html
+URL class Gecode::TooManyGroups classGecode_1_1TooManyGroups.html
+URL class Gecode::TraceFilter classGecode_1_1TraceFilter.html
+URL class Gecode::TraceFilter::TFO classGecode_1_1TraceFilter_1_1TFO.html
+URL class Gecode::TraceRecorder classGecode_1_1TraceRecorder.html
+URL class Gecode::TraceRecorder::Idx classGecode_1_1TraceRecorder_1_1Idx.html
+URL class Gecode::TraceRecorder::Slack classGecode_1_1TraceRecorder_1_1Slack.html
+URL class Gecode::TraceTraits classGecode_1_1TraceTraits.html
+URL class Gecode::TraceTraits<Float::FloatView> classGecode_1_1TraceTraits_3_01Float_1_1FloatView_01_4.html
+URL class Gecode::TraceTraits<Int::BoolView> classGecode_1_1TraceTraits_3_01Int_1_1BoolView_01_4.html
+URL class Gecode::TraceTraits<Int::IntView> classGecode_1_1TraceTraits_3_01Int_1_1IntView_01_4.html
+URL class Gecode::TraceTraits<Set::SetView> classGecode_1_1TraceTraits_3_01Set_1_1SetView_01_4.html
+URL class Gecode::Tracer classGecode_1_1Tracer.html
+URL class Gecode::TracerBase classGecode_1_1TracerBase.html
 URL class Gecode::TupleSet classGecode_1_1TupleSet.html
 URL class Gecode::TupleSet::TupleSetI classGecode_1_1TupleSet_1_1TupleSetI.html
 URL class Gecode::UnaryPropagator classGecode_1_1UnaryPropagator.html
@@ -1957,11 +1991,6 @@ URL example sudoku:SudokuMixed examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuMixed "Solving Sudoku puzzles using both set and integer"
 URL example sudoku:SudokuSet examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuSet "Solving Sudoku puzzles using set constraints"
-URL example test examples_2test_8cpp.html
-TITLE example test "Alpha puzzle"
-URL example test:Alpha examples_2test_8cpp.html
-TITLE example test:Alpha "Alpha puzzle"
-URL example test:BoolDomExpr examples_2test_8cpp.html
 URL example tsp tsp_8cpp.html
 TITLE example tsp "Travelling salesman problem (TSP)"
 URL example tsp:TSP tsp_8cpp.html
@@ -2028,7 +2057,6 @@ URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
 URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
-URL file examples/test.cpp examples_2test_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
@@ -2092,6 +2120,11 @@ URL file gecode/float/rel/lq-le.hpp float_2rel_2lq-le_8hpp.html
 URL file gecode/float/rel/nq.hpp float_2rel_2nq_8hpp.html
 URL file gecode/float/rounding.cpp rounding_8cpp.html
 URL file gecode/float/rounding.hpp rounding_8hpp.html
+URL file gecode/float/trace.cpp float_2trace_8cpp.html
+URL file gecode/float/trace/delta.hpp float_2trace_2delta_8hpp.html
+URL file gecode/float/trace/trace-view.hpp float_2trace_2trace-view_8hpp.html
+URL file gecode/float/trace/tracer.cpp float_2trace_2tracer_8cpp.html
+URL file gecode/float/trace/traits.hpp float_2trace_2traits_8hpp.html
 URL file gecode/float/transcendental.hh transcendental_8hh.html
 URL file gecode/float/transcendental/exp-log.hpp exp-log_8hpp.html
 URL file gecode/float/trigonometric.hh trigonometric_8hh.html
@@ -2375,6 +2408,13 @@ URL file gecode/int/task/prop.hpp task_2prop_8hpp.html
 URL file gecode/int/task/purge.hpp purge_8hpp.html
 URL file gecode/int/task/sort.hpp int_2task_2sort_8hpp.html
 URL file gecode/int/task/tree.hpp task_2tree_8hpp.html
+URL file gecode/int/trace.cpp int_2trace_8cpp.html
+URL file gecode/int/trace/bool-delta.hpp bool-delta_8hpp.html
+URL file gecode/int/trace/bool-trace-view.hpp bool-trace-view_8hpp.html
+URL file gecode/int/trace/int-delta.hpp int-delta_8hpp.html
+URL file gecode/int/trace/int-trace-view.hpp int-trace-view_8hpp.html
+URL file gecode/int/trace/tracer.cpp int_2trace_2tracer_8cpp.html
+URL file gecode/int/trace/traits.hpp int_2trace_2traits_8hpp.html
 URL file gecode/int/unary.cpp gecode_2int_2unary_8cpp.html
 URL file gecode/int/unary.hh unary_8hh.html
 URL file gecode/int/unary/detectable.hpp detectable_8hpp.html
@@ -2488,12 +2528,13 @@ URL file gecode/kernel/core.cpp core_8cpp.html
 URL file gecode/kernel/core.hpp core_8hpp.html
 URL file gecode/kernel/exception.cpp kernel_2exception_8cpp.html
 URL file gecode/kernel/exception.hpp kernel_2exception_8hpp.html
-URL file gecode/kernel/global-afc.hpp global-afc_8hpp.html
+URL file gecode/kernel/gpi.hpp gpi_8hpp.html
 URL file gecode/kernel/macros.hpp kernel_2macros_8hpp.html
 URL file gecode/kernel/memory-config.hpp memory-config_8hpp.html
 URL file gecode/kernel/memory-manager.cpp memory-manager_8cpp.html
 URL file gecode/kernel/memory-manager.hpp memory-manager_8hpp.html
 URL file gecode/kernel/modevent.hpp modevent_8hpp.html
+URL file gecode/kernel/print.hpp kernel_2print_8hpp.html
 URL file gecode/kernel/propagator.hpp kernel_2propagator_8hpp.html
 URL file gecode/kernel/range-list.hpp range-list_8hpp.html
 URL file gecode/kernel/region.cpp region_8cpp.html
@@ -2501,6 +2542,12 @@ URL file gecode/kernel/region.hpp region_8hpp.html
 URL file gecode/kernel/rnd.cpp rnd_8cpp.html
 URL file gecode/kernel/rnd.hpp rnd_8hpp.html
 URL file gecode/kernel/shared-array.hpp shared-array_8hpp.html
+URL file gecode/kernel/trace-filter.cpp trace-filter_8cpp.html
+URL file gecode/kernel/trace-filter.hpp trace-filter_8hpp.html
+URL file gecode/kernel/trace-recorder.hpp trace-recorder_8hpp.html
+URL file gecode/kernel/trace-traits.hpp trace-traits_8hpp.html
+URL file gecode/kernel/tracer.cpp kernel_2tracer_8cpp.html
+URL file gecode/kernel/tracer.hpp tracer_8hpp.html
 URL file gecode/kernel/var-imp.hpp kernel_2var-imp_8hpp.html
 URL file gecode/kernel/var-type.hpp var-type_8hpp.html
 URL file gecode/kernel/var.hpp kernel_2var_8hpp.html
@@ -2683,6 +2730,11 @@ URL file gecode/set/sequence/seq-u.cpp seq-u_8cpp.html
 URL file gecode/set/sequence/seq-u.hpp seq-u_8hpp.html
 URL file gecode/set/sequence/seq.cpp seq_8cpp.html
 URL file gecode/set/sequence/seq.hpp seq_8hpp.html
+URL file gecode/set/trace.cpp set_2trace_8cpp.html
+URL file gecode/set/trace/delta.hpp set_2trace_2delta_8hpp.html
+URL file gecode/set/trace/trace-view.hpp set_2trace_2trace-view_8hpp.html
+URL file gecode/set/trace/tracer.cpp set_2trace_2tracer_8cpp.html
+URL file gecode/set/trace/traits.hpp set_2trace_2traits_8hpp.html
 URL file gecode/set/var-imp.hpp set_2var-imp_8hpp.html
 URL file gecode/set/var-imp/delta.hpp set_2var-imp_2delta_8hpp.html
 URL file gecode/set/var-imp/integerset.cpp integerset_8cpp.html
@@ -2903,7 +2955,7 @@ URL file test/set/rel-op-const.cpp rel-op-const_8cpp.html
 URL file test/set/rel-op.cpp test_2set_2rel-op_8cpp.html
 URL file test/set/rel.cpp test_2set_2rel_8cpp.html
 URL file test/set/sequence.cpp test_2set_2sequence_8cpp.html
-URL file test/test.cpp test_2test_8cpp.html
+URL file test/test.cpp test_8cpp.html
 URL file test/test.hh test_8hh.html
 URL file test/test.hpp test_8hpp.html
 URL group Example group__Example.html
@@ -3032,8 +3084,14 @@ URL group TaskDriverCmd group__TaskDriverCmd.html
 TITLE group TaskDriverCmd "Commandline options for running scripts"
 URL group TaskDriverScript group__TaskDriverScript.html
 TITLE group TaskDriverScript "Script classes"
+URL group TaskFloatTrace group__TaskFloatTrace.html
+TITLE group TaskFloatTrace "Tracing for float variables"
 URL group TaskGist group__TaskGist.html
 TITLE group TaskGist "Gist: the Gecode Interactive Search Tool"
+URL group TaskGroup group__TaskGroup.html
+TITLE group TaskGroup "Propagator and brancher groups"
+URL group TaskIntTrace group__TaskIntTrace.html
+TITLE group TaskIntTrace "Tracing for integer and Boolean variables"
 URL group TaskModel group__TaskModel.html
 TITLE group TaskModel "Programming models"
 URL group TaskModelBranch group__TaskModelBranch.html
@@ -3208,6 +3266,8 @@ URL group TaskPropRePat group__TaskPropRePat.html
 TITLE group TaskPropRePat "Reified propagator patterns"
 URL group TaskSearch group__TaskSearch.html
 TITLE group TaskSearch "Programming search engines"
+URL group TaskSetTrace group__TaskSetTrace.html
+TITLE group TaskSetTrace "Tracing for set variables"
 URL group TaskTest group__TaskTest.html
 TITLE group TaskTest "Testing"
 URL group TaskTestFloat group__TaskTestFloat.html
@@ -3318,6 +3378,8 @@ URL group TaskTestSetSupport group__TaskTestSetSupport.html
 TITLE group TaskTestSetSupport "General set test support"
 URL group TaskTestTest group__TaskTestTest.html
 TITLE group TaskTestTest "General test support"
+URL group TaskTrace group__TaskTrace.html
+TITLE group TaskTrace "Tracing constraint propagation"
 URL group TaskVar group__TaskVar.html
 TITLE group TaskVar "Programming variables"
 URL group TaskVarMEPC group__TaskVarMEPC.html
@@ -3480,6 +3542,8 @@ URL typedef BoolBranchFilter group__TaskModelIntBranch.html
 URL typedef BoolBranchMerit group__TaskModelIntBranch.html
 URL typedef BoolBranchVal group__TaskModelIntBranch.html
 URL typedef BoolStatus namespaceGecode_1_1Int.html
+URL typedef BoolTraceRecorder group__TaskIntTrace.html
+URL typedef BoolTracer group__TaskIntTrace.html
 URL typedef BoolVarValPrint namespaceGecode.html
 URL typedef BranchTbl group__TaskModelBranch.html
 URL typedef Domain namespaceGecode_1_1Int_1_1Extensional.html
@@ -3491,6 +3555,8 @@ URL typedef FloatBranchVal group__TaskModelFloatBranch.html
 URL typedef FloatMaximizeScript group__TaskDriverScript.html
 URL typedef FloatMinimizeScript group__TaskDriverScript.html
 URL typedef FloatNum group__TaskModelFloatVars.html
+URL typedef FloatTraceRecorder group__TaskFloatTrace.html
+URL typedef FloatTracer group__TaskFloatTrace.html
 URL typedef FloatVarValPrint namespaceGecode.html
 URL typedef IntBranchCommit group__TaskModelIntBranch.html
 URL typedef IntBranchFilter group__TaskModelIntBranch.html
@@ -3501,6 +3567,8 @@ URL typedef IntMinimizeScript group__TaskDriverScript.html
 URL typedef IntScaleView group__TaskActorIntView.html
 URL typedef IntSetArgs group__TaskModelIntArgs.html
 URL typedef IntSharedArray group__TaskModelIntElement.html
+URL typedef IntTraceRecorder group__TaskIntTrace.html
+URL typedef IntTracer group__TaskIntTrace.html
 URL typedef IntVarValPrint namespaceGecode.html
 URL typedef LLongScaleView group__TaskActorIntView.html
 URL typedef LiteralArgs namespaceGecode.html
@@ -3532,6 +3600,8 @@ URL typedef SetBranchCommit group__TaskModelSetBranch.html
 URL typedef SetBranchFilter group__TaskModelSetBranch.html
 URL typedef SetBranchMerit group__TaskModelSetBranch.html
 URL typedef SetBranchVal group__TaskModelSetBranch.html
+URL typedef SetTraceRecorder group__TaskSetTrace.html
+URL typedef SetTracer group__TaskSetTrace.html
 URL typedef SetVarValPrint namespaceGecode.html
 URL typedef StatePoolAllocator namespaceGecode_1_1MiniModel.html
 URL typedef TaskTypeArgs group__TaskModelInt.html
