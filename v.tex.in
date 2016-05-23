@@ -130,6 +130,13 @@ The second task consists of programming the
   expressions and relations as provided by the MiniModel modeling
   support. For an example, please consider
   \autoref{sec:m:minimodel:boolmisc}.
+\item \emph{Tracing} support: in order to support tracing of
+  constraint propagation, one needs to implement a few
+  classes. Only so-called \emph{trace views} require some effort,
+  the remaining functionality that needs to be implemented is
+  straightforward and can be done by following a simple
+  recipse. The details for tracing are discussed in
+  \autoref{chap:v:trace}.
 \end{itemize}
 
 \paragraph{Putting everything together.}
@@ -1848,7 +1855,11 @@ After normalization, the \?branch()? function shown in
 class \gecoderef[class]{ViewValBrancher} with the appropriate
 number of view selection objects. In
 \autoref{fig:v:branch:branchtb}, only the cases for two and three objects is
-shown the other cases are analogous.
+shown, the other cases are analogous.
+
+
+\chapter{Tracing support}
+\label{chap:v:trace}
 
 
 \chapter{Putting everything together}
