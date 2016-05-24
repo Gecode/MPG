@@ -525,7 +525,7 @@ class \?BoolDomExpr? that can be used by the \?rel()? and
 
 \paragraph{The Boolean domain expression class.}
 
-The class is shown in \autoref{fig:minimodel:domexpr}. An object
+The class is shown in \autoref{fig:m:minimodel:domexpr}. An object
 of class \?BoolDomExpr?
 stores the information needed for the actual post function: the
 variable~\?x? and lower and upper bounds~\?l? and~\?u?. Note that
