@@ -111,6 +111,9 @@ URL class Gecode::Driver::CombinedStop classGecode_1_1Driver_1_1CombinedStop.htm
 URL class Gecode::Driver::DoubleOption classGecode_1_1Driver_1_1DoubleOption.html
 URL class Gecode::Driver::EngineToMeta classGecode_1_1Driver_1_1EngineToMeta.html
 URL class Gecode::Driver::ExtractStepOption classGecode_1_1Driver_1_1ExtractStepOption.html
+URL class Gecode::Driver::GistEngine classGecode_1_1Driver_1_1GistEngine.html
+URL class Gecode::Driver::GistEngine<BAB<S>> classGecode_1_1Driver_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
+URL class Gecode::Driver::GistEngine<DFS<S>> classGecode_1_1Driver_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
 URL class Gecode::Driver::IgnoreStepOption classGecode_1_1Driver_1_1IgnoreStepOption.html
 URL class Gecode::Driver::IntOption classGecode_1_1Driver_1_1IntOption.html
 URL class Gecode::Driver::IplOption classGecode_1_1Driver_1_1IplOption.html
@@ -147,10 +150,15 @@ URL class Gecode::FlatZinc::BranchInformation classGecode_1_1FlatZinc_1_1BranchI
 URL class Gecode::FlatZinc::BranchInformationO classGecode_1_1FlatZinc_1_1BranchInformationO.html
 URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
+URL class Gecode::FlatZinc::FZPrintingComparator classGecode_1_1FlatZinc_1_1FZPrintingComparator.html
+URL class Gecode::FlatZinc::FZPrintingInspector classGecode_1_1FlatZinc_1_1FZPrintingInspector.html
 URL class Gecode::FlatZinc::FlatZincOptions classGecode_1_1FlatZinc_1_1FlatZincOptions.html
 URL class Gecode::FlatZinc::FlatZincSpace classGecode_1_1FlatZinc_1_1FlatZincSpace.html
 URL class Gecode::FlatZinc::FloatVarSpec classGecode_1_1FlatZinc_1_1FloatVarSpec.html
 URL class Gecode::FlatZinc::FznRnd classGecode_1_1FlatZinc_1_1FznRnd.html
+URL class Gecode::FlatZinc::GistEngine classGecode_1_1FlatZinc_1_1GistEngine.html
+URL class Gecode::FlatZinc::GistEngine<BAB<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
+URL class Gecode::FlatZinc::GistEngine<DFS<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
 URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
 URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
@@ -882,6 +890,7 @@ URL class Gecode::NonLinFloatExpr classGecode_1_1NonLinFloatExpr.html
 URL class Gecode::NonLinIntExpr classGecode_1_1NonLinIntExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
+URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
 URL class Gecode::PBS classGecode_1_1PBS.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
@@ -1102,6 +1111,7 @@ URL class Gecode::StdBoolTracer classGecode_1_1StdBoolTracer.html
 URL class Gecode::StdFloatTracer classGecode_1_1StdFloatTracer.html
 URL class Gecode::StdIntTracer classGecode_1_1StdIntTracer.html
 URL class Gecode::StdSetTracer classGecode_1_1StdSetTracer.html
+URL class Gecode::Support::Allocator classGecode_1_1Support_1_1Allocator.html
 URL class Gecode::Support::BitSet classGecode_1_1Support_1_1BitSet.html
 URL class Gecode::Support::BitSetBase classGecode_1_1Support_1_1BitSetBase.html
 URL class Gecode::Support::BitSetData classGecode_1_1Support_1_1BitSetData.html
