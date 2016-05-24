@@ -2121,6 +2121,7 @@ URL file gecode/float/rel/nq.hpp float_2rel_2nq_8hpp.html
 URL file gecode/float/rounding.cpp rounding_8cpp.html
 URL file gecode/float/rounding.hpp rounding_8hpp.html
 URL file gecode/float/trace.cpp float_2trace_8cpp.html
+URL file gecode/float/trace.hpp float_2trace_8hpp.html
 URL file gecode/float/trace/delta.hpp float_2trace_2delta_8hpp.html
 URL file gecode/float/trace/trace-view.hpp float_2trace_2trace-view_8hpp.html
 URL file gecode/float/trace/tracer.cpp float_2trace_2tracer_8cpp.html
@@ -2409,6 +2410,7 @@ URL file gecode/int/task/purge.hpp purge_8hpp.html
 URL file gecode/int/task/sort.hpp int_2task_2sort_8hpp.html
 URL file gecode/int/task/tree.hpp task_2tree_8hpp.html
 URL file gecode/int/trace.cpp int_2trace_8cpp.html
+URL file gecode/int/trace.hpp int_2trace_8hpp.html
 URL file gecode/int/trace/bool-delta.hpp bool-delta_8hpp.html
 URL file gecode/int/trace/bool-trace-view.hpp bool-trace-view_8hpp.html
 URL file gecode/int/trace/int-delta.hpp int-delta_8hpp.html
@@ -2731,6 +2733,7 @@ URL file gecode/set/sequence/seq-u.hpp seq-u_8hpp.html
 URL file gecode/set/sequence/seq.cpp seq_8cpp.html
 URL file gecode/set/sequence/seq.hpp seq_8hpp.html
 URL file gecode/set/trace.cpp set_2trace_8cpp.html
+URL file gecode/set/trace.hpp set_2trace_8hpp.html
 URL file gecode/set/trace/delta.hpp set_2trace_2delta_8hpp.html
 URL file gecode/set/trace/trace-view.hpp set_2trace_2trace-view_8hpp.html
 URL file gecode/set/trace/tracer.cpp set_2trace_2tracer_8cpp.html
