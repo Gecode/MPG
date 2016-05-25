@@ -31,21 +31,18 @@ driver.
 \begin{tabular}{|l|l|l|}
 \hline
 option & type & explanation \\
-\hline\multicolumn{3}{c}{}\\
-\hline
+\hline\hline
 \multicolumn{3}{|c|}{propagation options}\\
 \hline
 \texttt{-ipl} &
 $\{\mathtt{def},\mathtt{val},\mathtt{bnd},\mathtt{dom}\}$ &
 integer propagation level\\
-\hline
-\multicolumn{3}{c}{}\\\hline
+\hline\hline
 \multicolumn{3}{|c|}{branching options}\\
 \hline
 \texttt{-decay} & \?double? & decay-factor\\
 \texttt{-seed} & \?unsigned int? & seed for random numbers\\
-\hline
-\multicolumn{3}{c}{}\\\hline
+\hline\hline
 \multicolumn{3}{|c|}{search options}\\\hline
 \texttt{-solutions} & \?unsigned int? & how many solutions ($0$ for all)\\
 \texttt{-threads} & \?double? & how many threads \\
@@ -55,8 +52,7 @@ integer propagation level\\
 \texttt{-fail} & \?unsigned int? & cutoff for number of failures\\
 \texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\
 \texttt{-step} & \?double? & improvement step for floats\\
-\hline
-\multicolumn{3}{c}{}\\\hline
+\hline\hline
 \multicolumn{3}{|c|}{restart-based and portfolio search options}\\\hline
 \texttt{-restart} &
 $\{\mathtt{none},\mathtt{constant},\mathtt{linear},$ &
@@ -79,8 +75,7 @@ depth limit for no-good recording\\
 \texttt{-assets} &
 \?unsigned int? &
 number of assets in a portfolio\\
-\hline
-\multicolumn{3}{c}{}\\\hline
+\hline\hline
 \multicolumn{3}{|c|}{execution options}\\\hline
 \texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},\mathtt{gist}\}$ & script mode to run\\
 \texttt{-samples} & \?unsigned int? & how many samples\\
@@ -93,7 +88,12 @@ where to print solutions\\
 \texttt{-file-stat} & $\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}$ &
 where to print statistics\\
 \texttt{-interrupt} & $\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
-whether driver catches Ctrl-C\\\hline
+whether driver catches Ctrl-C\\
+\texttt{-trace} &
+$\{\mathtt{init},\mathtt{prune},\mathtt{fixpoint},\mathtt{done},$
+& which events to trace\\
+&$\;\mathtt{none},\mathtt{all}\}$&\\
+\hline
 \end{tabular}
 \end{center}
 \caption{Predefined commandline options}
