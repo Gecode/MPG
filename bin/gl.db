@@ -87,7 +87,6 @@ URL class Gecode::BranchTraits<IntVar> classGecode_1_1BranchTraits_3_01IntVar_01
 URL class Gecode::BranchTraits<SetVar> classGecode_1_1BranchTraits_3_01SetVar_01_4.html
 URL class Gecode::Brancher classGecode_1_1Brancher.html
 URL class Gecode::BrancherGroup classGecode_1_1BrancherGroup.html
-URL class Gecode::BrancherHandle classGecode_1_1BrancherHandle.html
 URL class Gecode::Branchers classGecode_1_1Branchers.html
 URL class Gecode::Choice classGecode_1_1Choice.html
 URL class Gecode::ChooseMax classGecode_1_1ChooseMax.html
@@ -1293,8 +1292,6 @@ URL class Test::Branch::RunInfo classTest_1_1Branch_1_1RunInfo.html
 URL class Test::Branch::Set classTest_1_1Branch_1_1Set.html
 URL class Test::Branch::SetTest classTest_1_1Branch_1_1SetTest.html
 URL class Test::Branch::SetTestSpace classTest_1_1Branch_1_1SetTestSpace.html
-URL class Test::BrancherHandle classTest_1_1BrancherHandle.html
-URL class Test::BrancherHandle::TestSpace classTest_1_1BrancherHandle_1_1TestSpace.html
 URL class Test::FlatZinc::FlatZincTest classTest_1_1FlatZinc_1_1FlatZincTest.html
 URL class Test::Float::Arithmetic::AbsXX classTest_1_1Float_1_1Arithmetic_1_1AbsXX.html
 URL class Test::Float::Arithmetic::AbsXY classTest_1_1Float_1_1Arithmetic_1_1AbsXY.html
@@ -2815,7 +2812,6 @@ URL file test/branch/bool.cpp test_2branch_2bool_8cpp.html
 URL file test/branch/float.cpp test_2branch_2float_8cpp.html
 URL file test/branch/int.cpp test_2branch_2int_8cpp.html
 URL file test/branch/set.cpp test_2branch_2set_8cpp.html
-URL file test/brancher-handle.cpp brancher-handle_8cpp.html
 URL file test/flatzinc.cpp test_2flatzinc_8cpp.html
 URL file test/flatzinc.hh test_2flatzinc_8hh.html
 URL file test/flatzinc/2dpacking.cpp 2dpacking_8cpp.html
