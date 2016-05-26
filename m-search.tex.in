@@ -1427,7 +1427,7 @@ is as follows, the entire \?master()? function is shown in
 \insertlitcode{default master and slave functions:portfolio search}
 That is, by default all branchers contained in the master space
 are deleted before the slave spaces are created, for more on
-killing branchers see \autoref{sec:m:branch:basics}. This provides
+killing branchers see \autoref{sec:m:group:branch}. This provides
 the opportunity to create branchers specific to each asset by the
 \?slave()? function.
 
@@ -1940,7 +1940,7 @@ virtual bool Space::master(const MetaInfo& mi) {
     \end{litblock}
   case MetaInfo::PORTFOLIO:
     \begin{litblock}{portfolio search}
-    BrancherHandle::killall(*this);
+    BrancherGroup::all.kill(*this);
     break;
     \end{litblock}
   default:

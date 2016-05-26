@@ -7159,7 +7159,7 @@ public:
   }
   \begin{litblock}{print function}
   static void printletters(const Space& home, 
-                           const BrancherHandle& bh,
+                           const Brancher& b,
                            unsigned int a,
                            IntVar, int i, const int& n,
                            std::ostream& o) {
@@ -14182,7 +14182,7 @@ public:
   }
   \begin{litblock}{anonymous}
   static void printletters(const Space& home, 
-                           const BrancherHandle& bh,
+                           const Brancher& b,
                            unsigned int a,
                            IntVar, int i, const int& n,
                            std::ostream& o) {
