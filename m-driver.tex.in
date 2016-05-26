@@ -135,9 +135,13 @@ functions are named \?c_d()? and \?a_d()?.
 The values for \?-threads? are interpreted as described in
 \autoref{sec:m:search:options}.
 
+\paragraph{Invoking help.}
+
 The only option for which no value exists is \texttt{-help}: it
 prints some configuration information and a help text for the
 options and stops program execution.
+
+\paragraph{Size and instance options.}
 
 The class \gecoderef[class]{SizeOptions} accepts an unsigned
 integer as the last value on the commandline (of course, without
@@ -148,6 +152,18 @@ The class \gecoderef[class]{InstanceOptions} accepts a string
 as the last value on the commandline (of course, without
 an option). The value can be retrieved or set by member functions
 \?instance()?.
+
+\paragraph{Integer propagation level options.}
+
+The command line option \?-ipl? accepts a comma separated list of
+the basic integer propagation levels: \?def? for the default
+level, \?val? for value propagation, \?bnd? for bounds
+propagation, and \?dom? for domain propagation. In addition it
+accepts the modifiers \?speed?, \?memory?, \?basic?, and
+\?advanced? that are used by some constraints and can be given in
+addition to a basic integer propagation level.
+
+\paragraph{Mode options.}
 
 \begin{samepage}
 The different modes passed as argument for the option \?-mode?
@@ -173,6 +189,20 @@ have the following meaning:
   mode \texttt{solution} is used instead.
 \end{itemize}
 \end{samepage}
+
+\paragraph{Trace options.}
+
+Which events to trace (see also \autoref{chap:m:group}) can be specified by the \?-trace?
+commandline option. It accepts a comma-separated list of the
+event types to trace, that is \?init?, \?prune?, \?fixpoint?, and
+\?done? as well as \?none? to trace no events and \?all? to trace
+events of all types.
+
+Examples with tracing include \gecoderef[example]{money},
+\gecoderef[example]{hamming}, and
+\gecoderef[example]{descartes-folium}.
+
+\paragraph{Examples.}
 
 For an example, in particular, how to use the user-defined
 options, see \autoref{sec:m:comfy:driver}. As all examples that
