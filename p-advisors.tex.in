@@ -685,7 +685,7 @@ public:
   \begin{litblock}{scheduling}
   virtual void schedule(Space& home) {
     if (todo != NOTHING)
-      Int::IntView::schedule(home, *this, ME_INT_DOM);
+      Int::IntView::schedule(home, *this, Int::ME_INT_DOM);
   }
   \end{litblock}
   \begin{litblock}{advise function}
@@ -805,7 +805,7 @@ public:
   }
   virtual void schedule(Space& home) {
     if (todo != NOTHING)
-      Int::IntView::schedule(home, *this, ME_INT_DOM);
+      Int::IntView::schedule(home, *this, Int::ME_INT_DOM);
   }
   \end{litblock}
   virtual ExecStatus advise(Space&, Advisor& a, const Delta&) {
@@ -940,7 +940,7 @@ public:
   \begin{litblock}{scheduling}
   virtual void schedule(Space& home) {
     if (n_zero == x.size())
-      Int::BoolView::schedule(home, *this, ME_INT_VAL);
+      Int::BoolView::schedule(home, *this, Int::ME_BOOL_VAL);
   }
   \end{litblock}
   \begin{litblock}{advise}
