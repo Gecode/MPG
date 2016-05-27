@@ -524,7 +524,7 @@ public:
 void dis(Space& home, const BoolVarArgs& x, int n) {
   if ((n != 0) && (n != 1))
     throw Int::NotZeroOne("or");
-  if (home.failed()) return;
+  GECODE_POST;
   if (n == 0) {
     for (int i=x.size(); i--; ) {
       Int::BoolView xi(x[i]);
@@ -609,7 +609,7 @@ public:
 \begin{litblock}{anonymous}
 
 void max(Home home, IntVar x0, IntVar x1, IntVar x2) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Max::post(home,x0,x1,x2));
 }
 \end{litblock}
@@ -740,7 +740,7 @@ public:
 \begin{litblock}{anonymous}
 
 void leeq(Home home, IntVar x0, IntVar x1, BoolVar b) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(ReLeEq::post(home,x0,x1,b));
 }
 \end{litblock}
@@ -883,7 +883,7 @@ public:
 };
 
 void leeq(Home home, IntVar x0, IntVar x1, Reify r) {
-  if (home.failed()) return;
+  GECODE_POST;
   switch (r.mode()) {
   case RM_EQV:
     GECODE_ES_FAIL(ReLeEq<RM_EQV>::post(home,x0,x1,r.var()));

@@ -126,6 +126,8 @@ propagation.
 \put(5.5,7){\makebox(0,0){\footnotesize\shortstack{make propagator\\idle}}}
 
 \pcline{->}(5.5,6.5)(5.5,5.5)
+\pcline{-}(4,7)(0.5,7)
+\mput*{\footnotesize\text{disabled}}
 
 \fcbwframe(3.5,2.5)(7.5,5.5)
 \put(5.5,4){\makebox(0,0){\footnotesize\shortstack{execute \texttt{propagate()}\\\\modify views\\\\schedule subscribed\\propagators}}}
@@ -176,8 +178,12 @@ sketched in \autoref{fig:p:started:scheduling_propagators}.
 
 Eventually, the space chooses a scheduled propagator for
 execution and executes it by running the \?propagate()? member
-function of the propagator. This function possibly removes values
-and by this might schedule more propagators for eventual
+function of the propagator, provided the propagator has not been
+\emph{disabled} (propagators can be disabled through propagator
+groups, see \autoref{sec:m:group:prop}). That is, disabled
+propagators are scheduled for execution but they are not
+executed.  The \?propagate()? member function possibly removes
+values and by this might schedule more propagators for eventual
 execution (possibly re-scheduling the currently executing
 propagator itself). Besides removing values and scheduling
 propagators, the \?propagate()? member function reports about
@@ -186,8 +192,8 @@ are detailed in the following sections, but a particularly
 important report is: the propagator reports failure as it found
 out that the constraint it implements is unsatisfiable with the
 values left for the propagator's views (this is described by
-returning the value \?ES_FAILED?). The remaining return values are
-discussed in \autoref{sec:p:started:implement} and
+returning the value \?ES_FAILED?). The remaining return values
+are discussed in \autoref{sec:p:started:implement} and
 \autoref{sec:p:started:better}.
 
 To get the entire propagation process started, some but not
@@ -219,9 +225,14 @@ domains. A domain that is a fixpoint means that input and output
 for a propagator are the same and hence the propagator did not
 perform any propagation.
 
-\paragraph{Disabling and enabling propagators.}
+\paragraph{Disabling and re-enabling propagators.}
 \label{par:p:started:disable}
 
+As mentioned above, propagators can be disabled and
+re-enabled. When re-enabling a disabled propagator, the
+propagator might have to be re-scheduled for execution. The
+re-scheduling is implemented by the \?schedule()? member function
+of a propagator.
 
 \section{Background reading}
 \label{sec:p:started:back}
@@ -280,7 +291,8 @@ post the propagator implementing the constraint) and variables
   aspect is discussed in \autoref{sec:p:started:better} in more
   detail.} The responsibilities of a constraint post function
 are straightforward: it checks whether its arguments are valid
-(and throws an exception otherwise), creates variable views for
+(and throws an exception otherwise), checks whether the home
+space is failed, sets some execution information, creates variable views for
 the variables passed to it, and then posts an appropriate
 propagator.  This is detailed below.
 
@@ -390,6 +402,7 @@ that then prunes variables. While performing propagation is
 typically the most involved part of a propagator, a propagator
 must also handle several other tasks: how to post and initialize
 it, how to dispose it, how to copy it during cloning for search,
+how to re-schedule it,
 and when to execute it. How propagation is organized in Gecode is
 sketched in \autoref{fig:p:started:propagators_views_varimp},
 this paragraph will fill in the missing details.
@@ -548,6 +561,12 @@ this paragraph will fill in the missing details.
     \autoref{sec:p:started:better} and continue this discussion in
     \autoref{sec:p:avoid:eqbnd}.
   \end{itemize}
+\item[re-scheduling] The propagator's virtual member function
+  \?schedule()? re-schedules a propagator when it is
+  re-enabled. Typically, the member function follows how the
+  propagator creates subscriptions and is straightforward. The
+  \?schedule()? function might be more involved for propagators
+  using advisors, this is discussed in \autoref{chap:p:advisors}.
 \end{description}
 
 
@@ -721,6 +740,18 @@ you can rely on is that a propagator with a cost value using
 \?PropCost::HI? is never given preference over a propagator with
 a cost value using \?PropCost::LO?.
 
+\paragraph{Scheduling.}
+
+Scheduling the propagator after it has been enabled again, is
+done by the virtual \?schedule()? member function as follows:
+
+\insertlitcode{less:scheduling}
+
+Scheduling depends, like creating and cancelling subscriptions,
+on the views of the propagator and the propagation conditions and
+follows exactly the pattern of the \?subscribe()? and \?cancel()?
+functions.
+
 \paragraph{Propagation proper.}
 
 Before starting with the code for propagation, we have to work
@@ -740,16 +771,16 @@ please ignore the additional argument of type \?ModEventDelta?
 to \?propagate()? for now):
 \insertlitcode{less:propagation} 
 
-The \?le()? modification operation applied to an integer view
-\?x?  takes a \?home?  space and an integer value \?n? and keeps
-only those values from the domain of \?x?  that are smaller than
-\?n? (\?gr()? is analogous). A view modification operation
-returns a modification event of type \?ModEvent? (see
-\gecoderef[group]{TaskVarMEPC} and
+The \?le()? (for less) modification operation applied to an
+integer view \?x?  takes a \?home?  space and an integer value
+\?n? and keeps only those values from the domain of \?x?  that
+are smaller than \?n? (\?gr()? for greater is analogous). A view
+modification operation returns a modification event of type
+\?ModEvent? (see \gecoderef[group]{TaskVarMEPC} and
 \gecoderef[group]{TaskActorIntMEPC}). A modification event
-describes how the domain of a view has changed, in particular
-the value \?Int::ME_INT_FAILED? is returned if a domain wipe-out
-has occurred. In that case, the propagator has found out (just by
+describes how the domain of a view has changed, in particular the
+value \?Int::ME_INT_FAILED? is returned if a domain wipe-out has
+occurred. In that case, the propagator has found out (just by
 attempting to perform a view modification operation) that the
 constraint it implements is unsatisfiable. In this case, a
 propagator immediately returns with the execution status
@@ -855,6 +886,16 @@ The constraint post function features three improvements:
 \begin{itemize}
 \item The most obvious improvement: if the \?home? space is
   already failed, no propagator is posted.
+\item The post function creates an object of class
+  \gecoderef[class]{PostInfo}. When the object is created, it
+  provides information that a post function is currently being
+  executed and to which propagator group the post function is
+  associated (this information is available from \?home?, another
+  reason why one should always use the type
+  \gecoderef[class]{Home} rather than \?Space&?). This
+  information is useful for tracing, see
+  \autoref{chap:m:group}. When the object goes out of scope, it
+  is also recorded that the post function is done.
 \item The variable views are initialized implicitly. Note that the
   propagator post function \?Less::post()? is called with integer
   variables \?x0? and \?x1? which are automatically coerced to
@@ -1087,7 +1128,8 @@ it subscribes to a view \?x?. If \?x? is assigned, \?p? is always
 scheduled regardless of the propagation condition used for
 subscribing. If \?x? is not assigned, \?p? is only scheduled if
 the propagation condition is different from
-\?Int::PC_INT_VAL?. 
+\?Int::PC_INT_VAL?. The same holds for the \?schedule()? function
+discussed in the previous section.
 
 \begin{figure}
 \insertlitcode{disequality}
@@ -1166,17 +1208,17 @@ in situations where no subscriptions are needed, see for example
 The patterns define a constructor for creation (that also creates
 subscriptions to their views with the defined propagation
 conditions), a constructor for cloning, a \?dispose()? member
-function, and a \?cost()? member function where the cost value is
+function, a \?cost()? member function where the cost value is
 always the \?PropCost::LO? variant of the corresponding cost
 function (that is, \?PropCost::unary()? for \?UnaryPropagator?,
 \?PropCost::linear()? for \?NaryPropagator? and
-\?NaryOnePropagator?, and so on). The integer module additionally
-defines patterns for reified propagators which are discussed in
+\?NaryOnePropagator?, and so on), and a \?schedule()? function.
+The integer module additionally defines patterns for reified
+propagators which are discussed in
 \autoref{sec:p:reified:leeq}.\footnote{As reified propagators
   require Boolean views, reified patterns are provided by the
-  integer module and not by the kernel. The kernel
-  knows nothing about the different views programmed on top of
-  it.}
+  integer module and not by the kernel. The kernel knows nothing
+  about the different views programmed on top of it.}
 
 \begin{figure}
 \insertlitcode{less concise}
@@ -1193,6 +1235,13 @@ functions \?copy()? and \?propagate()?. Of course, one could also
 choose to overwrite the virtual member functions \?dispose()? and
 \?cost()? if needed.
 
+\paragraph{Post macro.}
+
+Please note that the constraint post function in
+\autoref{fig:p:started:less:concise} use the macro \?GECODE_POST?
+to replace the check whether \?home? is failed and the creation
+of an object of type \?PostInfo? as discussed in
+\autoref{par:p:started:home}.
 
 \section{Propagator obligations}
 \label{sec:p:started:obligations}
@@ -1366,6 +1415,12 @@ public:
     return PropCost::binary(PropCost::LO);
   }
   \end{litblock}
+  \begin{litblock}{scheduling}
+  virtual void schedule(Space& home) {
+    x0.schedule(home,*this,Int::PC_INT_DOM);
+    x1.schedule(home,*this,Int::PC_INT_DOM);
+  }
+  \end{litblock}
   \begin{litblock}{propagation}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
     if (x0.le(home,x1.max()) == Int::ME_INT_FAILED)
@@ -1440,6 +1495,10 @@ public:
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::LO);
   }
+  virtual void schedule(Space& home) {
+    x0.schedule(home,*this,Int::PC_INT_DOM);
+    x1.schedule(home,*this,Int::PC_INT_DOM);
+  }
   \end{litblock}
   \begin{litblock}{propagation}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
@@ -1456,6 +1515,7 @@ public:
 \begin{litblock}{constraint post function}
 void less(Home home, IntVar x0, IntVar x1) {
   if (home.failed()) return;
+  PostInfo pi(home);
   GECODE_ES_FAIL(Less::post(home,x0,x1));
 }
 \end{litblock}
@@ -1504,6 +1564,10 @@ public:
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::LO);
   }
+  virtual void schedule(Space& home) {
+    x0.schedule(home,*this,Int::PC_INT_VAL);
+    x1.schedule(home,*this,Int::PC_INT_VAL);
+  }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
     if (x0.assigned())  
@@ -1517,6 +1581,7 @@ public:
 
 void disequal(Home home, IntVar x0, IntVar x1) {
   if (home.failed()) return;
+  PostInfo pi(home);
   GECODE_ES_FAIL(Disequal::post(home,x0,x1));
 }
 \end{litblock}
@@ -1558,6 +1623,10 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
+  virtual void schedule(Space& home) {
+    x0.schedule(home,*this,Int::PC_INT_BND);
+    x1.schedule(home,*this,Int::PC_INT_BND);
+  }
   \begin{litblock}{anonymous}
   Less(Space& home, bool share, Less& p) 
     : Propagator(home,share,p) {
@@ -1584,6 +1653,7 @@ public:
 
 void less(Home home, IntVar x0, IntVar x1) {
   if (home.failed()) return;
+  PostInfo pi(home);
   GECODE_ES_FAIL(Less::post(home,x0,x1));
 }
 \end{litblock}
@@ -1626,7 +1696,7 @@ public:
 };
 
 void less(Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Less::post(home,x0,x1));
 }
 \end{litcode}

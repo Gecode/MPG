@@ -310,12 +310,12 @@ public:
 };
 
 void min(Home home, IntVar x0, IntVar x1, IntVar x2) {
-  if (home.failed()) return;
+  GECODE_POST;
   Int::MinusView y0(x0), y1(x1), y2(x2);
   GECODE_ES_FAIL(Max<Int::MinusView>::post(home,y0,y1,y2));
 }
 void max(Home home, IntVar x0, IntVar x1, IntVar x2) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Max<Int::IntView>::post(home,x0,x1,x2));
 }
 \end{litcode}
@@ -363,11 +363,11 @@ public:
 };
 
 void less(Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Less<Int::IntView>::post(home,x0,x1));
 }
 void less(Home home, BoolVar x0, BoolVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Less<Int::BoolView>::post(home,x0,x1));
 }
 \end{litcode}
@@ -444,12 +444,12 @@ public:
 };
 
 void equal(Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL((Equal<Int::IntView,Int::IntView>
                   ::post(home,x0,x1)));
 }
 void equal(Home home, IntVar x0, IntVar x1, int c) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL((Equal<Int::IntView,Int::OffsetView>
                   ::post(home,x0,Int::OffsetView(x1,c))));
 }
@@ -542,7 +542,7 @@ void dis(Home home, const BoolVarArgs& x, int n) {
   \begin{litblock}{anonymous}
   if ((n != 0) && (n != 1))
     throw Int::NotZeroOne("dis");
-  if (home.failed()) return;
+  GECODE_POST;
   if (n == 0) {
     for (int i=x.size(); i--; ) {
       Int::BoolView xi(x[i]);
@@ -559,7 +559,7 @@ void con(Home home, const BoolVarArgs& x, int n) {
   \begin{litblock}{anonymous}
   if ((n != 0) && (n != 1))
     throw Int::NotZeroOne("con");
-  if (home.failed()) return;
+  GECODE_POST;
   if (n == 1) {
     for (int i=x.size(); i--; ) {
       Int::BoolView xi(x[i]);

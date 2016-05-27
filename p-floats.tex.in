@@ -311,7 +311,7 @@ public:
 };
 
 void linear(Home home, FloatVar x0, FloatVar x1, FloatVar x2) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Linear::post(home,x0,x1,x2));
 }
 \end{litcode}

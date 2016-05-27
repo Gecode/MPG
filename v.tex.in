@@ -3142,6 +3142,10 @@ public:
                                 const Gecode::ModEventDelta&) const {
     return Gecode::PropCost::binary(Gecode::PropCost::LO);
   }
+  virtual void schedule(Space& home) {
+    x0.schedule(home,*this,Int::PC_INT_MIN);
+    x1.schedule(home,*this,Int::PC_INT_MAX);
+  }
   virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
                                        const Gecode::ModEventDelta&)  {
     GECODE_ME_CHECK(x0.lq(home,x1.max()));
@@ -3187,6 +3191,10 @@ public:
   virtual Gecode::PropCost cost(const Gecode::Space&, 
                                 const Gecode::ModEventDelta&) const {
     return Gecode::PropCost::binary(Gecode::PropCost::LO);
+  }
+  virtual void schedule(Space& home) {
+    x0.schedule(home,*this,Int::PC_INT_BND);
+    x1.schedule(home,*this,Int::PC_INT_BND);
   }
   virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
                                        const Gecode::ModEventDelta&)  {
@@ -3250,6 +3258,11 @@ public:
                                 const Gecode::ModEventDelta&) const {
     return Gecode::PropCost::ternary(Gecode::PropCost::LO);
   }
+  virtual void schedule(Space& home) {
+    x0.schedule(home,*this,Int::PC_INT_BND);
+    x1.schedule(home,*this,Int::PC_INT_BND);
+    x2.schedule(home,*this,Int::PC_INT_BND);
+  }
   virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
                                        const Gecode::ModEventDelta&)  {
     GECODE_ME_CHECK(x0.lq(home,x2.max()-x1.min()));
@@ -3287,26 +3300,26 @@ void less(Gecode::Space& home, IntVar x, int n) {
 
 // Constrain x0 to be less than or equal to x1
 void leeq(Gecode::Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL((LeEq<Int::IntView,Int::IntView>::post(home,x0,x1)));
 }
 
 // Constrain x1 to be less than x1
 void less(Gecode::Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   Int::OffsetView y0(x0,1);
   GECODE_ES_FAIL((LeEq<Int::OffsetView,Int::IntView>::post(home,y0,x1)));
 }
 
 // Constrain x0 to be different from x1
 void disequal(Gecode::Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Disequal::post(home,x0,x1));
 }
 
 // Constrain x2 to x0 + x1
 void plus(Gecode::Home home, IntVar x0, IntVar x1, IntVar x2) {
-  if (home.failed()) return;
+  GECODE_POST;
   if (x0.assigned()) {
     Int::ConstIntView y0(x0.min());
     GECODE_ES_FAIL((Plus<Int::ConstIntView,Int::IntView,Int::IntView>
@@ -3323,7 +3336,7 @@ void plus(Gecode::Home home, IntVar x0, IntVar x1, IntVar x2) {
 
 // Constrain x2 to x0 - x1
 void minus(Gecode::Home home, IntVar x0, IntVar x1, IntVar x2) {
-  if (home.failed()) return;
+  GECODE_POST;
   if (x0.assigned()) {
     Int::ConstIntView y0(x0.min());
     Int::MinusView y1(x1);

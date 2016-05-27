@@ -331,7 +331,7 @@ public:
 };
 
 void intersection(Home home, SetVar x0, SetVar x1, SetVar x2) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Intersection::post(home,x0,x1,x2));
 }
 \end{litcode}

@@ -9,6 +9,10 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2016-05-27}{Added a discussion of: how propagators are
+    disabled and enabled; the now required \?schedule()? function
+    of a propagator; and the \?GECODE_POST? post macro (see
+    \autoref{chap:p:started}).}
   \cle{2016-05-23}{Added new chapter on propagator and brancher
     groups and tracing (see \autoref{chap:m:group}).}
   \cle{2016-04-25}{Documented how Boolean expressions and

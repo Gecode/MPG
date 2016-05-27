@@ -120,8 +120,11 @@ In more detail:
   advisor is always executed when its subscription view changes.
   
   Also, an advisor is never executed when the subscription is
-  created, only when the subscription view changes.
-  
+  created, only when the subscription view changes. This also
+  means that when using advisors, one also needs to think about
+  how the \?schedule()? member function of the propagator should
+  look like, after all, this function has the responsibilty to
+  schedule a propaagator when needed.
 \item An advisor is executed as follows: the \?advise()? function
   of its propagator is executed. The function takes the advisor
   as argument and an additional argument of type
@@ -155,12 +158,31 @@ In more detail:
   There are two more functions that force the advisor's
   propagator to be rescheduled. They are discussed in
   \autoref{sec:p:advisors:force}.
+\item Advisors have a rather subtle interaction with disabling a
+  propagator: as discussed in \autoref{sec:p:started:solving},
+  a disabled propagator is scheduled as usual but is not allowed
+  to provide any propagation. While advisors are not allowed to
+  prune variable domains, they can report failure by returning
+  \?ES_FAILED?. 
+
+  If a propagator is disabled (this can be checked by the member
+  function \?disabled()? of a propagator), the advisor is
+  \emph{not} allowed to report failure! Instead, the
+  \?schedule()? function must make sure that when the propagator
+  is re-enabled it is re-scheduled and that the \?propagate()?
+  function reports failure instead.
+
+  Note, however, that typically advisors of a disabled propagator
+  execute normally and maintain the information necessary for the
+  next execution of the propagator, which just happens to be if
+  the propagator is enabled again and possibly re-scheduled.
 \end{itemize}
 
 Note that a propagator using advisors must make sure that its
-advisors schedule the propagator when it is not at fixpoint.
-Otherwise, it would not meet its ``subscription
-complete'' obligation (make sure to read
+advisors schedule the propagator when it is not at fixpoint, this
+applies to when the propagator is posted and when the \?advise()?
+or \?schedule()? functions are executed.  Otherwise, it would not
+meet its ``subscription complete'' obligation (make sure to read
 \autoref{tip:p:advisors:started}). A propagator is free to mix
 subscriptions using advisors and subscriptions using propagation
 conditions, see \autoref{sec:p:advisors:or}.
@@ -300,6 +322,12 @@ IntView::schedule(home, *this, ME_INT_BND);
 schedules the propagator with the information that the bounds
 of some of its integer views have changed.
 }
+
+\paragraph{Scheduling the propagator.}
+
+\insertlitcode{samedom:scheduling}
+
+FIXME!
 
 \paragraph{Mandatory propagator disposal.}
 
@@ -465,6 +493,10 @@ equals the number of views in \?x?) or if a view has been
 assigned to one. Note that the propagator post function makes
 sure that the propagator is only posted when none of the views in
 \?x? are assigned.
+
+FIXME!
+
+\insertlitcode{or:scheduling}
 
 The \?propagate()? function is straightforward:
 \insertlitcode{or:propagation}
@@ -650,6 +682,12 @@ public:
     return PropCost::unary(PropCost::HI);
   }
   \end{litblock}
+  \begin{litblock}{scheduling}
+  virtual void schedule(Space& home) {
+    if (todo != NOTHING)
+      Int::IntView::schedule(home, *this, ME_INT_DOM);
+  }
+  \end{litblock}
   \begin{litblock}{advise function}
   virtual ExecStatus advise(Space&, Advisor& a, const Delta&) {
     if (todo != NOTHING)
@@ -675,7 +713,7 @@ public:
 \begin{litblock}{anonymous}
 
 void samedom(Home home, const IntVarArgs& x, const IntSet& d) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(SameDom::post(home,x,d));
 }
 \end{litblock}
@@ -765,6 +803,10 @@ public:
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::unary(PropCost::HI);
   }
+  virtual void schedule(Space& home) {
+    if (todo != NOTHING)
+      Int::IntView::schedule(home, *this, ME_INT_DOM);
+  }
   \end{litblock}
   virtual ExecStatus advise(Space&, Advisor& a, const Delta&) {
     if (todo != NOTHING)
@@ -787,7 +829,7 @@ public:
 \begin{litblock}{anonymous}
 
 void samedom(Home home, const IntVarArgs& x, const IntSet& d) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(SameDom::post(home,x,d));
 }
 \end{litblock}
@@ -895,6 +937,12 @@ public:
     return PropCost::unary(PropCost::LO);
   }
   \end{litblock}
+  \begin{litblock}{scheduling}
+  virtual void schedule(Space& home) {
+    if (n_zero == x.size())
+      Int::BoolView::schedule(home, *this, ME_INT_VAL);
+  }
+  \end{litblock}
   \begin{litblock}{advise}
   virtual ExecStatus advise(Space&, Advisor&, const Delta& d) {
     if (Int::BoolView::zero(d) && (++n_zero < x.size()))
@@ -922,7 +970,7 @@ public:
 \begin{litblock}{anonymous}
 
 void dis(Home home, const BoolVarArgs& x, BoolVar y) {
-  if (home.failed()) return;
+  GECODE_POST;
   ViewArray<Int::BoolView> vx(home,x);
   GECODE_ES_FAIL(Or::post(home,vx,y));
 }

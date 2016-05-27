@@ -496,7 +496,7 @@ public:
 \begin{litblock}{anonymous}
 
 void equal(Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Equal::post(home,x0,x1));
 }
 \end{litblock}
@@ -541,7 +541,7 @@ public:
 };
 
 void equal(Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Equal::post(home,x0,x1));
 }
 \end{litblock}
@@ -587,7 +587,7 @@ public:
 };
 
 void equal(Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Equal::post(home,x0,x1));
 }
 \end{litblock}
@@ -652,7 +652,7 @@ public:
 };
 
 void equal(Home home, IntVar x0, IntVar x1) {
-  if (home.failed()) return;
+  GECODE_POST;
   GECODE_ES_FAIL(Equal::post(home,x0,x1));
 }
 \end{litblock}
@@ -728,7 +728,7 @@ public:
 void dis(Home home, const BoolVarArgs& x, int n) {
   if ((n != 0) && (n != 1))
     throw Int::NotZeroOne("dis");
-  if (home.failed()) return;
+  GECODE_POST;
   if (n == 0) {
     for (int i=x.size(); i--; )
       GECODE_ME_FAIL(Int::BoolView(x[i]).zero(home));
@@ -797,7 +797,7 @@ public:
 void dis(Home home, const BoolVarArgs& x, int n) {
   if ((n != 0) && (n != 1))
     throw Int::NotZeroOne("dis");
-  if (home.failed()) return;
+  GECODE_POST;
   if (n == 0) {
     for (int i=x.size(); i--; ) {
       Int::BoolView xi(x[i]);
@@ -903,7 +903,7 @@ public:
 void dis(Home home, const BoolVarArgs& x, int n) {
   if ((n != 0) && (n != 1))
     throw Int::NotZeroOne("dis");
-  if (home.failed()) return;
+  GECODE_POST;
   if (n == 0) {
     for (int i=x.size(); i--; ) {
       Int::BoolView xi(x[i]);
