@@ -90,7 +90,7 @@ where to print statistics\\
 \texttt{-interrupt} & $\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
 whether driver catches Ctrl-C\\
 \texttt{-trace} &
-$\{\mathtt{init},\mathtt{prune},\mathtt{fixpoint},\mathtt{done},$
+$\{\mathtt{init},\mathtt{prune},\mathtt{fix},\mathtt{done},$
 & which events to trace\\
 &$\;\mathtt{none},\mathtt{all}\}$&\\
 \hline
@@ -194,7 +194,7 @@ have the following meaning:
 
 Which events to trace (see also \autoref{chap:m:group}) can be specified by the \?-trace?
 commandline option. It accepts a comma-separated list of the
-event types to trace, that is \?init?, \?prune?, \?fixpoint?, and
+event types to trace, that is \?init?, \?prune?, \?fix? for fixpoint, and
 \?done? as well as \?none? to trace no events and \?all? to trace
 events of all types.
 

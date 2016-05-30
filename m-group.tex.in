@@ -224,7 +224,7 @@ trace<Int>::prune(id:0): [0] = [1..9] - {0} by post()
 trace<Int>::prune(id:0): [4] = [1..9] - {0} by post()
 trace<Int>::prune(id:0): [0] = 9 - {1..8} by propagator(id:2)
   ...
-trace<Int>::fixpoint(id:0) slack: 33.33% - 66.67%
+trace<Int>::fix(id:0) slack: 33.33% - 66.67%
   ...
 trace<Int>::done(id:0) slack: 0%
         {9, 5, 6, 7, 1, 0, 8, 2}
@@ -255,7 +255,7 @@ The output for each event starts with the information
 trace<Int>::
 \end{code}
 signaling that integer variables are being traced. After that,
-the type of event is shown (\?init?, \?prune?, \?fixpoint?, or
+the type of event is shown (\?init?, \?prune?, \?fix? for fixpoint, or
 \?done?). This is followed by information about the identifier of the
 trace recorder (a trace recorder is in fact a propagator and
 hence has a unique identifier, see
@@ -389,12 +389,12 @@ trace(home, x, TE_PRUNE);
 \end{code}
 will only record prune-events, whereas
 \begin{code}
-trace(home, x, TE_PRUNE | TE_FIXPOINT);
+trace(home, x, TE_PRUNE | TE_FIX);
 \end{code}
 will record prune- and fixpoint-events. All events (the default)
 are recorded by
 \begin{code}
-trace(home, x, TE_INIT | TE_PRUNE | TE_FIXPOINT | TE_DONE);
+trace(home, x, TE_INIT | TE_PRUNE | TE_FIX | TE_DONE);
 \end{code}
 
 
