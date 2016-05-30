@@ -2,7 +2,7 @@
 \chapter{Groups and tracing}
 \label{chap:m:group}
 
-Groups are a mean to control certain execution aspects of
+Groups are a means to control certain execution aspects of
 propagators and branchers. Tracing can be used for tracing
 constraint propagation during execution. Groups are ultimately
 linked to tracing, as the generated traces can be filtered
@@ -197,7 +197,7 @@ The trace recorder records the following events:
   function performing pruning outside any propagator or
   brancher).
 \item A \emph{fixpoint-event} is recorded when the space
-  containing the trace recorder reaches a fixed, triggered by the
+  containing the trace recorder reaches a fixpoint, triggered by the
   execution of the space's \?status()? function.
 \item A \emph{done-event} that is recorded when all of the trace
   recorder's variables have been assigned and hence no further
@@ -267,7 +267,7 @@ printed.
 The information for each event type is as follows:
 \begin{itemize}
 \item For an init-event, the total slack of all variables is
-  shown where the slack of a variables is the number of values
+  shown where the slack of a variable is the number of values
   that must be removed before the variable gets assigned to a
   single value. This information serves as a measure of how much
   propagation is still to be done.
@@ -311,12 +311,12 @@ Defining custom tracers is straightforward, this is explained in
 
 The information printed for init-, fixpoint-, and done-events for
 set variables, is analogous to the information for integer
-variables. The slack of a set variable here is defined as they
+variables. The slack of a set variable here is defined as the
 number of values that can be still included or excluded from the
-set variable (that is, it corresponds to \?x.unknownSize()? is
-\?x? is a set variable of type \gecoderef[class]{SetVar}.
+set variable (that is, it corresponds to \?x.unknownSize()? where
+is \?x? is a set variable of type \gecoderef[class]{SetVar}).
 
-For a prune-event, it is shown which values have been include in
+For a prune-event, it is shown which values have been included in
 the set and which values have been excluded from the set. For
 example in
 \begin{code}
@@ -425,7 +425,7 @@ and the later enabled by
 \begin{code}
 t.enable(home);
 \end{code}
-Of courses, one can easily add several tracer recorders (either
+Of courses, one can easily add several trace recorders (either
 for different variables or different variable types) to the same
 propagator group and hence jointly control all trace recorders in
 that group.
