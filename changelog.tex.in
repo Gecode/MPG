@@ -9,6 +9,9 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2016-05-27}{Added a discussion of how propagators suing
+    advisors are re-scheduled (see
+    \autoref{chap:p:advisor}).}
   \cle{2016-05-27}{Added a discussion of: how propagators are
     disabled and enabled; the now required \?schedule()? function
     of a propagator; and the \?GECODE_POST? post macro (see

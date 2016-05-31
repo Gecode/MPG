@@ -186,6 +186,11 @@ and must implement the following constructors and functions:
   subsumption can only be decided after the view \?x? has been
   assigned:
 \insertsmalllitcode{none min with no-good support:subscribe and cancel}
+\item A no-good literal must also implement a \?schedule()?
+  function that re-schedule the no-goods propagator when it is
+  re-enabled. The \?schedule()? function is straightforward,
+  following the patterns of the \?subscribe()? and \?cancel()? functions:
+\insertsmalllitcode{none min with no-good support:scheduling}
 \end{itemize}
 
 In case a no-good literal uses members that must be deallocated
@@ -459,6 +464,11 @@ public:
   }
   virtual void cancel(Space& home, Propagator& p) {
     x.cancel(home, p, Int::PC_INT_VAL);
+  }
+  \end{litblock}
+  \begin{litblock}{scheduling}
+  virtual void schedule(Space& home, Propagator& p) {
+    x.schedule(home, p, Int::PC_INT_VAL);
   }
   \end{litblock}
   virtual NGL* copy(Space& home, bool share) {

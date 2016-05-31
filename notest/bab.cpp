@@ -89,7 +89,7 @@ public:
         rel(*this, d[k] = expr(*this, m[j]-m[i]),
                    IRT_GQ, (j-i)*(j-i+1)/2);
 
-    distinct(*this, d, ICL_BND);
+    distinct(*this, d, IPL_BND);
 
     // Symmetry breaking
     if (n > 2)

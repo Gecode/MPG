@@ -1149,6 +1149,7 @@ URL class Gecode::TooManyBranchers classGecode_1_1TooManyBranchers.html
 URL class Gecode::TooManyGroups classGecode_1_1TooManyGroups.html
 URL class Gecode::TraceFilter classGecode_1_1TraceFilter.html
 URL class Gecode::TraceFilter::TFO classGecode_1_1TraceFilter_1_1TFO.html
+URL class Gecode::TraceFilter::TFO::StackFrame classGecode_1_1TraceFilter_1_1TFO_1_1StackFrame.html
 URL class Gecode::TraceRecorder classGecode_1_1TraceRecorder.html
 URL class Gecode::TraceRecorder::Idx classGecode_1_1TraceRecorder_1_1Idx.html
 URL class Gecode::TraceRecorder::Slack classGecode_1_1TraceRecorder_1_1Slack.html
@@ -1998,6 +1999,10 @@ URL example sudoku:SudokuMixed examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuMixed "Solving Sudoku puzzles using both set and integer"
 URL example sudoku:SudokuSet examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuSet "Solving Sudoku puzzles using set constraints"
+URL example test examples_2test_8cpp.html
+TITLE example test "partition numbers into two groups"
+URL example test:Partition examples_2test_8cpp.html
+TITLE example test:Partition "partition numbers into two groups"
 URL example tsp tsp_8cpp.html
 TITLE example tsp "Travelling salesman problem (TSP)"
 URL example tsp:TSP tsp_8cpp.html
@@ -2064,6 +2069,7 @@ URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
 URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
+URL file examples/test.cpp examples_2test_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
@@ -2964,7 +2970,7 @@ URL file test/set/rel-op-const.cpp rel-op-const_8cpp.html
 URL file test/set/rel-op.cpp test_2set_2rel-op_8cpp.html
 URL file test/set/rel.cpp test_2set_2rel_8cpp.html
 URL file test/set/sequence.cpp test_2set_2sequence_8cpp.html
-URL file test/test.cpp test_8cpp.html
+URL file test/test.cpp test_2test_8cpp.html
 URL file test/test.hh test_8hh.html
 URL file test/test.hpp test_8hpp.html
 URL group Example group__Example.html

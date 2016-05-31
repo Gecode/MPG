@@ -161,7 +161,7 @@ In more detail:
 \item Advisors have a rather subtle interaction with disabling a
   propagator: as discussed in \autoref{sec:p:started:solving},
   a disabled propagator is scheduled as usual but is not allowed
-  to provide any propagation. While advisors are not allowed to
+  to perform any propagation. While advisors are not allowed to
   prune variable domains, they can report failure by returning
   \?ES_FAILED?. 
 
@@ -169,7 +169,7 @@ In more detail:
   function \?disabled()? of a propagator), the advisor is
   \emph{not} allowed to report failure! Instead, the
   \?schedule()? function must make sure that when the propagator
-  is re-enabled it is re-scheduled and that the \?propagate()?
+  is re-enabled and is re-scheduled that its \?propagate()?
   function reports failure instead.
 
   Note, however, that typically advisors of a disabled propagator
@@ -325,9 +325,10 @@ of some of its integer views have changed.
 
 \paragraph{Scheduling the propagator.}
 
+The \?schedule()? member function just checks whether the
+propagator needs to be scheduled and uses the \?schedule()?
+member functions of integer views as discussedc above:
 \insertlitcode{samedom:scheduling}
-
-FIXME!
 
 \paragraph{Mandatory propagator disposal.}
 
@@ -486,17 +487,20 @@ subscribed to is assigned to \?0? (then \?Int::BoolView::zero()?
 returns true):
 \insertlitcode{or:advise}
 
-The advise function counts the number of views assigned to zero
-in \?n_zero?. It reports that the propagator must be scheduled,
+The \?advise()? function counts the number of views assigned to zero
+in \?n_zero?. By returning \?ES_NOFIX? it reports that the propagator must be scheduled,
 if all views have been assigned to zero (that is, \?n_zero?
 equals the number of views in \?x?) or if a view has been
 assigned to one. Note that the propagator post function makes
 sure that the propagator is only posted when none of the views in
 \?x? are assigned.
 
-FIXME!
-
+The \?schedule()? function checks whether the propagator needs to
+be re-schedule. This is the case when \?y? has been assigned, or
+a view in \?x? has been assigned to one, or if all views in \?x?
+have been assigned zero.
 \insertlitcode{or:scheduling}
+
 
 The \?propagate()? function is straightforward:
 \insertlitcode{or:propagation}
@@ -937,18 +941,23 @@ public:
     return PropCost::unary(PropCost::LO);
   }
   \end{litblock}
-  \begin{litblock}{scheduling}
-  virtual void schedule(Space& home) {
-    if (n_zero == x.size())
-      Int::BoolView::schedule(home, *this, Int::ME_BOOL_VAL);
-  }
-  \end{litblock}
   \begin{litblock}{advise}
   virtual ExecStatus advise(Space&, Advisor&, const Delta& d) {
     if (Int::BoolView::zero(d) && (++n_zero < x.size()))
       return ES_FIX;
     else
       return ES_NOFIX;
+  }
+  \end{litblock}
+  \begin{litblock}{scheduling}
+  virtual void schedule(Space& home) {
+    if (y.assigned() || (n_zero == x.size()))
+      Int::BoolView::schedule(home, *this, Int::ME_BOOL_VAL);
+    for (int i=x.size(); i--; )
+      if (x[i].one()) {
+        Int::BoolView::schedule(home, *this, Int::ME_BOOL_VAL);
+        return;
+      }
   }
   \end{litblock}
   \begin{litblock}{propagation}
