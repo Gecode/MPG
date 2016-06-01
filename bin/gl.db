@@ -1110,6 +1110,7 @@ URL class Gecode::StdBoolTracer classGecode_1_1StdBoolTracer.html
 URL class Gecode::StdFloatTracer classGecode_1_1StdFloatTracer.html
 URL class Gecode::StdIntTracer classGecode_1_1StdIntTracer.html
 URL class Gecode::StdSetTracer classGecode_1_1StdSetTracer.html
+URL class Gecode::SubscribedPropagators classGecode_1_1SubscribedPropagators.html
 URL class Gecode::Support::Allocator classGecode_1_1Support_1_1Allocator.html
 URL class Gecode::Support::BitSet classGecode_1_1Support_1_1BitSet.html
 URL class Gecode::Support::BitSetBase classGecode_1_1Support_1_1BitSetBase.html
@@ -2557,6 +2558,7 @@ URL file gecode/kernel/region.hpp region_8hpp.html
 URL file gecode/kernel/rnd.cpp rnd_8cpp.html
 URL file gecode/kernel/rnd.hpp rnd_8hpp.html
 URL file gecode/kernel/shared-array.hpp shared-array_8hpp.html
+URL file gecode/kernel/subscribed-propagators.hpp subscribed-propagators_8hpp.html
 URL file gecode/kernel/trace-filter.cpp trace-filter_8cpp.html
 URL file gecode/kernel/trace-filter.hpp trace-filter_8hpp.html
 URL file gecode/kernel/trace-recorder.hpp trace-recorder_8hpp.html

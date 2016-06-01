@@ -47,7 +47,7 @@ distinct(pg(home), x);
 
 If no propagator group is specified when a propagator is created,
 then the propagator is added to the default propagator group
-\?PropagatorGroup::default?. 
+\?PropagatorGroup::def?. 
 
 \paragraph{Operations on propagator groups.}
 
@@ -137,7 +137,7 @@ can also write \?bg(home)? instead of \?home(bg)?.
 \item
 If no brancher group is specified,
 then the brancher is added to the default group
-\?BrancherGroup::default?. 
+\?BrancherGroup::def?. 
 \item The number of branchers in a group can be computed by the
 \?size()? member function. Each
 group has a unique identifier of type \?unsigned int? which can
@@ -430,8 +430,45 @@ for different variables or different variable types) to the same
 propagator group and hence jointly control all trace recorders in
 that group.
 
-\section{Tracers}
+\section{Programming tracers}
 \label{sec:m:group:tracers}
+
+Defining own tracers is quite straightforward, by inheriting from
+a class that depends on the
+variable type and implements one virtual member function for each
+event type. These virtual member functions are called when an
+event of that type is being recorded and the event type has been
+selected for tracing. For integer variables, the tracer class to
+inherit from is \gecoderef[typedef]{IntTracer}, for Boolean
+variables \gecoderef[typedef]{BoolTracer}, for set variables
+\gecoderef[typedef]{SetTracer}, and for float variables
+\gecoderef[typedef]{FloatTracer}. All classes are in fact type
+definitions instantiating the class \gecoderef[class]{Tracer}.
+
+In the following we are going to discuss tracers for integer and
+Boolean variables in some detail in
+\autoref{sec:m:group:tracers:int} and summarize tracers for set
+and float variables in \autoref{sec:m:group:tracers:set} and
+\autoref{sec:m:group:tracers:float} respectively.
+
+\subsection{Tracers for integer and Boolean variables}
+\label{sec:m:group:tracers:int}
+
+
+\begin{figure}
+\insertlitcode{integer tracer}
+\caption{An integer tracer printing to \?std::cout?}
+\label{fig:m:group:tracer}
+\end{figure}
+
+
+\insertlitcode{integer tracer:print propagator information}
+
+\insertlitcode{integer tracer:print execution information}
+
+\insertlitcode{integer tracer:prune event}
+
+\insertlitcode{integer tracer:fixpoint event}
 
 List the types.
 
@@ -440,3 +477,118 @@ Easy.
 Memory model.
 
 Concurrency model: atomic processing of events.
+
+
+\subsection{Tracers for set variables}
+\label{sec:m:group:tracers:set}
+
+\subsection{Tracers for float variables}
+\label{sec:m:group:tracers:float}
+
+
+\begin{litcode}{integer tracer}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/int.hh>
+#include <iomanip>
+
+using namespace Gecode;
+
+\end{litblock}
+class StdCoutIntTracer : public IntTracer {
+protected:
+  \begin{litblock}{print propagator information}
+  static void ids(const Propagator& p) {
+    std::cout << "(id:" << p.id();
+    if (p.group().in())
+      std::cout << ",g:" << p.group().id();
+    std::cout << ')';
+  }
+  \end{litblock}
+  static void ids(const Brancher& b) {
+    \begin{litblock}{anonymous}
+    std::cout << "(id:" << b.id();
+    if (b.group().in())
+      std::cout << ",g:" << b.group().id();
+    std::cout << ')';
+    \end{litblock}
+  }
+  \begin{litblock}{print execution information}
+  static void info(const ExecInfo& ei) {
+    switch (ei.what()) {
+    case ExecInfo::PROPAGATOR:
+      std::cout << "propagator"; ids(ei.propagator());
+      break;
+    case ExecInfo::BRANCHER:
+      std::cout << "brancher"; ids(ei.brancher());
+      break;
+    case ExecInfo::POST:
+      std::cout << "post(";
+      if (ei.post().in())
+        std::cout << "g:" << ei.post().id();
+      std::cout << ')';
+      break;
+    case ExecInfo::OTHER:
+      std::cout << '-';
+      break;
+    }
+  }
+  \end{litblock}
+public:
+  virtual void init(const Space& home, const IntTraceRecorder& t) {
+    \begin{litblock}{anonymous}
+    std::cout << "trace::init"; ids(t);
+    std::cout << " slack: 100.00% (" << t.slack().initial() << " values)"
+              << std::endl;
+    \end{litblock}
+  }
+  \begin{litblock}{prune event}
+  virtual void prune(const Space& home, const IntTraceRecorder& t,
+                     const ExecInfo& ei, int i, IntTraceDelta& d) {
+    std::cout << "trace::prune"; ids(t);
+    std::cout << ": [" << i << "] = " << t[i] << " - {";
+    std::cout << d.min();
+    if (d.width() > 1)
+      std::cout << ".." << d.max();
+    ++d;
+    while (d()) {
+      \begin{litblock}{anonymous}
+      std::cout << ',' << d.min();
+      if (d.width() > 1)
+        std::cout << ".." << d.max();
+      ++d;
+      \end{litblock}
+    }
+    std::cout << "} by "; info(ei);
+    std::cout << std::endl;
+  }
+  \end{litblock}
+  \begin{litblock}{fixpoint event}
+  virtual void fix(const Space& home, const IntTraceRecorder& t) {
+    std::cout << "trace::fix"; ids(t);
+    double sl_i = static_cast<double>(t.slack().initial());
+    double sl_p = static_cast<double>(t.slack().previous());
+    double sl_c = static_cast<double>(t.slack().current());
+    \begin{litblock}{anonymous}
+    double p_c = 100.0 * (sl_c / sl_i);
+    double p_d = 100.0 * (sl_p / sl_i) - p_c;
+    std::cout << " slack: "
+              << std::showpoint << std::setprecision(4)
+              << p_c << "% - "
+              << std::showpoint << std::setprecision(4)
+              << p_d << '%'
+              << std::endl;
+    \end{litblock}
+  }
+  \end{litblock}
+  virtual void done(const Space& home, const IntTraceRecorder& t) {
+    \begin{litblock}{anonymous}
+    std::cout << "trace::done"; ids(t);
+    if (t.group().in())
+      std::cout << ",g:" << t.group().id();
+    std::cout << ") slack: 0%" << std::endl;
+    \end{litblock}
+  }
+};
+\end{litcode}
+
+

@@ -63,7 +63,7 @@ NOTESTCPP = \
 	dfs-using-full-recomputation dfs-using-full-recomputation-and-lao \
 	dfs-using-hybrid-recomputation dfs-using-adaptive-recomputation \
 	bab-using-full-recomputation \
-	dfs-engine
+	dfs-engine integer-tracer
 
 MSVCEXE		= $(MODELCPP:%=%.exe)
 MSVCTESTEXE	= $(TESTCPP:%=test-%.exe)
