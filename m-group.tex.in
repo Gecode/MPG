@@ -49,6 +49,44 @@ If no propagator group is specified when a propagator is created,
 then the propagator is added to the default propagator group
 \?PropagatorGroup::def?. 
 
+\paragraph{Moving propagators between groups.}
+
+Propagators can be moved from one group into another. For
+example, if \?pga? and \?pgb? are propagator groups, then
+\begin{code}
+pga.move(home,pgb);
+\end{code}
+moves all propagators from group \?pgb? into group \?pga?. An
+individual propagator \?p? (of type \?Propagator&?) can also be
+moved into a propagator group \?pg? by
+\begin{code}
+pg.move(home,p);
+\end{code}
+Individual propagators can also be moved by giving their id. For
+example, the following is equivalent to the previous example:
+\begin{code}
+unsigned int id = p.id();
+pg.move(home,id);
+\end{code}
+If no propagator with a given id exists, an exception of type
+\gecoderef[class]{UnknownPropagator} is thrown.
+
+In order to remove a propagator from its group or all propagators
+of a group from their group, one can use the default group. For
+example, if \?pg? is a propagator group, all of its propagators
+are removed from \?pg? by
+\begin{code}
+PropagatorGroup::def.move(home,pg);
+\end{code}
+
+Move operations can be concatenated as they return its group. For
+example, if \?pg? is a propagator group and \?p1? and \?p2? are
+two propagators, then
+\begin{code}
+pg.move(p1).move(p2);
+\end{code}
+removes both \?p1? and \?p2? from \?pg?.
+
 \paragraph{Operations on propagator groups.}
 
 The number of propagators in a group can be computed by the
@@ -134,6 +172,9 @@ branch(home(bg), x, INT_VAR_NONE(), INT_VAL_MIN());
 \end{smallcode}
 adds the newly created brancher created to the brancher group \?bg?. Equivalently, one
 can also write \?bg(home)? instead of \?home(bg)?.
+\item Brancher groups provide \?move()? functions for
+  moving branchers into brancher groups that are analogous to the
+  \?move()? functions for propagator groups.
 \item
 If no brancher group is specified,
 then the brancher is added to the default group
