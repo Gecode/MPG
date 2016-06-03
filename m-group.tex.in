@@ -15,7 +15,7 @@ whereas \autoref{sec:m:group:branch} explains groups of
 branchers. The tracing support that comes with Gecode is
 explained in \autoref{sec:m:group:trace} and
 \autoref{sec:m:group:tracers} shows how tracers (the objects that
-process trace information) can be defined.
+process trace information) can be programmed.
 
 \section{Propagator groups}
 \label{sec:m:group:prop}
@@ -474,17 +474,18 @@ that group.
 \section{Programming tracers}
 \label{sec:m:group:tracers}
 
-Defining own tracers is quite straightforward, by inheriting from
-a class that depends on the
-variable type and implements one virtual member function for each
-event type. These virtual member functions are called when an
-event of that type is being recorded and the event type has been
-selected for tracing. For integer variables, the tracer class to
-inherit from is \gecoderef[typedef]{IntTracer}, for Boolean
-variables \gecoderef[typedef]{BoolTracer}, for set variables
+Programming tracers is quite straightforward, by inheriting from
+a class that depends on the variable type and implements one
+virtual member function for each trace event type. These virtual
+member functions are called when an event of that type is being
+recorded and the event type has been selected for tracing. For
+integer variables, the tracer class to inherit from is
+\gecoderef[typedef]{IntTracer}, for Boolean variables
+\gecoderef[typedef]{BoolTracer}, for set variables
 \gecoderef[typedef]{SetTracer}, and for float variables
 \gecoderef[typedef]{FloatTracer}. All classes are in fact type
-definitions instantiating the class \gecoderef[class]{Tracer}.
+definitions instantiating the parametric class
+\gecoderef[class]{Tracer}.
 
 In the following we are going to discuss tracers for integer and
 Boolean variables in some detail in
@@ -502,14 +503,71 @@ and float variables in \autoref{sec:m:group:tracers:set} and
 \label{fig:m:group:tracer}
 \end{figure}
 
+The example tracer we are going to discuss is implemented by a
+class \?StdCoutIntTracer? and prints trace information to
+\?std::cout? and is shown in \autoref{fig:m:group:tracer}. The
+\?init()? and \?done()? member functions will not be discussed as
+they are very similar to the member function \?fix()? which is
+discussed below.
 
+\paragraph{Printing propagator information.}
+
+The example tracer prints information about propagators and
+branchers using static member function \?ids()? (for
+indentifiers). Priniting information about propagators is
+implemented as follows:
 \insertlitcode{integer tracer:print propagator information}
+
+The function always prints the identifier \?p.id()? of the
+propagator \?p?. If~\?p? is in a propagator group \?p.group()?
+which is different from the default propagator group (tested by
+the \?in()? function of a propagator group), then also the group
+identifier is printed. The overloaded function \?ids()? for
+branchers is identical and hence only shown in abbreviation in
+\autoref{fig:m:group:tracer}.
+
+\paragraph{Printing execution information.}
+
+The member function \?prune()? receives as an argument a
+reference to an object of class \gecoderef[class]{ExecInfo}
+providing information about which entity triggered the
+corresponding prune-event. The following function illustrates the
+information provided by an object of class
+\gecoderef[class]{ExecInfo}. 
 
 \insertlitcode{integer tracer:print execution information}
 
+\paragraph{Printing prune-events.}
+
+A \?prune()? member function receives 
 \insertlitcode{integer tracer:prune event}
 
+\paragraph{Printing fixpoint-events.}
+
 \insertlitcode{integer tracer:fixpoint event}
+
+\tip{Naming propagators, branchers, variables, and groups}{
+\label{tip:m:group:name}%
+Note that all entities relevant for tracing carry a \emph{unique}
+and \emph{global} identity: propagators, branchers, propagators groups, and
+brancher groups all provide a function \?id()? that return a
+unique identifier for that entity of type \?unsigned int?. 
+Actually, when you check the
+  reference documentation, you will see that these functions do
+  not take an argument of type \?Space&? but of type \?Home?
+  instead. An object of type \?Home? actually stores a reference
+  to a space of type \?Space&? (and a reference
+  of type \?Space&? is automatically coerced to an object
+  of type \?Home?). Additionally, a \?Home? object might store
+  other information that is useful for posting propagators and
+  branchers. However, this is nothing you need to be concerned
+  with when modeling with Gecode. Just think that \?Home? reads as
+  \?Space&?. 
+  Using \?Home? is important when programming propagators and
+  branchers, see \autoref{par:p:started:home}.  }
+
+\paragraph{Memory and concurrency properties of tracers.}
+
 
 List the types.
 
