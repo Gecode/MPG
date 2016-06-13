@@ -539,47 +539,96 @@ information provided by an object of class
 
 \paragraph{Printing prune-events.}
 
-A \?prune()? member function receives 
+A \?prune()? member function takes several arguments that provide
+information about \emph{what} is being pruned (this is given by
+the integer~\?i? as the position of the variable in the array
+passed to the \?trace()? function), \emph{how} the variable has
+been pruned (this is given by the argument~\?d? of class
+\gecoderef[class]{IntTraceDelta}), and by \emph{whom} (this is
+given by the argument~\?ei? of class \gecoderef[class]{ExecInfo},
+which has been discussed in the previous paragraph). It also gets
+access to the trace recorder of type
+\gecoderef[typedef]{IntTraceRecorder}. The example \?prune()?
+function prints information as follows:
 \insertlitcode{integer tracer:prune event}
+
+As can be seen, the argument~\?d? of type
+\gecoderef[class]{IntTraceDelta} is a range iterator with the
+same interface as described in \autoref{sec:m:int:iter} and
+iterates of the integer ranges that have been removed. The trace
+recorder~\?t? provides access to its variables through an array
+operator \?[]?.
 
 \paragraph{Printing fixpoint-events.}
 
+The \?fix()? function also receives an argument of type
+\gecoderef[typedef]{IntTraceRecorder} as shown here:
 \insertlitcode{integer tracer:fixpoint event}
+The integer trace recorder~\?t? provides access to \emph{slack}
+information about all of its variables through a \?slack()?
+member function. 
+
+For integer variables, the 
+slack is the number of values that still need to be pruned before
+all variables become assigned and is of type 
+\?unsigned long long int?. Here, the function \?initial()? of
+\?t.slack()? returns the initial slack when the trace recorder
+has been created, \?previous()? returns the slack at the previous
+fixpoint (or, the initial slack if it is the first fixpoint), and
+\?current()? returns the current slack.
+
+Note that the slack information is only updated when a fixpoint-,
+init-, or done-event occurs.
 
 \tip{Naming propagators, branchers, variables, and groups}{
 \label{tip:m:group:name}%
 Note that all entities relevant for tracing carry a \emph{unique}
 and \emph{global} identity: propagators, branchers, propagators groups, and
 brancher groups all provide a function \?id()? that return a
-unique identifier for that entity of type \?unsigned int?. 
-Actually, when you check the
-  reference documentation, you will see that these functions do
-  not take an argument of type \?Space&? but of type \?Home?
-  instead. An object of type \?Home? actually stores a reference
-  to a space of type \?Space&? (and a reference
-  of type \?Space&? is automatically coerced to an object
-  of type \?Home?). Additionally, a \?Home? object might store
-  other information that is useful for posting propagators and
-  branchers. However, this is nothing you need to be concerned
-  with when modeling with Gecode. Just think that \?Home? reads as
-  \?Space&?. 
-  Using \?Home? is important when programming propagators and
-  branchers, see \autoref{par:p:started:home}.  }
+unique identifier for that entity of type \?unsigned int?. The
+identitiy is global in that it does not change when a space is
+being cloned during search. Hence naming entities through a hash
+table mapping identity to a user-defined name is straightforward.
+}
+
+\paragraph{Tracers for Boolean variables.}
+
+Tracers for Boolean variables are exactly like for integer
+variables: a Boolean trace recorder is of type
+\gecoderef[typedef]{BoolTraceRecorder}, the trace delta is also a
+range iterator of
+class \gecoderef[class]{BoolTraceDelta}, and the slack is defined
+as for integer variables and also of type
+\?unsigned long long int?.
 
 \paragraph{Memory and concurrency properties of tracers.}
 
-
-List the types.
-
-Easy.
-
-Memory model.
-
-Concurrency model: atomic processing of events.
-
+There is no automatic memory management for tracers, the uses is
+responsible for creating and deleting them. Tracers can be used
+across several threads where it is ensured that the execution of
+a trace function is synchronized in that at most one thread can
+execute any trace function at any time.
 
 \subsection{Tracers for set variables}
 \label{sec:m:group:tracers:set}
+
+The types and class for set variable tracers are as follows:
+\begin{itemize}
+\item The trace recorder is of type
+  \gecoderef[typedef]{SetTraceRecorder}.
+\item The trace delta information is of class
+  \gecoderef[class]{SetTraceDelta} which implements a member
+  function \?glb()? that returns a range iterator of class
+  \gecoderef[class]{SetTraceDelta::Glb} which iterates over the
+  values that have been included into a set by a prune-event and 
+a member
+  function \?lub()? that returns a range iterator of class
+  \gecoderef[class]{SetTraceDelta::Lub} which iterates over the
+  values that have been excluded from a set by a prune-event.
+\item The slack of a set variable is defined as the number of
+  values where membership has not been decided and is of type
+\?unsigned long long int?.
+\end{itemize}
 
 \subsection{Tracers for float variables}
 \label{sec:m:group:tracers:float}
