@@ -514,7 +514,7 @@ discussed below.
 
 The example tracer prints information about propagators and
 branchers using static member function \?ids()? (for
-indentifiers). Priniting information about propagators is
+identifiers). Printing information about propagators is
 implemented as follows:
 \insertlitcode{integer tracer:print propagator information}
 
@@ -586,7 +586,7 @@ Note that all entities relevant for tracing carry a \emph{unique}
 and \emph{global} identity: propagators, branchers, propagators groups, and
 brancher groups all provide a function \?id()? that return a
 unique identifier for that entity of type \?unsigned int?. The
-identitiy is global in that it does not change when a space is
+identity is global in that it does not change when a space is
 being cloned during search. Hence naming entities through a hash
 table mapping identity to a user-defined name is straightforward.
 }
@@ -612,17 +612,18 @@ execute any trace function at any time.
 \subsection{Tracers for set variables}
 \label{sec:m:group:tracers:set}
 
-The types and class for set variable tracers are as follows:
+The types and classes for set variable tracers are as follows:
 \begin{itemize}
 \item The trace recorder is of type
   \gecoderef[typedef]{SetTraceRecorder}.
 \item The trace delta information is of class
-  \gecoderef[class]{SetTraceDelta} which implements a member
-  function \?glb()? that returns a range iterator of class
+  \gecoderef[class]{SetTraceDelta} which implements two member
+  functions \?glb()? (for greatest lower bound) and \?lub()? (for
+  least upper bound) which return range iterators. The function
+  \?glb()? returns a range iterator of class
   \gecoderef[class]{SetTraceDelta::Glb} which iterates over the
-  values that have been included into a set by a prune-event and 
-a member
-  function \?lub()? that returns a range iterator of class
+  values that have been included into a set by a prune-event. The
+  function \?lub()? returns a range iterator of class
   \gecoderef[class]{SetTraceDelta::Lub} which iterates over the
   values that have been excluded from a set by a prune-event.
 \item The slack of a set variable is defined as the number of
@@ -632,6 +633,25 @@ a member
 
 \subsection{Tracers for float variables}
 \label{sec:m:group:tracers:float}
+
+The types and classes for float variable tracers are as follows:
+\begin{itemize}
+\item The trace recorder is of type
+  \gecoderef[typedef]{FloatTraceRecorder}.
+\item The trace delta information is of class
+  \gecoderef[class]{SetTraceDelta} which implements two member
+  functions \?glb()? (for greatest lower bound) and \?lub()? (for
+  least upper bound) which return range iterators. The function
+  \?glb()? returns a range iterator of class
+  \gecoderef[class]{SetTraceDelta::Glb} which iterates over the
+  values that have been included into a set by a prune-event. The
+  function \?lub()? returns a range iterator of class
+  \gecoderef[class]{SetTraceDelta::Lub} which iterates over the
+  values that have been excluded from a set by a prune-event.
+\item The slack of a set variable is defined as the number of
+  values where membership has not been decided and is of type
+\?unsigned long long int?.
+\end{itemize}
 
 
 \begin{litcode}{integer tracer}{schulte}
