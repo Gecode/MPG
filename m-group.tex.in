@@ -639,18 +639,12 @@ The types and classes for float variable tracers are as follows:
 \item The trace recorder is of type
   \gecoderef[typedef]{FloatTraceRecorder}.
 \item The trace delta information is of class
-  \gecoderef[class]{SetTraceDelta} which implements two member
-  functions \?glb()? (for greatest lower bound) and \?lub()? (for
-  least upper bound) which return range iterators. The function
-  \?glb()? returns a range iterator of class
-  \gecoderef[class]{SetTraceDelta::Glb} which iterates over the
-  values that have been included into a set by a prune-event. The
-  function \?lub()? returns a range iterator of class
-  \gecoderef[class]{SetTraceDelta::Lub} which iterates over the
-  values that have been excluded from a set by a prune-event.
-\item The slack of a set variable is defined as the number of
-  values where membership has not been decided and is of type
-\?unsigned long long int?.
+  \gecoderef[class]{FloatTraceDelta} which implements two member
+  functions \?min()? and \?max()? defining the interval of float
+  values that have been pruned.
+\item The slack of a float variable is defined as its width and
+  is of type \gecoderef[type]{FloatNum}.
+
 \end{itemize}
 
 
