@@ -22,24 +22,24 @@ process trace information) can be programmed.
 
 Each propagator belongs to exactly one \emph{propagator group} of
 type \gecoderef[class]{PropagatorGroup}. When a propagator is
-created, it is conceptually added to a group. Group membership of
-a propagator remains stable during copying of spaces.
+created, it is added to a group. Group membership of a propagator
+remains stable during copying of spaces.
 
 \paragraph{Adding propagators to groups.}
 
-The following code fragment creates a propagator group \?pg?:
+The following code creates a propagator group~\?pg?:
 \begin{code}
 PropagatorGroup pg;
 \end{code}
-A propagator can be added to the group \?pg? by passing the group
+A propagator can be added to the group~\?pg? by passing the group
 as additional information adjoined to the \?home? information when
-the propagator is posted. For example when assuming that \?home?
-refers to a space, then
+the propagator is posted. For example, when assuming that \?home?
+refers to a space of type \?Space&?, then
 \begin{code}
 distinct(home(pg), x);
 \end{code}
 adds all propagators created by the constraint post function
-\?distinct()? to the propagator group \?pg?. Equivalently, one
+\?distinct()? to the propagator group~\?pg?. Equivalently, one
 can also use:
 \begin{code}
 distinct(pg(home), x);
@@ -51,19 +51,21 @@ then the propagator is added to the default propagator group
 
 \paragraph{Moving propagators between groups.}
 
-Propagators can be moved from one group into another. For
-example, if \?pga? and \?pgb? are propagator groups, then
+Propagators can be moved from one group to another. For
+example, if \?pga? and~\?pgb? are propagator groups, then
 \begin{code}
 pga.move(home,pgb);
 \end{code}
 moves all propagators from group \?pgb? into group \?pga?. An
-individual propagator \?p? (of type \?Propagator&?) can also be
+individual propagator~\?p? (of type \?Propagator&?) can also be
 moved into a propagator group \?pg? by
 \begin{code}
 pg.move(home,p);
 \end{code}
-Individual propagators can also be moved by giving their id. For
-example, the following is equivalent to the previous example:
+
+A propagator~\?p? can also be moved by giving its
+identity \?p.id()?. For example, the following is equivalent to the
+previous example:
 \begin{code}
 unsigned int id = p.id();
 pg.move(home,id);
@@ -80,12 +82,12 @@ PropagatorGroup::def.move(home,pg);
 \end{code}
 
 Move operations can be concatenated as they return its group. For
-example, if \?pg? is a propagator group and \?p1? and \?p2? are
+example, if \?pg? is a propagator group and \?p? and \?q? are
 two propagators, then
 \begin{code}
-pg.move(p1).move(p2);
+pg.move(p).move(q);
 \end{code}
-removes both \?p1? and \?p2? from \?pg?.
+removes both~\?p? and~\?q? from \?pg?.
 
 \paragraph{Operations on propagator groups.}
 
@@ -106,6 +108,7 @@ One can iterate over all propagators in a group. For example
 for (Propagators p(home,pg); p() ++p)
   std::cout << p.propagator.id() << std::endl;
 \end{code}
+%>>
 prints the unique identifier of each propagator contained in
 group \?pg?. Note that a propagator also provides access to the
 group it belongs to, assume that \?p? is of type \?Propagator&?,
@@ -127,6 +130,7 @@ enabled by
 \begin{code}
 pg.enable(home);
 \end{code}
+
 By default, enabling a disabled propagator will schedule the
 propagator for execution if necessary. Hence, next time the
 \?status()? function of the propagator's home space is executed,
@@ -140,6 +144,8 @@ All propagators in a group can be killed by
 \begin{code}
 pg.kill(home);
 \end{code}
+
+\paragraph{Groups for all propagators.}
 
 For convenience, there is one special propagator group
 \?PropagatorGroup::all? which refers to all propagators in a
@@ -156,7 +162,7 @@ evaluates to the number of all propagators in the space \?home?.
 
 Brancher groups contain branchers and each brancher belongs to
 exactly one brancher group of type
-\gecoderef[class]{BrancherGroup}. Brancher groups are very
+\gecoderef[class]{BrancherGroup}. Brancher groups are 
 similar to propagator groups as described in the previous
 section:
 \begin{itemize}
@@ -231,15 +237,15 @@ The trace recorder records the following events:
 \item A single \emph{init-event} providing some information about
   the variables for which the trace recorder will record
   information.
-\item A \emph{prune-event} is recorded, each time the domain of a
-  variable is changed. The trace recorder provides information
-  about which variable has been changed how and on behalf of
-  which entity (a propagator, a brancher, or a constraint post
-  function performing pruning outside any propagator or
-  brancher).
+\item Each time the domain of a variable changes, a
+  \emph{prune-event} is recorded.  The trace recorder provides
+  information about which variable has been changed how and on
+  behalf of which entity (a propagator, a brancher, or a
+  constraint post function performing pruning outside any
+  propagator or brancher).
 \item A \emph{fixpoint-event} is recorded when the space
-  containing the trace recorder reaches a fixpoint, triggered by the
-  execution of the space's \?status()? function.
+  containing the trace recorder reaches a fixpoint, triggered by
+  the execution of the space's \?status()? function.
 \item A \emph{done-event} that is recorded when all of the trace
   recorder's variables have been assigned and hence no further
   recording is needed. Note that this event can occur only once
@@ -252,7 +258,7 @@ trace recorder's variable type.
  
 \subsection{Default tracers}
 
-The following paragraphs explain the information shown by the
+The following paragraphs explain the information printed by the
 default tracer for a given variable type.
 
 \paragraph{Integer and Boolean variables.}
@@ -281,8 +287,8 @@ When running the example \gecoderef[example]{money} (see
 More Money problem) with the
 commandline option \?-trace all? (trace events to be recorded
 can be specified on the command line, see
-\autoref{sec:m:driver:options}), the default tracer for integer
-will print information about all trace events to \?std::cerr?. An
+\autoref{sec:m:driver:options}), the default tracer for integer variables
+prints information about all trace events to \?std::cerr?. An
 excerpt of the information printed is shown in
 \autoref{fig:m:group:smm} where the trace recorder has been
 posted with
@@ -351,7 +357,7 @@ Defining custom tracers is straightforward, this is explained in
 \paragraph{Set variables.}
 
 The information printed for init-, fixpoint-, and done-events for
-set variables, is analogous to the information for integer
+set variables is analogous to the information for integer
 variables. The slack of a set variable here is defined as the
 number of values that can be still included or excluded from the
 set variable (that is, it corresponds to \?x.unknownSize()? where
@@ -360,14 +366,14 @@ is \?x? is a set variable of type \gecoderef[class]{SetVar}).
 For a prune-event, it is shown which values have been included in
 the set and which values have been excluded from the set. For
 example in
-\begin{code}
+\begin{cmd}
 trace<Set>::prune(id:0): [0] = {1..6} + {6..6} - {} by brancher(id:1)
-\end{code}
+\end{cmd}
 the value \?6? has been included into the set variable and no value
 has been excluded whereas in
-\begin{code}
+\begin{cmd}
 trace<Set>::prune(id:0): [1] = {1..3} + {} - {4..6} by propagator(id:1)
-\end{code}
+\end{cmd}
 the values \?3?, \?4?, \?5?, and \?6? have been excluded. You can
 try the \gecoderef[example]{hamming} example that supports tracing.
 
@@ -379,7 +385,7 @@ analogous to the information for integer variables, where for a
 prune-event the interval containing the pruned values is printed.
 
 For an example that supports tracing for float variable, you
-might try \gecoderef[example]{descartes-folium} example.
+might want to try \gecoderef[example]{descartes-folium} example.
 
 \subsection{Using trace filters}
 
@@ -455,8 +461,7 @@ group~\?t? by
 \begin{code}
 trace(home(t), x);
 \end{code}
-the trace recorder can be controlled through the group~\?t? it
-belongs to.
+the trace recorder can be controlled through the group~\?t?.
 
 For example, the trace recorder can be disabled by
 \begin{code}
@@ -470,6 +475,7 @@ Of courses, one can easily add several trace recorders (either
 for different variables or different variable types) to the same
 propagator group and hence jointly control all trace recorders in
 that group.
+
 
 \section{Programming tracers}
 \label{sec:m:group:tracers}
@@ -504,8 +510,8 @@ and float variables in \autoref{sec:m:group:tracers:set} and
 \end{figure}
 
 The example tracer we are going to discuss is implemented by a
-class \?StdCoutIntTracer? and prints trace information to
-\?std::cout? and is shown in \autoref{fig:m:group:tracer}. The
+class \?StdCoutIntTracer?, prints trace information to
+\?std::cout?, and is shown in \autoref{fig:m:group:tracer}. The
 \?init()? and \?done()? member functions will not be discussed as
 they are very similar to the member function \?fix()? which is
 discussed below.
@@ -513,7 +519,7 @@ discussed below.
 \paragraph{Printing propagator information.}
 
 The example tracer prints information about propagators and
-branchers using static member function \?ids()? (for
+branchers using overloaded static member functions \?ids()? (for
 identifiers). Printing information about propagators is
 implemented as follows:
 \insertlitcode{integer tracer:print propagator information}
@@ -539,7 +545,7 @@ information provided by an object of class
 
 \paragraph{Printing prune-events.}
 
-A \?prune()? member function takes several arguments that provide
+A \?prune()? member function takes arguments that provide
 information about \emph{what} is being pruned (this is given by
 the integer~\?i? as the position of the variable in the array
 passed to the \?trace()? function), \emph{how} the variable has
@@ -555,7 +561,8 @@ function prints information as follows:
 As can be seen, the argument~\?d? of type
 \gecoderef[class]{IntTraceDelta} is a range iterator with the
 same interface as described in \autoref{sec:m:int:iter} and
-iterates of the integer ranges that have been removed. The trace
+iterates of the integer ranges that correspond to the values that
+have been removed. The trace
 recorder~\?t? provides access to its variables through an array
 operator \?[]?.
 
@@ -588,26 +595,26 @@ brancher groups all provide a function \?id()? that return a
 unique identifier for that entity of type \?unsigned int?. The
 identity is global in that it does not change when a space is
 being cloned during search. Hence naming entities through a hash
-table mapping identity to a user-defined name is straightforward.
+table mapping identities to user-defined names is straightforward.
 }
 
 \paragraph{Tracers for Boolean variables.}
 
-Tracers for Boolean variables are exactly like for integer
+Tracers for Boolean variables are exactly like tracers for integer
 variables: a Boolean trace recorder is of type
 \gecoderef[typedef]{BoolTraceRecorder}, the trace delta is also a
 range iterator of
 class \gecoderef[class]{BoolTraceDelta}, and the slack is defined
-as for integer variables and also of type
+as for integer variables and is also of type
 \?unsigned long long int?.
 
 \paragraph{Memory and concurrency properties of tracers.}
 
-There is no automatic memory management for tracers, the uses is
-responsible for creating and deleting them. Tracers can be used
+There is no automatic memory management for tracers, the user is
+responsible for creating and deleting tracers. A tracer can be used
 across several threads where it is ensured that the execution of
-a trace function is synchronized in that at most one thread can
-execute any trace function at any time.
+a trace function is synchronized in that at most one thread
+executes any trace function at any given time.
 
 \subsection{Tracers for set variables}
 \label{sec:m:group:tracers:set}
@@ -622,10 +629,10 @@ The types and classes for set variable tracers are as follows:
   least upper bound) which return range iterators. The function
   \?glb()? returns a range iterator of class
   \gecoderef[class]{SetTraceDelta::Glb} which iterates over the
-  values that have been included into a set by a prune-event. The
+  values that have been included into a set variable by a prune-event. The
   function \?lub()? returns a range iterator of class
   \gecoderef[class]{SetTraceDelta::Lub} which iterates over the
-  values that have been excluded from a set by a prune-event.
+  values that have been excluded from a set variable by a prune-event.
 \item The slack of a set variable is defined as the number of
   values where membership has not been decided and is of type
 \?unsigned long long int?.
