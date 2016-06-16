@@ -1863,11 +1863,10 @@ shown, the other cases are analogous.
 \chapter{Tracing support}
 \label{chap:v:trace}
 
-
 \begin{figure}
-\insertlitcode{int.hh:tracing}
-\caption{Tracing}
-\label{fig:v:trace:tracing}
+  \insertlitcode{int.hh:tracing}
+  \caption{Tracin}g
+  \label{fig:v:trace:tracing}
 \end{figure}
 
 \insertlitcode{int.hh:trace view}
@@ -3125,11 +3124,18 @@ namespace MPG {
 namespace MPG { namespace Int {
   \begin{litblock}{trace view}
   class IntTraceView {
+  protected:
+    int l, u;
   public:
     IntTraceView(void) {}
-    IntTraceView(Space& home, IntView y) {}
-    void prune(Space& home, IntView y, const Delta& d) {}
-    void update(Space& home, bool share, IntTraceView x) {} 
+    IntTraceView(Space& home, IntView x)
+      : l(x.min()), u(x.max()) {}
+    void prune(Space& home, IntView x, const Delta& d) {
+      l=x.min(); u=x.min();
+    }
+    void update(Space& home, bool share, IntTraceView x) {
+      l=x.min(); u=x.max();
+    } 
     static unsigned long long int slack(IntView x) {
       return static_cast<unsigned long long int>(x.max() - x.min());
     }
@@ -3172,7 +3178,7 @@ namespace Gecode {
 namespace MPG {
   \begin{litblock}{tracer and trace recorder}
   typedef Tracer<Int::IntView> IntTracer;
-
+  
   typedef TraceRecorder<Int::IntView> IntTraceRecorder;
   \end{litblock}
   \begin{litblock}{standard tracer}
