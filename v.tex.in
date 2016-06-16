@@ -71,8 +71,7 @@ Programming variables includes the following tasks:
   schedule propagators that have subscribed to a variable
   implementation and to maintain these subscriptions during
   cloning.
-\item
-The second task consists of programming the
+\item The second task consists of programming the
   domain-dependent operations of a variable implementation. This
   is achieved by defining a class for a variable implementation
   that inherits from the generated, domain-independent base class
@@ -130,13 +129,12 @@ The second task consists of programming the
   expressions and relations as provided by the MiniModel modeling
   support. For an example, please consider
   \autoref{sec:m:minimodel:boolmisc}.
-\item \emph{Tracing} support: in order to support tracing of
-  constraint propagation, one needs to implement a few
-  classes. Only so-called \emph{trace views} require some effort,
-  the remaining functionality that needs to be implemented is
-  straightforward and can be done by following a simple
-  recipse. The details for tracing are discussed in
-  \autoref{chap:v:trace}.
+\item \emph{Tracing} support (\autoref{chap:v:trace}): in order
+  to support tracing of constraint propagation, one needs to
+  implement a few classes. Only so-called \emph{trace views}
+  require some effort, the remaining functionality that needs to
+  be implemented is straightforward and can be done by following
+  a simple recipe.
 \end{itemize}
 
 \paragraph{Putting everything together.}
@@ -226,6 +224,13 @@ namespace \?MPG? instead of \?Gecode?):
   brancher must in fact be implemented, even though a number of
   rather straightforward support definitions must be
   implemented (which are contained in the namespace \?MPG::Int?).
+\item Tracing: tracers are implemented by the class \?IntTracer?
+  (a type definition), a standard tracer is implemented by the
+  class \?StdIntTracer?,
+  a trace recorder by a class \?IntTraceRecorder? (also a
+  type definition), and an integer trace delta by a class
+  \?IntTraceDelta?. Additionally, trace views are implemented by 
+  a class \?Int::IntTraceView? and some traits must be defined.
 \end{itemize}
 
 \paragraph{Inline functions as simplification.}
@@ -1859,6 +1864,26 @@ shown, the other cases are analogous.
 \label{chap:v:trace}
 
 
+\begin{figure}
+\insertlitcode{int.hh:tracing}
+\caption{Tracing}
+\label{fig:v:trace:tracing}
+\end{figure}
+
+\insertlitcode{int.hh:trace view}
+
+\insertlitcode{int.hh:trace delta}
+
+\insertlitcode{int.hh:trace traits}
+
+\insertlitcode{int.hh:tracer and trace recorder}
+
+\insertlitcode{int.hh:standard tracer}
+
+\insertlitcode{int.hh:trace post function}
+
+
+
 \chapter{Putting everything together}
 \label{chap:v:all}
 
@@ -1966,6 +1991,7 @@ directory for include files and library files is
 #define __MPG_INT_HH__
 \begin{litblock}{anonymous}
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <climits>
 
@@ -1982,6 +2008,7 @@ using Gecode::ModEvent;
 using Gecode::ModEventDelta;
 using Gecode::PropCond;
 using Gecode::Propagator;
+using Gecode::Brancher;
 using Gecode::Space;
 using Gecode::VarArgArray;
 using Gecode::VarArray;
@@ -1990,6 +2017,7 @@ using Gecode::VarImpView;
 using Gecode::AFC;
 using Gecode::Activity;
 using Gecode::Home;
+using Gecode::ExecInfo;
 using Gecode::ViewArray;
 using Gecode::Rnd;
 using Gecode::VarBranch;
@@ -2022,6 +2050,13 @@ using Gecode::ValCommitFunction;
 using Gecode::ViewValBrancher;
 using Gecode::TieBreak;
 using Gecode::function_cast;
+using Gecode::TraceRecorder;
+using Gecode::Tracer;
+using Gecode::TraceFilter;
+using Gecode::TE_INIT;
+using Gecode::TE_PRUNE;
+using Gecode::TE_FIX;
+using Gecode::TE_DONE;
 
 \end{litblock}
 
@@ -3086,6 +3121,129 @@ namespace MPG {
 }
 \end{litblock}
 
+\begin{litblock}{tracing}
+namespace MPG { namespace Int {
+  \begin{litblock}{trace view}
+  class IntTraceView {
+  public:
+    IntTraceView(void) {}
+    IntTraceView(Space& home, IntView y) {}
+    void prune(Space& home, IntView y, const Delta& d) {}
+    void update(Space& home, bool share, IntTraceView x) {} 
+    static unsigned long long int slack(IntView x) {
+      return static_cast<unsigned long long int>(x.max() - x.min());
+    }
+  };
+  \end{litblock}
+}}
+
+namespace MPG {
+  \begin{litblock}{trace delta}
+  class IntTraceDelta {
+  protected:
+    int l, u;
+  public:
+    IntTraceDelta(Int::IntTraceView o, Int::IntView n, const Delta& d)
+      : l(n.min(d)), u(n.max(d)) {}
+    int min(void) const {
+      return l;
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return u;
+    }
+    \end{litblock}
+  };
+  \end{litblock}
+}
+
+namespace Gecode {
+  \begin{litblock}{trace traits}
+  template<>
+  class TraceTraits<MPG::Int::IntView> {
+  public:
+    typedef MPG::Int::IntTraceView TraceView;
+    typedef MPG::IntTraceDelta     TraceDelta;
+    typedef unsigned long long int SlackValue;
+  };
+  \end{litblock}
+}
+
+namespace MPG {
+  \begin{litblock}{tracer and trace recorder}
+  typedef Tracer<Int::IntView> IntTracer;
+
+  typedef TraceRecorder<Int::IntView> IntTraceRecorder;
+  \end{litblock}
+  \begin{litblock}{standard tracer}
+  class StdIntTracer : public IntTracer {
+  protected:
+    std::ostream& os;
+  public:
+    StdIntTracer(std::ostream& os0 = std::cerr) : os(os0) {}
+    \begin{litblock}{anonymous}
+    virtual void init(const Space& home, const IntTraceRecorder& t) {
+      os << "trace<Int>::init(id:" << t.id();
+      if (t.group().in())
+        os << ",g:";t.group().id();
+      os << ") slack: 100.00% (" << t.slack().initial() << " values)"
+         << std::endl;
+    }
+    virtual void prune(const Space& home, const IntTraceRecorder& t,
+                       const ExecInfo& ei, int i, IntTraceDelta& d) {
+      os << "trace<Int>::prune(id:" << t.id();
+      if (t.group().in())
+        os << ",g:";t.group().id();
+      os << "): [" << i << "] = " << t[i] 
+         << " - {" << d.min() << ".." << d.max()
+         << "} by " << ei << std::endl;
+    }
+    virtual void fix(const Space& home, const IntTraceRecorder& t) {
+      os << "trace<Int>::fix(id:" << t.id();
+      if (t.group().in())
+        os << ",g:";t.group().id();
+      os << ") slack: ";
+      double sl_i = static_cast<double>(t.slack().initial());
+      double sl_p = static_cast<double>(t.slack().previous());
+      double sl_c = static_cast<double>(t.slack().current());
+      double p_c = 100.0 * (sl_c / sl_i);
+      double p_d = 100.0 * (sl_p / sl_i) - p_c;
+      os << std::showpoint << std::setprecision(4)
+         << p_c << "% - "
+         << std::showpoint << std::setprecision(4)
+         << p_d << '%'
+         << std::endl;
+    }
+    virtual void done(const Space& home, const IntTraceRecorder& t) {
+      os << "trace<Int>::done(id:" << t.id();
+      if (t.group().in())
+        os << ",g:";t.group().id();
+      os << ") slack: 0%" << std::endl;
+    }
+    \end{litblock}
+    static StdIntTracer def;
+  };
+  StdIntTracer StdIntTracer::def;
+  \end{litblock}
+  \begin{litblock}{trace post function}
+  inline void
+  trace(Home home, const IntVarArgs& x,
+        TraceFilter tf = TraceFilter::all,
+        int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_DONE),
+        IntTracer& t = StdIntTracer::def) {
+    GECODE_POST;
+    ViewArray<Int::IntView> xv(home,x);
+    GECODE_ES_FAIL(IntTraceRecorder::post(home,xv,tf,te,t));
+  }
+  inline void
+  trace(Home home, const IntVarArgs& x,
+        int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_DONE),
+        IntTracer& t = StdIntTracer::def) {
+    trace(home,x,TraceFilter::all,te,t);
+  }
+  \end{litblock}
+}
+\end{litblock}
 #endif
 \end{litcode}
 
