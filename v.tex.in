@@ -3130,11 +3130,19 @@ namespace MPG { namespace Int {
     IntTraceView(void) {}
     IntTraceView(Space& home, IntView x)
       : l(x.min()), u(x.max()) {}
+    int min(void) const {
+      return l;
+    }
+    \begin{litblock}{anonymous}
+    int max(void) const {
+      return u;
+    }
+    \end{litblock}
     void prune(Space& home, IntView x, const Delta& d) {
       l=x.min(); u=x.min();
     }
     void update(Space& home, bool share, IntTraceView x) {
-      l=x.min(); u=x.max();
+      l=x.l; u=x.u;
     } 
     static unsigned long long int slack(IntView x) {
       return static_cast<unsigned long long int>(x.max() - x.min());
@@ -3150,7 +3158,7 @@ namespace MPG {
     int l, u;
   public:
     IntTraceDelta(Int::IntTraceView o, Int::IntView n, const Delta& d)
-      : l(n.min(d)), u(n.max(d)) {}
+      : l(o.min()), u(o.max()) {}
     int min(void) const {
       return l;
     }
@@ -3233,8 +3241,7 @@ namespace MPG {
   \end{litblock}
   \begin{litblock}{trace post function}
   inline void
-  trace(Home home, const IntVarArgs& x,
-        TraceFilter tf = TraceFilter::all,
+  trace(Home home, const IntVarArgs& x, TraceFilter tf,
         int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_DONE),
         IntTracer& t = StdIntTracer::def) {
     GECODE_POST;
@@ -3558,6 +3565,9 @@ public:
     // Symmetry breaking
     if (n > 2)
       less(*this, d[0], d[n_d-1]);
+ 
+    // Tracing
+    trace(*this, m);
 
     branch(*this, m, INT_VAR_NONE(), INT_VAL_MIN());
   }
