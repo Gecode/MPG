@@ -1863,23 +1863,108 @@ shown, the other cases are analogous.
 \chapter{Tracing support}
 \label{chap:v:trace}
 
+This chapter shows how to add tracing support for a new variable
+type.
+
 \begin{figure}
   \insertlitcode{int.hh:tracing}
-  \caption{Tracin}g
+  \caption{Part of header file concerned with tracing}
   \label{fig:v:trace:tracing}
 \end{figure}
 
+\paragraph{Overview.}
+\autoref{fig:v:trace:tracing} shows the part of the header file
+concerned with tracing. Trace views are used to save the state of
+a view's domain after it has been modified by a prune-event and
+trace deltas are used to compute the values that have been
+removed by a prune-event. They are discussed in
+\autoref{sec:v:trace:views}. How tracers and trace recorder are
+instantiated is described in
+\autoref{sec:v:trace:tracer}. Finally, 
+\autoref{sec:v:trace:post} describes how to actually post trace
+recorders through trace post functions.
+
+\section{Trace views and deltas}
+\label{sec:v:trace:views}
+
+Trace views are used to save the domain of a view after a
+prune-event has occured. When another prune event occurs, a
+trace view is used to compute a trace delta between the
+previously recorded domain and the current domain of the
+view. For our integer interval variables, the integer trace view
+stores the lower and upper bound as follows:
 \insertlitcode{int.hh:trace view}
 
+The trace view is initialized by its constructor. It does not
+have to implement all functions of a view, only an \?update()?
+function is needed and two functions that are specific to trace
+views.
+
+\paragraph{Prune function.}
+
+The prune function is executed when a prune-event has
+occured. Here the integer view \?x? is the view after the prune
+event and the modification delta \?d? contains information about
+the prune-event. For integer interval variables it is sufficient
+to update the lower and upper bound of the trace view as follows: 
+\insertlitcode{int.hh:prune function}
+
+
+\paragraph{Slack function.}
+
+For all other event types, the slack of a variable must be
+available, computed by a \?slack()? function as follows:
+\insertlitcode{int.hh:slack function}
+
+Here the slack is defined
+as the values that are still to be removed and to avoid numeric
+overflow for several views the return type is defined as
+\?unsigned long long int?.
+
+\paragraph{Trace delta.}
+
+The trace delta provides information about which values have been
+removed by a prune-event. For integer interval variables, the
+trace delta is defined and computed as follows:
 \insertlitcode{int.hh:trace delta}
 
+Note as integer interval variables are so simple, it would also
+have been possible to not store the lower and upper bound in the
+trace view but to extract the information from the modification
+delta \?d? directly.
+
+
+
+\section{Tracers and trace recorders}
+\label{sec:v:trace:tracer}
+
+For tracers and trace recorders it is sufficient to define some
+traits for tracing as follows:
 \insertlitcode{int.hh:trace traits}
+Here the type names are self explanatory.
 
+\begin{samepage}
+An integer tracer and trace recorder can be obtained by simple
+type definitions as follows:
 \insertlitcode{int.hh:tracer and trace recorder}
+\end{samepage}
 
+If desired, one can also define a standard tracer for convenience:
 \insertlitcode{int.hh:standard tracer}
+The implementation is not detailed here, see
+\autoref{sec:m:group:tracers} for details.
 
+\section{Trace post functions}
+\label{sec:v:trace:post}
+
+The trace post function is like a constraint post function: it
+creates integer views for the variables and then posts the trace
+recorder as follows:
 \insertlitcode{int.hh:trace post function}
+
+For convenience, the following post function allows to post a
+trace recorder without specifying any trace filter:
+\insertlitcode{int.hh:trace post function convenience}
 
 
 
@@ -3006,10 +3091,7 @@ namespace MPG { namespace Int {
     \begin{litblock}{no-good literal creation}
     NGL* ngl(Space& home, unsigned int a, 
              IntView x, int n) const {
-      if (a == 0)
-        return new (home) LqNGL(home,x,n);
-      else
-        return NULL;
+      return (a == 0) ? new (home) LqNGL(home,x,n) : NULL;
     }
     \end{litblock}
   };
@@ -3138,15 +3220,19 @@ namespace MPG { namespace Int {
       return u;
     }
     \end{litblock}
-    void prune(Space& home, IntView x, const Delta& d) {
-      l=x.min(); u=x.min();
-    }
     void update(Space& home, bool share, IntTraceView x) {
       l=x.l; u=x.u;
     } 
+    \begin{litblock}{prune function}
+    void prune(Space& home, IntView x, const Delta& d) {
+      l=x.min(); u=x.min();
+    }
+    \end{litblock}
+    \begin{litblock}{slack function}
     static unsigned long long int slack(IntView x) {
       return static_cast<unsigned long long int>(x.max() - x.min());
     }
+    \end{litblock}
   };
   \end{litblock}
 }}
@@ -3157,8 +3243,13 @@ namespace MPG {
   protected:
     int l, u;
   public:
-    IntTraceDelta(Int::IntTraceView o, Int::IntView n, const Delta& d)
-      : l(o.min()), u(o.max()) {}
+    IntTraceDelta(Int::IntTraceView o, Int::IntView n, const Delta& d) {
+      if (n.min() > o.min()) {
+        l=o.min();   u=n.min()-1;
+      } else {
+        l=n.max()+1; u=o.max();
+      }
+    }
     int min(void) const {
       return l;
     }
@@ -3248,6 +3339,8 @@ namespace MPG {
     ViewArray<Int::IntView> xv(home,x);
     GECODE_ES_FAIL(IntTraceRecorder::post(home,xv,tf,te,t));
   }
+  \end{litblock}
+  \begin{litblock}{trace post function convenience}
   inline void
   trace(Home home, const IntVarArgs& x,
         int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_DONE),

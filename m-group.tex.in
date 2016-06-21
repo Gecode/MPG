@@ -650,7 +650,7 @@ The types and classes for float variable tracers are as follows:
   functions \?min()? and \?max()? defining the interval of float
   values that have been pruned.
 \item The slack of a float variable is defined as its width and
-  is of type \gecoderef[type]{FloatNum}.
+  is of type \gecoderef[typedef]{FloatNum}.
 
 \end{itemize}
 
