@@ -183,7 +183,7 @@ can also write \?bg(home)? instead of \?home(bg)?.
   \?move()? functions for propagator groups.
 \item
 If no brancher group is specified,
-then the brancher is added to the default group
+branchers are added to the default group
 \?BrancherGroup::def?. 
 \item The number of branchers in a group can be computed by the
 \?size()? member function. Each
@@ -282,7 +282,7 @@ trace<Int>::prune(id:0): [1] = [6..7] - {5} by brancher(id:1)
 \label{fig:m:group:smm}
 \end{figure}
 
-When running the example \gecoderef[example]{money} (see
+Running the \gecoderef[example]{money} (see
 \autoref{chap:m:started} and \autoref{chap:m:comfy} for the Send
 More Money problem) with the
 commandline option \?-trace all? (trace events to be recorded
@@ -296,6 +296,20 @@ posted with
 trace(home, le);
 \end{code}
 where \?le? is the array of eight variables.
+
+\tip{Enabling tracing with a commandline option}{
+As mentioned above, the Gecode driver offers
+also support for tracing. If \?opt? is an object of class
+\gecoderef[class]{Options}, then adding the following code
+\begin{code}
+if (opt.trace() != 0)
+  trace(home, x, opt.trace());
+\end{code}
+enables tracing if the \?-trace? commandline option is used. The
+option takes \?all? as value for tracing all events as well as a
+comma-separated list of \?init?, \?prune?, \?fix?, and \?done?
+for the respective event types.
+}
 
 The output for each event starts with the information
 \begin{cmd}
@@ -359,7 +373,7 @@ Defining custom tracers is straightforward, this is explained in
 The information printed for init-, fixpoint-, and done-events for
 set variables is analogous to the information for integer
 variables. The slack of a set variable here is defined as the
-number of values that can be still included or excluded from the
+number of values that can be still included in or excluded from the
 set variable (that is, it corresponds to \?x.unknownSize()? where
 is \?x? is a set variable of type \gecoderef[class]{SetVar}).
 
@@ -369,12 +383,12 @@ example in
 \begin{cmd}
 trace<Set>::prune(id:0): [0] = {1..6} + {6..6} - {} by brancher(id:1)
 \end{cmd}
-the value \?6? has been included into the set variable and no value
+the value \?6? has been included into the variable and no value
 has been excluded whereas in
 \begin{cmd}
 trace<Set>::prune(id:0): [1] = {1..3} + {} - {4..6} by propagator(id:1)
 \end{cmd}
-the values \?3?, \?4?, \?5?, and \?6? have been excluded. You can
+the values \?4?, \?5?, and \?6? have been excluded. You can
 try the \gecoderef[example]{hamming} example that supports tracing.
 
 \paragraph{Float variables.}
@@ -384,8 +398,8 @@ variable domain. The information printed for the events is
 analogous to the information for integer variables, where for a
 prune-event the interval containing the pruned values is printed.
 
-For an example that supports tracing for float variable, you
-might want to try \gecoderef[example]{descartes-folium} example.
+For an example that supports tracing for float variables, you
+might want to try the \gecoderef[example]{descartes-folium} example.
 
 \subsection{Using trace filters}
 
@@ -397,31 +411,32 @@ functions. Therefore, one can pass as an optional argument a
 defined by a \emph{trace filter expression} (or \emph{TFE}) of type
 \gecoderef[class]{TFE} to a trace recorder.
 
+\begin{samepage}
 Assume that \?pga? and \?pgb? are two propagator groups and
 \?bg? is a brancher group. Then
 \begin{code}
 trace(home, x, pga);
 \end{code}
-will trace only prune-events that have been caused by a
+\end{samepage}
+traces only prune-events that have been caused by a
 propagator or a post function associated with the group
 \?pga?. Prune-events caused by propagators or post functions from
-\?pga? and \?pgb? will be traced by
+groups \?pga? and \?pgb? are traced by
 \begin{code}
 trace(home, x, pga+pgb);
 \end{code}
 Likewise, prune-events caused by branchers in the group \?bg? or
-by propagators or post functions not associated to \?pga? will be
+by propagators or post functions not associated to \?pga? are
 traced by
 \begin{code}
 trace(home, x, bg-pga);
 \end{code}
-The following will only trace post functions associated to group
-\?pga? and propagators included in \?pgb?:
+The following only traces post functions associated \?pga? and propagators included in \?pgb?:
 \begin{code}
 trace(home, x, post(pga)+propagator(pgb));
 \end{code}
 
-In summary, trace filter expressions can be constructed from the
+In summary, TFEs can be constructed from the
 unary and binary operators~\?+? and~\?-? and the functions
 \?post()? and \?propagator()? taking a propagator group as
 argument.
@@ -434,11 +449,11 @@ example
 \begin{code}
 trace(home, x, TE_PRUNE);
 \end{code}
-will only record prune-events, whereas
+only records prune-events, whereas
 \begin{code}
 trace(home, x, TE_PRUNE | TE_FIX);
 \end{code}
-will record prune- and fixpoint-events. All events (the default)
+records prune- and fixpoint-events. All events (the default)
 are recorded by
 \begin{code}
 trace(home, x, TE_INIT | TE_PRUNE | TE_FIX | TE_DONE);
@@ -456,31 +471,34 @@ For example, by creating a propagator group~\?t? by
 \begin{code}
 PropagatorGroup t;
 \end{code}
+\begin{samepage}
 and then creating a trace recorder so that it belongs to the
 group~\?t? by
 \begin{code}
 trace(home(t), x);
 \end{code}
+\end{samepage}
 the trace recorder can be controlled through the group~\?t?.
-
+\begin{samepage}
 For example, the trace recorder can be disabled by
 \begin{code}
 t.disable(home);
 \end{code}
+\end{samepage}
 and the later enabled by
 \begin{code}
 t.enable(home);
 \end{code}
-Of courses, one can easily add several trace recorders (either
+One can easily add several trace recorders (either
 for different variables or different variable types) to the same
-propagator group and hence jointly control all trace recorders in
+propagator group and jointly control all trace recorders in
 that group.
 
 
 \section{Programming tracers}
 \label{sec:m:group:tracers}
 
-Programming tracers is quite straightforward, by inheriting from
+Programming tracers is straightforward and is done by inheriting from
 a class that depends on the variable type and implements one
 virtual member function for each trace event type. These virtual
 member functions are called when an event of that type is being
@@ -489,11 +507,9 @@ integer variables, the tracer class to inherit from is
 \gecoderef[typedef]{IntTracer}, for Boolean variables
 \gecoderef[typedef]{BoolTracer}, for set variables
 \gecoderef[typedef]{SetTracer}, and for float variables
-\gecoderef[typedef]{FloatTracer}. All classes are in fact type
-definitions instantiating the parametric class
-\gecoderef[class]{Tracer}.
+\gecoderef[typedef]{FloatTracer}.
 
-In the following we are going to discuss tracers for integer and
+In the following we are discussing tracers for integer and
 Boolean variables in some detail in
 \autoref{sec:m:group:tracers:int} and summarize tracers for set
 and float variables in \autoref{sec:m:group:tracers:set} and
@@ -509,11 +525,11 @@ and float variables in \autoref{sec:m:group:tracers:set} and
 \label{fig:m:group:tracer}
 \end{figure}
 
-The example tracer we are going to discuss is implemented by a
+The example tracer we discuss is implemented by a
 class \?StdCoutIntTracer?, prints trace information to
 \?std::cout?, and is shown in \autoref{fig:m:group:tracer}. The
-\?init()? and \?done()? member functions will not be discussed as
-they are very similar to the member function \?fix()? which is
+\?init()? and \?done()? member functions are not discussed as
+they are similar to the member function \?fix()? which is
 discussed below.
 
 \paragraph{Printing propagator information.}
@@ -554,16 +570,20 @@ been pruned (this is given by the argument~\?d? of class
 given by the argument~\?ei? of class \gecoderef[class]{ExecInfo},
 which has been discussed in the previous paragraph). It also gets
 access to the trace recorder of type
-\gecoderef[typedef]{IntTraceRecorder}. The example \?prune()?
+\gecoderef[typedef]{IntTraceRecorder}. 
+
+\begin{samepage}
+The example \?prune()?
 function prints information as follows:
 \insertlitcode{integer tracer:prune event}
+\end{samepage}
 
 As can be seen, the argument~\?d? of type
 \gecoderef[class]{IntTraceDelta} is a range iterator with the
 same interface as described in \autoref{sec:m:int:iter} and
 iterates of the integer ranges that correspond to the values that
 have been removed. The trace
-recorder~\?t? provides access to its variables through an array
+recorder~\?t? provides access to its variables through the array
 operator \?[]?.
 
 \paragraph{Printing fixpoint-events.}
@@ -590,8 +610,8 @@ init-, or done-event occurs.
 \tip{Naming propagators, branchers, variables, and groups}{
 \label{tip:m:group:name}%
 Note that all entities relevant for tracing carry a \emph{unique}
-and \emph{global} identity: propagators, branchers, propagators groups, and
-brancher groups all provide a function \?id()? that return a
+and \emph{global} identity: propagators, branchers, propagator groups, and
+brancher groups all provide a function \?id()? that returns a
 unique identifier for that entity of type \?unsigned int?. The
 identity is global in that it does not change when a space is
 being cloned during search. Hence naming entities through a hash

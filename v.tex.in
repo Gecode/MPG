@@ -54,9 +54,10 @@ values one could choose floating point values.
 Programming variables includes the following tasks:
 \begin{itemize}
 \item \emph{Variable implementations} (\autoref{chap:v:varimp}):
-  Programming a variable implementation consists of two tasks:
-\begin{enumerate}
-\item The first task is to specify domain-independent
+  Programming a variable implementation consists of two tasks.
+\begin{itemize}
+\item
+  The first task is to specify domain-independent
   aspects of a variable implementation. This includes
   specifying a name for the variable implementation type, scope
   information, modification events, and propagation conditions.
@@ -71,12 +72,13 @@ Programming variables includes the following tasks:
   schedule propagators that have subscribed to a variable
   implementation and to maintain these subscriptions during
   cloning.
-\item The second task consists of programming the
+\item
+  The second task consists of programming the
   domain-dependent operations of a variable implementation. This
   is achieved by defining a class for a variable implementation
   that inherits from the generated, domain-independent base class
   and defines the respective domain operations.
-\end{enumerate}
+\end{itemize}
 \item \emph{Variables} and \emph{variable arrays}
   (\autoref{chap:v:var}): As a variable is nothing but a simple
   and read-only interface to a variable implementation, a
@@ -131,10 +133,11 @@ Programming variables includes the following tasks:
   \autoref{sec:m:minimodel:boolmisc}.
 \item \emph{Tracing} support (\autoref{chap:v:trace}): in order
   to support tracing of constraint propagation, one needs to
-  implement a few classes. Only so-called \emph{trace views}
-  require some effort, the remaining functionality that needs to
-  be implemented is straightforward and can be done by following
-  a simple recipe.
+  implement a few classes. 
+
+  Only so-called \emph{trace views} require some effort, the
+  remaining functionality that needs to be implemented is
+  straightforward and can be done by following a simple recipe.
 \end{itemize}
 
 \paragraph{Putting everything together.}
@@ -146,10 +149,9 @@ propagators, post functions using various views, and a
 simple script (Golomb rulers, see \autoref{chap:c:golomb}) using
 integer interval variables.
 
-More importantly, it also shows how Gecode must be configured and
+It also shows how Gecode must be configured and
 compiled such that integer interval variables are supported by
 Gecode's kernel.
-
 
 \section{Structure}
 \label{sec:v:started:structure}
@@ -177,17 +179,20 @@ Similar to the organization of namespaces in Gecode, definitions
 that are used for modeling (variables and variable arrays) are
 contained in the namespace \?MPG?, while definitions that are
 used for programming (variable implementations, views, branchers,
-and additional support) are in the namespace \?MPG::Int?. As the
-structure of namespaces matters (part of the support for variable
-arrays must be defined inside the \?Gecode? namespace), each
-program fragment is shown in its appropriate namespace.
+and additional support) are in the namespace \?MPG::Int?. 
 
-\begin{samepage}
+As the structure of namespaces matters (part of the support for
+variable arrays must be defined inside the \?Gecode? namespace),
+each program fragment is shown in its appropriate namespace.
+
 As an example, consider the definition of exceptions. Two are
 thrown by the constructor of the integer interval
 variable, in case the variable domain is ill-specified. The third
 exception is thrown when the variable or value selection for a
-branching is unknown:
+branching is unknown.
+
+\begin{samepage}
+The exceptions are defined as follows:
 \insertlitcode{int.hh:exceptions}
 \end{samepage}
 
@@ -576,7 +581,7 @@ Any variable implementation must define special events with
 there are only three modification events (all of them special
 with \?=NONE?, \?=FAILED?, \?=ASSIGNED?), the modification event
 used for scheduling a propagator (that is, \?=SUBSCRIBE?) is
-defined to be the event for a varibale becoming assigned (that
+defined to be the event for a variable becoming assigned (that
 is, \?=ASSIGNED?).
 
 The section for modification events also defines how
@@ -1878,7 +1883,7 @@ concerned with tracing. Trace views are used to save the state of
 a view's domain after it has been modified by a prune-event and
 trace deltas are used to compute the values that have been
 removed by a prune-event. They are discussed in
-\autoref{sec:v:trace:views}. How tracers and trace recorder are
+\autoref{sec:v:trace:views}. How tracers and trace recorders are
 instantiated is described in
 \autoref{sec:v:trace:tracer}. Finally, 
 \autoref{sec:v:trace:post} describes how to actually post trace
@@ -1888,7 +1893,7 @@ recorders through trace post functions.
 \label{sec:v:trace:views}
 
 Trace views are used to save the domain of a view after a
-prune-event has occured. When another prune event occurs, a
+prune-event has occurred. When another prune event occurs, a
 trace view is used to compute a trace delta between the
 previously recorded domain and the current domain of the
 view. For our integer interval variables, the integer trace view
@@ -1903,7 +1908,7 @@ views.
 \paragraph{Prune function.}
 
 The prune function is executed when a prune-event has
-occured. Here the integer view \?x? is the view after the prune
+occurred. Here the integer view \?x? is the view after the prune
 event and the modification delta \?d? contains information about
 the prune-event. For integer interval variables it is sufficient
 to update the lower and upper bound of the trace view as follows: 
