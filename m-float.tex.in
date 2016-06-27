@@ -269,7 +269,9 @@ To pass temporary data structures as arguments, you can use the
 are defined in terms of arrays of float values. These can be
 passed using the \gecoderef[class]{FloatValArgs} class. Float
 variable and value argument arrays support the same operations introduced
-in \autoref{sec:m:integer:args}.
+in \autoref{sec:m:integer:args} but
+\gecoderef[class]{FloatValArgs} do not support the initialization
+with a variable number of float values.
 
 
 \section{Constraint overview}
