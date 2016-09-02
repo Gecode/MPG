@@ -781,6 +781,15 @@ a variable implementation is assigned. The
 definitions are as follows:
 \insertlitcode{int.hh:varimp:subscriptions}
 
+\paragraph{Re-scheduling.}
+
+A variable implementation must implement a \?reschedule()?
+operation for both propagators. The
+implementation of this operation is almost identical to the
+\?subscribe()? member function discussed previously. The
+definition is as follows:
+\insertlitcode{int.hh:varimp:re-scheduling}
+
 \paragraph{Copying during cloning.}
 
 Copying a variable implementation during cloning is implemented
@@ -803,6 +812,7 @@ previously created copy as follows:
 \\
 \multicolumn{2}{c}{\textbf{scheduling support}}\\
 \?schedule()? & schedule propagator\\
+\?reschedule()? & re-schedule propagator\\
 \\
 \multicolumn{2}{c}{\textbf{modification event deltas}}\\
 \?me()? & extract modification event\\
@@ -1158,6 +1168,7 @@ Gecode provides three different types of views:
 \\
 \multicolumn{2}{c}{\textbf{scheduling support}}\\
 \?schedule()? & schedule propagator\\
+\?reschedule()? & re-schedule propagator\\
 \\
 \multicolumn{2}{c}{\textbf{modification event deltas}}\\
 \?me()? & extract modification event\\
@@ -2250,6 +2261,12 @@ namespace MPG { namespace Int {
     void cancel(Space& home, Advisor& a) {
       IntVarImpBase::cancel(home,a,assigned());
     }
+    \end{litblock}
+    \begin{litblock}{varimp:re-scheduling}
+    void reschedule(Space& home, Propagator& p, PropCond pc) {
+      IntVarImpBase::reschedule(home,p,pc,assigned());
+    }
+
     \end{litblock}
     \begin{litblock}{varimp:copying}
     IntVarImp(Space& home, bool share, IntVarImp& y)
@@ -3411,9 +3428,9 @@ public:
                                 const Gecode::ModEventDelta&) const {
     return Gecode::PropCost::binary(Gecode::PropCost::LO);
   }
-  virtual void schedule(Space& home) {
-    x0.schedule(home,*this,Int::PC_INT_MIN);
-    x1.schedule(home,*this,Int::PC_INT_MAX);
+  virtual void reschedule(Space& home) {
+    x0.reschedule(home,*this,Int::PC_INT_MIN);
+    x1.reschedule(home,*this,Int::PC_INT_MAX);
   }
   virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
                                        const Gecode::ModEventDelta&)  {
@@ -3461,9 +3478,9 @@ public:
                                 const Gecode::ModEventDelta&) const {
     return Gecode::PropCost::binary(Gecode::PropCost::LO);
   }
-  virtual void schedule(Space& home) {
-    x0.schedule(home,*this,Int::PC_INT_BND);
-    x1.schedule(home,*this,Int::PC_INT_BND);
+  virtual void reschedule(Space& home) {
+    x0.reschedule(home,*this,Int::PC_INT_BND);
+    x1.reschedule(home,*this,Int::PC_INT_BND);
   }
   virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
                                        const Gecode::ModEventDelta&)  {
@@ -3527,10 +3544,10 @@ public:
                                 const Gecode::ModEventDelta&) const {
     return Gecode::PropCost::ternary(Gecode::PropCost::LO);
   }
-  virtual void schedule(Space& home) {
-    x0.schedule(home,*this,Int::PC_INT_BND);
-    x1.schedule(home,*this,Int::PC_INT_BND);
-    x2.schedule(home,*this,Int::PC_INT_BND);
+  virtual void reschedule(Space& home) {
+    x0.reschedule(home,*this,Int::PC_INT_BND);
+    x1.reschedule(home,*this,Int::PC_INT_BND);
+    x2.reschedule(home,*this,Int::PC_INT_BND);
   }
   virtual Gecode::ExecStatus propagate(Gecode::Space& home, 
                                        const Gecode::ModEventDelta&)  {

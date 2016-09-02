@@ -17,7 +17,7 @@ about which view has changed. \autoref{sec:p:advisors:or} shows
 an example propagator that exploits information on how the domain
 of its views have changed. \autoref{sec:p:advisors:force}
 sketches how advisors can be used for forcing propagators to be
-rescheduled.
+re-scheduled.
 
 
 \section{Advisors for incremental propagation}
@@ -122,9 +122,9 @@ In more detail:
   Also, an advisor is never executed when the subscription is
   created, only when the subscription view changes. This also
   means that when using advisors, one also needs to think about
-  how the \?schedule()? member function of the propagator should
-  look like, after all, this function has the responsibilty to
-  schedule a propaagator when needed.
+  how the \?reschedule()? member function of the propagator should
+  look like, after all, this function has the responsibility to
+  re-schedule a propagator when needed.
 \item An advisor is executed as follows: the \?advise()? function
   of its propagator is executed. The function takes the advisor
   as argument and an additional argument of type
@@ -156,7 +156,7 @@ In more detail:
   advisor.
   
   There are two more functions that force the advisor's
-  propagator to be rescheduled. They are discussed in
+  propagator to be re-scheduled. They are discussed in
   \autoref{sec:p:advisors:force}.
 \item Advisors have a rather subtle interaction with disabling a
   propagator: as discussed in \autoref{sec:p:started:solving},
@@ -168,7 +168,7 @@ In more detail:
   If a propagator is disabled (this can be checked by the member
   function \?disabled()? of a propagator), the advisor is
   \emph{not} allowed to report failure! Instead, the
-  \?schedule()? function must make sure that when the propagator
+  \?reschedule()? function must make sure that when the propagator
   is re-enabled and is re-scheduled that its \?propagate()?
   function reports failure instead.
 
@@ -181,7 +181,7 @@ In more detail:
 Note that a propagator using advisors must make sure that its
 advisors schedule the propagator when it is not at fixpoint, this
 applies to when the propagator is posted and when the \?advise()?
-or \?schedule()? functions are executed.  Otherwise, it would not
+or \?reschedule()? functions are executed.  Otherwise, it would not
 meet its ``subscription complete'' obligation (make sure to read
 \autoref{tip:p:advisors:started}). A propagator is free to mix
 subscriptions using advisors and subscriptions using propagation
@@ -323,12 +323,12 @@ schedules the propagator with the information that the bounds
 of some of its integer views have changed.
 }
 
-\paragraph{Scheduling the propagator.}
+\paragraph{Re-scheduling the propagator.}
 
-The \?schedule()? member function just checks whether the
-propagator needs to be scheduled and uses the \?schedule()?
-member functions of integer views as discussedc above:
-\insertlitcode{samedom:scheduling}
+The \?reschedule()? member function just checks whether the
+propagator needs to be scheduled and uses the \?reschedule()?
+member functions of integer views as discussed above:
+\insertlitcode{samedom:re-scheduling}
 
 \paragraph{Mandatory propagator disposal.}
 
@@ -495,11 +495,11 @@ assigned to one. Note that the propagator post function makes
 sure that the propagator is only posted when none of the views in
 \?x? are assigned.
 
-The \?schedule()? function checks whether the propagator needs to
-be re-schedule. This is the case when \?y? has been assigned, or
+The \?reschedule()? function checks whether the propagator needs to
+be re-scheduled. This is the case when \?y? has been assigned, or
 a view in \?x? has been assigned to one, or if all views in \?x?
 have been assigned zero.
-\insertlitcode{or:scheduling}
+\insertlitcode{or:re-scheduling}
 
 
 The \?propagate()? function is straightforward:
@@ -558,10 +558,10 @@ the case that \?x.any(d)? returns true even though only the
 bounds of \?x? have changed.
 
 
-\section{Forced propagator rescheduling}
+\section{Forced propagator re-scheduling}
 \label{sec:p:advisors:force}
 
-An advisor can force its propagator to be rescheduled even though
+An advisor can force its propagator to be re-scheduled even though
 the propagator's modification event delta has not changed. As
 discussed in \autoref{sec:p:domain:staging}, the \?cost()?
 function of a propagator is only recomputed when its modification
@@ -686,8 +686,8 @@ public:
     return PropCost::unary(PropCost::HI);
   }
   \end{litblock}
-  \begin{litblock}{scheduling}
-  virtual void schedule(Space& home) {
+  \begin{litblock}{re-scheduling}
+  virtual void reschedule(Space& home) {
     if (todo != NOTHING)
       Int::IntView::schedule(home, *this, Int::ME_INT_DOM);
   }
@@ -807,7 +807,7 @@ public:
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::unary(PropCost::HI);
   }
-  virtual void schedule(Space& home) {
+  virtual void reschedule(Space& home) {
     if (todo != NOTHING)
       Int::IntView::schedule(home, *this, Int::ME_INT_DOM);
   }
@@ -949,8 +949,8 @@ public:
       return ES_NOFIX;
   }
   \end{litblock}
-  \begin{litblock}{scheduling}
-  virtual void schedule(Space& home) {
+  \begin{litblock}{re-scheduling}
+  virtual void reschedule(Space& home) {
     if (y.assigned() || (n_zero == x.size()))
       Int::BoolView::schedule(home, *this, Int::ME_BOOL_VAL);
     for (int i=x.size(); i--; )

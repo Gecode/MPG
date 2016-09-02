@@ -443,22 +443,22 @@ triggered by a change in the modification event delta
 (\?Int::ME_INT_DOM? is abbreviated by \?DOM? and so on) and a green
 transition is performed be executing the propagator.
 
-\paragraph{Rescheduling propagators.}
+\paragraph{Re-scheduling propagators.}
 
 The cost of a propagator depends on its modification event delta.
 This connection goes even further: only if the modification event
-delta of a propagator changes, a propagator is rescheduled
+delta of a propagator changes, a propagator is re-scheduled
 according to its cost by recomputing the \?cost()? function.
 
 Not recomputing cost each time a propagator might be scheduled is
 done for two reasons. First, the number of possibly expensive
-cost computations is reduced. Second, always rescheduling would
+cost computations is reduced. Second, always re-scheduling would
 also violate the fairness among all propagators already scheduled
 with same cost. If a propagator is scheduled often, it would be
 penalized as its execution would be deferred.
 
 \autoref{sec:p:advisors:force} discusses a technique to force
-rescheduling of a propagator, irrespective of its modification
+re-scheduling of a propagator, irrespective of its modification
 event delta.
 
 \paragraph{Controlling staging by modification event deltas.}

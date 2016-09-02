@@ -231,7 +231,7 @@ perform any propagation.
 As mentioned above, propagators can be disabled and
 re-enabled. When re-enabling a disabled propagator, the
 propagator might have to be re-scheduled for execution. The
-re-scheduling is implemented by the \?schedule()? member function
+re-scheduling is implemented by the \?reschedule()? member function
 of a propagator.
 
 \section{Background reading}
@@ -567,10 +567,10 @@ this paragraph will fill in the missing details.
     \autoref{sec:p:avoid:eqbnd}.
   \end{itemize}
 \item[re-scheduling] The propagator's virtual member function
-  \?schedule()? re-schedules a propagator when it is
+  \?reschedule()? re-schedules a propagator when it is
   re-enabled. Typically, the member function follows how the
   propagator creates subscriptions and is straightforward. The
-  \?schedule()? function might be more involved for propagators
+  \?reschedule()? function might be more involved for propagators
   using advisors, this is discussed in \autoref{chap:p:advisors}.
 \end{description}
 
@@ -748,9 +748,9 @@ a cost value using \?PropCost::LO?.
 \paragraph{Scheduling.}
 
 Scheduling the propagator after it has been enabled again, is
-done by the virtual \?schedule()? member function as follows:
+done by the virtual \?reschedule()? member function as follows:
 
-\insertlitcode{less:scheduling}
+\insertlitcode{less:re-scheduling}
 
 Scheduling depends, like creating and cancelling subscriptions,
 on the views of the propagator and the propagation conditions and
@@ -1217,7 +1217,7 @@ function, a \?cost()? member function where the cost value is
 always the \?PropCost::LO? variant of the corresponding cost
 function (that is, \?PropCost::unary()? for \?UnaryPropagator?,
 \?PropCost::linear()? for \?NaryPropagator? and
-\?NaryOnePropagator?, and so on), and a \?schedule()? function.
+\?NaryOnePropagator?, and so on), and a \?reschedule()? function.
 The integer module additionally defines patterns for reified
 propagators which are discussed in
 \autoref{sec:p:reified:leeq}.\footnote{As reified propagators
@@ -1420,10 +1420,10 @@ public:
     return PropCost::binary(PropCost::LO);
   }
   \end{litblock}
-  \begin{litblock}{scheduling}
-  virtual void schedule(Space& home) {
-    x0.schedule(home,*this,Int::PC_INT_DOM);
-    x1.schedule(home,*this,Int::PC_INT_DOM);
+  \begin{litblock}{re-scheduling}
+  virtual void reschedule(Space& home) {
+    x0.reschedule(home,*this,Int::PC_INT_DOM);
+    x1.reschedule(home,*this,Int::PC_INT_DOM);
   }
   \end{litblock}
   \begin{litblock}{propagation}
@@ -1500,9 +1500,9 @@ public:
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::LO);
   }
-  virtual void schedule(Space& home) {
-    x0.schedule(home,*this,Int::PC_INT_DOM);
-    x1.schedule(home,*this,Int::PC_INT_DOM);
+  virtual void reschedule(Space& home) {
+    x0.reschedule(home,*this,Int::PC_INT_DOM);
+    x1.reschedule(home,*this,Int::PC_INT_DOM);
   }
   \end{litblock}
   \begin{litblock}{propagation}
@@ -1569,9 +1569,9 @@ public:
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::LO);
   }
-  virtual void schedule(Space& home) {
-    x0.schedule(home,*this,Int::PC_INT_VAL);
-    x1.schedule(home,*this,Int::PC_INT_VAL);
+  virtual void reschedule(Space& home) {
+    x0.reschedule(home,*this,Int::PC_INT_VAL);
+    x1.reschedule(home,*this,Int::PC_INT_VAL);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
@@ -1628,9 +1628,9 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
-  virtual void schedule(Space& home) {
-    x0.schedule(home,*this,Int::PC_INT_BND);
-    x1.schedule(home,*this,Int::PC_INT_BND);
+  virtual void reschedule(Space& home) {
+    x0.reschedule(home,*this,Int::PC_INT_BND);
+    x1.reschedule(home,*this,Int::PC_INT_BND);
   }
   \begin{litblock}{anonymous}
   Less(Space& home, bool share, Less& p) 
