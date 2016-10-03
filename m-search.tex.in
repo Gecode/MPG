@@ -632,9 +632,10 @@ deleting solutions computed by search engines.
 best solution &
 parallel \\
 \hline\hline
-\?DFS? & \?dfs? & depth-first left-most & & \YES\\
+\gecoderef[class]{DFS} & \?dfs? & depth-first left-most & & \YES\\
+\gecoderef[class]{LDS} & \?lds? & limited discrepancy~\cite{HarveyGinsberg:95} &\\
 \hline
-\?BAB? & \?bab? & branch-and-bound & \YES & \YES\\
+\gecoderef[class]{BAB} & \?bab? & branch-and-bound & \YES & \YES\\
 \hline
 \end{tabular}
 \end{center}
@@ -654,6 +655,8 @@ constraint (through the \?constrain()? function as discussed in
 \autoref{sec:m:started:search-best}) to search for a better
 solution to all remaining nodes of the search tree. 
 
+Note that the version of Gecode (\GecodeVersion) this document
+corresponds to does not support parallel search for \?LDS?.
 
 
 \subsection{Search options}
@@ -679,6 +682,8 @@ The default values for the options are defined in the namespace
 \?a_d? & \?unsigned int? & adaptive recomputation distance\\
 \hline
 \?clone? & \?bool? & whether engine uses a clone when created\\
+\hline
+\?d_l? & \?unsigned int? & discrepancy limit (for \?LDS?)\\
 \hline
 \?nogoods_limit? & \?unsigned int? & depth limit for no-good generation\\
 \hline
@@ -1688,7 +1693,10 @@ No-goods are constraints that can be learned from the
 configuration of a depth-first search engine after it has
 stopped. The no-goods encode failures during search as
 constraints: after restarting, propagation of the no-goods
-ensures that decisions that lead to failure are avoided.
+ensures that decisions that lead to failure are avoided. Note
+that no-goods are only available from the depth-first search
+engines~\?DFS? and~\?BAB? but not from limited discrepancy
+search~(\?LDS?).
 
 \begin{figure}
 \centering

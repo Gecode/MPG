@@ -42,6 +42,7 @@ URL class Gecode::Archive classGecode_1_1Archive.html
 URL class Gecode::ArgArray classGecode_1_1ArgArray.html
 URL class Gecode::ArgArrayBase classGecode_1_1ArgArrayBase.html
 URL class Gecode::ArrayTraits classGecode_1_1ArrayTraits.html
+URL class Gecode::ArrayTraits<ArgArray<FloatVal>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01FloatVal_01_4_01_4.html
 URL class Gecode::ArrayTraits<ArgArray<IntSet>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01IntSet_01_4_01_4.html
 URL class Gecode::ArrayTraits<ArgArray<SymmetryHandle>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01SymmetryHandle_01_4_01_4.html
 URL class Gecode::ArrayTraits<ArgArray<VarImpBase*>> classGecode_1_1ArrayTraits_3_01ArgArray_3_01VarImpBase_01_5_01_4_01_4.html
@@ -54,7 +55,6 @@ URL class Gecode::ArrayTraits<IntArgs> classGecode_1_1ArrayTraits_3_01IntArgs_01
 URL class Gecode::ArrayTraits<IntVarArgs> classGecode_1_1ArrayTraits_3_01IntVarArgs_01_4.html
 URL class Gecode::ArrayTraits<IntVarArray> classGecode_1_1ArrayTraits_3_01IntVarArray_01_4.html
 URL class Gecode::ArrayTraits<LiteralArgs> classGecode_1_1ArrayTraits_3_01LiteralArgs_01_4.html
-URL class Gecode::ArrayTraits<PrimArgArray<FloatVal>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01FloatVal_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<SEB>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01SEB_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<TaskType>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01TaskType_01_4_01_4.html
 URL class Gecode::ArrayTraits<PrimArgArray<int>> classGecode_1_1ArrayTraits_3_01PrimArgArray_3_01int_01_4_01_4.html
@@ -113,6 +113,7 @@ URL class Gecode::Driver::ExtractStepOption classGecode_1_1Driver_1_1ExtractStep
 URL class Gecode::Driver::GistEngine classGecode_1_1Driver_1_1GistEngine.html
 URL class Gecode::Driver::GistEngine<BAB<S>> classGecode_1_1Driver_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
 URL class Gecode::Driver::GistEngine<DFS<S>> classGecode_1_1Driver_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
+URL class Gecode::Driver::GistEngine<LDS<S>> classGecode_1_1Driver_1_1GistEngine_3_01LDS_3_01S_01_4_01_4.html
 URL class Gecode::Driver::IgnoreStepOption classGecode_1_1Driver_1_1IgnoreStepOption.html
 URL class Gecode::Driver::IntOption classGecode_1_1Driver_1_1IntOption.html
 URL class Gecode::Driver::IplOption classGecode_1_1Driver_1_1IplOption.html
@@ -844,6 +845,7 @@ URL class Gecode::Iter::Values::ValueListIter::VLIO classGecode_1_1Iter_1_1Value
 URL class Gecode::Iter::Values::ValueListIter::ValueList classGecode_1_1Iter_1_1Values_1_1ValueListIter_1_1ValueList.html
 URL class Gecode::Kernel::NaryWait classGecode_1_1Kernel_1_1NaryWait.html
 URL class Gecode::Kernel::UnaryWait classGecode_1_1Kernel_1_1UnaryWait.html
+URL class Gecode::LDS classGecode_1_1LDS.html
 URL class Gecode::LinFloatExpr classGecode_1_1LinFloatExpr.html
 URL class Gecode::LinFloatExpr::Node classGecode_1_1LinFloatExpr_1_1Node.html
 URL class Gecode::LinFloatRel classGecode_1_1LinFloatRel.html
@@ -923,6 +925,7 @@ URL class Gecode::Search::CutoffRepeat classGecode_1_1Search_1_1CutoffRepeat.htm
 URL class Gecode::Search::DfsBuilder classGecode_1_1Search_1_1DfsBuilder.html
 URL class Gecode::Search::Engine classGecode_1_1Search_1_1Engine.html
 URL class Gecode::Search::FailStop classGecode_1_1Search_1_1FailStop.html
+URL class Gecode::Search::LdsBuilder classGecode_1_1Search_1_1LdsBuilder.html
 URL class Gecode::Search::Meta::Dead classGecode_1_1Search_1_1Meta_1_1Dead.html
 URL class Gecode::Search::Meta::NoGoodsProp classGecode_1_1Search_1_1Meta_1_1NoGoodsProp.html
 URL class Gecode::Search::Meta::NoNGL classGecode_1_1Search_1_1Meta_1_1NoNGL.html
@@ -954,8 +957,11 @@ URL class Gecode::Search::PbsBuilder classGecode_1_1Search_1_1PbsBuilder.html
 URL class Gecode::Search::RbsBuilder classGecode_1_1Search_1_1RbsBuilder.html
 URL class Gecode::Search::Sequential::BAB classGecode_1_1Search_1_1Sequential_1_1BAB.html
 URL class Gecode::Search::Sequential::DFS classGecode_1_1Search_1_1Sequential_1_1DFS.html
+URL class Gecode::Search::Sequential::LDS classGecode_1_1Search_1_1Sequential_1_1LDS.html
 URL class Gecode::Search::Sequential::Path classGecode_1_1Search_1_1Sequential_1_1Path.html
 URL class Gecode::Search::Sequential::Path::Edge classGecode_1_1Search_1_1Sequential_1_1Path_1_1Edge.html
+URL class Gecode::Search::Sequential::Probe classGecode_1_1Search_1_1Sequential_1_1Probe.html
+URL class Gecode::Search::Sequential::Probe::Node classGecode_1_1Search_1_1Sequential_1_1Probe_1_1Node.html
 URL class Gecode::Search::Statistics classGecode_1_1Search_1_1Statistics.html
 URL class Gecode::Search::Stop classGecode_1_1Search_1_1Stop.html
 URL class Gecode::Search::TimeStop classGecode_1_1Search_1_1TimeStop.html
@@ -1336,7 +1342,8 @@ URL class Test::Float::Arithmetic::SqrtXY classTest_1_1Float_1_1Arithmetic_1_1Sq
 URL class Test::Float::Arithmetic::SqrtXYSol classTest_1_1Float_1_1Arithmetic_1_1SqrtXYSol.html
 URL class Test::Float::Assignment classTest_1_1Float_1_1Assignment.html
 URL class Test::Float::Basic::Basic classTest_1_1Float_1_1Basic_1_1Basic.html
-URL class Test::Float::Channel::ChannelLinkSingle classTest_1_1Float_1_1Channel_1_1ChannelLinkSingle.html
+URL class Test::Float::Channel::Bool classTest_1_1Float_1_1Channel_1_1Bool.html
+URL class Test::Float::Channel::Int classTest_1_1Float_1_1Channel_1_1Int.html
 URL class Test::Float::CpltAssignment classTest_1_1Float_1_1CpltAssignment.html
 URL class Test::Float::Dom::Create classTest_1_1Float_1_1Dom_1_1Create.html
 URL class Test::Float::Dom::Num classTest_1_1Float_1_1Dom_1_1Num.html
@@ -1681,6 +1688,8 @@ URL class Test::NoGoods::Hamming classTest_1_1NoGoods_1_1Hamming.html
 URL class Test::NoGoods::NoGoods classTest_1_1NoGoods_1_1NoGoods.html
 URL class Test::NoGoods::Queens classTest_1_1NoGoods_1_1Queens.html
 URL class Test::Options classTest_1_1Options.html
+URL class Test::Region classTest_1_1Region.html
+URL class Test::Region::TestSpace classTest_1_1Region_1_1TestSpace.html
 URL class Test::Search::BAB classTest_1_1Search_1_1BAB.html
 URL class Test::Search::BranchTypes classTest_1_1Search_1_1BranchTypes.html
 URL class Test::Search::ConstrainTypes classTest_1_1Search_1_1ConstrainTypes.html
@@ -1688,6 +1697,7 @@ URL class Test::Search::Create classTest_1_1Search_1_1Create.html
 URL class Test::Search::DFS classTest_1_1Search_1_1DFS.html
 URL class Test::Search::FailImmediate classTest_1_1Search_1_1FailImmediate.html
 URL class Test::Search::HasSolutions classTest_1_1Search_1_1HasSolutions.html
+URL class Test::Search::LDS classTest_1_1Search_1_1LDS.html
 URL class Test::Search::PBS classTest_1_1Search_1_1PBS.html
 URL class Test::Search::RBS classTest_1_1Search_1_1RBS.html
 URL class Test::Search::SEBPBS classTest_1_1Search_1_1SEBPBS.html
@@ -2002,6 +2012,10 @@ URL example sudoku:SudokuMixed examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuMixed "Solving Sudoku puzzles using both set and integer"
 URL example sudoku:SudokuSet examples_2sudoku_8cpp.html
 TITLE example sudoku:SudokuSet "Solving Sudoku puzzles using set constraints"
+URL example test examples_2test_8cpp.html
+TITLE example test "Alpha puzzle"
+URL example test:Alpha examples_2test_8cpp.html
+TITLE example test:Alpha "Alpha puzzle"
 URL example tsp tsp_8cpp.html
 TITLE example tsp "Travelling salesman problem (TSP)"
 URL example tsp:TSP tsp_8cpp.html
@@ -2068,6 +2082,7 @@ URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
 URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
+URL file examples/test.cpp examples_2test_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
@@ -2550,7 +2565,7 @@ URL file gecode/kernel/modevent.hpp modevent_8hpp.html
 URL file gecode/kernel/print.hpp kernel_2print_8hpp.html
 URL file gecode/kernel/propagator.hpp kernel_2propagator_8hpp.html
 URL file gecode/kernel/range-list.hpp range-list_8hpp.html
-URL file gecode/kernel/region.cpp region_8cpp.html
+URL file gecode/kernel/region.cpp gecode_2kernel_2region_8cpp.html
 URL file gecode/kernel/region.hpp region_8hpp.html
 URL file gecode/kernel/rnd.cpp rnd_8cpp.html
 URL file gecode/kernel/rnd.hpp rnd_8hpp.html
@@ -2603,6 +2618,8 @@ URL file gecode/search/engine.cpp engine_8cpp.html
 URL file gecode/search/engine.hpp engine_8hpp.html
 URL file gecode/search/exception.cpp search_2exception_8cpp.html
 URL file gecode/search/exception.hpp search_2exception_8hpp.html
+URL file gecode/search/lds.cpp lds_8cpp.html
+URL file gecode/search/lds.hpp lds_8hpp.html
 URL file gecode/search/meta/dead.cpp dead_8cpp.html
 URL file gecode/search/meta/dead.hh dead_8hh.html
 URL file gecode/search/meta/nogoods.cpp gecode_2search_2meta_2nogoods_8cpp.html
@@ -2634,6 +2651,8 @@ URL file gecode/search/sebs.cpp sebs_8cpp.html
 URL file gecode/search/sebs.hpp sebs_8hpp.html
 URL file gecode/search/sequential/bab.hh sequential_2bab_8hh.html
 URL file gecode/search/sequential/dfs.hh sequential_2dfs_8hh.html
+URL file gecode/search/sequential/lds.cpp sequential_2lds_8cpp.html
+URL file gecode/search/sequential/lds.hh lds_8hh.html
 URL file gecode/search/sequential/path.cpp sequential_2path_8cpp.html
 URL file gecode/search/sequential/path.hh sequential_2path_8hh.html
 URL file gecode/search/statistics.hpp statistics_8hpp.html
@@ -2951,6 +2970,7 @@ URL file test/int/unary.cpp test_2int_2unary_8cpp.html
 URL file test/int/unshare.cpp test_2int_2unshare_8cpp.html
 URL file test/ldsb.cpp test_2ldsb_8cpp.html
 URL file test/nogoods.cpp test_2nogoods_8cpp.html
+URL file test/region.cpp test_2region_8cpp.html
 URL file test/search.cpp search_8cpp.html
 URL file test/set.cpp test_2set_8cpp.html
 URL file test/set.hh test_2set_8hh.html
@@ -2969,7 +2989,7 @@ URL file test/set/rel-op-const.cpp rel-op-const_8cpp.html
 URL file test/set/rel-op.cpp test_2set_2rel-op_8cpp.html
 URL file test/set/rel.cpp test_2set_2rel_8cpp.html
 URL file test/set/sequence.cpp test_2set_2sequence_8cpp.html
-URL file test/test.cpp test_8cpp.html
+URL file test/test.cpp test_2test_8cpp.html
 URL file test/test.hh test_8hh.html
 URL file test/test.hpp test_8hpp.html
 URL group Example group__Example.html
@@ -3608,6 +3628,7 @@ URL typedef PosSetAllocator namespaceGecode_1_1MiniModel.html
 URL typedef ProcessStack namespaceGecode_1_1Int_1_1Channel.html
 URL typedef PropCond group__TaskVarMEPC.html
 URL typedef RandomGenerator group__FuncSupport.html
+URL typedef RoundingBase namespaceGecode_1_1Float.html
 URL typedef SEB namespaceGecode.html
 URL typedef Script group__TaskDriverScript.html
 URL typedef SetBranchCommit group__TaskModelSetBranch.html

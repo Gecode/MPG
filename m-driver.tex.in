@@ -48,6 +48,7 @@ integer propagation level\\
 \texttt{-threads} & \?double? & how many threads \\
 \texttt{-c-d} & \?unsigned int? & commit recomputation distance\\
 \texttt{-a-d} & \?unsigned int? & adaptive recomputation distance\\
+\texttt{-d-l} & \?unsigned int? & discrepancy limit for \?LDS?\\
 \texttt{-node} & \?unsigned int? & cutoff for number of nodes\\
 \texttt{-fail} & \?unsigned int? & cutoff for number of failures\\
 \texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\
@@ -129,8 +130,8 @@ returns the current value of the option, and one that takes an
 argument of the listed type and sets the option to that value.
 If the commandline options contains a hyphen~\?-?, then the
 member function contain an underscore~\?_? instead. For example,
-for the options \texttt{-c-d} and \texttt{-a-d} the member
-functions are named \?c_d()? and \?a_d()?.
+for the options \texttt{-c-d}, \texttt{-a-d}, and \texttt{-d-l} the member
+functions are named \?c_d()?, \?a_d()?, \?d_l()?.
 
 The values for \?-threads? are interpreted as described in
 \autoref{sec:m:search:options}.
