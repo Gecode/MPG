@@ -1376,9 +1376,8 @@ how the same problem is modeled). The goal is to increase the
 likelihood of finding a solution to the problem quickly and hence
 to increase search robustness.  
 
-Portfolio search in Gecode is
-provided as a meta search engine, for the general idea of a meta
-search engine, please consult
+Portfolio search in Gecode is provided as a meta search engine,
+for the general idea of a meta search engine, please consult
 \autoref{sec:m:search:restart:meta}. For more information on
 portfolios in constraint programming, see~\cite{portfolios}.
 
@@ -1594,10 +1593,10 @@ as input (that is, each engine to be built can have its own
 search options). Then the portfolio search engine creates an
 engine as defined by the type and the options of all SEBs passed
 as arguments. The type of a SEB can be either \?dfs? (depth-first
-search), \?bab? (branch-and-bound solution search for a best
+search), \?lds? (limited discrepancy search), \?bab? (branch-and-bound solution search for a best
 solution), \?rbs? (restart-based search), or \?pbs? (portfolio
-search). The types \?dfs? and \?bab? are parametric with respect
-to a script type (as the engines \?DFS? and \?BAB? are) and the
+search). The types \?dfs?, \?lds?, and \?bab? are parametric with respect
+to a script type (as the engines \?DFS?, \?LDS?, and \?BAB? are) and the
 \?rbs? and \?pbs? types are parametric with respect to both the
 script type and the engine type (as the meta engines \?RBS? and
 \?PBS? are).
@@ -1696,7 +1695,7 @@ constraints: after restarting, propagation of the no-goods
 ensures that decisions that lead to failure are avoided. Note
 that no-goods are only available from the depth-first search
 engines~\?DFS? and~\?BAB? but not from limited discrepancy
-search~(\?LDS?).
+search~\?LDS?.
 
 \begin{figure}
 \centering
