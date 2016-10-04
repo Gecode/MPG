@@ -606,7 +606,7 @@ For example, the following code assumes that \?x? is an integer
 array of type \?IntArgs? with \?12? elements.
 \begin{code}
 Matrix<IntArgs> m(x, 3, 4);
-IntVar r(home,0,1024), c(home,0,1024), v(home,0,1024);
+IntVar r(home,0,2), c(home,0,3), v(home,0,1024);
 element(home, m, r, c, v);
 \end{code}
 constrains the variable \?v? to the value at position 
@@ -637,7 +637,7 @@ $$
 Consider the following example using an \?element? constraint on
 an integer array:
 \begin{code}
-IntVar i(home,0,8), v(home,0,1);
+IntVar i(home,0,3), v(home,0,1);
 element(home, x, i, v);
 \end{code}
 After performing propagation, \?i? will be constrained to the set
@@ -646,7 +646,7 @@ $\{0,3\}$ (as $2$ is not included in the values of \?v?).
 Compare this to propagating an \?element? constraint over the
 corresponding matrix as follows:
 \begin{code}
-IntVar r(home,0,8), c(home,0,8), v(home,0,1);
+IntVar r(home,0,1), c(home,0,1), v(home,0,1);
 element(home, m, r, c, v);
 \end{code}
 Propagation of \?element? will determine that only the fields
