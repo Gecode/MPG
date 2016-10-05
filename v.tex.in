@@ -784,7 +784,7 @@ definitions are as follows:
 \paragraph{Re-scheduling.}
 
 A variable implementation must implement a \?reschedule()?
-operation for both propagators. The
+operation for propagators. The
 implementation of this operation is almost identical to the
 \?subscribe()? member function discussed previously. The
 definition is as follows:
@@ -1395,6 +1395,10 @@ be re-implemented even though they are unchanged. This is due to
 inheritance in \CPP: as the overloaded functions for propagators
 are redefined, also the functions for advisors are considered to
 be redefined.
+
+Likewise, the meber function for re-escheduling must also be
+implemented following the same idea:
+\insertlitcode{int.hh:minusview:re-scheduling}
 
 \begin{samepage}
 The remaining operations to be implemented are support operations:
@@ -2266,7 +2270,6 @@ namespace MPG { namespace Int {
     void reschedule(Space& home, Propagator& p, PropCond pc) {
       IntVarImpBase::reschedule(home,p,pc,assigned());
     }
-
     \end{litblock}
     \begin{litblock}{varimp:copying}
     IntVarImp(Space& home, bool share, IntVarImp& y)
@@ -2615,6 +2618,11 @@ namespace MPG { namespace Int {
       x.cancel(home,a);
     }
     \end{litblock}    
+    \end{litblock}
+    \begin{litblock}{minusview:re-scheduling}
+    void reschedule(Space& home, Propagator& p, PropCond pc) {
+      x.reschedule(home,p,minuspc(pc));
+    }
     \end{litblock}
     \begin{litblock}{minusview:delta information}
     static ModEvent modevent(const Delta& d) {
