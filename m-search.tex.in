@@ -1423,8 +1423,6 @@ once on the master space from which clones are created for each
 asset. The purpose of the \?master()? function can be to setup
 certain aspects of a script specific to portfolio search.
 
-\insertlitcode{default master and slave functions:portfolio search}
-
 The portfolio-specific part of the default \?master()? function
 is as follows, the entire \?master()? function is shown in
 \autoref{fig:m:search:restart:default}: 

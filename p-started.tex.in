@@ -745,14 +745,14 @@ you can rely on is that a propagator with a cost value using
 \?PropCost::HI? is never given preference over a propagator with
 a cost value using \?PropCost::LO?.
 
-\paragraph{Scheduling.}
+\paragraph{Re-scheduling.}
 
-Scheduling the propagator after it has been enabled again, is
+Re-scheduling the propagator after it has been enabled again, is
 done by the virtual \?reschedule()? member function as follows:
 
 \insertlitcode{less:re-scheduling}
 
-Scheduling depends, like creating and cancelling subscriptions,
+Re-scheduling depends, like creating and cancelling subscriptions,
 on the views of the propagator and the propagation conditions and
 follows exactly the pattern of the \?subscribe()? and \?cancel()?
 functions.
