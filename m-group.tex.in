@@ -94,27 +94,27 @@ removes both~\?p? and~\?q? from \?pg?.
 The number of propagators in a group can be computed by the
 \?size()? member function. The following expression:
 \begin{code}
-pg.size(home);
+pg.size(home)
 \end{code}
 evaluates to the number of propagators in the group \?pg?. Each
 group has a unique identifier of type \?unsigned int? which can
 be accessed by:
 \begin{code}
-pg.id();
+pg.id()
 \end{code}
 
 One can iterate over all propagators in a group. For example
 \begin{code}
 for (Propagators p(home,pg); p() ++p)
-  std::cout << p.propagator.id() << std::endl;
+  std::cout << p.propagator.id() << ' ' << std::endl;
 \end{code}
 %>>
 prints the unique identifier of each propagator contained in
-group \?pg?. Note that a propagator also provides access to the
+group \?pg?. A propagator also provides access to the
 group it belongs to, assume that \?p? is of type \?Propagator&?,
 then
 \begin{code}
-p.group();
+p.group()
 \end{code}
 evaluates to the group \?p? belongs to.
 
@@ -152,7 +152,7 @@ For convenience, there is one special propagator group
 space (one can think of it as the union of all propagator
 groups). For example,
 \begin{code}
-PropagatorGroup::all.size(home);
+PropagatorGroup::all.size(home)
 \end{code}
 evaluates to the number of all propagators in the space \?home?.
 
@@ -195,7 +195,7 @@ be accessed by \?bg.id()?.
 group it belongs to, assume that \?b? is of type \?Brancher&?,
 then 
 \begin{smallcode}
-b.group();
+b.group()
 \end{smallcode}
 evaluates to the group \?b? belongs to.
 \item 
@@ -241,7 +241,7 @@ The trace recorder records the following events:
   \emph{prune-event} is recorded.  The trace recorder provides
   information about which variable has been changed how and on
   behalf of which entity (a propagator, a brancher, or a
-  constraint post function performing pruning outside any
+  constraint post function performing pruning outside a
   propagator or brancher).
 \item A \emph{fixpoint-event} is recorded when the space
   containing the trace recorder reaches a fixpoint, triggered by
@@ -329,7 +329,7 @@ The information for each event type is as follows:
 \begin{itemize}
 \item For an init-event, the total slack of all variables is
   shown where the slack of a variable is the number of values
-  that must be removed before the variable gets assigned to a
+  that must be removed before the variable becomes assigned to a
   single value. This information serves as a measure of how much
   propagation is still to be done.
 \item For a prune-event, it is printed which variable has been
@@ -426,12 +426,12 @@ groups \?pga? and \?pgb? are traced by
 trace(home, x, pga+pgb);
 \end{code}
 Likewise, prune-events caused by branchers in the group \?bg? or
-by propagators or post functions not associated to \?pga? are
+by propagators or post functions not associated with \?pga? are
 traced by
 \begin{code}
 trace(home, x, bg-pga);
 \end{code}
-The following only traces post functions associated \?pga? and propagators included in \?pgb?:
+The following only traces post functions associated with \?pga? and propagators included in \?pgb?:
 \begin{code}
 trace(home, x, post(pga)+propagator(pgb));
 \end{code}
