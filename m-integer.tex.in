@@ -915,7 +915,12 @@ constrained according to the domain of another variable \?d? by
 dom(home, x, d);
 \end{code}
 Here, \?x? and \?d? can also be arrays of integer or Boolean
-variables.
+variables. Note that this needs to be used carefully, the domain
+to which the variable \?x? is constrained depends on the domain
+to which \?d? is constrained. Only use this constraint post
+function if you are sure that all propagation that could
+influence the domain of \?d? has been performed!
+
 
 Domain constraints for a single variable also support
 reification. For examples using domain constraints, see
