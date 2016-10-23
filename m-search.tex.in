@@ -1283,6 +1283,7 @@ LNS is quite simple, where LNS looks for a good solution:
 \begin{litcode}[texonly]{model sketch for LNS}
 class Model : public Space {
 protected:
+  IntVarArray x;
   Rnd r;
 public:
   Model(void) : ... {
@@ -1364,6 +1365,33 @@ The default \?master()? function as shown in
 \autoref{sec:m:search:restart:configure} is already general
 enough to support LNS.
 
+\paragraph{Relaxing variable assignments.}
+\label{par:m:search:relax}
+
+A typical way to relax a given solution, is to assign some but
+not all variables before a restart to a value from a previous
+solution. This is supported by the \?relax()? function for
+integer, Boolean, set, and float variables.
+
+Assume that \?x? is an array of integer variables in the \?Model?
+script sketched in \autoref{fig:m:search:restart:sketch}. Then,
+the following \?next()? function:
+\begin{code}
+void next(const Model& b) {
+  relax(*this, x, b.x, r, 0.7);    
+}
+\end{code}
+relaxes each variable in \?x? with a probability of $0.7$
+(or, with other words: each variable in \?x? would be assigned
+the value from \?b.x? with a probability of $0.3$). The random
+numbers are drwan from the random number generator~\?r?.
+
+The \?relax()? function makes sure that at least one of the
+variables in~\?x? remains unassigned (if needed, the variable to
+remain unassigned is determined uniformly randomly).
+
+For an example using LNS and the \?relax()? function please
+consult \gecoderef[example]{photo}.
 
 \section{Portfolio search}
 \label{sec:m:search:portfolio}
