@@ -9,6 +9,7 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2016-10-25}{Released for Gecode 5.0.0} 
   \cle{2016-10-23}{Added a description of how to relax variables
    (see \autoref{par:m:search:relax}).}
   \cle{2016-05-27}{Added a discussion of how propagators using
@@ -34,8 +35,8 @@
     new integer propagation levels (see
     \autoref{sec:m:integer:ipl}).}
   \cle[\AckName{Joseph}{Scott}]{2015-03-31}{Fixed typo in example
-    of \autoref{part:v}.}  \cle{2015-03-20}{Released for Gecode
-    4.4.0} 
+    of \autoref{part:v}.}
+  \cle{2015-03-20}{Released for Gecode 4.4.0} 
   \cle{2015-03-18}{Improved and update documentation of
     optimization spaces and scripts (see
     \autoref{sec:m:minimodel:optimize} and
