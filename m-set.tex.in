@@ -311,6 +311,17 @@ greater than the value of the integer variable \?y?
 Gecode provides reified versions of all set relation constraints. For an
 example, see \gecoderef[example]{golf} and \autoref{chap:c:golf}.
 
+\paragraph{If-then-else constraint.}
+
+An if-then-else constraint can be posted by
+\begin{code}
+ite(home, b, x, y, z);
+\end{code}
+where \?b? is a Boolean variable and \?x?, \?y?, and \?z? are
+set variables. In case \?b? is one, then
+$\mathtt{x}=\mathtt{z}$ must hold, otherwise
+$\mathtt{y}=\mathtt{z}$ must hold.
+
 \subsection{Set operations}
 \label{m:set:set_operations}
 

@@ -394,6 +394,18 @@ rel(home, x, FRT_GR, 7.0);
 constrains all variables in \?x? to be larger than \?7.0?.
 
 
+\paragraph{If-then-else constraint.}
+
+An if-then-else constraint can be posted by
+\begin{code}
+ite(home, b, x, y, z);
+\end{code}
+where \?b? is a Boolean variable and \?x?, \?y?, and \?z? are
+float variables. In case \?b? is one, then
+$\mathtt{x}=\mathtt{z}$ must hold, otherwise
+$\mathtt{y}=\mathtt{z}$ must hold.
+
+
 \subsection{Arithmetic constraints}
 \label{sec:m:float:arithmetic}
 
