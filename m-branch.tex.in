@@ -21,8 +21,7 @@ Advanced topics for branchings are discussed in the remaining
 sections: local versus shared variable selection
 \ptsmbranchshared, random selection \ptsmbranchrnd, user-defined
 variable \ptsmbranchuservar{} and value \ptsmbranchuserval{}
-selection, tie-breaking \ptsmbranchtie, dynamic symmetry breaking \ptsmbranchsym, branch filter functions
-\ptsmbranchfilter, variable-value print functions
+selection, tie-breaking \ptsmbranchtie, dynamic symmetry breaking \ptsmbranchsym, variable-value print functions
 \ptsmbranchprint, assigning variables \ptsmbranchassign, and
 executing code between branchers \ptsmbranchcode.
 
@@ -51,9 +50,8 @@ The posted brancher assigns all
 variables and then ceases to exist. If more branchers exist,
 search continues with the next brancher.
 
-The \?branch()? function also accepts a branch filter function
-and a variable-value print function as optional arguments, see
-\autoref{sec:m:branch:filter} and \autoref{sec:m:branch:print}
+The \?branch()? function also accepts a variable-value print
+function as optional argument, see \autoref{sec:m:branch:print}
 for details.
 
 \paragraph{Several branchers.}
@@ -1282,82 +1280,6 @@ LDSB works with integer, Boolean, and set variables, and with any variable selec
 
 
 
-\section{Using branch filter functions}
-\label{sec:m:branch:filter}
-
-By default, a variable-value branching continues to branch until
-all variables passed to the branching are assigned. This behavior
-can be changed by using a \emph{branch filter function}.
-
-A branch filter function is called during branching for each
-variable to be branched on. If the filter function returns
-\?true?, the variable is considered for branching. Otherwise, the
-variable is simply ignored.
-
-A branch filter function can be passed as the second to last
-(optional) argument when calling the \?branch()? function.
-
-\begin{samepage}
-The type of a branch filter function depends on the variable
-type. For integer variables, the type
-\gecoderef[typedef]{IntBranchFilter} is defined as
-\begin{code}
-typedef bool (*IntBranchFilter)(const Space& home, IntVar x, int i);
-\end{code}
-\end{samepage}
-That is, a branch filter function takes the \?home? space and the
-position \?i? of the variable \?x? as argument. The position \?i?
-refers to the position of the variable \?x? in the array of
-variables used for posting the branching. For Boolean variables,
-the type is \gecoderef[typedef]{BoolBranchFilter}, for set
-variables \gecoderef[typedef]{SetBranchFilter}, and for float
-variables \gecoderef[typedef]{FloatBranchFilter}.
-
-\begin{litcode}[texonly]{branch filter function sketch}
-class Model : public Space {
-protected:
-  IntVarArray x;
-public:
-  Model(void) : ... {
-    \begin{litblock}{anonymous}
-    \end{litblock}
-    \begin{litblock}{post branching}
-    branch(home, x, ..., ..., &filter);
-    \end{litblock}
-  }
-  \begin{litblock}{anonymous}
-  \end{litblock}
-  \begin{litblock}{define filter function}
-  static bool filter(const Space& home, IntVar y, int i) {
-    return y.size() >= 4;
-  }
-  \end{litblock}
-};
-\end{litcode}
-
-\begin{figure}
-\insertlitcode{branch filter function sketch}
-\caption{Model sketch for branch filter function}
-\label{fig:m:branch:filter:sketch}
-\end{figure}
-
-Assume, for example, that we want to branch only on variables from
-a variable array \?x? for branching with a domain size of at
-least \?4?. Consider the sketch of a model shown in
-\autoref{fig:m:branch:filter:sketch}. 
-
-The branch filter function can be defined as a static member
-function of the class \?Model? as follows:
-\insertlitcode{branch filter function sketch:define filter function}
-
-Specifying that the branching should use the filter function is done
-as follows:
-\insertlitcode{branch filter function sketch:post branching}
-
-In many cases it can be more convenient to perform the actual
-filtering in a \?const? member function. This can be done along
-the lines of \autoref{tip:m:branch:merit}.
-
 
 \section{Using variable-value print functions}
 \label{sec:m:branch:print}
@@ -1489,8 +1411,9 @@ assigning than for branching as described in
 that the number of the alternative passed to the commit function
 is always zero (as there is only a single alternative). 
 
-An assignment also accepts a branch filter function as described
-in \autoref{sec:m:branch:filter} and can assign a single variable.
+The \?assign()? function also accepts a variable-value print
+function as optional argument, see \autoref{sec:m:branch:print}
+for details, and can assign a single variable.
 
 \section{Executing code between branchers}
 \label{sec:m:branch:code}
@@ -1522,8 +1445,8 @@ public:
 A common scenario is to post some constraints only after part of
 the branching has been executed. This is supported in Gecode by a
 brancher (see \gecoderef[group]{TaskModelBranchExec}) that
-executes a function (either a function or a static member
-function but not a member function). 
+executes a function (any function that is compatible with the
+type \?std::function?).
 
 \begin{samepage}
 Suppose the following code

@@ -586,19 +586,15 @@ For an example, see \gecoderef[example]{golf} and \autoref{chap:c:golf}.
 
 Gecode offers support in
 \gecoderef[group]{TaskModelSetExec} for executing a function
-(either a function or a static member function but not a member
-function) when set variables become assigned. 
+when set variables become assigned. 
 
-Assume that a function \?c? (for continuation) is defined by
+The code
 \begin{code}
-void c(Space& home) { ... }
-\end{code}
-Then
-\begin{code}
-wait(home, x, &c);
+wait(home, x, [] (Space &home) { ...; });
 \end{code}
 posts a propagator that waits until the set
-variable \?x? (or, if \?x? is an array of variables: all variables in
-\?x?) is assigned. If \?x? becomes assigned, the function \?c? is
+variable \?x? (or, if \?x? is an array of set variables: all variables in
+\?x?) is assigned. If \?x? becomes assigned, the function passed
+as argument is
 executed with the current home space passed as argument.
 

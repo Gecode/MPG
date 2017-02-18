@@ -536,19 +536,15 @@ channel(home, y, x);
 
 Gecode offers support in
 \gecoderef[group]{TaskModelFloatExec} for executing a function
-(either a function or a static member function but not a member
-function) when float variables become assigned. 
+ when float variables become assigned. 
 
-Assume that a function \?c? (for continuation) is defined by
+The following code
 \begin{code}
-void c(Space& home) { ... }
-\end{code}
-Then
-\begin{code}
-wait(home, x, &c);
+wait(home, x, [] (Space & home) { ...; });
 \end{code}
 posts a propagator that waits until the float
 variable \?x? (or, if \?x? is an array of float variables: all variables in
-\?x?) is assigned. If \?x? becomes assigned, the function \?c? is
+\?x?) is assigned. If \?x? becomes assigned, the function passed
+as argument is
 executed with the current home space passed as argument.
 

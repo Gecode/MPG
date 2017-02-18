@@ -202,7 +202,7 @@ available functionality for modeling and solving:
   \ptsmbranchshared, random selection \ptsmbranchrnd,
   user-defined variable \ptsmbranchuservar and value
   \ptsmbranchuserval selection, tie-breaking \ptsmbranchtie,
-  branch filter functions \ptsmbranchfilter, assigning variables
+  assigning variables
   \ptsmbranchassign, and executing code between branchers
   \ptsmbranchcode.
 \item \tsmsearchsimple{} of \tcmsearch{} summarizes how to use

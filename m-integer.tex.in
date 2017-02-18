@@ -2690,24 +2690,21 @@ For an example, see \gecoderef[example]{schurs-lemma}.
 \section{Synchronized execution}
 \label{sec:m:integer:exec}
 
-Gecode offers support in
-\gecoderef[group]{TaskModelIntExec} for executing a function
-(either a function or a static member function but not a member
-function) when integer or Boolean variables become assigned. 
+Gecode offers support in \gecoderef[group]{TaskModelIntExec} for
+executing a function (any function that is compatible with the
+type \?std::function?) when integer or Boolean variables become
+assigned.
 
 \begin{samepage}
-Assume that a function \?c? (for continuation) is defined by
+The following code
 \begin{code}
-void c(Space& home) { ... }
-\end{code}
-Then
-\begin{code}
-wait(home, x, &c);
+wait(home, x, [] (Space& home) { ...; });
 \end{code}
 posts a propagator that waits until the integer or Boolean
-variable \?x? (or, if \?x? is an array of variables: all variables in
-\?x?) is assigned. If \?x? becomes assigned, the function \?c? is
-executed with the current home space passed as argument.
+variable \?x? (or, if \?x? is an array of variables: all
+variables in \?x?) is assigned. If \?x? becomes assigned, the
+function passed as argument is executed with the current home
+space passed as argument.
 \end{samepage}
 
 \tip{Failing a space}{%
@@ -2718,25 +2715,15 @@ home.fail();
 \end{code}
 }
 
-Assume that
-two functions \?t? (for then) and \?e? (for else) are defined by
+The following code
 \begin{code}
-void t(Space& home) { ... }
-void e(Space& home) { ... }
-\end{code}
-Then
-\begin{code}
-when(home, x, &t, &e);
+when(home, x,
+     [] (Space& home) { ...; },
+     [] (Space& home) { ...; });
 \end{code}
 creates a propagator that will be run exactly once when the
 Boolean variable \?x?  becomes assigned. If \?x? becomes assigned
-to \?1?, the function \?t?  is executed. If \?x? becomes assigned
-to \?0?, the function \?e?  is executed. Both functions get the
+to \?1?, the first function is executed. If \?x? becomes assigned
+to \?0?, the second function is executed. Both functions get the
 current home space of the propagator passed as argument. The
 else-function is optional and can be omitted.
-
-
-
-
-
-
