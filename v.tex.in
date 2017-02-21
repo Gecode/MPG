@@ -768,8 +768,8 @@ similar as possible.
 
 \paragraph{Subscriptions.}
 
-A variable implementation must implement \?subscribe()? and
-\?cancel()? operations for both propagators and advisors. The
+A variable implementation must implement \?subscribe()?
+operations for both propagators and advisors. The
 implementation of these operations always follow the
 same structure as shown below. 
 
@@ -795,10 +795,10 @@ definition is as follows:
 Copying a variable implementation during cloning is implemented
 by a constructor and a \?copy()? function. The constructor is
 straightforward and the \?copy()? function only creates a new
-variable implementation if the variable implementation has not been copied before. If it
-has been copied before (that is, \?copied()?  returns \?true?),
-the \?copy()? function must return the forwarding pointer to the
-previously created copy as follows:
+variable implementation if the variable implementation has not
+been copied before. If it has been copied before (that is,
+\?copied()?  returns \?true?), the \?copy()? function must return
+the forwarding pointer to the previously created copy as follows:
 \insertlitcode{int.hh:varimp:copying}
 
 \paragraph{Additional inherited member functions.}
@@ -809,6 +809,10 @@ previously created copy as follows:
 \multicolumn{2}{c}{\textbf{access operations}}\\
 \?degree()? & returns degree (number of subscriptions)\\
 \?afc()? & returns accumulated failure count\\
+\\
+\multicolumn{2}{c}{\textbf{subscriptions}}\\
+\?cancel()? & cancel subscription of propagator\\
+\?cancel()? & cancel subscription of advisor\\
 \\
 \multicolumn{2}{c}{\textbf{scheduling support}}\\
 \?schedule()? & schedule propagator\\
@@ -1390,13 +1394,13 @@ include the operations for handling subscriptions of propagators
 \?minusme()? in \autoref{fig:v:view:minusmepc}):
 \insertlitcode{int.hh:minusview:subscriptions}
 
-Note that the operations that subscribe and cancel advisors must
+Note that the operations that subscribe advisors must
 be re-implemented even though they are unchanged. This is due to
 inheritance in \CPP: as the overloaded functions for propagators
 are redefined, also the functions for advisors are considered to
 be redefined.
 
-Likewise, the meber function for re-escheduling must also be
+Likewise, the member function for re-escheduling must also be
 implemented following the same idea:
 \insertlitcode{int.hh:minusview:re-scheduling}
 
@@ -2256,12 +2260,6 @@ namespace MPG { namespace Int {
     }
     void subscribe(Space& home, Advisor& a) {
       IntVarImpBase::subscribe(home,a,assigned());
-    }
-    void cancel(Space& home, Propagator& p, PropCond pc) {
-      IntVarImpBase::cancel(home,p,pc,assigned());
-    }
-    void cancel(Space& home, Advisor& a) {
-      IntVarImpBase::cancel(home,a,assigned());
     }
     \end{litblock}
     \begin{litblock}{varimp:re-scheduling}
