@@ -7154,7 +7154,7 @@ public:
     \end{litblock}
     \begin{litblock}{branching}
     branch(*this, letters, INT_VAR_AFC_SIZE_MAX(), INT_VAL_MIN(),
-                           NULL, &printletters);
+                           &printletters);
     \end{litblock}
   }
   \begin{litblock}{print function}
@@ -14177,7 +14177,7 @@ public:
     }
     \begin{litblock}{anonymous}
     branch(*this, letters, INT_VAR_AFC_SIZE_MAX(), INT_VAL_MIN(),
-                           NULL, &printletters);
+                           &printletters);
     \end{litblock}
   }
   \begin{litblock}{anonymous}

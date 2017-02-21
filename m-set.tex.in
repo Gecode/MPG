@@ -592,9 +592,13 @@ The code
 \begin{code}
 wait(home, x, [] (Space &home) { ...; });
 \end{code}
-posts a propagator that waits until the set
-variable \?x? (or, if \?x? is an array of set variables: all variables in
-\?x?) is assigned. If \?x? becomes assigned, the function passed
-as argument is
-executed with the current home space passed as argument.
+posts a propagator that waits until the set variable \?x? (or, if
+\?x? is an array of set variables: all variables in \?x?) is
+assigned. If \?x? becomes assigned, the function passed as
+argument is executed with the current home space passed as
+argument. The type of the function must be
+\begin{code}
+  std::function<void(Space& home)>
+\end{code}
+
 

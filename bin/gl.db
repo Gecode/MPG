@@ -73,13 +73,18 @@ URL class Gecode::BAB classGecode_1_1BAB.html
 URL class Gecode::BElementExpr classGecode_1_1BElementExpr.html
 URL class Gecode::BaseOptions classGecode_1_1BaseOptions.html
 URL class Gecode::BinaryPropagator classGecode_1_1BinaryPropagator.html
+URL class Gecode::BoolAFC classGecode_1_1BoolAFC.html
+URL class Gecode::BoolActivity classGecode_1_1BoolActivity.html
+URL class Gecode::BoolAssign classGecode_1_1BoolAssign.html
 URL class Gecode::BoolExpr classGecode_1_1BoolExpr.html
 URL class Gecode::BoolExpr::Misc classGecode_1_1BoolExpr_1_1Misc.html
 URL class Gecode::BoolExpr::Node classGecode_1_1BoolExpr_1_1Node.html
 URL class Gecode::BoolTraceDelta classGecode_1_1BoolTraceDelta.html
+URL class Gecode::BoolValBranch classGecode_1_1BoolValBranch.html
 URL class Gecode::BoolVar classGecode_1_1BoolVar.html
 URL class Gecode::BoolVarArgs classGecode_1_1BoolVarArgs.html
 URL class Gecode::BoolVarArray classGecode_1_1BoolVarArray.html
+URL class Gecode::BoolVarBranch classGecode_1_1BoolVarBranch.html
 URL class Gecode::BranchTraits classGecode_1_1BranchTraits.html
 URL class Gecode::BranchTraits<BoolVar> classGecode_1_1BranchTraits_3_01BoolVar_01_4.html
 URL class Gecode::BranchTraits<FloatVar> classGecode_1_1BranchTraits_3_01FloatVar_01_4.html
@@ -87,6 +92,8 @@ URL class Gecode::BranchTraits<IntVar> classGecode_1_1BranchTraits_3_01IntVar_01
 URL class Gecode::BranchTraits<SetVar> classGecode_1_1BranchTraits_3_01SetVar_01_4.html
 URL class Gecode::Brancher classGecode_1_1Brancher.html
 URL class Gecode::BrancherGroup classGecode_1_1BrancherGroup.html
+URL class Gecode::BrancherNoPrint classGecode_1_1BrancherNoPrint.html
+URL class Gecode::BrancherPrint classGecode_1_1BrancherPrint.html
 URL class Gecode::Branchers classGecode_1_1Branchers.html
 URL class Gecode::Choice classGecode_1_1Choice.html
 URL class Gecode::ChooseMax classGecode_1_1ChooseMax.html
@@ -180,6 +187,7 @@ URL class Gecode::Float::Arithmetic::Pow classGecode_1_1Float_1_1Arithmetic_1_1P
 URL class Gecode::Float::Arithmetic::Sqr classGecode_1_1Float_1_1Arithmetic_1_1Sqr.html
 URL class Gecode::Float::Arithmetic::SqrPlus classGecode_1_1Float_1_1Arithmetic_1_1SqrPlus.html
 URL class Gecode::Float::Arithmetic::Sqrt classGecode_1_1Float_1_1Arithmetic_1_1Sqrt.html
+URL class Gecode::Float::Bool::Ite classGecode_1_1Float_1_1Bool_1_1Ite.html
 URL class Gecode::Float::Branch::MeritAFCSize classGecode_1_1Float_1_1Branch_1_1MeritAFCSize.html
 URL class Gecode::Float::Branch::MeritActivitySize classGecode_1_1Float_1_1Branch_1_1MeritActivitySize.html
 URL class Gecode::Float::Branch::MeritDegreeSize classGecode_1_1Float_1_1Branch_1_1MeritDegreeSize.html
@@ -787,6 +795,7 @@ URL class Gecode::IntVarArray classGecode_1_1IntVarArray.html
 URL class Gecode::IntVarBranch classGecode_1_1IntVarBranch.html
 URL class Gecode::IntVarRanges classGecode_1_1IntVarRanges.html
 URL class Gecode::IntVarValues classGecode_1_1IntVarValues.html
+URL class Gecode::InvalidFunction classGecode_1_1InvalidFunction.html
 URL class Gecode::Iter::Ranges::AddRange classGecode_1_1Iter_1_1Ranges_1_1AddRange.html
 URL class Gecode::Iter::Ranges::Append classGecode_1_1Iter_1_1Ranges_1_1Append.html
 URL class Gecode::Iter::Ranges::Array classGecode_1_1Iter_1_1Ranges_1_1Array.html
@@ -1096,6 +1105,8 @@ URL class Gecode::SetVarUnknownRanges classGecode_1_1SetVarUnknownRanges.html
 URL class Gecode::SetVarUnknownValues classGecode_1_1SetVarUnknownValues.html
 URL class Gecode::SharedArray classGecode_1_1SharedArray.html
 URL class Gecode::SharedArray::SAO classGecode_1_1SharedArray_1_1SAO.html
+URL class Gecode::SharedData classGecode_1_1SharedData.html
+URL class Gecode::SharedData::SDO classGecode_1_1SharedData_1_1SDO.html
 URL class Gecode::SharedHandle classGecode_1_1SharedHandle.html
 URL class Gecode::SharedHandle::Object classGecode_1_1SharedHandle_1_1Object.html
 URL class Gecode::SharedMemory classGecode_1_1SharedMemory.html
@@ -1131,12 +1142,18 @@ URL class Gecode::Support::IntTypeTraits<signedshortint> classGecode_1_1Support_
 URL class Gecode::Support::IntTypeTraits<unsignedchar> classGecode_1_1Support_1_1IntTypeTraits_3_01unsigned_01char_01_4.html
 URL class Gecode::Support::IntTypeTraits<unsignedint> classGecode_1_1Support_1_1IntTypeTraits_3_01unsigned_01int_01_4.html
 URL class Gecode::Support::IntTypeTraits<unsignedshortint> classGecode_1_1Support_1_1IntTypeTraits_3_01unsigned_01short_01int_01_4.html
+URL class Gecode::Support::Job classGecode_1_1Support_1_1Job.html
+URL class Gecode::Support::JobStop classGecode_1_1Support_1_1JobStop.html
 URL class Gecode::Support::Less classGecode_1_1Support_1_1Less.html
 URL class Gecode::Support::LinearCongruentialGenerator classGecode_1_1Support_1_1LinearCongruentialGenerator.html
 URL class Gecode::Support::Lock classGecode_1_1Support_1_1Lock.html
 URL class Gecode::Support::Mutex classGecode_1_1Support_1_1Mutex.html
 URL class Gecode::Support::QuickSortStack classGecode_1_1Support_1_1QuickSortStack.html
 URL class Gecode::Support::RawBitSetBase classGecode_1_1Support_1_1RawBitSetBase.html
+URL class Gecode::Support::RunJobs classGecode_1_1Support_1_1RunJobs.html
+URL class Gecode::Support::RunJobs::Deleter classGecode_1_1Support_1_1RunJobs_1_1Deleter.html
+URL class Gecode::Support::RunJobs::Master classGecode_1_1Support_1_1RunJobs_1_1Master.html
+URL class Gecode::Support::RunJobs::Worker classGecode_1_1Support_1_1RunJobs_1_1Worker.html
 URL class Gecode::Support::Runnable classGecode_1_1Support_1_1Runnable.html
 URL class Gecode::Support::StaticStack classGecode_1_1Support_1_1StaticStack.html
 URL class Gecode::Support::Thread classGecode_1_1Support_1_1Thread.html
@@ -1408,7 +1425,8 @@ URL class Test::Int::Bool::ClauseXXY classTest_1_1Int_1_1Bool_1_1ClauseXXY.html
 URL class Test::Int::Bool::ClauseXXYYX classTest_1_1Int_1_1Bool_1_1ClauseXXYYX.html
 URL class Test::Int::Bool::ClauseXYZ classTest_1_1Int_1_1Bool_1_1ClauseXYZ.html
 URL class Test::Int::Bool::Create classTest_1_1Int_1_1Bool_1_1Create.html
-URL class Test::Int::Bool::ITE classTest_1_1Int_1_1Bool_1_1ITE.html
+URL class Test::Int::Bool::ITEBool classTest_1_1Int_1_1Bool_1_1ITEBool.html
+URL class Test::Int::Bool::ITEInt classTest_1_1Int_1_1Bool_1_1ITEInt.html
 URL class Test::Int::Bool::Nary classTest_1_1Int_1_1Bool_1_1Nary.html
 URL class Test::Int::Bool::NaryConst classTest_1_1Int_1_1Bool_1_1NaryConst.html
 URL class Test::Int::Bool::NaryShared classTest_1_1Int_1_1Bool_1_1NaryShared.html
@@ -1570,15 +1588,17 @@ URL class Test::Int::Precede::Multi classTest_1_1Int_1_1Precede_1_1Multi.html
 URL class Test::Int::Precede::Single classTest_1_1Int_1_1Precede_1_1Single.html
 URL class Test::Int::RandomAssignment classTest_1_1Int_1_1RandomAssignment.html
 URL class Test::Int::RandomMixAssignment classTest_1_1Int_1_1RandomMixAssignment.html
-URL class Test::Int::Rel::BoolArray classTest_1_1Int_1_1Rel_1_1BoolArray.html
+URL class Test::Int::Rel::BoolArrayInt classTest_1_1Int_1_1Rel_1_1BoolArrayInt.html
+URL class Test::Int::Rel::BoolArrayVar classTest_1_1Int_1_1Rel_1_1BoolArrayVar.html
 URL class Test::Int::Rel::BoolInt classTest_1_1Int_1_1Rel_1_1BoolInt.html
 URL class Test::Int::Rel::BoolSeq classTest_1_1Int_1_1Rel_1_1BoolSeq.html
 URL class Test::Int::Rel::BoolSharedSeq classTest_1_1Int_1_1Rel_1_1BoolSharedSeq.html
 URL class Test::Int::Rel::BoolVarXX classTest_1_1Int_1_1Rel_1_1BoolVarXX.html
 URL class Test::Int::Rel::BoolVarXY classTest_1_1Int_1_1Rel_1_1BoolVarXY.html
 URL class Test::Int::Rel::Create classTest_1_1Int_1_1Rel_1_1Create.html
-URL class Test::Int::Rel::IntArray classTest_1_1Int_1_1Rel_1_1IntArray.html
 URL class Test::Int::Rel::IntArrayDiff classTest_1_1Int_1_1Rel_1_1IntArrayDiff.html
+URL class Test::Int::Rel::IntArrayInt classTest_1_1Int_1_1Rel_1_1IntArrayInt.html
+URL class Test::Int::Rel::IntArrayVar classTest_1_1Int_1_1Rel_1_1IntArrayVar.html
 URL class Test::Int::Rel::IntInt classTest_1_1Int_1_1Rel_1_1IntInt.html
 URL class Test::Int::Rel::IntSeq classTest_1_1Int_1_1Rel_1_1IntSeq.html
 URL class Test::Int::Rel::IntSharedSeq classTest_1_1Int_1_1Rel_1_1IntSharedSeq.html
@@ -1728,6 +1748,7 @@ URL class Test::Set::Int::Rel classTest_1_1Set_1_1Int_1_1Rel.html
 URL class Test::Set::Int::Weights classTest_1_1Set_1_1Int_1_1Weights.html
 URL class Test::Set::Precede::Multi classTest_1_1Set_1_1Precede_1_1Multi.html
 URL class Test::Set::Precede::Single classTest_1_1Set_1_1Precede_1_1Single.html
+URL class Test::Set::Rel::ITE classTest_1_1Set_1_1Rel_1_1ITE.html
 URL class Test::Set::Rel::RelBin classTest_1_1Set_1_1Rel_1_1RelBin.html
 URL class Test::Set::RelOp::Create classTest_1_1Set_1_1RelOp_1_1Create.html
 URL class Test::Set::RelOp::CreateIntN classTest_1_1Set_1_1RelOp_1_1CreateIntN.html
@@ -2101,6 +2122,9 @@ URL file gecode/float/arithmetic/sqr-sqrt-abs.hpp sqr-sqrt-abs_8hpp.html
 URL file gecode/float/array-traits.hpp float_2array-traits_8hpp.html
 URL file gecode/float/array.cpp gecode_2float_2array_8cpp.html
 URL file gecode/float/array.hpp float_2array_8hpp.html
+URL file gecode/float/bool.cpp gecode_2float_2bool_8cpp.html
+URL file gecode/float/bool.hh float_2bool_8hh.html
+URL file gecode/float/bool/ite.hpp float_2bool_2ite_8hpp.html
 URL file gecode/float/branch.cpp gecode_2float_2branch_8cpp.html
 URL file gecode/float/branch.hh gecode_2float_2branch_8hh.html
 URL file gecode/float/branch/activity.cpp float_2branch_2activity_8cpp.html
@@ -2149,6 +2173,7 @@ URL file gecode/float/trigonometric/tanatan.hpp tanatan_8hpp.html
 URL file gecode/float/val.hpp float_2val_8hpp.html
 URL file gecode/float/var-imp.hpp float_2var-imp_8hpp.html
 URL file gecode/float/var-imp/delta.hpp float_2var-imp_2delta_8hpp.html
+URL file gecode/float/var-imp/float.cpp gecode_2float_2var-imp_2float_8cpp.html
 URL file gecode/float/var-imp/float.hpp gecode_2float_2var-imp_2float_8hpp.html
 URL file gecode/float/var/float.cpp gecode_2float_2var_2float_8cpp.html
 URL file gecode/float/var/float.hpp gecode_2float_2var_2float_8hpp.html
@@ -2222,13 +2247,13 @@ URL file gecode/int/bin-packing/conflict-graph.hpp conflict-graph_8hpp.html
 URL file gecode/int/bin-packing/propagate.cpp propagate_8cpp.html
 URL file gecode/int/bin-packing/propagate.hpp bin-packing_2propagate_8hpp.html
 URL file gecode/int/bool.cpp gecode_2int_2bool_8cpp.html
-URL file gecode/int/bool.hh bool_8hh.html
+URL file gecode/int/bool.hh int_2bool_8hh.html
 URL file gecode/int/bool/base.hpp int_2bool_2base_8hpp.html
 URL file gecode/int/bool/clause.hpp clause_8hpp.html
 URL file gecode/int/bool/eq.hpp int_2bool_2eq_8hpp.html
 URL file gecode/int/bool/eqv.cpp eqv_8cpp.html
 URL file gecode/int/bool/eqv.hpp eqv_8hpp.html
-URL file gecode/int/bool/ite.hpp ite_8hpp.html
+URL file gecode/int/bool/ite.hpp int_2bool_2ite_8hpp.html
 URL file gecode/int/bool/lq.hpp int_2bool_2lq_8hpp.html
 URL file gecode/int/bool/or.hpp or_8hpp.html
 URL file gecode/int/branch.cpp gecode_2int_2branch_8cpp.html
@@ -2535,6 +2560,7 @@ URL file gecode/kernel/branch-val.hpp branch-val_8hpp.html
 URL file gecode/kernel/branch-var.hpp branch-var_8hpp.html
 URL file gecode/kernel/branch.cpp gecode_2kernel_2branch_8cpp.html
 URL file gecode/kernel/brancher-merit.hpp brancher-merit_8hpp.html
+URL file gecode/kernel/brancher-print.hpp brancher-print_8hpp.html
 URL file gecode/kernel/brancher-val-commit.hpp brancher-val-commit_8hpp.html
 URL file gecode/kernel/brancher-val-sel-commit.hpp brancher-val-sel-commit_8hpp.html
 URL file gecode/kernel/brancher-val-sel.hpp brancher-val-sel_8hpp.html
@@ -2559,6 +2585,7 @@ URL file gecode/kernel/region.hpp region_8hpp.html
 URL file gecode/kernel/rnd.cpp rnd_8cpp.html
 URL file gecode/kernel/rnd.hpp rnd_8hpp.html
 URL file gecode/kernel/shared-array.hpp shared-array_8hpp.html
+URL file gecode/kernel/shared-data.hpp shared-data_8hpp.html
 URL file gecode/kernel/subscribed-propagators.hpp subscribed-propagators_8hpp.html
 URL file gecode/kernel/trace-filter.cpp trace-filter_8cpp.html
 URL file gecode/kernel/trace-filter.hpp trace-filter_8hpp.html
@@ -2655,6 +2682,7 @@ URL file gecode/set.hh gecode_2set_8hh.html
 URL file gecode/set/array-traits.hpp set_2array-traits_8hpp.html
 URL file gecode/set/array.cpp gecode_2set_2array_8cpp.html
 URL file gecode/set/array.hpp set_2array_8hpp.html
+URL file gecode/set/bool.cpp gecode_2set_2bool_8cpp.html
 URL file gecode/set/branch.cpp gecode_2set_2branch_8cpp.html
 URL file gecode/set/branch.hh gecode_2set_2branch_8hh.html
 URL file gecode/set/branch/activity.cpp set_2branch_2activity_8cpp.html
@@ -2800,6 +2828,7 @@ URL file gecode/support/int-type.hpp int-type_8hpp.html
 URL file gecode/support/macros.hpp support_2macros_8hpp.html
 URL file gecode/support/marked-pointer.hpp marked-pointer_8hpp.html
 URL file gecode/support/random.hpp random_8hpp.html
+URL file gecode/support/run-jobs.hpp run-jobs_8hpp.html
 URL file gecode/support/sort.hpp support_2sort_8hpp.html
 URL file gecode/support/static-stack.hpp static-stack_8hpp.html
 URL file gecode/support/thread.hpp thread_8hpp.html
@@ -3162,7 +3191,7 @@ TITLE group TaskModelIntBinPacking "Bin packing constraints"
 URL group TaskModelIntBranch group__TaskModelIntBranch.html
 TITLE group TaskModelIntBranch "Branching"
 URL group TaskModelIntBranchAssign group__TaskModelIntBranchAssign.html
-TITLE group TaskModelIntBranchAssign "Value selection for assigning integer and Boolean variables"
+TITLE group TaskModelIntBranchAssign "Value selection for assigning integer variables"
 URL group TaskModelIntBranchSymm group__TaskModelIntBranchSymm.html
 TITLE group TaskModelIntBranchSymm "Symmetry declarations"
 URL group TaskModelIntBranchVal group__TaskModelIntBranchVal.html
@@ -3415,6 +3444,7 @@ URL namespace Gecode::FlatZinc namespaceGecode_1_1FlatZinc.html
 URL namespace Gecode::FlatZinc::AST namespaceGecode_1_1FlatZinc_1_1AST.html
 URL namespace Gecode::Float namespaceGecode_1_1Float.html
 URL namespace Gecode::Float::Arithmetic namespaceGecode_1_1Float_1_1Arithmetic.html
+URL namespace Gecode::Float::Bool namespaceGecode_1_1Float_1_1Bool.html
 URL namespace Gecode::Float::Branch namespaceGecode_1_1Float_1_1Branch.html
 URL namespace Gecode::Float::Limits namespaceGecode_1_1Float_1_1Limits.html
 URL namespace Gecode::Float::Linear namespaceGecode_1_1Float_1_1Linear.html
@@ -3551,6 +3581,8 @@ URL page PageHowToChange_3 PageHowToChange_3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
 URL page PageHowToChange_4 PageHowToChange_4.html
 TITLE page PageHowToChange_4 "How to Change from Gecode 3.7.3 to Gecode 4.0.0"
+URL page PageHowToChange_5 PageHowToChange_5.html
+TITLE page PageHowToChange_5 "How to Change from Gecode 4.4.0 to Gecode 5.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"
 URL page PageNotation PageNotation.html
@@ -3559,7 +3591,6 @@ URL page index index.html
 TITLE page index "Gecode Reference Documentation"
 URL typedef BitSet namespaceGecode_1_1Int_1_1Extensional.html
 URL typedef BoolBranchCommit group__TaskModelIntBranch.html
-URL typedef BoolBranchFilter group__TaskModelIntBranch.html
 URL typedef BoolBranchMerit group__TaskModelIntBranch.html
 URL typedef BoolBranchVal group__TaskModelIntBranch.html
 URL typedef BoolStatus namespaceGecode_1_1Int.html
@@ -3570,7 +3601,6 @@ URL typedef BranchTbl group__TaskModelBranch.html
 URL typedef Domain namespaceGecode_1_1Int_1_1Extensional.html
 URL typedef FastMutex namespaceGecode_1_1Support.html
 URL typedef FloatBranchCommit group__TaskModelFloatBranch.html
-URL typedef FloatBranchFilter group__TaskModelFloatBranch.html
 URL typedef FloatBranchMerit group__TaskModelFloatBranch.html
 URL typedef FloatBranchVal group__TaskModelFloatBranch.html
 URL typedef FloatMaximizeScript group__TaskDriverScript.html
@@ -3580,7 +3610,6 @@ URL typedef FloatTraceRecorder group__TaskFloatTrace.html
 URL typedef FloatTracer group__TaskFloatTrace.html
 URL typedef FloatVarValPrint namespaceGecode.html
 URL typedef IntBranchCommit group__TaskModelIntBranch.html
-URL typedef IntBranchFilter group__TaskModelIntBranch.html
 URL typedef IntBranchMerit group__TaskModelIntBranch.html
 URL typedef IntBranchVal group__TaskModelIntBranch.html
 URL typedef IntMaximizeScript group__TaskDriverScript.html
@@ -3619,7 +3648,6 @@ URL typedef RoundingBase namespaceGecode_1_1Float.html
 URL typedef SEB namespaceGecode.html
 URL typedef Script group__TaskDriverScript.html
 URL typedef SetBranchCommit group__TaskModelSetBranch.html
-URL typedef SetBranchFilter group__TaskModelSetBranch.html
 URL typedef SetBranchMerit group__TaskModelSetBranch.html
 URL typedef SetBranchVal group__TaskModelSetBranch.html
 URL typedef SetTraceRecorder group__TaskSetTrace.html
@@ -3628,7 +3656,6 @@ URL typedef SetVarValPrint namespaceGecode.html
 URL typedef StatePoolAllocator namespaceGecode_1_1MiniModel.html
 URL typedef TaskTypeArgs group__TaskModelInt.html
 URL typedef Tuple namespaceGecode_1_1Int_1_1Extensional.html
-URL typedef VoidFunction namespaceGecode.html
 URL typedef mpfr_func namespaceGecode_1_1Float.html
 URL typedef order_t steel-mill_8cpp.html
 URL typedef varspec namespaceGecode.html

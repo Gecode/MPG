@@ -400,13 +400,12 @@ in the archive.
 
 \tip{Never execute}{ 
 \label{tip:b:started:never}%
-The macro \?GECODE_NEVER? states that it
-  will never be executed. If compiled in debug mode,
-  \?GECODE_NEVER? corresponds to the assertion \?assert(false)?.
-  If compiled in release mode, the macro informs the compiler
-  (depending on the platform) that \?GECODE_NEVER? is never
-  executed so that the compiler can take advantage of this
-  information for optimization.}
+The macro \?GECODE_NEVER? states that it will never be executed.
+If compiled in debug mode, \?GECODE_NEVER? corresponds to the
+assertion \?assert(false)?.  If compiled in release mode, the
+macro informs the compiler (depending on the platform) that
+\?GECODE_NEVER? is never executed so that the compiler can take
+advantage of this information for optimization.}
 
 \paragraph{Committing to alternatives.}
 

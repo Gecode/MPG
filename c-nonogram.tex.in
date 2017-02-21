@@ -236,7 +236,7 @@ public:
       extensional(*this, m.row(h), line(p));
     \end{litblock}
     \begin{litblock}{branching}
-    branch(*this, b, INT_VAR_AFC_MAX(), INT_VAL_MAX());
+    branch(*this, b, BOOL_VAR_AFC_MAX(), BOOL_VAL_MAX());
     \end{litblock}
   }
   \begin{litblock}{anonymous}

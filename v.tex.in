@@ -122,7 +122,7 @@ Programming variables includes the following tasks:
   support for implementing variable-value branchings, including
   support for the specification of variable and value selection
   strategies, random and activity-based selection of variables,
-  tie-breaking, filter functions, no-goods, and much more. How
+  tie-breaking, no-goods, and much more. How
   to use Gecode's support for implementing variable-value
   branchings is detailed in \autoref{chap:v:branch}.
 
@@ -1472,9 +1472,6 @@ with branching (shown in \autoref{fig:v:branch:structure}).
 The way how a variable-value branching works can to some
 extent be controlled by the user by passing pointers to functions:
 \begin{itemize}
-\item A branching filter function defines which variables are
-  actually considered for branching, see
-  \autoref{sec:m:branch:filter}.
 \item A variable value print function defines how to print
   information on alternatives of variable value branchers during
   search. Variable value branchers print some default information
@@ -2098,6 +2095,7 @@ directory for include files and library files is
 #include <iomanip>
 #include <sstream>
 #include <climits>
+#include <functional>
 
 \end{litblock}
 #include <gecode/kernel.hh>
@@ -2734,19 +2732,20 @@ namespace MPG { namespace Int {
 \begin{litblock}{branching}
 \begin{litblock}{branch function types}
 namespace MPG {
-  typedef bool   (*IntBranchFilter)(const Space& home, 
-                                    IntVar x, int i);
-  typedef void   (*IntVarValPrint) (const Space &home, 
-                                    const Brancher& b,
-                                    unsigned int a,
-                                    IntVar x, int i, const int& n,
-                                    std::ostream& o);
-  typedef double (*IntBranchMerit) (const Space& home, 
-                                    IntVar x, int i);
-  typedef int    (*IntBranchVal)   (const Space& home, 
-                                    IntVar x, int i);
-  typedef void   (*IntBranchCommit)(Space& home, unsigned int a,
-                                    IntVar x, int i, int n);
+  typedef std::function<void(const Space &home,
+                             const Brancher& b, unsigned int a,
+                             IntVar x, int i, const int& n,
+                             std::ostream& o)>
+    IntVarValPrint;
+  typedef std::function<double(const Space& home, 
+                               IntVar x, int i)>
+    IntBranchMerit;
+  typedef std::function<int(const Space& home, 
+                            IntVar x, int i)>
+    IntBranchVal;
+  typedef std::function<void(Space& home, unsigned int a,
+                             IntVar x, int i, int n)>
+    IntBranchCommit;
 }
 \end{litblock}
 \begin{litblock}{branch traits}
@@ -2754,7 +2753,6 @@ namespace Gecode {
   template<>
   class BranchTraits<MPG::IntVar> {
   public:
-    typedef MPG::IntBranchFilter Filter;
     typedef MPG::IntBranchMerit Merit;
     typedef MPG::IntBranchVal Val;
     typedef int ValType;

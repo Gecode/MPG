@@ -148,11 +148,13 @@ activity by domain size\\
 maximum-regret\\
 \end{tabular}
 \end{center}
-\caption{Integer and Boolean variable selection}
-\label{fig:m:branch:int:var}
+\caption{Integer variable selection}
+\label{fig:m:branch:int:var:int}
 \end{figure}
 
-For integer and Boolean variables, variable selection is defined
+\paragraph{Branching on integer variables.}
+
+For integer variables, variable selection is defined
 by a value of class \gecoderef[class]{IntVarBranch} and value
 selection is defined by a value of type
 \gecoderef[class]{IntValBranch}. Values of these types are
@@ -162,7 +164,7 @@ example, a call \?INT_VAR_SIZE_MIN()? returns an object of class
 \gecoderef[class]{IntVarBranch}.
 
 For an overview of the available variable selection strategies,
-see \autoref{fig:m:branch:int:var} (see also
+see \autoref{fig:m:branch:int:var:int} (see also
 \gecoderef[group]{TaskModelIntBranchVar}) where \OptArg{$\cdot$}~denotes an optional argument and~\SpecialArg{$\cdot$} is a
 special argument to be explained below. Here, an argument \?r?
 refers to a random number generator of type
@@ -174,9 +176,8 @@ argument \?m? refers to a user-defined merit function of type
 User-defined merit functions are discussed in
 \autoref{sec:m:branch:uservar}.  An argument \?afc?
 refers to accumulated failure count (AFC) information for integer
-or Boolean variables (of class \gecoderef[class]{IntAFC}).  An
-argument \?act? refers to activity information for integer or
-Boolean variables (of class \gecoderef[class]{IntActivity}). For
+variables (of class \gecoderef[class]{IntAFC}).  An
+argument \?act? refers to activity information for integer variables (of class \gecoderef[class]{IntActivity}). For
 a discussion of AFC and activity, see
 \autoref{sec:m:branch:shared}, both \SpecialArg{\?afc?}
 and \SpecialArg{\?act?} can also be optional arguments of type
@@ -214,23 +215,21 @@ several ranges;\\
 \?INT_VAL_NEAR_DEC(n)? & values smaller than value in array \?n? first\\
 \end{tabular}
 \end{center}
-\caption{Integer and Boolean value selection}
-\label{fig:m:branch:int:val}
+\caption{Integer value selection}
+\label{fig:m:branch:int:val:int}
 \end{figure}
 
 An overview of the available value selection strategies for
-integer and Boolean variables can be found in
-\autoref{fig:m:branch:int:val} (see also
+integer variables can be found in
+\autoref{fig:m:branch:int:val:int} (see also
 \gecoderef[group]{TaskModelIntBranchVal}) where \OptArg{$\cdot$}~denotes
 an optional argument. Here, an argument \?r? refers to
 a random number generator of type \gecoderef[class]{Rnd} which is
 discussed in \autoref{sec:m:branch:rnd}. An argument \?v?
 refers to a value selection function of type
-\gecoderef[typedef]{IntBranchVal} for integer variables and
-\gecoderef[typedef]{BoolBranchVal} for Boolean variables. An
+\gecoderef[typedef]{IntBranchVal}. An
 optional argument \?c? refers to a commit function of type
-\gecoderef[typedef]{IntBranchCommit} for integer variables and of
-type \gecoderef[typedef]{BoolBranchCommit} for Boolean variables.
+\gecoderef[typedef]{IntBranchCommit}.
 Value and commit functions are discussed in
 \autoref{sec:m:branch:userval}. The argument \?n? must be an
 array of integers (or a shared array of integers, see
@@ -356,6 +355,78 @@ That is, values are chosen starting from
 $\mathtt{c}_{\mathtt{i}}$ in increasing order if possible and
 in decreasing order if not. \?INT_VAL_NEAR_DEC(c)? selects the
 values in inverse order.
+
+\paragraph{Branching on Boolean variables.}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?BOOL_VAR_NONE()? & first unassigned\\
+\?BOOL_VAR_RND(r)? & randomly\\
+\?BOOL_VAR_MERIT_MIN(m,?\OptArg{\?t?}\?)? & smallest value of merit function \?m?\\
+\?BOOL_VAR_MERIT_MAX(m,?\OptArg{\?t?}\?)? & largest value of merit function \?m?\\
+\?BOOL_VAR_DEGREE_MIN(?\OptArg{\?t?}\?)? & smallest degree\\
+\?BOOL_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
+\?BOOL_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
+\?BOOL_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
+\?BOOL_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
+\?BOOL_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\end{tabular}
+\end{center}
+\caption{Boolean variable selection}
+\label{fig:m:branch:int:var:bool}
+\end{figure}
+
+Similar to integer variables, variable selection for Boolean
+variables is defined
+by a value of class \gecoderef[class]{BoolVarBranch} and value
+selection is defined by a value of type
+\gecoderef[class]{BoolValBranch}. Values of these types are
+obtained by calling functions (possibly taking arguments) that
+correspond to variable and value selection strategies.
+
+For an overview of the available variable selection strategies,
+see \autoref{fig:m:branch:int:var:bool} (see also
+\gecoderef[group]{TaskModelIntBranchVar}) where
+\OptArg{$\cdot$}~denotes an optional argument
+and~\SpecialArg{$\cdot$} is a special argument to be explained
+below. Here, an argument \?r?  refers to a random number
+generator of type \gecoderef[class]{Rnd}. An argument \?m? refers
+to a user-defined merit function of type
+\gecoderef[typedef]{BoolBranchMerit}.  An argument \?afc?  refers
+to accumulated failure count (AFC) information for Boolean
+variables (of class \gecoderef[class]{BoolAFC}).  An argument
+\?act? refers to activity information for Boolean variables (of
+class \gecoderef[class]{BoolActivity}). The optional argument
+\?t?  refers to a tie-breaking limit function of type
+\gecoderef[typedef]{BranchTbl}.
+
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l@{\quad}l}
+\?BOOL_VAL_RND(r)? & random value\\
+\?BOOL_VAL(v,?\OptArg{\?c?}\?)? & defined by value function \?v? and commit
+function \?c?\\
+\?BOOL_VAL_MIN()? & smallest value\\
+\?BOOL_VAL_MAX()? & largest value\\
+\end{tabular}
+\end{center}
+\caption{Boolean value selection}
+\label{fig:m:branch:int:val:bool}
+\end{figure}
+
+An overview of the available value selection strategies for
+Boolean variables can be found in
+\autoref{fig:m:branch:int:val:bool} (see also
+\gecoderef[group]{TaskModelIntBranchVal}) where
+\OptArg{$\cdot$}~denotes an optional argument. Here, an argument
+\?r? refers to a random number generator of type
+\gecoderef[class]{Rnd}.  An argument \?v?  refers to a value
+selection function of type \gecoderef[typedef]{BoolBranchVal}. An
+optional argument \?c? refers to a commit function of type
+\gecoderef[typedef]{BoolBranchCommit}.
+
 
 
 \section{Branching on set variables}
@@ -633,7 +704,8 @@ $$\mathtt{afc}(\mathtt q)=\mathtt{d}\cdot\mathtt{afc}(\mathtt q)$$
 \end{itemize}
 
 In order to use AFC for branching, one must create an object
-of class \gecoderef[class]{IntAFC} for integer or Boolean
+of class \gecoderef[class]{IntAFC} for integer variables, an
+object of class \gecoderef[class]{BoolAFC} for Boolean
 variables, an object of class \gecoderef[class]{SetAFC} for
 set variables, or an object of class
 \gecoderef[class]{FloatAFC} for float variables. The object
@@ -712,7 +784,8 @@ $$\mathtt{activity}(\mathtt x)=\mathtt{activity}(\mathtt x)+1$$
 \end{itemize}
 
 In order to use activity for branching, one must create an object
-of class \gecoderef[class]{IntActivity} for integer or Boolean
+of class \gecoderef[class]{IntActivity} for integer variables, an
+object of class \gecoderef[class]{BoolActivity} for Boolean
 variables, an object of class \gecoderef[class]{SetActivity} for
 set variables, or an object of class
 \gecoderef[class]{FloatActivity} for float variables. The object
@@ -729,13 +802,14 @@ with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
 optional and defaults to no decay ($\mathtt{d}=1$).
 
 The activity of each variable in an array \?x? can be initialized
-by a merit function, see \autoref{sec:m:branch:uservar}. If \?bm?
-is a merit function, then
+by a merit function, see \autoref{sec:m:branch:uservar}. Here
 \begin{code}
-IntActivity act(home,x,0.99,&bm);
+IntActivity act(home,x,0.99,
+                [](const Space& home, IntVar x, int i) {
+                  return 1.0;
+                });
 \end{code}
-initializes the activity of \?x[i]? to the value returned by
-\?bm(home,x[i],i)?.
+initializes the activity of \?x[i]? to \?1.0?.
 
 The decay-factor can be changed later, say to
 $\mathtt{d}=\mathtt{0.95}$, by
@@ -770,10 +844,12 @@ Activity for other variable types is analogous.
 \label{sec:m:branch:rnd}
 
 One particular strategy for variable and value selection is by
-random. For integer and Boolean variables, \?INT_VAR_RND(r)?
+random. For integer variables, \?INT_VAR_RND(r)?
 selects a random variable and \?INT_VAL_RND(r)? selects a random
 value where \?r? is a random number generator of class
-\gecoderef[class]{Rnd}.  For set variables, \?SET_VAR_RND(r)?
+\gecoderef[class]{Rnd}.  For Boolean variables,
+\?BOOL_VAR_RND(r)? selects a random variable and
+\?BOOL_VAL_RND(r)? selects a random value. For set variables, \?SET_VAR_RND(r)?
 selects a random variable and \?SET_VAL_RND_INC(r)? and
 \?SET_VAL_RND_EXC(r)? include and exclude a random value from a
 set variable. For float variables, \?FLOAT_VAR_RND(r)? selects a
@@ -834,9 +910,9 @@ the type of the merit function is
 \gecoderef[typedef]{BoolBranchMerit}, for set variables
 \gecoderef[typedef]{SetBranchMerit}, and for float variables
 \gecoderef[typedef]{FloatBranchMerit}. For integer variables, the
-type is defined as
+type \?IntBranchMerit? is defined as
 \begin{code}
-typedef double (*IntBranchMerit)(const Space& home, IntVar x, int i);
+  std::function<double(const Space& home, IntVar x, int i)>
 \end{code}
 where \?home? refers to the home space, \?x? is the integer
 variable for which a merit value should be computed and \?i?
@@ -845,9 +921,9 @@ passed as argument to the \?branch()? function. The merit
 function types for Boolean, set, and float variables are
 analogous.
 
-For example, the following static merit function
+For example, the following merit function
 \begin{code}
-static double m(const Space& home, IntVar x, int i) {
+auto m = [](const Space& home, IntVar x, int i) {
   return x.size();
 }
 \end{code}
@@ -855,43 +931,15 @@ simply returns the domain size of the integer variable \?x? as
 the merit value. The merit function can be used to select a
 variable with either smallest or largest merit value. By
 \begin{code}
-branch(home, INT_VAR_MERIT_MIN(&m), INT_VAL_MIN());
+branch(home, INT_VAR_MERIT_MIN(m), INT_VAL_MIN());
 \end{code}
 a variable with least merit value according to the merit function
 \?m()? is selected (that is, the first variable in the array with
 smallest size). A variable with maximal merit value is selected
 by: 
 \begin{code}
-branch(home, INT_VAR_MERIT_MAX(&m), INT_VAL_MIN());
+branch(home, INT_VAR_MERIT_MAX(m), INT_VAL_MIN());
 \end{code}
-
-\tip{Using a member function as merit function}{
-\label{tip:m:branch:merit}%
-Often it is more convenient to use a const member function instead of a
-static function as a merit function. This is in particular the
-case when the merit function needs access to members of a
-script. 
-
-\begin{samepage}
-For example, the following member function of a class
-\?Model? for a script (a subclass of \gecoderef[class]{Space}):
-\begin{code}
-double merit(IntVar x, int i) const {
-  return ...;
-}
-\end{code}
-\end{samepage}
-is used when defining a static function as follows
-\begin{code}
-double trampoline(const Space& home, IntVar x, int i) {
-  return static_cast<const Model&>(home).merit(x,i);
-\end{code}
-and passing a pointer to \?trampoline()? as an argument, for
-example by
-\begin{code}
-branch(home, INT_VAR_MERIT_MIN(&trampoline), INT_VAL_MIN());
-\end{code}
-}
 
 
 \section{User-defined value selection}
@@ -930,7 +978,7 @@ and the value types for the different variable types. For
 example, the type \gecoderef[typedef]{IntBranchVal} for value functions for integer variables is
 defined as:
 \begin{code}
-typedef int (*IntBranchVal)(const Space& home, IntVar x, int i);
+  std::function<int(const Space& home, IntVar x, int i)>
 \end{code}
 
 A branch commit function takes a reference to a space, the number
@@ -940,22 +988,22 @@ and a value selected by a branch value function. For example, the
 type \gecoderef[typedef]{IntBranchCommit} for branch commit
 functions for integer variables is defined as:
 \begin{code}
-typedef void (*IntBranchCommit)(Space& home, unsigned int a,
-                                IntVar x, int i, int n);
+  std::function<void(Space& home, unsigned int a,
+                     IntVar x, int i, int n)>
 \end{code}
 
 Let us consider \?INT_VAL_MIN()? as an example, but
 re-implemented by value and commit functions. The value function
 can be defined as:
 \begin{code}
-static int v(const Space& home, IntVar x, int i) {
+auto v = [](const Space& home, IntVar x, int i) {
   return x.min();
 }
 \end{code}
 and the commit function as:
 \begin{code}
-static void c(Space& home, unsigned int a,
-              IntVar x, int i, int n) {
+auto c = [](Space& home, unsigned int a,
+            IntVar x, int i, int n) {
   if (a == 0U) {
     rel(home, x, IRT_EQ, n);
   } else {
@@ -966,7 +1014,7 @@ static void c(Space& home, unsigned int a,
 A branching using the value and commit function then can be
 posted by:
 \begin{code}
-branch(home, x, INT_VAR_NONE(), INT_VAL(&v,&c));
+branch(home, x, INT_VAR_NONE(), INT_VAL(v,c));
 \end{code}
 
 The commit function is optional. If the commit function is
@@ -975,7 +1023,7 @@ is used. For integer variables, for example, the commit function
 corresponds to the commit function from the previous
 example. Hence, it is sufficient to post the brancher as:
 \begin{code}
-branch(home, x, INT_VAR_NONE(), INT_VAL(&v));
+branch(home, x, INT_VAR_NONE(), INT_VAL(v));
 \end{code}
 
 \begin{figure}
@@ -1005,10 +1053,6 @@ variable types. The variable \?x? refers to the variable selected
 by the brancher and \?n? to the value selected by the branch
 value function.
 
-Note that both value and commit functions can also be implemented
-as member functions, similar to merit functions as described in
-\autoref{tip:m:branch:merit}.
-
 For examples which use value functions to implement problem-specific
 branching, see \gecoderef[example]{black-hole} and
 \gecoderef[example]{bacp}.
@@ -1029,7 +1073,8 @@ on, that is, with largest degree). Then, among the most
 constrained variables select the variable with the smallest
 domain. This can be achieved by using the \?tiebreak()?  function:
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_DEGREE_MAX(), INT_VAR_SIZE_MIN()),
+branch(home, x, tiebreak(INT_VAR_DEGREE_MAX(), 
+                         INT_VAR_SIZE_MIN()),
                 INT_VAL_MIN());
 \end{code}
 The overloaded function \?tiebreak()?  (see
@@ -1042,7 +1087,8 @@ example, breaking ties by first selecting a variable with
 smallest domain and then selecting a random variable among those
 with smallest domain is obtained by:
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(),
+                         INT_VAR_RND(r)),
                 INT_VAL_MIN());
 \end{code}
 \end{samepage}
@@ -1060,7 +1106,7 @@ Which variables are considered as ties can be controlled by
 A tie-breaking limit function has the type
 \gecoderef[typedef]{BranchTbl} which is defined as:
 \begin{code}
-typedef double (*BranchTbl)(const Space& home, double w, double b);
+  std::function<double(const Space& home, double w, double b)>
 \end{code}
 The function takes a constant reference to a space \?home?,
 the worst merit value \?w?, and the best merit value \?b? as
@@ -1079,28 +1125,28 @@ $$
 Without a tie-breaking limit function as
 in (here, \?r? is a random number generator):
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN(), INT_VAR_RND(r)),
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(),
+                         INT_VAR_RND(r)),
                 INT_VAL_MIN());
 \end{code}
-the variables \?x[1]? and \?x[2]? (both with size as the merit value $3.0$) are considered as ties and
-random variable selection will choose one of them. 
+the variables \?x[1]? and \?x[2]? (both with size as the merit
+value $3.0$) are considered as ties and random variable selection
+will choose one of them.
 
 \begin{samepage}
-Likewise, when
-branching with
+Likewise, when branching with
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MAX(), INT_VAR_RND(r)),
+branch(home, x, tiebreak(INT_VAR_SIZE_MAX(),
+                         INT_VAR_RND(r)),
                 INT_VAL_MIN());
 \end{code}
 \end{samepage}
 only variable \?x[3]? will be considered as the single variable
 with the best merit value $7.0$.
 
-The following tie-breaking limit function (defined as a static
-member function of a script, see also
-\autoref{tip:m:branch:merit}):
+The following tie-breaking limit function
 \begin{code}
-static double tbl(const Space& home, double w, double b) {
+auto tbl = [](const Space& home, double w, double b) {
   return (w + b) / 2.0;
 }
 \end{code}
@@ -1111,7 +1157,8 @@ done by passing it as additional argument.
 \begin{samepage}
 For example, when using \?tbl()? with
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MIN(&tbl), INT_VAR_RND(r)),
+branch(home, x, tiebreak(INT_VAR_SIZE_MIN(tbl),
+                         INT_VAR_RND(r)),
                 INT_VAL_MIN());
 \end{code}
 \end{samepage}
@@ -1123,7 +1170,8 @@ these three variables.
 
 For example, when using \?tbl()? with
 \begin{code}
-branch(home, x, tiebreak(INT_VAR_SIZE_MAX(&tbl), INT_VAR_RND(r)),
+branch(home, x, tiebreak(INT_VAR_SIZE_MAX(tbl),
+                         INT_VAR_RND(r)),
                 INT_VAL_MIN());
 \end{code}
 the function \?tbl()? is called with $\mathtt{w}=3.0$ and
@@ -1162,7 +1210,12 @@ column are the same. This is easily implemented using integer
 variables and \?distinct? constraints.
 
 The model has many solutions that are essentially the same due to
-symmetry. For example, the four solutions in~\autoref{fig:m:branch:latin:syms} are symmetric: from the top-left solution, we can get the top-right one by exchanging the first two rows, the bottom-left one by exchanging the second and third column, and the bottom-right one by swapping the values $1$ and $3$.
+symmetry. For example, the four solutions
+in~\autoref{fig:m:branch:latin:syms} are symmetric: from the
+top-left solution, we can get the top-right one by exchanging the
+first two rows, the bottom-left one by exchanging the second and
+third column, and the bottom-right one by swapping the values $1$
+and $3$.
 
 \begin{figure}
   \centering
@@ -1205,7 +1258,11 @@ symmetry. For example, the four solutions in~\autoref{fig:m:branch:latin:syms} a
 \label{fig:m:branch:latin:syms}
 \end{figure}
 
-Gecode supports \emph{dynamic symmetry breaking}, i.e., given a specification of the symmetries, it can avoid visiting symmetric states during the search, which can result in dramatically smaller search trees and greatly improved runtime for some problems.
+Gecode supports \emph{dynamic symmetry breaking}, i.e., given a
+specification of the symmetries, it can avoid visiting symmetric
+states during the search, which can result in dramatically
+smaller search trees and greatly improved runtime for some
+problems.
 
 Symmetries are specified by passing an object of type
 \gecoderef[class]{Symmetries} to the \?branch()? function. In the
@@ -1218,21 +1275,27 @@ specifies that all these values are symmetric, that is,
 interchangeable.
 
 For the row and column symmetries, we need to declare a
-\?VariableSequenceSymmetry? (see \gecoderef[group]{TaskModelIntBranchSymm}), which states that certain \emph{sequences} of variables (in this case the rows and columns) are interchangeable:
+\?VariableSequenceSymmetry? (see
+\gecoderef[group]{TaskModelIntBranchSymm}), which states that
+certain \emph{sequences} of variables (in this case the rows and
+columns) are interchangeable:
 \insertlitcode{latin square ldsb:row/column symmetry}
 
-Now the number of Latin squares found and the search effort required
-are greatly reduced. The code for the example
+Now the number of Latin squares found and the search effort
+required are greatly reduced. The code for the example
 in~\autoref{fig:m:branch:latin:ldsb} has command line options for
 toggling between no symmetry breaking and LDSB.
 
-For examples, consider \gecoderef[example]{graph-color} and \gecoderef[example]{steel-mill}.
+For examples, consider \gecoderef[example]{graph-color} and
+\gecoderef[example]{steel-mill}.
 
 \subsection{Specifying Symmetry}
 
-LDSB supports four basic types of symmetry (see \gecoderef[group]{TaskModelIntBranchSymm}). Collections of symmetries are stored in a \?Symmetries? object,
-which is passed to the \?branch()? function.  Any combination of
-symmetries is allowed.
+LDSB supports four basic types of symmetry (see
+\gecoderef[group]{TaskModelIntBranchSymm}). Collections of
+symmetries are stored in a \?Symmetries? object, which is passed
+to the \?branch()? function.  Any combination of symmetries is
+allowed.
 
 \begin{itemize}
 \item 
@@ -1298,11 +1361,10 @@ The type of a variable-value print function depends on the variable
 type. For integer variables, the type
 \gecoderef[typedef]{IntVarValPrint} is defined as
 \begin{code}
-typedef void (*IntVarValPrint)(const Space &home,
-                               const Brancher& b,
-                               unsigned int a,
-                               IntVar x, int i, const int& n,
-                               std::ostream& o);
+  std::function<void(const Space &home,
+                     const Brancher& b, unsigned int a,
+                     IntVar x, int i, const int& n,
+                     std::ostream& o)>
 \end{code}
 That is, a variable-value print function takes the \?home? space,
 a brancher \?b?,
@@ -1317,10 +1379,7 @@ variables \gecoderef[typedef]{SetVarValPrint}, and for float
 variables \gecoderef[typedef]{FloatVarValPrint}.
 
 For an example of how to use variable-value print functions, see
-\autoref{chap:c:crossword}.  In many cases it can be more
-convenient to perform the actual printing in a \?const? member
-function. This can be done along the lines of
-\autoref{tip:m:branch:merit}.
+\autoref{chap:c:crossword}.
 
 
 \section{Assigning integer, Boolean, set, and float variables}
@@ -1344,6 +1403,15 @@ assignment has been propagated.
 \?INT_ASSIGN_MAX()?  & maximum value\\
 \?INT_ASSIGN_RND(r)? & random value\\
 \?INT_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
+\?v? and commit function \?c?\\
+\end{tabular}}
+
+\subfigure{
+\begin{tabular}{l@{\quad}l}
+\?BOOL_ASSIGN_MIN()?  & smallest value\\
+\?BOOL_ASSIGN_MAX()?  & maximum value\\
+\?BOOL_ASSIGN_RND(r)? & random value\\
+\?BOOL_ASSIGN(v,?\OptArg{\?c?}\?)? & defined by value function
 \?v? and commit function \?c?\\
 \end{tabular}}
 
@@ -1382,13 +1450,14 @@ assign(home, x, INT_ASSIGN_MIN());
 \end{code}
 The strategy to select the value for assignment is defined by a
 value of class \gecoderef[class]{IntAssign} (see also
-\gecoderef[group]{TaskModelIntBranchAssign}) for integer and
-Boolean variables, by a value of class
-\gecoderef[class]{SetAssign} (see also 
-\gecoderef[group]{TaskModelSetBranchAssign}) for set variables,
-and by a value of class \gecoderef[class]{FloatAssign} 
+\gecoderef[group]{TaskModelIntBranchAssign}) for integer
+variables, by a value of class \gecoderef[class]{BoolAssign} (see
+also \gecoderef[group]{TaskModelIntBranchAssign}) for Boolean
+variables, by a value of class \gecoderef[class]{SetAssign} (see
+also \gecoderef[group]{TaskModelSetBranchAssign}) for set
+variables, and by a value of class \gecoderef[class]{FloatAssign}
 (see also \gecoderef[group]{TaskModelFloatBranchAssign}) for
-float variables.  
+float variables.
 
 \autoref{fig:m:branch:assign} summarizes the
 value selection strategies for assigning integer, Boolean, set,
@@ -1476,7 +1545,7 @@ member function \?Model::more? is more convenient to use.
 
 It will be true for the first time \?more()? is executed. But
 \?more()? will be executed possibly quite often during
-recomputation (see the following Section). And then, the only
+recomputation (see the following Chapter). And then, the only
 guarantee one can rely on is that the brancher has created
 enough alternatives to guarantee that the variables in \?x? are
 assigned \emph{but only after constraint propagation has been

@@ -9,6 +9,16 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2017-02-21}{Changed all functions for branching to
+    functions based on \?std::function?
+    (see \autoref{chap:m:branch}).}
+  \cle{2017-02-21}{Explained new variable and value selection for
+    Boolean variables 
+    (see \autoref{sec:m:branch:int}).}
+  \cle{2017-02-21}{Explained that function for \?wait()? and
+    \?when()? can be of a type derived from \?std::function?
+    (see \autoref{sec:m:integer:exec}, \autoref{sec:m:set:exec}, and
+    \autoref{sec:m:float:exec}).}
   \cle{2016-10-25}{Released for Gecode 5.0.0} 
   \cle{2016-10-23}{Added a description of how to relax variables
    (see \autoref{par:m:search:relax}).}
@@ -177,8 +187,6 @@
   \cle[\AckName{Kish}{Shen}]{2010-09-02}{Explain that variables
     are re-selected during branching
     (\autoref{tip:m:branch:reselected})}
-  \cle[\AckName{Felix}{Brandt}]{2010-09-01}{Explain branch filter
-    functions (\autoref{sec:m:branch:filter})}
   \cle{2010-08-31}{Documented that variable implementation views
     are parametric with respect to variables
     (\autoref{sec:v:view:varview})} \cle{2010-08-31}{Documented
