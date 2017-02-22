@@ -822,8 +822,8 @@ re-configured problem. Possible modifications include but are not
 limited to:
 \begin{itemize}
 \item Improved information from the search for branching
-  heuristics such as activity (see
-  \autoref{sec:m:branch:activity}) or AFC (see
+  heuristics such as action (see
+  \autoref{sec:m:branch:action}) or AFC (see
   \autoref{sec:m:branch:afc}): the now stopped search has
   gathered some information of which branching can take advantage
   in the next restart of search.

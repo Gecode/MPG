@@ -519,12 +519,15 @@ this paragraph will fill in the missing details.
   propagators with similar cost). However, Gecode does not give
   hard guarantees on the order of propagator execution: the cost
   of a propagator should be understood as a suggestion and not a
-  requirement. The only exception is a cost level called
-  \?record? that is reserved for propagators that only record
-  information (such as for propagators that record information
-  about activity~\autoref{sec:m:branch:shared} or for
+  requirement. 
+
+  The only exception is a cost level called \?record? that is
+  reserved for propagators that only record information (such as
+  for propagators that record information about
+  action~\autoref{sec:m:branch:shared} or for
   tracing~\autoref{sec:m:group:tracers:int}): they will always be
-  executed after all propagators of lower cost.
+  executed after all propagators of lower cost (these propagators
+  are also executed on a failed space).
 
   For the interested reader, the design of cost-based scheduling
   for Gecode together with its evaluation can be found in

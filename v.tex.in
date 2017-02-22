@@ -121,7 +121,7 @@ Programming variables includes the following tasks:
   (see \autoref{sec:m:branch:int}). Gecode offers substantial
   support for implementing variable-value branchings, including
   support for the specification of variable and value selection
-  strategies, random and activity-based selection of variables,
+  strategies, random and action-based selection of variables,
   tie-breaking, no-goods, and much more. How
   to use Gecode's support for implementing variable-value
   branchings is detailed in \autoref{chap:v:branch}.
@@ -1470,7 +1470,7 @@ This structure is reflected in the part of the
 with branching (shown in \autoref{fig:v:branch:structure}).
 
 
-\section{Type, traits, and activity definitions}
+\section{Type, traits, and action definitions}
 \label{sec:v:branch:type}
 
 The way how a variable-value branching works can to some
@@ -1509,13 +1509,13 @@ the \?Gecode? namespace, the trait class must also be defined
 there: 
 \insertlitcode{int.hh:branch traits}
 
-The last remaining definitions specializes AFC and activity information
+The last remaining definitions specializes AFC and action information
 for integer interval variables by defining a class \?IntAFC? as
 follows:
 \insertlitcode{int.hh:variable AFC}
-and a class \?IntActivity?
+and a class \?IntAction?
 as follows:
-\insertlitcode{int.hh:variable activity}
+\insertlitcode{int.hh:variable action}
 The actual implementations are omitted as they contain nothing more
 than the type specialization and creation of view arrays in the
 initializing constructor and the \?init()? function.
@@ -1543,8 +1543,8 @@ Gecode, see \autoref{sec:m:branch:int}):
 
 All but \?INT_VAR_NONE()? take arguments: unsurprisingly, a
 random number generator must be passed to \?INT_VAR_RND()? and a
-double as decay-factor or an integer activity object to
-\?INT_VAR_ACTIVITY_MAX()?. Both \?INT_VAR_NONE()? and
+double as decay-factor or an integer action object to
+\?INT_VAR_ACTION_MAX()?. Both \?INT_VAR_NONE()? and
 \?INT_VAR_RND()? are special in that they are not useful for
 tie-breaking. All other variable selection functions take an
 optional argument of type \?BranchTbl? as a branch tie-breaking
@@ -1582,10 +1582,10 @@ information is handled by the base class
 \gecoderef[class]{VarBranch}.
 
 The class must also implement an \?expand()? member function. It
-checks whether \?INT_VAR_ACTIVITY_MAX()? had been called just
-with a decay-factor instead of an integer activity object. In
-this case it creates an integer activity object and stores it as follows:
-\insertlitcode{int.hh:expand activity}
+checks whether \?INT_VAR_ACTION_MAX()? had been called just
+with a decay-factor instead of an integer action object. In
+this case it creates an integer action object and stores it as follows:
+\insertlitcode{int.hh:expand action}
 
 
 \paragraph{Value selection.}
@@ -1650,7 +1650,7 @@ that computes the actual merit value for a given view.
 
 The classes \gecoderef[class]{MeritFunction},
 \gecoderef[class]{MeritDegree}, and
-\gecoderef[class]{MeritActivity} are defined by Gecode and are
+\gecoderef[class]{MeritAction} are defined by Gecode and are
 parametric with respect to the actual view type.
 
 \begin{figure}
@@ -1829,7 +1829,7 @@ selection and commit creation function \?valselcommit()? from
 
 The \?branch()? function is shown
 in \autoref{fig:v:branch:branch}. It creates an array of integer
-views \?IntView?, expands a possibly missing integer activity
+views \?IntView?, expands a possibly missing integer action
 object, creates an array with a single view selector
 object returned by the function \?viewsel()? as discussed in
 \autoref{sec:v:branch:viewsel} and posts the view-value brancher
@@ -2121,7 +2121,7 @@ using Gecode::VarArray;
 using Gecode::VarImpVar;
 using Gecode::VarImpView;
 using Gecode::AFC;
-using Gecode::Activity;
+using Gecode::Action;
 using Gecode::Home;
 using Gecode::ExecInfo;
 using Gecode::ViewArray;
@@ -2140,7 +2140,7 @@ using Gecode::ViewSelNone;
 using Gecode::ViewSelRnd;
 using Gecode::MeritFunction;
 using Gecode::MeritDegree;
-using Gecode::MeritActivity;
+using Gecode::MeritAction;
 using Gecode::ValSel;
 using Gecode::ValCommit;
 using Gecode::NGL;
@@ -2791,39 +2791,39 @@ namespace MPG {
 }
 \end{litblock}
 
-\begin{litblock}{variable activity}
+\begin{litblock}{variable action}
 namespace MPG {
-  class IntActivity : public Activity {
+  class IntAction : public Action {
   public:
-    IntActivity(void);
-    IntActivity(const IntActivity& a);
-    IntActivity& operator =(const IntActivity& a);
-    IntActivity(Home home, const IntVarArgs& x, double d=1.0,
-                IntBranchMerit bm=NULL);
+    IntAction(void);
+    IntAction(const IntAction& a);
+    IntAction& operator =(const IntAction& a);
+    IntAction(Home home, const IntVarArgs& x, double d=1.0,
+              IntBranchMerit bm=NULL);
     void init(Home home, const IntVarArgs& x, double d=1.0,
               IntBranchMerit bm=NULL);
   };
   \begin{litblock}{anonymous}
   inline
-  IntActivity::IntActivity(void) {}
+  IntAction::IntAction(void) {}
   inline
-  IntActivity::IntActivity(const IntActivity& a)
-    : Activity(a) {}
-  inline IntActivity&
-  IntActivity::operator =(const IntActivity& a) {
-    return static_cast<IntActivity&>(Activity::operator =(a));
+  IntAction::IntAction(const IntAction& a)
+    : Action(a) {}
+  inline IntAction&
+  IntAction::operator =(const IntAction& a) {
+    return static_cast<IntAction&>(Action::operator =(a));
   }
   inline
-  IntActivity::IntActivity(Home home, const IntVarArgs& x, double d,
-                           IntBranchMerit bm) {
+  IntAction::IntAction(Home home, const IntVarArgs& x, double d,
+                       IntBranchMerit bm) {
     ViewArray<Int::IntView> y(home,x);
-    Activity::init(home,y,d,bm);
+    Action::init(home,y,d,bm);
   }
   inline void
-  IntActivity::init(Home home, const IntVarArgs& x, double d,
-                    IntBranchMerit bm) {
+  IntAction::init(Home home, const IntVarArgs& x, double d,
+                  IntBranchMerit bm) {
     ViewArray<Int::IntView> y(home,x);
-    Activity::init(home,y,d,bm);
+    Action::init(home,y,d,bm);
   }
   \end{litblock}
 }
@@ -2834,8 +2834,8 @@ namespace MPG {
   class IntVarBranch : public VarBranch {
   public:
     enum Select {
-      SEL_NONE,       SEL_RND,          SEL_MERIT_MAX,
-      SEL_DEGREE_MAX, SEL_ACTIVITY_MAX, SEL_SIZE_MIN
+      SEL_NONE,       SEL_RND,        SEL_MERIT_MAX,
+      SEL_DEGREE_MAX, SEL_ACTION_MAX, SEL_SIZE_MIN
     };
   protected:
     Select s;
@@ -2844,14 +2844,14 @@ namespace MPG {
     IntVarBranch(Rnd r);
     IntVarBranch(Select s0, BranchTbl t);
     IntVarBranch(Select s0, double d, BranchTbl t);
-    IntVarBranch(Select s0, Activity a, BranchTbl t);
+    IntVarBranch(Select s0, Action a, BranchTbl t);
     IntVarBranch(Select s0, VoidFunction mf, BranchTbl t);
     Select select(void) const;
-    \begin{litblock}{expand activity}
+    \begin{litblock}{expand action}
     void expand(Home home, const IntVarArgs& x) {
-      if ((select() == SEL_ACTIVITY_MAX) &&
-          !activity().initialized())
-        activity(IntActivity(home,x,decay()));
+      if ((select() == SEL_ACTION_MAX) &&
+          !action().initialized())
+        action(IntAction(home,x,decay()));
     }
     \end{litblock}
   };
@@ -2869,7 +2869,7 @@ namespace MPG {
   IntVarBranch::IntVarBranch(Select s0, double d, BranchTbl t)
     : VarBranch(d,t), s(s0) {}
   inline
-  IntVarBranch::IntVarBranch(Select s0, Activity a, BranchTbl t)
+  IntVarBranch::IntVarBranch(Select s0, Action a, BranchTbl t)
     : VarBranch(a,t), s(s0) {}
   inline
   IntVarBranch::IntVarBranch(Select s0, VoidFunction mf, BranchTbl t)
@@ -2886,10 +2886,10 @@ namespace MPG {
   IntVarBranch INT_VAR_MERIT_MAX(IntBranchMerit bm, 
                                  BranchTbl tbl=NULL);
   IntVarBranch INT_VAR_DEGREE_MAX(BranchTbl tbl=NULL);
-  IntVarBranch INT_VAR_ACTIVITY_MAX(double d=1.0, 
-                                    BranchTbl tbl=NULL);     
-  IntVarBranch INT_VAR_ACTIVITY_MAX(IntActivity a, 
-                                    BranchTbl tbl=NULL);     
+  IntVarBranch INT_VAR_ACTION_MAX(double d=1.0, 
+                                  BranchTbl tbl=NULL);     
+  IntVarBranch INT_VAR_ACTION_MAX(IntAction a, 
+                                  BranchTbl tbl=NULL);     
   IntVarBranch INT_VAR_SIZE_MIN(BranchTbl tbl=NULL);
   \begin{litblock}{variable selection function implementation}
   inline IntVarBranch
@@ -2911,12 +2911,12 @@ namespace MPG {
     return IntVarBranch(IntVarBranch::SEL_DEGREE_MAX,tbl);
   }
   inline IntVarBranch
-  INT_VAR_ACTIVITY_MAX(double d, BranchTbl tbl) {
-    return IntVarBranch(IntVarBranch::SEL_ACTIVITY_MAX,d,tbl);
+  INT_VAR_ACTION_MAX(double d, BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_ACTION_MAX,d,tbl);
   }
   inline IntVarBranch
-  INT_VAR_ACTIVITY_MAX(IntActivity a, BranchTbl tbl) {
-    return IntVarBranch(IntVarBranch::SEL_ACTIVITY_MAX,a,tbl);
+  INT_VAR_ACTION_MAX(IntAction a, BranchTbl tbl) {
+    return IntVarBranch(IntVarBranch::SEL_ACTION_MAX,a,tbl);
   }
   inline IntVarBranch
   INT_VAR_SIZE_MIN(BranchTbl tbl) {
@@ -2994,8 +2994,8 @@ namespace MPG { namespace Int {
         return new (home) ViewSelMaxTbl<MeritFunction<IntView> >(home,ivb);
       case IntVarBranch::SEL_DEGREE_MAX:
         return new (home) ViewSelMaxTbl<MeritDegree<IntView> >(home,ivb);
-      case IntVarBranch::SEL_ACTIVITY_MAX:
-        return new (home) ViewSelMaxTbl<MeritActivity<IntView> >(home,ivb);
+      case IntVarBranch::SEL_ACTION_MAX:
+        return new (home) ViewSelMaxTbl<MeritAction<IntView> >(home,ivb);
       case IntVarBranch::SEL_SIZE_MIN:
         return new (home) ViewSelMinTbl<MeritSize>(home,ivb);
       default: ;
@@ -3009,8 +3009,8 @@ namespace MPG { namespace Int {
       \begin{litblock}{anonymous}
       case IntVarBranch::SEL_DEGREE_MAX:
         return new (home) ViewSelMax<MeritDegree<IntView> >(home,ivb);
-      case IntVarBranch::SEL_ACTIVITY_MAX:
-        return new (home) ViewSelMax<MeritActivity<IntView> >(home,ivb);
+      case IntVarBranch::SEL_ACTION_MAX:
+        return new (home) ViewSelMax<MeritAction<IntView> >(home,ivb);
       case IntVarBranch::SEL_SIZE_MIN:
         return new (home) ViewSelMin<MeritSize>(home,ivb);
       default: ;

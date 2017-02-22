@@ -124,8 +124,8 @@ Boolean variables.
 \?INT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
 \?INT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
 \?INT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
-\?INT_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
-\?INT_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\?INT_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
+\?INT_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
 \?INT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
 \?INT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
 \?INT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
@@ -137,10 +137,10 @@ divided by domain size\\
 \?INT_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree by domain size\\
 \?INT_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC by domain size\\
 \?INT_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC by domain size\\
-\?INT_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest
-activity by domain size\\
-\?INT_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest
-activity by domain size\\
+\?INT_VAR_ACTION_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest
+action by domain size\\
+\?INT_VAR_ACTION_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest
+action by domain size\\
 \?INT_VAR_REGRET_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum-regret\\
 \?INT_VAR_REGRET_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum-regret\\
 \?INT_VAR_REGRET_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum-regret\\
@@ -177,8 +177,8 @@ User-defined merit functions are discussed in
 \autoref{sec:m:branch:uservar}.  An argument \?afc?
 refers to accumulated failure count (AFC) information for integer
 variables (of class \gecoderef[class]{IntAFC}).  An
-argument \?act? refers to activity information for integer variables (of class \gecoderef[class]{IntActivity}). For
-a discussion of AFC and activity, see
+argument \?act? refers to action information for integer variables (of class \gecoderef[class]{IntAction}). For
+a discussion of AFC and action, see
 \autoref{sec:m:branch:shared}, both \SpecialArg{\?afc?}
 and \SpecialArg{\?act?} can also be optional arguments of type
 \?double? defining a decay-factor. The optional argument \?t?
@@ -369,8 +369,8 @@ values in inverse order.
 \?BOOL_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
 \?BOOL_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
 \?BOOL_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
-\?BOOL_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
-\?BOOL_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\?BOOL_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
+\?BOOL_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
 \end{tabular}
 \end{center}
 \caption{Boolean variable selection}
@@ -396,8 +396,8 @@ to a user-defined merit function of type
 \gecoderef[typedef]{BoolBranchMerit}.  An argument \?afc?  refers
 to accumulated failure count (AFC) information for Boolean
 variables (of class \gecoderef[class]{BoolAFC}).  An argument
-\?act? refers to activity information for Boolean variables (of
-class \gecoderef[class]{BoolActivity}). The optional argument
+\?act? refers to action information for Boolean variables (of
+class \gecoderef[class]{BoolAction}). The optional argument
 \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl}.
 
@@ -451,8 +451,8 @@ to your program when you want to branch on set variables.
 \?SET_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
 \?SET_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
 \?SET_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
-\?SET_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
-\?SET_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\?SET_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
+\?SET_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
 \?SET_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum unknown element\\
 \?SET_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum unknown element\\
 \?SET_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum unknown element\\
@@ -463,8 +463,8 @@ to your program when you want to branch on set variables.
 \?SET_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree divided by domain size\\
 \?SET_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC divided by domain size\\
 \?SET_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
-\?SET_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest activity divided by domain size\\
-\?SET_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest activity divided by domain size
+\?SET_VAR_ACTION_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest action divided by domain size\\
+\?SET_VAR_ACTION_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest action divided by domain size
 \end{tabular}
 \end{center}
 \caption{Set variable selection}
@@ -492,9 +492,9 @@ functions are discussed in
 \autoref{sec:m:branch:uservar}.  An argument \?afc?
 refers to accumulated failure count (AFC) information for set
 variables (of class \gecoderef[class]{SetAFC}).  An argument
-\?act? refers to activity information for set variables (of class
-\gecoderef[class]{SetActivity}). For a discussion of AFC and
-activity, see \autoref{sec:m:branch:shared}, both
+\?act? refers to action information for set variables (of class
+\gecoderef[class]{SetAction}). For a discussion of AFC and
+action, see \autoref{sec:m:branch:shared}, both
 \SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
 arguments of type \?double? defining a decay-factor. The optional
 argument \?t?  refers to a tie-breaking limit function of type
@@ -556,8 +556,8 @@ to your program when you want to branch on float variables.
 \?FLOAT_VAR_DEGREE_MAX(?\OptArg{\?t?}\?)? & largest degree\\
 \?FLOAT_VAR_AFC_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest accumulated failure count (AFC)\\
 \?FLOAT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
-\?FLOAT_VAR_ACTIVITY_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest activity\\
-\?FLOAT_VAR_ACTIVITY_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest activity\\
+\?FLOAT_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
+\?FLOAT_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
 \?FLOAT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
 \?FLOAT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
 \?FLOAT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
@@ -568,8 +568,8 @@ to your program when you want to branch on float variables.
 \?FLOAT_VAR_DEGREE_SIZE_MAX(?\OptArg{\?t?}\?)? & largest degree divided by domain size\\
 \?FLOAT_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC divided by domain size\\
 \?FLOAT_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
-\?FLOAT_VAR_ACTIVITY_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest activity divided by domain size\\
-\?FLOAT_VAR_ACTIVITY_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest activity divided by domain size\\
+\?FLOAT_VAR_ACTION_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest action divided by domain size\\
+\?FLOAT_VAR_ACTION_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest action divided by domain size\\
 \end{tabular}
 \end{center}
 \caption{Float variable selection}
@@ -597,9 +597,9 @@ functions are discussed in
 \autoref{sec:m:branch:uservar}.  An argument \?afc?
 refers to accumulated failure count (AFC) information for float
 variables (of class \gecoderef[class]{FloatAFC}).  An argument
-\?act? refers to activity information for float variables (of
-class \gecoderef[class]{FloatActivity}). For a discussion of AFC
-and activity, see \autoref{sec:m:branch:shared}, both
+\?act? refers to action information for float variables (of
+class \gecoderef[class]{FloatAction}). For a discussion of AFC
+and action, see \autoref{sec:m:branch:shared}, both
 \SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
 arguments of type \?double? defining a decay-factor. The optional
 argument \?t?  refers to a tie-breaking limit function of type
@@ -652,7 +652,7 @@ criterion depends on all equivalent spaces created by cloning.
 \subsection{Local variable selection criteria}
 
 All selection criteria but those based on \emph{AFC} and
-\emph{activity} are local: they either select variables without
+\emph{action} are local: they either select variables without
 using any information on a variable (\?INT_VAR_NONE()?), select
 variables randomly (\?INT_VAR_RND(r)?, see also
 \autoref{sec:m:branch:rnd}), or use the degree or domain
@@ -759,57 +759,61 @@ AFC for other variable types is analogous.
 For an example using a decay-factor with AFC, see
 \autoref{sec:c:crossword:info}.
 
-\subsection{Selection using activity}
-\label{sec:m:branch:activity}
+\subsection{Selection using action}
+\label{sec:m:branch:action}
 
-The activity of a variable is a shared criterion and captures how
+The action of a variable is a shared criterion and captures how
 often the domain of a variable has been reduced during constraint
 propagation.
 
-The activity of a variable is maintained by constraint
+The action of a variable is maintained by constraint
 propagation as follows. Each time constraint propagation finishes
 during search (by executing the \?status()? function of a space,
-see also \autoref{tip:m:started:status}), the activity of a
+see also \autoref{tip:m:started:status}), the action of a
 variable $\mathtt x$ is updated~\cite{activity}:
 \begin{itemize}
 \item If the variable \?x? has not been pruned (that is, no
   values have been removed from the domain of \?x? through
-  propagation), the activity $\mathtt{activity}(\mathtt x)$ of \?x? is
+  propagation), the action $\mathtt{action}(\mathtt x)$ of \?x? is
   updated by a decay-factor $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
-$$\mathtt{activity}(\mathtt x)=\mathtt{d}\cdot\mathtt{activity}(\mathtt x)$$
-\item If the variable \?x? has been pruned, the activity
-  $\mathtt{activity}(\mathtt x)$ of \?x? is incremented by $1$:
-$$\mathtt{activity}(\mathtt x)=\mathtt{activity}(\mathtt x)+1$$
-\item The activity of a variable \?x? is initialized to be zero.
+$$\mathtt{action}(\mathtt x)=\mathtt{d}\cdot\mathtt{action}(\mathtt x)$$
+\item If the variable \?x? has been pruned, the action
+  $\mathtt{action}(\mathtt x)$ of \?x? is incremented by $1$:
+$$\mathtt{action}(\mathtt x)=\mathtt{action}(\mathtt x)+1$$
+\item The action of a variable \?x? is initialized to be one.
 \end{itemize}
+Note that in~\cite{activity} action is called
+activity. However, as the activity of a variable during search in
+SAT is a well-established and different concept, Gecode uses the
+term action instead.
 
-In order to use activity for branching, one must create an object
-of class \gecoderef[class]{IntActivity} for integer variables, an
-object of class \gecoderef[class]{BoolActivity} for Boolean
-variables, an object of class \gecoderef[class]{SetActivity} for
+In order to use action for branching, one must create an object
+of class \gecoderef[class]{IntAction} for integer variables, an
+object of class \gecoderef[class]{BoolAction} for Boolean
+variables, an object of class \gecoderef[class]{SetAction} for
 set variables, or an object of class
-\gecoderef[class]{FloatActivity} for float variables. The object
-is responsible for recording activity information.
+\gecoderef[class]{FloatAction} for float variables. The object
+is responsible for recording action information.
 
 \begin{samepage}
 If \?x? is an integer variable array, then
 \begin{code}
-IntActivity act(home,x,0.99);
+IntAction act(home,x,0.99);
 \end{code}
 \end{samepage}
-initializes the activity information \?act? for the variables in \?x?
+initializes the action information \?act? for the variables in \?x?
 with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
 optional and defaults to no decay ($\mathtt{d}=1$).
 
-The activity of each variable in an array \?x? can be initialized
+The action of each variable in an array \?x? can be initialized
 by a merit function, see \autoref{sec:m:branch:uservar}. Here
 \begin{code}
-IntActivity act(home,x,0.99,
+IntAction act(home,x,0.99,
                 [](const Space& home, IntVar x, int i) {
                   return 1.0;
                 });
 \end{code}
-initializes the activity of \?x[i]? to \?1.0?.
+initializes the action of \?x[i]? to \?1.0?.
 
 The decay-factor can be changed later, say to
 $\mathtt{d}=\mathtt{0.95}$, by
@@ -818,25 +822,25 @@ act.decay(0.95);
 \end{code}
 and \?act.decay()? returns the current decay-factor of \?act?.
 
-A branching for integer variables using activity information must
-be given an object of type \?IntActivity? as argument:
+A branching for integer variables using action information must
+be given an object of type \?IntAction? as argument:
 \begin{code}
-branch(home, x, INT_VAR_ACTIVITY_MAX(act), INT_VAL_MIN());
+branch(home, x, INT_VAR_ACTION_MAX(act), INT_VAL_MIN());
 \end{code}
 Here the integer variable array \?x? must be exactly the same
-that has been used for creating the integer activity object
+that has been used for creating the integer action object
 \?act?. 
 
-The activity object can be omitted if one does not want to
+The action object can be omitted if one does not want to
 change the decay-factor later, hence it is sufficient to pass the
 decay-factor as argument. For example:
 \begin{code}
-branch(home, x, INT_VAR_ACTIVITY_MAX(0.99), INT_VAL_MIN());
+branch(home, x, INT_VAR_ACTION_MAX(0.99), INT_VAL_MIN());
 \end{code}
-uses activity information with a decay-factor of \?0.99?. Even the
+uses action information with a decay-factor of \?0.99?. Even the
 decay-factor can be omitted and defaults to \?1? (that is, no decay).
 
-Activity for other variable types is analogous.
+Action for other variable types is analogous.
 
 
 
