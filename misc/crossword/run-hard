@@ -1,31 +1,18 @@
 export PATH="./x64:$PATH"
 export DECAY=0.95
 export SCALE=250
-export RESTART=luby
+export RESTART=geometric
 export BASE=1.5
 export NGL=256
-export BRANCH=letters-afc
-#export TIMEOUT=1200000
-#export TIMEOUT=3600000
-export TIMEOUT=86400000
 export TIMEOUT=0
 
 # Where none can solve
-for i in 39 45 49; do
-  ./x64/crossword.exe -decay $DECAY -restart $RESTART \
-	-restart-scale $SCALE -restart-base $BASE \
-	-nogoods true -nogoods-limit $NGL \
-	-time $TIMEOUT -branching $BRANCH \
-	-file words/words.txt $i | tee logs/hard/words-nogoods-$i-$TIMEOUT.txt
+for b in letters-afc letters-action; do
+    for i in 39 45 49; do
+	./x64/crossword.exe -decay $DECAY -restart $RESTART \
+	    -restart-scale $SCALE -restart-base $BASE \
+	    -nogoods true -nogoods-limit $NGL \
+	    -time $TIMEOUT -branching $b \
+	    -file words/words.txt $i | tee logs/$b/hard/words-nogoods-$i-$TIMEOUT.txt
+    done
 done
-for i in 39 45 49; do
-  ./x64/crossword.exe -decay $DECAY -restart $RESTART \
-	-restart-scale $SCALE -restart-base $BASE \
-	-time $TIMEOUT -branching $BRANCH \
-	-file words/words.txt $i | tee logs/hard/words-restart-$i-$TIMEOUT.txt
-  ./x64/crossword.exe -decay $DECAY \
-	-time $TIMEOUT -branching $BRANCH \
-	-file words/words.txt $i | tee logs/hard/words-base-$i-$TIMEOUT.txt
-done
-
-
