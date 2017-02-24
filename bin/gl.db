@@ -28,11 +28,11 @@ URL class Eq20 classEq20.html
 URL class FileSizeOptions classFileSizeOptions.html
 URL class Gecode::AFC classGecode_1_1AFC.html
 URL class Gecode::AFCWrongArity classGecode_1_1AFCWrongArity.html
-URL class Gecode::Activity classGecode_1_1Activity.html
-URL class Gecode::Activity::Recorder classGecode_1_1Activity_1_1Recorder.html
-URL class Gecode::Activity::Recorder::Idx classGecode_1_1Activity_1_1Recorder_1_1Idx.html
-URL class Gecode::Activity::Storage classGecode_1_1Activity_1_1Storage.html
-URL class Gecode::ActivityWrongArity classGecode_1_1ActivityWrongArity.html
+URL class Gecode::Action classGecode_1_1Action.html
+URL class Gecode::Action::Recorder classGecode_1_1Action_1_1Recorder.html
+URL class Gecode::Action::Recorder::Idx classGecode_1_1Action_1_1Recorder_1_1Idx.html
+URL class Gecode::Action::Storage classGecode_1_1Action_1_1Storage.html
+URL class Gecode::ActionWrongArity classGecode_1_1ActionWrongArity.html
 URL class Gecode::Actor classGecode_1_1Actor.html
 URL class Gecode::ActorLink classGecode_1_1ActorLink.html
 URL class Gecode::Advisor classGecode_1_1Advisor.html
@@ -74,7 +74,7 @@ URL class Gecode::BElementExpr classGecode_1_1BElementExpr.html
 URL class Gecode::BaseOptions classGecode_1_1BaseOptions.html
 URL class Gecode::BinaryPropagator classGecode_1_1BinaryPropagator.html
 URL class Gecode::BoolAFC classGecode_1_1BoolAFC.html
-URL class Gecode::BoolActivity classGecode_1_1BoolActivity.html
+URL class Gecode::BoolAction classGecode_1_1BoolAction.html
 URL class Gecode::BoolAssign classGecode_1_1BoolAssign.html
 URL class Gecode::BoolExpr classGecode_1_1BoolExpr.html
 URL class Gecode::BoolExpr::Misc classGecode_1_1BoolExpr_1_1Misc.html
@@ -189,7 +189,7 @@ URL class Gecode::Float::Arithmetic::SqrPlus classGecode_1_1Float_1_1Arithmetic_
 URL class Gecode::Float::Arithmetic::Sqrt classGecode_1_1Float_1_1Arithmetic_1_1Sqrt.html
 URL class Gecode::Float::Bool::Ite classGecode_1_1Float_1_1Bool_1_1Ite.html
 URL class Gecode::Float::Branch::MeritAFCSize classGecode_1_1Float_1_1Branch_1_1MeritAFCSize.html
-URL class Gecode::Float::Branch::MeritActivitySize classGecode_1_1Float_1_1Branch_1_1MeritActivitySize.html
+URL class Gecode::Float::Branch::MeritActionSize classGecode_1_1Float_1_1Branch_1_1MeritActionSize.html
 URL class Gecode::Float::Branch::MeritDegreeSize classGecode_1_1Float_1_1Branch_1_1MeritDegreeSize.html
 URL class Gecode::Float::Branch::MeritMax classGecode_1_1Float_1_1Branch_1_1MeritMax.html
 URL class Gecode::Float::Branch::MeritMin classGecode_1_1Float_1_1Branch_1_1MeritMin.html
@@ -240,7 +240,7 @@ URL class Gecode::Float::UnknownRelation classGecode_1_1Float_1_1UnknownRelation
 URL class Gecode::Float::ValOfUnassignedVar classGecode_1_1Float_1_1ValOfUnassignedVar.html
 URL class Gecode::Float::VariableEmptyDomain classGecode_1_1Float_1_1VariableEmptyDomain.html
 URL class Gecode::FloatAFC classGecode_1_1FloatAFC.html
-URL class Gecode::FloatActivity classGecode_1_1FloatActivity.html
+URL class Gecode::FloatAction classGecode_1_1FloatAction.html
 URL class Gecode::FloatAssign classGecode_1_1FloatAssign.html
 URL class Gecode::FloatMaximizeSpace classGecode_1_1FloatMaximizeSpace.html
 URL class Gecode::FloatMinimizeSpace classGecode_1_1FloatMinimizeSpace.html
@@ -385,7 +385,7 @@ URL class Gecode::Int::Branch::EqNGL classGecode_1_1Int_1_1Branch_1_1EqNGL.html
 URL class Gecode::Int::Branch::GqNGL classGecode_1_1Int_1_1Branch_1_1GqNGL.html
 URL class Gecode::Int::Branch::LqNGL classGecode_1_1Int_1_1Branch_1_1LqNGL.html
 URL class Gecode::Int::Branch::MeritAFCSize classGecode_1_1Int_1_1Branch_1_1MeritAFCSize.html
-URL class Gecode::Int::Branch::MeritActivitySize classGecode_1_1Int_1_1Branch_1_1MeritActivitySize.html
+URL class Gecode::Int::Branch::MeritActionSize classGecode_1_1Int_1_1Branch_1_1MeritActionSize.html
 URL class Gecode::Int::Branch::MeritDegreeSize classGecode_1_1Int_1_1Branch_1_1MeritDegreeSize.html
 URL class Gecode::Int::Branch::MeritMax classGecode_1_1Int_1_1Branch_1_1MeritMax.html
 URL class Gecode::Int::Branch::MeritMin classGecode_1_1Int_1_1Branch_1_1MeritMin.html
@@ -775,7 +775,7 @@ URL class Gecode::Int::ViewValGraph::ViewNode classGecode_1_1Int_1_1ViewValGraph
 URL class Gecode::Int::ViewValues classGecode_1_1Int_1_1ViewValues.html
 URL class Gecode::Int::ZeroIntView classGecode_1_1Int_1_1ZeroIntView.html
 URL class Gecode::IntAFC classGecode_1_1IntAFC.html
-URL class Gecode::IntActivity classGecode_1_1IntActivity.html
+URL class Gecode::IntAction classGecode_1_1IntAction.html
 URL class Gecode::IntArgs classGecode_1_1IntArgs.html
 URL class Gecode::IntAssign classGecode_1_1IntAssign.html
 URL class Gecode::IntMaximizeSpace classGecode_1_1IntMaximizeSpace.html
@@ -861,7 +861,7 @@ URL class Gecode::MemoryChunk classGecode_1_1MemoryChunk.html
 URL class Gecode::MemoryExhausted classGecode_1_1MemoryExhausted.html
 URL class Gecode::MemoryManager classGecode_1_1MemoryManager.html
 URL class Gecode::MeritAFC classGecode_1_1MeritAFC.html
-URL class Gecode::MeritActivity classGecode_1_1MeritActivity.html
+URL class Gecode::MeritAction classGecode_1_1MeritAction.html
 URL class Gecode::MeritBase classGecode_1_1MeritBase.html
 URL class Gecode::MeritDegree classGecode_1_1MeritDegree.html
 URL class Gecode::MeritFunction classGecode_1_1MeritFunction.html
@@ -979,7 +979,7 @@ URL class Gecode::Set::BndSetRanges classGecode_1_1Set_1_1BndSetRanges.html
 URL class Gecode::Set::Branch::ExcNGL classGecode_1_1Set_1_1Branch_1_1ExcNGL.html
 URL class Gecode::Set::Branch::IncNGL classGecode_1_1Set_1_1Branch_1_1IncNGL.html
 URL class Gecode::Set::Branch::MeritAFCSize classGecode_1_1Set_1_1Branch_1_1MeritAFCSize.html
-URL class Gecode::Set::Branch::MeritActivitySize classGecode_1_1Set_1_1Branch_1_1MeritActivitySize.html
+URL class Gecode::Set::Branch::MeritActionSize classGecode_1_1Set_1_1Branch_1_1MeritActionSize.html
 URL class Gecode::Set::Branch::MeritDegreeSize classGecode_1_1Set_1_1Branch_1_1MeritDegreeSize.html
 URL class Gecode::Set::Branch::MeritMax classGecode_1_1Set_1_1Branch_1_1MeritMax.html
 URL class Gecode::Set::Branch::MeritMin classGecode_1_1Set_1_1Branch_1_1MeritMin.html
@@ -1083,7 +1083,7 @@ URL class Gecode::Set::UnknownRanges classGecode_1_1Set_1_1UnknownRanges.html
 URL class Gecode::Set::UnknownRelation classGecode_1_1Set_1_1UnknownRelation.html
 URL class Gecode::Set::VariableEmptyDomain classGecode_1_1Set_1_1VariableEmptyDomain.html
 URL class Gecode::SetAFC classGecode_1_1SetAFC.html
-URL class Gecode::SetActivity classGecode_1_1SetActivity.html
+URL class Gecode::SetAction classGecode_1_1SetAction.html
 URL class Gecode::SetAssign classGecode_1_1SetAssign.html
 URL class Gecode::SetCmpRel classGecode_1_1SetCmpRel.html
 URL class Gecode::SetExpr classGecode_1_1SetExpr.html
@@ -1185,7 +1185,7 @@ URL class Gecode::TupleSet classGecode_1_1TupleSet.html
 URL class Gecode::TupleSet::TupleSetI classGecode_1_1TupleSet_1_1TupleSetI.html
 URL class Gecode::UnaryPropagator classGecode_1_1UnaryPropagator.html
 URL class Gecode::UninitializedAFC classGecode_1_1UninitializedAFC.html
-URL class Gecode::UninitializedActivity classGecode_1_1UninitializedActivity.html
+URL class Gecode::UninitializedAction classGecode_1_1UninitializedAction.html
 URL class Gecode::UninitializedRnd classGecode_1_1UninitializedRnd.html
 URL class Gecode::UnknownBrancher classGecode_1_1UnknownBrancher.html
 URL class Gecode::UnknownPropagator classGecode_1_1UnknownPropagator.html
@@ -1620,7 +1620,7 @@ URL class Test::Int::Unary::OptFixPUnary classTest_1_1Int_1_1Unary_1_1OptFixPUna
 URL class Test::Int::Unary::OptFlexUnary classTest_1_1Int_1_1Unary_1_1OptFlexUnary.html
 URL class Test::Int::Unshare::Bool classTest_1_1Int_1_1Unshare_1_1Bool.html
 URL class Test::Int::Unshare::Int classTest_1_1Int_1_1Unshare_1_1Int.html
-URL class Test::LDSB::Activity1 classTest_1_1LDSB_1_1Activity1.html
+URL class Test::LDSB::Action1 classTest_1_1LDSB_1_1Action1.html
 URL class Test::LDSB::LDSB classTest_1_1LDSB_1_1LDSB.html
 URL class Test::LDSB::LDSBLatin classTest_1_1LDSB_1_1LDSBLatin.html
 URL class Test::LDSB::LDSBLatin::Latin classTest_1_1LDSB_1_1LDSBLatin_1_1Latin.html
@@ -2127,8 +2127,8 @@ URL file gecode/float/bool.hh float_2bool_8hh.html
 URL file gecode/float/bool/ite.hpp float_2bool_2ite_8hpp.html
 URL file gecode/float/branch.cpp gecode_2float_2branch_8cpp.html
 URL file gecode/float/branch.hh gecode_2float_2branch_8hh.html
-URL file gecode/float/branch/activity.cpp float_2branch_2activity_8cpp.html
-URL file gecode/float/branch/activity.hpp float_2branch_2activity_8hpp.html
+URL file gecode/float/branch/action.cpp float_2branch_2action_8cpp.html
+URL file gecode/float/branch/action.hpp float_2branch_2action_8hpp.html
 URL file gecode/float/branch/afc.hpp float_2branch_2afc_8hpp.html
 URL file gecode/float/branch/assign.hpp float_2branch_2assign_8hpp.html
 URL file gecode/float/branch/merit.hpp float_2branch_2merit_8hpp.html
@@ -2258,8 +2258,8 @@ URL file gecode/int/bool/lq.hpp int_2bool_2lq_8hpp.html
 URL file gecode/int/bool/or.hpp or_8hpp.html
 URL file gecode/int/branch.cpp gecode_2int_2branch_8cpp.html
 URL file gecode/int/branch.hh gecode_2int_2branch_8hh.html
-URL file gecode/int/branch/activity.cpp int_2branch_2activity_8cpp.html
-URL file gecode/int/branch/activity.hpp int_2branch_2activity_8hpp.html
+URL file gecode/int/branch/action.cpp int_2branch_2action_8cpp.html
+URL file gecode/int/branch/action.hpp int_2branch_2action_8hpp.html
 URL file gecode/int/branch/afc.hpp int_2branch_2afc_8hpp.html
 URL file gecode/int/branch/assign.hpp int_2branch_2assign_8hpp.html
 URL file gecode/int/branch/merit.hpp int_2branch_2merit_8hpp.html
@@ -2545,8 +2545,8 @@ URL file gecode/iter/values-singleton.hpp values-singleton_8hpp.html
 URL file gecode/iter/values-union.hpp values-union_8hpp.html
 URL file gecode/iter/values-unique.hpp values-unique_8hpp.html
 URL file gecode/kernel.hh kernel_8hh.html
-URL file gecode/kernel/activity.cpp kernel_2activity_8cpp.html
-URL file gecode/kernel/activity.hpp kernel_2activity_8hpp.html
+URL file gecode/kernel/action.cpp kernel_2action_8cpp.html
+URL file gecode/kernel/action.hpp kernel_2action_8hpp.html
 URL file gecode/kernel/advisor.hpp advisor_8hpp.html
 URL file gecode/kernel/afc.cpp gecode_2kernel_2afc_8cpp.html
 URL file gecode/kernel/afc.hpp kernel_2afc_8hpp.html
@@ -2685,8 +2685,8 @@ URL file gecode/set/array.hpp set_2array_8hpp.html
 URL file gecode/set/bool.cpp gecode_2set_2bool_8cpp.html
 URL file gecode/set/branch.cpp gecode_2set_2branch_8cpp.html
 URL file gecode/set/branch.hh gecode_2set_2branch_8hh.html
-URL file gecode/set/branch/activity.cpp set_2branch_2activity_8cpp.html
-URL file gecode/set/branch/activity.hpp set_2branch_2activity_8hpp.html
+URL file gecode/set/branch/action.cpp set_2branch_2action_8cpp.html
+URL file gecode/set/branch/action.hpp set_2branch_2action_8hpp.html
 URL file gecode/set/branch/afc.hpp set_2branch_2afc_8hpp.html
 URL file gecode/set/branch/assign.hpp set_2branch_2assign_8hpp.html
 URL file gecode/set/branch/merit.hpp set_2branch_2merit_8hpp.html
@@ -3439,6 +3439,7 @@ TITLE group TaskVarMEPC "Generic modification events and propagation conditions"
 URL group TaskVarView group__TaskVarView.html
 TITLE group TaskVarView "Programming views for variables"
 URL namespace Gecode namespaceGecode.html
+URL namespace Gecode::Config namespaceGecode_1_1Config.html
 URL namespace Gecode::Driver namespaceGecode_1_1Driver.html
 URL namespace Gecode::FlatZinc namespaceGecode_1_1FlatZinc.html
 URL namespace Gecode::FlatZinc::AST namespaceGecode_1_1FlatZinc_1_1AST.html

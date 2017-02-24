@@ -1356,6 +1356,9 @@ means that the propagator intends to be only \emph{weakly
 and correct. For a discussion of weak monotonicity together with
 an example, see~\cite{SchulteTack:CP:2009}.
 
+Currently, the information about a propagator being weakly
+monotonic is ignored.
+
 \paragraph{Calling \?dispose()? during space deletion.}
 \label{par:p:started:dispose}
 

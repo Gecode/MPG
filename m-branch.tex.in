@@ -809,9 +809,9 @@ The action of each variable in an array \?x? can be initialized
 by a merit function, see \autoref{sec:m:branch:uservar}. Here
 \begin{code}
 IntAction act(home,x,0.99,
-                [](const Space& home, IntVar x, int i) {
-                  return 1.0;
-                });
+              [](const Space& home, IntVar x, int i) {
+                return 1.0;
+              });
 \end{code}
 initializes the action of \?x[i]? to \?1.0?.
 

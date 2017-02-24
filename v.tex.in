@@ -742,6 +742,12 @@ failure after its execution, \?notify()? returns \?ME_INT_FAILED?. Otherwise it
 returns the modification event that has been passed as argument:
 \insertlitcode{int.hh:varimp:modification operations}
 
+If a modification operation fails it must return \?ME_INT_FAILED?
+as modification event and must call the \?fail()? function that
+similar to \?notify()? will execute advisors that have registered
+to be executed on failure. For convenience, the \?fail()?
+function itself returns \?ME_INT_FAILED?.
+
 \tip{Variable implementations must always be consistent}{
 Even if a modification operation fails, the data structures for
 the variable implementation must be still consistent. That is,
@@ -1470,7 +1476,7 @@ This structure is reflected in the part of the
 with branching (shown in \autoref{fig:v:branch:structure}).
 
 
-\section{Type, traits, and action definitions}
+\section{Type, traits, action, and more}
 \label{sec:v:branch:type}
 
 The way how a variable-value branching works can to some
@@ -2240,14 +2246,14 @@ namespace MPG { namespace Int {
     \begin{litblock}{varimp:modification operations}
     ModEvent lq(Space& home, int n) {
       if (n >= u) return ME_INT_NONE;
-      if (n < l) return ME_INT_FAILED;
+      if (n < l) return fail(home);
       IntDelta d(n+1,u); u = n;
       return notify(home, assigned() ? ME_INT_VAL : ME_INT_MAX, d);
     }
     \begin{litblock}{anonymous}
     ModEvent gq(Space& home, int n) {
       if (n <= l) return ME_INT_NONE;
-      if (n > u) return ME_INT_FAILED;
+      if (n > u) return fail(home);
       IntDelta d(l,n-1); l = n;
       return notify(home, assigned() ? ME_INT_VAL : ME_INT_MIN, d);
     }
@@ -2751,9 +2757,9 @@ namespace Gecode {
   template<>
   class BranchTraits<MPG::IntVar> {
   public:
-    typedef MPG::IntBranchMerit Merit;
-    typedef MPG::IntBranchVal Val;
-    typedef int ValType;
+    typedef MPG::IntBranchMerit  Merit;
+    typedef MPG::IntBranchVal    Val;
+    typedef int                  ValType;
     typedef MPG::IntBranchCommit Commit;
   };
 }
@@ -2831,7 +2837,7 @@ namespace MPG {
 
 namespace MPG {
   \begin{litblock}{variable selection class}
-  class IntVarBranch : public VarBranch {
+  class IntVarBranch : public VarBranch<IntVar> {
   public:
     enum Select {
       SEL_NONE,       SEL_RND,        SEL_MERIT_MAX,
@@ -2845,7 +2851,7 @@ namespace MPG {
     IntVarBranch(Select s0, BranchTbl t);
     IntVarBranch(Select s0, double d, BranchTbl t);
     IntVarBranch(Select s0, Action a, BranchTbl t);
-    IntVarBranch(Select s0, VoidFunction mf, BranchTbl t);
+    IntVarBranch(Select s0, IntBranchMerit mf, BranchTbl t);
     Select select(void) const;
     \begin{litblock}{expand action}
     void expand(Home home, const IntVarArgs& x) {
@@ -2858,7 +2864,7 @@ namespace MPG {
   \begin{litblock}{anonymous}
   inline
   IntVarBranch::IntVarBranch(void) 
-    : VarBranch(NULL), s(SEL_NONE) {}
+    : VarBranch<IntVar>(NULL), s(SEL_NONE) {}
   inline
   IntVarBranch::IntVarBranch(Rnd r) 
     : VarBranch(r), s(SEL_RND) {}
@@ -2872,7 +2878,7 @@ namespace MPG {
   IntVarBranch::IntVarBranch(Select s0, Action a, BranchTbl t)
     : VarBranch(a,t), s(s0) {}
   inline
-  IntVarBranch::IntVarBranch(Select s0, VoidFunction mf, BranchTbl t)
+  IntVarBranch::IntVarBranch(Select s0, IntBranchMerit mf, BranchTbl t)
     : VarBranch(mf,t), s(s0) {}
   inline
   IntVarBranch::Select IntVarBranch::select(void) const {
@@ -2894,8 +2900,7 @@ namespace MPG {
   \begin{litblock}{variable selection function implementation}
   inline IntVarBranch
   INT_VAR_MERIT_MAX(IntBranchMerit bm, BranchTbl tbl) {
-    return IntVarBranch(IntVarBranch::SEL_MERIT_MAX,
-                        function_cast<VoidFunction>(bm),tbl);
+    return IntVarBranch(IntVarBranch::SEL_MERIT_MAX,bm,tbl);
   }
   \begin{litblock}{anonymous}
   inline IntVarBranch
@@ -2926,7 +2931,7 @@ namespace MPG {
   \end{litblock}
   \end{litblock}
   \begin{litblock}{value selection functions}
-  class IntValBranch : public ValBranch {
+  class IntValBranch : public ValBranch<IntVar> {
     \begin{litblock}{anonymous}
   public:
     enum Select {
@@ -2938,9 +2943,9 @@ namespace MPG {
     IntValBranch(Select s0 = SEL_MIN)
       : s(s0) {}
     IntValBranch(Rnd r)
-      : ValBranch(r), s(SEL_RND) {}
-    IntValBranch(VoidFunction v, VoidFunction c)
-      : ValBranch(v,c), s(SEL_VAL_COMMIT) {}
+      : ValBranch<IntVar>(r), s(SEL_RND) {}
+    IntValBranch(IntBranchVal v, IntBranchCommit c)
+      : ValBranch<IntVar>(v,c), s(SEL_VAL_COMMIT) {}
     Select select(void) const {
       return s;
     }
@@ -2960,8 +2965,7 @@ namespace MPG {
   }
   inline IntValBranch
   INT_VAL(IntBranchVal v, IntBranchCommit c) {
-    return IntValBranch(function_cast<VoidFunction>(v),
-                        function_cast<VoidFunction>(c));
+    return IntValBranch(v,c);
   }
   \end{litblock}
   \end{litblock}
@@ -2987,7 +2991,7 @@ namespace MPG { namespace Int {
       return new (home) ViewSelNone<IntView>(home,ivb);
     if (ivb.select() == IntVarBranch::SEL_RND)
       return new (home) ViewSelRnd<IntView>(home,ivb);
-    if (ivb.tbl() != NULL) {
+    if (ivb.tbl()) {
       \begin{litblock}{view selection with tbl-function}
       switch (ivb.select()) {
       case IntVarBranch::SEL_MERIT_MAX:
@@ -3133,7 +3137,7 @@ namespace MPG { namespace Int {
         ValSelCommit<ValSelRnd,ValCommitLq>(home,ivb);
     case IntValBranch::SEL_VAL_COMMIT:
      \begin{litblock}{user-defined value selection and commit functions}
-      if (ivb.commit() == NULL) {
+      if (!ivb.commit()) {
         return new (home) 
           ValSelCommit<ValSelFunction<IntView>,
                        ValCommitLq>(home,ivb);
@@ -3155,7 +3159,6 @@ namespace MPG {
   inline void
   branch(Home home, const IntVarArgs& x,
          IntVarBranch vars, IntValBranch vals, 
-         IntBranchFilter bf=NULL,
          IntVarValPrint vvp=NULL) {
     using namespace Int;
     if (home.failed()) return;
@@ -3172,7 +3175,6 @@ namespace MPG {
   inline void
   branch(Home home, const IntVarArgs& x,
          TieBreak<IntVarBranch> vars, IntValBranch vals,
-         IntBranchFilter bf=NULL,
          IntVarValPrint vvp=NULL) {
     using namespace Int;
     if (home.failed()) return;
