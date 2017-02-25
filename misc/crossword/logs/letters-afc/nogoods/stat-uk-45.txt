@@ -1,27 +1,27 @@
 Crossword
-	cosmism*attacks*minicab
-	acantha*sealion*alabama
-	resales*pleurae*senoras
-	was*lessee*melanous*ish
-	anas*patrol*sakers*hose
-	siris*cassis*byte*haler
-	hailmary*afire*stayless
-	***lare*outleap*hili***
-	aspire*turboprop*redrag
-	stuttgart*ode*wildgeese
-	sagos*busby*ledgers*man
-	urge*tempi***relay*eure
-	ami*boleros*ogres*kudus
-	gaspereau*tau*kathakali
-	ephebe*undebased*erases
-	***sorb*grabbag*mair***
-	strapoil*alaap*bitbybit
-	maars*fisc*siphon*aorta
-	ammo*bottom*niobic*tael
-	rap*buchanan*niacin*bro
-	trisula*figures*ataghan
-	lackall*fairest*maleate
-	yukatas*ancress*slammed
+	acrilan*tswanas*whooped
+	chamiso*stewart*houdini
+	tempest*ardency*intense
+	rap*dearme*satiates*doc
+	epic*teabag*sinter*paua
+	sloom*ujamaa*igor*jarls
+	syntagma*tined*cabalist
+	***eros*minicab*tela***
+	spunky*consolers*nagari
+	katakanas*ana*eolipiles
+	irena*italy*tuaregs*mao
+	bent*dowie***skean*barb
+	ois*sebacic*meads*grama
+	bridewell*obi*literates
+	salina*kampuchea*facade
+	***tanh*warthog*piet***
+	memorial*nayar*alkalify
+	atony*road*lessee*eerie
+	rore*adonia*letrip*tina
+	kum*emeralds*mooned*del
+	kraaled*tiderip*animism
+	adoring*tooting*inphase
+	airbase*annatto*resoled
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:56.689 (116689.000 ms)
+	runtime:      2:28.227 (148227.000 ms)
 	solutions:    1
-	propagations: 1110802
-	nodes:        6710
-	failures:     3163
-	restarts:     4
-	no-goods:     120
-	peak depth:   172
+	propagations: 1578876
+	nodes:        9344
+	failures:     4430
+	restarts:     5
+	no-goods:     178
+	peak depth:   156
 

@@ -1,0 +1,33 @@
+Crossword
+	assam*alfa*tits
+	retraction*howe
+	electromagnetic
+	ames*unpleasant
+	sad*odes*rue***
+	***abed*her*lid
+	robber*bad*soda
+	araby*dad*cakes
+	tara*fag*pariah
+	elk*cam*aura***
+	***pal*tell*bar
+	ascertains*jade
+	countermeasures
+	told*remarkable
+	ants*says*inset
+
+
+
+Initial
+	propagators: 390
+	branchers:   1
+
+Summary
+	runtime:      2.895 (2895.000 ms)
+	solutions:    1
+	propagations: 227915
+	nodes:        1130
+	failures:     536
+	restarts:     0
+	no-goods:     0
+	peak depth:   72
+

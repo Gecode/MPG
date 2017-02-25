@@ -1,27 +1,27 @@
 Crossword
-	straw*cede*pepsi*ideal*
-	trace*axer*atlas*torrid
-	auctioneer*bhagavadgita
-	ice**macmillan*bald*stu
-	despoil**neon*deny*leon
-	***eat*cage**hal**burnt
-	dwarf*fail*bras*thai***
-	earl*bandy*oath*ransack
-	erie*rhea*sri*baird*phi
-	pet*barr*budd*once*span
-	**heave*bare*bane*sprig
-	almaden*alerter*rations
-	reese*hack*lead*arena**
-	gate*desk*hand*atom*car
-	uri*daisy*end*boom*ohio
-	enchant*aped*darpa*veda
-	***alas*reds*ants*faded
-	frame**ada**riga*pal***
-	lars*pals*alan**forsake
-	ace*fisk*adaptable**gnu
-	singlehanded*irrational
-	knauer*ladle*lean*breve
-	*estes*ibsen*yank*newer
+	waals*ansi*galen*angel*
+	algae*lain*ecole*coaxes
+	gargantuan*championship
+	ere**earmarked*acre*ada
+	smelter**taos*glen*alec
+	***aid*poem**wei**irene
+	amaze*call*alan*jade***
+	babe*moody*cage*eleanor
+	bird*illy*act*aroma*ode
+	ali*bali*agee*laps*pros
+	**drama*axel*mona*terre
+	algenib*firebug*realist
+	gamed*offs*rely*darts**
+	abed*brae*made*pisa*the
+	pan*franc*its*haze*coed
+	entreat*tame*payed*awed
+	***anne*ibid*rand*cindy
+	acrid**gnu**bose*dar***
+	dead*haag*adam**caboose
+	dam*bass*odorously**dis
+	isomorphisms*treasuries
+	senate*ellie*espy*gauge
+	*sachs*slots*rats*hymen
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.870 (2870.000 ms)
+	runtime:      2.747 (2747.000 ms)
 	solutions:    1
-	propagations: 85847
-	nodes:        467
-	failures:     165
-	restarts:     0
-	no-goods:     0
-	peak depth:   164
+	propagations: 134368
+	nodes:        1029
+	failures:     433
+	restarts:     1
+	no-goods:     18
+	peak depth:   170
 

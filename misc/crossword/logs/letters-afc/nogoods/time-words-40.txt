@@ -1,2 +1,2 @@
 Crossword
-	runtime:             0.000000ms (-1.#J% deviation)
+	runtime:             0.000000ms (-nan(ind)% deviation)

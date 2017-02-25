@@ -1,0 +1,39 @@
+Crossword
+	sion*abaca*dsobo*dops
+	nodi*ergon*eclat*idee
+	otic*faard*paint*real
+	backhair*eland*ennage
+	***yald*ksars*drad***
+	abated*daint*taigling
+	rabat**erne*kirns*gar
+	ahem*danae*unbag*caba
+	baa*kopek*preif*badly
+	simarouba*idea*massas
+	***dans**ace**baba***
+	alumna*gide*spaceship
+	debag*banda*hable*ada
+	agen*calfs*hague*hies
+	gan*cacao*aero**defat
+	eldritch*apaid*gelada
+	***agha*mbira*maam***
+	walesa*sabah*condense
+	etat*yacca*elate*taut
+	raki*abord*aedes*edda
+	epha*napoo*raita*dads
+
+
+
+Initial
+	propagators: 737
+	branchers:   1
+
+Summary
+	runtime:      2.416 (2416.000 ms)
+	solutions:    1
+	propagations: 25976
+	nodes:        214
+	failures:     19
+	restarts:     0
+	no-goods:     0
+	peak depth:   187
+

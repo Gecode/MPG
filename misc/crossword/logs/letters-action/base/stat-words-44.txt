@@ -1,0 +1,41 @@
+Crossword
+	score*agway*belay*simla
+	mafia*deere*exile*iliad
+	informatica*acton*glade
+	toe*nags*trace*etch*mel
+	hermite*punched*latrine
+	***one*caret*doc*pea***
+	chang*aloud*midas*duffy
+	lana*dials*handled*lura
+	aid*parsi*wong*idem*sal
+	iterates*noun*abasement
+	misused*bans*eben*tosca
+	***its*easterner*phi***
+	scene*ella*bail*houston
+	persuaded*pond*teletype
+	eli*riga*haag*arlen*pew
+	nick*laziest*shied*mere
+	tahoe*radio*ocean*radar
+	***cam*red*rural*her***
+	cochran*aerated*watched
+	ado*mead*geese*palo*uri
+	lemma*deign*infantryman
+	elmer*inked*deane*tease
+	blank*ayers*edged*saner
+
+
+
+Initial
+	propagators: 898
+	branchers:   1
+
+Summary
+	runtime:      2.105 (2105.000 ms)
+	solutions:    1
+	propagations: 123396
+	nodes:        925
+	failures:     401
+	restarts:     0
+	no-goods:     0
+	peak depth:   152
+

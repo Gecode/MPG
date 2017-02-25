@@ -1,27 +1,27 @@
 Crossword
-	wasps*scala*rabat*avers
-	isaac*ulcer*irish*cavil
-	ninth*panda*geese*crave
-	katharine*bah*rebounded
-	snooping*dirts*terriers
-	***lice*praises*seas***
-	sonora*mound*web*scheme
-	amigo*balms*heart*yemen
-	nagy*midas*hurried*sate
-	the*cigar*hen*sexes*cam
-	aarhus*mileage*famously
-	***alfa*servant*near***
-	hustling*emerged*trivia
-	ark*stile*any*names*and
-	ibis*stearns*paler*glad
-	tampa*aaron*monet*paine
-	insect*ned*nasty*welded
-	***crab*decades*carl***
-	factored*oozed*banished
-	adiabatic*ail*ernestine
-	delta*relax*inman*honda
-	eliot*agape*naive*engel
-	rears*yoder*enter*deeds
+	debar*omega*cache*water
+	erato*remit*allen*olive
+	calls*gaily*blunt*oaten
+	assailant*pal*broadband
+	leanness*mixed*implants
+	***teem*accedes*beam***
+	remiss*edgar*los*sniffs
+	emacs*navel*allah*daily
+	gina*marie*availer*neon
+	ali*vents*ada*derek*rag
+	leaded*hepburn*megabyte
+	***eris*earlier*sara***
+	cadenced*reacted*legend
+	orr*aires*ate*arden*roe
+	blab*suppose*greed*curt
+	recur*moist*align*copse
+	anodes*tea*ovens*banter
+	***weed*skating*bart***
+	absences*acton*pollutes
+	belittled*con*goldsmith
+	raise*erode*inert*bathe
+	adder*trued*canto*ached
+	myers*eagle*steen*dyers
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:54.392 (174392.000 ms)
+	runtime:      34.686 (34686.000 ms)
 	solutions:    1
-	propagations: 6148675
-	nodes:        30388
-	failures:     14919
-	restarts:     8
-	no-goods:     309
-	peak depth:   188
+	propagations: 1644437
+	nodes:        8349
+	failures:     3947
+	restarts:     5
+	no-goods:     196
+	peak depth:   176
 

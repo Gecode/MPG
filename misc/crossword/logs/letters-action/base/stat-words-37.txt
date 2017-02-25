@@ -1,0 +1,39 @@
+Crossword
+	kane*ababa*marsh*does
+	iran*dirac*agape*emil
+	epic*elena*local*pare
+	valhalla*paine*leaned
+	***axis*buggy*afar***
+	cornea*allen*flirting
+	edits**dice*pearl*bar
+	adds*amino*jaime*veda
+	see*shoed*congo*marin
+	erroneous*eben*reload
+	***bead**ads**thai***
+	behead*fade*bewilders
+	lloyd*salad*ruins*mae
+	alms*forum*bilge*cite
+	dee*hiram*bade**salem
+	endeared*dakar*fibers
+	***aver*babel*arab***
+	hebrew*darer*climatic
+	alan*avert*image*gash
+	able*liege*eagan*ella
+	said*lamed*sneed*seed
+
+
+
+Initial
+	propagators: 737
+	branchers:   1
+
+Summary
+	runtime:      0.858 (858.000 ms)
+	solutions:    1
+	propagations: 27269
+	nodes:        165
+	failures:     15
+	restarts:     0
+	no-goods:     0
+	peak depth:   146
+

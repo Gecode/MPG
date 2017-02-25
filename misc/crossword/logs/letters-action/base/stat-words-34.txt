@@ -1,0 +1,39 @@
+Crossword
+	bitmap*riddled*slated
+	ithaca*israeli*hasher
+	pareto*bladder*ankara
+	eli*alabama*vella*lip
+	dice*ilona*decal*bile
+	scene*end*canto*clays
+	***oar***sum***pea***
+	descry*appeals*armada
+	inched*grosset*deimos
+	ago*devout*karl*snows
+	grow*rand***kiev*gene
+	rapid*ties*caveat*ben
+	avenue*enlarge*depart
+	meddle*stories*unless
+	***ill***cab***zoe***
+	spins*scrub*tow*raced
+	hung*gleam*hated*dana
+	arm*haydn*bitters*pam
+	diadem*iterate*albums
+	esteem*negator*goatee
+	stella*grottos*stroll
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      3.917 (3917.000 ms)
+	solutions:    1
+	propagations: 153985
+	nodes:        1023
+	failures:     463
+	restarts:     0
+	no-goods:     0
+	peak depth:   122
+

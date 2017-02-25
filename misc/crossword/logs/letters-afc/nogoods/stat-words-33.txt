@@ -1,25 +1,25 @@
 Crossword
-	catawba*hausa*amiable
-	readies*essen*bargain
-	erratic*ahead*science
-	mob*sneered*races*gem
-	abel*gnats*zeros*mini
-	tiles*dry*bowen*dense
-	eclipses*arm*adjudges
-	***boar*ababa*sane***
-	shanty*bravado*mcadam
-	oasis*force*mcgee*hue
-	lutz*greek*picas*dada
-	one*coors*mixup*habit
-	stream*stroker*vomits
-	***abed*sated*tabs***
-	baptizes*des*canberra
-	ashen*focal*rob*sleep
-	scan*solar*realm*slop
-	ere*aaron*nucleic*ire
-	midwife*adele*alameda
-	abrades*dared*unravel
-	nearest*anode*seeders
+	blooper*samoa*toshiba
+	airfare*clean*aroused
+	baiting*agate*bombard
+	big*diurnal*milne*dar
+	asia*elite*video*vote
+	gongs*amy*cocoa*sires
+	ensolite*arc*luckless
+	***nate*plead*sail***
+	eskimo*rattler*leafed
+	aloes*canoe*bored*lew
+	seas*japan*habib*nary
+	eel*panic*noted*susie
+	stalin*debated*locker
+	***aces*alder*dell***
+	animator*oil*reviewed
+	limbs*mecca*dis*diane
+	maps*deals*facts*cute
+	age*carla*kerouac*pip
+	narrows*spent*furnace
+	ariadne*pence*fleeces
+	calmest*sated*stewart
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      23.618 (23618.000 ms)
+	runtime:      1:35.294 (95294.000 ms)
 	solutions:    1
-	propagations: 853428
-	nodes:        4931
-	failures:     2315
-	restarts:     4
-	no-goods:     121
-	peak depth:   144
+	propagations: 4562947
+	nodes:        26400
+	failures:     12985
+	restarts:     8
+	no-goods:     190
+	peak depth:   147
 

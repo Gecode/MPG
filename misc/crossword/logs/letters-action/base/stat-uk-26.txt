@@ -1,0 +1,37 @@
+Crossword
+	serac*adam*bala*fab
+	akaba*baba*arab*ami
+	memoriatechnica*lag
+	ida*paca*aida**haha
+	****aga*acta*ala***
+	catalo*bros*chalaza
+	abbas*kaes*aasvogel
+	saar*dab**abb**geta
+	acrobat*banc*caesar
+	***nada*ado*sain***
+	mossad*edda*kraaled
+	abib**age**maa*taka
+	mafeking*scag*fenks
+	antaean*load*keddah
+	***ran*band*dal****
+	ecad**olea*kaki*lid
+	bah*infernalmachine
+	oba*cafe*clem*iambi
+	nab*egad*epee*apayd
+
+
+
+Initial
+	propagators: 591
+	branchers:   1
+
+Summary
+	runtime:      0.765 (765.000 ms)
+	solutions:    1
+	propagations: 16433
+	nodes:        171
+	failures:     7
+	restarts:     0
+	no-goods:     0
+	peak depth:   162
+

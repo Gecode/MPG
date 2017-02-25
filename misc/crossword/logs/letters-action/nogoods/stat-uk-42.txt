@@ -1,0 +1,41 @@
+Crossword
+	tombac*snabs*aura*labra
+	areola*aaron*gnat*abeam
+	massaranduba*abbreviate
+	enshell*amate*rail*odin
+	sty**yam***habitat*tene
+	***oilsand*ecads**bided
+	amebae*seis*hal*waac***
+	basins*allyl*legacy*dal
+	ecce*quillnib*dado*pipe
+	tradeup**icelandic*asia
+	sod*geoid**faded*kasbah
+	**ria*naira*based*cha**
+	childe*maars**sdein*rai
+	eale*dabchicks**vnecked
+	tela*ilia*aoristic*lire
+	eme*stacte*galea*adonia
+	***caen*had*barb*nagged
+	graal**korea*salades***
+	rimu*scalded***abe**cat
+	agas*kaki*plier*ascaris
+	pontianacs*acciaccatura
+	eldin*ipoh*nerdy*eraser
+	slack*done*druse*dopers
+
+
+
+Initial
+	propagators: 892
+	branchers:   1
+
+Summary
+	runtime:      4.252 (4252.000 ms)
+	solutions:    1
+	propagations: 61487
+	nodes:        462
+	failures:     146
+	restarts:     0
+	no-goods:     0
+	peak depth:   202
+

@@ -1,0 +1,37 @@
+Crossword
+	mafia**hoofs**decca
+	enemy*patriot*inlay
+	nonperishable*stage
+	undo*intel**accrues
+	***ulster*focuses**
+	orinoco**bathe*etch
+	pends**hoisted**rae
+	add**elevator*leona
+	loeb*pares***heaped
+	**caliber*antioch**
+	acidic***spahn*hops
+	lopez*redeemed**boa
+	bah**degrade**being
+	axed*afoul**crusade
+	**realism*molest***
+	coarsen**canoe*ague
+	orbit*encapsulating
+	tilde*doubled*delta
+	sneer**reset**aston
+
+
+
+Initial
+	propagators: 601
+	branchers:   1
+
+Summary
+	runtime:      1.544 (1544.000 ms)
+	solutions:    1
+	propagations: 112415
+	nodes:        743
+	failures:     333
+	restarts:     0
+	no-goods:     0
+	peak depth:   91
+

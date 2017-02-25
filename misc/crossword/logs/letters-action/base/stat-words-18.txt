@@ -1,0 +1,33 @@
+Crossword
+	agar*pagan*edna
+	lute*ababa*tail
+	bloc*pepsi*ella
+	applaud*ovaries
+	***ada*preen***
+	david*cab*gaily
+	adam*our*bilbao
+	tau*greases*stu
+	uglier*dad*wehr
+	metro*sod*panes
+	***affix*can***
+	gainful*waldorf
+	ansi*miner*ever
+	vela*ecole*reno
+	ewen*daddy*snag
+
+
+
+Initial
+	propagators: 380
+	branchers:   1
+
+Summary
+	runtime:      0.187 (187.000 ms)
+	solutions:    1
+	propagations: 8513
+	nodes:        86
+	failures:     10
+	restarts:     0
+	no-goods:     0
+	peak depth:   69
+

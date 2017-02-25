@@ -1,0 +1,39 @@
+Crossword
+	**nahal*sadhe*ulnae**
+	*galena*ileum*jaunce*
+	chalaza*ngwee*atriums
+	her*pageboy*named*aba
+	arts*cecal*addax*odal
+	major*rad*ibiza*phoca
+	poetised*amene*sabred
+	***abed*debag*ambo***
+	elodea*harem*cresylic
+	lapis*calid*rabat*ada
+	abac*wanle*babar*odea
+	tel*grice*kayos*jelab
+	elsinore*kabab*reseda
+	***mand*pesah*haet***
+	pygarg*shahs*bespread
+	seoul*raita*sab*sulfa
+	halm*culls*khadi*marg
+	and*erase*bellona*nag
+	wealden*maile*malacia
+	*droned*oxlip*aneled*
+	**nyala*neems*decad**
+
+
+
+Initial
+	propagators: 739
+	branchers:   1
+
+Summary
+	runtime:      2.332 (2332.000 ms)
+	solutions:    1
+	propagations: 23297
+	nodes:        165
+	failures:     10
+	restarts:     0
+	no-goods:     0
+	peak depth:   154
+

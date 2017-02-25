@@ -1,0 +1,33 @@
+Crossword
+	jalap*ogam*capa
+	animalcula*aran
+	memoriatechnica
+	bank*asteroidal
+	ers*area*add***
+	***addy*ems*bah
+	dachas*dae*gare
+	abeam*ban*babar
+	dieb*bab*dagaba
+	obs*maa*saba***
+	***sac*ghee*sop
+	unawakened*gibe
+	locomotorataxia
+	eger*familistic
+	sord*flea*thete
+
+
+
+Initial
+	propagators: 390
+	branchers:   1
+
+Summary
+	runtime:      0.644 (644.000 ms)
+	solutions:    1
+	propagations: 10556
+	nodes:        105
+	failures:     9
+	restarts:     0
+	no-goods:     0
+	peak depth:   93
+

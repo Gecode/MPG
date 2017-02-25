@@ -1,19 +1,19 @@
 Crossword
-	amid*caner*haas
-	lore*awoke*once
-	elaborates*rite
-	centigrade*stem
-	****loeb*treads
-	allay**lotus***
-	deed*flemishing
-	anomaly*antonio
-	manicuring*edna
-	***shoal**broad
-	amuser*lace****
-	bali*emigration
-	otto*sacramento
-	vern*cries*acid
-	eras*estes*mass
+	shoe*swamp*trap
+	karp*honer*race
+	illiterate*abut
+	seychelles*nate
+	****andy*sister
+	strew**skull***
+	loud*interlaced
+	indiana*restore
+	dietitians*oman
+	***odell**dress
+	sharer*gale****
+	mali*elementals
+	olga*sabbatical
+	keel*tires*nina
+	errs*snare*adam
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:01.059 (61059.000 ms)
+	runtime:      3.144 (3144.000 ms)
 	solutions:    1
-	propagations: 3866614
-	nodes:        18218
-	failures:     9029
-	restarts:     7
-	no-goods:     203
-	peak depth:   77
+	propagations: 211518
+	nodes:        1169
+	failures:     554
+	restarts:     1
+	no-goods:     13
+	peak depth:   84
 

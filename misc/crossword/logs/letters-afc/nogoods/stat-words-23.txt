@@ -1,8 +1,8 @@
 Crossword
-	occam*salerno*spasm
-	ghana*trudeau*cache
-	dirty*eminent*arced
-	end*oaf*sad*lab*rae
+	occam*salerno*shade
+	ghana*trudeau*canal
+	dirty*eminent*alike
+	end*oaf*sad*lab*tan
 	nasa*can***ham*tara
 	***yoknapatawpha***
 	mclean*baden*louise
@@ -13,10 +13,10 @@ Crossword
 	rio*add*gap*dad*and
 	danzig*aegis*taunts
 	***electrocuting***
-	scan*roe***mao*hang
-	cam*ass*ere*ink*nil
-	asian*maximal*amiga
-	lenin*orifice*hates
+	scan*roe***mao*hays
+	cam*ass*ere*ink*moe
+	asian*maximal*amide
+	lenin*orifice*hager
 	adore*settled*nears
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.671 (671.000 ms)
+	runtime:      0.643 (643.000 ms)
 	solutions:    1
-	propagations: 47291
-	nodes:        401
-	failures:     152
+	propagations: 51580
+	nodes:        458
+	failures:     177
 	restarts:     0
 	no-goods:     0
-	peak depth:   126
+	peak depth:   133
 

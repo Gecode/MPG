@@ -1,0 +1,39 @@
+Crossword
+	scarce*bistate*steams
+	marion*encoder*teacup
+	enable*alabama*aerate
+	lab*emptily*psalm*can
+	laid*arena*aleck*rind
+	snail*one*swede*seats
+	***van***man***lag***
+	banana*spanish*oracle
+	amends*humanly*salaam
+	bib*sahara*gods*helga
+	baud*lamp***prow*dion
+	abler*lila*dealer*boa
+	glared*newborn*lament
+	eerily*grayest*coarse
+	***vie***its***hun***
+	aztec*abate*caw*local
+	read*sills*faded*rica
+	abo*pedal*cardiac*cap
+	briton*reroute*creeds
+	lasers*eleanor*carrie
+	estate*sextans*abroad
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      21.580 (21580.000 ms)
+	solutions:    1
+	propagations: 1182941
+	nodes:        9529
+	failures:     4594
+	restarts:     5
+	no-goods:     209
+	peak depth:   171
+

@@ -14,12 +14,12 @@ Crossword
 	either*dibutyl*alegge
 	scerne*entreat*lapses
 	***aid***add***spa***
-	aasia*katie*jag*acock
-	glam*karen*serac*thae
-	hes*chirm*ichabod*die
-	achaea*epigean*bedell
-	stably*seconde*resale
-	toyota*theresa*adored
+	aasia*belie*rad*acock
+	naam*milan*serac*thae
+	ary*caboc*ichabod*die
+	thetas*hulsean*bedell
+	tushes*inulase*resale
+	astone*maratha*adored
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.088 (4088.000 ms)
+	runtime:      3.392 (3392.000 ms)
 	solutions:    1
-	propagations: 40467
-	nodes:        395
-	failures:     125
+	propagations: 35278
+	nodes:        304
+	failures:     79
 	restarts:     0
 	no-goods:     0
-	peak depth:   169
+	peak depth:   167
 

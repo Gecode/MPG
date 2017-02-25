@@ -1,25 +1,25 @@
 Crossword
-	straws*chateau*smears
-	taipei*regards*hannah
-	andean*alameda*indira
-	gad*naivete*ebony*men
-	ekes*irene*inlay*vast
-	saner*ada*adder*salty
-	***rae***oil***dig***
-	dobbin*readier*enrage
-	across*antenna*leaven
-	see*eunuch*gait*snort
-	haag*each***bled*time
-	ended*goad*bleary*dar
-	ritter*unifier*eocene
-	sahara*strands*adored
-	***wet***erg***dec***
-	bleak*farce*sap*roams
-	roxy*sleet*juras*area
-	ant*maori*bumbled*cab
-	verbal*anselmo*damage
-	elaine*terrier*grader
-	system*editors*enders
+	habeas*malabar*kresge
+	amanda*avocado*aegean
+	beggar*revered*florid
+	ill*marines*leaky*gnu
+	tier*hangs*linda*jeer
+	sayer*mae*beats*zaire
+	***see***fat***hey***
+	adrian*slashed*arcade
+	brenda*pickaxe*poetic
+	rip*scribe*lisp*serfs
+	ella*tide***lies*soft
+	alibi*germ*bigger*pea
+	secant*riemann*rumors
+	trance*sayings*brassy
+	***dud***ere***oaf***
+	actor*accra*ebb*light
+	gown*atlas*aires*alar
+	age*ocean*absence*are
+	tenant*indiana*agenda
+	entice*roadbed*lanced
+	styled*endears*anders
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      20.342 (20342.000 ms)
+	runtime:      18.615 (18615.000 ms)
 	solutions:    1
-	propagations: 881280
-	nodes:        6257
-	failures:     2950
+	propagations: 801917
+	nodes:        5472
+	failures:     2507
 	restarts:     4
-	no-goods:     215
-	peak depth:   155
+	no-goods:     189
+	peak depth:   168
 

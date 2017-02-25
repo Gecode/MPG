@@ -10,10 +10,10 @@ Crossword
 	*shearer**leona
 	****cern*micron
 	rabat***ban****
-	adam*dirac*avis
+	adam*dirac*abos
 	maya*adolescent
-	ages*yeas*utica
-	ness*sara*malay
+	ages*yeas*peace
+	ness*sara*askew
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.593 (593.000 ms)
+	runtime:      0.862 (862.000 ms)
 	solutions:    1
-	propagations: 24506
-	nodes:        186
-	failures:     65
+	propagations: 49066
+	nodes:        382
+	failures:     163
 	restarts:     0
 	no-goods:     0
-	peak depth:   69
+	peak depth:   73
 

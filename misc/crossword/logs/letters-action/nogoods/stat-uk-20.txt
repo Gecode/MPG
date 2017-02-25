@@ -1,0 +1,37 @@
+Crossword
+	haka*swab*torc*oder
+	agar*hale*apia*rape
+	simarouba*meandered
+	hoarier*mead*figged
+	***odd*tsar*jiao***
+	jambe*ayer*biennial
+	abba*anna*nabla*boa
+	tiu*acid*gibed*zuni
+	objects*rased*caped
+	**ilea*ramee*carr**
+	nomad*rabbi*karaoke
+	udal*pebas*baba*fag
+	may*oobit*lana*weka
+	blighted*gala*gonad
+	***abac*dada*sar***
+	imagos*gaea*paisley
+	malaysian*narrating
+	arak*idea*udos*eddo
+	masu*cade*mama*dose
+
+
+
+Initial
+	propagators: 610
+	branchers:   1
+
+Summary
+	runtime:      1.356 (1356.000 ms)
+	solutions:    1
+	propagations: 16836
+	nodes:        162
+	failures:     3
+	restarts:     0
+	no-goods:     0
+	peak depth:   158
+

@@ -1,27 +1,27 @@
 Crossword
-	eassel*ambage*cit*bacca
-	scerne*caudal*enrollers
-	chainprinters*ptomaines
-	oar*usefully*sheass*ope
-	recti*doree*sward*habit
-	tahr*porer*mealies*sit*
-	**weel*mridamgam*cottar
-	kraaled*seareed*secreta
-	aardvark*slaes*apprised
-	rereading*lud*closed***
-	starn*beefed*sharia*pay
-	tins*abears*noints*pipa
-	sat*fulcra*bourns*orgic
-	***boreas*her*tacamahac
-	timewarp*sorra*habanera
-	amulets*photons*ragdays
-	rallye*geophytic*chid**
-	*gae*spatula*adams*aesc
-	betsy*alula*brere*aldea
-	eat*farand*beckiron*nan
-	abodement*partitionment
-	clearings*arnica*fiasco
-	hesse*tae*snecks*senses
+	alpaca*padauk*sri*lesbo
+	daedal*omenta*kurdistan
+	abnormalities*advantage
+	pit*easeless*tidied*par
+	talar*indre*solen*abets
+	slam*qatar*demirep*ide*
+	**narc*arizonans*labile
+	paddies*snoring*teaball
+	affabler*goels*teaseled
+	naiveties*nee*outdid***
+	arras*ghazis*ostrea*qua
+	matt*anemic*behead*tups
+	ash*preamp*parang*arars
+	***decury*biz*carabidae
+	facecard*donas*gabbarts
+	alidads*newgate*mealies
+	decane*tonsorial*asis**
+	*hin*darbies*prism*sejm
+	sonsy*baled*aitch*emcee
+	lud*earded*eutheria*ted
+	asepalous*strainingsill
+	celeriacs*acates*crania
+	ksars*dee*pheere*hedger
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      49.920 (49920.000 ms)
+	runtime:      3:02.717 (182717.000 ms)
 	solutions:    1
-	propagations: 386485
-	nodes:        2061
-	failures:     913
-	restarts:     2
-	no-goods:     74
-	peak depth:   145
+	propagations: 3054333
+	nodes:        17587
+	failures:     8456
+	restarts:     7
+	no-goods:     226
+	peak depth:   167
 

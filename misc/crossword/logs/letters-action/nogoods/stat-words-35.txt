@@ -1,0 +1,39 @@
+Crossword
+	scar*alamo*abram*dada
+	erne*racer*leila*iran
+	toni*schlesinger*otto
+	swanlike*gas*arkansan
+	***sons*fonts*tory***
+	apiece*contact*vassal
+	henri*err*airer*bulba
+	east*grace*relic*seam
+	act*precept*elbow*ebb
+	deadlock*shuns*pappas
+	**least*coins*final**
+	wallis*comet*bootlegs
+	him*debar*fibrous*sow
+	eked*solos*loots*oslo
+	renew*genoa*roe*dildo
+	entail*bertram*bunyan
+	***flea*telex*cant***
+	onondaga*nag*jeremiah
+	robe*vicissitude*edge
+	enos*elide*modal*near
+	sees*sedan*emery*tara
+
+
+
+Initial
+	propagators: 754
+	branchers:   1
+
+Summary
+	runtime:      3.968 (3968.000 ms)
+	solutions:    1
+	propagations: 177269
+	nodes:        1245
+	failures:     561
+	restarts:     1
+	no-goods:     21
+	peak depth:   96
+

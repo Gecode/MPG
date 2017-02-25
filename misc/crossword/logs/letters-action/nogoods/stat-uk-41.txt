@@ -1,0 +1,41 @@
+Crossword
+	shlep*cols*banda*agama*
+	loury*alec*ibeam*dagaba
+	unfamiliar*violadagamba
+	nef**midheaven*naga*bar
+	grandad**whys*idee*dado
+	***aim*ceca**aba**bason
+	kabab*paca*babu*cram***
+	lief*carap*leep*hobnobs
+	anti*held*lao*raita*val
+	nee*dada*hisn*odal*bene
+	**lassi*dent*afar*oorie
+	angioma*jadoube*oscular
+	doers*teed*gean*setto**
+	urus*oral*deys*acta*abb
+	las*thirl*ens*aqua*udal
+	thebaic*asci*blare*sena
+	***abos*bloc*igbo*faded
+	ksars**day**maya*rag***
+	lums*shah*naan**faberge
+	ibo*baal*paranoiac**ahs
+	mariatheresa*ultravires
+	thecla*kebab*aged*akene
+	*stean*scala*lams*certs
+
+
+
+Initial
+	propagators: 881
+	branchers:   1
+
+Summary
+	runtime:      1.891 (1891.000 ms)
+	solutions:    1
+	propagations: 24924
+	nodes:        203
+	failures:     11
+	restarts:     0
+	no-goods:     0
+	peak depth:   191
+

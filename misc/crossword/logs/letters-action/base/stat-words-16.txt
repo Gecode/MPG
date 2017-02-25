@@ -1,0 +1,33 @@
+Crossword
+	pegs*bali*arabs
+	omit*avon*libel
+	embellish*berra
+	married*adamant
+	**aims*abo*ames
+	salle*prison***
+	cite*britannica
+	ada*sausage*nab
+	bernardine*evil
+	***intent*plane
+	crab*eng*fuel**
+	hilbert*repairs
+	agile*icelandic
+	revel*aunt*olga
+	sleds*lees*ryan
+
+
+
+Initial
+	propagators: 394
+	branchers:   1
+
+Summary
+	runtime:      39.285 (39285.000 ms)
+	solutions:    1
+	propagations: 2681165
+	nodes:        15615
+	failures:     7788
+	restarts:     0
+	no-goods:     0
+	peak depth:   56
+

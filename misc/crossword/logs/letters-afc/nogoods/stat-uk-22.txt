@@ -1,23 +1,23 @@
 Crossword
-	haceks*abaci*befall
+	haceks*abaci*bename
 	azalea*bason*acacia
-	sinker*roams*bateau
-	sot*kabab*mired*tig
-	anal*haha*ogee*pash
-	rebec*rabanna*haley
+	sinker*roams*bagels
+	sot*kabab*mired*toe
+	anal*haha*ogee*carl
+	rebec*rabanna*holds
 	***modem*leerier***
-	grandad*ply*darkest
-	canaan*lao*coplanar
-	lit**mailplane**spa
-	etiolate*lab*taguan
+	grandad*ply*darnels
+	canaan*lao*poplitic
+	lit**mailplane**ana
+	etiolate*lad*tagger
 	facture*ear*current
 	***anklets*aasia***
 	dagga*imamate*dicty
 	urao*peag*base*proa
-	res*marne*ubend*arc
-	roseal*arose*iambic
-	alexia*nebek*arabia
-	sarsas*tsars*citess
+	nib*marne*ubend*arc
+	celiac*arose*iambic
+	agenda*nebek*arabia
+	nesses*tsars*citess
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.153 (2153.000 ms)
+	runtime:      1.921 (1921.000 ms)
 	solutions:    1
-	propagations: 31472
-	nodes:        366
-	failures:     128
+	propagations: 33449
+	nodes:        378
+	failures:     133
 	restarts:     0
 	no-goods:     0
-	peak depth:   131
+	peak depth:   128
 

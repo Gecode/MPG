@@ -1,0 +1,41 @@
+Crossword
+	caramba*isopoda*arcadia
+	atalaya*godevil*pealing
+	tattier*unalist*ebriose
+	ava*andean*anchored*rai
+	nibs*dwined*eremic*bins
+	islam*orated*ease*motet
+	amenable*erred*knackers
+	***asif*serapic*teem***
+	meatax*apricated*swanee
+	unridable*doc*rascalism
+	brava*ameba*truemen*psi
+	aone*prado***almas*spet
+	rue*heralds*sheol*ahint
+	atanyrate*hah*onlicence
+	keegan*asparagus*cadged
+	***aeon*salvias*hech***
+	sapindus*plate*radialia
+	alloa*cafe*lallan*anans
+	pias*flairs*nipter*dips
+	pec*reerects*clapon*the
+	enemata*soredia*orarian
+	retamas*tautest*ooziest
+	sessile*almsfee*tsetses
+
+
+
+Initial
+	propagators: 928
+	branchers:   1
+
+Summary
+	runtime:      51.051 (51051.000 ms)
+	solutions:    1
+	propagations: 839323
+	nodes:        6136
+	failures:     3007
+	restarts:     0
+	no-goods:     0
+	peak depth:   169
+

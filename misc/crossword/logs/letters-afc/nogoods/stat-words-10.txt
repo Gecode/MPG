@@ -1,19 +1,19 @@
 Crossword
-	semi*alpha*amos
-	iran*carib*lima
-	tallahoosa*anew
-	estates**basins
-	***its*smacks**
-	mardi*she*eater
-	eva*ramada*neva
-	ran*editing*rot
-	lids*attune*eke
-	elope*hem*added
-	**martyr*sri***
-	slicer**reelect
-	ooze*affordable
-	ager*proof*teas
-	pods*sorts*ends
+	lose*isles*papa
+	opal*sieve*aped
+	legislated*sped
+	alaskan**altars
+	***hom*mcneil**
+	scrap*par*emacs
+	eli*jailer*echo
+	rod*erratum*hal
+	fags*cabana*ire
+	skews*tan*shams
+	**fairer*boa***
+	shinto**sandbag
+	lees*scottsdale
+	able*sarah*abba
+	veda*irene*dear
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.576 (1576.000 ms)
+	runtime:      1.863 (1863.000 ms)
 	solutions:    1
-	propagations: 95915
-	nodes:        741
-	failures:     332
-	restarts:     1
-	no-goods:     11
-	peak depth:   77
+	propagations: 168337
+	nodes:        1414
+	failures:     648
+	restarts:     2
+	no-goods:     34
+	peak depth:   86
 

@@ -1,0 +1,39 @@
+Crossword
+	abed*lamar*abner*eyed
+	levi*ababa*slave*aura
+	ares*bobby*paten*grid
+	straw*death*balalaika
+	***babel*had*lyman***
+	scalars*ceres*ned*van
+	pamela*bookies*derive
+	liars*venn*gail*nadia
+	iris*cite*inlaid*bear
+	ton*area*orientations
+	***trot*amend*trod***
+	africanizing*seem*del
+	siam*karate*cord*sole
+	india*malt*thus*monet
+	deadly*neither*haunch
+	err*our*anion*narrate
+	***lucas*gem*filed***
+	macadamia*sparc*sober
+	arab*tally*sleek*urdu
+	mira*adage*obese*ginn
+	aden*nasas*nasty*heat
+
+
+
+Initial
+	propagators: 747
+	branchers:   1
+
+Summary
+	runtime:      2.731 (2731.000 ms)
+	solutions:    1
+	propagations: 127615
+	nodes:        971
+	failures:     399
+	restarts:     1
+	no-goods:     17
+	peak depth:   153
+

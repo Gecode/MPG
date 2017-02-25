@@ -1,0 +1,41 @@
+Crossword
+	abroad*donna*pole*canis
+	cradle*adair*even*abash
+	recommending*penetrator
+	iverson*slain*rome*nile
+	des**cow***veteran*dodd
+	***cursors*erase**bones
+	sahara*leap*oft*stan***
+	erotic*fugue*ticked*ida
+	rime*icebergs*main*anew
+	reorder**seacoasts*itel
+	ass*usurp**north*enders
+	**elk*deane*trees*ear**
+	taxied*pride**swirl*spa
+	anus*idealized**gelatin
+	snap*reap*treading*bang
+	sal*agatha*allan*usages
+	***abed*eli*send*latest
+	theme**bragg*sausage***
+	hone*oconnor***sat**fob
+	over*alma*roger*pigtail
+	remarkable*unreasonable
+	prado*neil*panic*naples
+	essay*gram*swede*steers
+
+
+
+Initial
+	propagators: 892
+	branchers:   1
+
+Summary
+	runtime:      2:31.654 (151654.000 ms)
+	solutions:    1
+	propagations: 10434388
+	nodes:        71304
+	failures:     35434
+	restarts:     10
+	no-goods:     472
+	peak depth:   218
+

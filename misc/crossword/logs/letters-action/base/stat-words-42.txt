@@ -1,0 +1,41 @@
+Crossword
+	fasted*hager*dyne*baths
+	attire*alive*your*about
+	carcinogenic*ektachrome
+	erikson*caleb*nasa*alma
+	dip**mud***debater*heed
+	***raisers*elope**daddy
+	malign*foci*ada*idem***
+	azalea*earns*ethnic*dam
+	rube*terraces*aida*pine
+	croydon**mathewson*host
+	her*arden**soaps*alicia
+	**add*snaps*ethel*all**
+	astral*atoll**adorn*era
+	chou*ambitions**negates
+	term*palo*drainage*rich
+	say*ascend*diner*vacate
+	***alee*arm*lear*arenas
+	slave**alien*stalled***
+	time*ellipse***you**tap
+	alan*ritz*strap*catawba
+	fingernail*humanitarian
+	fader*dine*elena*exalts
+	snare*argo*reset*sibley
+
+
+
+Initial
+	propagators: 892
+	branchers:   1
+
+Summary
+	runtime:      55.807 (55807.000 ms)
+	solutions:    1
+	propagations: 4630981
+	nodes:        32736
+	failures:     16318
+	restarts:     0
+	no-goods:     0
+	peak depth:   137
+

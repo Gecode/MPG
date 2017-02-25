@@ -1,23 +1,23 @@
 Crossword
-	adverb*crags*rushes
-	reeler*habit*athena
-	marina*amour*faulty
-	inn*tulsa*sooth*pie
-	enos*need*ekes*kerr
-	saner*grasped*mares
-	***rapes*epsilon***
-	arbiter*ice*punjabi
-	deafer*ott*mackinac
-	any**versatile**ito
-	meditate*red*reason
-	seaside*six*anglers
-	***america*wreak***
-	atlas*noonday*nylon
-	chic*cant*agar*lore
-	ail*ellis*tonic*ada
-	crimea*amain*slater
-	ideals*nerve*kochab
-	assess*sneer*steely
+	sneaks*beers*astral
+	cedric*inlet*boheme
+	raster*maybe*brenda
+	erg*venom*upset*tar
+	abed*wide*they*kahn
+	myron*galatea*polls
+	***libel*pangaea***
+	sidecar*del*abelian
+	eraser*oar*atalanta
+	pot**rewritten**cot
+	inertial*owe*delano
+	assurer*ado*bonuses
+	***bernini*tonic***
+	agree*enacted*darns
+	bien*grit*wren*seep
+	orb*gusto*inset*due
+	adages*ilona*remote
+	retort*airer*veined
+	dreams*larry*enders
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      45.724 (45724.000 ms)
+	runtime:      18.203 (18203.000 ms)
 	solutions:    1
-	propagations: 2208461
-	nodes:        12967
-	failures:     6325
-	restarts:     6
-	no-goods:     211
-	peak depth:   127
+	propagations: 1027748
+	nodes:        6786
+	failures:     3244
+	restarts:     4
+	no-goods:     113
+	peak depth:   131
 

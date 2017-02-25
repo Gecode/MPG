@@ -1,0 +1,41 @@
+Crossword
+	apace*bathe*datum*snipe
+	repartition*elena*liner
+	anthropologically*ultra
+	bali*monet*menlo*freest
+	slyly*lad*spa*scrap*rio
+	***local*chasm*kid*ads*
+	ali*dar*thereof*deplete
+	lancer*beret*was*drapes
+	oscar*dixon*delhi*omens
+	neon*began*godsend*once
+	ermines*sired*eaves*den
+	**psalms*congo*facade**
+	ada*biota*beefs*laminar
+	nets*enemies*flail*acne
+	iliad*damns*heard*pride
+	sibley*mat*serve*layers
+	eviller*nestles*can*see
+	*ely*mae*lured*bayda***
+	sri*heeds*wan*per*allah
+	patton*wuhan*tosca*pale
+	anion*misunderstandings
+	scene*inane*resistances
+	messy*dante*akers*deere
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      43.822 (43822.000 ms)
+	solutions:    1
+	propagations: 3420738
+	nodes:        17765
+	failures:     8844
+	restarts:     0
+	no-goods:     0
+	peak depth:   112
+

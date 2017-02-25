@@ -1,0 +1,41 @@
+Crossword
+	swaps*aruba*essay*appia
+	paraphrased*maine*beans
+	extraordinariness*barth
+	neil*point*inane*cesare
+	dread*wag*one*alloy*man
+	***yemen*signs*mac*dec*
+	uri*bed*deletes*colette
+	rental*caved*web*aeneas
+	gator*eared*fetid*verbs
+	eden*inner*deduces*bile
+	syrians*decal*peace*zen
+	**rowena*ditto*pravda**
+	abe*erase*tests*treetop
+	bald*trilled*tithe*lisa
+	braes*eaves*cores*shoal
+	obtain*nip*armed*chinks
+	tainted*serbian*coo*say
+	*roe*van*rosen*bates***
+	con*medal*dud*per*salem
+	rusher*toper*tosca*bade
+	oshea*misunderstandings
+	flirt*event*resistances
+	types*nests*akers*needy
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      48.467 (48467.000 ms)
+	solutions:    1
+	propagations: 2770174
+	nodes:        13649
+	failures:     6722
+	restarts:     6
+	no-goods:     179
+	peak depth:   188
+

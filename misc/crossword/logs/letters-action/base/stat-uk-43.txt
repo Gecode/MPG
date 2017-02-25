@@ -1,0 +1,41 @@
+Crossword
+	babar*lambs*abate*agism
+	avine*praam*fries*rusma
+	basal*large*farad*eater
+	astrolabe*ace*scrattles
+	stoccata*dried*hasheesh
+	***hade*cedared*scum***
+	onsite*cacao*cad*isaiah
+	minae*berob*hanoi*alapa
+	axel*baddy*podagra*amen
+	nee*bahai*mar*egads*bad
+	israel*rabanna*odalisks
+	***bald*caramba*emir***
+	greenban*almaata*acedia
+	cam*solid*pad*agene*abo
+	lima*yezidis*plant*acer
+	edema*karat*plaid*ducat
+	fstops*mac*frayn*panama
+	***epos*chalaza*bema***
+	gabbarts*abaca*giantess
+	ruraldean*ant*outlaunch
+	ariel*areas*immit*brere
+	tubae*reade*cesse*leman
+	emend*sepad*euked*eland
+
+
+
+Initial
+	propagators: 906
+	branchers:   1
+
+Summary
+	runtime:      10.101 (10101.000 ms)
+	solutions:    1
+	propagations: 127591
+	nodes:        975
+	failures:     402
+	restarts:     0
+	no-goods:     0
+	peak depth:   196
+

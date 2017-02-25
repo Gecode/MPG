@@ -1,0 +1,33 @@
+Crossword
+	map*beam*dimmer
+	univalve*oneida
+	interferometric
+	resin*river*ate
+	***leg*tests***
+	lie*simon*items
+	eras*air*carrot
+	perpendicularly
+	enlist*orb*well
+	reset*guyed*dye
+	***silas*did***
+	ask*maine*trier
+	characterizable
+	relate*sidewise
+	edited*seal*del
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      13.621 (13621.000 ms)
+	solutions:    1
+	propagations: 1559977
+	nodes:        9671
+	failures:     4818
+	restarts:     0
+	no-goods:     0
+	peak depth:   49
+

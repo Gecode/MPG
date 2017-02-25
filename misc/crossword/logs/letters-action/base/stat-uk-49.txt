@@ -1,0 +1,41 @@
+Crossword
+	plasms*sherpa*tar*broch
+	aumail*popian*imageable
+	spermatotheca*mimetical
+	sin*strobila*golems*oye
+	unary*okras*banda*yores
+	peba*ideal*cadeaux*ada*
+	**icer*dittander*errata
+	telexes*needier*created
+	alicante*snead*blaggers
+	catamaran*inn*faerie***
+	keirs*arafat*bodice*pus
+	lied*attlee*warmth*port
+	ess*heehaw*bablah*baler
+	***barges*han*israelite
+	amoeboid*milts*halluces
+	sundisc*bogland*loaders
+	smalto*methadone*ohos**
+	*mna*loathed*wolof*stot
+	reims*other*bites*peare
+	ers*allied*sanicles*tis
+	citations*insectologist
+	ceilinged*bosser*ariosi
+	oscan*yea*odessa*nannas
+
+
+
+Initial
+	propagators: 933
+	branchers:   1
+
+Summary
+	runtime:      14.212 (14212.000 ms)
+	solutions:    1
+	propagations: 169395
+	nodes:        1018
+	failures:     456
+	restarts:     0
+	no-goods:     0
+	peak depth:   124
+

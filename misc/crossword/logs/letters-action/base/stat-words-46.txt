@@ -1,0 +1,41 @@
+Crossword
+	tabs*isaac*aloha*atari*
+	ague*bilbo*naval*parent
+	cerebellum*apalachicola
+	tenderly*babel*bail*par
+	***iris*label*band*heir
+	cornea*betel*dame*candy
+	omega*aloe**riga*boa***
+	pads*plunderers*brigham
+	she*plane*lane*cain*one
+	eastland*bisecting*alga
+	**iran*edith*tuck*allen
+	begets*race*tone*briars
+	renee*aida*airer*eden**
+	eris*ornaments*offended
+	win*oleg*edna*anion*are
+	segovia*organizing*bien
+	***men*brae**stan*discs
+	cowan*fall*galen*delete
+	ruin*daly*lilac*hell***
+	ant*toil*salem*portends
+	scheherazade*initiation
+	hearer*della*zoned*ella
+	*slams*sneed*engle*deep
+
+
+
+Initial
+	propagators: 903
+	branchers:   1
+
+Summary
+	runtime:      1.730 (1730.000 ms)
+	solutions:    1
+	propagations: 99033
+	nodes:        616
+	failures:     241
+	restarts:     0
+	no-goods:     0
+	peak depth:   158
+

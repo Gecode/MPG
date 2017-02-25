@@ -1,25 +1,25 @@
 Crossword
-	saga*speak*bare*acres
-	anus*ellie*over*chart
-	statically*mauritania
-	himalaya*habib*muster
-	***tons*moral*spat***
-	sprint*roles*reelects
-	leona*pedestrians*ron
-	once*sire***idle*rena
-	oak*cucumbers*strider
-	plebeian*alee**revise
-	**felts*ryder*caleb**
-	adelia**odes*debating
-	lullaby*carefully*lou
-	sale*leak***only*pity
-	one*reassembles*mitre
-	percents*needs*buoyed
-	***hues*stags*penn***
-	splits*cheng*conceals
-	wholesaler*anesthesia
-	aimer*file*rodeo*ring
-	bless*told*stern*sake
+	deal*asses*dada*shave
+	abba*steak*oxen*waned
+	reevaluate*montmartre
+	enticers*pliny*indian
+	***stem*stans*else***
+	bishop*going*calendar
+	aster*calceolaria*ego
+	lard*game***ames*scab
+	mae*arrestors*deplete
+	scabbard*eris**coiled
+	**meaty*pablo*ponce**
+	malibu**erik*wanderer
+	abigail*asteroids*ale
+	gone*tail***urns*step
+	ode*conceivable*siena
+	gertrude*lined*midday
+	***hess*glenn*done***
+	amoral*deere*harassed
+	varityping*transitive
+	olive*hera*taste*even
+	nines*itel*ethel*pars
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      57.938 (57938.000 ms)
+	runtime:      4:09.778 (249778.000 ms)
 	solutions:    1
-	propagations: 2129332
-	nodes:        8785
-	failures:     4289
-	restarts:     5
-	no-goods:     169
-	peak depth:   127
+	propagations: 15653998
+	nodes:        78144
+	failures:     38863
+	restarts:     10
+	no-goods:     260
+	peak depth:   124
 

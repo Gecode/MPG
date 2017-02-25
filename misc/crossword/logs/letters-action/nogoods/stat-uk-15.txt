@@ -1,0 +1,33 @@
+Crossword
+	alibaba*tellens
+	minicab*asiatic
+	alfreda*ikebana
+	hood*acari*item
+	***das*mamba***
+	aglossia*outbar
+	coughedup*reich
+	roc*adoring*rho
+	elian*localised
+	dearth*samaveda
+	***aioli*era***
+	maam*besat*naia
+	abraids*lashing
+	tunicae*aphonia
+	stachys*pesetas
+
+
+
+Initial
+	propagators: 398
+	branchers:   1
+
+Summary
+	runtime:      1.330 (1330.000 ms)
+	solutions:    1
+	propagations: 11564
+	nodes:        86
+	failures:     12
+	restarts:     0
+	no-goods:     0
+	peak depth:   71
+

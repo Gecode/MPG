@@ -1,0 +1,41 @@
+Crossword
+	belle*marc*brass*amass*
+	avail*area*lilac*parlay
+	beneficial*apalachicola
+	eng**bedridden*laid*pal
+	stepped**been*band*beat
+	***lax*alec**par**norma
+	ethan*bear*opec*adam***
+	thai*lagos*beak*lesbian
+	cent*isis*aft*sulfa*sue
+	had*asks*blue*prey*doge
+	**snipe*pals*tang*gamed
+	amherst*acyclic*orators
+	seats*bath*aide*riser**
+	inks*fair*stay*nigh*pod
+	ale*waldo*nor*face*chao
+	nostril*naur*basal*hits
+	***eels*abby*anal*cache
+	laban**age**figs*has***
+	exam*dale*phil**forearm
+	air*kept*searingly**moo
+	nonlinearity*finiteness
+	smears*rated*flap*genie
+	*stoke*spurn*sets*odder
+
+
+
+Initial
+	propagators: 881
+	branchers:   1
+
+Summary
+	runtime:      0.825 (825.000 ms)
+	solutions:    1
+	propagations: 45569
+	nodes:        331
+	failures:     97
+	restarts:     0
+	no-goods:     0
+	peak depth:   164
+

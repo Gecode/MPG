@@ -1,0 +1,39 @@
+Crossword
+	**avail*baits*backs**
+	*amanda*eddie*agreed*
+	brannon*haler*launder
+	ill*alchemy*valid*use
+	pegs*seals*divan*aces
+	enact*lid*faced*alert
+	demeanor*barer*charts
+	***plot*bared*seer***
+	fasted*salad*encamped
+	lutes*dined*braid*ear
+	ager*radar*peril*late
+	the*hazel*wheel*gases
+	streamed*chord*pliers
+	***dyad*leans*reed***
+	imagen*ladle*heralded
+	sales*levee*fen*marco
+	arts*waned*aaron*wahl
+	are*laban*alcoves*foe
+	corrode*davie*awaited
+	*weasel*edict*tented*
+	**deeds*raves*erase**
+
+
+
+Initial
+	propagators: 739
+	branchers:   1
+
+Summary
+	runtime:      1.406 (1406.000 ms)
+	solutions:    1
+	propagations: 62645
+	nodes:        467
+	failures:     170
+	restarts:     0
+	no-goods:     0
+	peak depth:   148
+

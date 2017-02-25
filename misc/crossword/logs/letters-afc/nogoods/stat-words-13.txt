@@ -1,19 +1,19 @@
 Crossword
-	ass*bela*ablate
-	consular*ariser
-	transistorizing
-	aegis*simon*ado
-	***peg*fangs***
-	pad*drain*elder
-	ekes*arc*frayne
-	pretentiousness
-	sorest*ads*true
-	inept*bleed*set
-	***sinai*dec***
-	she*month*banal
-	compassionately
-	opiate*emission
-	welled*sole*len
+	eat*jeep*aramco
+	globular*radars
+	omnidirectional
+	sails*stain*ego
+	***lot*erect***
+	ott*noons*ought
+	mead*rat*hanley
+	axiomatizations
+	hannah*oaf*coco
+	anton*tunis*men
+	***races*zoe***
+	off*ghana*malta
+	parliamentarian
+	trains*stillest
+	smudge*semi*ski
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      12.776 (12776.000 ms)
+	runtime:      7.796 (7796.000 ms)
 	solutions:    1
-	propagations: 982419
-	nodes:        5126
-	failures:     2515
-	restarts:     4
-	no-goods:     101
-	peak depth:   69
+	propagations: 633130
+	nodes:        2551
+	failures:     1232
+	restarts:     3
+	no-goods:     46
+	peak depth:   50
 

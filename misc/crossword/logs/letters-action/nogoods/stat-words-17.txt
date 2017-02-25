@@ -1,0 +1,33 @@
+Crossword
+	alas*bash*lilac
+	bore*arco*idaho
+	beer*dahl*cares
+	ababa*budge*vat
+	***ode*mel*dada
+	awl*appanage***
+	roof*ian*united
+	corrupt*acutely
+	sleigh*ado*yale
+	***charisma*mad
+	lack*nil*arc***
+	ale*ryder*eagan
+	podia*eras*lana
+	shari*rome*mini
+	eared*snow*star
+
+
+
+Initial
+	propagators: 379
+	branchers:   1
+
+Summary
+	runtime:      0.227 (227.000 ms)
+	solutions:    1
+	propagations: 13526
+	nodes:        138
+	failures:     35
+	restarts:     0
+	no-goods:     0
+	peak depth:   76
+

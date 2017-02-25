@@ -1,0 +1,37 @@
+Crossword
+	bob**blag*agha*fala
+	alar*lala*waac*alan
+	retinitispigmentosa
+	boscage*kana**awes*
+	***rah*yegg*dada***
+	hakam*bale*faradaic
+	alec*buhl*gamb**sty
+	dan*macs*picea*halm
+	*podunk*babe**birle
+	***dicotyledones***
+	decad**bead*meaned*
+	ashy*ebons*maam*cee
+	kai**band*dahl*maar
+	succubae*saga*padle
+	***hess*rape*meg***
+	*apay**oath*fiancee
+	ablessingindisguise
+	daut*ease*eard*sank
+	ossa*ante*shmo**oes
+
+
+
+Initial
+	propagators: 590
+	branchers:   1
+
+Summary
+	runtime:      0.762 (762.000 ms)
+	solutions:    1
+	propagations: 16037
+	nodes:        158
+	failures:     7
+	restarts:     0
+	no-goods:     0
+	peak depth:   150
+

@@ -1,0 +1,37 @@
+Crossword
+	ibid*maid*sash*mail
+	dido*anti*ager*abba
+	alec*uses*ramo*mend
+	*eat*dilogarithm***
+	***rae**bah**heap**
+	aphid*loeb*magellan
+	fiend*any*farad*age
+	asia*doe*debar**nor
+	radices*caleb*diego
+	**eras*peril*bent**
+	allen*telex*preface
+	lab**valid*pea*oral
+	eve*recta*cat*brink
+	earmarks*alms*amass
+	**garb**rio**ada***
+	***reassembled*tab*
+	pack*loin*budd*idol
+	oboe*lyle*erne*cane
+	dodd*yale*read*amen
+
+
+
+Initial
+	propagators: 583
+	branchers:   1
+
+Summary
+	runtime:      0.348 (348.000 ms)
+	solutions:    1
+	propagations: 20784
+	nodes:        164
+	failures:     28
+	restarts:     0
+	no-goods:     0
+	peak depth:   126
+

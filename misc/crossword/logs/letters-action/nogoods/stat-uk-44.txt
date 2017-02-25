@@ -1,0 +1,41 @@
+Crossword
+	scrab*selfs*alula*wakas
+	poaka*treat*eared*abate
+	interlingua*cnida*robot
+	lie*race*bifid*agha*ala
+	earbash*sodaash*eatable
+	***ace*nould*cab*dab***
+	ancle*harry*rajas*hahas
+	bird*vying*tapioca*saba
+	oke*zilas*cage*baba*dal
+	massaged*rabi*salamanca
+	bushpig*genu*caba*octad
+	***eta*boatloads*deo***
+	nomoi*neal*apse*ribcage
+	impledged*stet*katakana
+	car*haaf*peed*rimae*rag
+	ahem*enabled*basal*eorl
+	dated*alaap*gayal*wanle
+	***gal*obi*ratan*lac***
+	fleabag*inearth*dabhand
+	aim*bora*jambe*cobb*kai
+	cabal*abear*undersleeve
+	irade*aband*reade*eclat
+	adrad*lanes*eddie*duals
+
+
+
+Initial
+	propagators: 898
+	branchers:   1
+
+Summary
+	runtime:      2.581 (2581.000 ms)
+	solutions:    1
+	propagations: 26983
+	nodes:        233
+	failures:     13
+	restarts:     0
+	no-goods:     0
+	peak depth:   217
+

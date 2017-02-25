@@ -1,27 +1,27 @@
 Crossword
-	swaps*aruba*accra*blurs
-	paraphrased*lares*linen
-	extraordinariness*amiga
-	neil*paint*haste*trader
-	dream*gag*los*ellie*ink
-	***yukon*fader*lag*are*
-	ali*tin*comedic*berserk
-	tandem*wares*gap*rascal
-	acted*pests*cobra*patti
-	reel*crier*derails*mien
-	israeli*samoa*lamar*ode
-	**dynamo*noose*malign**
-	fee*grass*smear*deprave
-	arpa*accedes*roles*olin
-	brent*yates*plain*waite
-	longed*rub*slide*bantam
-	endears*patties*cat*yea
-	*eel*ian*rarer*barer***
-	ion*fetal*lad*per*revel
-	succor*token*tosca*gino
-	asian*misunderstandings
-	alert*avert*resistances
-	cysts*nests*akers*daily
+	slugs*saner*clara*leper
+	milliampere*oases*inane
+	interdependencies*torus
+	lura*slide*steal*sesame
+	exams*lay*ate*newer*met
+	***sheen*buena*rat*her*
+	abe*old*loretta*yucatan
+	malawi*hiram*lid*pareto
+	press*makes*carib*peril
+	lock*gamed*arsenal*siva
+	entered*donna*dazed*zen
+	**rwanda*magna*havana**
+	ado*poems*seems*aerates
+	mimi*asocial*ohare*zinc
+	irene*turns*peels*tioga
+	decked*ram*cabal*posner
+	echelon*malabar*man*sly
+	*tar*zan*nurse*ceded***
+	ron*xebec*cut*pat*decca
+	arisen*wakes*sires*alas
+	bacon*heterogeneousness
+	atari*ashen*exterminate
+	telex*style*lyons*panes
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:18.359 (78359.000 ms)
+	runtime:      37.041 (37041.000 ms)
 	solutions:    1
-	propagations: 3359787
-	nodes:        15325
-	failures:     7505
-	restarts:     6
-	no-goods:     187
-	peak depth:   131
+	propagations: 1995002
+	nodes:        9661
+	failures:     4707
+	restarts:     5
+	no-goods:     102
+	peak depth:   141
 

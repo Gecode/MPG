@@ -1,19 +1,19 @@
 Crossword
-	plane*alva*trap
-	laceration*rica
-	interpretations
-	eked*penetrates
-	dad*deus*oil***
-	***haas*elm*rap
-	amdahl*mae*bela
-	raoul*bar*banal
-	gill*arc*majors
-	ode*ada*myra***
-	***add*ward*dar
-	posteriori*trio
-	exponentiations
-	teem*scandalous
-	ends*sana*pepsi
+	saran*mans*pier
+	analogical*idea
+	logarithmically
+	aden*greediness
+	des*aged*ito***
+	***awls*any*sao
+	wansee*egg*blip
+	avoid*mae*blade
+	rena*tar*seaman
+	ere*fro*scab***
+	***tau*hurd*cam
+	inseminate*vale
+	representatives
+	moor*manometers
+	ante*stan*nasty
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.897 (5897.000 ms)
+	runtime:      2.765 (2765.000 ms)
 	solutions:    1
-	propagations: 359816
-	nodes:        1679
-	failures:     810
-	restarts:     2
-	no-goods:     20
-	peak depth:   62
+	propagations: 201896
+	nodes:        1113
+	failures:     508
+	restarts:     1
+	no-goods:     22
+	peak depth:   74
 

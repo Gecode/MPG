@@ -1,0 +1,33 @@
+Crossword
+	aha*bach*carapa
+	curculio*atabal
+	memoriatechnica
+	erses*omaha*ban
+	***dab*etens***
+	gad*earls*aisne
+	ires*rat*asleep
+	brachydactylous
+	barrie*das*sumo
+	snead*khmer*lem
+	***gynae*ahs***
+	ala*hansa*eathe
+	discontinuities
+	impala*varments
+	tastes*elds*dee
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      0.486 (486.000 ms)
+	solutions:    1
+	propagations: 9258
+	nodes:        88
+	failures:     12
+	restarts:     0
+	no-goods:     0
+	peak depth:   75
+

@@ -1,0 +1,41 @@
+Crossword
+	slip*horse*bella*acids*
+	tina*asian*areas*korean
+	ascribable*unachievable
+	beatniks*rabid*lore*tie
+	***acta*agile*bats*pond
+	farkas*slide*sana*jeres
+	aloes*fate**byrd*jar***
+	blur*nanosecond*dubuque
+	len*louis*race*pads*urn
+	endpoint*gabardine*said
+	**eras*amass*gina*verne
+	oddity*role*rise*panted
+	munch*hill*tosca*else**
+	agee*feudalism*proverbs
+	has*farm*gaps*spine*bra
+	anselmo*physically*bail
+	***bee*sees**abel*mecca
+	scuba*scar*balls*sulked
+	wars*flak*rupee*mull***
+	orb*oral*baden*subtotal
+	reactivating*deactivate
+	denote*ridge*awful*iron
+	*natos*sneed*reese*naps
+
+
+
+Initial
+	propagators: 903
+	branchers:   1
+
+Summary
+	runtime:      1:01.783 (61783.000 ms)
+	solutions:    1
+	propagations: 5287677
+	nodes:        34587
+	failures:     16963
+	restarts:     8
+	no-goods:     346
+	peak depth:   170
+

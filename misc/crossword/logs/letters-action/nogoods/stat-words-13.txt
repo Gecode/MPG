@@ -1,0 +1,33 @@
+Crossword
+	shu*boom*cabana
+	continue*oberon
+	autodecremented
+	brood*hiker*sly
+	***ken*terra***
+	stu*natos*agape
+	lens*sir*knaves
+	axiomatizations
+	patrol*oat*nice
+	sneer*tunic*den
+	***stars*era***
+	ape*ilona*aloes
+	parameterizable
+	slider*severest
+	escort*says*yes
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      1:25.419 (85419.000 ms)
+	solutions:    1
+	propagations: 7263279
+	nodes:        37552
+	failures:     18711
+	restarts:     8
+	no-goods:     258
+	peak depth:   116
+

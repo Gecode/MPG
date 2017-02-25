@@ -1,0 +1,39 @@
+Crossword
+	orff*pacas*smote*ceca
+	taal*abaca*unarm*acyl
+	inca*captainahab*rama
+	cattleya*nab*uplander
+	***mara*teian*sena***
+	tomans*landtag*moujik
+	amate*dam*ohmic*abide
+	pere*bobac*eagle*apay
+	egg*mytilus*bayed*phi
+	nausicaa*balls*legion
+	**eusol*belie*aflaj**
+	atrisk*babel*drainage
+	lei*aedes*palabra*pea
+	lath*tared*canoe*spar
+	odeon*domed*bar*guard
+	teslas*basefee*salses
+	***dict*nicol*atit***
+	sandflea*gar*awearied
+	ciao*incandesced*ilea
+	adaw*fiere*gated*eild
+	damn*faded*odals*rays
+
+
+
+Initial
+	propagators: 754
+	branchers:   1
+
+Summary
+	runtime:      1.874 (1874.000 ms)
+	solutions:    1
+	propagations: 19558
+	nodes:        167
+	failures:     12
+	restarts:     0
+	no-goods:     0
+	peak depth:   149
+

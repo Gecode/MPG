@@ -1,0 +1,33 @@
+Crossword
+	edam*raita*suks
+	dado*ebbed*kroo
+	dian*abode*yald
+	almaata*deacons
+	***ria*hemal***
+	gaids*bad*saiga
+	orra*gal*giddap
+	bee*chaldea*alp
+	banzai*aid*dhal
+	ileac*alb*evohe
+	***cauls*kea***
+	mashona*airning
+	area*bland*dday
+	maar*aided*vein
+	ably*gadso*aery
+
+
+
+Initial
+	propagators: 380
+	branchers:   1
+
+Summary
+	runtime:      0.515 (515.000 ms)
+	solutions:    1
+	propagations: 7208
+	nodes:        111
+	failures:     6
+	restarts:     0
+	no-goods:     0
+	peak depth:   103
+

@@ -1,0 +1,41 @@
+Crossword
+	upcatch*scumbag*epidote
+	planula*rilievi*grossup
+	fateful*inchief*menotti
+	lie*feer*dern*floss*rec
+	unce*drosera*ngana*vane
+	nehru*smur*bryant*decad
+	grugru*mesa*alfa*galage
+	***serges*wolof*bend***
+	its*taal*baden*greattit
+	tapshoe*alias*osage*una
+	ameer*atlatl*lauda*waqf
+	carnac*wans*bari*whatif
+	irma*ahead*zabeta*avale
+	sai*sneap*hasid*molerat
+	muckluck*maria*gaga*aba
+	***nick*serac*oshacs***
+	ackack*bade*sulu*mhorrs
+	mauve*bahada*saic*aweel
+	erne*babel*drafted*luge
+	rad*cabal*evan*stab*ned
+	icehill*ionesco*amating
+	curiosa*aborted*nanette
+	alannah*nastase*endless
+
+
+
+Initial
+	propagators: 915
+	branchers:   1
+
+Summary
+	runtime:      4.836 (4836.000 ms)
+	solutions:    1
+	propagations: 53040
+	nodes:        375
+	failures:     121
+	restarts:     0
+	no-goods:     0
+	peak depth:   148
+

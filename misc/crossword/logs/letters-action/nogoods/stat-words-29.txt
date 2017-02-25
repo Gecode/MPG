@@ -1,0 +1,37 @@
+Crossword
+	spa**aces*cabs*shea
+	lens*doge*alar*holm
+	anthropomorphically
+	therapy*ires**area*
+	***oft*enid*bone***
+	aleut*bran*contrast
+	laid*deal*chic**foe
+	err*haas*poise*yale
+	*demand*seal**aaron
+	***anesthetizing***
+	david**eels*acting*
+	axed*chris*pies*aid
+	los**hark*card*tina
+	intubate*dale*molar
+	***pete*fade*bat***
+	*sara**bade*malamud
+	incomprehensibility
+	data*aide*came*span
+	agar*rosy*emil**she
+
+
+
+Initial
+	propagators: 590
+	branchers:   1
+
+Summary
+	runtime:      0.223 (223.000 ms)
+	solutions:    1
+	propagations: 16278
+	nodes:        151
+	failures:     24
+	restarts:     0
+	no-goods:     0
+	peak depth:   114
+

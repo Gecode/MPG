@@ -1,0 +1,37 @@
+Crossword
+	babs*ahab*blub*aval
+	oleo*rabi*raga*boba
+	haar*skep*ails*blin
+	memoriatechnica*abe
+	***bans*dae**unit**
+	belace*bab*velamina
+	ruana*dal*cate*plan
+	iou**maa*cocas**ela
+	minicab*kaput*graal
+	**crab*carta*chal**
+	ached*cabas*heinkel
+	lav**rabat*mae**ado
+	feed*arab*and*faldo
+	anhedral*ava*aonian
+	**ilea**ibo*agha***
+	lac*bahasaindonesia
+	amla*vara*daur*mall
+	ibex*isla*edna*inia
+	cose*spec*dace*adar
+
+
+
+Initial
+	propagators: 599
+	branchers:   1
+
+Summary
+	runtime:      0.599 (599.000 ms)
+	solutions:    1
+	propagations: 13037
+	nodes:        142
+	failures:     4
+	restarts:     0
+	no-goods:     0
+	peak depth:   135
+

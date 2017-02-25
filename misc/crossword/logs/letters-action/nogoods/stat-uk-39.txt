@@ -1,0 +1,39 @@
+Crossword
+	takable*crabs*abioses
+	elegies*loure*maniple
+	ratatat*assot*occlude
+	emu*spermatotheca*rip
+	debs*trebled*aba*gina
+	odals*slain*pia*bragg
+	sahara*oke*par*creese
+	***pallae*dyschroa***
+	parodied*torquay*sass
+	agendas*reroute*berne
+	garths*palagis*camden
+	omaha*citadel*razored
+	dane*musimon*tabanids
+	***burritos*bogoak***
+	salads*fan*wap*crests
+	chaco*doe*faced*sycee
+	heck*car*markkaa*sage
+	tiu*plimsollmarks*bur
+	ignaros*polio*datable
+	khanate*araks*abollas
+	steddes*relet*nabbers
+
+
+
+Initial
+	propagators: 774
+	branchers:   1
+
+Summary
+	runtime:      4.489 (4489.000 ms)
+	solutions:    1
+	propagations: 63089
+	nodes:        493
+	failures:     190
+	restarts:     0
+	no-goods:     0
+	peak depth:   150
+

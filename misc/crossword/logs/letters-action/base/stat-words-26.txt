@@ -1,0 +1,37 @@
+Crossword
+	ababa*alec*abed*hal
+	local*polo*sole*ale
+	anthropomorphic*abo
+	sea*edit*leer**egan
+	****ada*sian*gem***
+	pleads*deed*cabbage
+	early*bees*cabbages
+	twig*due**dam**rump
+	encoded*blab*heresy
+	***road*aid*aura***
+	varied*edna*classic
+	emit**age**ail*sara
+	lighting*dodd*ceres
+	adamant*laid*sadist
+	***irk*carl*jam****
+	marc**face*soup*abu
+	abe*correspondences
+	ibn*awed*aida*renee
+	dad*reds*yeas*steps
+
+
+
+Initial
+	propagators: 591
+	branchers:   1
+
+Summary
+	runtime:      0.414 (414.000 ms)
+	solutions:    1
+	propagations: 22982
+	nodes:        165
+	failures:     24
+	restarts:     0
+	no-goods:     0
+	peak depth:   127
+

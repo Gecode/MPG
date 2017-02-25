@@ -1,0 +1,39 @@
+Crossword
+	sari*amass*teams*egan
+	eyes*malay*raman*tone
+	meat*informatica*hate
+	islandia*ian*derailed
+	***nasa*daisy*demo***
+	rabbit*baneful*depict
+	afoul*han*recur*sinai
+	pool*circa*races*acid
+	irk*gannett*tidal*are
+	descends*ahead*mourns
+	**hanoi*brian*sparc**
+	daemon*meier*soldiers
+	ill*aided*females*raw
+	java*cater*david*mace
+	omega*never*cod*rated
+	nosing*disobey*recede
+	***tail*lotus*aida***
+	appalled*nor*agnostic
+	beat*earmarkings*sara
+	bale*asian*eddie*ares
+	eked*depot*sayer*rash
+
+
+
+Initial
+	propagators: 754
+	branchers:   1
+
+Summary
+	runtime:      2.186 (2186.000 ms)
+	solutions:    1
+	propagations: 109456
+	nodes:        629
+	failures:     259
+	restarts:     0
+	no-goods:     0
+	peak depth:   130
+

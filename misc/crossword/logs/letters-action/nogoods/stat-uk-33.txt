@@ -1,0 +1,39 @@
+Crossword
+	caramba*pebas*takable
+	niagara*enact*aeolian
+	eluates*niger*scleres
+	man*havanas*aasia*kru
+	inch*doric*atsea*titi
+	athos*gab*graal*sheet
+	loyaller*baa*repousse
+	***real*rabbi*dadd***
+	stedds*wallaba*lascar
+	kales*hawse*elaps*aba
+	ecad*dacha*orals*okay
+	nan*latke*alias*caeca
+	endued*earflap*purdah
+	***bade*dylan*tara***
+	dysodyle*das*heregoes
+	ratas*falaj*tea*derma
+	aret*allyl*buaze*slew
+	fra*aloed*mappers*ard
+	tonemic*ibiza*license
+	eweneck*aodai*ecuador
+	essenes*naira*damsons
+
+
+
+Initial
+	propagators: 763
+	branchers:   1
+
+Summary
+	runtime:      3.096 (3096.000 ms)
+	solutions:    1
+	propagations: 55226
+	nodes:        476
+	failures:     170
+	restarts:     0
+	no-goods:     0
+	peak depth:   177
+

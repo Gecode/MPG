@@ -1,0 +1,41 @@
+Crossword
+	sahibah*amassed*ordeals
+	planula*gascoke*wadmaal
+	emanant*assayed*etaerio
+	oaf*turd*tala*abray*orb
+	sane*seamaid*blabs*snab
+	etens*drab*sluicy*beige
+	sating*klan*utah*placer
+	***doable*emden*coal***
+	baa*were*bania*gownsman
+	octapla*serac*jaded*aba
+	whale*selles*lazar*prom
+	balaam*roed*pane*salame
+	etas*acute*habile*decad
+	ney*vlach*narre*mombasa
+	tsaritsa*caeca*deli*say
+	***haha*raita*nasard***
+	pamela*tela*epic*faecal
+	abbas*eadish*anil*lauda
+	eras*gclef*ommatea*dern
+	nab*glace*plap*eard*bed
+	udaller*merited*soutane
+	lenient*econtra*escolar
+	adenine*dudgeon*retells
+
+
+
+Initial
+	propagators: 915
+	branchers:   1
+
+Summary
+	runtime:      9.093 (9093.000 ms)
+	solutions:    1
+	propagations: 121511
+	nodes:        959
+	failures:     323
+	restarts:     1
+	no-goods:     40
+	peak depth:   201
+

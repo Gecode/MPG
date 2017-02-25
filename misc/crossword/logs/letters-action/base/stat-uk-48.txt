@@ -1,0 +1,41 @@
+Crossword
+	aroid*cibol*comte*balls
+	pycnogonida*avail*alaap
+	ophthalmoscopical*samba
+	deer*plato*radar*pheere
+	errol*eta*bap*wahoo*lad
+	***niece*hutia*dal*old*
+	ala*lat*zareeba*warrior
+	penman*bedad*oba*rubbra
+	isaac*bairn*grand*dirty
+	abet*quasi*erecter*tael
+	nosebag*tabby*sicel*nae
+	**trijet*nabks*caduac**
+	bah*bayed*deere*parched
+	abed*related*aaron*rine
+	urson*daman*ydrad*reade
+	raided*ear*sadly*redtop
+	scooped*raunchy*dad*aws
+	*als*can*spica*creep***
+	ado*magog*ada*boo*simar
+	lagged*basle*gamma*naia
+	mbira*warcorrespondents
+	arson*alban*aeronautics
+	hatty*glogg*skats*nache
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      2.591 (2591.000 ms)
+	solutions:    1
+	propagations: 30702
+	nodes:        179
+	failures:     13
+	restarts:     0
+	no-goods:     0
+	peak depth:   162
+

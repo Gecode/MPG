@@ -1,0 +1,39 @@
+Crossword
+	land*ahead*mecca*adam
+	alar*rossi*errol*babe
+	beta*musks*grimm*alba
+	scowl*nasas*sebastian
+	***beady*gap*dante***
+	mosaics*argon*tar*pam
+	oracle*cleared*cabana
+	polka*brae*twas*wrung
+	enos*dies*arenas*alan
+	don*base*apalachicola
+	***bach*snail*kane***
+	interconnect*lick*lab
+	bawl*apiece*tank*sire
+	emile*sled*brig*demon
+	recall*erosion*solemn
+	ode*ear*stand*daresay
+	***anton*era*logic***
+	rehearsed*audio*atari
+	agog*other*randy*ruin
+	kali*berea*adele*iron
+	ends*erupt*lanes*cats
+
+
+
+Initial
+	propagators: 747
+	branchers:   1
+
+Summary
+	runtime:      0.909 (909.000 ms)
+	solutions:    1
+	propagations: 38253
+	nodes:        257
+	failures:     71
+	restarts:     0
+	no-goods:     0
+	peak depth:   130
+

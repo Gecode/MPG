@@ -1,0 +1,37 @@
+Crossword
+	male*babe*blab*plot
+	alas*adam*rare*lash
+	cartridge*incapable
+	endears*rand*ransom
+	***lid*baby*papa***
+	scald*bale*suburbia
+	mama*band*bella*abu
+	orb*dale*ladle*grin
+	gerhard*nasas*mundt
+	**ooze*cuban*daly**
+	aisle*cabal*waupaca
+	brie*begin*wahl*run
+	boa*berea*bail*aden
+	enlarged*gail*hesse
+	***pius*cant*bar***
+	taipei*rosa*almaden
+	orderlies*nanostore
+	amen*edit*alec*epic
+	dyad*dada*sews*deck
+
+
+
+Initial
+	propagators: 610
+	branchers:   1
+
+Summary
+	runtime:      0.536 (536.000 ms)
+	solutions:    1
+	propagations: 24070
+	nodes:        182
+	failures:     28
+	restarts:     0
+	no-goods:     0
+	peak depth:   138
+

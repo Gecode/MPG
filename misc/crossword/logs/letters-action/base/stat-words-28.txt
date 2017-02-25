@@ -1,0 +1,37 @@
+Crossword
+	abet*arpa*acne*sect
+	redo*neon*cool*axle
+	eris*yagi*coal*otis
+	anthropomorphic*rot
+	***ions*ada**papa**
+	arable*old*tasmania
+	legal*gas*bale*defy
+	eng**ink*sexes**one
+	caribou*latex*louis
+	**eden*filed*dads**
+	susan*canal*license
+	ass**dared*ian**elk
+	reid*egan*ebb*basie
+	advanced*hun*midsts
+	**emil**gin*deed***
+	con*lilliputianizes
+	opel*nail*crag*celt
+	case*eked*hone*tale
+	also*dens*star*slam
+
+
+
+Initial
+	propagators: 599
+	branchers:   1
+
+Summary
+	runtime:      0.488 (488.000 ms)
+	solutions:    1
+	propagations: 24150
+	nodes:        165
+	failures:     37
+	restarts:     0
+	no-goods:     0
+	peak depth:   107
+

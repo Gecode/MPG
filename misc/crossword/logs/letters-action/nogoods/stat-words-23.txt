@@ -1,0 +1,37 @@
+Crossword
+	clare*fireman*deals
+	latex*okinawa*album
+	abode*recipes*diana
+	ram*cam*ads*sea*bar
+	ansi*lab***fan*bart
+	***multicellular***
+	elapse*tonio*isaacs
+	lac*egg*age*ugh*bat
+	acta*oral*dish*vase
+	sear*rap***rat*inca
+	tree*iced*sage*adam
+	ito*ace*awl*end*ode
+	canada*bread*meaner
+	***talkativeness***
+	bide*lid***con*kane
+	ali*aye*los*ott*gas
+	boric*wayward*hoods
+	enact*illegal*ernie
+	laces*teenage*aryan
+
+
+
+Initial
+	propagators: 599
+	branchers:   1
+
+Summary
+	runtime:      7.954 (7954.000 ms)
+	solutions:    1
+	propagations: 715248
+	nodes:        5921
+	failures:     2872
+	restarts:     4
+	no-goods:     154
+	peak depth:   135
+

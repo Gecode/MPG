@@ -1,0 +1,37 @@
+Crossword
+	yegg*amla*book*lala
+	alar*bael*abba*abas
+	plea*anal*sais*mama
+	*san*captainahab***
+	***tea**hic**midi**
+	sachs*ecad*emirates
+	cross*gat*spare*hay
+	anna*gab*bahai**yuk
+	baghdad*babar*lapse
+	**rial*galah*tanh**
+	chubb*cabal*bastard
+	hae**palas*mud*elea
+	ain*ayres*pal*poled
+	incamera*blab*irids
+	**egal**baa**fab***
+	***ahistorical*ibo*
+	abet*taha*dale*tara
+	leah*ibis*ebbs*abac
+	edna*cant*dash*lane
+
+
+
+Initial
+	propagators: 583
+	branchers:   1
+
+Summary
+	runtime:      0.709 (709.000 ms)
+	solutions:    1
+	propagations: 12648
+	nodes:        157
+	failures:     6
+	restarts:     0
+	no-goods:     0
+	peak depth:   147
+

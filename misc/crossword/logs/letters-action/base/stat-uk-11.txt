@@ -1,0 +1,33 @@
+Crossword
+	ancle*apus*capa
+	raiyatwari*aran
+	memoriatechnica
+	oven*pinacoidal
+	rex*acta*ind***
+	***abas*ate*gum
+	elegit*aby*dago
+	kabab*oba*baels
+	enos*bab*baddie
+	dan*raf*glad***
+	***fat*poas*rah
+	eriocaulon*meze
+	tetrabranchiata
+	adam*landholder
+	sese*elea*elect
+
+
+
+Initial
+	propagators: 390
+	branchers:   1
+
+Summary
+	runtime:      0.695 (695.000 ms)
+	solutions:    1
+	propagations: 11991
+	nodes:        106
+	failures:     13
+	restarts:     0
+	no-goods:     0
+	peak depth:   87
+

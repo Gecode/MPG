@@ -27,7 +27,7 @@ for b in letters-afc letters-action; do
 		-restart-scale $SCALE -restart-base $BASE \
 		-nogoods true -nogoods-limit $NGL \
 		-time $TIMEOUT -branching $b \
-		-file words/$d.txt $i | tee logs/nogoods/$b/time-$d-$i.txt
+		-file words/$d.txt $i | tee logs/$b/nogoods/time-$d-$i.txt
 	done
     done
 done

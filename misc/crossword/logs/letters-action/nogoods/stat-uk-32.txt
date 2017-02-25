@@ -1,0 +1,39 @@
+Crossword
+	snug**sac*setae*madam
+	tana*nova*awarn*arena
+	ends*amid*debag*recap
+	ace*abaci**rubrical**
+	myrrh*tulsa**eath*ida
+	**see*allin*alfa**nye
+	alidad*aardwolf*seals
+	baghdad*curara*tictac
+	edna*urd*peni*aachen*
+	leet*boaz*ansermet***
+	end*gilden*atabal*has
+	***kneedeep*slur*fane
+	*sheass*leon*eta*anal
+	sweert*ballat*echidna
+	weill*landship*kasbah
+	ain**gaed*katas*lar**
+	bro*mand**aline*fleme
+	**unbegets**caaba*aim
+	assai*akees*arba*edam
+	polar*heare*caen*stoa
+	etyma*ardea*abe**thus
+
+
+
+Initial
+	propagators: 733
+	branchers:   1
+
+Summary
+	runtime:      2.025 (2025.000 ms)
+	solutions:    1
+	propagations: 19228
+	nodes:        158
+	failures:     9
+	restarts:     0
+	no-goods:     0
+	peak depth:   146
+

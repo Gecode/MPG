@@ -1,0 +1,39 @@
+Crossword
+	sass*vacua*tacan*neal
+	obia*aband*araba*orra
+	diminuendo*jabberwock
+	abaci*due*gibbs*eathe
+	**reef*latakia*kayo**
+	goo*falafel*alaap*mae
+	elul*nee*abc*abb*lanx
+	rebecca*abaya*aaronic
+	biaxal*cha*ads*barite
+	ens*nurhag*naam*graal
+	***labia*****baffy***
+	lobes*arle*ujamaa*mab
+	eclats*day*bah*rigoll
+	scapaed*carib*arrange
+	buns*bab*suq*ala*skat
+	orc*mahua*buccina*els
+	**meat*sciaena*dday**
+	agami*khadi*ida*enter
+	pancakeice*adelantado
+	euge*oidia*daman*aida
+	dree*broad*deere*elan
+
+
+
+Initial
+	propagators: 743
+	branchers:   1
+
+Summary
+	runtime:      2.025 (2026.000 ms)
+	solutions:    1
+	propagations: 22271
+	nodes:        190
+	failures:     17
+	restarts:     0
+	no-goods:     0
+	peak depth:   170
+

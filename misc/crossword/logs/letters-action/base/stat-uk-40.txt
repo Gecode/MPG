@@ -1,0 +1,41 @@
+Crossword
+	casals*pleach*sker*lads
+	amtrak*satire*aide*alae
+	biochemicaloxygendemand
+	aces*lao**euoi*valletta
+	lep*epanalepses**eileen
+	****gem*can*ela*baal***
+	keypad*lym***duped*itas
+	aloud*belah*tired*mbira
+	bomb*baa**ethnic*parlor
+	applied*buphaga*copaiba
+	beside*kamseen*deo*naan
+	***carbomb***edaphic***
+	amie*maa*rakesin*bahada
+	manxman*delapse*janitor
+	pitpat*palkee**fah*amid
+	unred*early*edwin*stane
+	leon*banda***eel*paanga
+	***dern*ibo*dab*gal****
+	eskimo**cinderblock*aba
+	sentinel*reif**oak*alex
+	creutzfeldtjakobdisease
+	over*etna*womera*carpal
+	tole*dsos*oneyer*eboats
+
+
+
+Initial
+	propagators: 891
+	branchers:   1
+
+Summary
+	runtime:      1.735 (1735.000 ms)
+	solutions:    1
+	propagations: 37530
+	nodes:        308
+	failures:     86
+	restarts:     0
+	no-goods:     0
+	peak depth:   152
+

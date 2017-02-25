@@ -1,0 +1,37 @@
+Crossword
+	basest*clasp*cement
+	eterne*aodai*hailer
+	stages*piano*arroba
+	tip*blurt*gnarl*gun
+	alan*aloe*reck*celt
+	dayak*circaea*casas
+	***varec*harnpan***
+	picamar*dal*tanists
+	stalag*cab*bheestie
+	oar**balmacaan**eld
+	allogamy*zag*unmade
+	sassaby*aid*klinker
+	***stylist*saame***
+	regie*assegai*smits
+	epha*esau*egad*elea
+	pia*breda*laked*let
+	ocreae*ogham*barite
+	tarmac*reade*rhaphe
+	sliest*adman*alpeen
+
+
+
+Initial
+	propagators: 622
+	branchers:   1
+
+Summary
+	runtime:      2.694 (2694.000 ms)
+	solutions:    1
+	propagations: 36815
+	nodes:        338
+	failures:     117
+	restarts:     0
+	no-goods:     0
+	peak depth:   125
+

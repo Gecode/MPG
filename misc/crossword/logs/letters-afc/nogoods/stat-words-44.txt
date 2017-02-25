@@ -1,27 +1,27 @@
 Crossword
-	elsie*plank*smear*baker
-	loath*euler*purge*anode
-	informatica*isaac*gnaws
-	dee*lace*reich*rush*lie
-	erskine*bombard*radiant
-	***ace*olsen*oaf*gab***
-	garth*adair*kodak*discs
-	alee*addis*females*show
-	san*adder*bees*clad*abe
-	prettier*carl*goldenrod
-	smeared*bard*many*ladle
-	***lou*cannibals*mat***
-	creep*gate*name*senates
-	harshness*dana*madeline
-	ode*yank*fend*belay*ted
-	rich*beetled*fetal*alma
-	extol*staid*beard*clean
-	***web*son*alamo*arm***
-	mislead*scalars*flashed
-	ado*chic*holds*gags*ere
-	sarah*nadir*dodecahedra
-	there*agent*emile*eldon
-	sores*helga*reeds*dials
+	faces*heaps*babka*leash
+	adobe*algae*areas*alpha
+	bombardment*might*impel
+	ere*sees*ababa*ness*ill
+	retries*scaring*rascals
+	***add*aleck*ian*del***
+	haste*izaak*islam*zomba
+	acts*plums*integer*diem
+	ito*fairs*arcs*gait*tea
+	formulae*mira*kilohertz
+	armored*bade*fans*reese
+	***and*foregoing*sir***
+	arena*mate*urge*felicia
+	rorschach*alas*booleans
+	abo*east*opal*focus*lac
+	body*skipper*banal*reno
+	steam*soles*cruel*tibet
+	***goa*nor*mould*arm***
+	sadists*dadaist*flashes
+	abe*lena*teens*bali*ode
+	maude*again*aerodynamic
+	occam*reins*glade*elect
+	akers*ledge*estes*dirts
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.324 (2324.000 ms)
+	runtime:      8.145 (8145.000 ms)
 	solutions:    1
-	propagations: 59701
-	nodes:        337
-	failures:     99
-	restarts:     0
-	no-goods:     0
-	peak depth:   184
+	propagations: 441167
+	nodes:        3070
+	failures:     1293
+	restarts:     3
+	no-goods:     110
+	peak depth:   197
 

@@ -1,0 +1,39 @@
+Crossword
+	doffed*ikebana*chasse
+	agouta*minicam*haikai
+	gasbag*artdeco*ihrams
+	ads*soignee*herma*tae
+	beak*steer*kebab*herl
+	anear*add*masai*hadal
+	***bad***ban***gar***
+	abrade*ipecacs*ilices
+	baobab*markkaa*pachak
+	old*rafale*ambo*loire
+	ukes*gaga***bahs*tall
+	lance*demo*areola*sot
+	intima*raoulia*akimbo
+	assail*yeggman*damien
+	***era***aha***ebb***
+	scans*naams*mna*aedes
+	tala*fatly*kaaba*dada
+	olm*cabob*baobabs*cwm
+	ipecac*pizarro*raphia
+	caroli*inherit*iguana
+	scylla*coolish*messan
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      3.529 (3529.000 ms)
+	solutions:    1
+	propagations: 52071
+	nodes:        461
+	failures:     154
+	restarts:     0
+	no-goods:     0
+	peak depth:   177
+

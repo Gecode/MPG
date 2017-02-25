@@ -1,0 +1,39 @@
+Crossword
+	caramba*arrau*planets
+	atalaya*sears*lobelia
+	latimer*tagma*arbours
+	ita*andorra*bacca*dah
+	cubs*dwaum*aldea*visa
+	orles*oft*abeam*pansy
+	skysails*oca*massages
+	***olaf*dacca*naos***
+	soften*throats*kaamas
+	pashm*cooey*easts*aga
+	otto*pagod*abuna*ikat
+	deo*sebat*derby*mneme
+	espana*siberia*mudras
+	***paca*sabin*cadi***
+	triskele*hae*labrador
+	soree*gulag*dan*anura
+	abos*gigli*kakas*andy
+	run*picea*iachimo*nil
+	ismaili*mamba*germane
+	stained*alaap*raregas
+	mandate*sambo*erasers
+
+
+
+Initial
+	propagators: 763
+	branchers:   1
+
+Summary
+	runtime:      3.778 (3778.000 ms)
+	solutions:    1
+	propagations: 56744
+	nodes:        487
+	failures:     166
+	restarts:     0
+	no-goods:     0
+	peak depth:   160
+

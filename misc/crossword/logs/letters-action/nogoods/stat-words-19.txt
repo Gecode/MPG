@@ -1,0 +1,33 @@
+Crossword
+	ebbs*sachs*siam
+	alee*inlay*undo
+	riemannian*idol
+	springiest*cuba
+	****seen*heiser
+	rossi**tread***
+	iraq*resistable
+	saluted*mislead
+	clearances*lane
+	***rural**lyman
+	career*abby****
+	eben*astronomer
+	cage*nationwide
+	ibis*great*enid
+	lass*earns*nets
+
+
+
+Initial
+	propagators: 387
+	branchers:   1
+
+Summary
+	runtime:      49.208 (49208.000 ms)
+	solutions:    1
+	propagations: 4185396
+	nodes:        20445
+	failures:     10149
+	restarts:     7
+	no-goods:     270
+	peak depth:   108
+

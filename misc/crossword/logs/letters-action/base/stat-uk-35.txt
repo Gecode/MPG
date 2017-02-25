@@ -1,0 +1,39 @@
+Crossword
+	webs*pacas*sabot*rang
+	adam*abaca*uhuru*anoa
+	anna*captainahab*raid
+	cattleya*nab*llanelli
+	***cara*teian*stir***
+	caches*landtag*elijah
+	ameer*dal*ohmic*spica
+	land*debag*eagle*epha
+	ito*viverra*bayed*per
+	dishevel*odals*lipids
+	**panel*dalle*aflaj**
+	alegar*renig*deadhand
+	lac*egged*babygro*par
+	brie*eatup*ellie*apia
+	agent*decad*eas*spark
+	nostoc*senecan*bursae
+	***oahu*dalek*tare***
+	golddisc*cid*pilaster
+	alae*chapeaubras*saba
+	seir*hevea*laura*knop
+	harm*aryan*abeam*isnt
+
+
+
+Initial
+	propagators: 754
+	branchers:   1
+
+Summary
+	runtime:      1.515 (1515.000 ms)
+	solutions:    1
+	propagations: 18170
+	nodes:        155
+	failures:     3
+	restarts:     0
+	no-goods:     0
+	peak depth:   150
+

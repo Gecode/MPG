@@ -1,0 +1,33 @@
+Crossword
+	flam*baja*leper
+	lima*abos*exile
+	employees*whole
+	ablated*updated
+	**ibid*pro*urns
+	sofas*alarms***
+	lair*plantation
+	ate*noticed*lao
+	threatened*bird
+	***spires*cease
+	cost*oar*budd**
+	account*fertile
+	leans*idealized
+	marie*oust*mead
+	snead*ness*espy
+
+
+
+Initial
+	propagators: 394
+	branchers:   1
+
+Summary
+	runtime:      1:09.116 (69116.000 ms)
+	solutions:    1
+	propagations: 5025895
+	nodes:        33730
+	failures:     16786
+	restarts:     8
+	no-goods:     219
+	peak depth:   126
+

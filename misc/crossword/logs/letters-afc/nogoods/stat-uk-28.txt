@@ -1,23 +1,23 @@
 Crossword
-	slap*aged*webb*scab
-	aida*cato*alar*thro
-	anal*clan*sale*saim
-	memoriatechnica*maa
-	***oath*gay**chub**
-	bickie*dab*briarean
-	loyal*dal*gaea*dree
-	awa**fad*denes**cru
-	bandsaw*kayak*plook
-	**oaks*hamal*naan**
-	pacha*aaron*manxcat
-	elo**aryan*bab**ela
-	cobb*pads*rad*herse
-	seaacorn*aid*galton
-	**lahs**egg*ahab***
-	aba*atherosclerosis
-	rama*aeon*doab*waka
-	abib*slae*adar*eras
-	banc*yens*gape*data
+	elal*alfa*octa*abba
+	dodo*guam*maam*doab
+	abac*ecco*anti*soli
+	memoriatechnica*lab
+	***mann*baa**amie**
+	seaegg*bab*babyface
+	lemna*dae*bael*snab
+	alb**lad*syboe**abb
+	tsambas*uhlan*amlas
+	**saic*clear*areg**
+	pssts*macaw*emblema
+	aha**navel*kai**bat
+	dadd*acer*ban*sargo
+	shrapnel*are*altaic
+	**eden**ali*amah***
+	ahs*cytomegalovirus
+	casa*gage*agar*rata
+	taen*ahab*dopa*scab
+	arse*irma*egal*taha
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      20.546 (20546.000 ms)
+	runtime:      7:51.179 (471179.000 ms)
 	solutions:    1
-	propagations: 1355809
-	nodes:        292873
-	failures:     145476
-	restarts:     14
-	no-goods:     228
-	peak depth:   185
+	propagations: 6165849
+	nodes:        657825
+	failures:     327932
+	restarts:     16
+	no-goods:     251
+	peak depth:   178
 

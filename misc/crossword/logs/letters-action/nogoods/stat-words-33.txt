@@ -1,0 +1,39 @@
+Crossword
+	abashed*kabul*bifocal
+	rankine*abase*amerada
+	traitor*roses*sparrow
+	eng*scalars*laser*try
+	mars*hiatt*civil*bone
+	irate*lie*green*wooer
+	admitted*sri*rebounds
+	***chad*jaime*torn***
+	balkan*mantels*addict
+	alien*hikes*entry*law
+	beer*radar*avoid*sire
+	erg*polar*scare*stave
+	steals*statute*spaded
+	***fist*abate*wear***
+	baronies*abe*withdraw
+	emory*lambs*car*noose
+	apse*celia*arced*must
+	doe*coded*idiotic*ten
+	lullaby*datum*aniline
+	ellison*adele*patents
+	seattle*yalta*shyness
+
+
+
+Initial
+	propagators: 763
+	branchers:   1
+
+Summary
+	runtime:      32.400 (32400.000 ms)
+	solutions:    1
+	propagations: 1443457
+	nodes:        8587
+	failures:     4125
+	restarts:     5
+	no-goods:     201
+	peak depth:   180
+

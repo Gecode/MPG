@@ -1,0 +1,37 @@
+Crossword
+	babs*ahab*blub*amah
+	oleo*rabi*raga*bine
+	haar*skep*ails*acta
+	memoriatechnica*had
+	***bans*dae**urea**
+	pomace*bab*baldhead
+	ngana*dal*bane*slid
+	yet**maa*pebas**mna
+	xerafin*shiel*meaty
+	**ecad*ctene*bags**
+	based*dying*zapotec
+	ref**macle*cad**ela
+	eoan*arab*bag*mpret
+	enmeshed*gam*talmas
+	**itas**pad*euge***
+	gal*beforementioned
+	abib*eely*adds*page
+	tbar*rags*snee*odal
+	sasa*slae*haws*dads
+
+
+
+Initial
+	propagators: 599
+	branchers:   1
+
+Summary
+	runtime:      0.747 (747.000 ms)
+	solutions:    1
+	propagations: 13286
+	nodes:        146
+	failures:     5
+	restarts:     0
+	no-goods:     0
+	peak depth:   140
+

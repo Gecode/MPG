@@ -1,27 +1,27 @@
 Crossword
-	paws*abuse*oshea*abase*
-	anal*berea*plied*gerald
-	socialists*tallahatchie
-	onondaga*edict*mops*ace
-	***gate*smack*rage*drip
-	oblige*myers*dens*beats
-	leone*mann**fiat*mae***
-	drug*monotheism*carmela
-	end*farad*errs*rand*lab
-	nestling*diameters*lura
-	**paid*earns*need*necks
-	thebes*alee*stan*lavish
-	heals*abba*alert*used**
-	rake*islamabad*escalate
-	ere*brie*blot*areas*tan
-	etruria*houseflies*fist
-	***gas*beam**lind*dante
-	apple*bert*bragg*larger
-	duly*soda*deign*pant***
-	ate*clap*cramp*purchase
-	indoeuropean*overseeing
-	raging*sadie*lingo*snug
-	*melts*trend*eaten*tubs
+	item*miami*tidal*maine*
+	nero*embed*ababa*ardent
+	degradable*ceremonially
+	onondaga*acorn*bled*sip
+	***idle*alamo*pegs*bose
+	adonis*prima*dora*dents
+	drugs*aids**belt*eel***
+	eats*accomplice*cleanse
+	lip*abhor*earl*rasp*old
+	energies*magdalene*snag
+	**raid*emacs*rope*caste
+	refine*cage*hear*fluted
+	among*bonn*berne*aida**
+	wiry*penniless*succinct
+	elm*dead*ties*derek*doe
+	rescind*buffetings*mace
+	***had*hide**hate*baron
+	basal*aide*curls*pandas
+	reid*cite*lagos*bali***
+	ire*mama*sight*borealis
+	circumscribe*threescore
+	karate*honer*learn*alan
+	*label*idols*ernst*land
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.135 (3135.000 ms)
+	runtime:      4.285 (4285.000 ms)
 	solutions:    1
-	propagations: 151748
-	nodes:        936
-	failures:     361
-	restarts:     1
-	no-goods:     29
-	peak depth:   159
+	propagations: 282048
+	nodes:        1630
+	failures:     660
+	restarts:     2
+	no-goods:     53
+	peak depth:   148
 

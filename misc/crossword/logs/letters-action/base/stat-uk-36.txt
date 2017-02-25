@@ -1,0 +1,39 @@
+Crossword
+	arvo*almah*tacan*amos
+	book*neive*abaca*give
+	oblational*bebeerines
+	seepy*nit*bulbs*alone
+	**nimb*catania*ksar**
+	tat*panarab*alaap*cad
+	ales*bab*mad*abb*lana
+	pedicab*abram*aaronic
+	ipecac*ida*raf*become
+	rho*cognac*gaed*manas
+	***basho*****halal***
+	atman*irid*cameat*red
+	procne*baa*eke*accede
+	halcyon*ngwee*oghamic
+	ilea*lac*oaf*abe*bilk
+	dan*dight*kantars*neo
+	**disc*apraxia*sati**
+	aviso*gulas*ala*arses
+	genesiacal*academical
+	adar*crete*riyal*bere
+	rare*eyres*enami*eddy
+
+
+
+Initial
+	propagators: 743
+	branchers:   1
+
+Summary
+	runtime:      2.161 (2161.000 ms)
+	solutions:    1
+	propagations: 24945
+	nodes:        393
+	failures:     114
+	restarts:     0
+	no-goods:     0
+	peak depth:   175
+

@@ -1,0 +1,39 @@
+Crossword
+	pate*camis*aloud*very
+	arbs*agoge*lemna*etal
+	waac*barbq*belch*duke
+	abram*vrouw*palladium
+	***picea*ehs*haifa***
+	caracas*alaap*dal*mad
+	alidad*teapoys*safari
+	maneh*arse*pram*jedda
+	ends*epic*baobab*caen
+	ods*icon*violadagamba
+	***abac*calla*baal***
+	santodomingo*ared*par
+	olea*spicae*abed*hele
+	flaxy*ecad*sned*bield
+	toryfy*adamant*bogota
+	ads*ean*ataps*tachyon
+	***urman*eau*thack***
+	epineural*mccoy*aedes
+	garb*lines*aasia*yale
+	anoa*kaneh*idant*elbe
+	leng*alate*asses*dead
+
+
+
+Initial
+	propagators: 747
+	branchers:   1
+
+Summary
+	runtime:      2.005 (2005.000 ms)
+	solutions:    1
+	propagations: 21493
+	nodes:        200
+	failures:     26
+	restarts:     0
+	no-goods:     0
+	peak depth:   160
+

@@ -1,27 +1,27 @@
 Crossword
-	despair*almanac*cajoles
-	expanse*weibull*opulent
-	spatula*estonia*mandate
-	pod*saga*beds*ibero*dip
-	isis*maguire*smart*seth
-	tents*nasa*steals*carla
-	edging*tens*rand*bunsen
-	***ringed*alert*galt***
-	eva*fans*fleas*purports
-	loretta*gated*clara*oak
-	algae*weider*jaime*asia
-	scurry*abed*save*latent
-	tail*verbs*rapids*lotte
-	inn*kelly*modal*adapter
-	cogently*cabin*snob*ads
-	***data*mares*haddad***
-	advice*acid*tool*dmitri
-	prick*clinic*crab*aaron
-	pent*crane*agendas*less
-	oat*faint*area*shop*mat
-	imagine*orleans*anatole
-	negator*sumeria*malaria
-	tresses*hearsay*aroused
+	disband*parboil*messiah
+	estonia*amerada*orlando
+	creator*yucatan*brennan
+	oar*eben*lush*dried*age
+	dens*erasers*field*gris
+	ellie*silt*yaunde*godot
+	riyadh*lass*argo*classy
+	***niamey*parrs*coal***
+	spa*thud*savoy*counsels
+	popping*baden*hoard*goa
+	ethan*shafer*carts*lord
+	change*abed*bone*edited
+	toss*mater*superb*emile
+	eli*fidel*daisy*elapses
+	recalled*perle*pair*tit
+	***loin*iliad*jaunts***
+	bamboo*snag*scan*thelma
+	amour*patina*ovid*steal
+	room*glued*menaced*stub
+	ben*shell*load*slob*ire
+	ablated*spiegel*plaster
+	raiding*alabama*harriet
+	astarte*tyranny*indiana
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:24.084 (84084.000 ms)
+	runtime:      34.557 (34557.000 ms)
 	solutions:    1
-	propagations: 2676653
-	nodes:        16469
-	failures:     7999
-	restarts:     6
-	no-goods:     280
-	peak depth:   181
+	propagations: 1723392
+	nodes:        10703
+	failures:     5086
+	restarts:     5
+	no-goods:     208
+	peak depth:   182
 

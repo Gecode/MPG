@@ -1,0 +1,33 @@
+Crossword
+	aloha*line*papa
+	namer*aged*opal
+	swarthmore*dint
+	inns*aaron*indo
+	****ear***eagan
+	straps*adam****
+	pooch**digests*
+	anthropomorphic
+	*shearer**siena
+	****iran*conner
+	madam***ban****
+	afar*oscar*asia
+	lore*shuddering
+	arpa*late*vince
+	yeas*omen*edgar
+
+
+
+Initial
+	propagators: 369
+	branchers:   1
+
+Summary
+	runtime:      0.586 (586.000 ms)
+	solutions:    1
+	propagations: 30826
+	nodes:        235
+	failures:     95
+	restarts:     0
+	no-goods:     0
+	peak depth:   66
+
