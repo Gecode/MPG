@@ -1,1 +1,39 @@
 Crossword
+	abashes*maude*realest
+	radiant*owner*argonne
+	clarity*radar*guesses
+	ham*relationships*nat
+	ansi*rebates*ant*make
+	icons*dares*dug*airer
+	center*ted*den*ulcers
+	***erased*bitterer***
+	latrines*arraign*odds
+	elevate*abating*spire
+	pixels*abasing*heroin
+	evans*dresses*recoded
+	rent*neither*chargers
+	***isolates*tooler***
+	maroon*ned*dig*stacks
+	amend*aid*deneb*smart
+	loss*ass*refines*spur
+	leo*instrumentals*tea
+	abridge*alice*realign
+	rattler*nests*derived
+	dessert*dress*spiders
+
+
+
+Initial
+	propagators: 773
+	branchers:   1
+
+Summary
+	runtime:      8:04:14.879 (29054879.000 ms)
+	solutions:    1
+	propagations: 1051123817
+	nodes:        5057102
+	failures:     2528201
+	restarts:     21
+	no-goods:     983
+	peak depth:   234
+
