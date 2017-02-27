@@ -162,12 +162,13 @@ $ptime{"uk"}{23}{10}=680;
 $pnodes{"uk"}{23}{10}=135;
 
 
-foreach $f (glob('logs/*/time-*-*.txt')) {
-  if ($f =~ /.*\/(.*)\/time-(.*)-(.*)\.txt/) {
-    $mode = $1;
-    $dict = $2;
-    $num  = $3-10;
-    $inst = $num % 10 + 1;
+foreach $f (glob('logs/*/*/time-*-*.txt')) {
+  if ($f =~ /.*\/(.*)\/(.*)\/time-(.*)-(.*)\.txt/) {
+    $branch = $1;
+    $mode   = $2;
+    $dict   = $3;
+    $num    = $4-10;
+    $inst   = $num % 10 + 1;
     if ($num < 10) {
       $size = 15;
     } elsif ($num < 20) {
@@ -178,18 +179,18 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
       $size = 23;
     }
 
-    $time{$mode}{$dict}{$size}{$inst} = 0;
-    $nodes{$mode}{$dict}{$size}{$inst} = 0;
-    $stopped{$mode}{$dict}{$size}{$inst} = 0;
-    $restarts{$mode}{$dict}{$size}{$inst} = 0;
-    $nogoods{$mode}{$dict}{$size}{$inst} = 0;
+    $time{$branch}{$mode}{$dict}{$size}{$inst} = 0;
+    $nodes{$branch}{$mode}{$dict}{$size}{$inst} = 0;
+    $stopped{$branch}{$mode}{$dict}{$size}{$inst} = 0;
+    $restarts{$branch}{$mode}{$dict}{$size}{$inst} = 0;
+    $nogoods{$branch}{$mode}{$dict}{$size}{$inst} = 0;
 
     open TIME, "<", "$f";
     while ($l = <TIME>) {
       if ($l =~ /STOPPED/) {
-	$stopped{$mode}{$dict}{$size}{$inst} = 1;
+	$stopped{$branch}{$mode}{$dict}{$size}{$inst} = 1;
       } elsif ($l =~ /[rR]untime:[\ ]*([0-9]*)\.([0-9]*)/) {
-	$time{$mode}{$dict}{$size}{$inst} = "$1.$2" + 0.0;
+	$time{$branch}{$mode}{$dict}{$size}{$inst} = "$1.$2" + 0.0;
       }
     }
     close TIME;
@@ -198,11 +199,11 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
     open STAT, "<", "$f";
     while ($l = <STAT>) {
       if ($l =~ /nodes:[\ ]*([0-9]*)/) {
-	$nodes{$mode}{$dict}{$size}{$inst} = "$1" + 0;
+	$nodes{$branch}{$mode}{$dict}{$size}{$inst} = "$1" + 0;
       } elsif ($l =~ /restarts:[\ ]*([0-9]*)/) {
-	$restarts{$mode}{$dict}{$size}{$inst} = "$1" + 0;
+	$restarts{$branch}{$mode}{$dict}{$size}{$inst} = "$1" + 0;
       } elsif ($l =~ /no-goods:[\ ]*([0-9]*)/) {
-	$nogoods{$mode}{$dict}{$size}{$inst} = "$1" + 0;
+	$nogoods{$branch}{$mode}{$dict}{$size}{$inst} = "$1" + 0;
       }
     }
     close STAT;
@@ -210,97 +211,47 @@ foreach $f (glob('logs/*/time-*-*.txt')) {
   }
 }
 
-foreach $mode ("base","restart","nogoods") {
-  foreach $dict ("words","uk") {
-    open RES, ">", "res-$mode-$dict.tex";
-    for ($inst = 1; $inst < 11; $inst++) {
-      $i=$inst;
-      if ($i < 10) {
-	$i = "0$i";
-      }
-      print RES "\$\\mathtt\{$i\}\$ ";
-      foreach $size (15,19,21,23) {
-	$nr = $restarts{$mode}{$dict}{$size}{$inst};
-	print RES "\&";
-	if ($stopped{$mode}{$dict}{$size}{$inst}) {
-	  if ($pnodes{$dict}{$size}{$inst} > 0) {
-	    print RES "\\resworse{--}&\\resworse{\\minusrateinfty}&";
-	    print RES "\\resworse{--}&\\resworse{ }";
-	  } else {
-	    print RES "\\resbad{--}&\\resbad{\\equalrate}&";
-	    print RES "\\resbad{--}&\\resbad{ }";
-	  }
-	} else {
-	  if ($nr) {
-	    print RES "\\resre{";
-	  }
-	  $t = int(($time{$mode}{$dict}{$size}{$inst} / 100) + 0.5);
-	  if ($t < 10) {
-	    $t = "0$t";
-	  } else {
-	    $t = "$t";
-	  }
-	  $t =~ s|(.*)([0-9])|$1\.$2|o;
-	  print RES "\$$t\$";
-	  if ($nr) {
-	    print RES "}&\\resre{";
-	  } else {
-	    print RES "&";
-	  }
-	  print RES rate($t+0.0,$ptime{$dict}{$size}{$inst});
-	  $n = $nodes{$mode}{$dict}{$size}{$inst};
-	  $pn = $pnodes{$dict}{$size}{$inst};
-	  if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
-	    $sn = "$1\\,$2\\,$3";
-	  } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
-	    $sn = "$1\\,$2";
-	  } else {
-	    $sn = $n;
-	  }
-	  if ($nr) {
-	    print RES "}&\\resre{";
-	    print RES "\${$sn}^{$nr}\$";
-	    print RES "}&\\resre{";
-	  } else {
-	    print RES "&";
-	    print RES "\${$sn}^{\\white 0}\$";
-	    print RES "&";
-	  }
-	  print RES rate($n,$pn);
-	  if ($nr) {
-	    print RES "}";
-	  }
+foreach $branch ("letters-afc") {
+  foreach $mode ("base","nogoods") {
+    foreach $dict ("words","uk") {
+      open RES, ">", "results/$branch-$mode-$dict.tex";
+      for ($inst = 1; $inst < 11; $inst++) {
+	$i=$inst;
+	if ($i < 10) {
+	  $i = "0$i";
 	}
-      }
-      print RES "\\\\\n\\hline\n";
-    }
-    close RES;
-  }
-}
-
-open RES, ">", "res-comparison.tex";
-foreach $dict ("words","uk") {
-  for ($inst = 1; $inst < 11; $inst++) {
-    $i=$inst;
-    if ($i < 10) {
-      $i = "0$i";
-    }
-    foreach $size (15,19,21,23) {
-      if (($restarts{"restart"}{$dict}{$size}{$inst} > 0) &&
-	  !$stopped{"restart"}{$dict}{$size}{$inst}) {
-	print RES "\\inst\{$dict\}\{$size\}\{$i\}";
-	foreach $mode ("base","restart","nogoods") {
-	  if ($stopped{$mode}{$dict}{$size}{$inst}) {
-	    print RES "&--&--&--";
+	print RES "\$\\mathtt\{$i\}\$ ";
+	foreach $size (15,19,21,23) {
+	  $nr = $restarts{$branch}{$mode}{$dict}{$size}{$inst};
+	  print RES "\&";
+	  if ($stopped{$branch}{$mode}{$dict}{$size}{$inst}) {
+	    if ($pnodes{$dict}{$size}{$inst} > 0) {
+	      print RES "\\resworse{--}&\\resworse{\\minusrateinfty}&";
+	      print RES "\\resworse{--}&\\resworse{ }";
+	    } else {
+	      print RES "\\resbad{--}&\\resbad{\\equalrate}&";
+	      print RES "\\resbad{--}&\\resbad{ }";
+	    }
 	  } else {
-	    $t = int(($time{$mode}{$dict}{$size}{$inst} / 100) + 0.5);
+	    if ($nr) {
+	      print RES "\\resre{";
+	    }
+	    $t = int(($time{$branch}{$mode}{$dict}{$size}{$inst} / 100) + 0.5);
 	    if ($t < 10) {
 	      $t = "0$t";
 	    } else {
 	      $t = "$t";
 	    }
 	    $t =~ s|(.*)([0-9])|$1\.$2|o;
-	    $n = $nodes{$mode}{$dict}{$size}{$inst};
+	    print RES "\$$t\$";
+	    if ($nr) {
+	      print RES "}&\\resre{";
+	    } else {
+	      print RES "&";
+	    }
+	    print RES rate($t+0.0,$ptime{$dict}{$size}{$inst});
+	    $n = $nodes{$branch}{$mode}{$dict}{$size}{$inst};
+	    $pn = $pnodes{$dict}{$size}{$inst};
 	    if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
 	      $sn = "$1\\,$2\\,$3";
 	    } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
@@ -308,77 +259,94 @@ foreach $dict ("words","uk") {
 	    } else {
 	      $sn = $n;
 	    }
-	    $rn = $restarts{$mode}{$dict}{$size}{$inst};
-	    print RES "& \$$t\$ & \$$sn\$ & \$$rn\$";
+	    if ($nr > 10) {
+	      print RES "}&\\resre{";
+	      print RES "\${$sn}^{$nr}\$";
+	      print RES "}&\\resre{";
+	    } elsif ($nr) {
+	      print RES "}&\\resre{";
+	      print RES "\${$sn}^{$nr\\white 0}\$";
+	      print RES "}&\\resre{";
+	    } else {
+	      print RES "&";
+	      print RES "\${$sn}^{\\white 00}\$";
+	      print RES "&";
+	    }
+	    print RES rate($n,$pn);
+	    if ($nr) {
+	      print RES "}";
+	    }
 	  }
 	}
-	print RES "\\\\\\hline\n";
+	print RES "\\\\\n\\hline\n";
       }
     }
+    close RES;
   }
 }
-close RES;
 
-open RES, ">", "res-hard.tex";
-foreach $f ("logs/hard/words-nogoods-39-0.txt",
-	    "logs/hard/words-nogoods-45-0.txt",
-	    "logs/hard/words-nogoods-49-0.txt"
-	   ) {
-  if ($f =~ /.*\/(.*)-(.*)-.*\.txt/) {
-    $dict = $1;
-    $num  = $2-10;
-    $inst = $num % 10 + 1;
-    if ($num < 10) {
-      $size = 15;
-    } elsif ($num < 20) {
-      $size = 19;
-    } elsif ($num < 30) {
-      $size = 21;
-    } else {
-      $size = 23;
-    }
-
-    $htime{$dict}{$size}{$inst} = 0;
-    $hnodes{$dict}{$size}{$inst} = 0;
-    $hrestarts{$dict}{$size}{$inst} = 0;
-
-    open TIME, "<", "$f";
-    while ($l = <TIME>) {
-      if ($l =~ /runtime:[\ ]*(.*) \(/) {
-	$htime{$dict}{$size}{$inst} = "$1";
+foreach $branch ("letters-afc") {
+  open RES, ">", "results/$branch-hard.tex";
+  foreach $f ("logs/$branch/hard/words-nogoods-39-0.txt",
+	      "logs/$branch/hard/words-nogoods-45-0.txt",
+	      "logs/$branch/hard/words-nogoods-49-0.txt"
+	     ) {
+    if ($f =~ /.*\/hard\/(.*)-(.*)-.*\.txt/) {
+      $dict = $1;
+      $num  = $2-10;
+      $inst = $num % 10 + 1;
+      if ($num < 10) {
+	$size = 15;
+      } elsif ($num < 20) {
+	$size = 19;
+      } elsif ($num < 30) {
+	$size = 21;
+      } else {
+	$size = 23;
       }
-      if ($l =~ /nodes:[\ ]*([0-9]*)/) {
-	$hnodes{$dict}{$size}{$inst} = "$1" + 0;
-      }
-      if ($l =~ /restarts:[\ ]*([0-9]*)/) {
-	$hrestarts{$dict}{$size}{$inst} = "$1" + 0;
-      }
-    }
-    close TIME;
 
-    if ($inst < 10) {
-      $i = "0$inst";
-    } else {
-      $i = $inst;
+      $htime{$branch}{$dict}{$size}{$inst} = 0;
+      $hnodes{$branch}{$dict}{$size}{$inst} = 0;
+      $hrestarts{$branch}{$dict}{$size}{$inst} = 0;
+
+      open TIME, "<", "$f";
+      while ($l = <TIME>) {
+	if ($l =~ /runtime:[\ ]*(.*) \(/) {
+	  $htime{$branch}{$dict}{$size}{$inst} = "$1";
+	}
+	if ($l =~ /nodes:[\ ]*([0-9]*)/) {
+	  $hnodes{$branch}{$dict}{$size}{$inst} = "$1" + 0;
+	}
+	if ($l =~ /restarts:[\ ]*([0-9]*)/) {
+	  $hrestarts{$branch}{$dict}{$size}{$inst} = "$1" + 0;
+	}
+      }
+      close TIME;
+
+      if ($inst < 10) {
+	$i = "0$inst";
+      } else {
+	$i = $inst;
+      }
+      print RES "\\inst\{$dict\}\{$size\}\{$i\}&";
+      $t = $htime{$branch}{$dict}{$size}{$inst};
+      $n = $hnodes{$branch}{$dict}{$size}{$inst};
+      if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
+	$sn = "$1\\,$2\\,$3\\,$4";
+      } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
+	$sn = "$1\\,$2\\,$3";
+      } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
+	$sn = "$1\\,$2";
+      } else {
+	$sn = $n;
+      }
+      $r = $hrestarts{$branch}{$dict}{$size}{$inst};
+      print RES "\$$t\$&\$$sn\$&\$$r\$";
+      print RES "\\\\\n\\hline\n";
     }
-    print RES "\\inst\{$dict\}\{$size\}\{$i\}&";
-    $t = $htime{$dict}{$size}{$inst};
-    $n = $hnodes{$dict}{$size}{$inst};
-    if ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
-      $sn = "$1\\,$2\\,$3\\,$4";
-    } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])$/) {
-      $sn = "$1\\,$2\\,$3";
-    } elsif ($n =~ /(.*[0-9])([0-9][0-9][0-9])$/) {
-      $sn = "$1\\,$2";
-    } else {
-      $sn = $n;
-    }
-    $r = $hrestarts{$dict}{$size}{$inst};
-    print RES "\$$t\$&\$$sn\$&\$$r\$";
-    print RES "\\\\\n\\hline\n";
   }
+  close RES;
 }
-close RES;
 
 
 
