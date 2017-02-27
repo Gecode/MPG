@@ -1,2 +1,2 @@
 Crossword
-	runtime:             0.000000ms (-nan(ind)% deviation)
+	runtime:             0.200000ms (223.61% deviation)

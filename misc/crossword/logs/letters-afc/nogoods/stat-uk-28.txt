@@ -1,37 +1,19 @@
 Crossword
-	elal*alfa*octa*abba
-	dodo*guam*maam*doab
-	abac*ecco*anti*soli
-	memoriatechnica*lab
-	***mann*baa**amie**
-	seaegg*bab*babyface
-	lemna*dae*bael*snab
-	alb**lad*syboe**abb
-	tsambas*uhlan*amlas
-	**saic*clear*areg**
-	pssts*macaw*emblema
-	aha**navel*kai**bat
-	dadd*acer*ban*sargo
-	shrapnel*are*altaic
-	**eden**ali*amah***
-	ahs*cytomegalovirus
-	casa*gage*agar*rata
-	taen*ahab*dopa*scab
-	arse*irma*egal*taha
 
-
+Search engine stopped...
+	reason: time limit reached
 
 Initial
 	propagators: 598
 	branchers:   1
 
 Summary
-	runtime:      7:51.179 (471179.000 ms)
-	solutions:    1
-	propagations: 6165849
-	nodes:        657825
-	failures:     327932
-	restarts:     16
-	no-goods:     251
+	runtime:      10:00.027 (600027.000 ms)
+	solutions:    0
+	propagations: 4121142
+	nodes:        257768
+	failures:     128099
+	restarts:     13
+	no-goods:     187
 	peak depth:   178
 
