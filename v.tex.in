@@ -743,10 +743,11 @@ returns the modification event that has been passed as argument:
 \insertlitcode{int.hh:varimp:modification operations}
 
 If a modification operation fails it must return \?ME_INT_FAILED?
-as modification event and must call the \?fail()? function that
-similar to \?notify()? will execute advisors that have registered
-to be executed on failure. For convenience, the \?fail()?
-function itself returns \?ME_INT_FAILED?.
+as modification event and must call the \?fail()? function. The
+\?fail()? function is similar to \?notify()? and executes
+advisors that have registered to be executed on failure. For
+convenience, the \?fail()?  function itself returns
+\?ME_INT_FAILED?.
 
 \tip{Variable implementations must always be consistent}{
 Even if a modification operation fails, the data structures for
@@ -1459,11 +1460,10 @@ demonstrated in \autoref{sec:v:branch:varval}.
 \autoref{sec:v:branch:viewsel} shows how a function that creates
 an object for selecting views during branching is implemented.
 How functions for selecting values and committing to these values
-are implemented is shown in
-\autoref{sec:v:branch:valcommit}. This section also explains how
-add support for no-goods to a variable-value brancher. How
-the actual branchings are implemented is then detailed in
-\autoref{sec:v:branch:branch}.
+are implemented is shown in \autoref{sec:v:branch:valcommit}.
+This section also explains how to add support for no-goods to a
+variable-value brancher. How the actual branchings are
+implemented is then detailed in \autoref{sec:v:branch:branch}.
 
 \begin{figure}
 \insertlitcode{int.hh:branching}
@@ -1480,14 +1480,14 @@ with branching (shown in \autoref{fig:v:branch:structure}).
 \label{sec:v:branch:type}
 
 The way how a variable-value branching works can to some
-extent be controlled by the user by passing pointers to functions:
+extent be controlled by the user by functions:
 \begin{itemize}
 \item A variable value print function defines how to print
   information on alternatives of variable value branchers during
   search. Variable value branchers print some default information
   even if the user does not supply a variable value print
   function, see \autoref{sec:m:branch:print}.
-\item A merit function can define which variable is selected for
+\item A branch merit function can define which variable is selected for
   branching, see \autoref{sec:m:branch:uservar}.
 \item A branch value function selects a value that is used for
   branching, see \autoref{sec:m:branch:userval}.
@@ -1537,7 +1537,7 @@ functions return objects that are then used for creating the
 appropriate branchers. In this section we are not interested in
 describing a complete set of variable and value selection
 functions but in a set that demonstrates the features of
-variable-value branchings well.
+variable-value branchings.
 
 \paragraph{Variable selection.}
 
@@ -1571,13 +1571,6 @@ appropriate brancher. As an example of an implementation consider
 the following, the other functions are similar:
 \insertlitcode{int.hh:variable selection function implementation}
 
-The function \?function_cast()? is defined by Gecode and can be
-used to cast function pointers\footnote{Normal pointers (that is,
-  pointers to data) and function pointers cannot be casted into each other
-  in \CPP, that is why Gecode provides the function \?function_cast()?.}. The
-type \?VoidFunction? is a generic base type for function pointers
-defined by Gecode.
-
 The implementation of the class \?IntVarBranch? is shown in
 \autoref{fig:v:branch:intvarbranch}. It defines an enumeration of
 all variable selection strategies and a set of constructors for
@@ -1585,20 +1578,23 @@ the different types of arguments the variable selection functions
 take. The \?select()? function returns a value of the
 enumeration type that is stored by the object. All other
 information is handled by the base class
-\gecoderef[class]{VarBranch}.
+\gecoderef[class]{VarBranch} that is parametric with respect to
+the variable type.
 
+\begin{samepage}
 The class must also implement an \?expand()? member function. It
 checks whether \?INT_VAR_ACTION_MAX()? had been called just
 with a decay-factor instead of an integer action object. In
 this case it creates an integer action object and stores it as follows:
 \insertlitcode{int.hh:expand action}
+\end{samepage}
 
 
 \paragraph{Value selection.}
 
 Value selection functions are implemented similarly to variable
 selection functions. They return an object of class
-\?IntValBranch? (inheriting from the base class
+\?IntValBranch? (inheriting from the template base class
 \gecoderef[class]{ValBranch}) which stores the necessary information for
 creating the appropriate brancher. We are considering the
 following value selection functions as examples:
@@ -1741,10 +1737,9 @@ to the view and value type. The constructors (one for creation
 and for cloning) are exactly the same as for merit classes
 discussed in the previous section.
 
-  Also, similar to merit
-classes, a value selection class can redefine the member
-functions \?notice()? and \?dispose()? if explicit disposal is
-required when the home-space is deleted.
+Also, similar to merit classes, a value selection class can
+redefine the member functions \?notice()? and \?dispose()? if
+explicit disposal is required when the home-space is deleted.
 
 \begin{samepage}
 In addition, the classes must define a member function \?val()?
@@ -1839,8 +1834,9 @@ views \?IntView?, expands a possibly missing integer action
 object, creates an array with a single view selector
 object returned by the function \?viewsel()? as discussed in
 \autoref{sec:v:branch:viewsel} and posts the view-value brancher
-of class \gecoderef[class]{ViewValBrancher}. The class is
-parametric, where the arguments describe the following:
+of class \gecoderef[class]{ViewValBrancher} through the function
+\?postviewvalbrancher()?. The function is parametric,
+where the arguments describe the following:
 \begin{enumerate}
 \item The view type which is \?IntView? in our case.
 \item The number of view selection objects to be used during view
@@ -1880,11 +1876,11 @@ and hence omitted):
 \insertlitcode{int.hh:normalizing tie-breaking}
 
 After normalization, the \?branch()? function shown in
-\autoref{fig:v:branch:branchtb} posts a brancher of 
-class \gecoderef[class]{ViewValBrancher} with the appropriate
-number of view selection objects. In
-\autoref{fig:v:branch:branchtb}, only the cases for two and three objects is
-shown, the other cases are analogous.
+\autoref{fig:v:branch:branchtb} posts a brancher of class
+\gecoderef[class]{ViewValBrancher} with the appropriate number of
+view selection objects by calling the \?postviewvalbrancher()?
+function. In \autoref{fig:v:branch:branchtb}, only the cases for
+two and three objects is shown, the other cases are analogous.
 
 
 \chapter{Tracing support}
@@ -2135,7 +2131,6 @@ using Gecode::Rnd;
 using Gecode::VarBranch;
 using Gecode::ValBranch;
 using Gecode::BranchTbl;
-using Gecode::VoidFunction;
 using Gecode::MeritBase;
 using Gecode::ViewSel;
 using Gecode::ViewSelMaxTbl;
@@ -2159,9 +2154,8 @@ using Gecode::ValSelCommit;
 using Gecode::ValSelCommitBase;
 using Gecode::ValSelFunction;
 using Gecode::ValCommitFunction;
-using Gecode::ViewValBrancher;
+using Gecode::postviewvalbrancher;
 using Gecode::TieBreak;
-using Gecode::function_cast;
 using Gecode::TraceRecorder;
 using Gecode::Tracer;
 using Gecode::TraceFilter;
@@ -2264,8 +2258,8 @@ namespace MPG { namespace Int {
                    bool schedule=true) {
       IntVarImpBase::subscribe(home,p,pc,assigned(),schedule);
     }
-    void subscribe(Space& home, Advisor& a) {
-      IntVarImpBase::subscribe(home,a,assigned());
+    void subscribe(Space& home, Advisor& a, bool fail) {
+      IntVarImpBase::subscribe(home,a,assigned(),fail);
     }
     \end{litblock}
     \begin{litblock}{varimp:re-scheduling}
@@ -2864,22 +2858,22 @@ namespace MPG {
   \begin{litblock}{anonymous}
   inline
   IntVarBranch::IntVarBranch(void) 
-    : VarBranch<IntVar>(NULL), s(SEL_NONE) {}
+    : s(SEL_NONE) {}
   inline
   IntVarBranch::IntVarBranch(Rnd r) 
-    : VarBranch(r), s(SEL_RND) {}
+    : VarBranch<IntVar>(r), s(SEL_RND) {}
   inline
   IntVarBranch::IntVarBranch(Select s0, BranchTbl t)
-    : VarBranch(t), s(s0) {}
+    : VarBranch<IntVar>(t), s(s0) {}
   inline
   IntVarBranch::IntVarBranch(Select s0, double d, BranchTbl t)
-    : VarBranch(d,t), s(s0) {}
+    : VarBranch<IntVar>(d,t), s(s0) {}
   inline
   IntVarBranch::IntVarBranch(Select s0, Action a, BranchTbl t)
-    : VarBranch(a,t), s(s0) {}
+    : VarBranch<IntVar>(a,t), s(s0) {}
   inline
   IntVarBranch::IntVarBranch(Select s0, IntBranchMerit mf, BranchTbl t)
-    : VarBranch(mf,t), s(s0) {}
+    : VarBranch<IntVar>(mf,t), s(s0) {}
   inline
   IntVarBranch::Select IntVarBranch::select(void) const {
     return s;
@@ -2976,7 +2970,7 @@ namespace MPG { namespace Int {
   \begin{litblock}{size merit class}
   class MeritSize : public MeritBase<IntView,unsigned int> {
   public:
-    MeritSize(Space& home, const VarBranch& vb)
+    MeritSize(Space& home, const VarBranch<IntVar>& vb)
       : MeritBase<IntView,unsigned int>(home,vb) {}
     MeritSize(Space& home, bool share, MeritSize& m)
       : MeritBase<IntView,unsigned int>(home,share,m) {}
@@ -2995,11 +2989,11 @@ namespace MPG { namespace Int {
       \begin{litblock}{view selection with tbl-function}
       switch (ivb.select()) {
       case IntVarBranch::SEL_MERIT_MAX:
-        return new (home) ViewSelMaxTbl<MeritFunction<IntView> >(home,ivb);
+        return new (home) ViewSelMaxTbl<MeritFunction<IntView>>(home,ivb);
       case IntVarBranch::SEL_DEGREE_MAX:
-        return new (home) ViewSelMaxTbl<MeritDegree<IntView> >(home,ivb);
+        return new (home) ViewSelMaxTbl<MeritDegree<IntView>>(home,ivb);
       case IntVarBranch::SEL_ACTION_MAX:
-        return new (home) ViewSelMaxTbl<MeritAction<IntView> >(home,ivb);
+        return new (home) ViewSelMaxTbl<MeritAction<IntView>>(home,ivb);
       case IntVarBranch::SEL_SIZE_MIN:
         return new (home) ViewSelMinTbl<MeritSize>(home,ivb);
       default: ;
@@ -3009,12 +3003,12 @@ namespace MPG { namespace Int {
       \begin{litblock}{view selection without tbl-function}
       switch (ivb.select()) {
       case IntVarBranch::SEL_MERIT_MAX:
-        return new (home) ViewSelMax<MeritFunction<IntView> >(home,ivb);
+        return new (home) ViewSelMax<MeritFunction<IntView>>(home,ivb);
       \begin{litblock}{anonymous}
       case IntVarBranch::SEL_DEGREE_MAX:
-        return new (home) ViewSelMax<MeritDegree<IntView> >(home,ivb);
+        return new (home) ViewSelMax<MeritDegree<IntView>>(home,ivb);
       case IntVarBranch::SEL_ACTION_MAX:
-        return new (home) ViewSelMax<MeritAction<IntView> >(home,ivb);
+        return new (home) ViewSelMax<MeritAction<IntView>>(home,ivb);
       case IntVarBranch::SEL_SIZE_MIN:
         return new (home) ViewSelMin<MeritSize>(home,ivb);
       default: ;
@@ -3030,7 +3024,7 @@ namespace MPG { namespace Int {
   class ValSelMin : public ValSel<IntView,int> {
     \begin{litblock}{anonymous}
   public:
-    ValSelMin(Space& home, const ValBranch& vb)
+    ValSelMin(Space& home, const ValBranch<IntVar>& vb)
       : ValSel<IntView,int>(home,vb) {}
     ValSelMin(Space& home, bool share, ValSelMin& vs)
       : ValSel<IntView,int>(home,share,vs) {}
@@ -3044,7 +3038,7 @@ namespace MPG { namespace Int {
   protected:
     Rnd r;
   public:
-    ValSelRnd(Space& home, const ValBranch& vb)
+    ValSelRnd(Space& home, const ValBranch<IntVar>& vb)
       : ValSel<IntView,int>(home,vb), r(vb.rnd()) {}
     ValSelRnd(Space& home, bool share, ValSelRnd& vs)
       : ValSel<IntView,int>(home,share,vs) {
@@ -3103,7 +3097,7 @@ namespace MPG { namespace Int {
   class ValCommitLq : public ValCommit<IntView,int> {
   public:
     \begin{litblock}{anonymous}
-    ValCommitLq(Space& home, const ValBranch& vb)
+    ValCommitLq(Space& home, const ValBranch<IntVar>& vb)
       : ValCommit<IntView,int>(home,vb) {}
     ValCommitLq(Space& home, bool share, ValCommitLq& vc)
       : ValCommit<IntView,int>(home,share,vc) {}
@@ -3167,8 +3161,8 @@ namespace MPG {
     ViewSel<IntView>* vs[1] = { 
       viewsel(home,vars) 
     };
-    ViewValBrancher<IntView,1,int,2>::post
-      (home,xv,vs,valselcommit(home,vals),bf,vvp);
+    postviewvalbrancher<IntView,1,int,2>
+      (home,xv,vs,valselcommit(home,vals),vvp);
   }
   \end{litblock}
   \begin{litblock}{branch function with tie-breaking}
@@ -3199,30 +3193,30 @@ namespace MPG {
       ViewSel<IntView>* vs[1] = { 
         viewsel(home,vars.a)
       };
-      ViewValBrancher<IntView,1,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
+      postviewvalbrancher<IntView,1,int,2>
+        (home,xv,vs,valselcommit(home,vals),vvp);
       \end{litblock}
     } else if (vars.c.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[2] = { 
         viewsel(home,vars.a), viewsel(home,vars.b)
       };
-      ViewValBrancher<IntView,2,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
+      postviewvalbrancher<IntView,2,int,2>
+        (home,xv,vs,valselcommit(home,vals),vvp);
     } else if (vars.d.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[3] = { 
         viewsel(home,vars.a), viewsel(home,vars.b),
         viewsel(home,vars.c)
       };
-      ViewValBrancher<IntView,3,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
+      postviewvalbrancher<IntView,3,int,2>
+        (home,xv,vs,valselcommit(home,vals),vvp);
     } else {
       \begin{litblock}{anonymous}
       ViewSel<IntView>* vs[4] = { 
         viewsel(home,vars.a), viewsel(home,vars.b),
         viewsel(home,vars.c), viewsel(home,vars.d)
       };         
-      ViewValBrancher<IntView,4,int,2>
-        ::post(home,xv,vs,valselcommit(home,vals),bf,vvp);
+      postviewvalbrancher<IntView,4,int,2>
+        (home,xv,vs,valselcommit(home,vals),vvp);
       \end{litblock}
     }
   }
