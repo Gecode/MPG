@@ -505,7 +505,7 @@ search and no-goods from restarts with Gecode, see
 \autoref{sec:m:search:restart} and
 \autoref{sec:m:search:nogoods}. The instances are run using a
 geometric cutoff sequence with base $1.5$ and a scale-factor
-$250$, a decay-factor of $0.95$ for AFC (see
+$250$, a decay-factor of $0.99$ for AFC (see
 \autoref{sec:m:branch:afc}), and no-goods depth limit of~$256$.
 The results are shown in \autoref{fig:c:crossword:restart}. The
 number raised to the number of nodes shows how many restarts have
