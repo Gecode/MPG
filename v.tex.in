@@ -1515,13 +1515,16 @@ the \?Gecode? namespace, the trait class must also be defined
 there: 
 \insertlitcode{int.hh:branch traits}
 
-The last remaining definitions specializes AFC and action information
+The last remaining definitions specializes AFC, action, and CHB information
 for integer interval variables by defining a class \?IntAFC? as
 follows:
 \insertlitcode{int.hh:variable AFC}
-and a class \?IntAction?
+a class \?IntAction?
 as follows:
 \insertlitcode{int.hh:variable action}
+and a class \?IntCHB?
+as follows:
+\insertlitcode{int.hh:variable CHB}
 The actual implementations are omitted as they contain nothing more
 than the type specialization and creation of view arrays in the
 initializing constructor and the \?init()? function.
@@ -2124,6 +2127,7 @@ using Gecode::VarImpVar;
 using Gecode::VarImpView;
 using Gecode::AFC;
 using Gecode::Action;
+using Gecode::CHB;
 using Gecode::Home;
 using Gecode::ExecInfo;
 using Gecode::ViewArray;
@@ -2824,6 +2828,43 @@ namespace MPG {
                   IntBranchMerit bm) {
     ViewArray<Int::IntView> y(home,x);
     Action::init(home,y,d,bm);
+  }
+  \end{litblock}
+\end{litblock}
+
+\begin{litblock}{variable CHB}
+namespace MPG {
+  class IntCHB : public CHB {
+  public:
+    IntCHB(void);
+    IntCHB(const IntCHB& c);
+    IntCHB& operator =(const IntCHB& c);
+    IntCHB(Home home, const IntVarArgs& x,
+           IntBranchMerit bm=NULL);
+    void init(Home home, const IntVarArgs& x,
+              IntBranchMerit bm=NULL);
+  };
+  \begin{litblock}{anonymous}
+  inline
+  IntCHB::IntCHB(void) {}
+  inline
+  IntCHB::IntCHB(const IntCHB& c)
+    : CHB(c) {}
+  inline IntCHB&
+  IntCHB::operator =(const IntCHB& c) {
+    return static_cast<IntCHB&>(CHB::operator =(c));
+  }
+  inline
+  IntCHB::IntCHB(Home home, const IntVarArgs& x,
+                 IntBranchMerit bm) {
+    ViewArray<Int::IntView> y(home,x);
+    CHB::init(home,y,bm);
+  }
+  inline void
+  IntCHB::init(Home home, const IntVarArgs& x,
+               IntBranchMerit bm) {
+    ViewArray<Int::IntView> y(home,x);
+    CHB::init(home,y,bm);
   }
   \end{litblock}
 }

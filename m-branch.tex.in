@@ -126,6 +126,10 @@ Boolean variables.
 \?INT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
 \?INT_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
 \?INT_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
+\?INT_VAR_CHB_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+lowest chb Q-score\\
+\?INT_VAR_CHB_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+highest chb Q-score\\
 \?INT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
 \?INT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
 \?INT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
@@ -141,6 +145,10 @@ divided by domain size\\
 action by domain size\\
 \?INT_VAR_ACTION_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest
 action by domain size\\
+\?INT_VAR_CHB_SIZE_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? & smallest
+chb by domain size\\
+\?INT_VAR_CHB_SIZE_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? & largest
+chb by domain size\\
 \?INT_VAR_REGRET_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum-regret\\
 \?INT_VAR_REGRET_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum-regret\\
 \?INT_VAR_REGRET_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum-regret\\
@@ -177,11 +185,13 @@ User-defined merit functions are discussed in
 \autoref{sec:m:branch:uservar}.  An argument \?afc?
 refers to accumulated failure count (AFC) information for integer
 variables (of class \gecoderef[class]{IntAFC}).  An
-argument \?act? refers to action information for integer variables (of class \gecoderef[class]{IntAction}). For
-a discussion of AFC and action, see
-\autoref{sec:m:branch:shared}, both \SpecialArg{\?afc?}
+argument \?act? refers to action information for integer variables (of class \gecoderef[class]{IntAction}). An
+argument \?chb? refers to CHB information for integer variables (of class \gecoderef[class]{IntCHB}). For
+a discussion of AFC, action, and CHB, see
+\autoref{sec:m:branch:shared}. Both \SpecialArg{\?afc?}
 and \SpecialArg{\?act?} can also be optional arguments of type
-\?double? defining a decay-factor. The optional argument \?t?
+\?double? defining a decay-factor, whereas the argument
+\SpecialArg{\?chb?} can be omitted. The optional argument \?t?
 refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
@@ -371,6 +381,10 @@ values in inverse order.
 \?BOOL_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
 \?BOOL_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
 \?BOOL_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
+\?BOOL_VAR_CHB_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+lowest CHB Q-score\\
+\?BOOL_VAR_CHB_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+highest CHB Q-score\\
 \end{tabular}
 \end{center}
 \caption{Boolean variable selection}
@@ -397,7 +411,9 @@ to a user-defined merit function of type
 to accumulated failure count (AFC) information for Boolean
 variables (of class \gecoderef[class]{BoolAFC}).  An argument
 \?act? refers to action information for Boolean variables (of
-class \gecoderef[class]{BoolAction}). The optional argument
+class \gecoderef[class]{BoolAction}). An argument
+\?chb? refers to CHB information for Boolean variables (of
+class \gecoderef[class]{BoolCHB}). The optional argument
 \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl}.
 
@@ -453,6 +469,10 @@ to your program when you want to branch on set variables.
 \?SET_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
 \?SET_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
 \?SET_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
+\?SET_VAR_CHB_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+lowest CHB Q-score\\
+\?SET_VAR_CHB_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+highest CHB Q-score\\
 \?SET_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum unknown element\\
 \?SET_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum unknown element\\
 \?SET_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum unknown element\\
@@ -464,7 +484,9 @@ to your program when you want to branch on set variables.
 \?SET_VAR_AFC_SIZE_MIN(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & smallest AFC divided by domain size\\
 \?SET_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
 \?SET_VAR_ACTION_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest action divided by domain size\\
-\?SET_VAR_ACTION_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest action divided by domain size
+\?SET_VAR_ACTION_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest action divided by domain size\\
+\?SET_VAR_CHB_SIZE_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? & smallest CHB divided by domain size\\
+\?SET_VAR_CHB_SIZE_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? & largest CHB divided by domain size\\
 \end{tabular}
 \end{center}
 \caption{Set variable selection}
@@ -493,10 +515,13 @@ functions are discussed in
 refers to accumulated failure count (AFC) information for set
 variables (of class \gecoderef[class]{SetAFC}).  An argument
 \?act? refers to action information for set variables (of class
-\gecoderef[class]{SetAction}). For a discussion of AFC and
-action, see \autoref{sec:m:branch:shared}, both
+\gecoderef[class]{SetAction}). An argument
+\?chb? refers to CHB information for set variables (of class
+\gecoderef[class]{SetCHB}). For a discussion of AFC,
+action, and CHB, see \autoref{sec:m:branch:shared}. Both
 \SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
-arguments of type \?double? defining a decay-factor. The optional
+arguments of type \?double? defining a decay-factor. The argument
+\SpecialArg{?chb?} can be omitted. The optional
 argument \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
@@ -558,6 +583,10 @@ to your program when you want to branch on float variables.
 \?FLOAT_VAR_AFC_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest accumulated failure count (AFC)\\
 \?FLOAT_VAR_ACTION_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & lowest action\\
 \?FLOAT_VAR_ACTION_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & highest action\\
+\?FLOAT_VAR_CHB_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+lowest CHB Q-score\\
+\?FLOAT_VAR_CHB_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
+highest CHQ Q-score\\
 \?FLOAT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
 \?FLOAT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
 \?FLOAT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
@@ -570,6 +599,9 @@ to your program when you want to branch on float variables.
 \?FLOAT_VAR_AFC_SIZE_MAX(?\SpecialArg{\?afc?}\?,?\OptArg{\?t?}\?)? & largest AFC divided by domain size\\
 \?FLOAT_VAR_ACTION_SIZE_MIN(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & smallest action divided by domain size\\
 \?FLOAT_VAR_ACTION_SIZE_MAX(?\SpecialArg{\?act?}\?,?\OptArg{\?t?}\?)? & largest action divided by domain size\\
+\?FLOAT_VAR_CHB_SIZE_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)?
+& smallest chb divided by domain size\\
+\?FLOAT_VAR_CHB_SIZE_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? & largest chb divided by domain size\\
 \end{tabular}
 \end{center}
 \caption{Float variable selection}
@@ -598,10 +630,13 @@ functions are discussed in
 refers to accumulated failure count (AFC) information for float
 variables (of class \gecoderef[class]{FloatAFC}).  An argument
 \?act? refers to action information for float variables (of
-class \gecoderef[class]{FloatAction}). For a discussion of AFC
-and action, see \autoref{sec:m:branch:shared}, both
+class \gecoderef[class]{FloatAction}). An argument
+\?chb? refers to CHB information for float variables (of
+class \gecoderef[class]{FloatCHB}). For a discussion of AFC,
+action, and CHB, see \autoref{sec:m:branch:shared}. Both
 \SpecialArg{\?afc?}  and \SpecialArg{\?act?} can also be optional
-arguments of type \?double? defining a decay-factor. The optional
+arguments of type \?double? defining a decay-factor. The argument
+\SpecialArg{\?chb?} can be ommitted. The optional
 argument \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
@@ -651,14 +686,15 @@ criterion depends on all equivalent spaces created by cloning.
 
 \subsection{Local variable selection criteria}
 
-All selection criteria but those based on \emph{AFC} and
-\emph{action} are local: they either select variables without
-using any information on a variable (\?INT_VAR_NONE()?), select
-variables randomly (\?INT_VAR_RND(r)?, see also
-\autoref{sec:m:branch:rnd}), or use the degree or domain
-of a variable for selection. The user-defined selection criteria
-\?INT_VAR_MERIT_MIN()? and \?INT_VAR_MERIT_MAX()? in addition have access to
-the home space and the selected variable's position, see
+All selection criteria but those based on \emph{AFC},
+\emph{action}, and \emph{CHB} are local: they either select
+variables without using any information on a variable
+(\?INT_VAR_NONE()?), select variables randomly
+(\?INT_VAR_RND(r)?, see also \autoref{sec:m:branch:rnd}), or use
+the degree or domain of a variable for selection. The
+user-defined selection criteria \?INT_VAR_MERIT_MIN()? and
+\?INT_VAR_MERIT_MAX()? in addition have access to the home space
+and the selected variable's position, see
 \autoref{sec:m:branch:uservar} for details.
 
 The \emph{degree} of a variable is the number of propagators
@@ -766,11 +802,12 @@ The action of a variable is a shared criterion and captures how
 often the domain of a variable has been reduced during constraint
 propagation.
 
-The action of a variable is maintained by constraint
-propagation as follows. Each time constraint propagation finishes
-during search (by executing the \?status()? function of a space,
-see also \autoref{tip:m:started:status}), the action of a
-variable $\mathtt x$ is updated~\cite{activity}:
+The action of a variable is maintained by constraint propagation
+as follows. Each time constraint propagation finishes (even if it
+finishes with failure) during search (by executing the
+\?status()? function of a space, see also
+\autoref{tip:m:started:status}), the action of a variable
+$\mathtt x$ is updated~\cite{activity}:
 \begin{itemize}
 \item If the variable \?x? has not been pruned (that is, no
   values have been removed from the domain of \?x? through
@@ -782,10 +819,10 @@ $$\mathtt{action}(\mathtt x)=\mathtt{d}\cdot\mathtt{action}(\mathtt x)$$
 $$\mathtt{action}(\mathtt x)=\mathtt{action}(\mathtt x)+1$$
 \item The action of a variable \?x? is initialized to be one.
 \end{itemize}
-Note that in~\cite{activity} action is called
-activity. However, as the activity of a variable during search in
-SAT is a well-established and different concept, Gecode uses the
-term action instead.
+Note that in~\cite{activity} action is called activity. However,
+as the activity of a variable during search in SAT is a
+well-established and different concept (see for
+example~\cite{minisat}), Gecode uses the term action instead.
 
 In order to use action for branching, one must create an object
 of class \gecoderef[class]{IntAction} for integer variables, an
@@ -841,6 +878,113 @@ uses action information with a decay-factor of \?0.99?. Even the
 decay-factor can be omitted and defaults to \?1? (that is, no decay).
 
 Action for other variable types is analogous.
+
+
+\subsection{Selection using CHB}
+\label{sec:m:branch:chb}
+
+The CHB (for conflict-history based branching) Q-score of a
+variable is a shared criterion and combines how often the domain
+of a variable has been reduced during constraint propagation with
+how recently the variable has been reduced during failure. CHB in
+Gecode is based on~\cite{chb} which presents the heuristic for a
+SAT solver. Here, we use the term failure instead of conflict as
+originally in~\cite{chb}.
+
+The \emph{Q-score} $\mathtt{qs}(\mathtt x)$ of a variable
+$\mathtt x$ is maintained by constraint propagation as follows.
+For the computation of the Q-score, the following two variables
+are used:
+\begin{itemize}
+\item The \emph{failure counter} $\mathtt{\#f}$ counts how often
+  failure has been encountered. That is, each time a space is
+  failed, $\mathtt{\#f}$ is incremented by one and it is
+  initalized to zero.
+\item The \emph{step size} $\alpha$ is also updated when a
+  failure occurs, it is updated by
+$$\alpha = \alpha - \mathtt{10}^{-\mathtt 6}$$
+provided $\alpha>0.06$. If $\alpha\leq 0.06$, its value does not
+change. $\alpha$ is initialized to $0.4$.
+\end{itemize}
+
+In addition to the Q-score for a variable, CHB also maintains the
+\emph{last failure} $\mathtt{lf}(\mathtt x)$ of a variable
+$\mathtt x$. Each time constraint propagation finishes during
+search (by executing the \?status()?  function of a space, see
+also \autoref{tip:m:started:status}), the Q-score
+$\mathtt{qs}(\mathtt x)$ and the last failure
+$\mathtt{lf}(\mathtt x)$ of a variable $\mathtt x$ are updated as
+follows:
+\begin{itemize}
+\item If the variable \?x? has not been pruned (that is, no
+  values have been removed from the domain of \?x? through
+  propagation), the Q-score $\mathtt{qs}(\mathtt x)$ and the last
+  failure $\mathtt{lf}(\mathtt x)$ do not change.
+\item If the variable \?x? has been pruned and propagation has
+  failed, the last failure $\mathtt{lf}(\mathtt x)$ is updated to
+$$\mathtt{lf}(\mathtt x)=\mathtt{\#f}$$
+and the Q-score is updated to
+$$\mathtt{qs}(\mathtt x)=(1-\alpha)\mathtt{qs}(\mathtt x) +
+\alpha r$$
+where the reward $r$ is defined as
+$$
+r=\frac{1}{\mathtt{\#f}-\mathtt{lf}(\mathtt x) + 1}
+$$
+\item If the variable \?x? has been pruned and propagation has
+  not failed, the last failure $\mathtt{lf}(\mathtt x)$ remains
+  unchanged and the Q-score is updated to
+$$\mathtt{qs}(\mathtt x)=(1-\alpha)\mathtt{qs}(\mathtt x) +
+\alpha r$$
+where the reward $r$ is defined as
+$$
+r=\frac{0.9}{\mathtt{\#f}-\mathtt{lf}(\mathtt x) + 1}
+$$
+\item The Q-score $\mathtt{qs}(\mathtt x)$ of a variable \?x? is
+  by default initialized to be $0.05$.
+\end{itemize}
+
+In order to use CHB Q-scores for branching, one must create an object
+of class \gecoderef[class]{IntCHB} for integer variables, an
+object of class \gecoderef[class]{BoolCHB} for Boolean
+variables, an object of class \gecoderef[class]{SetCHB} for
+set variables, or an object of class
+\gecoderef[class]{FloatCHB} for float variables. The object
+is responsible for recording CHB Q-score information.
+
+\begin{samepage}
+If \?x? is an integer variable array, then
+\begin{code}
+IntCHB chb(home,x,0.99);
+\end{code}
+\end{samepage}
+initializes the CHB information \?chb? for the variables in \?x?.
+
+The Q-score of each variable in an array \?x? can be initialized
+by a merit function, see \autoref{sec:m:branch:uservar}. Here
+\begin{code}
+IntCHB chb(home,x,
+           [](const Space& home, IntVar x, int i) {
+             return 0.0;
+           });
+\end{code}
+initializes the Q-score of \?x[i]? to \?1.0?.
+
+A branching for integer variables using CHB information must be
+given an object of type \?IntCHB? as argument. For example, the
+following brancher will select variables with largest Q-score as
+defined by \?chb? first:
+\begin{code}
+branch(home, x, INT_VAR_CHB_MAX(chb), INT_VAL_MIN());
+\end{code}
+Here the integer variable array \?x? must be exactly the same
+that has been used for creating the integer CHB object
+\?chb?. 
+
+The CHB object can be omitted if one does not want to initialize
+the Q-score explicitly as described above.
+
+CHB for other variable types is analogous.
+
 
 
 

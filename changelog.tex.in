@@ -9,6 +9,8 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2017-02-28}{Explained CHB for branching
+    (see \autoref{sec:m:branch:chb}).}
   \cle{2017-02-21}{Changed all functions for branching to
     functions based on \?std::function?
     (see \autoref{chap:m:branch}).}
