@@ -1,27 +1,27 @@
 Crossword
-	baghdad*tussahs*seaside
-	arreede*inherit*unrisen
-	baillie*sheerer*pantons
-	ice*serosa*parabema*bat
-	secs*uphurl*satori*nare
-	taels*amebic*tang*katie
-	seducers*okapi*dukeship
-	***rook*guanaco*nabk***
-	sherpa*carbonarc*bahada
-	haciendas*lei*carabidae
-	arses*antre*mihrabs*hic
-	psts*tiara***reams*semi
-	ela*mondain*melba*sarod
-	resgestae*aba*lilangeni
-	styles*salvarsan*foussa
-	***aked*seances*baba***
-	accredit*aldea*sororise
-	galen*goof*alacks*loren
-	avid*deputy*sneaks*soma
-	rep*positron*cagier*nim
-	impaint*sakiehs*epigone
-	cairene*icefloe*sideral
-	snedded*telford*tasters
+	bailies*redraft*accoast
+	ossicle*amoebae*blabber
+	atabegs*zamarra*rufiyaa
+	rat*ratten*dumbcane*shs
+	drip*reread*shandy*amah
+	etnas*redtop*ague*aware
+	deerneck*ilian*traveled
+	***lase*islands*sloe***
+	malaga*botanised*sclaff
+	orangutan*rom*palaestra
+	lindy*riels*astrict*ean
+	lego*mesne***helve*obit
+	utu*lasagne*genie*bursa
+	stokowski*maa*annuities
+	karnak*inselberg*nernst
+	***adit*equably*para***
+	orogenic*usnea*eructing
+	thegn*rama*dreamy*eerie
+	tory*basils*salets*sols
+	ads*pashalik*gasher*not
+	votress*minions*enemata
+	areolae*ingenue*endogen
+	saddens*ageless*saddest
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4:11.417 (251417.000 ms)
+	runtime:      2:09.416 (129416.000 ms)
 	solutions:    1
-	propagations: 2367663
-	nodes:        14398
-	failures:     6901
-	restarts:     6
-	no-goods:     210
-	peak depth:   184
+	propagations: 1634960
+	nodes:        10645
+	failures:     5034
+	restarts:     5
+	no-goods:     159
+	peak depth:   190
 

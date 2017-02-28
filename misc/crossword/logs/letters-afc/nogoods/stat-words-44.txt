@@ -1,27 +1,27 @@
 Crossword
-	scram*ruble*about*beets
-	koala*areas*flash*errol
-	intelligent*taker*agape
-	pie*aide*gapes*soon*tie
-	scribes*euterpe*babcock
-	***dad*flier*hal*far***
-	amber*weiss*berea*gibbs
-	bela*garth*kampala*brat
-	ode*maine*dade*risc*abe
-	readouts*male*snakelike
-	takings*aida*bees*zonal
-	***rae*scrambled*wag***
-	stead*data*alum*managua
-	carcinoma*czar*scanners
-	orr*camp*boob*cycle*nip
-	trod*gestapo*solos*dine
-	syria*doers*savoy*green
-	***sly*nab*renew*pea***
-	sticker*medicis*barbell
-	urn*asia*cabot*slim*via
-	modal*occur*nationality
-	alibi*truer*drank*niche
-	claus*seedy*synge*enter
+	rabat*torah*chalk*dates
+	arose*image*hanoi*edith
+	nymphomania*rider*bathe
+	gab*eben*trail*bohr*led
+	ensured*matisse*voicers
+	***say*cater*tap*pea***
+	ibsen*bacon*boris*flesh
+	sews*tenor*connect*face
+	ali*chain*made*roam*goa
+	airports*hate*scorecard
+	celebes*parc*weep*genes
+	***awe*beachhead*bad***
+	apace*flag*airs*catawba
+	firebreak*able*arboreal
+	fed*sims*will*braun*eli
+	iced*outside*basil*apse
+	xenia*recta*magog*pusan
+	***nip*dan*ruben*man***
+	literal*bechtel*barters
+	ida*blob*shoal*gait*lac
+	samoa*tulsa*ticonderoga
+	thing*trees*izaak*raper
+	soles*erode*sends*seeds
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.871 (5871.000 ms)
+	runtime:      4.182 (4182.000 ms)
 	solutions:    1
-	propagations: 226201
-	nodes:        1750
-	failures:     692
-	restarts:     2
-	no-goods:     81
+	propagations: 155197
+	nodes:        1201
+	failures:     461
+	restarts:     1
+	no-goods:     42
 	peak depth:   183
 

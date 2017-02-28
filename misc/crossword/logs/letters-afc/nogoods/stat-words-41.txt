@@ -1,27 +1,27 @@
 Crossword
-	acres*howe*pepsi*ideal*
-	clara*opal*atlas*torrid
-	homemakers*bhagavadgita
-	eva**macmillan*bald*stu
-	denizen**neon*deny*leon
-	***ban*shod**hal**burnt
-	ripen*scar*beau*thai***
-	odor*suave*lang*airship
-	also*able*has*halve*are
-	met*arpa*tact*tile*fret
-	**molar*erik*bela*borne
-	arapaho*forbear*hairier
-	bosun*gift*oaks*arden**
-	ruts*brae*dare*uses*gas
-	age*franc*urn*ursa*etch
-	merriam*tend*flies*come
-	***eats*inks*lane*boned
-	slant**and**cane*pal***
-	tire*haag*stan**caterer
-	all*barr*scenarios**era
-	hierarchical*godmothers
-	lenore*udall*alee*aesop
-	*seeds*sands*near*byers
+	isaac*bela*tease*adams*
+	balsa*oval*hawks*labels
+	sloppiness*agricultural
+	eve**certainly*area*eva
+	nestled**take*spin*flit
+	***aid*vain**ace**boyce
+	bland*dana*stir*deal***
+	airy*nixon*mali*abiding
+	sara*amen*bit*monet*mae
+	era*odes*dote*main*sake
+	**irwin*mach*katz*sages
+	algiers*chasing*astride
+	pends*itel*oboe*twain**
+	iris*noel*unit*sian*aim
+	son*dinah*rid*icon*abba
+	hygiene*aida*blank*blip
+	***bead*noun*ills*chess
+	acted**ken**maya*boo***
+	coax*deny*scan**detract
+	han*hebe*channeled**phi
+	exacerbation*unanswered
+	dekalb*doted*avis*alone
+	*dandy*seedy*lyre*rings
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.224 (2224.000 ms)
+	runtime:      3.017 (3017.000 ms)
 	solutions:    1
-	propagations: 83313
-	nodes:        502
-	failures:     191
-	restarts:     0
-	no-goods:     0
-	peak depth:   167
+	propagations: 104068
+	nodes:        770
+	failures:     310
+	restarts:     1
+	no-goods:     13
+	peak depth:   154
 

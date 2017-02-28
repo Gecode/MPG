@@ -1,23 +1,23 @@
 Crossword
-	rasp*herb*pica*aped
-	inca*over*loot*isle
-	stan*lana*utah*lyle
-	circumnavigates*cam
-	***alas*ads**noah**
-	balkan*ada*failsoft
-	alien*pro*lima*sara
-	gel**bum*boron**nab
-	sellers*cares*leans
-	**iowa*based*earl**
-	lapse*brian*decayed
-	abu**pearl*hal**sly
-	veto*argo*bad*tribe
-	aliasing*peg*caesar
-	**afar**met*club***
-	don*microarchitects
-	arid*noon*olaf*chat
-	daze*glut*turf*care
-	alec*seth*hems*adam
+	dims*cape*slap*heck
+	avow*olin*cole*ache
+	lane*fief*road*scan
+	interferometric*lot
+	***teen*raw**gape**
+	comedy*ace*formosan
+	orono*die*kane*dice
+	ban**had*bible**ant
+	bloated*manly*gases
+	**agar*sedge*cast**
+	adler*acres*toshiba
+	cup**slain*bad**can
+	echo*pelt*van*apart
+	startled*fag*builds
+	**brae**san*benz***
+	lie*unrepresentable
+	onto*dada*sing*read
+	acid*opec*sana*rand
+	face*rene*amyl*okay
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.091 (1091.000 ms)
+	runtime:      1.066 (1066.000 ms)
 	solutions:    1
-	propagations: 58245
-	nodes:        735
-	failures:     271
+	propagations: 53564
+	nodes:        738
+	failures:     261
 	restarts:     1
-	no-goods:     34
-	peak depth:   150
+	no-goods:     33
+	peak depth:   145
 

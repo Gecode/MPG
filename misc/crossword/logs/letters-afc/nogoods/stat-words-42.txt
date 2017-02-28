@@ -1,27 +1,27 @@
 Crossword
-	bemoan*lunar*dose*antic
-	aramco*irene*ivan*diana
-	insinuations*metabolism
-	rioters*snail*rica*swap
-	den**ike***doherty*sane
-	***massage*erase**boned
-	attach*geld*eat*iran***
-	diadem*alien*gilded*gad
-	emma*einstein*melt*arco
-	lemming**edgewater*gail
-	era*stomp**heath*yaunde
-	**nil*rural*dread*red**
-	paynes*nobel**slime*nor
-	avid*largeness**massive
-	cozy*anon*salesmen*teas
-	ewe*gideon*patio*icicle
-	***deny*sob*muzo*palest
-	argot**steam*perfume***
-	reel*bacilli***sol**tap
-	curd*alec*isaac*catawba
-	aboriginal*humanitarian
-	demur*bite*atone*exalts
-	enema*iced*poked*sibley
+	roster*award*bela*darpa
+	ashore*davie*axel*afoot
+	bhagavadgita*discomfort
+	aerosol*event*slow*anti
+	tap**lew***nuptial*beer
+	***metcalf*agree**clyde
+	malawi*leaf*son*laue***
+	awaken*dakar*strobe*odd
+	rate*geodetic*iowa*brae
+	crisply**decorates*acta
+	hen*ayers**koala*hashed
+	**ill*dated*pelts*lee**
+	enzyme*trail**yeats*sew
+	boil*antitrust**ghostly
+	erne*silk*treatise*orin
+	nag*deneen*allis*relate
+	***jade*boa*fell*ariser
+	ibsen**irene*stamped***
+	caps*benelux***mae**cat
+	isis*alva*solar*lullaby
+	christlike*definitional
+	leech*itel*usage*imbibe
+	essay*serf*straw*caesar
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:19.116 (79116.000 ms)
+	runtime:      1:07.092 (67092.000 ms)
 	solutions:    1
-	propagations: 2936535
-	nodes:        15688
-	failures:     7716
+	propagations: 2699716
+	nodes:        15451
+	failures:     7567
 	restarts:     6
-	no-goods:     193
-	peak depth:   157
+	no-goods:     191
+	peak depth:   148
 

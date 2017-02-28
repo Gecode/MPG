@@ -1,25 +1,25 @@
 Crossword
-	scowls*alabama*brassy
-	pariah*malabar*aerate
-	enigma*address*nectar
-	nag*blondes*tidal*irk
-	drip*laden*renal*free
-	synod*far*baden*dress
-	***lee***cod***wee***
-	awaken*maurice*entrap
-	parade*bergson*befell
-	hut*smears*hull*bulba
-	aped*alba***pair*lean
-	samoa*matt*portal*ann
-	icicle*nearing*bessie
-	castle*espouse*behead
-	***oil***its***ida***
-	sours*opens*jab*skate
-	pins*fling*dares*eris
-	ali*wider*payment*ads
-	revere*romance*arabia
-	travel*clatter*parley
-	ascend*elysees*speeds
+	braved*mafiosi*conrad
+	eerily*abandon*amoeba
+	steele*nickels*kidnap
+	sun*arcades*valet*ash
+	iraq*sages*penis*amen
+	ensue*bed*faded*swede
+	***ale***fir***pea***
+	weasel*spanish*exists
+	antics*urinate*retort
+	ugh*timber*haas*demur
+	pies*eels***idea*dada
+	anita*lila*sneers*ten
+	cesare*melcher*myriad
+	astute*eyelids*crocus
+	***nil***run***oil***
+	space*state*yea*alpha
+	arch*turns*ladle*seas
+	bit*sheik*camilla*bus
+	emilio*bahamas*enable
+	ravens*arapaho*naples
+	sledge*lateran*alters
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      20.272 (20272.000 ms)
+	runtime:      40.378 (40378.000 ms)
 	solutions:    1
-	propagations: 711258
-	nodes:        4903
-	failures:     2248
-	restarts:     4
-	no-goods:     180
-	peak depth:   160
+	propagations: 2194036
+	nodes:        17017
+	failures:     8231
+	restarts:     7
+	no-goods:     265
+	peak depth:   157
 

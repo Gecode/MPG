@@ -1,25 +1,25 @@
 Crossword
-	uris*mecca*leads*mama
-	rent*agers*ardor*epic
-	nanostores*participle
-	sloop*sat*asses*leaks
-	**clog*maureen*burl**
-	are*tapings*sable*oft
-	lind*lac*low*lou*polo
-	optimal*diner*artisan
-	helmut*aye*bad*became
-	any*neater*beef*laser
-	***udall*****braes***
-	diana*lads*sprout*ear
-	alpine*see*era*retire
-	rioters*lasso*texases
-	pace*wag*spa*sao*gene
-	ada*silas*ampoule*nat
-	**leon*lechery*each**
-	loyal*aaron*abe*rhoda
-	approacher*overflowed
-	base*stand*adair*read
-	sled*hades*fancy*errs
+	abet*armco*blase*able
+	cone*beard*rilke*road
+	hardboiled*infiltrate
+	erode*nat*began*eaten
+	**lyle*baleful*hays**
+	all*almanac*after*wee
+	limb*dar*ski*aid*sand
+	pleaded*rhyme*editing
+	hanger*mae*pad*avenue
+	act*allied*stem*apsis
+	***aryan*****nouns***
+	phase*beep*joseph*asp
+	radish*dry*owe*bonnie
+	inmates*alkyl*created
+	coin*ira*elf*boa*gina
+	kit*prima*eugenia*sal
+	**toes*epsilon*dido**
+	agape*orion*law*decal
+	nontrivial*adrenaline
+	once*macro*deere*haag
+	need*plays*onset*ills
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      9.914 (9914.000 ms)
+	runtime:      4.102 (4102.000 ms)
 	solutions:    1
-	propagations: 585690
-	nodes:        3796
-	failures:     1736
-	restarts:     3
-	no-goods:     95
-	peak depth:   145
+	propagations: 185360
+	nodes:        1225
+	failures:     514
+	restarts:     1
+	no-goods:     32
+	peak depth:   140
 

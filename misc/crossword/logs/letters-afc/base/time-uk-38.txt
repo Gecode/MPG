@@ -1,2 +1,2 @@
 Crossword
-	runtime:          2603.400000ms (0.11% deviation)
+	runtime:          2603.600000ms (0.06% deviation)

@@ -1,19 +1,19 @@
 Crossword
-	slab*crepe*east
-	lila*loren*meta
-	unpleasant*eras
-	gesture**errors
-	***ira*varian**
-	marco*gas*glass
-	ode*paints*duck
-	doc*admiral*tau
-	abos*ablate*ill
-	lemma*ely*vocal
-	**pamela*lip***
-	cheryl**batting
-	hint*elliptical
-	else*nails*mete
-	fled*adele*aden
+	abba*sharp*papa
+	dear*cilia*onyx
+	allocation*tile
+	mammals**doomed
+	***ape*trauma**
+	parsi*she*ratio
+	era*tacoma*cell
+	egg*adamant*dis
+	logo*arsine*lao
+	steps*con*haydn
+	**deaden*are***
+	monroe**scarcer
+	area*saturnalia
+	cast*kline*tart
+	else*seeks*ewes
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.815 (1815.000 ms)
+	runtime:      1.488 (1488.000 ms)
 	solutions:    1
-	propagations: 100571
-	nodes:        773
-	failures:     344
+	propagations: 95812
+	nodes:        772
+	failures:     348
 	restarts:     1
-	no-goods:     11
-	peak depth:   90
+	no-goods:     21
+	peak depth:   65
 

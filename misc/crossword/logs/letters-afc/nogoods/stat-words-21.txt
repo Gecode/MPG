@@ -1,23 +1,23 @@
 Crossword
-	kappa**badge**bodes
-	equal*madeira*amide
-	multicellular*befit
-	pale*oases**twelfth
-	***nectar*galilee**
-	portray**novel*tree
-	obese**soonest**eva
-	doc**builders*minis
-	seam*urges***fettle
-	**padding*lorelei**
-	hailed***penis*marc
-	intel*startups**boa
-	gnu**schloss**salad
-	half*ahead**academy
-	**almsman*cabana***
-	hitachi**sudan*pack
-	using*deforestation
-	bloke*tremble*ledge
-	sense**geese**erase
+	based**brawl**smile
+	alive*arabian*tuner
+	jurisprudence*elder
+	amen*local**useless
+	***causer*almanac**
+	offense**sloan*hill
+	woody**stamina**pea
+	err**telemann*fahey
+	demo*agile***diners
+	**axolotl*laminar**
+	helene***rican*lamb
+	urine*becoming**boa
+	liz**praised**dolan
+	lean*aorta**stipend
+	**tuscany*pliant***
+	omitted**waals*ibis
+	moore*embarrassment
+	annie*readies*panda
+	nasal**tress**alton
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.050 (5050.000 ms)
+	runtime:      5.548 (5548.000 ms)
 	solutions:    1
-	propagations: 192891
-	nodes:        1114
-	failures:     497
-	restarts:     1
-	no-goods:     15
-	peak depth:   113
+	propagations: 265811
+	nodes:        1580
+	failures:     707
+	restarts:     2
+	no-goods:     44
+	peak depth:   100
 

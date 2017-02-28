@@ -1,27 +1,27 @@
 Crossword
-	molar*faced*adept*waals
-	alibi*above*sonar*algae
-	isaac*tales*scope*tease
-	northeast*the*subverted
-	ensemble*brisk*alerters
-	***mobs*blossom*erie***
-	sevens*preys*rae*andrea
-	amend*areas*carve*gleam
-	mint*croak*longing*yagi
-	ott*tempt*oil*octal*dad
-	assail*shelter*teledyne
-	***deem*endemic*rave***
-	adsorbed*durable*ticked
-	ben*sedan*van*aries*err
-	alec*senegal*burma*rene
-	steed*atari*aesop*celia
-	harlem*era*auger*raised
-	***emil*stereos*barn***
-	barbaric*exert*guilford
-	abernathy*cab*handsomer
-	salad*elude*araby*brave
-	abate*robes*carla*aches
-	layer*seals*hymen*deals
+	aware*chafe*magna*davie
+	laden*radon*aries*adorn
+	lilac*andes*delhi*tamed
+	overhangs*led*dramamine
+	terraces*waned*unabated
+	***ants*ravines*scan***
+	slants*ceded*bar*esther
+	kings*based*vales*elena
+	anne*forts*harelip*yagi
+	tea*koala*gel*mines*des
+	erlang*armenia*carlisle
+	***begs*tornado*ivan***
+	labeling*ominous*atkins
+	ada*tears*ant*toads*sat
+	mini*rioting*elude*babe
+	beast*liens*gnats*peale
+	sullen*ned*flash*fiscal
+	***amok*dialect*wane***
+	scampers*agent*vignette
+	parallels*lad*massacred
+	ababa*seize*atone*cheng
+	rabat*genoa*lares*lease
+	clyde*epsom*ernst*estes
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:17.477 (77477.000 ms)
+	runtime:      1:38.655 (98655.000 ms)
 	solutions:    1
-	propagations: 2784331
-	nodes:        14965
-	failures:     7224
+	propagations: 2659683
+	nodes:        12844
+	failures:     6246
 	restarts:     6
-	no-goods:     190
-	peak depth:   193
+	no-goods:     166
+	peak depth:   170
 

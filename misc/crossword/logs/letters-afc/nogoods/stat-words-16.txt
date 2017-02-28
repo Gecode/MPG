@@ -1,19 +1,19 @@
 Crossword
-	dade*elms*amass
-	icon*riot*facto
-	shoemaker*airer
-	hermite*earlier
-	**silo*mad*idly
-	gated*camden***
-	ones*darlington
-	asp*longing*ada
-	dissolving*gris
-	***tulane*magna
-	acme*ass*bale**
-	brewers*senator
-	radar*ernestine
-	atari*roof*inca
-	melts*sews*aged
+	alps*kite*isaac
+	riot*ibex*bulba
+	paranoiac*incas
+	artless*haddock
+	**risk*san*oaks
+	slant*window***
+	keys*disgruntle
+	eva*saltier*eel
+	wilhelmina*slam
+	***eating*deeds
+	ajar*one*pens**
+	curbing*panacea
+	idled*tarrytown
+	deere*odor*open
+	santa*naps*rena
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      7.611 (7611.000 ms)
+	runtime:      5.239 (5239.000 ms)
 	solutions:    1
-	propagations: 290756
-	nodes:        1827
-	failures:     861
+	propagations: 238758
+	nodes:        1715
+	failures:     824
 	restarts:     2
-	no-goods:     45
-	peak depth:   95
+	no-goods:     24
+	peak depth:   64
 

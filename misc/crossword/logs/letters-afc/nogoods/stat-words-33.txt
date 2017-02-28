@@ -1,25 +1,25 @@
 Crossword
-	disband*chair*toshiba
-	escapee*rabbi*aviator
-	protean*event*battens
-	oar*drifted*thule*mae
-	seed*saran*heals*finn
-	elroy*ban*larva*pizza
-	dismally*gel*ethereal
-	***alee*barer*ease***
-	recite*favorer*strife
-	ilona*haney*lofts*los
-	oils*medal*hague*airs
-	too*karen*cater*prate
-	strand*damager*borden
-	***deaf*saber*palo***
-	academic*can*mahayana
-	label*nobel*man*roman
-	arid*salad*raids*sort
-	bad*aunts*carmela*era
-	avionic*stans*malabar
-	mandate*earth*isolate
-	angeles*tulsa*cheeses
+	peanuts*swain*pontiac
+	albania*circa*eduardo
+	slanted*adieu*connors
+	sit*ordered*spurs*net
+	asia*seven*seals*ainu
+	gongs*ned*atari*gleam
+	engraver*pro*carlisle
+	***enid*lairs*rook***
+	secede*nauseum*breast
+	pears*cable*riley*dye
+	arms*samoa*opted*kane
+	rip*khmer*apace*onion
+	cessna*refresh*swords
+	***hera*damns*fees***
+	nihilism*des*transact
+	inept*coded*bee*solar
+	avis*never*braes*sara
+	gag*finer*alumnae*bad
+	adhered*audit*endgame
+	retrace*irene*steamer
+	assayed*links*sandals
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      51.682 (51682.000 ms)
+	runtime:      31.034 (31034.000 ms)
 	solutions:    1
-	propagations: 1584396
-	nodes:        8934
-	failures:     4257
-	restarts:     5
-	no-goods:     141
-	peak depth:   148
+	propagations: 874601
+	nodes:        4906
+	failures:     2289
+	restarts:     4
+	no-goods:     114
+	peak depth:   128
 

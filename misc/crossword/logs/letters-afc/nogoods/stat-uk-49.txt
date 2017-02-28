@@ -1,27 +1,27 @@
 Crossword
-	aswoon*tracks*mis*flash
-	staple*wellie*epaulette
-	tattielifting*gelligaer
-	ate*oracling*pacier*cab
-	rurps*lease*arbas*trams
-	tapa*marts*eriachs*ami*
-	**urdu*seigniors*admire
-	strains*smiters*bristol
-	aasvogel*ology*canteens
-	melanomas*eme*lenity***
-	inane*prefab*rondes*cha
-	aine*pigbed*battas*ahab
-	nae*gateau*dehorn*scala
-	***barest*biz*sinecures
-	spielers*topoi*catalase
-	postern*roulade*selects
-	arling*mirroring*neat**
-	*tad*asinine*ofays*tear
-	hames*angie*smile*nerve
-	ada*allods*diallage*lit
-	nobiliary*fontainebleau
-	swartback*iodide*reasts
-	andes*mae*triced*elysee
+	plasms*dagaba*the*nappa
+	romaic*ararat*resnatron
+	oversubscribe*undersold
+	wen*greyarea*manred*lye
+	llano*aunes*bania*spats
+	sybo*arret*hostess*och*
+	**item*elevenses*twites
+	solanum*yearded*clarini
+	epitases*ribes*duotones
+	betatests*lad*kaputt***
+	anile*saurel*alibis*fag
+	teel*landed*brises*time
+	ers*bolide*premia*cream
+	***sabins*pro*terraalba
+	vamosing*keens*seaadder
+	apadana*minicab*rubeola
+	upgang*portfolio*naff**
+	*ani*strumae*abbas*uvas
+	elect*salad*taler*clime
+	lot*inulin*familial*sad
+	forecabin*domiciliating
+	isooctane*arenas*triode
+	nanna*set*gargle*saunas
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:58.841 (118841.000 ms)
+	runtime:      52.814 (52814.000 ms)
 	solutions:    1
-	propagations: 942114
-	nodes:        4794
-	failures:     2185
-	restarts:     4
-	no-goods:     189
-	peak depth:   172
+	propagations: 461371
+	nodes:        2534
+	failures:     1132
+	restarts:     2
+	no-goods:     98
+	peak depth:   166
 

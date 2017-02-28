@@ -1,27 +1,27 @@
 Crossword
-	charged*assuage*scrapes
-	require*scandal*tribune
-	alumnus*pillage*rebecca
-	via*spit*seem*glass*cat
-	acre*truisms*faint*mist
-	taint*ergo*shined*panel
-	slaver*nora*arcs*deride
-	***yeager*mcgee*tied***
-	mop*trod*paled*charisma
-	apaches*luzon*maids*tim
-	lethe*heated*dense*mule
-	artist*ants*find*maiden
-	bait*wordy*kikuyu*dread
-	ate*hints*hazes*strange
-	research*genes*were*ted
-	***lyle*berea*hiring***
-	ambles*load*used*pariah
-	lares*hearst*crew*limbo
-	bien*rents*hiroshi*dads
-	ada*tidal*side*tens*gut
-	nesting*oatmeal*lattice
-	intense*alabama*anoints
-	assayed*debussy*newness
+	rebecca*jamaica*waupaca
+	openers*abandon*allison
+	singlet*maidens*loaning
+	egg*tara*seem*widen*ace
+	tray*madeira*jeres*stir
+	tales*yarn*neuron*raise
+	emilio*pigs*wren*danced
+	***palate*iliad*laid***
+	oar*mips*scans*bondsman
+	clemens*going*blocs*ado
+	eaves*enable*deane*flam
+	abated*obey*pies*salami
+	name*rotor*grotto*saran
+	imp*hymen*seeds*destine
+	cascaded*chafe*mira*ate
+	***eben*clara*bangui***
+	sprain*chad*bien*oldest
+	crest*causes*slap*tenth
+	rope*lasts*paramus*alar
+	abo*gomez*mica*ante*are
+	passage*procter*jakarta
+	eternal*aureole*avenged
+	designs*hendrix*bedders
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1:22.300 (82300.000 ms)
+	runtime:      2:35.957 (155957.000 ms)
 	solutions:    1
-	propagations: 2099665
-	nodes:        12477
-	failures:     5998
-	restarts:     6
-	no-goods:     250
-	peak depth:   175
+	propagations: 5346006
+	nodes:        33157
+	failures:     16272
+	restarts:     8
+	no-goods:     323
+	peak depth:   200
 

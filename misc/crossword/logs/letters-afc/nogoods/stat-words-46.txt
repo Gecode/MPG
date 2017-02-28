@@ -1,27 +1,27 @@
 Crossword
-	sold*straw*pairs*arabs*
-	erie*haiti*afoot*ladies
-	midshipmen*linearizable
-	inspires*nears*mace*bee
-	***inks*niece*fire*bend
-	blasts*maple*kane*midas
-	races*dose**pica*cod***
-	ants*management*blessed
-	ski*pants*pang*clan*uri
-	handicap*withstood*apes
-	**ouch*epoch*bout*speck
-	bamako*laos*dunn*charts
-	evens*gild*mores*loci**
-	late*preoccupy*eleventh
-	lie*hoar*hale*flare*toe
-	already*superblock*pews
-	***gus*race**eire*wanes
-	basal*falk*hates*bridle
-	upon*game*sachs*pier***
-	rip*clip*levee*botswana
-	scheherazade*scientific
-	taiwan*roman*dante*sane
-	*leeds*teens*angst*eras
+	chef*caleb*climb*above*
+	hoar*adore*radar*barons
+	antiphonal*econometrica
+	describe*fidel*math*cam
+	***tile*braid*fins*demo
+	radial*clint*gods*darpa
+	idiom*brae**lure*had***
+	oman*mainstream*celebes
+	tim*minsk*rant*baby*ira
+	statuses*guideline*alan
+	**gust*cried*mare*abase
+	genres*ribs*kant*abater
+	amend*door*allah*babe**
+	pits*nostalgia*placards
+	eli*nags*leon*flask*are
+	decease*stagecoach*blow
+	***yuh*dead**lice*delve
+	adler*bear*adele*brayed
+	reed*gaul*ideas*brat***
+	ads*aunt*arden*hyacinth
+	businesslike*stationery
+	scorns*cider*eared*grid
+	*trees*heads*dress*some
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      8.293 (8293.000 ms)
+	runtime:      5.988 (5988.000 ms)
 	solutions:    1
-	propagations: 303003
-	nodes:        1744
-	failures:     717
-	restarts:     2
-	no-goods:     76
-	peak depth:   161
+	propagations: 232515
+	nodes:        1375
+	failures:     578
+	restarts:     1
+	no-goods:     23
+	peak depth:   186
 

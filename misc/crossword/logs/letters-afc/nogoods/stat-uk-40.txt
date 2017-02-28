@@ -5,11 +5,11 @@ Crossword
 	olpe*dan**idea*soulmate
 	ney*arcticterns**leeped
 	****dae*bah*ska*maar***
-	bhopal*red***elpee*haul
-	rarer*faxed*beall*geare
-	agar*oaf**oneday*chaser
-	censers*absalom*iridian
-	entomb*steepto*ace*eale
+	bhopal*red***elpee*hasp
+	rarer*faxed*beall*selah
+	agar*oaf**oneday*craggy
+	censers*absalom*iridial
+	entomb*steepto*ace*edna
 	***neither***doghead***
 	mona*tae*matilda*disbar
 	amalgam*bushtea*manhole
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.298 (3298.000 ms)
+	runtime:      3.348 (3348.000 ms)
 	solutions:    1
-	propagations: 28894
-	nodes:        236
-	failures:     41
+	propagations: 28757
+	nodes:        241
+	failures:     43
 	restarts:     0
 	no-goods:     0
-	peak depth:   174
+	peak depth:   177
 

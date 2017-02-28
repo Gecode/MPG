@@ -8,20 +8,20 @@ Crossword
 	babar*paco*agar*dial***
 	amah*julep*baba*endarch
 	ebro*abed*flo*phage*aha
-	lob*ines*leal*nada*adar
-	**aegis*fact*aula*stime
-	middlec*ickiest*saloops
+	lob*ines*leal*nada*spam
+	**aegis*fact*aula*easle
+	middlec*ickiest*sadness
 	adieu*ebbs*tais*araks**
-	gean*gnar*mica*adam*cam
-	man*cacao*ooh*blob*bora
-	assuage*masu*lauda*apay
-	***eras*aces*lalo*ameba
-	abaya**ate**fala*abb***
-	dabs*gala*naan**braided
-	ala*helm*sedgewren**ire
-	mitteleuropa*laudations
-	snowed*gulag*lala*antes
-	*grads*scale*iced*ukase
+	gean*gnar*mica*adam*sri
+	man*cacao*ooh*blob*hied
+	assuage*masu*lauda*aone
+	***eras*aces*lalo*ainee
+	abaya**ate**fala*ult***
+	rags*alfa*bean**braille
+	ern*olaf*shoreward**eau
+	anaesthesias*labourcamp
+	semele*corni*lala*aasia
+	*senor*thegn*iced*dread
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.609 (3609.000 ms)
+	runtime:      4.017 (4017.000 ms)
 	solutions:    1
-	propagations: 38184
-	nodes:        366
-	failures:     76
+	propagations: 44968
+	nodes:        417
+	failures:     103
 	restarts:     0
 	no-goods:     0
-	peak depth:   223
+	peak depth:   224
 

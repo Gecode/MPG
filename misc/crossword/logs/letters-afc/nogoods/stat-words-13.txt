@@ -1,19 +1,19 @@
 Crossword
-	pal*maim*agatha
-	elegance*recoil
-	noninterference
-	dealt*diana*eke
-	***dis*twang***
-	ada*swoon*irvin
-	bash*air*guiana
-	accomplishments
-	scopes*ore*feet
-	eaten*suing*sly
-	***sacks*tab***
-	off*china*rossi
-	parliamentarian
-	trains*stagnant
-	smudge*sine*mao
+	ant*cusp*schism
+	measurer*arable
+	experimentation
+	stews*isaac*stu
+	***sew*bunks***
+	imp*satyr*pease
+	siam*rat*forbes
+	interpretations
+	noises*red*fuse
+	groot*rider*ten
+	***nadia*rib***
+	awe*irony*burne
+	revolutionaries
+	chewer*skullcap
+	ornery*mend*ely
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      37.823 (37823.000 ms)
+	runtime:      8.060 (8060.000 ms)
 	solutions:    1
-	propagations: 2671888
-	nodes:        14691
-	failures:     7280
-	restarts:     6
-	no-goods:     147
-	peak depth:   72
+	propagations: 431186
+	nodes:        1951
+	failures:     955
+	restarts:     2
+	no-goods:     15
+	peak depth:   52
 

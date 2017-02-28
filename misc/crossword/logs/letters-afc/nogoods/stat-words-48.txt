@@ -1,27 +1,27 @@
 Crossword
-	swaps*aruba*clara*shire
-	paraphrased*hired*tenex
-	extraordinariness*erase
-	neil*paint*irene*harper
-	dream*gag*cop*algol*pat
-	***yukon*paten*lou*orr*
-	ali*tin*boredom*antioch
-	dented*eared*did*delphi
-	dated*units*caleb*derek
-	ever*andre*bellman*dire
-	derrick*dread*susan*ass
-	**daring*satan*resist**
-	fee*adore*torah*maltese
-	arpa*swagger*tidal*anus
-	brent*niger*karen*dress
-	longed*len*soles*bessie
-	endears*despair*can*sex
-	*eel*ian*stale*honed***
-	ion*fetal*era*sew*bulba
-	succor*visas*paula*loeb
-	asian*comprehensibility
-	alert*anion*antecedents
-	cysts*watts*thank*asses
+	swaps*aruba*slash*gripe
+	paraphrased*korea*loner
+	extraordinariness*extra
+	neil*paint*elena*gayest
+	dread*gag*ill*amman*rio
+	***yukon*brief*eat*ads*
+	lac*kin*blaster*deplete
+	adored*cloth*lad*drapes
+	memos*moose*biped*omens
+	alps*autos*taxicab*once
+	reasons*modus*dares*den
+	**riddle*medea*legume**
+	bet*drips*norms*susanne
+	lima*emitter*ocean*scan
+	agent*scrub*leaky*moist
+	kennan*san*table*linear
+	entered*wiretap*mix*sly
+	*vax*van*ceres*setup***
+	hal*cedar*vex*bum*picas
+	elinor*vases*samoa*sale
+	luzon*contradistinction
+	geese*angus*entertained
+	asses*maybe*seers*bless
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:02.235 (122235.000 ms)
+	runtime:      51.045 (51045.000 ms)
 	solutions:    1
-	propagations: 4388975
-	nodes:        19134
-	failures:     9427
-	restarts:     7
-	no-goods:     193
-	peak depth:   157
+	propagations: 1951147
+	nodes:        9546
+	failures:     4650
+	restarts:     5
+	no-goods:     133
+	peak depth:   151
 

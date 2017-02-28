@@ -1,16 +1,16 @@
 Crossword
-	occam*salerno*scans
-	ghana*trudeau*cabal
-	dirty*eminent*abase
-	end*oaf*sad*lab*bad
-	nasa*can***ham*lass
+	occam*salerno*spasm
+	ghana*trudeau*cache
+	dirty*eminent*arced
+	end*oaf*sad*lab*rae
+	nasa*can***ham*tara
 	***yoknapatawpha***
-	mclean*baden*locals
-	ira*row*ran*vie*bah
-	loop*wife*deaf*here
+	mclean*baden*louise
+	ira*row*ran*vie*tax
+	loop*wife*deaf*carp
 	lace*leo***ali*alga
-	atop*elba*eric*diet
-	rio*add*gap*dad*ash
+	atop*elba*eric*bien
+	rio*add*gap*dad*and
 	danzig*aegis*taunts
 	***electrocuting***
 	scan*roe***mao*hang
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.746 (746.000 ms)
+	runtime:      0.741 (741.000 ms)
 	solutions:    1
-	propagations: 53357
-	nodes:        464
-	failures:     184
+	propagations: 53651
+	nodes:        492
+	failures:     198
 	restarts:     0
 	no-goods:     0
-	peak depth:   118
+	peak depth:   132
 

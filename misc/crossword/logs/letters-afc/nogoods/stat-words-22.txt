@@ -1,23 +1,23 @@
 Crossword
-	ambush*divan*abbots
-	bourne*anita*carrot
-	radial*waals*claire
-	and*glenn*atari*ore
-	deer*olin*nina*clip
-	eddie*enacted*sheds
-	***clang*hiroshi***
-	aphasia*dec*readers
-	leaner*aye*primeval
-	tau**fiberglas**ada
-	allstate*lay*mcadam
-	restore*meg*girders
-	***emerges*cecil***
-	caleb*alaskan*bends
-	amid*stag*iris*roam
-	pub*niece*teems*one
-	elicit*irate*acadia
-	redone*alder*caller
-	stoned*lyons*kneels
+	alaska*spiro*sweeps
+	reared*corer*carrot
+	marina*roast*averse
+	ash*timed*there*ate
+	deus*reel*rave*itel
+	assam*acetone*unary
+	***loath*hotness***
+	alkalis*gem*sneered
+	lender*our*redstone
+	tie**lettering**mac
+	alarmist*fag*arrack
+	radiant*roe*amounts
+	***greener*sleds***
+	ampex*lacerta*stirs
+	cell*elba*arms*soot
+	ida*frail*naomi*dar
+	duncan*slain*entire
+	isaacs*ceded*atones
+	carpet*odors*ropers
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      35.652 (35652.000 ms)
+	runtime:      42.049 (42049.000 ms)
 	solutions:    1
-	propagations: 1351265
-	nodes:        7978
-	failures:     3868
-	restarts:     5
-	no-goods:     102
-	peak depth:   100
+	propagations: 2144584
+	nodes:        14502
+	failures:     7070
+	restarts:     6
+	no-goods:     188
+	peak depth:   127
 

@@ -10,9 +10,9 @@ Initial
 Summary
 	runtime:      10:00.018 (600018.000 ms)
 	solutions:    0
-	propagations: 30856570
-	nodes:        180513
-	failures:     90226
+	propagations: 30887734
+	nodes:        180651
+	failures:     90296
 	restarts:     0
 	no-goods:     0
 	peak depth:   119

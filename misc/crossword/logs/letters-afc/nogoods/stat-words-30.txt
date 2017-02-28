@@ -1,25 +1,25 @@
 Crossword
-	mice*parrs*wood*swami
-	iran*about*hide*cared
-	cincinnati*electrical
-	assorted*mores*hassle
-	***deer*lured*wept***
-	impend*delia*caresses
-	deere*brainstorms*tan
-	errs*prep***indo*data
-	ali*frostbelt*smarter
-	lesbians*anal**elaine
-	**helix*usage*stems**
-	scales**nice*iterated
-	cabaret*introvert*ice
-	ably*waft***dies*scot
-	lie*homesteader*peale
-	answered*haves*dialer
-	***hats*miser*pens***
-	sheath*darer*pastoral
-	talleyrand*aficionado
-	euler*idol*giles*area
-	plans*gary*exert*lend
+	isis*opera*seal*angus
+	made*baron*olga*burne
+	propellant*plebiscite
+	salaries*wares*nelson
+	***rags*texan*acne***
+	opiate*karen*emotions
+	canto*subprograms*roe
+	cute*goal***rasp*anne
+	ale*colleague*setback
+	monrovia*bela**thames
+	**saved*erect*beebe**
+	waiter**vase*monsanto
+	interns*emergence*tan
+	enid*moan***aide*bibs
+	lie*perishables*canoe
+	destined*abler*forgot
+	***acts*clean*webb***
+	alaska*maids*sheraton
+	dusseldorf*tananarive
+	drier*iota*ecole*idea
+	seals*styx*dewey*cent
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3:38.784 (218784.000 ms)
+	runtime:      8.495 (8495.000 ms)
 	solutions:    1
-	propagations: 9956592
-	nodes:        48054
-	failures:     23843
-	restarts:     9
-	no-goods:     300
-	peak depth:   131
+	propagations: 251482
+	nodes:        1085
+	failures:     503
+	restarts:     1
+	no-goods:     20
+	peak depth:   95
 
