@@ -1,5 +1,5 @@
 export PATH="./x64:$PATH"
-export DECAY=0.95
+export DECAY=0.99
 export RESTART=geometric
 export SCALE=250
 export BASE=1.5
