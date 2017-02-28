@@ -10,10 +10,10 @@ Crossword
 	enrapt*sal*silt
 	lerna*babar*ats
 	***annat*sac***
-	ean*oorie*togue
+	sib*oorie*togue
 	pseudosolutions
-	hardon*nazarean
-	arkose*slit*rue
+	elevon*nazarean
+	debase*slit*rue
 
 
 
@@ -24,10 +24,10 @@ Initial
 Summary
 	runtime:      0.580 (580.000 ms)
 	solutions:    1
-	propagations: 9728
-	nodes:        95
-	failures:     10
+	propagations: 9417
+	nodes:        91
+	failures:     8
 	restarts:     0
 	no-goods:     0
-	peak depth:   81
+	peak depth:   80
 

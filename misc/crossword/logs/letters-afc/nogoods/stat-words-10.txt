@@ -1,19 +1,19 @@
 Crossword
-	lose*isles*papa
-	opal*sieve*aped
-	legislated*sped
-	alaskan**altars
-	***hom*mcneil**
-	scrap*par*emacs
-	eli*jailer*echo
-	rod*erratum*hal
-	fags*cabana*ire
-	skews*tan*shams
-	**fairer*boa***
-	shinto**sandbag
-	lees*scottsdale
-	able*sarah*abba
-	veda*irene*dear
+	slab*crepe*east
+	lila*loren*meta
+	unpleasant*eras
+	gesture**errors
+	***ira*varian**
+	marco*gas*glass
+	ode*paints*duck
+	doc*admiral*tau
+	abos*ablate*ill
+	lemma*ely*vocal
+	**pamela*lip***
+	cheryl**batting
+	hint*elliptical
+	else*nails*mete
+	fled*adele*aden
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.395 (2395.000 ms)
+	runtime:      1.815 (1815.000 ms)
 	solutions:    1
-	propagations: 168337
-	nodes:        1414
-	failures:     648
-	restarts:     2
-	no-goods:     34
-	peak depth:   86
+	propagations: 100571
+	nodes:        773
+	failures:     344
+	restarts:     1
+	no-goods:     11
+	peak depth:   90
 

@@ -1,23 +1,23 @@
 Crossword
-	abler**arden**sarah
-	leila*prairie*elena
-	penetratingly*valor
-	spec*elide**element
-	***thames*lebanon**
-	bearers**lilac*stab
-	radar**pliable**lie
-	arm**dihedral*deeds
-	epic*aries***pulses
-	**norwalk*daniels**
-	caiman***bigot*anew
-	olsen*abdomens**ear
-	bat**plainer**passe
-	bred*laban**evensen
-	**relabel*spread***
-	chicana**poles*once
-	loner*manufacturers
-	angie*adamant*group
-	nests**abase**handy
+	kappa**badge**bodes
+	equal*madeira*amide
+	multicellular*befit
+	pale*oases**twelfth
+	***nectar*galilee**
+	portray**novel*tree
+	obese**soonest**eva
+	doc**builders*minis
+	seam*urges***fettle
+	**padding*lorelei**
+	hailed***penis*marc
+	intel*startups**boa
+	gnu**schloss**salad
+	half*ahead**academy
+	**almsman*cabana***
+	hitachi**sudan*pack
+	using*deforestation
+	bloke*tremble*ledge
+	sense**geese**erase
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      7.179 (7179.000 ms)
+	runtime:      5.050 (5050.000 ms)
 	solutions:    1
-	propagations: 302364
-	nodes:        1995
-	failures:     921
-	restarts:     2
-	no-goods:     40
-	peak depth:   114
+	propagations: 192891
+	nodes:        1114
+	failures:     497
+	restarts:     1
+	no-goods:     15
+	peak depth:   113
 

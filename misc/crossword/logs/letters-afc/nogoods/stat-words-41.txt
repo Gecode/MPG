@@ -1,27 +1,27 @@
 Crossword
-	waals*ansi*galen*angel*
-	algae*lain*ecole*coaxes
-	gargantuan*championship
-	ere**earmarked*acre*ada
-	smelter**taos*glen*alec
-	***aid*poem**wei**irene
-	amaze*call*alan*jade***
-	babe*moody*cage*eleanor
-	bird*illy*act*aroma*ode
-	ali*bali*agee*laps*pros
-	**drama*axel*mona*terre
-	algenib*firebug*realist
-	gamed*offs*rely*darts**
-	abed*brae*made*pisa*the
-	pan*franc*its*haze*coed
-	entreat*tame*payed*awed
-	***anne*ibid*rand*cindy
-	acrid**gnu**bose*dar***
-	dead*haag*adam**caboose
-	dam*bass*odorously**dis
-	isomorphisms*treasuries
-	senate*ellie*espy*gauge
-	*sachs*slots*rats*hymen
+	acres*howe*pepsi*ideal*
+	clara*opal*atlas*torrid
+	homemakers*bhagavadgita
+	eva**macmillan*bald*stu
+	denizen**neon*deny*leon
+	***ban*shod**hal**burnt
+	ripen*scar*beau*thai***
+	odor*suave*lang*airship
+	also*able*has*halve*are
+	met*arpa*tact*tile*fret
+	**molar*erik*bela*borne
+	arapaho*forbear*hairier
+	bosun*gift*oaks*arden**
+	ruts*brae*dare*uses*gas
+	age*franc*urn*ursa*etch
+	merriam*tend*flies*come
+	***eats*inks*lane*boned
+	slant**and**cane*pal***
+	tire*haag*stan**caterer
+	all*barr*scenarios**era
+	hierarchical*godmothers
+	lenore*udall*alee*aesop
+	*seeds*sands*near*byers
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.647 (3647.000 ms)
+	runtime:      2.224 (2224.000 ms)
 	solutions:    1
-	propagations: 134368
-	nodes:        1029
-	failures:     433
-	restarts:     1
-	no-goods:     18
-	peak depth:   170
+	propagations: 83313
+	nodes:        502
+	failures:     191
+	restarts:     0
+	no-goods:     0
+	peak depth:   167
 

@@ -10,7 +10,7 @@ Crossword
 	repot*ligaments
 	anicut*ooziness
 	***asian*oca***
-	gear*miser*baez
+	gear*miser*beeb
 	regimen*acolyte
 	ironore*ruderal
 	synapse*starets
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.344 (2344.000 ms)
+	runtime:      2.404 (2404.000 ms)
 	solutions:    1
-	propagations: 15629
-	nodes:        110
-	failures:     24
+	propagations: 16224
+	nodes:        116
+	failures:     27
 	restarts:     0
 	no-goods:     0
-	peak depth:   79
+	peak depth:   78
 

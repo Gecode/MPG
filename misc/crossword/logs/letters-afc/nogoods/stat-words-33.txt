@@ -1,25 +1,25 @@
 Crossword
-	blooper*samoa*toshiba
-	airfare*clean*aroused
-	baiting*agate*bombard
-	big*diurnal*milne*dar
-	asia*elite*video*vote
-	gongs*amy*cocoa*sires
-	ensolite*arc*luckless
-	***nate*plead*sail***
-	eskimo*rattler*leafed
-	aloes*canoe*bored*lew
-	seas*japan*habib*nary
-	eel*panic*noted*susie
-	stalin*debated*locker
-	***aces*alder*dell***
-	animator*oil*reviewed
-	limbs*mecca*dis*diane
-	maps*deals*facts*cute
-	age*carla*kerouac*pip
-	narrows*spent*furnace
-	ariadne*pence*fleeces
-	calmest*sated*stewart
+	disband*chair*toshiba
+	escapee*rabbi*aviator
+	protean*event*battens
+	oar*drifted*thule*mae
+	seed*saran*heals*finn
+	elroy*ban*larva*pizza
+	dismally*gel*ethereal
+	***alee*barer*ease***
+	recite*favorer*strife
+	ilona*haney*lofts*los
+	oils*medal*hague*airs
+	too*karen*cater*prate
+	strand*damager*borden
+	***deaf*saber*palo***
+	academic*can*mahayana
+	label*nobel*man*roman
+	arid*salad*raids*sort
+	bad*aunts*carmela*era
+	avionic*stans*malabar
+	mandate*earth*isolate
+	angeles*tulsa*cheeses
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:20.500 (140500.000 ms)
+	runtime:      51.682 (51682.000 ms)
 	solutions:    1
-	propagations: 4562947
-	nodes:        26400
-	failures:     12985
-	restarts:     8
-	no-goods:     190
-	peak depth:   147
+	propagations: 1584396
+	nodes:        8934
+	failures:     4257
+	restarts:     5
+	no-goods:     141
+	peak depth:   148
 

@@ -16,10 +16,10 @@ Crossword
 	***aid***add***spa***
 	aasia*belie*rad*acock
 	naam*milan*serac*thae
-	ary*caboc*ichabod*die
-	thetas*hulsean*bedell
-	tushes*inulase*resale
-	astone*maratha*adored
+	arb*caboc*ichabod*die
+	thomas*hulsean*bedell
+	tutors*inulase*resale
+	assure*maratha*adored
 
 
 
@@ -28,11 +28,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.201 (4201.000 ms)
+	runtime:      4.246 (4246.000 ms)
 	solutions:    1
-	propagations: 35278
-	nodes:        304
-	failures:     79
+	propagations: 36560
+	nodes:        311
+	failures:     83
 	restarts:     0
 	no-goods:     0
 	peak depth:   167

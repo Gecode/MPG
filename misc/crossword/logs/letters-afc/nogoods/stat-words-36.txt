@@ -1,25 +1,25 @@
 Crossword
-	skip*sedan*sober*abba
-	anna*omega*ababa*flap
-	neapolitan*retentions
-	decal*let*saran*arose
-	**clad*chekhov*eked**
-	shu*fontana*niobe*sat
-	lura*los*ate*ado*itch
-	abandon*abets*ensnare
-	nectar*ail*car*yalies
-	try*beside*hoar*dense
-	***ibsen*****mundt***
-	shall*aunt*goatee*ohm
-	ladies*see*ann*andrei
-	invaded*davie*arsenal
-	coed*ear*man*abe*lava
-	kin*odder*leprosy*men
-	**tass*boredom*tube**
-	spill*menus*cog*banal
-	historical*forecastle
-	into*uncle*enema*taut
-	ness*beads*worst*elms
+	uris*mecca*leads*mama
+	rent*agers*ardor*epic
+	nanostores*participle
+	sloop*sat*asses*leaks
+	**clog*maureen*burl**
+	are*tapings*sable*oft
+	lind*lac*low*lou*polo
+	optimal*diner*artisan
+	helmut*aye*bad*became
+	any*neater*beef*laser
+	***udall*****braes***
+	diana*lads*sprout*ear
+	alpine*see*era*retire
+	rioters*lasso*texases
+	pace*wag*spa*sao*gene
+	ada*silas*ampoule*nat
+	**leon*lechery*each**
+	loyal*aaron*abe*rhoda
+	approacher*overflowed
+	base*stand*adair*read
+	sled*hades*fancy*errs
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5.357 (5357.000 ms)
+	runtime:      9.914 (9914.000 ms)
 	solutions:    1
-	propagations: 230094
-	nodes:        1907
-	failures:     814
-	restarts:     2
-	no-goods:     75
-	peak depth:   153
+	propagations: 585690
+	nodes:        3796
+	failures:     1736
+	restarts:     3
+	no-goods:     95
+	peak depth:   145
 

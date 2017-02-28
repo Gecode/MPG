@@ -14,10 +14,10 @@ Crossword
 	***anklets*aasia***
 	dagga*imamate*dicty
 	urao*peag*base*proa
-	nib*marne*ubend*arc
-	celiac*arose*iambic
-	agenda*nebek*arabia
-	nesses*tsars*citess
+	mam*marne*ubend*arc
+	ogival*arose*iambic
+	sonata*nebek*arabia
+	ensues*tsars*citess
 
 
 
@@ -26,11 +26,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2.165 (2165.000 ms)
+	runtime:      2.107 (2107.000 ms)
 	solutions:    1
-	propagations: 33449
-	nodes:        378
-	failures:     133
+	propagations: 31591
+	nodes:        354
+	failures:     122
 	restarts:     0
 	no-goods:     0
 	peak depth:   128

@@ -1,19 +1,19 @@
 Crossword
-	shoe*swamp*trap
-	karp*honer*race
-	illiterate*abut
-	seychelles*nate
-	****andy*sister
-	strew**skull***
-	loud*interlaced
-	indiana*restore
-	dietitians*oman
-	***odell**dress
-	sharer*gale****
-	mali*elementals
-	olga*sabbatical
-	keel*tires*nina
-	errs*snare*adam
+	bile*blade*seth
+	afar*rerun*clio
+	unbalanced*olga
+	dissociate*tier
+	****bend*artery
+	peale**eaves***
+	edge*absconding
+	niagara*treason
+	strictness*lisa
+	***brien**reset
+	relief*lane****
+	oral*imaginings
+	anti*caricature
+	diet*engle*eden
+	sexy*sneer*lewd
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4.182 (4182.000 ms)
+	runtime:      7:58.234 (478234.000 ms)
 	solutions:    1
-	propagations: 211518
-	nodes:        1169
-	failures:     554
-	restarts:     1
-	no-goods:     13
-	peak depth:   84
+	propagations: 31795480
+	nodes:        137887
+	failures:     68833
+	restarts:     12
+	no-goods:     335
+	peak depth:   103
 

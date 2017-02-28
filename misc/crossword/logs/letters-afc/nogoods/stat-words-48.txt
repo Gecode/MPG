@@ -1,27 +1,27 @@
 Crossword
-	slugs*saner*clara*leper
-	milliampere*oases*inane
-	interdependencies*torus
-	lura*slide*steal*sesame
-	exams*lay*ate*newer*met
-	***sheen*buena*rat*her*
-	abe*old*loretta*yucatan
-	malawi*hiram*lid*pareto
-	press*makes*carib*peril
-	lock*gamed*arsenal*siva
-	entered*donna*dazed*zen
-	**rwanda*magna*havana**
-	ado*poems*seems*aerates
-	mimi*asocial*ohare*zinc
-	irene*turns*peels*tioga
-	decked*ram*cabal*posner
-	echelon*malabar*man*sly
-	*tar*zan*nurse*ceded***
-	ron*xebec*cut*pat*decca
-	arisen*wakes*sires*alas
-	bacon*heterogeneousness
-	atari*ashen*exterminate
-	telex*style*lyons*panes
+	swaps*aruba*clara*shire
+	paraphrased*hired*tenex
+	extraordinariness*erase
+	neil*paint*irene*harper
+	dream*gag*cop*algol*pat
+	***yukon*paten*lou*orr*
+	ali*tin*boredom*antioch
+	dented*eared*did*delphi
+	dated*units*caleb*derek
+	ever*andre*bellman*dire
+	derrick*dread*susan*ass
+	**daring*satan*resist**
+	fee*adore*torah*maltese
+	arpa*swagger*tidal*anus
+	brent*niger*karen*dress
+	longed*len*soles*bessie
+	endears*despair*can*sex
+	*eel*ian*stale*honed***
+	ion*fetal*era*sew*bulba
+	succor*visas*paula*loeb
+	asian*comprehensibility
+	alert*anion*antecedents
+	cysts*watts*thank*asses
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      56.873 (56873.000 ms)
+	runtime:      2:02.235 (122235.000 ms)
 	solutions:    1
-	propagations: 1995002
-	nodes:        9661
-	failures:     4707
-	restarts:     5
-	no-goods:     102
-	peak depth:   141
+	propagations: 4388975
+	nodes:        19134
+	failures:     9427
+	restarts:     7
+	no-goods:     193
+	peak depth:   157
 

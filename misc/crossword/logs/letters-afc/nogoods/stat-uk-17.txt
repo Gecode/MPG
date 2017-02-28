@@ -1,7 +1,7 @@
 Crossword
-	amah*pics*talak
-	baba*haha*alula
-	balk*imam*carob
+	amah*pics*kulak
+	baba*haha*itala
+	balk*imam*berob
 	areal*blare*cha
 	***mac*dae*ahab
 	bis*calendar***
@@ -9,10 +9,10 @@ Crossword
 	maghreb*placard
 	anneal*bag*agma
 	***smeardab*sam
-	skis*ela*ean***
-	ian*araba*aaron
-	malar*shim*bala
-	omaha*kana*lien
+	labs*ela*ean***
+	aby*araba*aaron
+	gular*shim*bala
+	anana*kana*lien
 	nawab*amen*ados
 
 
@@ -24,10 +24,10 @@ Initial
 Summary
 	runtime:      0.614 (614.000 ms)
 	solutions:    1
-	propagations: 7377
-	nodes:        122
-	failures:     13
+	propagations: 7126
+	nodes:        114
+	failures:     7
 	restarts:     0
 	no-goods:     0
-	peak depth:   104
+	peak depth:   102
 

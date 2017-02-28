@@ -1,27 +1,27 @@
 Crossword
-	braces*media*adds*abide
-	lenore*arabs*diem*ruben
-	anglicanizes*assortment
-	barters*sexes*cite*brie
-	sly**eke***stirred*liar
-	***potsdam*sadie**deals
-	armada*glad*gem*acid***
-	meaner*abram*airbag*era
-	ache*israelis*noel*axed
-	italian**separable*lana
-	nay*glued**spate*bascom
-	**abo*blind*sperm*cot**
-	sonora*afoot**stint*its
-	omit*swiftness**coastal
-	dash*pine*salesman*puma
-	ant*cicero*salle*diadem
-	***back*ebb*plod*ethers
-	saber**snoop*stetson***
-	amen*amateur***arc**ace
-	lang*bali*timid*arcadia
-	andalusian*caterpillars
-	adele*onto*enema*pumice
-	marie*need*sylow*teared
+	bemoan*lunar*dose*antic
+	aramco*irene*ivan*diana
+	insinuations*metabolism
+	rioters*snail*rica*swap
+	den**ike***doherty*sane
+	***massage*erase**boned
+	attach*geld*eat*iran***
+	diadem*alien*gilded*gad
+	emma*einstein*melt*arco
+	lemming**edgewater*gail
+	era*stomp**heath*yaunde
+	**nil*rural*dread*red**
+	paynes*nobel**slime*nor
+	avid*largeness**massive
+	cozy*anon*salesmen*teas
+	ewe*gideon*patio*icicle
+	***deny*sob*muzo*palest
+	argot**steam*perfume***
+	reel*bacilli***sol**tap
+	curd*alec*isaac*catawba
+	aboriginal*humanitarian
+	demur*bite*atone*exalts
+	enema*iced*poked*sibley
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      2:37.735 (157735.000 ms)
+	runtime:      1:19.116 (79116.000 ms)
 	solutions:    1
-	propagations: 6308597
-	nodes:        32794
-	failures:     16190
-	restarts:     8
-	no-goods:     235
-	peak depth:   168
+	propagations: 2936535
+	nodes:        15688
+	failures:     7716
+	restarts:     6
+	no-goods:     193
+	peak depth:   157
 

@@ -1,27 +1,27 @@
 Crossword
-	disband*parboil*messiah
-	estonia*amerada*orlando
-	creator*yucatan*brennan
-	oar*eben*lush*dried*age
-	dens*erasers*field*gris
-	ellie*silt*yaunde*godot
-	riyadh*lass*argo*classy
-	***niamey*parrs*coal***
-	spa*thud*savoy*counsels
-	popping*baden*hoard*goa
-	ethan*shafer*carts*lord
-	change*abed*bone*edited
-	toss*mater*superb*emile
-	eli*fidel*daisy*elapses
-	recalled*perle*pair*tit
-	***loin*iliad*jaunts***
-	bamboo*snag*scan*thelma
-	amour*patina*ovid*steal
-	room*glued*menaced*stub
-	ben*shell*load*slob*ire
-	ablated*spiegel*plaster
-	raiding*alabama*harriet
-	astarte*tyranny*indiana
+	charged*assuage*scrapes
+	require*scandal*tribune
+	alumnus*pillage*rebecca
+	via*spit*seem*glass*cat
+	acre*truisms*faint*mist
+	taint*ergo*shined*panel
+	slaver*nora*arcs*deride
+	***yeager*mcgee*tied***
+	mop*trod*paled*charisma
+	apaches*luzon*maids*tim
+	lethe*heated*dense*mule
+	artist*ants*find*maiden
+	bait*wordy*kikuyu*dread
+	ate*hints*hazes*strange
+	research*genes*were*ted
+	***lyle*berea*hiring***
+	ambles*load*used*pariah
+	lares*hearst*crew*limbo
+	bien*rents*hiroshi*dads
+	ada*tidal*side*tens*gut
+	nesting*oatmeal*lattice
+	intense*alabama*anoints
+	assayed*debussy*newness
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      50.048 (50048.000 ms)
+	runtime:      1:22.300 (82300.000 ms)
 	solutions:    1
-	propagations: 1723392
-	nodes:        10703
-	failures:     5086
-	restarts:     5
-	no-goods:     208
-	peak depth:   182
+	propagations: 2099665
+	nodes:        12477
+	failures:     5998
+	restarts:     6
+	no-goods:     250
+	peak depth:   175
 

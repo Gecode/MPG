@@ -1,27 +1,27 @@
 Crossword
-	alpaca*padauk*sri*lesbo
-	daedal*omenta*kurdistan
-	abnormalities*advantage
-	pit*easeless*tidied*par
-	talar*indre*solen*abets
-	slam*qatar*demirep*ide*
-	**narc*arizonans*labile
-	paddies*snoring*teaball
-	affabler*goels*teaseled
-	naiveties*nee*outdid***
-	arras*ghazis*ostrea*qua
-	matt*anemic*behead*tups
-	ash*preamp*parang*arars
-	***decury*biz*carabidae
-	facecard*donas*gabbarts
-	alidads*newgate*mealies
-	decane*tonsorial*asis**
-	*hin*darbies*prism*sejm
-	sonsy*baled*aitch*emcee
-	lud*earded*eutheria*ted
-	asepalous*strainingsill
-	celeriacs*acates*crania
-	ksars*dee*pheere*hedger
+	aswoon*tracks*mis*flash
+	staple*wellie*epaulette
+	tattielifting*gelligaer
+	ate*oracling*pacier*cab
+	rurps*lease*arbas*trams
+	tapa*marts*eriachs*ami*
+	**urdu*seigniors*admire
+	strains*smiters*bristol
+	aasvogel*ology*canteens
+	melanomas*eme*lenity***
+	inane*prefab*rondes*cha
+	aine*pigbed*battas*ahab
+	nae*gateau*dehorn*scala
+	***barest*biz*sinecures
+	spielers*topoi*catalase
+	postern*roulade*selects
+	arling*mirroring*neat**
+	*tad*asinine*ofays*tear
+	hames*angie*smile*nerve
+	ada*allods*diallage*lit
+	nobiliary*fontainebleau
+	swartback*iodide*reasts
+	andes*mae*triced*elysee
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      4:07.047 (247047.000 ms)
+	runtime:      1:58.841 (118841.000 ms)
 	solutions:    1
-	propagations: 3054333
-	nodes:        17587
-	failures:     8456
-	restarts:     7
-	no-goods:     226
-	peak depth:   167
+	propagations: 942114
+	nodes:        4794
+	failures:     2185
+	restarts:     4
+	no-goods:     189
+	peak depth:   172
 

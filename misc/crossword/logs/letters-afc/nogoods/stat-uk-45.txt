@@ -1,27 +1,27 @@
 Crossword
-	acrilan*tswanas*whooped
-	chamiso*stewart*houdini
-	tempest*ardency*intense
-	rap*dearme*satiates*doc
-	epic*teabag*sinter*paua
-	sloom*ujamaa*igor*jarls
-	syntagma*tined*cabalist
-	***eros*minicab*tela***
-	spunky*consolers*nagari
-	katakanas*ana*eolipiles
-	irena*italy*tuaregs*mao
-	bent*dowie***skean*barb
-	ois*sebacic*meads*grama
-	bridewell*obi*literates
-	salina*kampuchea*facade
-	***tanh*warthog*piet***
-	memorial*nayar*alkalify
-	atony*road*lessee*eerie
-	rore*adonia*letrip*tina
-	kum*emeralds*mooned*del
-	kraaled*tiderip*animism
-	adoring*tooting*inphase
-	airbase*annatto*resoled
+	baghdad*tussahs*seaside
+	arreede*inherit*unrisen
+	baillie*sheerer*pantons
+	ice*serosa*parabema*bat
+	secs*uphurl*satori*nare
+	taels*amebic*tang*katie
+	seducers*okapi*dukeship
+	***rook*guanaco*nabk***
+	sherpa*carbonarc*bahada
+	haciendas*lei*carabidae
+	arses*antre*mihrabs*hic
+	psts*tiara***reams*semi
+	ela*mondain*melba*sarod
+	resgestae*aba*lilangeni
+	styles*salvarsan*foussa
+	***aked*seances*baba***
+	accredit*aldea*sororise
+	galen*goof*alacks*loren
+	avid*deputy*sneaks*soma
+	rep*positron*cagier*nim
+	impaint*sakiehs*epigone
+	cairene*icefloe*sideral
+	snedded*telford*tasters
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3:31.645 (211645.000 ms)
+	runtime:      4:11.417 (251417.000 ms)
 	solutions:    1
-	propagations: 1578876
-	nodes:        9344
-	failures:     4430
-	restarts:     5
-	no-goods:     178
-	peak depth:   156
+	propagations: 2367663
+	nodes:        14398
+	failures:     6901
+	restarts:     6
+	no-goods:     210
+	peak depth:   184
 

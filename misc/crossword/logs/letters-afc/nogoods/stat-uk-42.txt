@@ -1,27 +1,27 @@
 Crossword
-	adhere*cease*apay*sclav
-	maizes*adman*brno*kaaba
-	intracardiac*bodywarmer
-	saharan*arrah*troy*amla
-	see**rok***genoese*vain
-	***almanac*erica**casas
-	gherao*ochs*reh*evan***
-	congou*shute*fobbed*tae
-	lyra*capybara*rare*beck
-	elenchi**brigadoon*alee
-	fet*heads**cohab*abbess
-	**ria*saame*natal*leo**
-	stadda*ecads**abaca*sri
-	erie*indexical**legates
-	kata*sear*taberdar*leal
-	tye*childe*napoo*ablate
-	***haaf*odd*cram*maenad
-	reman**stead*arabian***
-	euoi*atlanta***lac**ave
-	poor*chal*ardea*whatnot
-	auldreekie*coscinomancy
-	savoy*mesa*yenta*balaam
-	seise*aden*skean*shamba
+	madcap*snabs*acta*caaba
+	apiary*aaron*shad*abrus
+	massaranduba*kenilworth
+	bimanal*amain*stey*meal
+	ode**cay***labarum*acne
+	***phaedra*salpa**aster
+	aegean*rand*mae*baba***
+	brandt*ainee*gavage*pad
+	hisn*haddocks*kiri*brno
+	octaval**yokedevil*aitu
+	rae*asana**akaba*adamic
+	**rad*nancy*teaed*ali**
+	chorea*cohab**ydred*pia
+	rape*marmalade**ajowans
+	alod*idea*djellaba*ores
+	bed*bridle*uboat*canape
+	***bast*imp*sile*ungets
+	jelab**osmic*nauplii***
+	apes*diptych***pea**ods
+	ghat*asci*tinea*atalaya
+	geniusloci*compaginates
+	ebons*adar*liein*namers
+	dinge*yelk*elsan*glassy
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      7.649 (7649.000 ms)
+	runtime:      3.297 (3297.000 ms)
 	solutions:    1
-	propagations: 104079
-	nodes:        852
-	failures:     288
-	restarts:     1
-	no-goods:     12
-	peak depth:   172
+	propagations: 33367
+	nodes:        262
+	failures:     52
+	restarts:     0
+	no-goods:     0
+	peak depth:   188
 

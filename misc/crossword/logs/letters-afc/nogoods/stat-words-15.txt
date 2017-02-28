@@ -1,33 +1,19 @@
 Crossword
-	caracas*estates
-	avocado*aniline
-	rosebud*somalia
-	swat*later*beds
-	***act*elena***
-	spotless*dumper
-	meteorite*carlo
-	art*cynical*ada
-	sleek*schneider
-	hersey*locators
-	***crepe*ire***
-	irma*aisle*ride
-	seepage*invader
-	integer*statler
-	seeders*esteems
 
-
+Search engine stopped...
+	reason: time limit reached
 
 Initial
 	propagators: 397
 	branchers:   1
 
 Summary
-	runtime:      3:07.876 (187876.000 ms)
-	solutions:    1
-	propagations: 7061333
-	nodes:        37532
-	failures:     18661
-	restarts:     8
-	no-goods:     184
-	peak depth:   76
+	runtime:      10:00.012 (600012.000 ms)
+	solutions:    0
+	propagations: 22627960
+	nodes:        127833
+	failures:     63814
+	restarts:     11
+	no-goods:     303
+	peak depth:   121
 

@@ -1,27 +1,27 @@
 Crossword
-	faces*heaps*babka*leash
-	adobe*algae*areas*alpha
-	bombardment*might*impel
-	ere*sees*ababa*ness*ill
-	retries*scaring*rascals
-	***add*aleck*ian*del***
-	haste*izaak*islam*zomba
-	acts*plums*integer*diem
-	ito*fairs*arcs*gait*tea
-	formulae*mira*kilohertz
-	armored*bade*fans*reese
-	***and*foregoing*sir***
-	arena*mate*urge*felicia
-	rorschach*alas*booleans
-	abo*east*opal*focus*lac
-	body*skipper*banal*reno
-	steam*soles*cruel*tibet
-	***goa*nor*mould*arm***
-	sadists*dadaist*flashes
-	abe*lena*teens*bali*ode
-	maude*again*aerodynamic
-	occam*reins*glade*elect
-	akers*ledge*estes*dirts
+	scram*ruble*about*beets
+	koala*areas*flash*errol
+	intelligent*taker*agape
+	pie*aide*gapes*soon*tie
+	scribes*euterpe*babcock
+	***dad*flier*hal*far***
+	amber*weiss*berea*gibbs
+	bela*garth*kampala*brat
+	ode*maine*dade*risc*abe
+	readouts*male*snakelike
+	takings*aida*bees*zonal
+	***rae*scrambled*wag***
+	stead*data*alum*managua
+	carcinoma*czar*scanners
+	orr*camp*boob*cycle*nip
+	trod*gestapo*solos*dine
+	syria*doers*savoy*green
+	***sly*nab*renew*pea***
+	sticker*medicis*barbell
+	urn*asia*cabot*slim*via
+	modal*occur*nationality
+	alibi*truer*drank*niche
+	claus*seedy*synge*enter
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      11.134 (11134.000 ms)
+	runtime:      5.871 (5871.000 ms)
 	solutions:    1
-	propagations: 441167
-	nodes:        3070
-	failures:     1293
-	restarts:     3
-	no-goods:     110
-	peak depth:   197
+	propagations: 226201
+	nodes:        1750
+	failures:     692
+	restarts:     2
+	no-goods:     81
+	peak depth:   183
 

@@ -1,19 +1,19 @@
 Crossword
-	eat*jeep*aramco
-	globular*radars
-	omnidirectional
-	sails*stain*ego
-	***lot*erect***
-	ott*noons*ought
-	mead*rat*hanley
-	axiomatizations
-	hannah*oaf*coco
-	anton*tunis*men
-	***races*zoe***
-	off*ghana*malta
+	pal*maim*agatha
+	elegance*recoil
+	noninterference
+	dealt*diana*eke
+	***dis*twang***
+	ada*swoon*irvin
+	bash*air*guiana
+	accomplishments
+	scopes*ore*feet
+	eaten*suing*sly
+	***sacks*tab***
+	off*china*rossi
 	parliamentarian
-	trains*stillest
-	smudge*semi*ski
+	trains*stagnant
+	smudge*sine*mao
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      10.357 (10357.000 ms)
+	runtime:      37.823 (37823.000 ms)
 	solutions:    1
-	propagations: 633130
-	nodes:        2551
-	failures:     1232
-	restarts:     3
-	no-goods:     46
-	peak depth:   50
+	propagations: 2671888
+	nodes:        14691
+	failures:     7280
+	restarts:     6
+	no-goods:     147
+	peak depth:   72
 

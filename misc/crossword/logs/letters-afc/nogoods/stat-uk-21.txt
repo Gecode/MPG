@@ -12,12 +12,12 @@ Crossword
 	kagoul***kabab*knag
 	aredd*algaroba**elo
 	mac**spaemen**odsos
-	abos*caine**valises
-	**lasagna*atabeg***
-	calando**ochre*raga
+	abos*caine**mavises
+	**lasagna*teabag***
+	calando**eagre*raga
 	arena*gaidhealtachd
-	pager*esteems*apnea
-	akene**horde**pheer
+	pager*ensnare*apnea
+	akene**amass**pheer
 
 
 
@@ -26,11 +26,11 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.752 (1752.000 ms)
+	runtime:      1.732 (1732.000 ms)
 	solutions:    1
-	propagations: 30656
-	nodes:        356
-	failures:     115
+	propagations: 27469
+	nodes:        320
+	failures:     99
 	restarts:     0
 	no-goods:     0
 	peak depth:   136

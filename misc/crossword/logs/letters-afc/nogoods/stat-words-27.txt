@@ -13,11 +13,11 @@ Crossword
 	howl*ram*claim*anal
 	opel*club*arena*nil
 	penis*thaw*eveready
-	***set*area**man***
+	***sew*area**man***
 	archaism*improbable
-	bali*lamb*iron*beak
-	oman*tray*gobi*lane
-	song*side*opec*eras
+	bali*dame*iron*bear
+	oman*tray*gobi*lana
+	song*hide*opec*ends
 
 
 
@@ -26,12 +26,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      0.638 (638.000 ms)
+	runtime:      0.631 (631.000 ms)
 	solutions:    1
-	propagations: 27953
-	nodes:        221
-	failures:     65
+	propagations: 28101
+	nodes:        213
+	failures:     62
 	restarts:     0
 	no-goods:     0
-	peak depth:   121
+	peak depth:   116
 

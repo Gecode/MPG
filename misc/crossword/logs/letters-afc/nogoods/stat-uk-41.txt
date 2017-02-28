@@ -8,9 +8,9 @@ Crossword
 	babar*paco*agar*dial***
 	amah*julep*baba*endarch
 	ebro*abed*flo*phage*aha
-	lob*ines*leal*nada*dday
-	**aegis*fact*aula*chard
-	middlec*ickiest*saharan
+	lob*ines*leal*nada*adar
+	**aegis*fact*aula*stime
+	middlec*ickiest*saloops
 	adieu*ebbs*tais*araks**
 	gean*gnar*mica*adam*cam
 	man*cacao*ooh*blob*bora
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      3.941 (3941.000 ms)
+	runtime:      3.609 (3609.000 ms)
 	solutions:    1
-	propagations: 43951
-	nodes:        420
-	failures:     103
+	propagations: 38184
+	nodes:        366
+	failures:     76
 	restarts:     0
 	no-goods:     0
-	peak depth:   224
+	peak depth:   223
 

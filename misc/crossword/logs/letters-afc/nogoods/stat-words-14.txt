@@ -1,19 +1,19 @@
 Crossword
-	bread*sale*base
-	eerie*prod*oral
-	landscaped*sore
-	area*araby*oman
-	****abe***omaha
-	bloats*arab****
-	react**digests*
+	mazda*sale*amos
+	alias*prod*rosa
+	landscaped*olav
+	inca*araby*make
+	****abe***farad
+	bloats*asia****
+	react**batista*
 	anthropomorphic
-	*shearer**leona
-	****cern*micron
-	rabat***ban****
-	adam*dirac*abos
-	maya*adolescent
-	ages*yeas*peace
-	ness*sara*askew
+	*shearer**fauna
+	****cent*catsup
+	rabat***lax****
+	arab*ahead*lena
+	bini*barrymores
+	bead*bang*aback
+	isle*agee*desks
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      1.181 (1181.000 ms)
+	runtime:      0.470 (470.000 ms)
 	solutions:    1
-	propagations: 49066
-	nodes:        382
-	failures:     163
+	propagations: 20095
+	nodes:        182
+	failures:     64
 	restarts:     0
 	no-goods:     0
-	peak depth:   73
+	peak depth:   78
 

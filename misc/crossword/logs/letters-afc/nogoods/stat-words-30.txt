@@ -1,25 +1,25 @@
 Crossword
-	deal*asses*dada*shave
-	abba*steak*oxen*waned
-	reevaluate*montmartre
-	enticers*pliny*indian
-	***stem*stans*else***
-	bishop*going*calendar
-	aster*calceolaria*ego
-	lard*game***ames*scab
-	mae*arrestors*deplete
-	scabbard*eris**coiled
-	**meaty*pablo*ponce**
-	malibu**erik*wanderer
-	abigail*asteroids*ale
-	gone*tail***urns*step
-	ode*conceivable*siena
-	gertrude*lined*midday
-	***hess*glenn*done***
-	amoral*deere*harassed
-	varityping*transitive
-	olive*hera*taste*even
-	nines*itel*ethel*pars
+	mice*parrs*wood*swami
+	iran*about*hide*cared
+	cincinnati*electrical
+	assorted*mores*hassle
+	***deer*lured*wept***
+	impend*delia*caresses
+	deere*brainstorms*tan
+	errs*prep***indo*data
+	ali*frostbelt*smarter
+	lesbians*anal**elaine
+	**helix*usage*stems**
+	scales**nice*iterated
+	cabaret*introvert*ice
+	ably*waft***dies*scot
+	lie*homesteader*peale
+	answered*haves*dialer
+	***hats*miser*pens***
+	sheath*darer*pastoral
+	talleyrand*aficionado
+	euler*idol*giles*area
+	plans*gary*exert*lend
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      5:58.737 (358737.000 ms)
+	runtime:      3:38.784 (218784.000 ms)
 	solutions:    1
-	propagations: 15653998
-	nodes:        78144
-	failures:     38863
-	restarts:     10
-	no-goods:     260
-	peak depth:   124
+	propagations: 9956592
+	nodes:        48054
+	failures:     23843
+	restarts:     9
+	no-goods:     300
+	peak depth:   131
 

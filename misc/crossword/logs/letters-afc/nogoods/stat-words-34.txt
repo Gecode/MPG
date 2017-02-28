@@ -1,25 +1,25 @@
 Crossword
-	habeas*malabar*kresge
-	amanda*avocado*aegean
-	beggar*revered*florid
-	ill*marines*leaky*gnu
-	tier*hangs*linda*jeer
-	sayer*mae*beats*zaire
-	***see***fat***hey***
-	adrian*slashed*arcade
-	brenda*pickaxe*poetic
-	rip*scribe*lisp*serfs
-	ella*tide***lies*soft
-	alibi*germ*bigger*pea
-	secant*riemann*rumors
-	trance*sayings*brassy
-	***dud***ere***oaf***
-	actor*accra*ebb*light
-	gown*atlas*aires*alar
-	age*ocean*absence*are
-	tenant*indiana*agenda
-	entice*roadbed*lanced
-	styled*endears*anders
+	scowls*alabama*brassy
+	pariah*malabar*aerate
+	enigma*address*nectar
+	nag*blondes*tidal*irk
+	drip*laden*renal*free
+	synod*far*baden*dress
+	***lee***cod***wee***
+	awaken*maurice*entrap
+	parade*bergson*befell
+	hut*smears*hull*bulba
+	aped*alba***pair*lean
+	samoa*matt*portal*ann
+	icicle*nearing*bessie
+	castle*espouse*behead
+	***oil***its***ida***
+	sours*opens*jab*skate
+	pins*fling*dares*eris
+	ali*wider*payment*ads
+	revere*romance*arabia
+	travel*clatter*parley
+	ascend*elysees*speeds
 
 
 
@@ -28,12 +28,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      26.191 (26191.000 ms)
+	runtime:      20.272 (20272.000 ms)
 	solutions:    1
-	propagations: 801917
-	nodes:        5472
-	failures:     2507
+	propagations: 711258
+	nodes:        4903
+	failures:     2248
 	restarts:     4
-	no-goods:     189
-	peak depth:   168
+	no-goods:     180
+	peak depth:   160
 

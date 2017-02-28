@@ -1,27 +1,27 @@
 Crossword
-	psoas*ascot*boffo*afric
-	ensue*scudo*arrau*plesh
-	raita*serac*dealt*aodai
-	creolians*cha*paranoiac
-	herbaria*vaasa*jararaca
-	***anes*catesby*nigh***
-	laches*cycad*eon*deejay
-	ikons*babus*dayak*saame
-	lams*genoa*arrobas*dins
-	aba*nagor*ana*slack*lie
-	caecal*egality*amorosas
-	***uses*siestas*alae***
-	cameinto*smeeked*inroad
-	aga*kirov*bed*befog*mna
-	bala*carabid*tacan*gent
-	amate*dirac*sacks*aurae
-	laroid*eel*aphis*odists
-	***mnas*cardiac*shan***
-	redistil*seals*ohmmeter
-	apostates*ami*amassable
-	bogie*uveal*talak*apode
-	acini*lenti*idaho*lined
-	thegn*aldea*capas*egers
+	appel*copal*varec*hulks
+	halma*akaba*aviso*eniac
+	idead*nawab*mesto*araba
+	grandpapa*ito*polytonal
+	hetaerai*vaasa*piassaba
+	***tron*sateens*tupi***
+	babied*tacan*euk*dongas
+	aband*queue*mafoi*teade
+	peag*malta*mariana*dele
+	ule*tutee*ain*snabs*lid
+	sedged*sraddha*sneaksby
+	***alps*shadufs*eyra***
+	craniata*amental*ageing
+	ean*acari*ant*ligne*dae
+	cigs*kirmans*qanat*coke
+	atria*daint*suber*coles
+	layman*udo*ahold*salade
+	***prau*edacity*inro***
+	spalding*eathe*theaceae
+	winevault*cat*aardvarks
+	anita*sooth*zabra*esnes
+	tumor*evohe*unarm*lisle
+	spank*demon*sices*satan
 
 
 
@@ -30,12 +30,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      12.441 (12441.000 ms)
+	runtime:      15.345 (15345.000 ms)
 	solutions:    1
-	propagations: 124920
-	nodes:        874
-	failures:     318
+	propagations: 147419
+	nodes:        1018
+	failures:     384
 	restarts:     1
-	no-goods:     7
-	peak depth:   171
+	no-goods:     15
+	peak depth:   200
 

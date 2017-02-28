@@ -1,19 +1,19 @@
 Crossword
-	acme*sews*crash
-	loan*meet*hello
-	portfolio*atlas
-	spirits*narrate
-	**june*bed*eyes
-	abuse*bahama***
-	neat*delegating
-	san*delaney*mae
-	imaginings*spit
-	***apiece*tolls
-	carr*eve*bali**
-	alameda*taxicab
-	baden*barricade
-	amino*lied*itel
-	loots*elks*tent
+	dade*elms*amass
+	icon*riot*facto
+	shoemaker*airer
+	hermite*earlier
+	**silo*mad*idly
+	gated*camden***
+	ones*darlington
+	asp*longing*ada
+	dissolving*gris
+	***tulane*magna
+	acme*ass*bale**
+	brewers*senator
+	radar*ernestine
+	atari*roof*inca
+	melts*sews*aged
 
 
 
@@ -22,12 +22,12 @@ Initial
 	branchers:   1
 
 Summary
-	runtime:      20.768 (20768.000 ms)
+	runtime:      7.611 (7611.000 ms)
 	solutions:    1
-	propagations: 664070
-	nodes:        2994
-	failures:     1454
-	restarts:     3
-	no-goods:     62
-	peak depth:   90
+	propagations: 290756
+	nodes:        1827
+	failures:     861
+	restarts:     2
+	no-goods:     45
+	peak depth:   95
 
