@@ -1,2 +1,0 @@
-Crossword
-	runtime:             0.000000ms (-nan(ind)% deviation)

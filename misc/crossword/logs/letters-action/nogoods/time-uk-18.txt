@@ -1,2 +1,0 @@
-Crossword
-	runtime:           605.600000ms (5.34% deviation)
