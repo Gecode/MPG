@@ -1,0 +1,39 @@
+Crossword
+	seem*ababa*abate*acre
+	lane*caleb*labor*chad
+	accelerate*inspecting
+	photo*err*keats*locke
+	**user*madonna*bank**
+	oar*bugeyed*aided*ada
+	slab*lad*cam*nil*aden
+	algenib*dakar*mislead
+	keegan*bad*was*eugene
+	and*ignore*real*bases
+	***elsie*****ledge***
+	swami*pray*adagio*des
+	homing*spa*gad*sabine
+	amalgam*egged*halogen
+	dale*mac*ian*cab*arms
+	eng*smear*ideally*eye
+	**acta*remnant*ears**
+	samoa*faces*sea*waste
+	analytical*burgundian
+	nato*avant*areas*aviv
+	glen*bests*terre*rely
+
+
+
+Initial
+	propagators: 743
+	branchers:   1
+
+Summary
+	runtime:      22.213 (22213.000 ms)
+	solutions:    1
+	propagations: 1593707
+	nodes:        9779
+	failures:     4836
+	restarts:     0
+	no-goods:     0
+	peak depth:   125
+

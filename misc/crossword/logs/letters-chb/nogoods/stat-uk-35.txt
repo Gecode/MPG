@@ -1,0 +1,39 @@
+Crossword
+	albs*pacas*sarks*caba
+	balm*abaca*uhuru*anil
+	anoa*captainahab*vasa
+	cattleya*nab*radiales
+	***cara*teian*lust***
+	cashes*landtag*elijah
+	ulcer*ban*ohmic*anita
+	bard*boito*eagle*apse
+	eme*derrick*bayed*pet
+	sowbread*teals*lamias
+	**doabs*bande*aflaj**
+	maraca*volas*praecava
+	eli*ollav*futhark*par
+	lava*marid*maybe*apay
+	dreck*medea*ela*omasa
+	syriac*cabbala*xhosan
+	***dieb*earns*seir***
+	sandflea*rio*stroamed
+	alay*internuncio*nada
+	cage*adore*realm*cadi
+	keas*cycad*apnea*eras
+
+
+
+Initial
+	propagators: 754
+	branchers:   1
+
+Summary
+	runtime:      2.280 (2280.000 ms)
+	solutions:    1
+	propagations: 19196
+	nodes:        172
+	failures:     9
+	restarts:     0
+	no-goods:     0
+	peak depth:   162
+

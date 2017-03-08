@@ -1,0 +1,39 @@
+Crossword
+	moshav*abomasa*usable
+	armada*minicam*libyan
+	scalar*artdeco*nablus
+	cel*remblai*regal*ane
+	lilo*cheep*babar*inca
+	ensky*old*salad*ameer
+	***act***lao***yep***
+	hoopla*mailbox*usedup
+	oomiac*already*korero
+	ole*dharma*bole*pilot
+	king*ekes***nora*aids
+	attar*emma*samara*red
+	hiatus*maranta*aquila
+	sclera*ananias*balaam
+	***mab***nab***abc***
+	spial*angel*aba*aedes
+	cann*tiara*crabs*reap
+	als*palpi*canzona*ala
+	impair*olearia*agadic
+	laager*ostraca*ketene
+	senate*seastar*energy
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      5.044 (5044.000 ms)
+	solutions:    1
+	propagations: 132680
+	nodes:        934
+	failures:     398
+	restarts:     0
+	no-goods:     0
+	peak depth:   163
+

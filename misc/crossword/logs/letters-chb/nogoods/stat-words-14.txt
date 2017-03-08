@@ -1,0 +1,33 @@
+Crossword
+	ababa*alan*aces
+	latin*gina*colt
+	broadcasts*cree
+	arms*appia*rena
+	****abe***farad
+	bloats*asia****
+	react**batista*
+	anthropomorphic
+	*shearer**fauna
+	****cent*catsup
+	rabat***lax****
+	afar*aimer*adam
+	oily*grandniece
+	ursa*amid*arena
+	lean*rams*typed
+
+
+
+Initial
+	propagators: 369
+	branchers:   1
+
+Summary
+	runtime:      0.646 (646.000 ms)
+	solutions:    1
+	propagations: 27056
+	nodes:        195
+	failures:     72
+	restarts:     0
+	no-goods:     0
+	peak depth:   70
+

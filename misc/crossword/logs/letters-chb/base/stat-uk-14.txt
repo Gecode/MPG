@@ -1,0 +1,33 @@
+Crossword
+	palea*bane*ecod
+	inorb*afar*nape
+	subsaharan*item
+	esse*aeons*aero
+	****rad***scrab
+	limier*balu****
+	educt**alabama*
+	memoriatechnica
+	*amnesic**earth
+	****amah*galeas
+	cycad***bad****
+	aeon*danae*waac
+	brno*asarabacca
+	obia*limb*akees
+	baas*ease*garda
+
+
+
+Initial
+	propagators: 369
+	branchers:   1
+
+Summary
+	runtime:      0.609 (609.000 ms)
+	solutions:    1
+	propagations: 8970
+	nodes:        123
+	failures:     21
+	restarts:     0
+	no-goods:     0
+	peak depth:   91
+

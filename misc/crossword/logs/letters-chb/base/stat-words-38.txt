@@ -1,0 +1,39 @@
+Crossword
+	**avail*baits*hesse**
+	*amanda*eddie*asians*
+	brannon*haler*stagger
+	ill*alchemy*ibsen*rae
+	pegs*seals*waals*dale
+	enact*lid*salle*eaves
+	demeanor*child*accede
+	***plot*carty*bloc***
+	abated*three*reclaims
+	doves*field*canoe*bah
+	agar*versa*tosca*meta
+	gun*moves*graph*sired
+	esteemed*blocs*strode
+	***lair*death*maya***
+	absent*moans*tallness
+	gaunt*hound*han*idaho
+	ezra*pangs*marie*area
+	rap*banal*gautama*nap
+	salting*amain*cinders
+	*ruanda*saint*altars*
+	**sugar*soles*leeds**
+
+
+
+Initial
+	propagators: 739
+	branchers:   1
+
+Summary
+	runtime:      1.577 (1577.000 ms)
+	solutions:    1
+	propagations: 79929
+	nodes:        658
+	failures:     269
+	restarts:     0
+	no-goods:     0
+	peak depth:   136
+

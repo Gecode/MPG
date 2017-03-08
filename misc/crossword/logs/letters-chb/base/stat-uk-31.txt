@@ -1,0 +1,39 @@
+Crossword
+	anas*anzac*serac*balk
+	sari*caaba*omasa*agee
+	adam*titer*vizir*iran
+	rabat*aidan*roadcraft
+	***reads*bel*onion***
+	scrolls*batik*sab*ake
+	euouae*shoepeg*combat
+	probe*wees*graf*lieby
+	taka*sell*plazas*naam
+	ats*acre*violadagamba
+	***clag*balsa*alae***
+	transpierces*oban*ava
+	hifi*alpaca*bald*slid
+	eards*divi*lite*space
+	cloaca*cannach*atonal
+	ass*arm*siege*bhangra
+	***alaap*arb*means***
+	batrachia*domal*dacca
+	idea*emcee*mania*laic
+	gamb*aaron*eilat*idle
+	area*eland*rayle*ails
+
+
+
+Initial
+	propagators: 747
+	branchers:   1
+
+Summary
+	runtime:      2.235 (2235.000 ms)
+	solutions:    1
+	propagations: 21941
+	nodes:        191
+	failures:     16
+	restarts:     0
+	no-goods:     0
+	peak depth:   171
+

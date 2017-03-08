@@ -1,0 +1,37 @@
+Crossword
+	prefab*chaco*nausea
+	recall*hanap*girons
+	agorae*addle*adduct
+	vin*pearl*inane*tar
+	douc*peke*paca*java
+	antae*chechia*carey
+	***labia*harnpan***
+	comitia*dal*taguans
+	amidst*fab*bheestie
+	nan**balmacaan**eta
+	intonaco*zag*upcurl
+	distich*bib*illipes
+	***alkanet*graal***
+	adage*rosella*nimes
+	reno*unit*aida*aesc
+	act*presa*useup*asa
+	balaam*idant*laager
+	arista*educe*achene
+	seapen*refer*seared
+
+
+
+Initial
+	propagators: 622
+	branchers:   1
+
+Summary
+	runtime:      2.685 (2685.000 ms)
+	solutions:    1
+	propagations: 36390
+	nodes:        364
+	failures:     127
+	restarts:     0
+	no-goods:     0
+	peak depth:   135
+

@@ -1,0 +1,37 @@
+Crossword
+	amass*potsdam*blobs
+	modal*erotica*raman
+	ilona*renames*ababa
+	gab*bus*ere*eye*her
+	area*nor***fro*walk
+	***winnipesaukee***
+	camera*devon*nablas
+	hue*ate*ned*sat*act
+	argo*ulan*step*dora
+	near*red***ida*itel
+	cobb*agar*beat*dial
+	eli*ply*ear*nab*age
+	detain*sadie*warned
+	***spectrography***
+	bias*shu***ash*elba
+	asp*use*lap*ian*arc
+	raper*waupaca*altar
+	bairn*elision*sieve
+	scars*deserts*heres
+
+
+
+Initial
+	propagators: 599
+	branchers:   1
+
+Summary
+	runtime:      8.706 (8706.000 ms)
+	solutions:    1
+	propagations: 568080
+	nodes:        4621
+	failures:     2222
+	restarts:     4
+	no-goods:     62
+	peak depth:   82
+

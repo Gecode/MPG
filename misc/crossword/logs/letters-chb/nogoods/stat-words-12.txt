@@ -1,0 +1,33 @@
+Crossword
+	kane*ababa*bags
+	iran*dirac*erik
+	epic*elena*daly
+	valhalla*dabble
+	***axis*menu***
+	cornea*damaging
+	edits*peril*mae
+	adds*mecca*damn
+	see*sarah*leger
+	erringly*secede
+	***none*soak***
+	mccabe*earnings
+	alan*table*neil
+	main*ideal*gave
+	anna*candy*stew
+
+
+
+Initial
+	propagators: 384
+	branchers:   1
+
+Summary
+	runtime:      0.436 (436.000 ms)
+	solutions:    1
+	propagations: 15165
+	nodes:        129
+	failures:     31
+	restarts:     0
+	no-goods:     0
+	peak depth:   86
+

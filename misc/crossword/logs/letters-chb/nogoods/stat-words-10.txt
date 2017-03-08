@@ -1,0 +1,33 @@
+Crossword
+	haag*modem*lamp
+	ella*opera*alar
+	reproducer*redo
+	rescues**coaxed
+	***its*bahama**
+	basal*tab*final
+	rue*arenas*edge
+	egg*wiretap*rim
+	serf*befell*ink
+	tread*sus*image
+	**global*lao***
+	fiasco**kannada
+	ante*scientific
+	itel*cured*cant
+	rosy*heals*area
+
+
+
+Initial
+	propagators: 385
+	branchers:   1
+
+Summary
+	runtime:      2.246 (2246.000 ms)
+	solutions:    1
+	propagations: 199149
+	nodes:        1572
+	failures:     716
+	restarts:     2
+	no-goods:     36
+	peak depth:   88
+

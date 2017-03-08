@@ -1,0 +1,33 @@
+Crossword
+	ergo*multi*ivan
+	girt*anion*nasa
+	agitations*slim
+	napoleonic*tide
+	****bone*raided
+	ababa**sling***
+	rule*baseboards
+	coastal*ventura
+	hysteresis*obey
+	***sleet**crews
+	itself*argo****
+	coil*antarctica
+	opel*cautiously
+	nine*erred*blue
+	scar*dyers*sees
+
+
+
+Initial
+	propagators: 387
+	branchers:   1
+
+Summary
+	runtime:      3.165 (3165.000 ms)
+	solutions:    1
+	propagations: 181941
+	nodes:        1046
+	failures:     489
+	restarts:     1
+	no-goods:     16
+	peak depth:   64
+

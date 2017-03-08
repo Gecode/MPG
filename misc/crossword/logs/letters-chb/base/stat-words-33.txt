@@ -1,0 +1,39 @@
+Crossword
+	amalgam*swain*protean
+	catawba*haiti*romance
+	rutgers*aaron*openers
+	ore*nakedly*eaten*met
+	bind*mares*stirs*dial
+	andes*bid*bayda*liege
+	testable*man*accessed
+	***agee*busts*took***
+	babied*protons*unsafe
+	evils*alone*amble*tar
+	laos*icing*dread*dada
+	lit*aztec*belly*fires
+	alaska*sherbet*bruise
+	***arab*iliad*pear***
+	provoked*dar*keenness
+	linen*faber*ban*cavil
+	aver*hirer*eater*lila
+	nut*getty*dazzled*den
+	elitist*omega*opulent
+	remorse*nabla*penance
+	steeled*deter*elected
+
+
+
+Initial
+	propagators: 763
+	branchers:   1
+
+Summary
+	runtime:      5:37.460 (337460.000 ms)
+	solutions:    1
+	propagations: 100084051
+	nodes:        868900
+	failures:     434395
+	restarts:     0
+	no-goods:     0
+	peak depth:   144
+

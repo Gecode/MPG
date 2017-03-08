@@ -1,0 +1,37 @@
+Crossword
+	scar**let*drag*wait
+	hale*sear*auto*elba
+	opec*tito*ream*ainu
+	decibel*pal*reel***
+	***parameterization
+	sphere*ozone**rhoda
+	era*dodd*mead**step
+	reub*soul**lisa*ass
+	reno**plato*errs***
+	anthropomorphically
+	***raul*bella**lila
+	had*greg**yard*knot
+	egos**rico*idea*eye
+	aegis**robed*spends
+	presumptuousness***
+	***tear*per*erected
+	thai*gail*olav*aida
+	earn*idle*pare*peel
+	agee*cold*ads**erne
+
+
+
+Initial
+	propagators: 589
+	branchers:   1
+
+Summary
+	runtime:      0.687 (687.000 ms)
+	solutions:    1
+	propagations: 51161
+	nodes:        375
+	failures:     147
+	restarts:     0
+	no-goods:     0
+	peak depth:   100
+

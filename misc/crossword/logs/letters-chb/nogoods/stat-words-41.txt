@@ -1,0 +1,41 @@
+Crossword
+	drape*mips*podia*aleck*
+	refer*erie*raids*marino
+	antarctica*assassinated
+	wee**aesthetic*aida*red
+	serpens**oats*pipe*bull
+	***are*purr**pal**gassy
+	ohare*wars*alar*arab***
+	lass*merge*tara*polecat
+	gate*cite*rho*lapse*rio
+	age*ages*oils*lila*bump
+	**rarer*else*semi*loses
+	choices*victual*country
+	heirs*thin*inns*amiga**
+	eddy*arid*acid*otis*cab
+	ada*abase*lit*spit*bela
+	palaces*nags*slavs*east
+	***beds*cram*nile*janos
+	acres**dec**lads*gas***
+	coal*bled*jeep**fertile
+	ham*veal*boatswain**lad
+	exacerbating*harnessing
+	sedate*natal*oven*apace
+	*samoa*obese*teas*waded
+
+
+
+Initial
+	propagators: 881
+	branchers:   1
+
+Summary
+	runtime:      11.267 (11267.000 ms)
+	solutions:    1
+	propagations: 745893
+	nodes:        4654
+	failures:     2089
+	restarts:     4
+	no-goods:     89
+	peak depth:   151
+

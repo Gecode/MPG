@@ -7,7 +7,7 @@ export SAMPLES=5
 export NGL=256
 export TIMEOUT=600000
 
-for b in letters-afc; do
+for b in letters-chb; do
     for d in uk words; do
 	for ((i=10; i<50; i++)); do
 	    ./x64/crossword.exe \

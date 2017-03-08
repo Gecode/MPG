@@ -1,0 +1,37 @@
+Crossword
+	hins**roc*rear*haha
+	odea*ceca*offa*ahem
+	leah*anal*sten*rami
+	palabra*cha*adam***
+	***railwaycarriages
+	dagaba*arden**alaap
+	aba*umph*esne**agra
+	kava*alan**anan*ads
+	atoc**abear*alae***
+	retinitispigmentosa
+	***dada*segue**naam
+	pst*banc**gala*arba
+	ahab**eale*ispy*eli
+	picea**balsa*hadden
+	spongyparenchyma***
+	***cara*vau*alsikes
+	amah*ilia*dell*kazi
+	bade*vant*gray*okra
+	ecad*dyke*eel**naan
+
+
+
+Initial
+	propagators: 589
+	branchers:   1
+
+Summary
+	runtime:      0.660 (660.000 ms)
+	solutions:    1
+	propagations: 11323
+	nodes:        155
+	failures:     2
+	restarts:     0
+	no-goods:     0
+	peak depth:   151
+

@@ -1,0 +1,33 @@
+Crossword
+	arsenal*bahrein
+	baklava*ariadne
+	oceanic*replica
+	sews*akron*star
+	***tit*enact***
+	mutinies*shorts
+	anecdotes*inert
+	ida*unclean*mae
+	music*helvetica
+	seemed*closeted
+	***adept*gem***
+	stag*costa*peru
+	auditor*adherer
+	grenade*frisian
+	annexed*totters
+
+
+
+Initial
+	propagators: 398
+	branchers:   1
+
+Summary
+	runtime:      1:55.701 (115701.000 ms)
+	solutions:    1
+	propagations: 4771055
+	nodes:        23345
+	failures:     11587
+	restarts:     7
+	no-goods:     105
+	peak depth:   66
+

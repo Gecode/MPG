@@ -1,0 +1,41 @@
+Crossword
+	caramba*atlarge*zeribas
+	aramaic*wayworn*avidest
+	mariana*armored*magenta
+	one*medaka*liaising*get
+	rego*sewens*ettins*bari
+	riata*mentor*bead*melic
+	adsorbed*alike*laciniae
+	***lahs*uralian*rahs***
+	theine*knackered*proust
+	wasteland*eer*oiltanker
+	aisha*beefs*sanddab*rai
+	tres*deere***pleon*cate
+	ten*iracund*stirp*chios
+	lecanoras*eat*goagainst
+	elects*peepsight*effete
+	***hake*droplet*waif***
+	rubaiyat*stela*fellover
+	ariel*sist*nereid*anile
+	nala*sinews*drives*shed
+	del*langahas*akelas*ava
+	amenage*ridotto*nacarat
+	litotes*clarain*emanate
+	lashers*heteros*debased
+
+
+
+Initial
+	propagators: 928
+	branchers:   1
+
+Summary
+	runtime:      17.038 (17038.000 ms)
+	solutions:    1
+	propagations: 513305
+	nodes:        4167
+	failures:     2017
+	restarts:     0
+	no-goods:     0
+	peak depth:   165
+

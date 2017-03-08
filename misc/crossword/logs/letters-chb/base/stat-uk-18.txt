@@ -1,0 +1,33 @@
+Crossword
+	pads*raita*cade
+	ebro*ebbed*abac
+	bead*abode*vara
+	almaata*debased
+	***aba*hemal***
+	caese*bad*ulema
+	leah*raf*adamic
+	ads*saanens*ami
+	reeded*ida*died
+	asdic*huh*gelds
+	***occam*dab***
+	dipnoan*domatia
+	idea*anear*urns
+	sele*banda*ceca
+	keta*ahead*hear
+
+
+
+Initial
+	propagators: 380
+	branchers:   1
+
+Summary
+	runtime:      0.663 (663.000 ms)
+	solutions:    1
+	propagations: 7471
+	nodes:        114
+	failures:     3
+	restarts:     0
+	no-goods:     0
+	peak depth:   110
+

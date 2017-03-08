@@ -1,0 +1,41 @@
+Crossword
+	elsie*agway*eddie*modes
+	loath*deere*meats*ideal
+	informatica*acres*delta
+	dee*lags*trace*land*hen
+	erskine*tunisia*yelping
+	***ace*bored*via*tea***
+	death*fraud*kidde*spasm
+	axle*raids*renamed*arco
+	let*colds*bang*iran*you
+	erasable*sect*criminals
+	stripes*dale*brae*cindy
+	***rid*bilateral*pox***
+	aleut*face*ream*masonic
+	disparate*daly*marinade
+	ant*loci*arcs*bursa*sol
+	idea*bespeak*pence*bali
+	rasps*storm*prado*balsa
+	***ewe*ago*erect*hal***
+	waldorf*oshkosh*hellish
+	ale*leon*piece*coal*spa
+	novel*radar*encompassed
+	there*utica*ecole*deuce
+	saran*modem*deter*seeks
+
+
+
+Initial
+	propagators: 898
+	branchers:   1
+
+Summary
+	runtime:      7.215 (7215.000 ms)
+	solutions:    1
+	propagations: 1971563
+	nodes:        25271
+	failures:     12572
+	restarts:     0
+	no-goods:     0
+	peak depth:   163
+

@@ -1,0 +1,39 @@
+Crossword
+	skeg*papal*tbone*adam
+	alar*llama*aecia*done
+	bala*amnia*naams*data
+	anemones*ghats*theban
+	***amah*beach*blae***
+	nipter*sarah*roadmaps
+	aaron**chef*caine*lep
+	imam*farad*child*mica
+	aba*begad*feats*bobac
+	simarouba*acta*aldine
+	***cafe**ada**gree***
+	belief*dace*academism
+	alods*hajes*ghees*ska
+	bigs*iyyar*paean*cloy
+	uzi*addax*baps**kheda
+	lacebark*bolas*maidan
+	***lala*saame*pain***
+	maraca*pozzy*aardwolf
+	heat*della*rasta*alae
+	oose*haifa*agate*gent
+	sned*anear*saris*saga
+
+
+
+Initial
+	propagators: 737
+	branchers:   1
+
+Summary
+	runtime:      2.045 (2045.000 ms)
+	solutions:    1
+	propagations: 21062
+	nodes:        190
+	failures:     1
+	restarts:     0
+	no-goods:     0
+	peak depth:   188
+

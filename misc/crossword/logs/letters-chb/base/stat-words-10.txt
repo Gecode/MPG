@@ -1,0 +1,33 @@
+Crossword
+	frau*basal*omen
+	earn*ababa*riga
+	superseded*gnat
+	slashed**elaine
+	***cod*banana**
+	synod*lid*bitch
+	lao*eleven*cure
+	ott*somalia*rae
+	peak*tulips*end
+	estes*eva*tasks
+	**inhale*shu***
+	abodes**lambdas
+	lana*savonarola
+	anal*adage*envy
+	nell*manor*yeas
+
+
+
+Initial
+	propagators: 385
+	branchers:   1
+
+Summary
+	runtime:      7.360 (7360.000 ms)
+	solutions:    1
+	propagations: 1072027
+	nodes:        10018
+	failures:     4979
+	restarts:     0
+	no-goods:     0
+	peak depth:   97
+

@@ -1,0 +1,33 @@
+Crossword
+	smash*twas*back
+	tallahoosa*aloe
+	indeterminately
+	lied*breadboxes
+	tan*grin*ben***
+	***feed*bad*add
+	outlaw*gag*brae
+	trier*hag*caine
+	idea*pad*haddad
+	sus*pal*babe***
+	***del*arms*oft
+	asteroidal*pale
+	circumnavigated
+	trek*admonished
+	sees*ross*lossy
+
+
+
+Initial
+	propagators: 390
+	branchers:   1
+
+Summary
+	runtime:      3.498 (3498.000 ms)
+	solutions:    1
+	propagations: 234615
+	nodes:        1051
+	failures:     493
+	restarts:     1
+	no-goods:     6
+	peak depth:   81
+

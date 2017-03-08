@@ -1,0 +1,33 @@
+Crossword
+	flo*sets*dimmer
+	lancelot*oneida
+	interferometric
+	paoli*saver*ate
+	***lab*tests***
+	rib*login*items
+	anus*oaf*carrot
+	perpendicularly
+	ermine*cap*well
+	stall*tamil*dye
+	***tibet*dec***
+	pup*serif*noise
+	epistemological
+	copper*neatness
+	kneads*seth*she
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      41.960 (41960.000 ms)
+	solutions:    1
+	propagations: 4181250
+	nodes:        23875
+	failures:     11859
+	restarts:     7
+	no-goods:     123
+	peak depth:   55
+

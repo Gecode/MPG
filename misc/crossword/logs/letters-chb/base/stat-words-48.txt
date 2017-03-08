@@ -1,0 +1,41 @@
+Crossword
+	apace*bathe*boats*toper
+	repartition*allah*inane
+	anthropologically*rerun
+	bali*monet*civil*sesame
+	slyly*lad*mel*solid*mew
+	***local*table*war*her*
+	eli*dar*recoils*yucatan
+	cancer*telex*vic*pareto
+	oscar*based*bella*peril
+	leon*digit*western*siva
+	ermines*nepal*sarah*zen
+	**psalms*xenia*retina**
+	ada*ghana*needs*somatic
+	nets*ireland*masts*bile
+	iliad*kelly*silas*blood
+	sibley*doe*rural*jeanne
+	eviller*tutored*cat*sad
+	*ely*mae*tells*barer***
+	sri*heeds*nay*per*level
+	patton*wuhan*tosca*gino
+	anion*misunderstandings
+	scene*enact*resistances
+	messy*tanks*akers*daily
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      2:05.141 (125141.000 ms)
+	solutions:    1
+	propagations: 11584265
+	nodes:        80516
+	failures:     40215
+	restarts:     0
+	no-goods:     0
+	peak depth:   128
+

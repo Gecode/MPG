@@ -1,0 +1,39 @@
+Crossword
+	poss*pulse*accra*scab
+	roan*spaer*baaed*taco
+	uzbekistan*unbishoped
+	heben*yap*snabs*entry
+	**adar*kannada*kadi**
+	pst*rufiyaa*alaap*vac
+	otic*baa*ska*abb*mary
+	mozarab*caeca*aaronic
+	maenad*dal*the*buccal
+	yid*cubebs*asia*phene
+	***kebab*****diota***
+	serac*bras*apercu*lag
+	elanus*all*bar*arcade
+	ninepin*faded*areaway
+	nach*cad*gal*ali*raga
+	ash*letup*nirvana*ben
+	**etal*circaea*albi**
+	osric*three*tib*madam
+	dailybread*palatalise
+	igad*aisne*ameba*snag
+	casa*mesas*radar*agra
+
+
+
+Initial
+	propagators: 743
+	branchers:   1
+
+Summary
+	runtime:      2.623 (2623.000 ms)
+	solutions:    1
+	propagations: 23198
+	nodes:        197
+	failures:     20
+	restarts:     0
+	no-goods:     0
+	peak depth:   172
+

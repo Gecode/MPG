@@ -1,0 +1,39 @@
+Crossword
+	caramba*paoli*assyria
+	aramaic*ebbed*romaika
+	mariana*naive*tripper
+	one*medacca*ameer*ibo
+	rego*sepia*ceorl*bean
+	riata*mel*aodai*sunni
+	adsorbed*maa*bacchiac
+	***ceas*parrs*leal***
+	aroynt*soroban*cistic
+	vaasa*allan*cabal*aba
+	girt*prays*sepal*prim
+	ale*mucin*salpa*durzi
+	sedged*nigella*aeneas
+	***otis*aorta*gina***
+	alogical*ago*basilisk
+	lidos*neafe*ail*muntu
+	mool*igads*woolf*adar
+	ann*morro*pergola*ess
+	acarina*naafi*pyrexia
+	tutania*adits*emblema
+	abaxial*islet*rostral
+
+
+
+Initial
+	propagators: 763
+	branchers:   1
+
+Summary
+	runtime:      5.957 (5957.000 ms)
+	solutions:    1
+	propagations: 123724
+	nodes:        899
+	failures:     391
+	restarts:     0
+	no-goods:     0
+	peak depth:   140
+

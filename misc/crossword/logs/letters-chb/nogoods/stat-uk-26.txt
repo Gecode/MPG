@@ -1,0 +1,37 @@
+Crossword
+	serac*adam*bala*ebb
+	akaba*baba*arab*lea
+	memoriatechnica*bar
+	ida*paca*dada**iamb
+	****aga*buna*les***
+	catalo*wafd*caracal
+	arabs*haaf*barranca
+	bend*bad**lab**cute
+	sahibah*maam*cantar
+	***caba*abc*face***
+	mugabe*orbs*leeward
+	etat**aha**dan*tead
+	napiform*scab*pooja
+	theoric*ahab*hannay
+	***nas*ecad*kai****
+	laps**exes*taen*lis
+	aby*bloodthirstiest
+	maa*eard*race*ettle
+	act*dole*aden*dated
+
+
+
+Initial
+	propagators: 591
+	branchers:   1
+
+Summary
+	runtime:      0.993 (993.000 ms)
+	solutions:    1
+	propagations: 15613
+	nodes:        165
+	failures:     2
+	restarts:     0
+	no-goods:     0
+	peak depth:   162
+

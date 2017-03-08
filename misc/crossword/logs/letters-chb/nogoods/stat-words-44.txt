@@ -1,0 +1,41 @@
+Crossword
+	atlas*scarf*obese*added
+	neigh*polar*saran*maude
+	informatica*crane*adage
+	toe*ions*cigar*emil*nap
+	arrives*polaris*algiers
+	***den*trots*caw*lab***
+	camel*briny*cairo*miles
+	atom*alias*saddest*dirt
+	mad*gleam*base*shea*two
+	prenatal*seth*steamship
+	similar*thai*lila*omens
+	***ear*bookstore*see***
+	peach*cede*file*debauch
+	impeached*aida*repartee
+	nip*dart*agee*belie*ida
+	clio*mildred*costa*scar
+	heads*seers*korea*apart
+	***ian*sea*remit*ada***
+	brannon*disarms*blanche
+	lap*drop*genoa*heap*yea
+	assam*diana*understands
+	spica*angel*adore*elide
+	essen*leeds*cocoa*decal
+
+
+
+Initial
+	propagators: 898
+	branchers:   1
+
+Summary
+	runtime:      18.182 (18182.000 ms)
+	solutions:    1
+	propagations: 599918
+	nodes:        4190
+	failures:     1919
+	restarts:     3
+	no-goods:     72
+	peak depth:   181
+

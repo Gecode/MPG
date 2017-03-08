@@ -1,0 +1,37 @@
+Crossword
+	ark**alfa*cabs*beds
+	reap*bali*alar*real
+	anthropomorphically
+	bazaars*lads**ansi*
+	***sit*gets*bind***
+	eased*bash*bedstead
+	grad*alms*brae**ada
+	gel*flee*alarm*used
+	*azalea*agog**irene
+	***microprograms***
+	bicep**aped*impact*
+	loon*rosie*does*hap
+	ate**idea*mets*rica
+	badlands*bias*yentl
+	***adds*ward*gas***
+	*saga**cuba*vaguest
+	incomprehensibility
+	tito*aida*dual*trap
+	span*moen*able**ere
+
+
+
+Initial
+	propagators: 590
+	branchers:   1
+
+Summary
+	runtime:      0.298 (298.000 ms)
+	solutions:    1
+	propagations: 15100
+	nodes:        121
+	failures:     14
+	restarts:     0
+	no-goods:     0
+	peak depth:   101
+

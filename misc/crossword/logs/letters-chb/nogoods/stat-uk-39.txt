@@ -1,0 +1,39 @@
+Crossword
+	ramadan*ludos*anglist
+	axinite*aroma*bonists
+	becalms*miner*isadore
+	aha*latticegirder*bot
+	nete*neogaea*eer*baps
+	naeve*dress*bad*eathe
+	addend*ore*das*bathes
+	***ngonis*sensuist***
+	miscreed*baldest*lush
+	unchary*ventose*tenno
+	scarfs*saggars*lesbos
+	calif*peloria*teacake
+	anas*aaronic*keelages
+	***tasmania*wincer***
+	angina*pia*ahs*harass
+	loran*cha*climb*fetta
+	evan*kai*shuteye*darn
+	hen*harmonometers*led
+	oldsalt*baric*lineate
+	olearia*irena*acolyte
+	farness*alaap*wadmaal
+
+
+
+Initial
+	propagators: 774
+	branchers:   1
+
+Summary
+	runtime:      8:39.780 (519781.000 ms)
+	solutions:    1
+	propagations: 12612706
+	nodes:        89760
+	failures:     44400
+	restarts:     11
+	no-goods:     338
+	peak depth:   173
+

@@ -1,0 +1,33 @@
+Crossword
+	waka*babar*geek
+	aran*akaba*rale
+	acta*jelab*aced
+	chaldaea*alphas
+	***cads*atap***
+	ladida*phthalic
+	agama*flees*ani
+	gate*aread*sift
+	ape*oread*barra
+	nelumbos*jandal
+	***barn*vacs***
+	pacino*bothered
+	alae*abaca*raga
+	cart*talak*iced
+	andy*hamba*fard
+
+
+
+Initial
+	propagators: 384
+	branchers:   1
+
+Summary
+	runtime:      0.832 (832.000 ms)
+	solutions:    1
+	propagations: 8917
+	nodes:        128
+	failures:     8
+	restarts:     0
+	no-goods:     0
+	peak depth:   117
+

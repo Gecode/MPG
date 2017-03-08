@@ -1,0 +1,33 @@
+Crossword
+	alas*bang*tease
+	dale*area*harpy
+	aver*dame*argue
+	macro*below*orr
+	***ada*sip*ants
+	elf*enriched***
+	wood*gas*indeed
+	escapee*audible
+	seidel*vic*self
+	***daedalus*nay
+	stay*nag*sad***
+	pad*comic*golda
+	amiga*anus*loaf
+	speak*gash*anna
+	maude*espy*near
+
+
+
+Initial
+	propagators: 379
+	branchers:   1
+
+Summary
+	runtime:      0.220 (220.000 ms)
+	solutions:    1
+	propagations: 8713
+	nodes:        99
+	failures:     14
+	restarts:     0
+	no-goods:     0
+	peak depth:   82
+

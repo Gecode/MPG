@@ -1,0 +1,37 @@
+Crossword
+	aces*adaw*blub*acta
+	dado*rabi*ragi*gael
+	adar*sned*ails*atap
+	memoriatechnica*els
+	***bane*gae**abac**
+	embace*bab*encashed
+	ghana*dab*amah*aula
+	mor**maa*labia**meg
+	asocial*hosea*ideas
+	**mace*rabid*naan**
+	arede*galea*candida
+	hat**coked*fab**cam
+	agra*laer*san*acari
+	bailbond*bad*tralee
+	**caen**map*maam***
+	boa*daylightrobbery
+	olla*loan*euoi*idea
+	held*lyra*abos*udal
+	maya*yode*daft*mand
+
+
+
+Initial
+	propagators: 599
+	branchers:   1
+
+Summary
+	runtime:      0.980 (980.000 ms)
+	solutions:    1
+	propagations: 14879
+	nodes:        157
+	failures:     2
+	restarts:     0
+	no-goods:     0
+	peak depth:   154
+

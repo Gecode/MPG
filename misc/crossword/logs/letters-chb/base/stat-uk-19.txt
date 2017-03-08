@@ -1,0 +1,33 @@
+Crossword
+	ahab*songs*pula
+	ease*alamo*apes
+	shishkebab*erns
+	cassations*dada
+	****hack*ifonly
+	forbs**onset***
+	oleo*lavatorial
+	remblai*pedicle
+	bastardbar*bema
+	***aodai**bedad
+	praise*ossa****
+	lill*rantipoled
+	ugli*estipulate
+	moon*rhine*alee
+	blag*sects*fand
+
+
+
+Initial
+	propagators: 387
+	branchers:   1
+
+Summary
+	runtime:      0.777 (777.000 ms)
+	solutions:    1
+	propagations: 7778
+	nodes:        77
+	failures:     8
+	restarts:     0
+	no-goods:     0
+	peak depth:   65
+

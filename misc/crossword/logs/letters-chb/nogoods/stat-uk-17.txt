@@ -1,0 +1,33 @@
+Crossword
+	sash*bant*batta
+	pica*amah*oneer
+	edam*deva*anend
+	kabab*nantz*tie
+	***lac*rah*ahab
+	pew*bacchiac***
+	ayah*bah*abelia
+	carabid*smaragd
+	asmear*kai*blad
+	***tridacna*ads
+	baas*ahs*ebb***
+	abc*snabs*bacca
+	kaaba*raca*jail
+	scrab*mhos*ream
+	taiga*asps*anoa
+
+
+
+Initial
+	propagators: 379
+	branchers:   1
+
+Summary
+	runtime:      0.626 (626.000 ms)
+	solutions:    1
+	propagations: 8124
+	nodes:        129
+	failures:     18
+	restarts:     0
+	no-goods:     0
+	peak depth:   100
+

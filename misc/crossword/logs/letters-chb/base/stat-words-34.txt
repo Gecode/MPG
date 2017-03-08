@@ -1,0 +1,39 @@
+Crossword
+	bitmap*reclaim*armada
+	ithaca*orlando*leaves
+	pareto*blinded*tapers
+	eli*alabama*aesop*sao
+	dice*irene*ellen*stir
+	scene*erg*passe*dealt
+	***arc***hat***bag***
+	pascal*sourest*utopia
+	yvette*averrer*nevins
+	ram*oakley*slug*rings
+	arid*nair***liar*acre
+	mined*yell*losses*han
+	icarus*nauseum*emmett
+	delano*tyrants*leases
+	***icy***ira***san***
+	cable*china*bah*rican
+	alas*bragg*genus*aide
+	nat*haydn*bentham*caw
+	amoral*domingo*forage
+	donate*arabian*evades
+	assess*densely*repast
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      2.167 (2167.000 ms)
+	solutions:    1
+	propagations: 104260
+	nodes:        732
+	failures:     320
+	restarts:     0
+	no-goods:     0
+	peak depth:   115
+

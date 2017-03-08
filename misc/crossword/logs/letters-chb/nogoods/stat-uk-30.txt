@@ -1,0 +1,39 @@
+Crossword
+	areg*addio*dove*esker
+	rata*voids*inia*noyau
+	chamberpot*stormglass
+	hutments*rumal*aretes
+	***algy*hanap*ksar***
+	dredge*picas*gasmasks
+	aecia*dehautenbas*moa
+	raca*saba***guar*sort
+	ate*aquatinta*bacardi
+	fanclubs*nord**nairas
+	**tubae*agmas*adage**
+	varier**baal*clubable
+	aniseed*endamoeba*rin
+	rich*duma***napa*cola
+	eta*ladymacbeth*madam
+	calcanea*miami*volsci
+	***lacs*ayrie*seld***
+	smooge*agger*ecstasis
+	hornedtoad*natatorial
+	ulcer*anta*ldopa*inga
+	leads*peel*yonis*agog
+
+
+
+Initial
+	propagators: 757
+	branchers:   1
+
+Summary
+	runtime:      3.095 (3095.000 ms)
+	solutions:    1
+	propagations: 27257
+	nodes:        190
+	failures:     35
+	restarts:     0
+	no-goods:     0
+	peak depth:   140
+
