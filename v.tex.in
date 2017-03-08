@@ -2890,8 +2890,7 @@ namespace MPG {
     Select select(void) const;
     \begin{litblock}{expand action}
     void expand(Home home, const IntVarArgs& x) {
-      if ((select() == SEL_ACTION_MAX) &&
-          !action().initialized())
+      if ((select() == SEL_ACTION_MAX) && !action())
         action(IntAction(home,x,decay()));
     }
     \end{litblock}
