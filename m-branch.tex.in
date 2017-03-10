@@ -217,12 +217,6 @@ several ranges;\\
 & otherwise, values greater than mean\\
 \?INT_VALUES_MIN()? & all values starting from smallest\\
 \?INT_VALUES_MAX()? & all values starting from largest\\
-\?INT_VAL_NEAR_MIN(n)? & values near to value in array \?n?\\
-&takes smaller value in case of ties\\
-\?INT_VAL_NEAR_MAX(n)? & values near to value in array \?n?\\
-&takes larger value in case of ties\\
-\?INT_VAL_NEAR_INC(n)? & values larger than value in array \?n? first\\
-\?INT_VAL_NEAR_DEC(n)? & values smaller than value in array \?n? first\\
 \end{tabular}
 \end{center}
 \caption{Integer value selection}
@@ -241,10 +235,7 @@ refers to a value selection function of type
 optional argument \?c? refers to a commit function of type
 \gecoderef[typedef]{IntBranchCommit}.
 Value and commit functions are discussed in
-\autoref{sec:m:branch:userval}. The argument \?n? must be an
-array of integers (or a shared array of integers, see
-\autoref{tip:m:integer:sharedelement}) of the same size as the
-variable array used for branching.
+\autoref{sec:m:branch:userval}.
 
 Note that variable-value branchers are just common cases for
 branching based on the idea of selecting variables and values. In
@@ -296,75 +287,6 @@ creates.  }
   the same variable are tried. These branchings exist for
   instructional purposes (well, they do create beautiful trees in
   Gist). }
-
-\paragraph{Selecting values near to a value.}
-
-Assume that by search you have found a solution to your problem
-(say values for an array of integer variables \?x?). What one
-might want to try is to find a solution \emph{nearby} when for
-example restarting search (see also
-\autoref{sec:m:search:restart}). For this purpose, Gecode offers
-the value selection strategies \?INT_VAL_NEAR_MIN()?,
-\?INT_VAL_NEAR_MAX()?, \?INT_VAL_NEAR_INC()?, and
-\?INT_VAL_NEAR_DEC()?. All of them expect an array of integers as
-an argument.
-
-Let us create an array of integers \?c? corresponding to the solution
-for the variables in \?x? as follows:
-\begin{code}
-IntArgs c(x.size());
-for (int i=0; i<x.size(); i++)
-  c[i] = x[i].val();
-\end{code}
-
-Now assume that we restart search and post the following
-branching by:
-\begin{code}
-branch(home, x, INT_VAR_NONE(), INT_VAL_NEAR_MIN(c));
-\end{code}
-Then, during branching for a variable in \?x? at position \?i?
-the value that will be tried first is $\mathtt{c}_{\mathtt{i}}$
-(provided it has not already been pruned by propagation). Then all values
-close to $\mathtt{c}_{\mathtt{i}}$ will be tried.
-
-For example, assume that $\mathtt{c}_{\mathtt{i}}=3$. Then
-for the following example domains of $\mathtt{x}_{\mathtt{i}}$,
-the values that are tried
-first (shown as $\text{domain}\to\text{value}$) are:
-$$
-\begin{array}{c@{\qquad}c@{\qquad}c}
-\{0,1,2,3,4,5,6\}\to 3 &
-\{0,1,2,4,5,6\}\to 2 &
-\{0,1,4,5,6\}\to 4 \\
-\{0,1,5,6\}\to 1 &
-\{0,5,6\}\to 5 &
-\{0,6\}\to 0
-\end{array}
-$$
-That is, when two values are as near as possible, the smaller of
-the two values is
-selected. \?INT_VAL_NEAR_MAX()? selects the larger value instead.
-
-\?INT_VAL_NEAR_INC(c)? first tries to choose values in increasing order
-that are at least as large as
-$\mathtt{c}_{\mathtt{i}}$. Then, it tries values smaller
-than $\mathtt{c}_{\mathtt{i}}$ in decreasing order. For example,
-\?INT_VAL_NEAR_INC(c)? for $\mathtt{c}_{\mathtt{i}}=3$ tries the
-values for the following example domains of $\mathtt{x}_{\mathtt{i}}$:
-$$
-\begin{array}{c@{\qquad}c@{\qquad}c}
-\{0,1,2,3,4,5,6\}\to 3 &
-\{0,1,2,4,5,6\}\to 4 &
-\{0,1,2,5,6\}\to 5 \\
-\{0,1,2,6\}\to 6 &
-\{0,1,2\}\to 2 &
-\{0,1\}\to 1
-\end{array}
-$$
-That is, values are chosen starting from
-$\mathtt{c}_{\mathtt{i}}$ in increasing order if possible and
-in decreasing order if not. \?INT_VAL_NEAR_DEC(c)? selects the
-values in inverse order.
 
 \paragraph{Branching on Boolean variables.}
 
