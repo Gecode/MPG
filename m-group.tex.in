@@ -246,6 +246,9 @@ The trace recorder records the following events:
 \item A \emph{fixpoint-event} is recorded when the space
   containing the trace recorder reaches a fixpoint, triggered by
   the execution of the space's \?status()? function.
+\item A \emph{failure-event} is recorded when the space
+  containing the trace recorder fails, triggered by
+  the execution of the space's \?status()? function.
 \item A \emph{done-event} that is recorded when all of the trace
   recorder's variables have been assigned and hence no further
   recording is needed. Note that this event can occur only once
@@ -357,6 +360,8 @@ The information for each event type is as follows:
   constraint post function.
 \item For a fixpoint-event, the current slack and its change
   since the last fixpoint are shown.
+\item For a failure-event, the current slack and its change
+  since the last fixpoint are shown.
 \item For a done-event, the current slack is shown
   (unsurprisingly, the slack is $0\%$ as all variables have been
   assigned).
@@ -456,7 +461,8 @@ trace(home, x, TE_PRUNE | TE_FIX);
 records prune- and fixpoint-events. All events (the default)
 are recorded by
 \begin{code}
-trace(home, x, TE_INIT | TE_PRUNE | TE_FIX | TE_DONE);
+trace(home, x,
+      TE_INIT | TE_PRUNE | TE_FIX | TE_FAIL | TE_DONE);
 \end{code}
 
 
@@ -528,7 +534,7 @@ and float variables in \autoref{sec:m:group:tracers:set} and
 The example tracer we discuss is implemented by a
 class \?StdCoutIntTracer?, prints trace information to
 \?std::cout?, and is shown in \autoref{fig:m:group:tracer}. The
-\?init()? and \?done()? member functions are not discussed as
+\?init()?, \?fail()?, and \?done()? member functions are not discussed as
 they are similar to the member function \?fix()? which is
 discussed below.
 
@@ -769,6 +775,22 @@ public:
     \end{litblock}
   }
   \end{litblock}
+  virtual void fix(const Space& home, const IntTraceRecorder& t) {
+    \begin{litblock}{anonymous}
+    std::cout << "trace::fail"; ids(t);
+    double sl_i = static_cast<double>(t.slack().initial());
+    double sl_p = static_cast<double>(t.slack().previous());
+    double sl_c = static_cast<double>(t.slack().current());
+    double p_c = 100.0 * (sl_c / sl_i);
+    double p_d = 100.0 * (sl_p / sl_i) - p_c;
+    std::cout << " slack: "
+              << std::showpoint << std::setprecision(4)
+              << p_c << "% - "
+              << std::showpoint << std::setprecision(4)
+              << p_d << '%'
+              << std::endl;
+    \end{litblock}
+  }
   virtual void done(const Space& home, const IntTraceRecorder& t) {
     \begin{litblock}{anonymous}
     std::cout << "trace::done"; ids(t);

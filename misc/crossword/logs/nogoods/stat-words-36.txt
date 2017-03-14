@@ -1,0 +1,39 @@
+Crossword
+	emma*snare*blase*demo
+	rail*aimer*rilke*ivan
+	installing*infiltrate
+	essay*eat*began*agnes
+	**ires*baleful*ekes**
+	abo*speller*afire*vat
+	lena*one*sea*ace*vile
+	leading*stand*echelon
+	abrams*bee*tab*tailed
+	hey*poorer*idea*bless
+	***furry*****addis***
+	nasal*babe*basset*bra
+	artist*nap*ant*barren
+	surreal*dimly*bathing
+	abos*ray*cab*sat*odes
+	san*group*couches*get
+	**gray*carrara*dime**
+	aches*mario*sri*nehru
+	phosphates*auctioneer
+	silt*irate*sleet*lain
+	ends*tenor*harms*odds
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      3.635 (3635.000 ms)
+	solutions:    1
+	propagations: 146503
+	nodes:        901
+	failures:     347
+	restarts:     1
+	no-goods:     37
+	peak depth:   148
+

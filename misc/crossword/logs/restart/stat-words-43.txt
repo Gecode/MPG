@@ -1,0 +1,41 @@
+Crossword
+	wader*aware*carib*babes
+	adele*radix*odell*abort
+	ropes*badge*canoe*crane
+	procotols*coo*anastasia
+	settlers*huron*attested
+	***runs*retinal*sari***
+	alcott*myron*dud*biotic
+	borne*fader*bicep*anode
+	lies*curbs*marines*sail
+	ere*farce*tan*decks*sol
+	repair*ordinal*boycotts
+	***peas*giggled*slur***
+	sciences*shelves*abrams
+	old*dacca*try*flora*nat
+	nail*stables*prank*ante
+	groom*slain*close*drier
+	samoan*ate*crash*pigeon
+	***knob*enchant*base***
+	demanded*slice*calendar
+	orchestra*ink*versatile
+	roger*tonic*peale*siren
+	ideal*enoch*oasis*enact
+	seedy*renee*treat*sacks
+
+
+
+Initial
+	propagators: 905
+	branchers:   1
+
+Summary
+	runtime:      4:02.253 (242253.000 ms)
+	solutions:    1
+	propagations: 12755038
+	nodes:        66755
+	failures:     33042
+	restarts:     10
+	no-goods:     0
+	peak depth:   136
+

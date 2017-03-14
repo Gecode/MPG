@@ -1,0 +1,39 @@
+Crossword
+	abusive*strap*shapiro
+	batavia*phase*towered
+	slogans*lanka*emerald
+	cap*netting*kneed*nan
+	enid*swank*seeps*bite
+	scars*abe*vidal*sizes
+	senators*ben*reckless
+	***fend*dirac*slab***
+	goatee*celsius*atolls
+	acted*rilke*tease*ail
+	mead*corps*blabs*abba
+	ear*botch*alamo*fleet
+	snider*aimless*gaulle
+	***agar*cages*worm***
+	parceled*lad*botanist
+	react*haste*air*dante
+	ursa*gemma*sperm*egos
+	sap*blase*harried*rut
+	stirrer*amino*educate
+	ionians*raven*relater
+	argonne*seers*salters
+
+
+
+Initial
+	propagators: 762
+	branchers:   1
+
+Summary
+	runtime:      36.909 (36909.000 ms)
+	solutions:    1
+	propagations: 1709646
+	nodes:        9974
+	failures:     4933
+	restarts:     0
+	no-goods:     0
+	peak depth:   134
+

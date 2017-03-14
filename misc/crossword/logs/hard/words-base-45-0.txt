@@ -1,0 +1,41 @@
+Crossword
+	camille*potomac*estonia
+	arabian*avarice*narrate
+	signers*regents*alerter
+	hag*denver*scramble*ira
+	idol*saints*eerily*moat
+	enter*retail*semi*dante
+	restored*knees*incensed
+	***toad*decides*gang***
+	absent*panelists*steams
+	repressed*rat*rotterdam
+	carey*crane*starred*due
+	acid*movie***inter*curl
+	don*forests*media*tacit
+	introvert*abe*intervene
+	assure*timbering*raider
+	***barr*calling*pict***
+	analyses*delta*receipts
+	copes*made*sensed*serra
+	cups*simula*diodes*sean
+	ere*fineness*massed*lid
+	diamond*bipolar*tribune
+	essence*animate*avoider
+	shelter*receded*lenders
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      1 days, 4:39:19.695 (103159695.000 ms)
+	solutions:    1
+	propagations: 3600156731
+	nodes:        17283855
+	failures:     8641895
+	restarts:     0
+	no-goods:     0
+	peak depth:   129
+

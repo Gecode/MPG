@@ -1,0 +1,41 @@
+Crossword
+	straw*cede*pepsi*added*
+	trace*axer*atlas*pooled
+	auctioneer*bhagavadgita
+	ice**macmillan*bard*can
+	despoil**neon*bent*pict
+	***eat*cage**del**bathe
+	dwarf*mail*ibid*thai***
+	rill*bandy*nags*handbag
+	ante*rhea*stu*teems*ann
+	bee*bear*reed*eras*olga
+	**rarer*fear*hart*adult
+	kannada*lunched*reposes
+	agate*slob*oars*inert**
+	pats*ohio*rule*aces*rae
+	pie*inter*are*dram*ball
+	andover*imps*nabla*adam
+	***nasa*nate*enos*byers
+	begun**age**liar*dad***
+	alas*bibs*flag**parasol
+	sir*hera*beachhead**two
+	ejaculations*barbarians
+	laguna*edict*otis*urges
+	*hetty*dales*rest*needy
+
+
+
+Initial
+	propagators: 880
+	branchers:   1
+
+Summary
+	runtime:      2.824 (2824.000 ms)
+	solutions:    1
+	propagations: 82243
+	nodes:        439
+	failures:     154
+	restarts:     0
+	no-goods:     0
+	peak depth:   156
+

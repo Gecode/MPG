@@ -1,0 +1,33 @@
+Crossword
+	alga*bead*osaka
+	lard*anti*villa
+	anomalies*adair
+	recited*salerno
+	**eros*den*amen
+	abram*linger***
+	rail*mastermind
+	abe*sincere*mae
+	bystanders*damn
+	***honors*beget
+	chao*own*bali**
+	redrawn*bikinis
+	elder*ejaculate
+	pleat*robe*area
+	torus*seep*hymn
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      21.154 (21154.000 ms)
+	solutions:    1
+	propagations: 713951
+	nodes:        3120
+	failures:     1530
+	restarts:     2
+	no-goods:     34
+	peak depth:   68
+

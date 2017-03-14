@@ -1,0 +1,39 @@
+Crossword
+	gyps*serac*apse*immit
+	eoan*akaba*laer*vaasa
+	lyreguitar*cockpaddle
+	dordogne*dhals*andean
+	***dreg*diazo*ache***
+	gamier*koala*abhorred
+	aband*electriceye*ate
+	yegg*bait***bead*agha
+	eli*farmhouse*metamer
+	recollet*orca**resale
+	**bield*cream*amain**
+	haulup**oint*alacarte
+	aileron*heatdeath*oer
+	mold*iago***edna*blag
+	ale*antagonised*faldo
+	lithites*danes*gusset
+	***alps*addax*oose***
+	sememe*amban*amoeboid
+	clementina*damageable
+	abrin*anil*idaho*leer
+	daint*deal*nahal*lyam
+
+
+
+Initial
+	propagators: 756
+	branchers:   1
+
+Summary
+	runtime:      3.122 (3122.000 ms)
+	solutions:    1
+	propagations: 25247
+	nodes:        162
+	failures:     19
+	restarts:     0
+	no-goods:     0
+	peak depth:   136
+

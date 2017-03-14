@@ -1,0 +1,33 @@
+Crossword
+	galahad*asocial
+	alabama*madonna
+	ravaged*alerted
+	bran*nadia*rows
+	***dad*inane***
+	embodies*macros
+	roundness*stout
+	ate*ugliest*stu
+	sonic*specified
+	erased*adherers
+	***adept*are***
+	laid*sheep*edit
+	ammonia*gilmore
+	impress*greases
+	rosette*soonest
+
+
+
+Initial
+	propagators: 397
+	branchers:   1
+
+Summary
+	runtime:      4:07.386 (247386.000 ms)
+	solutions:    1
+	propagations: 9827782
+	nodes:        50416
+	failures:     25099
+	restarts:     9
+	no-goods:     0
+	peak depth:   75
+

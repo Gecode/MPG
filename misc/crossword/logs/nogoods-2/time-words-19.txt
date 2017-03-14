@@ -1,0 +1,33 @@
+Crossword
+	chat*broad*said
+	high*reuse*abba
+	idealistic*brew
+	periodical*barn
+	****reno*alamos
+	amble**merit***
+	care*predefines
+	niagara*grecian
+	entireties*ansi
+	***spasm**sleep
+	bedlam*pate****
+	area*brigantine
+	salt*longitudes
+	isle*elgin*reap
+	lead*sleet*nary
+
+
+
+Initial
+	propagators: 386
+	branchers:   1
+
+Summary
+	runtime:      46.145 (46145.000 ms)
+	solutions:    1
+	propagations: 2136808
+	nodes:        10574
+	failures:     5229
+	restarts:     4
+	no-goods:     145
+	peak depth:   78
+

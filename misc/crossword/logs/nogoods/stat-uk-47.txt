@@ -1,0 +1,41 @@
+Crossword
+	colossi*stibial*inaword
+	adapter*hosanna*panacea
+	monture*essoins*enteral
+	end*bant*cuba*pacas*ell
+	late*circaea*genas*iago
+	itala*coal*balzac*ontap
+	dagaba*idea*lain*udders
+	***nocake*ngana*ajar***
+	spa*mela*idead*stalagma
+	haggada*champ*beams*yip
+	ayahs*pearls*alapa*anna
+	damian*rial*seal*aeneid
+	ibis*imaum*secesh*bacca
+	eld*kvass*daris*idalian
+	resthome*banda*beau*aba
+	***hess*panda*medici***
+	accede*gena*bead*shalms
+	chota*cornea*prep*email
+	cire*canis*keitloa*bala
+	lar*grieg*aesc*sufi*gis
+	asusual*earlier*lambeth
+	impearl*alcalde*prairie
+	matinee*lessees*samosas
+
+
+
+Initial
+	propagators: 914
+	branchers:   1
+
+Summary
+	runtime:      5.928 (5928.000 ms)
+	solutions:    1
+	propagations: 52682
+	nodes:        383
+	failures:     99
+	restarts:     0
+	no-goods:     0
+	peak depth:   213
+

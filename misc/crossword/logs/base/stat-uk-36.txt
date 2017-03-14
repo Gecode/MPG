@@ -1,0 +1,39 @@
+Crossword
+	asis*oscan*asana*haps
+	tony*italy*eclat*anoa
+	offbalance*camberwell
+	carib*baa*limas*ascot
+	**alan*jipyapa*aced**
+	lac*cetacea*itala*oca
+	acta*man*ami*aba*atap
+	skidoos*arson*backare
+	tender*abc*tab*paigle
+	seg*raggee*apia*sneak
+	***islam*****grieg***
+	tract*gamb*atabal*adz
+	ousted*sal*dae*cannae
+	plaudit*tubae*thwacks
+	hers*sed*bag*kai*beat
+	ida*omaha*digamma*ers
+	**bake*owngoal*omar**
+	vaasa*zoeae*flo*mpret
+	ecchymotic*aficionado
+	dice*anigh*leman*ends
+	adar*basho*brass*ados
+
+
+
+Initial
+	propagators: 742
+	branchers:   1
+
+Summary
+	runtime:      2.075 (2075.000 ms)
+	solutions:    1
+	propagations: 19655
+	nodes:        183
+	failures:     13
+	restarts:     0
+	no-goods:     0
+	peak depth:   162
+

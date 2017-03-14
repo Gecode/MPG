@@ -1,0 +1,37 @@
+Crossword
+	adverb*crags*rushes
+	reeler*habit*athena
+	marina*amour*faulty
+	inn*tulsa*sooth*pie
+	enos*need*ekes*kerr
+	saner*grasped*mares
+	***rapes*epsilon***
+	arbiter*ice*punjabi
+	deafer*ott*mackinac
+	any**versatile**ito
+	meditate*red*reason
+	seaside*six*anglers
+	***america*wreak***
+	atlas*noonday*nylon
+	chic*cant*agar*lore
+	ail*ellis*tonic*ada
+	crimea*amain*slater
+	ideals*nerve*kochab
+	assess*sneer*steely
+
+
+
+Initial
+	propagators: 621
+	branchers:   1
+
+Summary
+	runtime:      45.724 (45724.000 ms)
+	solutions:    1
+	propagations: 2208461
+	nodes:        12967
+	failures:     6325
+	restarts:     6
+	no-goods:     211
+	peak depth:   127
+

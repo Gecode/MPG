@@ -1,0 +1,41 @@
+Crossword
+	chafer*sumac*bare*abash
+	lenore*prima*anal*bantu
+	interchannel*referendum
+	crossly*sinai*sane*arpa
+	kin**ads***instead*neon
+	***dnieper*stahl**zaire
+	vacuum*ires*one*pros***
+	inanna*color*attlee*war
+	line*brasilia*iran*levi
+	loosely**cognizant*used
+	ann*deals**staid*sartre
+	**ice*natal*inner*gap**
+	arcane*urges**grate*ham
+	moan*streetcar**prepare
+	idle*then*sarasota*alms
+	des*beings*recta*navies
+	***bass*toe*seas*steady
+	alden**chime*dreamed***
+	been*harelip***ski**eli
+	aged*ivan*lobes*ithacan
+	superminis*commentators
+	emery*ainu*humor*evolve
+	dense*nags*stage*repeat
+
+
+
+Initial
+	propagators: 891
+	branchers:   1
+
+Summary
+	runtime:      1:25.987 (85987.000 ms)
+	solutions:    1
+	propagations: 2728407
+	nodes:        12783
+	failures:     6275
+	restarts:     6
+	no-goods:     0
+	peak depth:   116
+

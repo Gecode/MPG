@@ -1,0 +1,33 @@
+Crossword
+	chug*hadal*came
+	hera*akaba*odal
+	iran*bedad*baal
+	zoogloea*dhurra
+	***laos*feer***
+	enjamb*garaging
+	manna*fumed*baa
+	chad*siled*debs
+	ean*ahead*shale
+	elancing*haomas
+	***atit*paco***
+	ballat*backland
+	anal*agree*isay
+	lana*kaiak*eire
+	ankh*ebons*sacs
+
+
+
+Initial
+	propagators: 383
+	branchers:   1
+
+Summary
+	runtime:      0.714 (714.000 ms)
+	solutions:    1
+	propagations: 7578
+	nodes:        104
+	failures:     3
+	restarts:     0
+	no-goods:     0
+	peak depth:   99
+

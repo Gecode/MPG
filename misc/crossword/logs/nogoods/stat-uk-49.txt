@@ -1,0 +1,41 @@
+Crossword
+	eassel*ambage*cit*bacca
+	scerne*caudal*enrollers
+	chainprinters*ptomaines
+	oar*usefully*sheass*ope
+	recti*doree*sward*habit
+	tahr*porer*mealies*sit*
+	**weel*mridamgam*cottar
+	kraaled*seareed*secreta
+	aardvark*slaes*apprised
+	rereading*lud*closed***
+	starn*beefed*sharia*pay
+	tins*abears*noints*pipa
+	sat*fulcra*bourns*orgic
+	***boreas*her*tacamahac
+	timewarp*sorra*habanera
+	amulets*photons*ragdays
+	rallye*geophytic*chid**
+	*gae*spatula*adams*aesc
+	betsy*alula*brere*aldea
+	eat*farand*beckiron*nan
+	abodement*partitionment
+	clearings*arnica*fiasco
+	hesse*tae*snecks*senses
+
+
+
+Initial
+	propagators: 932
+	branchers:   1
+
+Summary
+	runtime:      49.920 (49920.000 ms)
+	solutions:    1
+	propagations: 386485
+	nodes:        2061
+	failures:     913
+	restarts:     2
+	no-goods:     74
+	peak depth:   145
+

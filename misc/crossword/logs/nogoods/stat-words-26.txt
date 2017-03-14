@@ -1,0 +1,37 @@
+Crossword
+	ababa*abel*awed*hal
+	local*polo*male*ely
+	anthropomorphic*ron
+	sea*edit*keel**ibex
+	****ada*coax*pun***
+	pleads*baud*garages
+	larry*cant*familial
+	omit*dad**lab**inca
+	decimal*shin*fleshy
+	***cell*cam*alan***
+	deluge*mama*picasso
+	axel**cab**set*belt
+	denature*asks*plait
+	ecstasy*espy*ghetto
+	***ere*data*tea****
+	bead**rosa*sane*ida
+	arc*boustrophedonic
+	bin*idle*trio*rater
+	eke*deed*erne*arose
+
+
+
+Initial
+	propagators: 590
+	branchers:   1
+
+Summary
+	runtime:      0.702 (702.000 ms)
+	solutions:    1
+	propagations: 34704
+	nodes:        242
+	failures:     72
+	restarts:     0
+	no-goods:     0
+	peak depth:   129
+

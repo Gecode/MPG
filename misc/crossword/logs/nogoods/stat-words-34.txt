@@ -1,0 +1,39 @@
+Crossword
+	straws*chateau*smears
+	taipei*regards*hannah
+	andean*alameda*indira
+	gad*naivete*ebony*men
+	ekes*irene*inlay*vast
+	saner*ada*adder*salty
+	***rae***oil***dig***
+	dobbin*readier*enrage
+	across*antenna*leaven
+	see*eunuch*gait*snort
+	haag*each***bled*time
+	ended*goad*bleary*dar
+	ritter*unifier*eocene
+	sahara*strands*adored
+	***wet***erg***dec***
+	bleak*farce*sap*roams
+	roxy*sleet*juras*area
+	ant*maori*bumbled*cab
+	verbal*anselmo*damage
+	elaine*terrier*grader
+	system*editors*enders
+
+
+
+Initial
+	propagators: 741
+	branchers:   1
+
+Summary
+	runtime:      20.342 (20342.000 ms)
+	solutions:    1
+	propagations: 881280
+	nodes:        6257
+	failures:     2950
+	restarts:     4
+	no-goods:     215
+	peak depth:   155
+

@@ -1,0 +1,41 @@
+Crossword
+	scams*begar*isaac*aroma
+	telia*adage*china*demob
+	educt*negev*henze*afara
+	dalailama*eli*tacamahac
+	dracaena*anana*calisaya
+	***etna*mzungus*lich***
+	echoed*baaed*dak*taipan
+	claud*blind*bihar*loofa
+	lats*cauls*amoebae*naoi
+	arc*coarb*abo*layup*col
+	tahina*baclava*borschts
+	***dich*gaining*naia***
+	ramadhan*madeira*sobbed
+	abe*aedes*sos*abrin*aba
+	forb*denizen*atsea*albi
+	tugra*degas*ogeed*creel
+	steeps*sim*scary*cloddy
+	***apod*lariats*saam***
+	shakerag*nacre*jipyapas
+	hydrangea*lei*divertive
+	ephas*annal*naeve*oiled
+	ohone*bantu*airer*asana
+	lacks*aloes*sands*dewan
+
+
+
+Initial
+	propagators: 905
+	branchers:   1
+
+Summary
+	runtime:      13.353 (13353.000 ms)
+	solutions:    1
+	propagations: 125012
+	nodes:        851
+	failures:     299
+	restarts:     1
+	no-goods:     0
+	peak depth:   183
+

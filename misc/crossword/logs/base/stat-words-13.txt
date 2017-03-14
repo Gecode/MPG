@@ -1,0 +1,33 @@
+Crossword
+	flo*foam*scaled
+	language*alcove
+	interferometric
+	paoli*simon*elk
+	***del*teach***
+	ads*solon*hokan
+	mops*air*bernie
+	pretentiousness
+	linens*ore*salt
+	eater*burne*des
+	***laces*ant***
+	off*ghana*golda
+	parliamentarian
+	trains*stagnant
+	smudge*sine*rae
+
+
+
+Initial
+	propagators: 392
+	branchers:   1
+
+Summary
+	runtime:      1:19.263 (79263.000 ms)
+	solutions:    1
+	propagations: 9031354
+	nodes:        53648
+	failures:     26807
+	restarts:     0
+	no-goods:     0
+	peak depth:   50
+

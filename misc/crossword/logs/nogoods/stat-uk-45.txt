@@ -1,0 +1,41 @@
+Crossword
+	cosmism*attacks*minicab
+	acantha*sealion*alabama
+	resales*pleurae*senoras
+	was*lessee*melanous*ish
+	anas*patrol*sakers*hose
+	siris*cassis*byte*haler
+	hailmary*afire*stayless
+	***lare*outleap*hili***
+	aspire*turboprop*redrag
+	stuttgart*ode*wildgeese
+	sagos*busby*ledgers*man
+	urge*tempi***relay*eure
+	ami*boleros*ogres*kudus
+	gaspereau*tau*kathakali
+	ephebe*undebased*erases
+	***sorb*grabbag*mair***
+	strapoil*alaap*bitbybit
+	maars*fisc*siphon*aorta
+	ammo*bottom*niobic*tael
+	rap*buchanan*niacin*bro
+	trisula*figures*ataghan
+	lackall*fairest*maleate
+	yukatas*ancress*slammed
+
+
+
+Initial
+	propagators: 927
+	branchers:   1
+
+Summary
+	runtime:      1:56.689 (116689.000 ms)
+	solutions:    1
+	propagations: 1110802
+	nodes:        6710
+	failures:     3163
+	restarts:     4
+	no-goods:     120
+	peak depth:   172
+

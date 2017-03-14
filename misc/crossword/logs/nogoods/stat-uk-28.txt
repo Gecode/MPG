@@ -1,0 +1,37 @@
+Crossword
+	slap*aged*webb*scab
+	aida*cato*alar*thro
+	anal*clan*sale*saim
+	memoriatechnica*maa
+	***oath*gay**chub**
+	bickie*dab*briarean
+	loyal*dal*gaea*dree
+	awa**fad*denes**cru
+	bandsaw*kayak*plook
+	**oaks*hamal*naan**
+	pacha*aaron*manxcat
+	elo**aryan*bab**ela
+	cobb*pads*rad*herse
+	seaacorn*aid*galton
+	**lahs**egg*ahab***
+	aba*atherosclerosis
+	rama*aeon*doab*waka
+	abib*slae*adar*eras
+	banc*yens*gape*data
+
+
+
+Initial
+	propagators: 598
+	branchers:   1
+
+Summary
+	runtime:      20.546 (20546.000 ms)
+	solutions:    1
+	propagations: 1355809
+	nodes:        292873
+	failures:     145476
+	restarts:     14
+	no-goods:     228
+	peak depth:   185
+

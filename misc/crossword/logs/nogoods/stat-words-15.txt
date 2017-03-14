@@ -1,0 +1,33 @@
+Crossword
+	baiting*saginaw
+	ontario*crevice
+	inexact*relents
+	semi*koran*rest
+	***can*emacs***
+	watanabe*shoves
+	alabamans*enema
+	dam*lentils*rib
+	emery*denotable
+	sorest*reverser
+	***stave*era***
+	else*pedal*blip
+	courier*mafiosi
+	harvard*oceanic
+	offense*keenest
+
+
+
+Initial
+	propagators: 397
+	branchers:   1
+
+Summary
+	runtime:      1:35.426 (95426.000 ms)
+	solutions:    1
+	propagations: 3737121
+	nodes:        19437
+	failures:     9651
+	restarts:     7
+	no-goods:     139
+	peak depth:   92
+

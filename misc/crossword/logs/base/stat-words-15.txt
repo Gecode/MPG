@@ -1,0 +1,33 @@
+Crossword
+	catawba*laplace
+	abigail*aliased
+	menorca*signing
+	plan*kruse*tate
+	***ice*nonce***
+	appeared*shrubs
+	plasterer*ennui
+	pat*edifice*inn
+	liter*cigarette
+	edited*nameless
+	***crete*ere***
+	hugh*cider*char
+	arrived*montana
+	asinine*mooring
+	gadgets*antares
+
+
+
+Initial
+	propagators: 397
+	branchers:   1
+
+Summary
+	runtime:      49.046 (49046.000 ms)
+	solutions:    1
+	propagations: 2408765
+	nodes:        14895
+	failures:     7429
+	restarts:     0
+	no-goods:     0
+	peak depth:   64
+

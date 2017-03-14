@@ -1,0 +1,33 @@
+Crossword
+	ass*bela*ablate
+	consular*ariser
+	transistorizing
+	aegis*simon*ado
+	***peg*fangs***
+	pad*drain*elder
+	ekes*arc*frayne
+	pretentiousness
+	sorest*ads*true
+	inept*bleed*set
+	***sinai*dec***
+	she*month*banal
+	compassionately
+	opiate*emission
+	welled*sole*len
+
+
+
+Initial
+	propagators: 392
+	branchers:   1
+
+Summary
+	runtime:      12.776 (12776.000 ms)
+	solutions:    1
+	propagations: 982419
+	nodes:        5126
+	failures:     2515
+	restarts:     4
+	no-goods:     101
+	peak depth:   69
+

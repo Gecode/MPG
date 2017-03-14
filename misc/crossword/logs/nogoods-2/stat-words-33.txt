@@ -1,0 +1,39 @@
+Crossword
+	albania*blase*habitat
+	raiders*laban*anatole
+	rotates*adele*missile
+	act*sneaked*memos*lit
+	noel*essen*raven*fish
+	goren*sky*baser*canoe
+	ensnares*tub*realigns
+	***ibid*areas*deer***
+	beheld*frantic*gashes
+	arena*dacca*nadir*art
+	salt*foray*bakes*mine
+	asp*dread*betel*doria
+	leslie*dialers*morsel
+	***avon*ababa*demo***
+	tasmania*abe*selector
+	ocean*class*hap*score
+	scar*cease*earls*oats
+	hub*danny*elliott*she
+	isotope*lares*raritan
+	berates*urine*evident
+	arguers*mckay*departs
+
+
+
+Initial
+	propagators: 762
+	branchers:   1
+
+Summary
+	runtime:      1:20.715 (80715.000 ms)
+	solutions:    1
+	propagations: 2650317
+	nodes:        14361
+	failures:     7011
+	restarts:     5
+	no-goods:     144
+	peak depth:   141
+

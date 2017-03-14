@@ -1,0 +1,33 @@
+Crossword
+	frau*basal*anna
+	earn*ababa*dean
+	superseded*dust
+	slashed**earths
+	***cod*mender**
+	synod*mad*osaka
+	lao*emilio*slav
+	ott*sinatra*ira
+	peak*doreen*zen
+	estes*aid*ghent
+	**inanna*eli***
+	stodgy**painted
+	nina*laboratory
+	anal*odell*egan
+	gall*natos*dose
+
+
+
+Initial
+	propagators: 384
+	branchers:   1
+
+Summary
+	runtime:      1.857 (1857.000 ms)
+	solutions:    1
+	propagations: 126965
+	nodes:        922
+	failures:     437
+	restarts:     0
+	no-goods:     0
+	peak depth:   78
+

@@ -1,0 +1,39 @@
+Crossword
+	**ahead*peace*plaid**
+	*amanda*laban*lacked*
+	bromide*arena*ephesus
+	rae*deduced*blase*inn
+	ebbs*dared*blade*arco
+	alamo*lid*weeds*sneer
+	desirous*hoary*amidst
+	***lows*zions*clio***
+	alpine*bares*tallness
+	piano*briar*vitae*roe
+	pang*alarm*retch*mare
+	ire*adage*sarah*mated
+	assaying*blinn*colors
+	***deed*caine*cant***
+	maseru*marcy*farthing
+	evils*derek*san*human
+	rage*tuned*suing*saga
+	gin*ainus*upbraid*got
+	elapsed*saran*baileys
+	*sluice*eddie*indira*
+	**snake*daunt*stony**
+
+
+
+Initial
+	propagators: 738
+	branchers:   1
+
+Summary
+	runtime:      1.545 (1545.000 ms)
+	solutions:    1
+	propagations: 35152
+	nodes:        185
+	failures:     29
+	restarts:     0
+	no-goods:     0
+	peak depth:   148
+

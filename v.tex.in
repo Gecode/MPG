@@ -3381,6 +3381,22 @@ namespace MPG {
          << p_d << '%'
          << std::endl;
     }
+    virtual void fail(const Space& home, const IntTraceRecorder& t) {
+      os << "trace<Int>::fail(id:" << t.id();
+      if (t.group().in())
+        os << ",g:";t.group().id();
+      os << ") slack: ";
+      double sl_i = static_cast<double>(t.slack().initial());
+      double sl_p = static_cast<double>(t.slack().previous());
+      double sl_c = static_cast<double>(t.slack().current());
+      double p_c = 100.0 * (sl_c / sl_i);
+      double p_d = 100.0 * (sl_p / sl_i) - p_c;
+      os << std::showpoint << std::setprecision(4)
+         << p_c << "% - "
+         << std::showpoint << std::setprecision(4)
+         << p_d << '%'
+         << std::endl;
+    }
     virtual void done(const Space& home, const IntTraceRecorder& t) {
       os << "trace<Int>::done(id:" << t.id();
       if (t.group().in())
@@ -3395,7 +3411,7 @@ namespace MPG {
   \begin{litblock}{trace post function}
   inline void
   trace(Home home, const IntVarArgs& x, TraceFilter tf,
-        int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_DONE),
+        int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_FAIL | TE_DONE),
         IntTracer& t = StdIntTracer::def) {
     GECODE_POST;
     ViewArray<Int::IntView> xv(home,x);
@@ -3405,7 +3421,7 @@ namespace MPG {
   \begin{litblock}{trace post function convenience}
   inline void
   trace(Home home, const IntVarArgs& x,
-        int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_DONE),
+        int te = (TE_INIT | TE_PRUNE | TE_FIX | TE_FAIL | TE_DONE),
         IntTracer& t = StdIntTracer::def) {
     trace(home,x,TraceFilter::all,te,t);
   }

@@ -1,0 +1,33 @@
+Crossword
+	aralsea*seahare
+	halakah*athanor
+	enemata*teagown
+	masa*abler*gaes
+	***rib*usnea***
+	mescalin*endman
+	backpedal*zaire
+	ita*esotery*leu
+	repot*ligaments
+	anicut*ooziness
+	***asian*oca***
+	gear*miser*beeb
+	regimen*acolyte
+	ironore*ruderal
+	synapse*starets
+
+
+
+Initial
+	propagators: 397
+	branchers:   1
+
+Summary
+	runtime:      2.281 (2281.000 ms)
+	solutions:    1
+	propagations: 16173
+	nodes:        116
+	failures:     27
+	restarts:     0
+	no-goods:     0
+	peak depth:   78
+

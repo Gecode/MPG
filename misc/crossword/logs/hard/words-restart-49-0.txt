@@ -1,0 +1,16 @@
+Crossword
+
+Initial
+	propagators: 932
+	branchers:   1
+
+Summary
+	runtime:      6 days, 10:51:17.925 (557477925.000 ms)
+	solutions:    0
+	propagations: 2946873637
+	nodes:        54567450
+	failures:     27283557
+	restarts:     26
+	no-goods:     0
+	peak depth:   110
+

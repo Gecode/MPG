@@ -1,0 +1,41 @@
+Crossword
+	hade*plead*spoom*alban*
+	alap*aioli*ardeb*seaoak
+	affirmants*massaranduba
+	ratteens*chiao*band*dop
+	***hale*fleam*data*babu
+	chaeta*dearn*tana*hadst
+	herma*cadi**dele*gal***
+	upas*triumphant*handbag
+	bab*scalp*eale*haed*ole
+	brittany*casebooks*ryal
+	**saar*beach*rima*fasti
+	brandt*rase*bise*dabbed
+	latke*sech*paseo*arar**
+	apia*stahlhelm*pacation
+	tho*ecad*iago*caged*goa
+	senator*ampholytes*kahn
+	***nag*ghis**ache*arden
+	areal*blat*annas*frieda
+	bell*daub*aredd*maam***
+	asa*laic*chief*limbmeal
+	concertinaed*agonisedly
+	arcade*nepal*lemel*rams
+	*bedad*abody*leady*smee
+
+
+
+Initial
+	propagators: 902
+	branchers:   1
+
+Summary
+	runtime:      3.697 (3697.000 ms)
+	solutions:    1
+	propagations: 29158
+	nodes:        228
+	failures:     17
+	restarts:     0
+	no-goods:     0
+	peak depth:   207
+

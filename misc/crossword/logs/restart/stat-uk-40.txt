@@ -1,0 +1,41 @@
+Crossword
+	gerald*freest*haar*hade
+	adonai*europa*anna*alan
+	biochemicaloxygendemand
+	olpe*dan**idea*soulmate
+	ney*arcticterns**leeped
+	****dae*bah*ska*maar***
+	bhopal*red***elpee*haps
+	rarer*faxed*beall*aecia
+	agar*oaf**oneday*claret
+	censers*absalom*iridize
+	entomb*steepto*ace*edom
+	***neither***doghead***
+	mona*tae*matilda*disbar
+	amalgam*bushtea*manhole
+	caecal*judaea**dal*arba
+	envoy*malar*sebat*preed
+	riem*bewig***tad*rakees
+	***peag*mrs*dab*lei****
+	scoups**yacketyyack*bub
+	portions*sara**aia*kama
+	infectiousmononucleosis
+	eger*hele*ennead*lariat
+	lass*ofay*learns*snacks
+
+
+
+Initial
+	propagators: 890
+	branchers:   1
+
+Summary
+	runtime:      3.011 (3011.000 ms)
+	solutions:    1
+	propagations: 27492
+	nodes:        233
+	failures:     38
+	restarts:     0
+	no-goods:     0
+	peak depth:   172
+

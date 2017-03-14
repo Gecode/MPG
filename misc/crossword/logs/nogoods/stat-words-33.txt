@@ -1,0 +1,39 @@
+Crossword
+	catawba*hausa*amiable
+	readies*essen*bargain
+	erratic*ahead*science
+	mob*sneered*races*gem
+	abel*gnats*zeros*mini
+	tiles*dry*bowen*dense
+	eclipses*arm*adjudges
+	***boar*ababa*sane***
+	shanty*bravado*mcadam
+	oasis*force*mcgee*hue
+	lutz*greek*picas*dada
+	one*coors*mixup*habit
+	stream*stroker*vomits
+	***abed*sated*tabs***
+	baptizes*des*canberra
+	ashen*focal*rob*sleep
+	scan*solar*realm*slop
+	ere*aaron*nucleic*ire
+	midwife*adele*alameda
+	abrades*dared*unravel
+	nearest*anode*seeders
+
+
+
+Initial
+	propagators: 762
+	branchers:   1
+
+Summary
+	runtime:      23.618 (23618.000 ms)
+	solutions:    1
+	propagations: 853428
+	nodes:        4931
+	failures:     2315
+	restarts:     4
+	no-goods:     121
+	peak depth:   144
+

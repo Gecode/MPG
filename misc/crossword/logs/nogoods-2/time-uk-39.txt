@@ -1,0 +1,39 @@
+Crossword
+	wadmaal*tirol*zachary
+	amiable*edite*aboulia
+	nosebag*reata*raciest
+	gee*spermatotheca*put
+	abac*anattas*aba*bise
+	nasal*dries*aia*saner
+	seered*ems*bur*recess
+	***beadle*bacchiac***
+	motorway*mantuan*alfs
+	amening*karaite*alaap
+	nappes*catalos*plasma
+	gnarr*citizen*defused
+	silo*laminar*sororise
+	***cramboes*cendre***
+	uplead*ane*dap*ujamaa
+	poise*als*dirac*ataps
+	ross*lao*sraddha*eras
+	ifs*formularising*ado
+	stomach*remit*minicar
+	tamarau*swazi*blatant
+	shekels*asses*serosas
+
+
+
+Initial
+	propagators: 773
+	branchers:   1
+
+Summary
+	runtime:      8.099 (8099.000 ms)
+	solutions:    1
+	propagations: 51653
+	nodes:        365
+	failures:     126
+	restarts:     0
+	no-goods:     0
+	peak depth:   153
+

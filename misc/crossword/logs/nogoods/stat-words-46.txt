@@ -1,0 +1,41 @@
+Crossword
+	paws*abuse*oshea*abase*
+	anal*berea*plied*gerald
+	socialists*tallahatchie
+	onondaga*edict*mops*ace
+	***gate*smack*rage*drip
+	oblige*myers*dens*beats
+	leone*mann**fiat*mae***
+	drug*monotheism*carmela
+	end*farad*errs*rand*lab
+	nestling*diameters*lura
+	**paid*earns*need*necks
+	thebes*alee*stan*lavish
+	heals*abba*alert*used**
+	rake*islamabad*escalate
+	ere*brie*blot*areas*tan
+	etruria*houseflies*fist
+	***gas*beam**lind*dante
+	apple*bert*bragg*larger
+	duly*soda*deign*pant***
+	ate*clap*cramp*purchase
+	indoeuropean*overseeing
+	raging*sadie*lingo*snug
+	*melts*trend*eaten*tubs
+
+
+
+Initial
+	propagators: 902
+	branchers:   1
+
+Summary
+	runtime:      3.135 (3135.000 ms)
+	solutions:    1
+	propagations: 151748
+	nodes:        936
+	failures:     361
+	restarts:     1
+	no-goods:     29
+	peak depth:   159
+

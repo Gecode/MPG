@@ -1,0 +1,41 @@
+Crossword
+	scalar*swans*ayes*baler
+	nadine*katie*coal*adore
+	apalachicola*ektachrome
+	regally*opera*neva*emil
+	ere**ada***clearer*nine
+	***briefer*heaps**based
+	salaam*ties*era*abel***
+	trauma*erect*stable*age
+	rome*barefoot*abba*amen
+	emerald**stairways*rand
+	wan*meals**drops*eagles
+	**toy*maced*ethel*cog**
+	arable*haven**adair*add
+	babe*atonement**creamer
+	orly*gird*oleander*date
+	see*aeneid*lamar*agates
+	***airs*nap*lima*tapers
+	brawl**danes*leftist***
+	rode*elevate***too**air
+	amos*loci*elmer*inspire
+	carolinian*legislatures
+	enema*edna*erode*lament
+	dosed*rest*reset*snares
+
+
+
+Initial
+	propagators: 891
+	branchers:   1
+
+Summary
+	runtime:      37.862 (37862.000 ms)
+	solutions:    1
+	propagations: 1352725
+	nodes:        7869
+	failures:     3882
+	restarts:     0
+	no-goods:     0
+	peak depth:   135
+

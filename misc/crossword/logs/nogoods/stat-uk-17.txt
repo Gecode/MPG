@@ -1,0 +1,33 @@
+Crossword
+	amah*pics*talak
+	baba*haha*alula
+	balk*imam*carob
+	areal*blare*cha
+	***mac*dae*ahab
+	bis*calendar***
+	eric*maa*abelia
+	maghreb*placard
+	anneal*bag*agma
+	***smeardab*sam
+	skis*ela*ean***
+	ian*araba*aaron
+	malar*shim*bala
+	omaha*kana*lien
+	nawab*amen*ados
+
+
+
+Initial
+	propagators: 378
+	branchers:   1
+
+Summary
+	runtime:      0.578 (578.000 ms)
+	solutions:    1
+	propagations: 6972
+	nodes:        108
+	failures:     6
+	restarts:     0
+	no-goods:     0
+	peak depth:   98
+

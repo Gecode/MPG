@@ -1,0 +1,33 @@
+Crossword
+	arab*haag*assam
+	robe*abby*bulba
+	classroom*blear
+	seniors*neatest
+	**deny*lax*apes
+	clogs*hasten***
+	hone*mattresses
+	abe*martial*ado
+	pediatrics*alga
+	***lyrics*never
+	emil*one*tara**
+	winning*bugatti
+	infer*tarrytown
+	norse*odin*erik
+	grass*nags*dens
+
+
+
+Initial
+	propagators: 393
+	branchers:   1
+
+Summary
+	runtime:      3.549 (3549.000 ms)
+	solutions:    1
+	propagations: 141963
+	nodes:        836
+	failures:     394
+	restarts:     1
+	no-goods:     12
+	peak depth:   78
+

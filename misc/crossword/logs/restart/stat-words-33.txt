@@ -1,0 +1,39 @@
+Crossword
+	ushered*jests*adamant
+	thoreau*allah*nigeria
+	resents*clara*neutral
+	eat*detroit*smote*age
+	crib*niobe*stays*egan
+	hells*eli*swami*snort
+	treatise*pea*antennas
+	***tart*medic*guru***
+	cabana*bananas*crimea
+	amend*lenin*lanka*old
+	lift*paris*doles*slid
+	ego*debra*aired*state
+	bogart*acclaim*scored
+	***peru*shine*beam***
+	damaging*eva*retraces
+	emacs*suave*bed*scrap
+	rage*beady*clasp*hose
+	ale*teems*tzeltal*ate
+	ignored*oshea*erected
+	latrobe*react*astaire
+	smarted*baths*disband
+
+
+
+Initial
+	propagators: 762
+	branchers:   1
+
+Summary
+	runtime:      54.819 (54819.000 ms)
+	solutions:    1
+	propagations: 1759549
+	nodes:        9361
+	failures:     4521
+	restarts:     5
+	no-goods:     0
+	peak depth:   126
+

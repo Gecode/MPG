@@ -1,0 +1,37 @@
+Crossword
+	dawn*clad*guid*abac
+	esau*rule*urge*ilia
+	etat*icer*lvov*lode
+	micromicrofarad*wan
+	***iced*ids**leah**
+	errata*ace*clubsoda
+	lhasa*ark*thae*atap
+	bot**nib*baaed**ada
+	asepses*randr*dandy
+	**ahab*biggs*gaid**
+	elbow*galea*malacca
+	pal**babel*bab**oaf
+	ines*lead*ian*helga
+	cavebear*end*sawder
+	**anoa**mas*ache***
+	all*prosencephalons
+	eaus*ibis*adaw*adit
+	slee*eire*paca*memo
+	casa*rail*emes*baba
+
+
+
+Initial
+	propagators: 598
+	branchers:   1
+
+Summary
+	runtime:      4.914 (4914.000 ms)
+	solutions:    1
+	propagations: 79047
+	nodes:        2922
+	failures:     1195
+	restarts:     3
+	no-goods:     0
+	peak depth:   158
+

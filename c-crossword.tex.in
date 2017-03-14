@@ -297,12 +297,12 @@ more memory-efficient implementation of the same model.
 \section{More information}
 \label{sec:c:crossword:info}
 
-\newcommand{\plusrateone}{\raise 0.3ex\hbox{\tiny$\mathtt +$}}
-\newcommand{\plusratetwo}{\raise 0.3ex\hbox{\tiny$\mathtt ++$}}
-\newcommand{\plusratethree}{\raise 0.3ex\hbox{\tiny$\mathtt +++$}}
-\newcommand{\minusrateone}{\raise 0.3ex\hbox{\tiny$\mathtt -$}}
-\newcommand{\minusratetwo}{\raise 0.3ex\hbox{\tiny$\mathtt {-}{-}$}}
-\newcommand{\minusratethree}{\raise 0.3ex\hbox{\tiny$\mathtt {-}{-}{-}$}}
+\newcommand{\plusrateone}{\raise 0.3ex\hbox{\tiny\boldmath$+$}}
+\newcommand{\plusratetwo}{\raise 0.3ex\hbox{\tiny\boldmath$++$}}
+\newcommand{\plusratethree}{\raise 0.3ex\hbox{\tiny\boldmath$+++$}}
+\newcommand{\minusrateone}{\raise 0.3ex\hbox{\tiny\boldmath$-$}}
+\newcommand{\minusratetwo}{\raise 0.3ex\hbox{\tiny\boldmath$--$}}
+\newcommand{\minusratethree}{\raise 0.3ex\hbox{\tiny\boldmath$---$}}
 \newcommand{\minusrateinfty}{\minusratethree}
 \newcommand{\equalrate}{$\approx$}
 \newcommand{\exactrate}{\equalrate}
@@ -391,7 +391,7 @@ nodes are of course better.
 &\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
 \\
 \hline\hline
-\input misc/crossword/results/letters-afc-base-words.tex
+\input misc/crossword/res-base-words.tex
 
 \multicolumn{17}{c}{}\\
 \hline
@@ -408,7 +408,7 @@ nodes are of course better.
 &\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
 \\
 \hline\hline
-\input misc/crossword/results/letters-afc-base-uk.tex
+\input misc/crossword/res-base-uk.tex
 \end{tabular}
 \caption{Comparison of Gecode model with \COMBUS}
 \label{fig:c:crossword:compare}
@@ -475,7 +475,7 @@ requires considerably more time and expertise.
 &\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
 \\
 \hline\hline
-\input misc/crossword/results/letters-afc-nogoods-words.tex
+\input misc/crossword/res-nogoods-words.tex
 
 \multicolumn{17}{c}{}\\
 \hline
@@ -492,11 +492,12 @@ requires considerably more time and expertise.
 &\multicolumn{2}{c|}{time}&\multicolumn{2}{c|}{nodes}
 \\
 \hline\hline
-\input misc/crossword/results/letters-afc-nogoods-uk.tex
+\input misc/crossword/res-nogoods-uk.tex
 \end{tabular}
 \caption{Comparison of Gecode model using restarts with \COMBUS}
 \label{fig:c:crossword:restart}
 \end{figure}
+
 
 \paragraph{Using restarts and no-goods.}
 
@@ -505,7 +506,7 @@ search and no-goods from restarts with Gecode, see
 \autoref{sec:m:search:restart} and
 \autoref{sec:m:search:nogoods}. The instances are run using a
 geometric cutoff sequence with base $1.5$ and a scale-factor
-$250$, a decay-factor of $0.99$ for AFC (see
+$250$, a decay-factor of $0.995$ for AFC (see
 \autoref{sec:m:branch:afc}), and no-goods depth limit of~$256$.
 The results are shown in \autoref{fig:c:crossword:restart}. The
 number raised to the number of nodes shows how many restarts have
@@ -531,25 +532,17 @@ increased to one hour.
 \multicolumn{1}{|c||}{instance} &\multicolumn{1}{c|}{time}&\multicolumn{1}{c|}{nodes}&\multicolumn{1}{c|}{restarts}
 \\
 \hline\hline
-%\input misc/crossword/results/letters-afc-hard.tex
-\inst{words-nogoods}{21}{10}&$8:04:14.879$&$5\,057\,102$&$21$\\
-\hline
-\inst{words-nogoods}{23}{06}&$10:15:46.767$&$4\,253\,481$&$20$\\
-\hline
-\inst{words-nogoods}{23}{10}&$54:37:13.617$&$19\,125\,068$&$24$\\
-\hline
-
+\input misc/crossword/res-hard.tex
 \end{tabular}
 \caption{Results for some hard \texttt{words} dictionary instances}
 \label{fig:c:crossword:hard}
 \end{figure}
 
 
-Even the remaining three \texttt{word} instances can be solved within one day of
-runtime, the results are shown in \autoref{fig:c:crossword:hard}. The runtime is
-in the format hours:minutes:seconds (measured only by a single run). Note that
-the runtimes for these instances have been determined with Gecode 4.4.0 and a
-decay factor of $0.995$.
+Even the remaining three \texttt{word} instances can be solved
+within one day of runtime, the results are shown in
+\autoref{fig:c:crossword:hard}. The runtime is in the format
+hours:minutes:seconds (measured only by a single run).
 
 \begin{figure}
 \centering
@@ -7161,7 +7154,7 @@ public:
     \end{litblock}
     \begin{litblock}{branching}
     branch(*this, letters, INT_VAR_AFC_SIZE_MAX(), INT_VAL_MIN(),
-                           &printletters);
+                           NULL, &printletters);
     \end{litblock}
   }
   \begin{litblock}{print function}
@@ -14184,7 +14177,7 @@ public:
     }
     \begin{litblock}{anonymous}
     branch(*this, letters, INT_VAR_AFC_SIZE_MAX(), INT_VAL_MIN(),
-                           &printletters);
+                           NULL, &printletters);
     \end{litblock}
   }
   \begin{litblock}{anonymous}

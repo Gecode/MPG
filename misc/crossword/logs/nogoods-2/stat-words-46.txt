@@ -1,0 +1,41 @@
+Crossword
+	adam*pedro*autos*dacca*
+	babe*aloud*drawl*isaacs
+	brutalized*kinnickinnic
+	antedate*ising*thea*ada
+	***race*stone*this*call
+	oblige*foils*chen*kenya
+	leone*line**hoar*bad***
+	slug*banishment*polecat
+	old*music*ears*bini*orr
+	nastiest*ransoming*cute
+	**penn*emery*lark*lenin
+	iberia*nags*west*seated
+	teams*peru*forth*case**
+	elks*disclaims*proverbs
+	mae*ties*able*flute*sea
+	syrians*greenblatt*burt
+	***nut*volt**each*sunny
+	hiatt*bely*untie*hacker
+	oslo*band*stahl*silk***
+	ray*cart*bette*watanabe
+	distributive*shouldered
+	easier*rater*dance*lead
+	*hated*agers*alger*lady
+
+
+
+Initial
+	propagators: 902
+	branchers:   1
+
+Summary
+	runtime:      9.001 (9001.000 ms)
+	solutions:    1
+	propagations: 535722
+	nodes:        3238
+	failures:     1491
+	restarts:     2
+	no-goods:     70
+	peak depth:   144
+

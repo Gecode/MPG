@@ -1,0 +1,39 @@
+Crossword
+	ante*straw*jacob*slob
+	lois*paoli*aware*polo
+	marc*aimer*blinn*akin
+	sheaf*laced*snatching
+	***laden*tab*ethan***
+	galahad*tahoe*ear*how
+	abater*diploma*medici
+	money*pats*kern*yentl
+	mugs*zero*scream*idem
+	ate*gene*bhagavadgita
+	***aura*cease*alan***
+	jacksonville*clad*lip
+	idle*scarce*daly*dana
+	fours*etch*pity*cents
+	fresco*slicers*packet
+	yes*abe*enact*serials
+	***sleds*gnu*scald***
+	mammalian*elena*aaron
+	agee*islet*idols*bela
+	lura*solve*agree*liar
+	leer*knead*reese*envy
+
+
+
+Initial
+	propagators: 746
+	branchers:   1
+
+Summary
+	runtime:      2.356 (2356.000 ms)
+	solutions:    1
+	propagations: 74889
+	nodes:        595
+	failures:     247
+	restarts:     0
+	no-goods:     0
+	peak depth:   117
+
