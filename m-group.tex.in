@@ -5,7 +5,7 @@
 Groups are a means to control certain execution aspects of
 propagators and branchers. Tracing can be used for tracing
 constraint propagation on variables as well as the general
-execution of propagators and branchings during execution. Groups
+execution of propagators and branchers during execution. Groups
 are ultimately linked to tracing, as the generated traces can be
 filtered according to group membership.
 
@@ -16,7 +16,7 @@ whereas \autoref{sec:m:group:branch} explains groups of
 branchers. Tracing variables is explained in
 \autoref{sec:m:group:vartrace} and general tracing in
 \autoref{sec:m:groups:trace}.  \autoref{sec:m:group:vartracers}
-shows how variable tracers and \autoref{sec:m:group:tracers} show
+shows how variable tracers and \autoref{sec:m:group:tracers} shows
 how general tracers (the objects that process trace information)
 can be programmed.
 
@@ -214,58 +214,61 @@ bg.kill(home);
 \label{sec:m:group:vartrace}
 
 Gecode offers support to trace constraint propagation on an array
-of variables. Tracing distinguishes between two components: a
-\emph{trace recorder} that records information about relevant
-events during constraint propagation and a \emph{tracer} that
-processes the recorded trace information. A very simple tracer
-instance would just print some textual information about
-recorded trace events. In fact, Gecode offers default tracers for
-each variable type that comes with Gecode that just print to an
-output stream of type \?std::ostream?.
+of variables. Variable tracing distinguishes two components: a
+\emph{variable trace recorder} that records information about
+relevant events during constraint propagation and a
+\emph{variable tracer} that processes the recorded trace
+information. A very simple variable tracer instance would just
+print some textual information about recorded trace events. In
+fact, Gecode offers default tracers for each variable type that
+comes with Gecode that just print to an output stream of type
+\?std::ostream?.
 
-\subsection{Creating a trace recorder}
+\subsection{Creating a variable trace recorder}
 
-A trace recorder can be created by calling the overloaded
-function \?trace()? together with an array of variables. For
-example,
+A variable trace recorder can be created by calling the
+overloaded function \?trace()? together with an array of
+variables. For example,
 \begin{code}
 trace(home, x);
 \end{code}
-creates a trace recorder for an array of variables \?x?. Here,
-\?x? can be an array of integer, Boolean, set, or float
+creates a variable trace recorder for an array of variables \?x?.
+Here, \?x? can be an array of integer, Boolean, set, or float
 variables.
 
-The trace recorder records the following events:
+The variable trace recorder records the following events:
 \begin{itemize}
 \item A single \emph{init-event} providing some information about
-  the variables for which the trace recorder will record
+  the variables for which the variable trace recorder will record
   information.
 \item Each time the domain of a variable changes, a
-  \emph{prune-event} is recorded.  The trace recorder provides
-  information about which variable has been changed how and on
-  behalf of which entity (a propagator, a brancher, or a
-  constraint post function performing pruning outside a
-  propagator or brancher).
+  \emph{prune-event} is recorded.  The variable trace recorder
+  provides information about which variable has been changed, how
+  the variable has been changed, and on behalf of which entity (a
+  propagator, a brancher, or a constraint post function
+  performing pruning outside a propagator or brancher) the
+  variable has been changed.
 \item A \emph{fixpoint-event} is recorded when the space
-  containing the trace recorder reaches a fixpoint, triggered by
-  the execution of the space's \?status()? function.
+  containing the variable trace recorder reaches a fixpoint,
+  triggered by the execution of the space's \?status()? function.
 \item A \emph{failure-event} is recorded when the space
-  containing the trace recorder fails, triggered by
-  the execution of the space's \?status()? function.
-\item A \emph{done-event} that is recorded when all of the trace
-  recorder's variables have been assigned and hence no further
-  recording is needed. Note that this event can occur only once
-  per space, however when using tracing during search the event
-  might occur several times for different spaces.
+  containing the variable trace recorder fails, triggered by the
+  execution of the space's \?status()? function.
+\item A \emph{done-event} that is recorded when all of the
+  variable trace recorder's variables have been assigned and
+  hence no further recording is needed. Note that this event can
+  occur only once per space, however when using tracing during
+  search the event might occur several times for different
+  spaces.
 \end{itemize}
 
 The information that is recorded for each event depends on the
-trace recorder's variable type.
+variable trace recorder's variable type.
  
-\subsection{Default tracers}
+\subsection{Default variable tracers}
 
 The following paragraphs explain the information printed by the
-default tracer for a given variable type.
+default variable tracer for a given variable type.
 
 \paragraph{Integer and Boolean variables.}
 
@@ -284,24 +287,23 @@ trace<Int>::done(id:0) slack: 0%
 trace<Int>::prune(id:0): [1] = [6..7] - {5} by brancher(id:1)
   ...
 \end{cmd}
-\caption{Abridged output for tracing Send More Money}
-\label{fig:m:group:smm}
+\caption{Abridged output for variable tracing Send More Money}
+\label{fig:m:group:varsmm}
 \end{figure}
 
 Running the \gecoderef[example]{money} (see
 \autoref{chap:m:started} and \autoref{chap:m:comfy} for the Send
-More Money problem) with the
-commandline option \?-trace all? (trace events to be recorded
-can be specified on the command line, see
-\autoref{sec:m:driver:options}), the default tracer for integer variables
-prints information about all trace events to \?std::cerr?. An
-excerpt of the information printed is shown in
-\autoref{fig:m:group:smm} where the trace recorder has been
-posted with
+More Money problem) with the commandline option \?-trace all?
+(trace events to be recorded can be specified on the command
+line, see \autoref{sec:m:driver:options}), the default variable
+tracer for integer variables prints information about all trace
+events to \?std::cerr?. An excerpt of the information printed is
+shown in \autoref{fig:m:group:varsmm} where the variable trace recorder has
+been posted with
 \begin{code}
 trace(home, le);
 \end{code}
-where \?le? is the array of eight variables.
+where \?le? is the array of eight variables used in Send More Money.
 
 \tip{Enabling tracing with a commandline option}{
 As mentioned above, the Gecode driver offers
@@ -311,25 +313,26 @@ also support for tracing. If \?opt? is an object of class
 if (opt.trace() != 0)
   trace(home, x, opt.trace());
 \end{code}
-enables tracing if the \?-trace? commandline option is used. The
-option takes \?all? as value for tracing all events as well as a
-comma-separated list of \?init?, \?prune?, \?fix?, and \?done?
-for the respective event types.
-}
+enables variable tracing if the \?-trace? commandline option is
+used. The option takes \?all? as value for tracing all events as
+well as a comma-separated list of \?init?, \?prune?, \?fix?,
+\?fail?, and \?done?  for the respective event types. Also
+general tracing can be controlled by this commandline option, see
+\autoref{sec:m:group:trace}.  }
 
 The output for each event starts with the information
 \begin{cmd}
 trace<Int>::
 \end{code}
 signaling that integer variables are being traced. After that,
-the type of event is shown (\?init?, \?prune?, \?fix? for fixpoint, or
-\?done?). This is followed by information about the identifier of the
-trace recorder (a trace recorder is in fact a propagator and
-hence has a unique identifier, see
-\autoref{sec:m:group:traceonoff}). If the trace recorder
-belongs to a propagator group different from the default
-propagator group, also the identifier of the propagator group is
-printed.
+the type of event is shown (\?init?, \?prune?, \?fix? for
+fixpoint, \?fail? for failure, or \?done?). This is followed by information
+about the identifier of the variable trace recorder (a variable
+trace recorder is in fact a propagator and hence has a unique
+identifier, see \autoref{sec:m:group:traceonoff}). If the
+variable trace recorder belongs to a propagator group different
+from the default propagator group, also the identifier of the
+respective propagator group is printed.
 
 The information for each event type is as follows:
 \begin{itemize}
@@ -340,9 +343,9 @@ The information for each event type is as follows:
   propagation is still to be done.
 \item For a prune-event, it is printed which variable has been
   pruned where the variable is identified by its position in the
-  variable array of the trace recorder (for example, the first
-  prune event in \autoref{fig:m:group:smm} shows \?[0]? as the
-  variable at position~\?0? has been pruned).
+  variable array of the variable trace recorder (for example, the
+  first prune event in \autoref{fig:m:group:varsmm} shows \?[0]? as
+  the variable at position~\?0? has been pruned).
 
   Next, the current domain of the variable is printed (that is,
   \?[1..9]?) and that the value \?0? has been pruned (that is,
@@ -350,40 +353,41 @@ The information for each event type is as follows:
 
   This is followed by information which entity has pruned the variable: a
   constraint post function (as is the case for the first two
-  prune-events in \autoref{fig:m:group:smm}), a propagator (as is
+  prune-events in \autoref{fig:m:group:varsmm}), a propagator (as is
   the case for the third prune-event in
-  \autoref{fig:m:group:smm}), a brancher (as is the case for the
-  last prune-event in \autoref{fig:m:group:smm}), or unknown. In
+  \autoref{fig:m:group:varsmm}), a brancher (as is the case for the
+  last prune-event in \autoref{fig:m:group:varsmm}), or unknown. In
   case the prune-event has been caused by a propagator or
   brancher, their identifiers are shown. In case the propagator
-  or brancher belongs to a group different from the respective
+  or brancher belong to a group different from the respective
   default group, also the group's identifier is shown. This is
   also true if the event has been caused by a constraint post
   function where some group information had been passed to the
   constraint post function.
 \item For a fixpoint-event, the current slack and its change
   since the last fixpoint are shown.
-\item For a failure-event, the current slack and its change
-  since the last fixpoint are shown.
+\item For a failure-event, the current slack and its change since
+  the last fixpoint are shown.
 \item For a done-event, the current slack is shown
   (unsurprisingly, the slack is $0\%$ as all variables have been
   assigned).
 \end{itemize}
 
-The information printed by the default tracer for Boolean
-variables is exactly the same as for integer variables.
+The information printed by the default variable tracer for
+Boolean variables is exactly the same as for integer variables.
 
-Defining custom tracers is straightforward, this is explained in
-\autoref{sec:m:group:tracers}.
+Defining custom variable tracers is straightforward, this is
+explained in \autoref{sec:m:group:vartracers}.
 
 \paragraph{Set variables.}
 
-The information printed for init-, fixpoint-, and done-events for
-set variables is analogous to the information for integer
-variables. The slack of a set variable here is defined as the
-number of values that can be still included in or excluded from the
-set variable (that is, it corresponds to \?x.unknownSize()? where
-is \?x? is a set variable of type \gecoderef[class]{SetVar}).
+The information printed for init-, fixpoint-, failure-, and
+done-events for set variables is analogous to the information for
+integer variables. The slack of a set variable here is defined as
+the number of values that can be still included in or excluded
+from the set variable (that is, it corresponds to
+\?x.unknownSize()? where \?x? is a set variable of type
+\gecoderef[class]{SetVar}).
 
 For a prune-event, it is shown which values have been included in
 the set and which values have been excluded from the set. For
@@ -410,6 +414,7 @@ For an example that supports tracing for float variables, you
 might want to try the \gecoderef[example]{descartes-folium} example.
 
 \subsection{Using trace filters}
+\label{sec:m:group:filters}
 
 The amount of prune-events that are generated during tracing can
 be prohibitive and often one is only interested in events
@@ -439,7 +444,8 @@ traced by
 \begin{code}
 trace(home, x, bg-pga);
 \end{code}
-The following only traces post functions associated with \?pga? and propagators included in \?pgb?:
+The following only traces post functions associated with \?pga?
+and propagators included in \?pgb?:
 \begin{code}
 trace(home, x, post(pga)+propagator(pgb));
 \end{code}
@@ -469,27 +475,27 @@ trace(home, x,
 \end{code}
 
 
-\subsection{Enabling and disabling trace recorders}
+\subsection{Enabling and disabling variable trace recorders}
 \label{sec:m:group:traceonoff}
 
-A trace recorder is implemented by a propagator, hence the trace
-recorder can be controlled by propagator groups. In particular, a
-trace recorder can be disabled and enabled.
+A variable trace recorder is implemented by a propagator, hence
+it can be controlled by propagator groups. In particular, a
+variable trace recorder can be disabled and enabled.
 
 For example, by creating a propagator group~\?t? by
 \begin{code}
 PropagatorGroup t;
 \end{code}
 \begin{samepage}
-and then creating a trace recorder so that it belongs to the
-group~\?t? by
+  and then creating a variable trace recorder so that it belongs
+  to the group~\?t? by
 \begin{code}
 trace(home(t), x);
 \end{code}
 \end{samepage}
-the trace recorder can be controlled through the group~\?t?.
+the variable trace recorder can be controlled through the group~\?t?.
 \begin{samepage}
-For example, the trace recorder can be disabled by
+For example, the variable trace recorder can be disabled by
 \begin{code}
 t.disable(home);
 \end{code}
@@ -498,49 +504,155 @@ and the later enabled by
 \begin{code}
 t.enable(home);
 \end{code}
-One can easily add several trace recorders (either
+One can easily add several variable trace recorders (either
 for different variables or different variable types) to the same
-propagator group and jointly control all trace recorders in
+propagator group and jointly control all variable trace recorders in
 that group.
 
 
 \section{General tracing}
 \label{sec:m:group:trace}
 
+In addition to variable tracing, Gecode offers support to trace
+the execution of propagators and branchers. Like with variable
+tracing, \emph{general tracing} distinguishes two components: a
+\emph{general trace recorder} (or, \emph{trace recorder} for
+short) that records information about relevant events during
+constraint propagation as well as branching, and a \emph{general
+  tracer} (or, \emph{tracer} for short) that processes the
+recorded trace information.
+
+\subsection{Creating a general trace recorder}
+
+A trace recorder can be created by calling the
+overloaded function \?trace()?. For example,
+\begin{code}
+trace(home);
+\end{code}
+creates a trace recorder.
+
+The general trace recorder records the following events:
+\begin{itemize}
+\item Each time a propagator is executed, a
+  \emph{propagate-event} is recorded.  The recorder
+  provides information about which propagator has been executed
+  and what the status of the execution is (that is, whether the
+  propagator computed a fixpoint, did not compute a fixpoint,
+  became subsumed, or resulted in failure). 
+\item Each time a commit operation on a brancher is executed, a
+  \emph{commit-event} is recorded.
+\end{itemize}
+ 
+\subsection{Default general tracers}
+
+The following paragraphs explain the information printed by the
+default general tracer.
+
+\begin{figure}
+\begin{cmd}
+SEND+MORE=MONEY
+trace::propagate(id:2,s:fix)
+  ...
+trace::commit(id:1)
+        var[1] = 4
+trace::propagate(id:2,s:subsumed)
+  ...
+trace::propagate(id:1,s:failed)
+  ...
+\end{cmd}
+\caption{Abridged output for general tracing of Send More Money}
+\label{fig:m:group:smm}
+\end{figure}
+
+Running the \gecoderef[example]{money} (see
+\autoref{chap:m:started} and \autoref{chap:m:comfy} for the Send
+More Money problem) with the commandline option \?-trace ?
+(trace events to be recorded can be specified on the command
+line, see \autoref{sec:m:driver:options}), the default
+tracer for prints information about all trace
+events to \?std::cerr?. An excerpt of the information printed is
+shown in \autoref{fig:m:group:smm} where the trace recorder has
+been posted with
+\begin{code}
+trace(home);
+\end{code}
+
+The output for each event starts with the information
+\begin{cmd}
+trace::
+\end{code}
+After that, the type of event is shown (\?propagate? or
+\?choice?).
+
+The information for each event type is as follows:
+\begin{itemize}
+\item For a propagate-event, the propagator identifier is
+  printed, potentially followed by the propagator group.
+\item For a choice-event, the brancher identifier is printed,
+  potentially followed by the brancher group. This is followed by
+  information which alternative the brancher has been comitted
+  to, see also \autoref{sec:m:branch:print}.
+\end{itemize}
+
+Defining custom general tracers is straightforward, this is
+explained in \autoref{sec:m:group:tracers}.
+
+\paragraph{Additional features.}
+
+Like for variable tracers, general tracers can also be controlled
+by trace filters (see \autoref{sec:m:group:filters}) and can be
+disabled (see \autoref{sec:m:group:traceonoff}).
+
+When creating a trace recorder, it can be defined which events
+should be recorded by providing an additional argument. For
+example
+\begin{code}
+trace(home, TE_PROPAGATE);
+\end{code}
+only records propagate-events, whereas
+\begin{code}
+trace(home, TE_PROPAGATE | TE_CHOICE);
+\end{code}
+records propagate- and choice-events. All events (the default)
+are recorded by
+\begin{code}
+trace(home, TE_PROPAGATE | TE_CHOICE);
+\end{code}
+
 \section{Programming variable tracers}
 \label{sec:m:group:vartracers}
 
-Programming tracers is straightforward and is done by inheriting from
-a class that depends on the variable type and implements one
-virtual member function for each trace event type. These virtual
-member functions are called when an event of that type is being
-recorded and the event type has been selected for tracing. For
-integer variables, the tracer class to inherit from is
-\gecoderef[typedef]{IntTracer}, for Boolean variables
+Programming variable tracers is straightforward and is done by
+inheriting from a class that depends on the variable type and
+implements one virtual member function for each trace event type.
+These virtual member functions are called when an event of that
+type is being recorded and the event type has been selected for
+tracing. For integer variables, the tracer class to inherit from
+is \gecoderef[typedef]{IntTracer}, for Boolean variables
 \gecoderef[typedef]{BoolTracer}, for set variables
 \gecoderef[typedef]{SetTracer}, and for float variables
 \gecoderef[typedef]{FloatTracer}.
 
-In the following we are discussing tracers for integer and
-Boolean variables in some detail in
-\autoref{sec:m:group:tracers:int} and summarize tracers for set
-and float variables in \autoref{sec:m:group:tracers:set} and
-\autoref{sec:m:group:tracers:float} respectively.
+In the following we are discussing variable tracers for integer
+and Boolean variables in some detail in
+\autoref{sec:m:group:tracers:int} and summarize variable tracers
+for set and float variables in \autoref{sec:m:group:tracers:set}
+and \autoref{sec:m:group:tracers:float} respectively.
 
 \subsection{Tracers for integer and Boolean variables}
 \label{sec:m:group:tracers:int}
 
 
 \begin{figure}
-\insertlitcode{integer tracer}
-\caption{An integer tracer printing to \?std::cout?}
+\insertlitcode{integer variable tracer}
+\caption{An integer variable tracer printing to \?std::cout?}
 \label{fig:m:group:tracer}
 \end{figure}
 
-The example tracer we discuss is implemented by a
-class \?StdCoutIntTracer?, prints trace information to
-\?std::cout?, and is shown in \autoref{fig:m:group:tracer}. The
-\?init()?, \?fail()?, and \?done()? member functions are not discussed as
+The example tracer we discuss is implemented by a class
+\?StdCoutIntTracer?, prints trace information to \?std::cout?,
+and is shown in \autoref{fig:m:group:tracer}. The \?init()?,
+\?fail()?, and \?done()? member functions are not discussed as
 they are similar to the member function \?fix()? which is
 discussed below.
 
@@ -550,7 +662,7 @@ The example tracer prints information about propagators and
 branchers using overloaded static member functions \?ids()? (for
 identifiers). Printing information about propagators is
 implemented as follows:
-\insertlitcode{integer tracer:print propagator information}
+\insertlitcode{integer variable tracer:print propagator information}
 
 The function always prints the identifier \?p.id()? of the
 propagator \?p?. If~\?p? is in a propagator group \?p.group()?
@@ -560,16 +672,15 @@ identifier is printed. The overloaded function \?ids()? for
 branchers is identical and hence only shown in abbreviation in
 \autoref{fig:m:group:tracer}.
 
-\paragraph{Printing execution information.}
+\paragraph{Printing variable trace information.}
 
 The member function \?prune()? receives as an argument a
-reference to an object of class \gecoderef[class]{ExecInfo}
+reference to an object of class \gecoderef[class]{ViewTraceInfo}
 providing information about which entity triggered the
 corresponding prune-event. The following function illustrates the
 information provided by an object of class
-\gecoderef[class]{ExecInfo}. 
-
-\insertlitcode{integer tracer:print execution information}
+\gecoderef[class]{ViewTraceInfo}. 
+\insertlitcode{integer variable tracer:print view trace information}
 
 \paragraph{Printing prune-events.}
 
@@ -579,7 +690,7 @@ the integer~\?i? as the position of the variable in the array
 passed to the \?trace()? function), \emph{how} the variable has
 been pruned (this is given by the argument~\?d? of class
 \gecoderef[class]{IntTraceDelta}), and by \emph{whom} (this is
-given by the argument~\?ei? of class \gecoderef[class]{ExecInfo},
+given by the class \gecoderef[class]{ViewTraceInfo},
 which has been discussed in the previous paragraph). It also gets
 access to the trace recorder of type
 \gecoderef[typedef]{IntTraceRecorder}. 
@@ -587,7 +698,7 @@ access to the trace recorder of type
 \begin{samepage}
 The example \?prune()?
 function prints information as follows:
-\insertlitcode{integer tracer:prune event}
+\insertlitcode{integer variable tracer:prune event}
 \end{samepage}
 
 As can be seen, the argument~\?d? of type
@@ -602,7 +713,7 @@ operator \?[]?.
 
 The \?fix()? function also receives an argument of type
 \gecoderef[typedef]{IntTraceRecorder} as shown here:
-\insertlitcode{integer tracer:fixpoint event}
+\insertlitcode{integer variable tracer:fixpoint event}
 The integer trace recorder~\?t? provides access to \emph{slack}
 information about all of its variables through a \?slack()?
 member function. 
@@ -630,15 +741,14 @@ being cloned during search. Hence naming entities through a hash
 table mapping identities to user-defined names is straightforward.
 }
 
-\paragraph{Tracers for Boolean variables.}
+\paragraph{Variable tracers for Boolean variables.}
 
-Tracers for Boolean variables are exactly like tracers for integer
-variables: a Boolean trace recorder is of type
-\gecoderef[typedef]{BoolTraceRecorder}, the trace delta is also a
-range iterator of
-class \gecoderef[class]{BoolTraceDelta}, and the slack is defined
-as for integer variables and is also of type
-\?unsigned long long int?.
+Variable tracers for Boolean variables are exactly like variable
+tracers for integer variables: a Boolean variable trace recorder is of
+type \gecoderef[typedef]{BoolTraceRecorder}, the trace delta is
+also a range iterator of class \gecoderef[class]{BoolTraceDelta},
+and the slack is defined as for integer variables and is also of
+type \?unsigned long long int?.
 
 \paragraph{Memory and concurrency properties of tracers.}
 
@@ -648,12 +758,12 @@ across several threads where it is ensured that the execution of
 a trace function is synchronized in that at most one thread
 executes any trace function at any given time.
 
-\subsection{Tracers for set variables}
+\subsection{Variable tracers for set variables}
 \label{sec:m:group:tracers:set}
 
 The types and classes for set variable tracers are as follows:
 \begin{itemize}
-\item The trace recorder is of type
+\item The variable trace recorder is of type
   \gecoderef[typedef]{SetTraceRecorder}.
 \item The trace delta information is of class
   \gecoderef[class]{SetTraceDelta} which implements two member
@@ -670,12 +780,12 @@ The types and classes for set variable tracers are as follows:
 \?unsigned long long int?.
 \end{itemize}
 
-\subsection{Tracers for float variables}
+\subsection{Variable tracers for float variables}
 \label{sec:m:group:tracers:float}
 
 The types and classes for float variable tracers are as follows:
 \begin{itemize}
-\item The trace recorder is of type
+\item The variable trace recorder is of type
   \gecoderef[typedef]{FloatTraceRecorder}.
 \item The trace delta information is of class
   \gecoderef[class]{FloatTraceDelta} which implements two member
@@ -691,7 +801,7 @@ The types and classes for float variable tracers are as follows:
 \label{sec:m:group:tracers}
 
 
-\begin{litcode}{integer tracer}{schulte}
+\begin{litcode}{integer variable tracer}{schulte}
 \begin{litblock}{anonymous}
 #include <gecode/int.hh>
 #include <iomanip>
@@ -717,22 +827,22 @@ protected:
     std::cout << ')';
     \end{litblock}
   }
-  \begin{litblock}{print execution information}
-  static void info(const ExecInfo& ei) {
-    switch (ei.what()) {
-    case ExecInfo::PROPAGATOR:
-      std::cout << "propagator"; ids(ei.propagator());
+  \begin{litblock}{print view trace information}
+  static void info(const ViewTraceInfo& vti) {
+    switch (vti.what()) {
+    case ViewTraceInfo::PROPAGATOR:
+      std::cout << "propagator"; ids(vti.propagator());
       break;
-    case ExecInfo::BRANCHER:
-      std::cout << "brancher"; ids(ei.brancher());
+    case ViewTraceInfo::BRANCHER:
+      std::cout << "brancher"; ids(vti.brancher());
       break;
-    case ExecInfo::POST:
+    case ViewTraceInfo::POST:
       std::cout << "post(";
-      if (ei.post().in())
+      if (vti.post().in())
         std::cout << "g:" << ei.post().id();
       std::cout << ')';
       break;
-    case ExecInfo::OTHER:
+    case ViewTraceInfo::OTHER:
       std::cout << '-';
       break;
     }
@@ -748,7 +858,7 @@ public:
   }
   \begin{litblock}{prune event}
   virtual void prune(const Space& home, const IntTraceRecorder& t,
-                     const ExecInfo& ei, int i, IntTraceDelta& d) {
+                     const ViewTraceInfo& vti, int i, IntTraceDelta& d) {
     std::cout << "trace::prune"; ids(t);
     std::cout << ": [" << i << "] = " << t[i] << " - {";
     std::cout << d.min();
@@ -763,7 +873,7 @@ public:
       ++d;
       \end{litblock}
     }
-    std::cout << "} by "; info(ei);
+    std::cout << "} by "; info(vti);
     std::cout << std::endl;
   }
   \end{litblock}

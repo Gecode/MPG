@@ -48,7 +48,8 @@ a choice with two alternatives $y\leq n$ and $y>n$ where
 $$n=\left\lfloor\frac{\min(y)+\max(y)}{2}\right\rfloor$$ 
 The posted brancher assigns all
 variables and then ceases to exist. If more branchers exist,
-search continues with the next brancher.
+search continues with the next brancher. Search \emph{commits} a
+brancher to alternatives during search.
 
 The \?branch()? function also accepts a variable-value print
 function as optional argument, see \autoref{sec:m:branch:print}
@@ -648,7 +649,7 @@ propagators is updated:
 $$\mathtt{afc}(\mathtt p)=\mathtt{afc}(\mathtt p)+1$$
 
      For all other propagators \?q?, the AFC
-  $\mathtt{afc}(\mathtt p)$ of \?q? is updated by a decay-factor
+  $\mathtt{afc}(\mathtt q)$ of \?q? is updated by a decay-factor
   $\mathtt{d}$ ($0<\mathtt{d}\leq 1$):
 $$\mathtt{afc}(\mathtt q)=\mathtt{d}\cdot\mathtt{afc}(\mathtt q)$$
 \item The AFC $\mathtt{afc}(\mathtt x)$ of a variable \?x? is
