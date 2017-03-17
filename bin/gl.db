@@ -27,12 +27,10 @@ URL class EFPAOptions classEFPAOptions.html
 URL class Eq20 classEq20.html
 URL class FileSizeOptions classFileSizeOptions.html
 URL class Gecode::AFC classGecode_1_1AFC.html
-URL class Gecode::AFCWrongArity classGecode_1_1AFCWrongArity.html
 URL class Gecode::Action classGecode_1_1Action.html
 URL class Gecode::Action::Recorder classGecode_1_1Action_1_1Recorder.html
 URL class Gecode::Action::Recorder::Idx classGecode_1_1Action_1_1Recorder_1_1Idx.html
 URL class Gecode::Action::Storage classGecode_1_1Action_1_1Storage.html
-URL class Gecode::ActionWrongArity classGecode_1_1ActionWrongArity.html
 URL class Gecode::Actor classGecode_1_1Actor.html
 URL class Gecode::ActorLink classGecode_1_1ActorLink.html
 URL class Gecode::Advisor classGecode_1_1Advisor.html
@@ -106,6 +104,7 @@ URL class Gecode::ChooseMax classGecode_1_1ChooseMax.html
 URL class Gecode::ChooseMin classGecode_1_1ChooseMin.html
 URL class Gecode::CloneStatistics classGecode_1_1CloneStatistics.html
 URL class Gecode::CommitStatistics classGecode_1_1CommitStatistics.html
+URL class Gecode::CommitTraceInfo classGecode_1_1CommitTraceInfo.html
 URL class Gecode::ConstView classGecode_1_1ConstView.html
 URL class Gecode::Council classGecode_1_1Council.html
 URL class Gecode::DFA classGecode_1_1DFA.html
@@ -138,7 +137,6 @@ URL class Gecode::Driver::TraceOption classGecode_1_1Driver_1_1TraceOption.html
 URL class Gecode::Driver::UnsignedIntOption classGecode_1_1Driver_1_1UnsignedIntOption.html
 URL class Gecode::DynamicCastFailed classGecode_1_1DynamicCastFailed.html
 URL class Gecode::Exception classGecode_1_1Exception.html
-URL class Gecode::ExecInfo classGecode_1_1ExecInfo.html
 URL class Gecode::FlatZinc::AST::Array classGecode_1_1FlatZinc_1_1AST_1_1Array.html
 URL class Gecode::FlatZinc::AST::ArrayAccess classGecode_1_1FlatZinc_1_1AST_1_1ArrayAccess.html
 URL class Gecode::FlatZinc::AST::Atom classGecode_1_1FlatZinc_1_1AST_1_1Atom.html
@@ -161,6 +159,7 @@ URL class Gecode::FlatZinc::AuxVarBrancher::Choice classGecode_1_1FlatZinc_1_1Au
 URL class Gecode::FlatZinc::BoolVarSpec classGecode_1_1FlatZinc_1_1BoolVarSpec.html
 URL class Gecode::FlatZinc::BranchInformation classGecode_1_1FlatZinc_1_1BranchInformation.html
 URL class Gecode::FlatZinc::BranchInformationO classGecode_1_1FlatZinc_1_1BranchInformationO.html
+URL class Gecode::FlatZinc::ConExpr classGecode_1_1FlatZinc_1_1ConExpr.html
 URL class Gecode::FlatZinc::Error classGecode_1_1FlatZinc_1_1Error.html
 URL class Gecode::FlatZinc::FZPrintingComparator classGecode_1_1FlatZinc_1_1FZPrintingComparator.html
 URL class Gecode::FlatZinc::FZPrintingInspector classGecode_1_1FlatZinc_1_1FZPrintingInspector.html
@@ -172,9 +171,12 @@ URL class Gecode::FlatZinc::GistEngine classGecode_1_1FlatZinc_1_1GistEngine.htm
 URL class Gecode::FlatZinc::GistEngine<BAB<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01BAB_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::GistEngine<DFS<S>> classGecode_1_1FlatZinc_1_1GistEngine_3_01DFS_3_01S_01_4_01_4.html
 URL class Gecode::FlatZinc::IntVarSpec classGecode_1_1FlatZinc_1_1IntVarSpec.html
+URL class Gecode::FlatZinc::OutputOrder classGecode_1_1FlatZinc_1_1OutputOrder.html
+URL class Gecode::FlatZinc::ParserState classGecode_1_1FlatZinc_1_1ParserState.html
 URL class Gecode::FlatZinc::Printer classGecode_1_1FlatZinc_1_1Printer.html
 URL class Gecode::FlatZinc::Registry classGecode_1_1FlatZinc_1_1Registry.html
 URL class Gecode::FlatZinc::SetVarSpec classGecode_1_1FlatZinc_1_1SetVarSpec.html
+URL class Gecode::FlatZinc::SymbolEntry classGecode_1_1FlatZinc_1_1SymbolEntry.html
 URL class Gecode::FlatZinc::SymbolTable classGecode_1_1FlatZinc_1_1SymbolTable.html
 URL class Gecode::FlatZinc::VarSpec classGecode_1_1FlatZinc_1_1VarSpec.html
 URL class Gecode::Float::ArgumentSame classGecode_1_1Float_1_1ArgumentSame.html
@@ -216,6 +218,7 @@ URL class Gecode::Float::Linear::Eq classGecode_1_1Float_1_1Linear_1_1Eq.html
 URL class Gecode::Float::Linear::Lin classGecode_1_1Float_1_1Linear_1_1Lin.html
 URL class Gecode::Float::Linear::Lq classGecode_1_1Float_1_1Linear_1_1Lq.html
 URL class Gecode::Float::Linear::Term classGecode_1_1Float_1_1Linear_1_1Term.html
+URL class Gecode::Float::Linear::TermLess classGecode_1_1Float_1_1Linear_1_1TermLess.html
 URL class Gecode::Float::MinusView classGecode_1_1Float_1_1MinusView.html
 URL class Gecode::Float::OffsetView classGecode_1_1Float_1_1OffsetView.html
 URL class Gecode::Float::OutOfLimits classGecode_1_1Float_1_1OutOfLimits.html
@@ -230,6 +233,7 @@ URL class Gecode::Float::Rel::ReEqFloat classGecode_1_1Float_1_1Rel_1_1ReEqFloat
 URL class Gecode::Float::Rel::ReLeFloat classGecode_1_1Float_1_1Rel_1_1ReLeFloat.html
 URL class Gecode::Float::Rel::ReLq classGecode_1_1Float_1_1Rel_1_1ReLq.html
 URL class Gecode::Float::Rel::ReLqFloat classGecode_1_1Float_1_1Rel_1_1ReLqFloat.html
+URL class Gecode::Float::Relax classGecode_1_1Float_1_1Relax.html
 URL class Gecode::Float::Rounding classGecode_1_1Float_1_1Rounding.html
 URL class Gecode::Float::ScaleView classGecode_1_1Float_1_1ScaleView.html
 URL class Gecode::Float::TooFewArguments classGecode_1_1Float_1_1TooFewArguments.html
@@ -411,14 +415,13 @@ URL class Gecode::Int::Branch::ValSelAvg classGecode_1_1Int_1_1Branch_1_1ValSelA
 URL class Gecode::Int::Branch::ValSelMax classGecode_1_1Int_1_1Branch_1_1ValSelMax.html
 URL class Gecode::Int::Branch::ValSelMed classGecode_1_1Int_1_1Branch_1_1ValSelMed.html
 URL class Gecode::Int::Branch::ValSelMin classGecode_1_1Int_1_1Branch_1_1ValSelMin.html
-URL class Gecode::Int::Branch::ValSelNearIncDec classGecode_1_1Int_1_1Branch_1_1ValSelNearIncDec.html
-URL class Gecode::Int::Branch::ValSelNearMinMax classGecode_1_1Int_1_1Branch_1_1ValSelNearMinMax.html
 URL class Gecode::Int::Branch::ValSelRangeMax classGecode_1_1Int_1_1Branch_1_1ValSelRangeMax.html
 URL class Gecode::Int::Branch::ValSelRangeMin classGecode_1_1Int_1_1Branch_1_1ValSelRangeMin.html
 URL class Gecode::Int::Branch::ValSelRnd classGecode_1_1Int_1_1Branch_1_1ValSelRnd.html
 URL class Gecode::Int::Branch::ViewValuesBrancher classGecode_1_1Int_1_1Branch_1_1ViewValuesBrancher.html
 URL class Gecode::Int::CachedView classGecode_1_1Int_1_1CachedView.html
 URL class Gecode::Int::Channel::Base classGecode_1_1Int_1_1Channel_1_1Base.html
+URL class Gecode::Int::Channel::BoolIter classGecode_1_1Int_1_1Channel_1_1BoolIter.html
 URL class Gecode::Int::Channel::Dom classGecode_1_1Int_1_1Channel_1_1Dom.html
 URL class Gecode::Int::Channel::DomInfo classGecode_1_1Int_1_1Channel_1_1DomInfo.html
 URL class Gecode::Int::Channel::LinkMulti classGecode_1_1Int_1_1Channel_1_1LinkMulti.html
@@ -480,6 +483,7 @@ URL class Gecode::Int::Element::Int::IterVal classGecode_1_1Int_1_1Element_1_1In
 URL class Gecode::Int::Element::Int::IterValUnmark classGecode_1_1Int_1_1Element_1_1Int_1_1IterValUnmark.html
 URL class Gecode::Int::Element::IterIdxView classGecode_1_1Int_1_1Element_1_1IterIdxView.html
 URL class Gecode::Int::Element::Pair classGecode_1_1Int_1_1Element_1_1Pair.html
+URL class Gecode::Int::Element::PairValues classGecode_1_1Int_1_1Element_1_1PairValues.html
 URL class Gecode::Int::Element::RelTestBnd classGecode_1_1Int_1_1Element_1_1RelTestBnd.html
 URL class Gecode::Int::Element::RelTestBnd<VA,ConstIntView> classGecode_1_1Int_1_1Element_1_1RelTestBnd_3_01VA_00_01ConstIntView_01_4.html
 URL class Gecode::Int::Element::RelTestDom classGecode_1_1Int_1_1Element_1_1RelTestDom.html
@@ -769,6 +773,7 @@ URL class Gecode::Int::ViewRanges<OffsetView> classGecode_1_1Int_1_1ViewRanges_3
 URL class Gecode::Int::ViewRanges<ZeroIntView> classGecode_1_1Int_1_1ViewRanges_3_01ZeroIntView_01_4.html
 URL class Gecode::Int::ViewToVarArg classGecode_1_1Int_1_1ViewToVarArg.html
 URL class Gecode::Int::ViewToVarArg<BoolView> classGecode_1_1Int_1_1ViewToVarArg_3_01BoolView_01_4.html
+URL class Gecode::Int::ViewToVarArg<Gecode::Set::ConstSetView> classGecode_1_1Int_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1ConstSetView_01_4.html
 URL class Gecode::Int::ViewToVarArg<Gecode::Set::SetView> classGecode_1_1Int_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SetView_01_4.html
 URL class Gecode::Int::ViewToVarArg<Gecode::Set::SingletonView> classGecode_1_1Int_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SingletonView_01_4.html
 URL class Gecode::Int::ViewToVarArg<IntView> classGecode_1_1Int_1_1ViewToVarArg_3_01IntView_01_4.html
@@ -895,6 +900,7 @@ URL class Gecode::MiniModel::TransitionBag classGecode_1_1MiniModel_1_1Transitio
 URL class Gecode::MixBinaryPropagator classGecode_1_1MixBinaryPropagator.html
 URL class Gecode::MixNaryOnePropagator classGecode_1_1MixNaryOnePropagator.html
 URL class Gecode::MixTernaryPropagator classGecode_1_1MixTernaryPropagator.html
+URL class Gecode::MoreThanOneTracer classGecode_1_1MoreThanOneTracer.html
 URL class Gecode::NGL classGecode_1_1NGL.html
 URL class Gecode::NaryOnePropagator classGecode_1_1NaryOnePropagator.html
 URL class Gecode::NaryPropagator classGecode_1_1NaryPropagator.html
@@ -905,15 +911,14 @@ URL class Gecode::NonLinIntExpr classGecode_1_1NonLinIntExpr.html
 URL class Gecode::OperatingSystemError classGecode_1_1OperatingSystemError.html
 URL class Gecode::Options classGecode_1_1Options.html
 URL class Gecode::Options::_I classGecode_1_1Options_1_1__I.html
-URL class Gecode::OutputOrder classGecode_1_1OutputOrder.html
 URL class Gecode::PBS classGecode_1_1PBS.html
-URL class Gecode::ParserState classGecode_1_1ParserState.html
 URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
 URL class Gecode::PostInfo classGecode_1_1PostInfo.html
 URL class Gecode::PrimArgArray classGecode_1_1PrimArgArray.html
 URL class Gecode::PropCost classGecode_1_1PropCost.html
+URL class Gecode::PropagateTraceInfo classGecode_1_1PropagateTraceInfo.html
 URL class Gecode::Propagator classGecode_1_1Propagator.html
 URL class Gecode::PropagatorGroup classGecode_1_1PropagatorGroup.html
 URL class Gecode::Propagators classGecode_1_1Propagators.html
@@ -1136,6 +1141,7 @@ URL class Gecode::StdBoolTracer classGecode_1_1StdBoolTracer.html
 URL class Gecode::StdFloatTracer classGecode_1_1StdFloatTracer.html
 URL class Gecode::StdIntTracer classGecode_1_1StdIntTracer.html
 URL class Gecode::StdSetTracer classGecode_1_1StdSetTracer.html
+URL class Gecode::StdTracer classGecode_1_1StdTracer.html
 URL class Gecode::SubscribedPropagators classGecode_1_1SubscribedPropagators.html
 URL class Gecode::Support::Allocator classGecode_1_1Support_1_1Allocator.html
 URL class Gecode::Support::BitSet classGecode_1_1Support_1_1BitSet.html
@@ -1172,7 +1178,6 @@ URL class Gecode::Support::StaticStack classGecode_1_1Support_1_1StaticStack.htm
 URL class Gecode::Support::Thread classGecode_1_1Support_1_1Thread.html
 URL class Gecode::Support::Thread::Run classGecode_1_1Support_1_1Thread_1_1Run.html
 URL class Gecode::Support::Timer classGecode_1_1Support_1_1Timer.html
-URL class Gecode::SymbolEntry classGecode_1_1SymbolEntry.html
 URL class Gecode::Symmetries classGecode_1_1Symmetries.html
 URL class Gecode::SymmetryHandle classGecode_1_1SymmetryHandle.html
 URL class Gecode::TFE classGecode_1_1TFE.html
@@ -1185,8 +1190,6 @@ URL class Gecode::TraceFilter classGecode_1_1TraceFilter.html
 URL class Gecode::TraceFilter::TFO classGecode_1_1TraceFilter_1_1TFO.html
 URL class Gecode::TraceFilter::TFO::StackFrame classGecode_1_1TraceFilter_1_1TFO_1_1StackFrame.html
 URL class Gecode::TraceRecorder classGecode_1_1TraceRecorder.html
-URL class Gecode::TraceRecorder::Idx classGecode_1_1TraceRecorder_1_1Idx.html
-URL class Gecode::TraceRecorder::Slack classGecode_1_1TraceRecorder_1_1Slack.html
 URL class Gecode::TraceTraits classGecode_1_1TraceTraits.html
 URL class Gecode::TraceTraits<Float::FloatView> classGecode_1_1TraceTraits_3_01Float_1_1FloatView_01_4.html
 URL class Gecode::TraceTraits<Int::BoolView> classGecode_1_1TraceTraits_3_01Int_1_1BoolView_01_4.html
@@ -1234,6 +1237,11 @@ URL class Gecode::ViewSelMin classGecode_1_1ViewSelMin.html
 URL class Gecode::ViewSelMinTbl classGecode_1_1ViewSelMinTbl.html
 URL class Gecode::ViewSelNone classGecode_1_1ViewSelNone.html
 URL class Gecode::ViewSelRnd classGecode_1_1ViewSelRnd.html
+URL class Gecode::ViewTraceInfo classGecode_1_1ViewTraceInfo.html
+URL class Gecode::ViewTraceRecorder classGecode_1_1ViewTraceRecorder.html
+URL class Gecode::ViewTraceRecorder::Idx classGecode_1_1ViewTraceRecorder_1_1Idx.html
+URL class Gecode::ViewTraceRecorder::Slack classGecode_1_1ViewTraceRecorder_1_1Slack.html
+URL class Gecode::ViewTracer classGecode_1_1ViewTracer.html
 URL class Gecode::ViewValBrancher classGecode_1_1ViewValBrancher.html
 URL class Gecode::ViewValNGL classGecode_1_1ViewValNGL.html
 URL class GoldenSpiral classGoldenSpiral.html
@@ -1296,14 +1304,15 @@ URL class SudokuInt classSudokuInt.html
 URL class SudokuMixed classSudokuMixed.html
 URL class SudokuSet classSudokuSet.html
 URL class TSP classTSP.html
-URL class Test::AbsXX classTest_1_1AbsXX.html
-URL class Test::AbsXY classTest_1_1AbsXY.html
+URL class Test::AFC classTest_1_1AFC.html
+URL class Test::AFC::TestSpace classTest_1_1AFC_1_1TestSpace.html
 URL class Test::Array::Iterator classTest_1_1Array_1_1Iterator.html
 URL class Test::Array::SharedArrayIterator classTest_1_1Array_1_1SharedArrayIterator.html
 URL class Test::Array::TestSpace classTest_1_1Array_1_1TestSpace.html
 URL class Test::Array::VarArgsIterator classTest_1_1Array_1_1VarArgsIterator.html
 URL class Test::Array::VarArrayIterator classTest_1_1Array_1_1VarArrayIterator.html
 URL class Test::Array::ViewArrayIterator classTest_1_1Array_1_1ViewArrayIterator.html
+URL class Test::Assign::Bool classTest_1_1Assign_1_1Bool.html
 URL class Test::Assign::BoolTest classTest_1_1Assign_1_1BoolTest.html
 URL class Test::Assign::BoolTestSpace classTest_1_1Assign_1_1BoolTestSpace.html
 URL class Test::Assign::Float classTest_1_1Assign_1_1Float.html
@@ -1316,6 +1325,7 @@ URL class Test::Assign::Set classTest_1_1Assign_1_1Set.html
 URL class Test::Assign::SetTest classTest_1_1Assign_1_1SetTest.html
 URL class Test::Assign::SetTestSpace classTest_1_1Assign_1_1SetTestSpace.html
 URL class Test::Base classTest_1_1Base.html
+URL class Test::Branch::Bool classTest_1_1Branch_1_1Bool.html
 URL class Test::Branch::BoolTest classTest_1_1Branch_1_1BoolTest.html
 URL class Test::Branch::BoolTestSpace classTest_1_1Branch_1_1BoolTestSpace.html
 URL class Test::Branch::Float classTest_1_1Branch_1_1Float.html
@@ -1328,10 +1338,44 @@ URL class Test::Branch::RunInfo classTest_1_1Branch_1_1RunInfo.html
 URL class Test::Branch::Set classTest_1_1Branch_1_1Set.html
 URL class Test::Branch::SetTest classTest_1_1Branch_1_1SetTest.html
 URL class Test::Branch::SetTestSpace classTest_1_1Branch_1_1SetTestSpace.html
-URL class Test::Create classTest_1_1Create.html
-URL class Test::Div classTest_1_1Div.html
-URL class Test::DivSol classTest_1_1DivSol.html
 URL class Test::FlatZinc::FlatZincTest classTest_1_1FlatZinc_1_1FlatZincTest.html
+URL class Test::Float::Arithmetic::AbsXX classTest_1_1Float_1_1Arithmetic_1_1AbsXX.html
+URL class Test::Float::Arithmetic::AbsXY classTest_1_1Float_1_1Arithmetic_1_1AbsXY.html
+URL class Test::Float::Arithmetic::Div classTest_1_1Float_1_1Arithmetic_1_1Div.html
+URL class Test::Float::Arithmetic::DivSol classTest_1_1Float_1_1Arithmetic_1_1DivSol.html
+URL class Test::Float::Arithmetic::MaxNary classTest_1_1Float_1_1Arithmetic_1_1MaxNary.html
+URL class Test::Float::Arithmetic::MaxNaryShared classTest_1_1Float_1_1Arithmetic_1_1MaxNaryShared.html
+URL class Test::Float::Arithmetic::MaxXXX classTest_1_1Float_1_1Arithmetic_1_1MaxXXX.html
+URL class Test::Float::Arithmetic::MaxXXY classTest_1_1Float_1_1Arithmetic_1_1MaxXXY.html
+URL class Test::Float::Arithmetic::MaxXYX classTest_1_1Float_1_1Arithmetic_1_1MaxXYX.html
+URL class Test::Float::Arithmetic::MaxXYY classTest_1_1Float_1_1Arithmetic_1_1MaxXYY.html
+URL class Test::Float::Arithmetic::MaxXYZ classTest_1_1Float_1_1Arithmetic_1_1MaxXYZ.html
+URL class Test::Float::Arithmetic::MinNary classTest_1_1Float_1_1Arithmetic_1_1MinNary.html
+URL class Test::Float::Arithmetic::MinNaryShared classTest_1_1Float_1_1Arithmetic_1_1MinNaryShared.html
+URL class Test::Float::Arithmetic::MinXXX classTest_1_1Float_1_1Arithmetic_1_1MinXXX.html
+URL class Test::Float::Arithmetic::MinXXY classTest_1_1Float_1_1Arithmetic_1_1MinXXY.html
+URL class Test::Float::Arithmetic::MinXYX classTest_1_1Float_1_1Arithmetic_1_1MinXYX.html
+URL class Test::Float::Arithmetic::MinXYY classTest_1_1Float_1_1Arithmetic_1_1MinXYY.html
+URL class Test::Float::Arithmetic::MinXYZ classTest_1_1Float_1_1Arithmetic_1_1MinXYZ.html
+URL class Test::Float::Arithmetic::MultXXX classTest_1_1Float_1_1Arithmetic_1_1MultXXX.html
+URL class Test::Float::Arithmetic::MultXXY classTest_1_1Float_1_1Arithmetic_1_1MultXXY.html
+URL class Test::Float::Arithmetic::MultXXYSol classTest_1_1Float_1_1Arithmetic_1_1MultXXYSol.html
+URL class Test::Float::Arithmetic::MultXYX classTest_1_1Float_1_1Arithmetic_1_1MultXYX.html
+URL class Test::Float::Arithmetic::MultXYY classTest_1_1Float_1_1Arithmetic_1_1MultXYY.html
+URL class Test::Float::Arithmetic::MultXYZ classTest_1_1Float_1_1Arithmetic_1_1MultXYZ.html
+URL class Test::Float::Arithmetic::MultXYZSol classTest_1_1Float_1_1Arithmetic_1_1MultXYZSol.html
+URL class Test::Float::Arithmetic::NRootXX classTest_1_1Float_1_1Arithmetic_1_1NRootXX.html
+URL class Test::Float::Arithmetic::NRootXY classTest_1_1Float_1_1Arithmetic_1_1NRootXY.html
+URL class Test::Float::Arithmetic::NRootXYSol classTest_1_1Float_1_1Arithmetic_1_1NRootXYSol.html
+URL class Test::Float::Arithmetic::PowXX classTest_1_1Float_1_1Arithmetic_1_1PowXX.html
+URL class Test::Float::Arithmetic::PowXY classTest_1_1Float_1_1Arithmetic_1_1PowXY.html
+URL class Test::Float::Arithmetic::PowXYSol classTest_1_1Float_1_1Arithmetic_1_1PowXYSol.html
+URL class Test::Float::Arithmetic::SqrXX classTest_1_1Float_1_1Arithmetic_1_1SqrXX.html
+URL class Test::Float::Arithmetic::SqrXY classTest_1_1Float_1_1Arithmetic_1_1SqrXY.html
+URL class Test::Float::Arithmetic::SqrXYSol classTest_1_1Float_1_1Arithmetic_1_1SqrXYSol.html
+URL class Test::Float::Arithmetic::SqrtXX classTest_1_1Float_1_1Arithmetic_1_1SqrtXX.html
+URL class Test::Float::Arithmetic::SqrtXY classTest_1_1Float_1_1Arithmetic_1_1SqrtXY.html
+URL class Test::Float::Arithmetic::SqrtXYSol classTest_1_1Float_1_1Arithmetic_1_1SqrtXYSol.html
 URL class Test::Float::Assignment classTest_1_1Float_1_1Assignment.html
 URL class Test::Float::Basic::Basic classTest_1_1Float_1_1Basic_1_1Basic.html
 URL class Test::Float::Channel::Bool classTest_1_1Float_1_1Channel_1_1Bool.html
@@ -1345,6 +1389,10 @@ URL class Test::Float::FloatRelTypes classTest_1_1Float_1_1FloatRelTypes.html
 URL class Test::Float::Linear::Create classTest_1_1Float_1_1Linear_1_1Create.html
 URL class Test::Float::Linear::FloatFloat classTest_1_1Float_1_1Linear_1_1FloatFloat.html
 URL class Test::Float::Linear::FloatVar classTest_1_1Float_1_1Linear_1_1FloatVar.html
+URL class Test::Float::MiniModelLin::Create classTest_1_1Float_1_1MiniModelLin_1_1Create.html
+URL class Test::Float::MiniModelLin::LinExpr classTest_1_1Float_1_1MiniModelLin_1_1LinExpr.html
+URL class Test::Float::MiniModelLin::LinInstr classTest_1_1Float_1_1MiniModelLin_1_1LinInstr.html
+URL class Test::Float::MiniModelLin::LinRel classTest_1_1Float_1_1MiniModelLin_1_1LinRel.html
 URL class Test::Float::RandomAssignment classTest_1_1Float_1_1RandomAssignment.html
 URL class Test::Float::Rel::Create classTest_1_1Float_1_1Rel_1_1Create.html
 URL class Test::Float::Rel::FloatFloat classTest_1_1Float_1_1Rel_1_1FloatFloat.html
@@ -1674,40 +1722,11 @@ URL class Test::LDSB::VarSym3 classTest_1_1LDSB_1_1VarSym3.html
 URL class Test::LDSB::VarSym4 classTest_1_1LDSB_1_1VarSym4.html
 URL class Test::LDSB::VarSym5 classTest_1_1LDSB_1_1VarSym5.html
 URL class Test::LDSB::VarValSym1 classTest_1_1LDSB_1_1VarValSym1.html
-URL class Test::LinExpr classTest_1_1LinExpr.html
-URL class Test::LinInstr classTest_1_1LinInstr.html
-URL class Test::LinRel classTest_1_1LinRel.html
-URL class Test::MaxNary classTest_1_1MaxNary.html
-URL class Test::MaxNaryShared classTest_1_1MaxNaryShared.html
-URL class Test::MaxXXX classTest_1_1MaxXXX.html
-URL class Test::MaxXXY classTest_1_1MaxXXY.html
-URL class Test::MaxXYX classTest_1_1MaxXYX.html
-URL class Test::MaxXYY classTest_1_1MaxXYY.html
-URL class Test::MaxXYZ classTest_1_1MaxXYZ.html
-URL class Test::MinNary classTest_1_1MinNary.html
-URL class Test::MinNaryShared classTest_1_1MinNaryShared.html
-URL class Test::MinXXX classTest_1_1MinXXX.html
-URL class Test::MinXXY classTest_1_1MinXXY.html
-URL class Test::MinXYX classTest_1_1MinXYX.html
-URL class Test::MinXYY classTest_1_1MinXYY.html
-URL class Test::MinXYZ classTest_1_1MinXYZ.html
-URL class Test::MultXXX classTest_1_1MultXXX.html
-URL class Test::MultXXY classTest_1_1MultXXY.html
-URL class Test::MultXXYSol classTest_1_1MultXXYSol.html
-URL class Test::MultXYX classTest_1_1MultXYX.html
-URL class Test::MultXYY classTest_1_1MultXYY.html
-URL class Test::MultXYZSol classTest_1_1MultXYZSol.html
-URL class Test::NRootXX classTest_1_1NRootXX.html
-URL class Test::NRootXY classTest_1_1NRootXY.html
-URL class Test::NRootXYSol classTest_1_1NRootXYSol.html
 URL class Test::NoGoods::Create classTest_1_1NoGoods_1_1Create.html
 URL class Test::NoGoods::Hamming classTest_1_1NoGoods_1_1Hamming.html
 URL class Test::NoGoods::NoGoods classTest_1_1NoGoods_1_1NoGoods.html
 URL class Test::NoGoods::Queens classTest_1_1NoGoods_1_1Queens.html
 URL class Test::Options classTest_1_1Options.html
-URL class Test::PowXX classTest_1_1PowXX.html
-URL class Test::PowXY classTest_1_1PowXY.html
-URL class Test::PowXYSol classTest_1_1PowXYSol.html
 URL class Test::Region classTest_1_1Region.html
 URL class Test::Region::TestSpace classTest_1_1Region_1_1TestSpace.html
 URL class Test::Search::BAB classTest_1_1Search_1_1BAB.html
@@ -1783,12 +1802,6 @@ URL class Test::Set::SetTest classTest_1_1Set_1_1SetTest.html
 URL class Test::Set::SetTestSpace classTest_1_1Set_1_1SetTestSpace.html
 URL class Test::Set::Var::Construct classTest_1_1Set_1_1Var_1_1Construct.html
 URL class Test::SortByName classTest_1_1SortByName.html
-URL class Test::SqrXX classTest_1_1SqrXX.html
-URL class Test::SqrXY classTest_1_1SqrXY.html
-URL class Test::SqrXYSol classTest_1_1SqrXYSol.html
-URL class Test::SqrtXX classTest_1_1SqrtXX.html
-URL class Test::SqrtXY classTest_1_1SqrtXY.html
-URL class Test::SqrtXYSol classTest_1_1SqrtXYSol.html
 URL class Test::ind classTest_1_1ind.html
 URL class TileSpec classTileSpec.html
 URL class Warehouses classWarehouses.html
@@ -2293,6 +2306,7 @@ URL file gecode/int/branch/view-values.cpp view-values_8cpp.html
 URL file gecode/int/branch/view-values.hpp view-values_8hpp.html
 URL file gecode/int/channel.cpp gecode_2int_2channel_8cpp.html
 URL file gecode/int/channel.hh int_2channel_8hh.html
+URL file gecode/int/channel.hpp channel_8hpp.html
 URL file gecode/int/channel/base.hpp int_2channel_2base_8hpp.html
 URL file gecode/int/channel/dom.hpp channel_2dom_8hpp.html
 URL file gecode/int/channel/link-multi.cpp link-multi_8cpp.html
@@ -2385,6 +2399,7 @@ URL file gecode/int/int-set-1.hpp int-set-1_8hpp.html
 URL file gecode/int/int-set-2.hpp int-set-2_8hpp.html
 URL file gecode/int/int-set.cpp int-set_8cpp.html
 URL file gecode/int/ipl.hpp ipl_8hpp.html
+URL file gecode/int/irt.hpp irt_8hpp.html
 URL file gecode/int/ldsb.cpp gecode_2int_2ldsb_8cpp.html
 URL file gecode/int/ldsb.hh int_2ldsb_8hh.html
 URL file gecode/int/ldsb/brancher.hpp int_2ldsb_2brancher_8hpp.html
@@ -2597,7 +2612,6 @@ URL file gecode/kernel/memory-config.hpp memory-config_8hpp.html
 URL file gecode/kernel/memory-manager.cpp memory-manager_8cpp.html
 URL file gecode/kernel/memory-manager.hpp memory-manager_8hpp.html
 URL file gecode/kernel/modevent.hpp modevent_8hpp.html
-URL file gecode/kernel/print.hpp kernel_2print_8hpp.html
 URL file gecode/kernel/propagator.hpp kernel_2propagator_8hpp.html
 URL file gecode/kernel/range-list.hpp range-list_8hpp.html
 URL file gecode/kernel/region.cpp gecode_2kernel_2region_8cpp.html
@@ -2609,8 +2623,12 @@ URL file gecode/kernel/shared-data.hpp shared-data_8hpp.html
 URL file gecode/kernel/subscribed-propagators.hpp subscribed-propagators_8hpp.html
 URL file gecode/kernel/trace-filter.cpp trace-filter_8cpp.html
 URL file gecode/kernel/trace-filter.hpp trace-filter_8hpp.html
+URL file gecode/kernel/trace-print.hpp trace-print_8hpp.html
+URL file gecode/kernel/trace-recorder.cpp trace-recorder_8cpp.html
 URL file gecode/kernel/trace-recorder.hpp trace-recorder_8hpp.html
 URL file gecode/kernel/trace-traits.hpp trace-traits_8hpp.html
+URL file gecode/kernel/trace.cpp kernel_2trace_8cpp.html
+URL file gecode/kernel/trace.hpp kernel_2trace_8hpp.html
 URL file gecode/kernel/tracer.cpp kernel_2tracer_8cpp.html
 URL file gecode/kernel/tracer.hpp tracer_8hpp.html
 URL file gecode/kernel/var-imp.hpp kernel_2var-imp_8hpp.html
@@ -2750,6 +2768,7 @@ URL file gecode/set/exception.hpp set_2exception_8hpp.html
 URL file gecode/set/exec.cpp gecode_2set_2exec_8cpp.html
 URL file gecode/set/int.cpp gecode_2set_2int_8cpp.html
 URL file gecode/set/int.hh gecode_2set_2int_8hh.html
+URL file gecode/set/int.hpp gecode_2set_2int_8hpp.html
 URL file gecode/set/int/card.hpp card_8hpp.html
 URL file gecode/set/int/minmax.hpp minmax_8hpp.html
 URL file gecode/set/int/weights.hpp weights_8hpp.html
@@ -3348,6 +3367,8 @@ URL group TaskTest group__TaskTest.html
 TITLE group TaskTest "Testing"
 URL group TaskTestFloat group__TaskTestFloat.html
 TITLE group TaskTestFloat "Testing domain floats"
+URL group TaskTestFloatArithmetic group__TaskTestFloatArithmetic.html
+TITLE group TaskTestFloatArithmetic "Arithmetic constraints"
 URL group TaskTestFloatBasic group__TaskTestFloatBasic.html
 TITLE group TaskTestFloatBasic "Basic setup"
 URL group TaskTestFloatDom group__TaskTestFloatDom.html
@@ -3538,10 +3559,12 @@ URL namespace Test::Assign namespaceTest_1_1Assign.html
 URL namespace Test::Branch namespaceTest_1_1Branch.html
 URL namespace Test::FlatZinc namespaceTest_1_1FlatZinc.html
 URL namespace Test::Float namespaceTest_1_1Float.html
+URL namespace Test::Float::Arithmetic namespaceTest_1_1Float_1_1Arithmetic.html
 URL namespace Test::Float::Basic namespaceTest_1_1Float_1_1Basic.html
 URL namespace Test::Float::Channel namespaceTest_1_1Float_1_1Channel.html
 URL namespace Test::Float::Dom namespaceTest_1_1Float_1_1Dom.html
 URL namespace Test::Float::Linear namespaceTest_1_1Float_1_1Linear.html
+URL namespace Test::Float::MiniModelLin namespaceTest_1_1Float_1_1MiniModelLin.html
 URL namespace Test::Float::Rel namespaceTest_1_1Float_1_1Rel.html
 URL namespace Test::Float::Transcendental namespaceTest_1_1Float_1_1Transcendental.html
 URL namespace Test::Float::Trigonometric namespaceTest_1_1Float_1_1Trigonometric.html
@@ -3598,13 +3621,13 @@ URL page PageChange PageChange.html
 TITLE page PageChange "Changelog"
 URL page PageCodeStat PageCodeStat.html
 TITLE page PageCodeStat "Gecode code statistics"
-URL page PageHowToChange_2 PageHowToChange_2.html
+URL page PageHowToChange_2 PageHowToChange__2.html
 TITLE page PageHowToChange_2 "How to Change from Gecode 1.3.1 to Gecode 2.0.x"
-URL page PageHowToChange_3 PageHowToChange_3.html
+URL page PageHowToChange_3 PageHowToChange__3.html
 TITLE page PageHowToChange_3 "How to Change from Gecode 2.2.2 to Gecode 3.0.0"
-URL page PageHowToChange_4 PageHowToChange_4.html
+URL page PageHowToChange_4 PageHowToChange__4.html
 TITLE page PageHowToChange_4 "How to Change from Gecode 3.7.3 to Gecode 4.0.0"
-URL page PageHowToChange_5 PageHowToChange_5.html
+URL page PageHowToChange_5 PageHowToChange__5.html
 TITLE page PageHowToChange_5 "How to Change from Gecode 4.4.0 to Gecode 5.0.0"
 URL page PageLic PageLic.html
 TITLE page PageLic "Gecode license and authors"
@@ -3679,6 +3702,7 @@ URL typedef SetVarValPrint namespaceGecode.html
 URL typedef StatePoolAllocator namespaceGecode_1_1MiniModel.html
 URL typedef TaskTypeArgs group__TaskModelInt.html
 URL typedef Tuple namespaceGecode_1_1Int_1_1Extensional.html
+URL typedef intvartype namespaceGecode_1_1FlatZinc.html
 URL typedef mpfr_func namespaceGecode_1_1Float.html
 URL typedef order_t steel-mill_8cpp.html
-URL typedef varspec namespaceGecode.html
+URL typedef varspec namespaceGecode_1_1FlatZinc.html
