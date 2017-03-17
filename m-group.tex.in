@@ -4,18 +4,21 @@
 
 Groups are a means to control certain execution aspects of
 propagators and branchers. Tracing can be used for tracing
-constraint propagation during execution. Groups are ultimately
-linked to tracing, as the generated traces can be filtered
-according to group membership.
+constraint propagation on variables as well as the general
+execution of propagators and branchings during execution. Groups
+are ultimately linked to tracing, as the generated traces can be
+filtered according to group membership.
 
 \paragraph{Overview.}
 
 \mbox{}\autoref{sec:m:group:prop} explains groups of propagators,
 whereas \autoref{sec:m:group:branch} explains groups of
-branchers. The tracing support that comes with Gecode is
-explained in \autoref{sec:m:group:trace} and
-\autoref{sec:m:group:tracers} shows how tracers (the objects that
-process trace information) can be programmed.
+branchers. Tracing variables is explained in
+\autoref{sec:m:group:vartrace} and general tracing in
+\autoref{sec:m:groups:trace}.  \autoref{sec:m:group:vartracers}
+shows how variable tracers and \autoref{sec:m:group:tracers} show
+how general tracers (the objects that process trace information)
+can be programmed.
 
 \section{Propagator groups}
 \label{sec:m:group:prop}
@@ -207,8 +210,8 @@ bg.kill(home);
 \?BrancherGroup::all? which refers to all branchers in a space.
 \end{itemize}
 
-\section{Tracing}
-\label{sec:m:group:trace}
+\section{Variable tracing}
+\label{sec:m:group:vartrace}
 
 Gecode offers support to trace constraint propagation on an array
 of variables. Tracing distinguishes between two components: a
@@ -501,8 +504,11 @@ propagator group and jointly control all trace recorders in
 that group.
 
 
-\section{Programming tracers}
-\label{sec:m:group:tracers}
+\section{General tracing}
+\label{sec:m:group:trace}
+
+\section{Programming variable tracers}
+\label{sec:m:group:vartracers}
 
 Programming tracers is straightforward and is done by inheriting from
 a class that depends on the variable type and implements one
@@ -679,6 +685,10 @@ The types and classes for float variable tracers are as follows:
   is of type \gecoderef[typedef]{FloatNum}.
 
 \end{itemize}
+
+
+\section{Programming general tracers}
+\label{sec:m:group:tracers}
 
 
 \begin{litcode}{integer tracer}{schulte}
