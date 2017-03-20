@@ -566,7 +566,7 @@ trace::propagate(id:1,s:failed)
 
 Running the \gecoderef[example]{money} (see
 \autoref{chap:m:started} and \autoref{chap:m:comfy} for the Send
-More Money problem) with the commandline option \?-trace ?
+More Money problem) with the commandline option \?-trace propagate,commit?
 (trace events to be recorded can be specified on the command
 line, see \autoref{sec:m:driver:options}), the default
 tracer prints information about all trace
