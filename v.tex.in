@@ -132,7 +132,7 @@ Programming variables includes the following tasks:
   support. For an example, please consider
   \autoref{sec:m:minimodel:boolmisc}.
 \item \emph{Tracing} support (\autoref{chap:v:trace}): in order
-  to support tracing of constraint propagation, one needs to
+  to support variable tracing, one needs to
   implement a few classes. 
 
   Only so-called \emph{trace views} require some effort, the
@@ -229,12 +229,12 @@ namespace \?MPG? instead of \?Gecode?):
   brancher must in fact be implemented, even though a number of
   rather straightforward support definitions must be
   implemented (which are contained in the namespace \?MPG::Int?).
-\item Tracing: tracers are implemented by the class \?IntTracer?
-  (a type definition), a standard tracer is implemented by the
-  class \?StdIntTracer?,
-  a trace recorder by a class \?IntTraceRecorder? (also a
-  type definition), and an integer trace delta by a class
-  \?IntTraceDelta?. Additionally, trace views are implemented by 
+\item Variable tracing: variable tracers are implemented by the
+  class \?IntTracer?  (a type definition), a standard variable
+  tracer is implemented by the class \?StdIntTracer?, a variable
+  trace recorder by a class \?IntTraceRecorder? (also a type
+  definition), and an integer trace delta by a class
+  \?IntTraceDelta?. Additionally, trace views are implemented by
   a class \?Int::IntTraceView? and some traits must be defined.
 \end{itemize}
 
@@ -1886,10 +1886,10 @@ function. In \autoref{fig:v:branch:branchtb}, only the cases for
 two and three objects is shown, the other cases are analogous.
 
 
-\chapter{Tracing support}
+\chapter{Variable tracing support}
 \label{chap:v:trace}
 
-This chapter shows how to add tracing support for a new variable
+This chapter shows how to add variable tracing support for a new variable
 type.
 
 \begin{figure}
@@ -2129,7 +2129,9 @@ using Gecode::AFC;
 using Gecode::Action;
 using Gecode::CHB;
 using Gecode::Home;
-using Gecode::ExecInfo;
+using Gecode::ViewTraceInfo;
+using Gecode::PropagateTraceInfo;
+using Gecode::CommitTraceInfo;
 using Gecode::ViewArray;
 using Gecode::Rnd;
 using Gecode::VarBranch;
@@ -2160,12 +2162,13 @@ using Gecode::ValSelFunction;
 using Gecode::ValCommitFunction;
 using Gecode::postviewvalbrancher;
 using Gecode::TieBreak;
-using Gecode::TraceRecorder;
-using Gecode::Tracer;
+using Gecode::ViewTraceRecorder;
+using Gecode::ViewTracer;
 using Gecode::TraceFilter;
 using Gecode::TE_INIT;
 using Gecode::TE_PRUNE;
 using Gecode::TE_FIX;
+using Gecode::TE_FAIL;
 using Gecode::TE_DONE;
 
 \end{litblock}
@@ -2830,6 +2833,7 @@ namespace MPG {
     Action::init(home,y,d,bm);
   }
   \end{litblock}
+}
 \end{litblock}
 
 \begin{litblock}{variable CHB}
@@ -3338,9 +3342,9 @@ namespace Gecode {
 
 namespace MPG {
   \begin{litblock}{tracer and trace recorder}
-  typedef Tracer<Int::IntView> IntTracer;
+  typedef ViewTracer<Int::IntView> IntTracer;
   
-  typedef TraceRecorder<Int::IntView> IntTraceRecorder;
+  typedef ViewTraceRecorder<Int::IntView> IntTraceRecorder;
   \end{litblock}
   \begin{litblock}{standard tracer}
   class StdIntTracer : public IntTracer {
@@ -3357,13 +3361,14 @@ namespace MPG {
          << std::endl;
     }
     virtual void prune(const Space& home, const IntTraceRecorder& t,
-                       const ExecInfo& ei, int i, IntTraceDelta& d) {
+                       const ViewTraceInfo& vti,
+                       int i, IntTraceDelta& d) {
       os << "trace<Int>::prune(id:" << t.id();
       if (t.group().in())
         os << ",g:";t.group().id();
       os << "): [" << i << "] = " << t[i] 
          << " - {" << d.min() << ".." << d.max()
-         << "} by " << ei << std::endl;
+         << "} by " << vti << std::endl;
     }
     virtual void fix(const Space& home, const IntTraceRecorder& t) {
       os << "trace<Int>::fix(id:" << t.id();

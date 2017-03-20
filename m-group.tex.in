@@ -5,9 +5,9 @@
 Groups are a means to control certain execution aspects of
 propagators and branchers. Tracing can be used for tracing
 constraint propagation on variables as well as the general
-execution of propagators and branchers during execution. Groups
-are ultimately linked to tracing, as the generated traces can be
-filtered according to group membership.
+execution of propagators and branchers. Groups are ultimately
+linked to tracing, as the generated traces can be filtered
+according to group membership.
 
 \paragraph{Overview.}
 
@@ -15,7 +15,7 @@ filtered according to group membership.
 whereas \autoref{sec:m:group:branch} explains groups of
 branchers. Tracing variables is explained in
 \autoref{sec:m:group:vartrace} and general tracing in
-\autoref{sec:m:groups:trace}.  \autoref{sec:m:group:vartracers}
+\autoref{sec:m:group:trace}.  \autoref{sec:m:group:vartracers}
 shows how variable tracers and \autoref{sec:m:group:tracers} shows
 how general tracers (the objects that process trace information)
 can be programmed.
@@ -90,7 +90,7 @@ two propagators, then
 \begin{code}
 pg.move(p).move(q);
 \end{code}
-removes both~\?p? and~\?q? from \?pg?.
+moves both~\?p? and~\?q? to \?pg?.
 
 \paragraph{Operations on propagator groups.}
 
@@ -106,7 +106,7 @@ be accessed by:
 pg.id()
 \end{code}
 
-One can iterate over all propagators in a group. For example
+One can iterate over all propagators in a group. For example,
 \begin{code}
 for (Propagators p(home,pg); p() ++p)
   std::cout << p.propagator.id() << ' ' << std::endl;
@@ -531,14 +531,14 @@ trace(home);
 \end{code}
 creates a trace recorder.
 
-The general trace recorder records the following events:
+A general trace recorder records the following events:
 \begin{itemize}
 \item Each time a propagator is executed, a
-  \emph{propagate-event} is recorded.  The recorder
-  provides information about which propagator has been executed
-  and what the status of the execution is (that is, whether the
-  propagator computed a fixpoint, did not compute a fixpoint,
-  became subsumed, or resulted in failure). 
+  \emph{propagate-event} is recorded.  The recorder provides
+  information about which propagator has been executed and what
+  the status of the execution is (that is, whether the propagator
+  computed a fixpoint, did not compute a fixpoint, became
+  subsumed, or resulted in failure).
 \item Each time a commit operation on a brancher is executed, a
   \emph{commit-event} is recorded.
 \end{itemize}
@@ -569,7 +569,7 @@ Running the \gecoderef[example]{money} (see
 More Money problem) with the commandline option \?-trace ?
 (trace events to be recorded can be specified on the command
 line, see \autoref{sec:m:driver:options}), the default
-tracer for prints information about all trace
+tracer prints information about all trace
 events to \?std::cerr?. An excerpt of the information printed is
 shown in \autoref{fig:m:group:smm} where the trace recorder has
 been posted with
@@ -590,7 +590,7 @@ The information for each event type is as follows:
   printed, potentially followed by the propagator group.
 \item For a choice-event, the brancher identifier is printed,
   potentially followed by the brancher group. This is followed by
-  information which alternative the brancher has been comitted
+  information which alternative the brancher has been committed
   to, see also \autoref{sec:m:branch:print}.
 \end{itemize}
 
@@ -605,15 +605,15 @@ disabled (see \autoref{sec:m:group:traceonoff}).
 
 When creating a trace recorder, it can be defined which events
 should be recorded by providing an additional argument. For
-example
+example,
 \begin{code}
 trace(home, TE_PROPAGATE);
 \end{code}
 only records propagate-events, whereas
 \begin{code}
-trace(home, TE_PROPAGATE | TE_CHOICE);
+trace(home, TE_CHOICE);
 \end{code}
-records propagate- and choice-events. All events (the default)
+only records choice-events. All events (the default)
 are recorded by
 \begin{code}
 trace(home, TE_PROPAGATE | TE_CHOICE);
@@ -800,6 +800,60 @@ The types and classes for float variable tracers are as follows:
 \section{Programming general tracers}
 \label{sec:m:group:tracers}
 
+Programming general tracers is straightforward and is done by
+inheriting from the class \gecoderef[class]{Tracer} that
+implements one virtual member function for each trace event type.
+These virtual member functions are called when an event of that
+type is being recorded and the event type has been selected for
+tracing.
+
+\begin{figure}
+\insertlitcode{general tracer}
+\caption{A general tracer printing to \?std::cout?}
+\label{fig:m:group:gtracer}
+\end{figure}
+
+The example tracer we discuss is implemented by a class
+\?StdCoutTracer?, prints trace information to \?std::cout?,
+and is shown in \autoref{fig:m:group:gtracer}.
+
+The virtual member function \?propagate()? takes a space and an
+object \?pti? of class \gecoderef[class]{PropagateTraceInfo} as
+input. Information about the propagator and the status of
+propagation can be accessed through the member functions of
+\?pti?.
+
+The virtual member function \?commit()? takes a space and an
+object \?cti? of class \gecoderef[class]{CommitTraceInfo} as
+input. Information about the brancher, the choice, and the
+alternative to commit to can be accessed through the member
+functions of \?cti?.
+
+\begin{litcode}{general tracer}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/kernel.hh>
+#include <iomanip>
+
+using namespace Gecode;
+
+\end{litblock}
+class StdCoutTracer : public Tracer {
+public:
+  virtual void propagate(const Space& home,
+                         const PropagateTraceInfo& pti) {
+    std::cout << "trace::" << pti << std::endl;
+  }
+  virtual void commit(const Space& home,
+                      const CommitTraceInfo& cti) {
+    std::cout << "trace::" << cti << std::endl
+              << '\t';
+    cti.brancher().print(home, cti.choice(), cti.alternative(),
+                         std::cout);
+    std::cout << std::endl;
+  }
+};
+\end{litcode}
+
 
 \begin{litcode}{integer variable tracer}{schulte}
 \begin{litblock}{anonymous}
@@ -839,7 +893,7 @@ protected:
     case ViewTraceInfo::POST:
       std::cout << "post(";
       if (vti.post().in())
-        std::cout << "g:" << ei.post().id();
+        std::cout << "g:" << vti.post().id();
       std::cout << ')';
       break;
     case ViewTraceInfo::OTHER:
@@ -895,7 +949,7 @@ public:
     \end{litblock}
   }
   \end{litblock}
-  virtual void fix(const Space& home, const IntTraceRecorder& t) {
+  virtual void fail(const Space& home, const IntTraceRecorder& t) {
     \begin{litblock}{anonymous}
     std::cout << "trace::fail"; ids(t);
     double sl_i = static_cast<double>(t.slack().initial());
