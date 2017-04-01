@@ -10,7 +10,7 @@
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
   \cle{2017-03-20}{Explained general tracing
-    (see \autoref{sec:m:group:trace} and \autoref{sec:m:group:tracer}).}
+    (see \autoref{sec:m:group:trace} and \autoref{sec:m:group:tracers}).}
   \cle{2017-02-28}{Explained CHB for branching
     (see \autoref{sec:m:branch:chb}).}
   \cle{2017-02-21}{Changed all functions for branching to
