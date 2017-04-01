@@ -3269,7 +3269,7 @@ namespace MPG {
         viewsel(home,vars.c), viewsel(home,vars.d)
       };         
       postviewvalbrancher<IntView,4,int,2>
-        (home,xv,vs,valselcommit(home,vals),bd,vvp);
+        (home,xv,vs,valselcommit(home,vals),bf,vvp);
       \end{litblock}
     }
   }
