@@ -122,7 +122,7 @@ Programming variables includes the following tasks:
   support for implementing variable-value branchings, including
   support for the specification of variable and value selection
   strategies, random and action-based selection of variables,
-  tie-breaking, no-goods, and much more. How
+  tie-breaking, filter functions, no-goods, and much more. How
   to use Gecode's support for implementing variable-value
   branchings is detailed in \autoref{chap:v:branch}.
 
@@ -1482,6 +1482,9 @@ with branching (shown in \autoref{fig:v:branch:structure}).
 The way how a variable-value branching works can to some
 extent be controlled by the user by functions:
 \begin{itemize}
+\item A branching filter function defines which variables are
+  actually considered for branching, see
+  \autoref{sec:m:branch:filter}.
 \item A variable value print function defines how to print
   information on alternatives of variable value branchers during
   search. Variable value branchers print some default information
@@ -1805,7 +1808,7 @@ user-defined value
 selection function \?v? and a user-defined commit function \?c?
 it is possible to leave out \?c?, as it has been declared as an
 optional argument. When the argument is not provided, \?c? is
-equal to \?NULL?. This is taken into account as follows:
+equal to \?nullptr?. This is taken into account as follows:
 \insertlitcode{int.hh:user-defined value selection and commit functions}
 The classes \gecoderef[class]{ValSelFunction} and
 \gecoderef[class]{ValCommitFunction} are defined by Gecode and
@@ -2737,6 +2740,9 @@ namespace MPG { namespace Int {
 \begin{litblock}{branching}
 \begin{litblock}{branch function types}
 namespace MPG {
+  typedef std::function<bool(const Space& home, 
+                             IntVar x, int i)>
+    IntBranchFilter;
   typedef std::function<void(const Space &home,
                              const Brancher& b, unsigned int a,
                              IntVar x, int i, const int& n,
@@ -2758,6 +2764,7 @@ namespace Gecode {
   template<>
   class BranchTraits<MPG::IntVar> {
   public:
+    typedef MPG::IntBranchFilter Filter;
     typedef MPG::IntBranchMerit  Merit;
     typedef MPG::IntBranchVal    Val;
     typedef int                  ValType;
@@ -2806,9 +2813,9 @@ namespace MPG {
     IntAction(const IntAction& a);
     IntAction& operator =(const IntAction& a);
     IntAction(Home home, const IntVarArgs& x, double d=1.0,
-              IntBranchMerit bm=NULL);
+              IntBranchMerit bm=nullptr);
     void init(Home home, const IntVarArgs& x, double d=1.0,
-              IntBranchMerit bm=NULL);
+              IntBranchMerit bm=nullptr);
   };
   \begin{litblock}{anonymous}
   inline
@@ -2844,9 +2851,9 @@ namespace MPG {
     IntCHB(const IntCHB& c);
     IntCHB& operator =(const IntCHB& c);
     IntCHB(Home home, const IntVarArgs& x,
-           IntBranchMerit bm=NULL);
+           IntBranchMerit bm=nullptr);
     void init(Home home, const IntVarArgs& x,
-              IntBranchMerit bm=NULL);
+              IntBranchMerit bm=nullptr);
   };
   \begin{litblock}{anonymous}
   inline
@@ -2928,13 +2935,13 @@ namespace MPG {
   IntVarBranch INT_VAR_NONE(void);
   IntVarBranch INT_VAR_RND(Rnd r);
   IntVarBranch INT_VAR_MERIT_MAX(IntBranchMerit bm, 
-                                 BranchTbl tbl=NULL);
-  IntVarBranch INT_VAR_DEGREE_MAX(BranchTbl tbl=NULL);
+                                 BranchTbl tbl=nullptr);
+  IntVarBranch INT_VAR_DEGREE_MAX(BranchTbl tbl=nullptr);
   IntVarBranch INT_VAR_ACTION_MAX(double d=1.0, 
-                                  BranchTbl tbl=NULL);     
+                                  BranchTbl tbl=nullptr);     
   IntVarBranch INT_VAR_ACTION_MAX(IntAction a, 
-                                  BranchTbl tbl=NULL);     
-  IntVarBranch INT_VAR_SIZE_MIN(BranchTbl tbl=NULL);
+                                  BranchTbl tbl=nullptr);     
+  IntVarBranch INT_VAR_SIZE_MIN(BranchTbl tbl=nullptr);
   \begin{litblock}{variable selection function implementation}
   inline IntVarBranch
   INT_VAR_MERIT_MAX(IntBranchMerit bm, BranchTbl tbl) {
@@ -2943,7 +2950,7 @@ namespace MPG {
   \begin{litblock}{anonymous}
   inline IntVarBranch
   INT_VAR_NONE(void) {
-    return IntVarBranch(IntVarBranch::SEL_NONE,NULL);
+    return IntVarBranch(IntVarBranch::SEL_NONE,nullptr);
   }
   inline IntVarBranch
   INT_VAR_RND(Rnd r) {
@@ -2991,7 +2998,7 @@ namespace MPG {
   };
   IntValBranch INT_VAL_MIN(void);
   IntValBranch INT_VAL_RND(Rnd r);
-  IntValBranch INT_VAL(IntBranchVal v, IntBranchCommit c=NULL);
+  IntValBranch INT_VAL(IntBranchVal v, IntBranchCommit c=nullptr);
   \begin{litblock}{anonymous}
   inline IntValBranch
   INT_VAL_MIN(void) {
@@ -3159,7 +3166,7 @@ namespace MPG { namespace Int {
     \begin{litblock}{no-good literal creation}
     NGL* ngl(Space& home, unsigned int a, 
              IntView x, int n) const {
-      return (a == 0) ? new (home) LqNGL(home,x,n) : NULL;
+      return (a == 0) ? new (home) LqNGL(home,x,n) : nullptr;
     }
     \end{litblock}
   };
@@ -3197,7 +3204,8 @@ namespace MPG {
   inline void
   branch(Home home, const IntVarArgs& x,
          IntVarBranch vars, IntValBranch vals, 
-         IntVarValPrint vvp=NULL) {
+         IntBranchFilter bf=nullptr,
+         IntVarValPrint vvp=nullptr) {
     using namespace Int;
     if (home.failed()) return;
     vars.expand(home,x);
@@ -3206,14 +3214,15 @@ namespace MPG {
       viewsel(home,vars) 
     };
     postviewvalbrancher<IntView,1,int,2>
-      (home,xv,vs,valselcommit(home,vals),vvp);
+      (home,xv,vs,valselcommit(home,vals),bf,vvp);
   }
   \end{litblock}
   \begin{litblock}{branch function with tie-breaking}
   inline void
   branch(Home home, const IntVarArgs& x,
          TieBreak<IntVarBranch> vars, IntValBranch vals,
-         IntVarValPrint vvp=NULL) {
+         IntBranchFilter bf=nullptr,
+         IntVarValPrint vvp=nullptr) {
     using namespace Int;
     if (home.failed()) return;
     vars.a.expand(home,x);
@@ -3238,21 +3247,21 @@ namespace MPG {
         viewsel(home,vars.a)
       };
       postviewvalbrancher<IntView,1,int,2>
-        (home,xv,vs,valselcommit(home,vals),vvp);
+        (home,xv,vs,valselcommit(home,vals),bf,vvp);
       \end{litblock}
     } else if (vars.c.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[2] = { 
         viewsel(home,vars.a), viewsel(home,vars.b)
       };
       postviewvalbrancher<IntView,2,int,2>
-        (home,xv,vs,valselcommit(home,vals),vvp);
+        (home,xv,vs,valselcommit(home,vals),bf,vvp);
     } else if (vars.d.select() == IntVarBranch::SEL_NONE) {
       ViewSel<IntView>* vs[3] = { 
         viewsel(home,vars.a), viewsel(home,vars.b),
         viewsel(home,vars.c)
       };
       postviewvalbrancher<IntView,3,int,2>
-        (home,xv,vs,valselcommit(home,vals),vvp);
+        (home,xv,vs,valselcommit(home,vals),bf,vvp);
     } else {
       \begin{litblock}{anonymous}
       ViewSel<IntView>* vs[4] = { 
@@ -3260,7 +3269,7 @@ namespace MPG {
         viewsel(home,vars.c), viewsel(home,vars.d)
       };         
       postviewvalbrancher<IntView,4,int,2>
-        (home,xv,vs,valselcommit(home,vals),vvp);
+        (home,xv,vs,valselcommit(home,vals),bd,vvp);
       \end{litblock}
     }
   }
