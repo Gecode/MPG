@@ -84,7 +84,7 @@ are removed from \?pg? by
 PropagatorGroup::def.move(home,pg);
 \end{code}
 
-Move operations can be concatenated as they return its group. For
+Move operations can be concatenated as they return their group. For
 example, if \?pg? is a propagator group and \?p? and \?q? are
 two propagators, then
 \begin{code}
