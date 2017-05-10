@@ -482,12 +482,12 @@ public:
   }
   \begin{litblock}{anonymous}
   // Constructor for cloning s
-  Kakuro(bool share, Kakuro& s) : Script(share,s), w(s.w), h(s.h) {
-    f.update(*this, share, s.f);
+  Kakuro(Kakuro& s) : Script(s), w(s.w), h(s.h) {
+    f.update(*this, s.f);
   }
   // Perform copying during cloning
-  virtual Space* copy(bool share) {
-    return new Kakuro(share,*this);
+  virtual Space* copy(void) {
+    return new Kakuro(*this);
   }
   // Print solution
   virtual void print(std::ostream& os) const {
@@ -564,11 +564,11 @@ public:
   }
   \end{litblock}
   \begin{litblock}{anonymous}
-  DistinctLinear(bool share, DistinctLinear& s) : Space(share,s) {
-    x.update(*this, share, s.x);
+  DistinctLinear(DistinctLinear& s) : Space(s) {
+    x.update(*this, s.x);
   }
-  virtual Space* copy(bool share) {
-    return new DistinctLinear(share,*this);
+  virtual Space* copy(void) {
+    return new DistinctLinear(*this);
   }
   \end{litblock}
 };
@@ -645,12 +645,12 @@ public:
     branch(*this, f, INT_VAR_AFC_SIZE_MAX(), INT_VAL_SPLIT_MIN());
   }
   // Constructor for cloning s
-  Kakuro(bool share, Kakuro& s) : Script(share,s), w(s.w), h(s.h) {
-    f.update(*this, share, s.f);
+  Kakuro(Kakuro& s) : Script(s), w(s.w), h(s.h) {
+    f.update(*this, s.f);
   }
   // Perform copying during cloning
-  virtual Space* copy(bool share) {
-    return new Kakuro(share,*this);
+  virtual Space* copy(void) {
+    return new Kakuro(*this);
   }
   // Print solution
   virtual void print(std::ostream& os) const {

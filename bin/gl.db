@@ -184,7 +184,6 @@ URL class Gecode::FlatZinc::VarSpec classGecode_1_1FlatZinc_1_1VarSpec.html
 URL class Gecode::Float::ArgumentSame classGecode_1_1Float_1_1ArgumentSame.html
 URL class Gecode::Float::ArgumentSizeMismatch classGecode_1_1Float_1_1ArgumentSizeMismatch.html
 URL class Gecode::Float::Arithmetic::Abs classGecode_1_1Float_1_1Arithmetic_1_1Abs.html
-URL class Gecode::Float::Arithmetic::Channel classGecode_1_1Float_1_1Arithmetic_1_1Channel.html
 URL class Gecode::Float::Arithmetic::Div classGecode_1_1Float_1_1Arithmetic_1_1Div.html
 URL class Gecode::Float::Arithmetic::Max classGecode_1_1Float_1_1Arithmetic_1_1Max.html
 URL class Gecode::Float::Arithmetic::Min classGecode_1_1Float_1_1Arithmetic_1_1Min.html
@@ -209,6 +208,7 @@ URL class Gecode::Float::Branch::ValCommitLqGq classGecode_1_1Float_1_1Branch_1_
 URL class Gecode::Float::Branch::ValSelGq classGecode_1_1Float_1_1Branch_1_1ValSelGq.html
 URL class Gecode::Float::Branch::ValSelLq classGecode_1_1Float_1_1Branch_1_1ValSelLq.html
 URL class Gecode::Float::Branch::ValSelRnd classGecode_1_1Float_1_1Branch_1_1ValSelRnd.html
+URL class Gecode::Float::Channel::Channel classGecode_1_1Float_1_1Channel_1_1Channel.html
 URL class Gecode::Float::FloatDelta classGecode_1_1Float_1_1FloatDelta.html
 URL class Gecode::Float::FloatTraceView classGecode_1_1Float_1_1FloatTraceView.html
 URL class Gecode::Float::FloatVarImp classGecode_1_1Float_1_1FloatVarImp.html
@@ -270,8 +270,6 @@ URL class Gecode::FloatVarBranch classGecode_1_1FloatVarBranch.html
 URL class Gecode::FreeList classGecode_1_1FreeList.html
 URL class Gecode::FunctionBranch classGecode_1_1FunctionBranch.html
 URL class Gecode::FunctionBranch::Description classGecode_1_1FunctionBranch_1_1Description.html
-URL class Gecode::GPI classGecode_1_1GPI.html
-URL class Gecode::GPI::Info classGecode_1_1GPI_1_1Info.html
 URL class Gecode::Gist::AboutGist classGecode_1_1Gist_1_1AboutGist.html
 URL class Gecode::Gist::BestNode classGecode_1_1Gist_1_1BestNode.html
 URL class Gecode::Gist::BoundingBox classGecode_1_1Gist_1_1BoundingBox.html
@@ -322,7 +320,6 @@ URL class Gecode::Gist::VisualNode classGecode_1_1Gist_1_1VisualNode.html
 URL class Gecode::Group classGecode_1_1Group.html
 URL class Gecode::Heap classGecode_1_1Heap.html
 URL class Gecode::HeapAllocated classGecode_1_1HeapAllocated.html
-URL class Gecode::HeapChunk classGecode_1_1HeapChunk.html
 URL class Gecode::Home classGecode_1_1Home.html
 URL class Gecode::IllegalDecay classGecode_1_1IllegalDecay.html
 URL class Gecode::InstanceOptions classGecode_1_1InstanceOptions.html
@@ -862,7 +859,15 @@ URL class Gecode::Iter::Values::Unique classGecode_1_1Iter_1_1Values_1_1Unique.h
 URL class Gecode::Iter::Values::ValueListIter classGecode_1_1Iter_1_1Values_1_1ValueListIter.html
 URL class Gecode::Iter::Values::ValueListIter::VLIO classGecode_1_1Iter_1_1Values_1_1ValueListIter_1_1VLIO.html
 URL class Gecode::Iter::Values::ValueListIter::ValueList classGecode_1_1Iter_1_1Values_1_1ValueListIter_1_1ValueList.html
+URL class Gecode::Kernel::GPI classGecode_1_1Kernel_1_1GPI.html
+URL class Gecode::Kernel::GPI::Info classGecode_1_1Kernel_1_1GPI_1_1Info.html
+URL class Gecode::Kernel::HeapChunk classGecode_1_1Kernel_1_1HeapChunk.html
+URL class Gecode::Kernel::MemoryChunk classGecode_1_1Kernel_1_1MemoryChunk.html
+URL class Gecode::Kernel::MemoryManager classGecode_1_1Kernel_1_1MemoryManager.html
 URL class Gecode::Kernel::NaryWait classGecode_1_1Kernel_1_1NaryWait.html
+URL class Gecode::Kernel::SharedMemory classGecode_1_1Kernel_1_1SharedMemory.html
+URL class Gecode::Kernel::SharedSpaceData classGecode_1_1Kernel_1_1SharedSpaceData.html
+URL class Gecode::Kernel::SharedSpaceData::Data classGecode_1_1Kernel_1_1SharedSpaceData_1_1Data.html
 URL class Gecode::Kernel::UnaryWait classGecode_1_1Kernel_1_1UnaryWait.html
 URL class Gecode::LDS classGecode_1_1LDS.html
 URL class Gecode::LinFloatExpr classGecode_1_1LinFloatExpr.html
@@ -874,9 +879,7 @@ URL class Gecode::LinIntRel classGecode_1_1LinIntRel.html
 URL class Gecode::LocalHandle classGecode_1_1LocalHandle.html
 URL class Gecode::LocalObject classGecode_1_1LocalObject.html
 URL class Gecode::Matrix classGecode_1_1Matrix.html
-URL class Gecode::MemoryChunk classGecode_1_1MemoryChunk.html
 URL class Gecode::MemoryExhausted classGecode_1_1MemoryExhausted.html
-URL class Gecode::MemoryManager classGecode_1_1MemoryManager.html
 URL class Gecode::MeritAFC classGecode_1_1MeritAFC.html
 URL class Gecode::MeritAction classGecode_1_1MeritAction.html
 URL class Gecode::MeritBase classGecode_1_1MeritBase.html
@@ -1129,10 +1132,13 @@ URL class Gecode::SharedData classGecode_1_1SharedData.html
 URL class Gecode::SharedData::SDO classGecode_1_1SharedData_1_1SDO.html
 URL class Gecode::SharedHandle classGecode_1_1SharedHandle.html
 URL class Gecode::SharedHandle::Object classGecode_1_1SharedHandle_1_1Object.html
-URL class Gecode::SharedMemory classGecode_1_1SharedMemory.html
 URL class Gecode::SizeOptions classGecode_1_1SizeOptions.html
 URL class Gecode::Slice classGecode_1_1Slice.html
 URL class Gecode::Space classGecode_1_1Space.html
+URL class Gecode::Space::Branchers classGecode_1_1Space_1_1Branchers.html
+URL class Gecode::Space::IdlePropagators classGecode_1_1Space_1_1IdlePropagators.html
+URL class Gecode::Space::Propagators classGecode_1_1Space_1_1Propagators.html
+URL class Gecode::Space::ScheduledPropagators classGecode_1_1Space_1_1ScheduledPropagators.html
 URL class Gecode::SpaceFailed classGecode_1_1SpaceFailed.html
 URL class Gecode::SpaceIllegalAlternative classGecode_1_1SpaceIllegalAlternative.html
 URL class Gecode::SpaceNoBrancher classGecode_1_1SpaceNoBrancher.html
@@ -1171,6 +1177,7 @@ URL class Gecode::Support::Lock classGecode_1_1Support_1_1Lock.html
 URL class Gecode::Support::Mutex classGecode_1_1Support_1_1Mutex.html
 URL class Gecode::Support::QuickSortStack classGecode_1_1Support_1_1QuickSortStack.html
 URL class Gecode::Support::RawBitSetBase classGecode_1_1Support_1_1RawBitSetBase.html
+URL class Gecode::Support::RefCount classGecode_1_1Support_1_1RefCount.html
 URL class Gecode::Support::RunJobs classGecode_1_1Support_1_1RunJobs.html
 URL class Gecode::Support::RunJobs::Deleter classGecode_1_1Support_1_1RunJobs_1_1Deleter.html
 URL class Gecode::Support::RunJobs::Master classGecode_1_1Support_1_1RunJobs_1_1Master.html
@@ -1730,7 +1737,6 @@ URL class Test::NoGoods::NoGoods classTest_1_1NoGoods_1_1NoGoods.html
 URL class Test::NoGoods::Queens classTest_1_1NoGoods_1_1Queens.html
 URL class Test::Options classTest_1_1Options.html
 URL class Test::Region classTest_1_1Region.html
-URL class Test::Region::TestSpace classTest_1_1Region_1_1TestSpace.html
 URL class Test::Search::BAB classTest_1_1Search_1_1BAB.html
 URL class Test::Search::BranchTypes classTest_1_1Search_1_1BranchTypes.html
 URL class Test::Search::ConstrainTypes classTest_1_1Search_1_1ConstrainTypes.html
@@ -1770,7 +1776,6 @@ URL class Test::Set::Element::ElementUnion classTest_1_1Set_1_1Element_1_1Elemen
 URL class Test::Set::Element::ElementUnionConst classTest_1_1Set_1_1Element_1_1ElementUnionConst.html
 URL class Test::Set::Element::MatrixIntSet classTest_1_1Set_1_1Element_1_1MatrixIntSet.html
 URL class Test::Set::Exec::Wait classTest_1_1Set_1_1Exec_1_1Wait.html
-URL class Test::Set::FakeSpace classTest_1_1Set_1_1FakeSpace.html
 URL class Test::Set::Int::Card classTest_1_1Set_1_1Int_1_1Card.html
 URL class Test::Set::Int::Elem classTest_1_1Set_1_1Int_1_1Elem.html
 URL class Test::Set::Int::IntRel classTest_1_1Set_1_1Int_1_1IntRel.html
@@ -2143,11 +2148,12 @@ URL file gecode/flatzinc/varspec.hh varspec_8hh.html
 URL file gecode/float.hh gecode_2float_8hh.html
 URL file gecode/float/arithmetic.cpp gecode_2float_2arithmetic_8cpp.html
 URL file gecode/float/arithmetic.hh float_2arithmetic_8hh.html
+URL file gecode/float/arithmetic/abs.hpp float_2arithmetic_2abs_8hpp.html
 URL file gecode/float/arithmetic/div.hpp float_2arithmetic_2div_8hpp.html
-URL file gecode/float/arithmetic/min-max-channel.hpp min-max-channel_8hpp.html
+URL file gecode/float/arithmetic/min-max.hpp min-max_8hpp.html
 URL file gecode/float/arithmetic/mult.hpp float_2arithmetic_2mult_8hpp.html
 URL file gecode/float/arithmetic/pow-nroot.hpp pow-nroot_8hpp.html
-URL file gecode/float/arithmetic/sqr-sqrt-abs.hpp sqr-sqrt-abs_8hpp.html
+URL file gecode/float/arithmetic/sqr-sqrt.hpp sqr-sqrt_8hpp.html
 URL file gecode/float/array-traits.hpp float_2array-traits_8hpp.html
 URL file gecode/float/array.cpp gecode_2float_2array_8cpp.html
 URL file gecode/float/array.hpp float_2array_8hpp.html
@@ -2170,6 +2176,10 @@ URL file gecode/float/branch/val-sel.hpp float_2branch_2val-sel_8hpp.html
 URL file gecode/float/branch/val.hpp float_2branch_2val_8hpp.html
 URL file gecode/float/branch/var.hpp float_2branch_2var_8hpp.html
 URL file gecode/float/branch/view-sel.cpp float_2branch_2view-sel_8cpp.html
+URL file gecode/float/channel.cpp gecode_2float_2channel_8cpp.html
+URL file gecode/float/channel.hh float_2channel_8hh.html
+URL file gecode/float/channel.hpp float_2channel_8hpp.html
+URL file gecode/float/channel/channel.hpp float_2channel_2channel_8hpp.html
 URL file gecode/float/dom.cpp gecode_2float_2dom_8cpp.html
 URL file gecode/float/exception.cpp float_2exception_8cpp.html
 URL file gecode/float/exception.hpp float_2exception_8hpp.html
@@ -2195,8 +2205,10 @@ URL file gecode/float/trace/delta.hpp float_2trace_2delta_8hpp.html
 URL file gecode/float/trace/trace-view.hpp float_2trace_2trace-view_8hpp.html
 URL file gecode/float/trace/tracer.cpp float_2trace_2tracer_8cpp.html
 URL file gecode/float/trace/traits.hpp float_2trace_2traits_8hpp.html
+URL file gecode/float/transcendental.cpp gecode_2float_2transcendental_8cpp.html
 URL file gecode/float/transcendental.hh transcendental_8hh.html
 URL file gecode/float/transcendental/exp-log.hpp exp-log_8hpp.html
+URL file gecode/float/trigonometric.cpp gecode_2float_2trigonometric_8cpp.html
 URL file gecode/float/trigonometric.hh trigonometric_8hh.html
 URL file gecode/float/trigonometric/asinacos.hpp asinacos_8hpp.html
 URL file gecode/float/trigonometric/sincos.hpp sincos_8hpp.html
@@ -2259,7 +2271,7 @@ URL file gecode/gist/zoomToFitIcon.hpp zoomToFitIcon_8hpp.html
 URL file gecode/int.hh gecode_2int_8hh.html
 URL file gecode/int/arithmetic.cpp gecode_2int_2arithmetic_8cpp.html
 URL file gecode/int/arithmetic.hh int_2arithmetic_8hh.html
-URL file gecode/int/arithmetic/abs.hpp abs_8hpp.html
+URL file gecode/int/arithmetic/abs.hpp int_2arithmetic_2abs_8hpp.html
 URL file gecode/int/arithmetic/argmax.hpp argmax_8hpp.html
 URL file gecode/int/arithmetic/divmod.hpp divmod_8hpp.html
 URL file gecode/int/arithmetic/max.hpp max_8hpp.html
@@ -2308,7 +2320,7 @@ URL file gecode/int/branch/view-values.cpp view-values_8cpp.html
 URL file gecode/int/branch/view-values.hpp view-values_8hpp.html
 URL file gecode/int/channel.cpp gecode_2int_2channel_8cpp.html
 URL file gecode/int/channel.hh int_2channel_8hh.html
-URL file gecode/int/channel.hpp channel_8hpp.html
+URL file gecode/int/channel.hpp int_2channel_8hpp.html
 URL file gecode/int/channel/base.hpp int_2channel_2base_8hpp.html
 URL file gecode/int/channel/dom.hpp channel_2dom_8hpp.html
 URL file gecode/int/channel/link-multi.cpp link-multi_8cpp.html
@@ -2609,6 +2621,7 @@ URL file gecode/kernel/core.cpp core_8cpp.html
 URL file gecode/kernel/core.hpp core_8hpp.html
 URL file gecode/kernel/exception.cpp kernel_2exception_8cpp.html
 URL file gecode/kernel/exception.hpp kernel_2exception_8hpp.html
+URL file gecode/kernel/gpi.cpp gpi_8cpp.html
 URL file gecode/kernel/gpi.hpp gpi_8hpp.html
 URL file gecode/kernel/macros.hpp kernel_2macros_8hpp.html
 URL file gecode/kernel/memory-config.hpp memory-config_8hpp.html
@@ -2623,6 +2636,8 @@ URL file gecode/kernel/rnd.cpp rnd_8cpp.html
 URL file gecode/kernel/rnd.hpp rnd_8hpp.html
 URL file gecode/kernel/shared-array.hpp shared-array_8hpp.html
 URL file gecode/kernel/shared-data.hpp shared-data_8hpp.html
+URL file gecode/kernel/shared-object.hpp shared-object_8hpp.html
+URL file gecode/kernel/shared-space-data.hpp shared-space-data_8hpp.html
 URL file gecode/kernel/subscribed-propagators.hpp subscribed-propagators_8hpp.html
 URL file gecode/kernel/trace-filter.cpp trace-filter_8cpp.html
 URL file gecode/kernel/trace-filter.hpp trace-filter_8hpp.html
@@ -2872,6 +2887,7 @@ URL file gecode/support/int-type.hpp int-type_8hpp.html
 URL file gecode/support/macros.hpp support_2macros_8hpp.html
 URL file gecode/support/marked-pointer.hpp marked-pointer_8hpp.html
 URL file gecode/support/random.hpp random_8hpp.html
+URL file gecode/support/ref-count.hpp ref-count_8hpp.html
 URL file gecode/support/run-jobs.hpp run-jobs_8hpp.html
 URL file gecode/support/sort.hpp support_2sort_8hpp.html
 URL file gecode/support/static-stack.hpp static-stack_8hpp.html
@@ -2997,8 +3013,8 @@ URL file test/float/dom.cpp test_2float_2dom_8cpp.html
 URL file test/float/linear.cpp test_2float_2linear_8cpp.html
 URL file test/float/mm-lin.cpp float_2mm-lin_8cpp.html
 URL file test/float/rel.cpp test_2float_2rel_8cpp.html
-URL file test/float/transcendental.cpp transcendental_8cpp.html
-URL file test/float/trigonometric.cpp trigonometric_8cpp.html
+URL file test/float/transcendental.cpp test_2float_2transcendental_8cpp.html
+URL file test/float/trigonometric.cpp test_2float_2trigonometric_8cpp.html
 URL file test/int.cpp test_2int_8cpp.html
 URL file test/int.hh test_2int_8hh.html
 URL file test/int.hpp test_2int_8hpp.html
@@ -3110,8 +3126,6 @@ URL group FuncSetViewSel group__FuncSetViewSel.html
 TITLE group FuncSetViewSel "Merit-based set view selection for branchers"
 URL group FuncSupport group__FuncSupport.html
 TITLE group FuncSupport "Support algorithms and datastructures"
-URL group FuncSupportShared group__FuncSupportShared.html
-TITLE group FuncSupportShared "Support for shared objects and handles"
 URL group FuncSupportThread group__FuncSupportThread.html
 TITLE group FuncSupportThread "Simple thread and synchronization support"
 URL group FuncThrow group__FuncThrow.html
@@ -3492,6 +3506,7 @@ URL namespace Gecode::Float namespaceGecode_1_1Float.html
 URL namespace Gecode::Float::Arithmetic namespaceGecode_1_1Float_1_1Arithmetic.html
 URL namespace Gecode::Float::Bool namespaceGecode_1_1Float_1_1Bool.html
 URL namespace Gecode::Float::Branch namespaceGecode_1_1Float_1_1Branch.html
+URL namespace Gecode::Float::Channel namespaceGecode_1_1Float_1_1Channel.html
 URL namespace Gecode::Float::Limits namespaceGecode_1_1Float_1_1Limits.html
 URL namespace Gecode::Float::Linear namespaceGecode_1_1Float_1_1Linear.html
 URL namespace Gecode::Float::Rel namespaceGecode_1_1Float_1_1Rel.html
@@ -3533,7 +3548,7 @@ URL namespace Gecode::Iter::Ranges namespaceGecode_1_1Iter_1_1Ranges.html
 URL namespace Gecode::Iter::Values namespaceGecode_1_1Iter_1_1Values.html
 URL namespace Gecode::Kernel namespaceGecode_1_1Kernel.html
 URL namespace Gecode::Kernel::Config namespaceGecode_1_1Kernel_1_1Config.html
-URL namespace Gecode::MemoryConfig namespaceGecode_1_1MemoryConfig.html
+URL namespace Gecode::Kernel::MemoryConfig namespaceGecode_1_1Kernel_1_1MemoryConfig.html
 URL namespace Gecode::MiniModel namespaceGecode_1_1MiniModel.html
 URL namespace Gecode::Search namespaceGecode_1_1Search.html
 URL namespace Gecode::Search::Config namespaceGecode_1_1Search_1_1Config.html

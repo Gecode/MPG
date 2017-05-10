@@ -110,14 +110,14 @@ public:
   }
 
   /// Constructor for cloning \a s
-  Golomb(bool share, Golomb& s)
-    : MinimizeScript(share,s) {
-    m.update(*this, share, s.m);
+  Golomb(Golomb& s)
+    : MinimizeScript(s) {
+    m.update(*this, s.m);
   }
   /// Copy during cloning
   virtual Space*
-  copy(bool share) {
-    return new Golomb(share,*this);
+  copy(void) {
+    return new Golomb(*this);
   }
 };
 

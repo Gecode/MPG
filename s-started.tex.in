@@ -222,27 +222,9 @@ recomputation and is discussed in
 
 \paragraph{Parallel search.}
 
-Gecode's kernel is constructed such it does not need to know
-anything about parallelism: it performs no
-synchronization\footnote{That is a slight over-simplification.
-  Gecode's kernel performs just enough synchronization to
-  maintain global information such as AFC (see
-  \autoref{sec:m:branch:afc}).} in order to keep
-propagation and search simple and efficient.
-
-By default, a space or clones of a space can only be used by a
-single thread. However, one can request clones that can be used
-by different threads as they are created independently. This is
-achieved by providing \?false? as an additional argument to the
-\?clone()?  member function as follows:
-\begin{code}
-Space* c = s->clone(false);
-\end{code}
-The additional argument requests that a non-shared clone is
-created (in fact, it requests that non-shared copies of data
-structures used by the space \?s? are created, see
-\autoref{sec:p:memory:shared} for details). The spaces \?s? and
-\?c? can now be used by different threads in parallel.
+Gecode's kernel is constructed that clones of spaces can be used
+in different threads. Howeever, no two threads can simultaneously
+perform operations on the same space.
 
 \paragraph{Statistics support.}
 

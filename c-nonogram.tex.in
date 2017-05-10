@@ -240,12 +240,12 @@ public:
     \end{litblock}
   }
   \begin{litblock}{anonymous}
-  Nonogram(bool share, Nonogram& s) 
-    : Script(share,s), width(s.width), height(s.height) {
-    b.update(*this, share, s.b);
+  Nonogram(Nonogram& s) 
+    : Script(s), width(s.width), height(s.height) {
+    b.update(*this, s.b);
   }
-  virtual Space* copy(bool share) {
-    return new Nonogram(share,*this);
+  virtual Space* copy(void) {
+    return new Nonogram(*this);
   }
   virtual void
   print(std::ostream& os) const {

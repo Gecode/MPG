@@ -131,11 +131,11 @@ public:
     \end{litblock}
   }
   \begin{litblock}{anonymous}
-  MagicSequence(bool share, MagicSequence& e) : Script(share,e) {
-    x.update(*this, share, e.x);
+  MagicSequence(MagicSequence& e) : Script(e) {
+    x.update(*this, e.x);
   }
-  virtual Space* copy(bool share) {
-    return new MagicSequence(share,*this);
+  virtual Space* copy(void) {
+    return new MagicSequence(*this);
   }
   virtual void print(std::ostream& os) const {
     os << "\t";
@@ -182,11 +182,11 @@ public:
     branch(*this, x, INT_VAR_NONE(), INT_VAL_MAX());
   }
   \begin{litblock}{anonymous}
-  MagicSequence(bool share, MagicSequence& e) : Script(share,e) {
-    x.update(*this, share, e.x);
+  MagicSequence(MagicSequence& e) : Script(e) {
+    x.update(*this, e.x);
   }
-  virtual Space* copy(bool share) {
-    return new MagicSequence(share,*this);
+  virtual Space* copy(void) {
+    return new MagicSequence(*this);
   }
   virtual void print(std::ostream& os) const {
     os << "\t";

@@ -2278,13 +2278,13 @@ namespace MPG { namespace Int {
     }
     \end{litblock}
     \begin{litblock}{varimp:copying}
-    IntVarImp(Space& home, bool share, IntVarImp& y)
-      : IntVarImpBase(home,share,y), l(y.l), u(y.u) {}
-    IntVarImp* copy(Space& home, bool share) {
+    IntVarImp(Space& home, IntVarImp& y)
+      : IntVarImpBase(home,y), l(y.l), u(y.u) {}
+    IntVarImp* copy(Space& home) {
       if (copied()) 
         return static_cast<IntVarImp*>(forward());
       else
-        return new (home) IntVarImp(home,share,*this);
+        return new (home) IntVarImp(home,*this);
     }
     \end{litblock}
     \begin{litblock}{varimp:delta information}
@@ -2524,8 +2524,8 @@ namespace MPG { namespace Int {
     \end{litblock}
     \end{litblock}
     \begin{litblock}{constintview:update during cloning}
-    void update(Space& home, bool share, ConstIntView& y) {
-      ConstView<IntView>::update(home,share,y);
+    void update(Space& home, ConstIntView& y) {
+      ConstView<IntView>::update(home,y);
       x = y.x;
     }
     \end{litblock}
@@ -2704,8 +2704,8 @@ namespace MPG { namespace Int {
 
     \end{litblock}
     \begin{litblock}{offsetview:update during cloning}
-    void update(Space& home, bool share, OffsetView& y) {
-      x.update(home,share,y.x);
+    void update(Space& home, OffsetView& y) {
+      x.update(home,y.x);
       c=y.c;
     }
     \end{litblock}
@@ -3023,8 +3023,8 @@ namespace MPG { namespace Int {
   public:
     MeritSize(Space& home, const VarBranch<IntVar>& vb)
       : MeritBase<IntView,unsigned int>(home,vb) {}
-    MeritSize(Space& home, bool share, MeritSize& m)
-      : MeritBase<IntView,unsigned int>(home,share,m) {}
+    MeritSize(Space& home, MeritSize& m)
+      : MeritBase<IntView,unsigned int>(home,m) {}
     unsigned int operator ()(const Space& home, IntView x, int i) {
       return x.max() - x.min();
     }
@@ -3077,8 +3077,8 @@ namespace MPG { namespace Int {
   public:
     ValSelMin(Space& home, const ValBranch<IntVar>& vb)
       : ValSel<IntView,int>(home,vb) {}
-    ValSelMin(Space& home, bool share, ValSelMin& vs)
-      : ValSel<IntView,int>(home,share,vs) {}
+    ValSelMin(Space& home, ValSelMin& vs)
+      : ValSel<IntView,int>(home,vs) {}
     \end{litblock}
     int val(const Space& home, IntView x, int i) {
       return x.min();
@@ -3091,10 +3091,8 @@ namespace MPG { namespace Int {
   public:
     ValSelRnd(Space& home, const ValBranch<IntVar>& vb)
       : ValSel<IntView,int>(home,vb), r(vb.rnd()) {}
-    ValSelRnd(Space& home, bool share, ValSelRnd& vs)
-      : ValSel<IntView,int>(home,share,vs) {
-      r.update(home,share,vs.r);
-    }
+    ValSelRnd(Space& home, ValSelRnd& vs)
+      : ValSel<IntView,int>(home,share,vs), r(vs.r) {}
     int val(const Space& home, IntView x, int i) {
       return x.min() + r(x.max() - x.min());
     }
@@ -3114,8 +3112,8 @@ namespace MPG { namespace Int {
     using ViewValNGL<IntView,int,PC_INT_BND>::n;
   public:
     LqNGL(Space& home, IntView x, int n);
-    LqNGL(Space& home, bool share, LqNGL& ngl);
-    virtual NGL* copy(Space& home, bool share);
+    LqNGL(Space& home, LqNGL& ngl);
+    virtual NGL* copy(Space& home);
     virtual NGL::Status status(const Space& home) const;
     virtual ExecStatus prune(Space& home);
   };
@@ -3125,11 +3123,11 @@ namespace MPG { namespace Int {
   LqNGL::LqNGL(Space& home, IntView x, int n)
     : ViewValNGL<IntView,int,PC_INT_BND>(home,x,n) {}
   inline
-  LqNGL::LqNGL(Space& home, bool share, LqNGL& ngl)
-    : ViewValNGL<IntView,int,PC_INT_BND>(home,share,ngl) {}
+  LqNGL::LqNGL(Space& home, LqNGL& ngl)
+    : ViewValNGL<IntView,int,PC_INT_BND>(home,ngl) {}
   inline NGL*
-  LqNGL::copy(Space& home, bool share) {
-    return new (home) LqNGL(home,share,*this);
+  LqNGL::copy(Space& home) {
+    return new (home) LqNGL(home,*this);
   }
   inline NGL::Status
   LqNGL::status(const Space&) const {
@@ -3150,8 +3148,8 @@ namespace MPG { namespace Int {
     \begin{litblock}{anonymous}
     ValCommitLq(Space& home, const ValBranch<IntVar>& vb)
       : ValCommit<IntView,int>(home,vb) {}
-    ValCommitLq(Space& home, bool share, ValCommitLq& vc)
-      : ValCommit<IntView,int>(home,share,vc) {}
+    ValCommitLq(Space& home, ValCommitLq& vc)
+      : ValCommit<IntView,int>(home,vc) {}
     \end{litblock}
     ModEvent commit(Space& home, unsigned int a, 
                     IntView x, int i, int n) {
@@ -3295,7 +3293,7 @@ namespace MPG { namespace Int {
       return u;
     }
     \end{litblock}
-    void update(Space& home, bool share, IntTraceView x) {
+    void update(Space& home, IntTraceView x) {
       l=x.l; u=x.u;
     } 
     \begin{litblock}{prune function}
@@ -3486,13 +3484,13 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
-  LeEq(Gecode::Space& home, bool share, LeEq& p) 
-    : Gecode::Propagator(home,share,p) {
-    x0.update(home,share,p.x0);
-    x1.update(home,share,p.x1);
+  LeEq(Gecode::Space& home, LeEq& p) 
+    : Gecode::Propagator(home,p) {
+    x0.update(home,p.x0);
+    x1.update(home,p.x1);
   }
-  virtual Gecode::Propagator* copy(Gecode::Space& home, bool share) {
-    return new (home) LeEq(home,share,*this);
+  virtual Gecode::Propagator* copy(Gecode::Space& home) {
+    return new (home) LeEq(home,*this);
   }
   virtual Gecode::PropCost cost(const Gecode::Space&, 
                                 const Gecode::ModEventDelta&) const {
@@ -3536,13 +3534,13 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
-  Disequal(Gecode::Space& home, bool share, Disequal& p) 
-    : Gecode::Propagator(home,share,p) {
-    x0.update(home,share,p.x0);
-    x1.update(home,share,p.x1);
+  Disequal(Gecode::Space& home, Disequal& p) 
+    : Gecode::Propagator(home,p) {
+    x0.update(home,p.x0);
+    x1.update(home,p.x1);
   }
-  virtual Gecode::Propagator* copy(Gecode::Space& home, bool share) {
-    return new (home) Disequal(home,share,*this);
+  virtual Gecode::Propagator* copy(Gecode::Space& home) {
+    return new (home) Disequal(home,*this);
   }
   virtual Gecode::PropCost cost(const Gecode::Space&, 
                                 const Gecode::ModEventDelta&) const {
@@ -3601,14 +3599,14 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
-  Plus(Gecode::Space& home, bool share, Plus& p) 
-    : Gecode::Propagator(home,share,p) {
-    x0.update(home,share,p.x0);
-    x1.update(home,share,p.x1);
-    x2.update(home,share,p.x2);
+  Plus(Gecode::Space& home, Plus& p) 
+    : Gecode::Propagator(home,p) {
+    x0.update(home,p.x0);
+    x1.update(home,p.x1);
+    x2.update(home,p.x2);
   }
-  virtual Gecode::Propagator* copy(Gecode::Space& home, bool share) {
-    return new (home) Plus(home,share,*this);
+  virtual Gecode::Propagator* copy(Gecode::Space& home) {
+    return new (home) Plus(home,*this);
   }
   virtual Gecode::PropCost cost(const Gecode::Space&, 
                                 const Gecode::ModEventDelta&) const {
@@ -3762,12 +3760,12 @@ public:
   void print(void) const {
     std::cout << "\tm[" << m.size() << "] = " << m << std::endl;
   }
-  GolombRuler(bool share, GolombRuler& s)
-    : Gecode::Space(share,s) {
-    m.update(*this, share, s.m);
+  GolombRuler(GolombRuler& s)
+    : Gecode::Space(s) {
+    m.update(*this, s.m);
   }
-  virtual Space* copy(bool share) {
-    return new GolombRuler(share,*this);
+  virtual Space* copy(void) {
+    return new GolombRuler(*this);
   }
   \end{litblock}
 };

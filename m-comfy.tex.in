@@ -336,11 +336,11 @@ public:
     \end{litblock}
   }
   \begin{litblock}{anonymous}
-  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
-    l.update(*this, share, s.l);
+  SendMoreMoney(SendMoreMoney& s) : Space(s) {
+    l.update(*this, s.l);
   }
-  virtual Space* copy(bool share) {
-    return new SendMoreMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMoreMoney(*this);
   }
   void print(void) const {
     std::cout << l << std::endl;
@@ -394,14 +394,14 @@ public:
     branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
     \end{litblock}
   }
-  SendMostMoney(bool share, SendMostMoney& s)
-    : IntMaximizeSpace(share, s) {
-    l.update(*this, share, s.l);
-    money.update(*this, share, s.money);
+  SendMostMoney(SendMostMoney& s)
+    : IntMaximizeSpace(s) {
+    l.update(*this, s.l);
+    money.update(*this, s.money);
   }
   \begin{litblock}{anonymous}
-  virtual Space* copy(bool share) {
-    return new SendMostMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMostMoney(*this);
   }
   void print(void) const {
     std::cout << l << std::endl;
@@ -482,13 +482,13 @@ public:
     \end{litblock}
   }
   \begin{litblock}{anonymous}
-  SendMostMoney(bool share, SendMostMoney& s)
-    : IntMaximizeScript(share, s) {
-    l.update(*this, share, s.l);
-    money.update(*this, share, s.money);
+  SendMostMoney(SendMostMoney& s)
+    : IntMaximizeScript(s) {
+    l.update(*this, s.l);
+    money.update(*this, s.money);
   }
-  virtual Space* copy(bool share) {
-    return new SendMostMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMostMoney(*this);
   }
   virtual IntVar cost(void) const {
     return money;

@@ -216,21 +216,12 @@ The actual \?copy()? function is straightforward and uses an
 additional copy constructor. The \?copy()? function is virtual
 such that cloning (used on behalf of a search engine) can create
 a copy of a space even though the space's exact subclass is not
-known to cloning. The Boolean argument \?share? defines whether a
-shared copy is constructed and is of no further interest
-here.\footnote{For the curious reader: a shared (\?share? is
-  \?true?) clone can only be used within the same thread. A clone
-  without sharing (\?share?  is \?false?)  creates a clone where
-  no data structures are shared between original and clone. Hence
-  both original and cloned space can be used in different threads
-  without problems. The appropriate value for \?share? is passed
-  to the \?clone()? member function of a space by a search
-  engine, see also \autoref{sec:s:started:space}.}
+known to cloning. 
 
 The obligation of the copy constructor is to invoke the copy
 constructor of the parent class, and to copy all data
 structures that contain variables. For
-\?SendMoreMoney? this amounts to invoking \?Space(share,s)? and
+\?SendMoreMoney? this amounts to invoking \?Space(s)? and
 updating the variable array. An exception of type 
 \gecoderef[class]{SpaceNotCloned} is thrown if the copy
 constructor of the \?Space? class is not invoked.
@@ -1208,11 +1199,11 @@ public:
     \end{litblock}
   }
   \begin{litblock}{search support}
-  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
-    l.update(*this, share, s.l);
+  SendMoreMoney(SendMoreMoney& s) : Space(s) {
+    l.update(*this, s.l);
   }
-  virtual Space* copy(bool share) {
-    return new SendMoreMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMoreMoney(*this);
   }
   \end{litblock}
   \begin{litblock}{print solution}
@@ -1266,11 +1257,11 @@ public:
     linear(*this, c, x, IRT_EQ, 0);
     branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
-  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
-    l.update(*this, share, s.l);
+  SendMoreMoney(SendMoreMoney& s) : Space(s) {
+    l.update(*this, s.l);
   }
-  virtual Space* copy(bool share) {
-    return new SendMoreMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMoreMoney(*this);
   }
   void print(void) const {
     std::cout << l << std::endl;
@@ -1315,11 +1306,11 @@ public:
     linear(*this, c, x, IRT_EQ, 0);
     branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
-  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
-    l.update(*this, share, s.l);
+  SendMoreMoney(SendMoreMoney& s) : Space(s) {
+    l.update(*this, s.l);
   }
-  virtual Space* copy(bool share) {
-    return new SendMoreMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMoreMoney(*this);
   }
   \end{litblock}
   void print(std::ostream& os) const {
@@ -1369,11 +1360,11 @@ public:
     linear(*this, c, x, IRT_EQ, 0);
     branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
-  SendMostMoney(bool share, SendMostMoney& s) : Space(share, s) {
-    l.update(*this, share, s.l);
+  SendMostMoney(SendMostMoney& s) : Space(s) {
+    l.update(*this, s.l);
   }
-  virtual Space* copy(bool share) {
-    return new SendMostMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMostMoney(*this);
   }
   void print(void) const {
     std::cout << l << std::endl;
