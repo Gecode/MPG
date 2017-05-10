@@ -653,7 +653,7 @@ public:
     x.update(home,b.x);
   }
   virtual Brancher* copy(Space& home) {
-    return new (home) NoneMin(home,share);
+    return new (home) NoneMin(home,*this);
   }
   \end{litblock}
   virtual bool status(const Space& home) const {

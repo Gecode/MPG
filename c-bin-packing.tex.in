@@ -975,7 +975,7 @@ public:
   \begin{litblock}{choice function}
   virtual Gecode::Choice* choice(Space& home) {
     int n = bin.size(), m = load.size();
-    Region region(home);
+    Region region;
     \begin{litblock}{initialize free space in bins}
     int* free = region.alloc<int>(m);
     for (int j=0; j<m; j++)
@@ -1057,8 +1057,8 @@ public:
   // Initialize brancher
   CDBF(Space& home, CDBF& cdbf) 
     : Brancher(home, cdbf), size(cdbf.size), item(cdbf.item) {
-    load.update(home, share, cdbf.load);
-    bin.update(home, share, cdbf.bin);
+    load.update(home, cdbf.load);
+    bin.update(home, cdbf.bin);
   }
   // Copy brancher
   virtual Actor* copy(Space& home) {
@@ -1069,7 +1069,7 @@ public:
   choice(const Space& home, Archive& e) {
     int alt, item, n_same;
     e >> alt >> item >> n_same;
-    Region region(home);
+    Region region;
     int* same = region.alloc<int>(n_same);
     for (int i=n_same; i--;) 
       e >> same[i];

@@ -144,7 +144,9 @@ class Golf : public Script {
 public:
   Golf(const GolfOptions& opt)
   : Script(opt), g(opt.g()), s(opt.s()), w(opt.w()),
-    groups(*this,g*w,IntSet::empty,0,g*s-1,s,s) {
+    groups(*this,g*w,IntSet::empty,0,g*s-1,
+           static_cast<unsigned int>(s),
+           static_cast<unsigned int>(s)) {
     Matrix<SetVarArray> schedule(groups,g,w);
     \begin{litblock}{groups in a week}
     SetVar allPlayers(*this, 0,g*s-1, 0,g*s-1);

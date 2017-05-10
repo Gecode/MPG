@@ -264,10 +264,10 @@ public:
     (void) new (home) Intersection(home,x0,x1,x2);
     return ES_OK;
   }
-  Intersection(Space& home, bool share, Intersection& p)
-    : TernaryPropagator<Set::SetView,Set::PC_SET_ANY>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Intersection(home,share,*this);
+  Intersection(Space& home, Intersection& p)
+    : TernaryPropagator<Set::SetView,Set::PC_SET_ANY>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Intersection(home,*this);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {

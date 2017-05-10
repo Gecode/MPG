@@ -1412,13 +1412,13 @@ public:
   }
   \end{litblock}
   \begin{litblock}{copying}
-  Less(Space& home, bool share, Less& p) 
-    : Propagator(home,share,p) {
-    x0.update(home,share,p.x0);
-    x1.update(home,share,p.x1);
+  Less(Space& home, Less& p) 
+    : Propagator(home,p) {
+    x0.update(home,p.x0);
+    x1.update(home,p.x1);
   }
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Less(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) Less(home,*this);
   }
   \end{litblock}
   \begin{litblock}{cost computation}
@@ -1495,13 +1495,13 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
-  Less(Space& home, bool share, Less& p) 
-    : Propagator(home,share,p) {
-    x0.update(home,share,p.x0);
-    x1.update(home,share,p.x1);
+  Less(Space& home, Less& p) 
+    : Propagator(home,p) {
+    x0.update(home,p.x0);
+    x1.update(home,p.x1);
   }
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Less(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) Less(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::LO);
@@ -1564,13 +1564,13 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
-  Disequal(Space& home, bool share, Disequal& p) 
-    : Propagator(home,share,p) {
-    x0.update(home,share,p.x0);
-    x1.update(home,share,p.x1);
+  Disequal(Space& home, Disequal& p) 
+    : Propagator(home,p) {
+    x0.update(home,p.x0);
+    x1.update(home,p.x1);
   }
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Disequal(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) Disequal(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::LO);
@@ -1639,13 +1639,13 @@ public:
     x1.reschedule(home,*this,Int::PC_INT_BND);
   }
   \begin{litblock}{anonymous}
-  Less(Space& home, bool share, Less& p) 
-    : Propagator(home,share,p) {
-    x0.update(home,share,p.x0);
-    x1.update(home,share,p.x1);
+  Less(Space& home, Less& p) 
+    : Propagator(home,p) {
+    x0.update(home,p.x0);
+    x1.update(home,p.x1);
   }
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Less(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) Less(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::LO);
@@ -1691,10 +1691,10 @@ public:
       (void) new (home) Less(home,x0,x1);
     return ES_OK;
   }
-  Less(Space& home, bool share, Less& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Less(home,share,*this);
+  Less(Space& home, Less& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Less(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
     GECODE_ME_CHECK(x0.le(home,x1.max()));

@@ -255,10 +255,10 @@ public:
     (void) new (home) Equal<View>(home,x0,x1);
     return ES_OK;
   }
-  Equal(Space& home, bool share, Equal<View>& p) 
-    : BinaryPropagator<View,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal<View>(home,share,*this);
+  Equal(Space& home, Equal<View>& p) 
+    : BinaryPropagator<View,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal<View>(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
     GECODE_ME_CHECK(x0.gq(home,x1.min()));
@@ -287,10 +287,10 @@ public:
     (void) new (home) Max<View>(home,x0,x1,x2);
     return ES_OK;
   }
-  Max(Space& home, bool share, Max<View>& p) 
-    : TernaryPropagator<View,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Max<View>(home,share,*this);
+  Max(Space& home, Max<View>& p) 
+    : TernaryPropagator<View,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Max<View>(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
     GECODE_ME_CHECK(x2.lq(home,std::max(x0.max(),x1.max())));
@@ -346,10 +346,10 @@ public:
       (void) new (home) Less<View>(home,x0,x1);
     return ES_OK;
   }
-  Less(Space& home, bool share, Less<View>& p) 
-    : BinaryPropagator<View,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Less<View>(home,share,*this);
+  Less(Space& home, Less<View>& p) 
+    : BinaryPropagator<View,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Less<View>(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
     GECODE_ME_CHECK(x0.le(home,x1.max()));
@@ -398,11 +398,11 @@ public:
     (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
-  Equal(Space& home, bool share, Equal<View0,View1>& p) 
+  Equal(Space& home, Equal<View0,View1>& p) 
     : MixBinaryPropagator<View0,Int::PC_INT_DOM,
-                          View1,Int::PC_INT_DOM>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal<View0,View1>(home,share,*this);
+                          View1,Int::PC_INT_DOM>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal<View0,View1>(home,*this);
   }
   virtual PropCost cost(const Space&, 
                         const ModEventDelta& med) const {
@@ -486,7 +486,7 @@ public:
         x.move_lst(i);
     if (x.size() == 0)
       return ES_FAILED;
-    x.unique(home);
+    x.unique();
     if (x.size() == 1) {
       GECODE_ME_CHECK(x[0].one(home));
     } else {
@@ -499,18 +499,18 @@ public:
       ::dispose(home);
     return sizeof(*this);
   }
-  OrTrue(Space& home, bool share, OrTrue<View>& p) 
-    : BinaryPropagator<View,Int::PC_BOOL_VAL>(home,share,p) {
-    x.update(home,share,p.x);
+  OrTrue(Space& home, OrTrue<View>& p) 
+    : BinaryPropagator<View,Int::PC_BOOL_VAL>(home,p) {
+    x.update(home,p.x);
   }
-  virtual Propagator* copy(Space& home, bool share) {
+  virtual Propagator* copy(Space& home) {
     for (int i=x.size(); i--; )
       if (x[i].one()) {
         x[0]=x[i]; x.size(1); break;
       } else if (x[i].zero()) {
         x.move_lst(i);
       }
-    return new (home) OrTrue<View>(home,share,*this);
+    return new (home) OrTrue<View>(home,*this);
   }
   ExecStatus resubscribe(Space& home, View& y, View z) {
     for (int i=x.size(); i--; )

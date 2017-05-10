@@ -407,12 +407,12 @@ public:
     return ES_OK;
   }
   \end{litblock}
-  BinaryOrTrue(Space& home, bool share,
+  BinaryOrTrue(Space& home,
                BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>& p)
   \begin{litblock}{anonymous}
-    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) BinaryOrTrue(home,share,*this);
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) BinaryOrTrue(home,*this);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
@@ -428,12 +428,12 @@ class SubsumedOrTrue :
   public BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL> {
 public:
   \end{litblock}
-  SubsumedOrTrue(Space& home, bool share, 
+  SubsumedOrTrue(Space& home, 
                  BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>& p)
   \begin{litblock}{anonymous}
-    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) SubsumedOrTrue(home,share,*this);
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) SubsumedOrTrue(home,*this);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
@@ -459,7 +459,7 @@ public:
         x.move_lst(i);
     if (x.size() == 0)
       return ES_FAILED;
-    x.unique(home);
+    x.unique();
     if (x.size() == 1) {
       GECODE_ME_CHECK(x[0].one(home));
     } else {
@@ -472,24 +472,24 @@ public:
       ::dispose(home);
     return sizeof(*this);
   }
-  OrTrue(Space& home, bool share, OrTrue& p) 
-    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {
-    x.update(home,share,p.x);
+  OrTrue(Space& home, OrTrue& p) 
+    : BinaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,p) {
+    x.update(home,p.x);
   }
   \end{litblock}
   \begin{litblock}{copy}
-  virtual Propagator* copy(Space& home, bool share) {
+  virtual Propagator* copy(Space& home) {
     for (int i=x.size(); i--; )
       if (x[i].one()) {
         x[0]=x[i]; x.size(1);
-        return new (home) SubsumedOrTrue(home,share,*this);
+        return new (home) SubsumedOrTrue(home,*this);
       } else if (x[i].zero()) {
         x.move_lst(i);
       }
     if (x.size() == 0)
-      return new (home) BinaryOrTrue(home,share,*this);
+      return new (home) BinaryOrTrue(home,*this);
     else
-      return new (home) OrTrue(home,share,*this);
+      return new (home) OrTrue(home,*this);
   }
   \end{litblock}
   \begin{litblock}{anonymous}
@@ -557,10 +557,10 @@ public:
     (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
-  Equal(Space& home, bool share, Equal& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal(home,share,*this);
+  Equal(Space& home, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
     GECODE_ME_CHECK(x0.gq(home,x1.min()));
@@ -585,10 +585,10 @@ public:
     (void) new (home) Max(home,x0,x1,x2);
     return ES_OK;
   }
-  Max(Space& home, bool share, Max& p) 
-    : TernaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Max(home,share,*this);
+  Max(Space& home, Max& p) 
+    : TernaryPropagator<Int::IntView,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Max(home,*this);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
@@ -639,10 +639,10 @@ public:
       (void) new (home) Less(home,x0,x1);
     return ES_OK;
   }
-  Less(Space& home, bool share, Less& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Less(home,share,*this);
+  Less(Space& home, Less& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Less(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
     GECODE_ME_CHECK(x0.le(home,x1.max()));
@@ -670,10 +670,10 @@ public:
       (void) new (home) LeEq(home,x0,x1);
     return ES_OK;
   }
-  LeEq(Space& home, bool share, LeEq& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) LeEq(home,share,*this);
+  LeEq(Space& home, LeEq& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) LeEq(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
     GECODE_ME_CHECK(x0.lq(home,x1.max()));
@@ -715,10 +715,10 @@ public:
     }
     return ES_OK;
   }
-  ReLeEq(Space& home, bool share, ReLeEq& p) 
-    : Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) ReLeEq(home,share,*this);
+  ReLeEq(Space& home, ReLeEq& p) 
+    : Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) ReLeEq(home,*this);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
@@ -767,10 +767,10 @@ public:
       (void) new (home) Less(home,x0,x1);
     return ES_OK;
   }
-  Less(Space& home, bool share, Less& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Less(home,share,*this);
+  Less(Space& home, Less& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Less(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
     GECODE_ME_CHECK(x0.le(home,x1.max()));
@@ -797,10 +797,10 @@ public:
       (void) new (home) LeEq(home,x0,x1);
     return ES_OK;
   }
-  LeEq(Space& home, bool share, LeEq& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) LeEq(home,share,*this);
+  LeEq(Space& home, LeEq& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) LeEq(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {
     GECODE_ME_CHECK(x0.lq(home,x1.max()));
@@ -849,10 +849,10 @@ public:
     }
     return ES_OK;
   }
-  ReLeEq(Space& home, bool share, ReLeEq& p) 
-    : Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) ReLeEq<rm>(home,share,*this);
+  ReLeEq(Space& home, ReLeEq& p) 
+    : Int::ReBinaryPropagator<Int::IntView,Int::PC_INT_BND,Int::BoolView>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) ReLeEq<rm>(home,*this);
   }
   \end{litblock}
   \begin{litblock}{propagate function}

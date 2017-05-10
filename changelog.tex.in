@@ -9,6 +9,12 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2017-05-10}{Updated explanation of regions for memory
+    management
+    (see \autoref{par:p:memory:region}).}
+  \cle{2017-05-10}{Updated explanation of shared handles and objects
+    management
+    (see \autoref{sec:p:memory:shared}).}
   \cle{2017-04-18}{Released for Gecode 5.1.0} 
   \cle{2017-03-20}{Explained general tracing
     (see \autoref{sec:m:group:trace} and \autoref{sec:m:group:tracers}).}

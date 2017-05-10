@@ -597,9 +597,9 @@ protected:
       : Advisor(home,p,c), x(x0) {
       x.subscribe(home,*this);
     }
-    ViewAdvisor(Space& home, bool share, ViewAdvisor& a)
-      : Advisor(home,share,a) {
-      x.update(home,share,a.x);
+    ViewAdvisor(Space& home, ViewAdvisor& a)
+      : Advisor(home,a) {
+      x.update(home,a.x);
     }
     void dispose(Space& home, Council<ViewAdvisor>& c) {
       x.cancel(home,*this);
@@ -674,13 +674,12 @@ public:
   }
   \end{litblock}
   \begin{litblock}{anonymous}
-  SameDom(Space& home, bool share, SameDom& p) 
-    : Propagator(home,share,p), todo(NOTHING) {
-    c.update(home,share,p.c);
-    d.update(home,share,p.d);
+  SameDom(Space& home, SameDom& p) 
+    : Propagator(home,p), todo(NOTHING), d(p.d) {
+    c.update(home,p.c);
   }
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) SameDom(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) SameDom(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::unary(PropCost::HI);
@@ -796,13 +795,12 @@ public:
     (void) Propagator::dispose(home);
     return sizeof(*this);
   }
-  SameDom(Space& home, bool share, SameDom& p) 
-    : Propagator(home,share,p), todo(NOTHING) {
-    c.update(home,share,p.c);
-    d.update(home,share,p.d);
+  SameDom(Space& home, SameDom& p) 
+    : Propagator(home,p), todo(NOTHING), d(p.d) {
+    c.update(home,p.c);
   }
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) SameDom(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) SameDom(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::unary(PropCost::HI);
@@ -859,7 +857,7 @@ public:
         x.move_lst(i);
     if (x.size() == 0)
       return ES_FAILED;
-    x.unique(home);
+    x.unique();
     if (x.size() == 1) {
       GECODE_ME_CHECK(x[0].one(home));
     } else {
@@ -867,10 +865,10 @@ public:
     }
     return ES_OK;
   }
-  OrTrue(Space& home, bool share, OrTrue& p) 
-    : NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) OrTrue(home,share,*this);
+  OrTrue(Space& home, OrTrue& p) 
+    : NaryPropagator<Int::BoolView,Int::PC_BOOL_VAL>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) OrTrue(home,*this);
   }
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
     for (int i=x.size(); i--; )
@@ -902,7 +900,7 @@ public:
   }
   \begin{litblock}{anonymous}
   static ExecStatus post(Home home, ViewArray<Int::BoolView>& x, Int::BoolView y) {
-    x.unique(home);
+    x.unique();
     if (y.one())
       return OrTrue::post(home,x);
     if (y.zero()) {
@@ -930,12 +928,12 @@ public:
     (void) OrBase::dispose(home);
     return sizeof(*this);
   }
-  Or(Space& home, bool share, Or& p)
-    : OrBase(home,share,p), n_zero(p.n_zero) {
-    c.update(home,share,p.c);
+  Or(Space& home, Or& p)
+    : OrBase(home,p), n_zero(p.n_zero) {
+    c.update(home,p.c);
   }
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Or(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) Or(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::unary(PropCost::LO);

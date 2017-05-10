@@ -58,6 +58,7 @@ included in Gecode's MiniModel module (see
 \autoref{sec:m:minimodel:optimize} and
 \gecoderef[group]{TaskModelMiniModelOptimize}).
 
+\begin{samepage}
 The \gecoderef[class]{IntMaximizeSpace} class is a sub-class of
 \gecoderef[class]{Space} that defines a \?constrain()? member
 function based on the cost of a space. Our model must implement a
@@ -67,7 +68,6 @@ example, we extend the model to maintain the cost (the amount of
 money) in a dedicated variable \?money? (note that this variable
 must also be updated during cloning).
 
-\begin{samepage}
 The cost function then just returns the amount of money as
 follows:
 \insertlitcode{send most money with cost:cost function}
@@ -83,12 +83,7 @@ to have support for passing different option values on the
 commandline that then can be used by a model. Gecode comes with a
 simple commandline driver that defines \?Script? as a subclass of
 \?Space? for modeling and support for commandline
-options.\footnote{One might wonder why a commandline driver should
-  be part of Gecode but this is due to popular demand. The driver
-  functionality has been there for the examples that ship with
-  Gecode and everybody has been using it and got into trouble as
-  it was not available as a module that could be easily reused.
-  Here we are!}
+options.
 
 \paragraph{Defining a script class.}
 
@@ -394,8 +389,7 @@ public:
     branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
     \end{litblock}
   }
-  SendMostMoney(SendMostMoney& s)
-    : IntMaximizeSpace(s) {
+  SendMostMoney(SendMostMoney& s) : IntMaximizeSpace(s) {
     l.update(*this, s.l);
     money.update(*this, s.money);
   }

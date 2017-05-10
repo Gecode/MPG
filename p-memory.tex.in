@@ -14,10 +14,10 @@ memory areas available in Gecode together with their allocation
 policies. The following section (\autoref{sec:p:memory:state})
 discusses how a propagator can efficiently manage its own state.
 \autoref{sec:p:memory:shared} discusses an abstraction for
-sharing data structures among all spaces for one thread, whereas
+sharing data structures globally, whereas
 \autoref{sec:p:memory:local} discusses an abstraction for sharing
-data structures among several propagators that belong to the same
-space.
+data structures among several propagators (or branchers) that
+belong to the same space.
 
 
 \section{Memory areas}
@@ -77,7 +77,7 @@ operating system, the block sizes are automatically chosen based
 on the recent memory allocations of a space (and, if a space has
 been created by cloning, the memory allocation history of the
 original space). The exact policies can be configured, see the
-namespace \gecoderef[namespace]{MemoryConfig}.
+namespace \gecoderef[namespace]{Kernel::MemoryConfig}.
 
 Memory chunks allocated from the operating system for spaces are
 cached among all spaces for a single thread.  This cache for the
@@ -104,14 +104,12 @@ compatible with the \CPP{} STL, see
 \paragraph{Region.}
 \label{par:p:memory:region}
 
-All spaces for one thread share a chunk of memory for temporary
+A region is a chunk of memory for temporary
 data structures with very efficient allocation and deallocation
 (again, its exact size is defined in the namespace
-\gecoderef[namespace]{MemoryConfig}). Assume that \?home? refers
-to a space (say, during the execution of the \?propagate()?
-function of a propagator), then
+\gecoderef[namespace]{Kernel::MemoryConfig}). The code fragment
 \begin{code}
-Region r(home);
+Region r;
 \end{code}
 creates a new region \?r? for memory management (see
 \gecoderef[group]{FuncMemRegion}). A region does not impose any
@@ -119,45 +117,31 @@ size limit on the memory blocks allocated from it. If necessary,
 a region transparently falls back to heap-allocated memory.
 
 \begin{samepage}
-  Several regions for the same space can exist simultaneously.
+  Several regions can exist simultaneously.
   For example,
 \begin{code}
-Region r1(home);
+Region r1;
 int* i = r1.alloc<int>(n);
-{ 
-  Region r2(home);
-  int* j = r2.alloc<int>(m);
-  ...
-}
+Region r2;
+int* j = r2.alloc<int>(m);
+...
 \end{code}
 \end{samepage}
-However, it is essential that regions are used in a stack
-fashion: while region \?r2? is in use, no allocation from any
-previous region (\?r1? in our example) is allowed. That is, the
-following code will result in a crash (if we are lucky):
-\begin{code}
-Region r1(home), r2(home);
-int* j = r2.alloc<int>(m);
-int* i = r1.alloc<int>(n);
-\end{code}
 
 The speciality of a region is that it does not require \?free()?
 operations. If a region is destructed, all memory allocated from
-it is freed (unless several regions for the same space exist). If
-several regions for the same space are in use, the memory is
-entirely freed when all regions are destructed.
-
-Even though a region does not require \?free()? operations, it
+it is freed. Even though a region does not require \?free()? operations, it
 can profit from it: if the memory allocated last is freed first,
 the freed memory becomes immediately available for future
 allocation.
 
-\tip{Keep the scope of a region small}{
-In order to make best use of the memory provided by a region it
-is good practice to keep the scope of regions as small as
-possible. For example, suppose that in the following example
+\tip{Freeing memory explivitly}{ In order to make best use of the
+  memory provided by a region you can explicitly deallocate it.
+  It is good practice to tie the expelicit deallocation to
+  scoping units. For example, suppose that in the following
+  example
 \begin{code}
-Region r(home);
+Region r;
 {
   int* i = r.alloc<int>(n);
   ...
@@ -170,20 +154,20 @@ Region r(home);
 the memory allocated for \?i? is not used outside the two
 blocks. Then it is in fact better to rewrite the code to:
 \begin{code}
+Region r;
 {
-  Region r(home);
   int* i = r.alloc<int>(n);
   ...
+  r.free();
 }
 { 
-  Region r(home);
   int* i = r.alloc<int>(n);
   ...
+  r.free();
 }
 \end{code}
 Then both blocks will have access to the full memory of the
-region. Furthermore, the creation of a region is very efficient
-and the code might even benefit from better cache behavior.
+region.
 }
 
 \paragraph{Heap.}
@@ -254,7 +238,7 @@ managed by a freelist must inherit from the class
 \gecoderef[class]{FreeList} which already defines a pointer to a
 next freelist element. The sizes for freelist objects are quite
 constrained, check the values \?fl_size_min? and \?fl_size_max?
-as defined in the namespace \gecoderef[namespace]{MemoryConfig}.
+as defined in the namespace \gecoderef[namespace]{Kernel::MemoryConfig}.
 
 Allocation and deallocation is available through the member
 functions \?fl_alloc()? and \?fl_dispose()? of the class
@@ -338,19 +322,15 @@ from~\cite{Pesant:CP:2004}, see
 
 A common request for managing a data structure (we will refer to
 data structure here just as object) is that it is used and shared
-by several propagators from different spaces with the restriction
-that all spaces are used by a single thread. Gecode provides
+by several propagators or branchers from different spaces
+possibly executed by parallel threads. Gecode provides
 \emph{shared objects} and \emph{shared handles} for this form of
-sharing. Shared handles and objects are used to implement proper
-data structures as introduced in \autoref{sec:m:integer:proper}.
+sharing.
 
 A shared object is heap-allocated and is referred to by several
 shared handles. If the last shared handle is deleted, also the
-shared object is deleted (implemented by reference counting). In
-addition, shared handles provide an \?update()? function that
-creates a new copy of the shared object in case the copy is to be
-used by a different thread (that is, the Boolean \?share?
-argument is \?false?).
+shared object is deleted (implemented by efficient thread-safe
+reference counting).
 
 \begin{figure}
 \insertlitcode{shared object and handle}
@@ -363,24 +343,14 @@ object and the shared handle using the object. A shared object
 \?SIO? (for \?S?hared \?I?nteger \?O?bject) stores a single
 integer \?data? to be shared (normally, this will be an
 interesting data structure). A shared object must inherit from
-\gecoderef[class]{SharedHandle::Object} and must implement a
-virtual \?copy()? function that returns a new shared object. If
-needed, a virtual destructor can be defined.
+\gecoderef[class]{SharedHandle::Object} and can define a virtual
+destructor if needed.
 
 The shared handle \?SI? (for \?S?hared \?I?nteger) is the only
 class that has access to a shared object of type \?SIO?. A shared
 handle must inherit from \gecoderef[class]{SharedHandle} and can
-use the \?object()?  member function to access and update its
+use the \?object()? member function to access and update its
 shared object.
-
-\begin{samepage}
-The most interesting members of \?SI? that are inherited are the
-following:
-\insertlitcode{shared object and handle:some inherited members}
-\end{samepage}
-
-Other inherited members include a copy constructor and an
-assignment operator.
 
 Shared integer arrays are an example for shared objects, see 
 \autoref{tip:m:integer:sharedelement}.
@@ -441,13 +411,7 @@ protected:
   class SIO : public SharedHandle::Object {
   public:
     int data;
-    SIO(int d)
-      : data(d) {}
-    SIO(const SIO& sio)
-      : data(sio.data) {}
-    virtual Object* copy(void) const {
-      return new SIO(*this);
-    }
+    SIO(int d) : data(d) {}
     virtual ~SIO(void) {}
   };
 public:
@@ -464,14 +428,7 @@ public:
   void set(int d) {
     static_cast<SIO*>(object())->data = d;
   }
-  \begin{litblock}{some inherited members}
-  void update(Space& home, bool share, SharedHandle& sh) {
-    \begin{litblock}{anonymous}
-    SharedHandle::update(home,share,sh);
-    \end{litblock}
-  }
   ~SI(void) {}
-  \end{litblock}
 };
 \end{litcode}
 
@@ -488,10 +445,10 @@ protected:
   public:
     int data;
     LIO(Space& home, int d) : LocalObject(home), data(d) {}
-    LIO(Space& home, bool share, LIO& l)
-      : LocalObject(home,share,l), data(l.data) {}
-    virtual LocalObject* copy(Space& home, bool share) {
-      return new (home) LIO(home,share,*this);
+    LIO(Space& home, LIO& l)
+      : LocalObject(home,l), data(l.data) {}
+    virtual LocalObject* copy(Space& home) {
+      return new (home) LIO(home,*this);
     }
     virtual size_t dispose(Space&) { return sizeof(*this); }
   };
@@ -530,10 +487,10 @@ protected:
      : LocalObject(home), data(heap.alloc<int>(n0)), n(n0) {
       home.notice(*this,AP_DISPOSE);
     }
-    LIO(Space& home, bool share, LIO& l)
-      : LocalObject(home,share,l), data(l.data) {}
-    virtual LocalObject* copy(Space& home, bool share) {
-      return new (home) LIO(home,share,*this);
+    LIO(Space& home, LIO& l)
+      : LocalObject(home,l), data(l.data) {}
+    virtual LocalObject* copy(Space& home) {
+      return new (home) LIO(home,*this);
     }
     virtual size_t dispose(Space& home) {
       home.ignore(*this,AP_DISPOSE);
