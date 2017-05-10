@@ -377,11 +377,11 @@ public:
     linear(*this, c, x, IRT_EQ, 0);
     branch(*this, l, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
-  SendMoreMoney(bool share, SendMoreMoney& s) : Space(share, s) {
-    l.update(*this, share, s.l);
+  SendMoreMoney(bool SendMoreMoney& s) : Space(s) {
+    l.update(*this, s.l);
   }
-  virtual Space* copy(bool share) {
-    return new SendMoreMoney(share,*this);
+  virtual Space* copy(void) {
+    return new SendMoreMoney(*this);
   }
   void print(std::ostream& os) const {
     os << l << std::endl;

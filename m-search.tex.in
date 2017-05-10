@@ -689,9 +689,6 @@ The default values for the options are defined in the namespace
 \hline
 \?assets? & \?unsigned int? & number of assets in a portfolio\\
 \hline
-\?share_rbs? & \?bool? & whether AFC is shared between restarts\\
-\?share_pbs? & \?bool? & whether AFC is shared between assets\\
-\hline
 \?stop? & \?Search::Stop*? & stop object (\?NULL? if none)\\
 \hline
 \?cutoff? & \?Search::Cutoff*? & cutoff object (\?NULL? if none)\\
@@ -705,9 +702,7 @@ The default values for the options are defined in the namespace
 The meaning of the values for the search options are
 straightforward but for \?threads? (\?cutoff? is explained in
 \autoref{sec:m:search:restart}, \?assets? is explained in
-\autoref{sec:m:search:portfolio}, \?share_rbs? and \?share_pbs?
-are explained in \autoref{tip:m:search:share:rbs} and
-\autoref{tip:m:search:share:rbs}, while \?nogoods_limit? is
+\autoref{sec:m:search:portfolio}, and \?nogoods_limit? is
 explained in \autoref{sec:m:search:nogoods}).
 
 Assume that your computer has
@@ -1249,17 +1244,6 @@ in \autoref{fig:m:search:restart:default}. The part of the
 specific for restart-based search is as follows:
 \insertlitcode{default master and slave functions:restart-based search}
 
-\tip{Sharing branching information among restarts}{
-\label{tip:m:search:share:rbs}%
-By default, the accumulated failure count (AFC) of a variable
-(see \autoref{sec:m:branch:afc}) is maintained between restarts.
-This is also typically the desired behavior as it learns from
-failures in previous restarts. However, whether the AFC is shared
-among restarts can be determined by the \?share_afc? member of
-the search options passed to the restart-based search engine, see
-also \autoref{sec:m:search:options}.  }
-
-
 
 \subsection{Large Neighborhood Search}
 \label{sec:m:search:restart:lns}
@@ -1494,18 +1478,6 @@ has for restart-based search).
 
 For an example using several branchers using different random
 seeds in a portfolio, see \gecoderef[example]{qcp}.
-
-\tip{Not sharing branching information among assets}{
-\label{tip:m:search:share:pbs}%
-In contrast to restart-based search, each asset in a portfolio
-should be as different from each other as possible. Therefore,
-typically no information about the accumulated failure count (AFC) of
-a variable (see \autoref{sec:m:branch:afc}) should be shared
-among different assets in a portfolio. This can be controlled by
-the \?share_pbs? field in the search options as described in
-\autoref{sec:m:search:options} (as said, the default value is
-\?false?). 
-}
 
 \tip{Kill your branchers, or maybe not$\ldots$}{
 \label{tip:m:search:kill}%

@@ -280,12 +280,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  AssignMin(Space& home, bool share, AssignMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  AssignMin(Space& home, AssignMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) AssignMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) AssignMin(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)
@@ -367,12 +367,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin<View>(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin<View>(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)
@@ -441,9 +441,9 @@ protected:
 public:
   EqNGL(Space& home, Int::IntView x0, int n0)
     : NGL(home), x(x0), n(n0) {}
-  EqNGL(Space& home, bool share, EqNGL& ngl)
-    : NGL(home, share, ngl), n(ngl.n) {
-    x.update(home, share, ngl.x);
+  EqNGL(Space& home, EqNGL& ngl)
+    : NGL(home, ngl), n(ngl.n) {
+    x.update(home, ngl.x);
   }
   \begin{litblock}{status}
   virtual NGL::Status status(const Space& home) const {
@@ -471,8 +471,8 @@ public:
     x.reschedule(home, p, Int::PC_INT_VAL);
   }
   \end{litblock}
-  virtual NGL* copy(Space& home, bool share) {
-    return new (home) EqNGL(home, share, *this);
+  virtual NGL* copy(Space& home) {
+    return new (home) EqNGL(home,*this);
   }
   virtual size_t dispose(Space& home) {
     (void) NGL::dispose(home);
@@ -510,12 +510,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)

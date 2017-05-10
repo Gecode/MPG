@@ -642,9 +642,9 @@ has failed during search.  The AFC of a variable is also known as
 the weighted degree of a variable~\cite{AFC}.
 
 AFC in Gecode supports decay as follows. Each time a propagator
-fails during constraint propagation (by executing the \?status()? function of a space,
-see also \autoref{tip:m:started:status}), the AFC of all
-propagators is updated:
+fails during constraint propagation (by executing the \?status()?
+function of a space, see also \autoref{tip:m:started:status}),
+the AFC of all propagators is updated:
 \begin{itemize}
 \item If the propagator \?p? failed, the AFC
   $\mathtt{afc}(\mathtt p)$ of \?p? is incremented by $1$:
@@ -664,19 +664,19 @@ $$\mathtt{afc}(\mathtt q)=\mathtt{d}\cdot\mathtt{afc}(\mathtt q)$$
   initialized to its degree.
 \end{itemize}
 
-In order to use AFC for branching, one must create an object
-of class \gecoderef[class]{IntAFC} for integer variables, an
-object of class \gecoderef[class]{BoolAFC} for Boolean
-variables, an object of class \gecoderef[class]{SetAFC} for
-set variables, or an object of class
-\gecoderef[class]{FloatAFC} for float variables. The object
-is responsible for recording AFC information\footnote{Gecode
-  cheats a little bit with the implementation of AFC: while it is possible (but not common)
-  to have more than a single AFC object, all will use the same
-  decay-factor \?d?. The decay-factor used is the one defined by the
-  AFC object created last. But as using several AFC objects with
-  different decay-factors is not really that useful, Gecode takes
-  a shortcut here.}.
+In order to use AFC for branching, one must create an object of
+class \gecoderef[class]{IntAFC} for integer variables, an object
+of class \gecoderef[class]{BoolAFC} for Boolean variables, an
+object of class \gecoderef[class]{SetAFC} for set variables, or
+an object of class \gecoderef[class]{FloatAFC} for float
+variables. The object is responsible for recording AFC
+information\footnote{Gecode cheats a little bit with the
+  implementation of AFC: while it is possible (but not common) to
+  have more than a single AFC object, all will use the same
+  decay-factor \?d?. The decay-factor used is the one defined by
+  the AFC object created last. But as using several AFC objects
+  with different decay-factors is not really that useful, Gecode
+  takes a shortcut here.}.
 
 \begin{samepage}
 If \?x? is an integer variable array, then
@@ -1757,12 +1757,12 @@ public:
     \end{litblock}
   }
   \begin{litblock}{anonymous}
-  LatinSquare(bool share, LatinSquare& s)
-    : Script(share, s), n(s.n) {
-    x.update(*this, share, s.x);
+  LatinSquare(LatinSquare& s)
+    : Script(s), n(s.n) {
+    x.update(*this, s.x);
   }
-  virtual Space* copy(bool share) {
-    return new LatinSquare(share,*this);
+  virtual Space* copy(void) {
+    return new LatinSquare(*this);
   }
   virtual void print(std::ostream& os) const {
     os << x << std::endl;

@@ -551,12 +551,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin(home,*this);
   }
   \end{litblock}
   \begin{litblock}{status}
@@ -648,12 +648,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin(home,share);
   }
   \end{litblock}
   virtual bool status(const Space& home) const {
@@ -738,12 +738,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  SizeMin(Space& home, bool share, SizeMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  SizeMin(Space& home, SizeMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) SizeMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) SizeMin(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)

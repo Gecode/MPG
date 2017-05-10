@@ -310,10 +310,9 @@ updated during cloning in the copy constructor used by a space's
 \?copy()? member function. For example, a variable \?x?  is updated
 by
 \begin{code}
-x.update(home, share, y);
+x.update(home, y);
 \end{code}
-where \?share? is the Boolean argument passed as argument to
-\?copy()? and \?y? is the variable from which \?x? is to be
+where \?y? is the variable from which \?x? is to be
 updated. While \?x? belongs to \?home?, \?y? belongs
 to the space being cloned.
 
@@ -345,10 +344,7 @@ Gecode has very few \emph{proper} data structures. The proper
 data structures for integer and Boolean variables are the
 variables themselves, integer sets, and arrays of variables.
 Proper means that these data structures can be updated and hence
-be stored in a space. Other proper data structures are
-DFAs (deterministic finite automata) and tuple sets used for
-extensional constraints. These data structures are discussed
-in \autoref{sec:m:integer:extensional}.
+be stored in a space. 
 
 Of course, data structures that themselves do not contain proper
 data structures can be stored in a space, such as integers,
@@ -414,8 +410,7 @@ space from the heap\footnote{Actually, if an argument array has
   implementing the array rather than allocating memory from the
   heap.  Hence, small argument arrays reside entirely on the
   stack.} and the memory is freed when their destructor is
-executed. They are \emph{not} proper data structures as they
-cannot be updated.
+executed.
 
 Argument arrays can be created empty:
 \begin{code}
@@ -1793,16 +1788,6 @@ ad-hoc constraints) provide constraints that are specified in
 \gecoderef[class]{DFA} (deterministic finite automaton) or a
 tuple set \gecoderef[class]{TupleSet}. DFAs can also be specified
 conveniently by regular expressions, see \autoref{sec:m:minimodel:reg}.
-
-Note that both DFAs and tuple sets are proper Gecode
-data structures. When storing a DFA or a tuple set as
-a space member, the member must be updated with an
-\?update? function during cloning exactly as described for
-variables in \autoref{sec:m:integer:update}.\footnote{In most cases,
-  the data structure is actually shared between spaces created by
-  cloning. Only when a non-shared clone is requested (for
-  parallel search), a copy of the data structure is created. This
-  is the reason why updating is required.}
 
 \paragraph{Deterministic finite automata.}
 
