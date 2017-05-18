@@ -938,9 +938,6 @@ protected:
       for (int k=0; k<n_same; k++)
         same[k] = s[k];
     }
-    virtual size_t size(void) const {
-      return sizeof(Choice) + sizeof(int) * n_same;
-    }
     virtual ~Choice(void) {
       heap.free<int>(same,n_same);
     }

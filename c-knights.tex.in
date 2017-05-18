@@ -237,9 +237,6 @@ protected:
     int pos; int val;
     PosVal(const Warnsdorff& b, int p, int v)
       : Choice(b,2), pos(p), val(v) {}
-    virtual size_t size(void) const {
-      return sizeof(Choice);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
