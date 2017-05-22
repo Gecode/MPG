@@ -25,7 +25,8 @@ principle.  How search engines can be used is explained in
 in \autoref{sec:m:search:restart} and portfolio-based search is
 discussed in \autoref{sec:m:search:portfolio}. This is followed
 by a discussion in \autoref{sec:m:search:nogoods} how no-goods
-from restarts can be used.
+from restarts can be used. \autoref{sec:m:search:trace} describes
+how the execcution of search engines can be traced.
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -1934,6 +1935,139 @@ search. While parallel search engines also support the extraction
 of no-goods, the number of no-goods that can be extracted tend to
 be rather small.
 
+
+
+\section{Tracing search}
+\label{sec:m:search:trace}
+
+
+\begin{figure}
+\insertlitcode{example search tracer}
+\caption{A simple tracer printing to \?std::cout?}
+\label{fig:m:search:tracer}
+\end{figure}
+
+\insertlitcode{example search tracer:init}
+
+\insertlitcode{example search tracer:init for engines}
+
+\insertlitcode{example search tracer:init for meta engines}
+
+\insertlitcode{example search tracer:node}
+
+\insertlitcode{example search tracer:round}
+
+\insertlitcode{example search tracer:skip}
+
+\insertlitcode{example search tracer:done}
+
+
+\begin{litcode}{example search tracer}{schulte}
+class SimpleSearchTracer : public SearchTracer {
+protected:
+  static const char* t2s(EngineType et)  {
+    \begin{litblock}{anonymous}
+    switch (et) {
+    case EngineType::DFS: return "DFS";
+    case EngineType::BAB: return "BAB";
+    case EngineType::LDS: return "LDS";
+    case EngineType::RBS: return "RBS";
+    case EngineType::PBS: return "PBS";
+    case EngineType::AOE: return "AOE";
+    }
+    \end{litblock}
+  }
+public:
+  SimpleSearchTracer(void) {}
+  \begin{litblock}{init}
+  virtual void init(void) {
+    std::cout << "trace<Search>::init()" << std::endl;
+      for (unsigned int e=0U; e<engines(); e++) {
+        std::cout << "\t" << e << ": " 
+                  << t2s(engine(e).type());
+        switch (engine(e).type()) {
+        \begin{litblock}{init for engines}
+        case EngineType::DFS: 
+        case EngineType::BAB:
+        case EngineType::LDS:
+        case EngineType::AOE:
+          std::cout << ", workers: {";
+          for (unsigned int i=engine(e).wfst(); i<engine(e).wlst(); i++) {
+            std::cout << i; if (i+1 < engine(e).wlst()) std::cout << ",";
+          }
+          std::cout << "}" << std::endl;
+          break;
+        \end{litblock}
+        \begin{litblock}{init for meta engines}
+        case EngineType::RBS:
+        case EngineType::PBS:
+          std::cout << ", engines: {";
+          for (unsigned int i=engine(e).efst(); i<engine(e).elst(); i++) {
+            std::cout << i; if (i+1 < engine(e).elst()) std::cout << ",";
+          }
+          std::cout << "}" << std::endl;
+          break;
+        \end{litblock}
+        }
+      }
+    }
+  }
+  \end{litblock}
+  \begin{litblock}{node}
+  virtual void node(const EdgeInfo& ei, const NodeInfo& ni) {
+    std::cout << "trace<Search>::node(";
+    switch (ni.type()) {
+    case NodeType::FAILED:
+      std::cout << "FAILED";
+      break;
+    case NodeType::SOLVED:
+      std::cout << "SOLVED";
+      break;
+    case NodeType::BRANCH:
+      std::cout << "BRANCH(" << ni.choice().alternatives() << ")";
+      break;
+    }
+    if (!ei)
+      std::cout << ",root";
+    std::cout << ',' << "w:" << ni.wid() << ','
+              << "n:" << ni.nid() << ')';
+    if (ei) {
+      if (ei.wid() != ni.wid())
+        std::cout << " [stolen from w:" << ei.wid() << "]";
+      std::cout << std::endl
+                << '\t' << ei.string()
+                << std::endl;
+    } else {
+      std::cout << std::endl;
+    }
+  }
+  \end{litblock}
+  \begin{litblock}{round}
+  virtual void round(unsigned int eid) {
+    std::cout << "trace<Search>::round(e:" << eid << ")" << std::endl;
+  }
+  \end{litblock}
+  \begin{litblock}{skip}
+  virtual void skip(const EdgeInfo& ei) {
+    std::cout << "trace<Search>Search::skip(w:" << ei.wid()
+              << ",n:" << ei.nid()
+              << ",a:" << ei.alternative() << ")" << std::endl;
+  }
+  \end{litblock}
+  virtual void skip(const EdgeInfo& ei, const NodeInfo& ni) {
+    \begin{litblock}{anonymous}
+    std::cout << "trace<Search>Search::skip(w:" << ei.wid()
+              << ",n:" << ei.nid()
+              << ",a:" << ei.alternative() << ")" << std::endl;
+    \end{litblock}
+  }
+  \begin{litblock}{done}
+  virtual void done(void) {
+  }
+  \end{litblock}
+  virtual ~SimpleSearchTracer(void) {}
+};
+\end{litcode}
 
 \begin{litcode}[texonly]{default master and slave functions}
 virtual bool Space::master(const MetaInfo& mi) {
