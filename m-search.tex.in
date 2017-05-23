@@ -1940,6 +1940,42 @@ be rather small.
 \section{Tracing search}
 \label{sec:m:search:trace}
 
+The execution of search engines can be traced, where all
+important events can be recorded and processed by a \emph{search
+  tracer}. A search tracer is implemented by a subclass of
+\gecoderef[class]{SearchTracer} where several virtaul member
+functions must be implemented that are called when a
+corresponding event occurs:
+\begin{itemize}
+\item A single \emph{init-event} occurs when the initialization
+  of a search engine together with all of its components such as
+  sub-engines and workers has finished. See below for more
+  details about sub-engines and workers.
+\item A single \emph{done-event} occurs when all components of a
+  search engine have been deleted.
+\item Each time a new node of the search tree is created, a
+  \emph{node-event} occurs that provides information about the
+  newly created node and the edge leading to it (unless it is the
+  root node).
+\item Some search engines perform several \emph{rounds}; each
+  time a new round starts a \emph{round-event}
+  occurs. Restart-based search (RBS) starts a new round by performing a
+  restart (see \autoref{sec:m:search:restart}) and
+  limited-discrepancy search (LDS) starts a new for each probe
+  with a different discrepancy.
+\item Some search engines might skip edges for nodes, in these
+  cases a \emph{skip-event} is generated. See below for more
+  details.
+\end{itemize}
+
+\paragraph{Defining a search tracer.}
+
+TODO! Right now you can set as a filed in the search options but
+I will also add that to the commandline options (even though
+can't be specified there).
+
+Right now, you can try with running a gecode example with ``-mode
+trace''.
 
 \begin{figure}
 \insertlitcode{example search tracer}
@@ -1947,18 +1983,130 @@ be rather small.
 \label{fig:m:search:tracer}
 \end{figure}
 
+A simple search tracer printing information to \?std::cout? is
+shown in \autoref{fig:m:search:tracer}. A similar search tracer
+is defined by the class \gecoderef[class]{StdSearchTracer}.
+
+As mentioned above, all events correspond to virtual member
+functions that are called when an event occurs. The member
+functions are executed in mutual exclusion as the events might
+occur in parallel from searrch engines using multiple workers
+(threads). 
+
+\paragraph{Init-event.}
+
+After the search engine(s) have been initialized, the member
+function \?init()? is called. The class
+\gecoderef[class]{SearchTracer} provides member functions with
+which the configuration of the search engine can be
+inspected. Search engines are identified by engine identifiers of
+type \?unsigned int?. The root engine has always the identifier
+\?0?. Meta engines such as restart-based search (RBS) and
+portfolio-based search (PBS) have sub engines whereas non-meta
+engines have workers that carry out the actual exploration of the
+search tree. The following code
 \insertlitcode{example search tracer:init}
+lists all engines together with their engine identifiers starting
+with root engine (the member function \?engines()? returns the
+number of engines). Information about an engine is provided by the
+member function \?engine()? which takes an engine identifier and
+returns a reference to an object of type
+\gecoderef[class]{SearchTracer::EngineInfo} that provides
+information about an engine.
 
+For simple engines such as depth-first (DFS), branch-and-bound
+(BAB), and limited-discrepancy search (LDS), the following code
+prints information about their workers:
 \insertlitcode{example search tracer:init for engines}
+An engine of type AOE (for any other engine) is an engine that
+Gecode creates in certain situations if the root of the search
+tree is already failed.
 
+For meta engines, the following code prints information about
+their sub-engines:
 \insertlitcode{example search tracer:init for meta engines}
 
-\insertlitcode{example search tracer:node}
+For example, for a branch-and-bound engine with a single worker
+(using a single thread), the \?init()? function prints:
+\begin{cmd}
+	0: BAB, workers: {0}
+\end{cmd}
 
+For a branch-and-bound engine with four workers
+(using four threads), the \?init()? function prints:
+\begin{cmd}
+trace<Search>::init()
+	0: DFS, workers: {0,1,2,3}
+\end{cmd}
+
+For a restart-based search engine using a depth-first engine
+with a single worker 
+(using a single thread), the \?init()? function prints:
+\begin{cmd}
+trace<Search>::init()
+	0: RBS, engines: {1}
+	1: DFS, workers: {0}
+\end{cmd}
+
+For a portfolio-based search engines with four depth-first search
+engines as assets using eight threads, the \?init()? function prints:
+\begin{cmd}
+trace<Search>::init()
+	0: PBS, engines: {1,2,3,4}
+	1: DFS, workers: {0,1}
+	2: DFS, workers: {2,3}
+	3: DFS, workers: {4,5}
+	4: DFS, workers: {6,7}
+\end{cmd}
+Note that assets can be restart-based search engines themselves.
+
+
+\paragraph{Node-events.}
+
+The virtual member function called for a node-event takes
+information about an edge of type
+\gecoderef[class]{SearchTracer::EdgeInfo} and a node
+of type \gecoderef[class]{SearchTracer::NodeInfo} as input. The
+following code
+\insertlitcode{example search tracer:node}
+prints the type of the node followed by information whether the
+node is the root node (as the edge does not exist). It then
+prints information about the worker identifier (\?ni.wid()?) and
+node identifier (\?ni.nid()?). Note the edge also has information
+about the parent node of the current node and which worker
+created it. The string printed corresponds to the output printed
+by the brancher corresponding to the edge (see
+\autoref{sec:m:branch:print} for more information).
+
+Note that the node identifiers are unique only per worker. As the
+number of workers is available with the \?workers()? member
+function, the numbers can be made easily unique for all engines.
+
+\paragraph{Round-events.}
+
+A round event is generated either before a restart by a
+restart-based search engine or when a limited-discreapncy search
+engine starts a new probe. The information passed to the
+\?round()? member function is the engine identifier corresponding
+to the engine starting a new round.
 \insertlitcode{example search tracer:round}
 
+\paragraph{Skip-events.}
+
+A skip event occurs when a worker decides that a certain node
+will not be explored. This can happen for
+branch-and-bound search engine where an entire subtree might be
+pruned or for limited discrepancy search where a solution is
+omitted as it had already been found during a previous probe with
+a smaller discrepancy limit. The information provided to the
+\?skip()? member function is of type
+\gecoderef[class]{SearchTracer::EdgeInfo}:
 \insertlitcode{example search tracer:skip}
 
+\paragraph{Done-event.}
+
+The done event is executed if all workers have terminated. Here
+it just prints this fact:
 \insertlitcode{example search tracer:done}
 
 
@@ -2054,15 +2202,9 @@ public:
               << ",a:" << ei.alternative() << ")" << std::endl;
   }
   \end{litblock}
-  virtual void skip(const EdgeInfo& ei, const NodeInfo& ni) {
-    \begin{litblock}{anonymous}
-    std::cout << "trace<Search>Search::skip(w:" << ei.wid()
-              << ",n:" << ei.nid()
-              << ",a:" << ei.alternative() << ")" << std::endl;
-    \end{litblock}
-  }
   \begin{litblock}{done}
   virtual void done(void) {
+    std::cout << "trace<Search>::done()" << std::endl;
   }
   \end{litblock}
   virtual ~SimpleSearchTracer(void) {}
