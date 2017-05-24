@@ -694,6 +694,8 @@ The default values for the options are defined in the namespace
 \hline
 \?cutoff? & \?Search::Cutoff*? & cutoff object (\?NULL? if none)\\
 \hline
+\?tracer? & \?SearchTracer*? & search tracer (\?NULL? if none)\\
+\hline
 \end{tabular}
 \end{center}
 \caption{Search options}
@@ -703,8 +705,9 @@ The default values for the options are defined in the namespace
 The meaning of the values for the search options are
 straightforward but for \?threads? (\?cutoff? is explained in
 \autoref{sec:m:search:restart}, \?assets? is explained in
-\autoref{sec:m:search:portfolio}, and \?nogoods_limit? is
-explained in \autoref{sec:m:search:nogoods}).
+\autoref{sec:m:search:portfolio}, \?nogoods_limit? is
+explained in \autoref{sec:m:search:nogoods}, and \?tracer? is
+explained in \autoref{sec:m:search:trace}).
 
 Assume that your computer has
 $m$ processing units\footnote{This is a very rough
@@ -1951,31 +1954,24 @@ corresponding event occurs:
   of a search engine together with all of its components such as
   sub-engines and workers has finished. See below for more
   details about sub-engines and workers.
-\item A single \emph{done-event} occurs when all components of a
-  search engine have been deleted.
+\item A single \emph{done-event} occurs when all components
+  (workers) of a search engine have been deleted.
 \item Each time a new node of the search tree is created, a
   \emph{node-event} occurs that provides information about the
   newly created node and the edge leading to it (unless it is the
   root node).
 \item Some search engines perform several \emph{rounds}; each
-  time a new round starts a \emph{round-event}
-  occurs. Restart-based search (RBS) starts a new round by performing a
+  time a new round starts, a \emph{round-event} occurs.
+  Restart-based search (RBS) starts a new round by performing a
   restart (see \autoref{sec:m:search:restart}) and
-  limited-discrepancy search (LDS) starts a new for each probe
-  with a different discrepancy.
+  limited-discrepancy search (LDS) starts a new round for each
+  probe with a different discrepancy .
 \item Some search engines might skip edges for nodes, in these
   cases a \emph{skip-event} is generated. See below for more
   details.
 \end{itemize}
 
-\paragraph{Defining a search tracer.}
-
-TODO! Right now you can set as a filed in the search options but
-I will also add that to the commandline options (even though
-can't be specified there).
-
-Right now, you can try with running a gecode example with ``-mode
-trace''.
+\paragraph{Search tracers.}
 
 \begin{figure}
 \insertlitcode{example search tracer}
@@ -1992,6 +1988,36 @@ functions that are called when an event occurs. The member
 functions are executed in mutual exclusion as the events might
 occur in parallel from searrch engines using multiple workers
 (threads). 
+
+\paragraph{Defining a search tracer.}
+
+A search tracer can be defined as part of the search options (see
+\autoref{sec:m:search:options}). For example, if \?t? is a search
+tracer, then creating a depth-first search engine using the tracer
+\?t? can be done as follows:
+\begin{code}
+Search::Options o;
+o.tracer = t;
+DFS<Script> e(s,t);
+\end{code}
+
+For convenience, the command line interface provides an option
+for defining a search tracer. One the command line, the option
+\begin{cmd}
+-search-tracer none
+\end{cmd}
+specifies that no search tracer is used, whereas
+\begin{cmd}
+-search-tracer std
+\end{cmd}
+defines that the standard search tracer is used. In addition, if
+\?o? is an object of class \gecoderef[class]{Options} (or one of
+its sub-classes), then
+\begin{code}
+o.search_tracer(t);
+\end{code}
+defines that the search tracer is being used with the command
+line interface.
 
 \paragraph{Init-event.}
 
@@ -2048,15 +2074,13 @@ trace<Search>::init()
 	1: DFS, workers: {0}
 \end{cmd}
 
-For a portfolio-based search engines with four depth-first search
-engines as assets using eight threads, the \?init()? function prints:
+For a portfolio-based search engines with two depth-first search
+engines as assets using four threads, the \?init()? function prints:
 \begin{cmd}
 trace<Search>::init()
-	0: PBS, engines: {1,2,3,4}
+	0: PBS, engines: {1,2}
 	1: DFS, workers: {0,1}
 	2: DFS, workers: {2,3}
-	3: DFS, workers: {4,5}
-	4: DFS, workers: {6,7}
 \end{cmd}
 Note that assets can be restart-based search engines themselves.
 
@@ -2133,30 +2157,22 @@ public:
       for (unsigned int e=0U; e<engines(); e++) {
         std::cout << "\t" << e << ": " 
                   << t2s(engine(e).type());
-        switch (engine(e).type()) {
-        \begin{litblock}{init for engines}
-        case EngineType::DFS: 
-        case EngineType::BAB:
-        case EngineType::LDS:
-        case EngineType::AOE:
-          std::cout << ", workers: {";
-          for (unsigned int i=engine(e).wfst(); i<engine(e).wlst(); i++) {
-            std::cout << i; if (i+1 < engine(e).wlst()) std::cout << ",";
-          }
-          std::cout << "}" << std::endl;
-          break;
-        \end{litblock}
-        \begin{litblock}{init for meta engines}
-        case EngineType::RBS:
-        case EngineType::PBS:
+        if (engine(e).meta()) {
+          \begin{litblock}{init for meta engines}
           std::cout << ", engines: {";
           for (unsigned int i=engine(e).efst(); i<engine(e).elst(); i++) {
             std::cout << i; if (i+1 < engine(e).elst()) std::cout << ",";
           }
-          std::cout << "}" << std::endl;
-          break;
-        \end{litblock}
+          \end{litblock}
+        } else {
+          \begin{litblock}{init for engines}
+          std::cout << ", workers: {";
+          for (unsigned int i=engine(e).wfst(); i<engine(e).wlst(); i++) {
+            std::cout << i; if (i+1 < engine(e).wlst()) std::cout << ",";
+          }
+          \end{litblock}
         }
+        std::cout << "}" << std::endl;
       }
     }
   }
@@ -2165,25 +2181,24 @@ public:
   virtual void node(const EdgeInfo& ei, const NodeInfo& ni) {
     std::cout << "trace<Search>::node(";
     switch (ni.type()) {
+    \begin{litblock}{anonymous}
     case NodeType::FAILED:
       std::cout << "FAILED";
       break;
     case NodeType::SOLVED:
       std::cout << "SOLVED";
       break;
+    \end{litblock}
     case NodeType::BRANCH:
       std::cout << "BRANCH(" << ni.choice().alternatives() << ")";
       break;
     }
-    if (!ei)
-      std::cout << ",root";
     std::cout << ',' << "w:" << ni.wid() << ','
               << "n:" << ni.nid() << ')';
     if (ei) {
       if (ei.wid() != ni.wid())
         std::cout << " [stolen from w:" << ei.wid() << "]";
-      std::cout << std::endl
-                << '\t' << ei.string()
+      std::cout << std::endl << '\t' << ei.string()
                 << std::endl;
     } else {
       std::cout << std::endl;

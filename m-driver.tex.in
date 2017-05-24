@@ -95,6 +95,8 @@ $\{\mathtt{init},\mathtt{prune},\mathtt{fix},\mathtt{fail},\mathtt{done}$
 & which events to trace\\
 &$\;\mathtt{propagate},\mathtt{commit},\mathtt{none},\mathtt{all}\}$&\\
 \hline
+\texttt{-search-tracer}&
+$\{\mathtt{none},\mathtt{std}\}$&whether to use a search tracer
 \end{tabular}
 \end{center}
 \caption{Predefined commandline options}
@@ -203,6 +205,9 @@ events of all types.
 Examples with tracing include \gecoderef[example]{money},
 \gecoderef[example]{hamming}, and
 \gecoderef[example]{descartes-folium}.
+
+\paragraph{Search tracer options.} For more details on search
+tracers, please consult \autoref{m:search:trace}.
 
 \paragraph{Examples.}
 
