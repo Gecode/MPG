@@ -63,13 +63,14 @@ NOTESTCPP = \
 	dfs-using-full-recomputation dfs-using-full-recomputation-and-lao \
 	dfs-using-hybrid-recomputation dfs-using-adaptive-recomputation \
 	bab-using-full-recomputation \
-	dfs-engine integer-variable-tracer general-tracer
+	dfs-engine integer-variable-tracer general-tracer \
+	example-search-tracer
 
 MSVCEXE		= $(MODELCPP:%=%.exe)
 MSVCTESTEXE	= $(TESTCPP:%=test-%.exe)
 MSVCNOTESTEXE	= $(NOTESTCPP:%=notest-%.exe)
 MSVCCPPOPT	= -nologo -EHsc -MDd -wd4355	
-#MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
+MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
 MSVCINCL	= -I"../../gecode/trunk"
 MSVCLINK	= /link /LIBPATH:"../../gecode/trunk"
 

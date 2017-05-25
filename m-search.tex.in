@@ -26,7 +26,7 @@ in \autoref{sec:m:search:restart} and portfolio-based search is
 discussed in \autoref{sec:m:search:portfolio}. This is followed
 by a discussion in \autoref{sec:m:search:nogoods} how no-goods
 from restarts can be used. \autoref{sec:m:search:trace} describes
-how the execcution of search engines can be traced.
+how the execution of search engines can be traced.
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -1374,7 +1374,7 @@ void next(const Model& b) {
 relaxes each variable in \?x? with a probability of $0.7$
 (or, with other words: each variable in \?x? would be assigned
 the value from \?b.x? with a probability of $0.3$). The random
-numbers are drwan from the random number generator~\?r?.
+numbers are drawn from the random number generator~\?r?.
 
 The \?relax()? function makes sure that at least one of the
 variables in~\?x? remains unassigned (if needed, the variable to
@@ -1570,7 +1570,7 @@ $\left\lfloor \frac{m}{n} \right\rfloor$ threads are requested.
   on a single processing unit tends to be the better approach.  
 }
 
-\tip{Controling portfolios from the commandline}{ 
+\tip{Controlling portfolios from the commandline}{ 
   The commandline driver transparently supports portfolio search.
   Depending on which options are passed on the commandline,
   either a search engine or a portfolio engine is used for
@@ -1944,15 +1944,15 @@ be rather small.
 \label{sec:m:search:trace}
 
 The execution of search engines can be traced, where all
-important events can be recorded and processed by a \emph{search
-  tracer}. A search tracer is implemented by a subclass of
-\gecoderef[class]{SearchTracer} where several virtaul member
-functions must be implemented that are called when a
+important events of a search engine can be recorded and processed
+by a \emph{search tracer}. A search tracer is implemented by a
+subclass of \gecoderef[class]{SearchTracer} where several virtual
+member functions must be implemented that are called when a
 corresponding event occurs:
 \begin{itemize}
 \item A single \emph{init-event} occurs when the initialization
   of a search engine together with all of its components such as
-  sub-engines and workers has finished. See below for more
+  sub-engines and workers is complete. See below for more
   details about sub-engines and workers.
 \item A single \emph{done-event} occurs when all components
   (workers) of a search engine have been deleted.
@@ -1960,15 +1960,14 @@ corresponding event occurs:
   \emph{node-event} occurs that provides information about the
   newly created node and the edge leading to it (unless it is the
   root node).
-\item Some search engines perform several \emph{rounds}; each
+\item Some search engines perform several \emph{rounds}: each
   time a new round starts, a \emph{round-event} occurs.
   Restart-based search (RBS) starts a new round by performing a
   restart (see \autoref{sec:m:search:restart}) and
   limited-discrepancy search (LDS) starts a new round for each
-  probe with a different discrepancy .
-\item Some search engines might skip edges for nodes, in these
-  cases a \emph{skip-event} is generated. See below for more
-  details.
+  probe with a different discrepancy.
+\item Some search engines might skip edges, in these cases a
+  \emph{skip-event} is generated. See below for more details.
 \end{itemize}
 
 \paragraph{Search tracers.}
@@ -1986,7 +1985,7 @@ is defined by the class \gecoderef[class]{StdSearchTracer}.
 As mentioned above, all events correspond to virtual member
 functions that are called when an event occurs. The member
 functions are executed in mutual exclusion as the events might
-occur in parallel from searrch engines using multiple workers
+occur in parallel from search engines using multiple workers
 (threads). 
 
 \paragraph{Defining a search tracer.}
@@ -1998,11 +1997,11 @@ tracer, then creating a depth-first search engine using the tracer
 \begin{code}
 Search::Options o;
 o.tracer = t;
-DFS<Script> e(s,t);
+DFS<Script> e(s,o);
 \end{code}
 
 For convenience, the command line interface provides an option
-for defining a search tracer. One the command line, the option
+for defining a search tracer. On the command line, the option
 \begin{cmd}
 -search-tracer none
 \end{cmd}
@@ -2021,32 +2020,35 @@ line interface.
 
 \paragraph{Init-event.}
 
-After the search engine(s) have been initialized, the member
+After the search engine(s) have completed their initialization, the member
 function \?init()? is called. The class
 \gecoderef[class]{SearchTracer} provides member functions with
 which the configuration of the search engine can be
 inspected. Search engines are identified by engine identifiers of
-type \?unsigned int?. The root engine has always the identifier
-\?0?. Meta engines such as restart-based search (RBS) and
-portfolio-based search (PBS) have sub engines whereas non-meta
-engines have workers that carry out the actual exploration of the
-search tree. The following code
+type \?unsigned int?. 
+
+The root engine has always the identifier \?0U?. Meta engines
+such as restart-based search (RBS) and portfolio-based search
+(PBS) have sub engines whereas non-meta engines have workers that
+perform the actual exploration of the search tree. The following
+code:
 \insertlitcode{example search tracer:init}
 lists all engines together with their engine identifiers starting
-with root engine (the member function \?engines()? returns the
+with the root engine (the member function \?engines()? returns the
 number of engines). Information about an engine is provided by the
 member function \?engine()? which takes an engine identifier and
 returns a reference to an object of type
-\gecoderef[class]{SearchTracer::EngineInfo} that provides
+\gecoderef[class]{SearchTracer::EngineInfo} providing
 information about an engine.
 
-For simple engines such as depth-first (DFS), branch-and-bound
-(BAB), and limited-discrepancy search (LDS), the following code
-prints information about their workers:
+For simple engines (that is, non-meta engines) such as
+depth-first (DFS), branch-and-bound (BAB), and
+limited-discrepancy search (LDS), the following code prints
+information about their workers:
 \insertlitcode{example search tracer:init for engines}
 An engine of type AOE (for any other engine) is an engine that
 Gecode creates in certain situations if the root of the search
-tree is already failed.
+tree is already known to be failed.
 
 For meta engines, the following code prints information about
 their sub-engines:
@@ -2058,16 +2060,16 @@ For example, for a branch-and-bound engine with a single worker
 	0: BAB, workers: {0}
 \end{cmd}
 
-For a branch-and-bound engine with four workers
-(using four threads), the \?init()? function prints:
+For a branch-and-bound engine with four workers (using four
+threads), the \?init()? function prints:
 \begin{cmd}
 trace<Search>::init()
 	0: DFS, workers: {0,1,2,3}
 \end{cmd}
 
-For a restart-based search engine using a depth-first engine
-with a single worker 
-(using a single thread), the \?init()? function prints:
+For a restart-based search engine using a depth-first engine with
+a single worker (using a single thread), the \?init()? function
+prints:
 \begin{cmd}
 trace<Search>::init()
 	0: RBS, engines: {1}
@@ -2082,44 +2084,54 @@ trace<Search>::init()
 	1: DFS, workers: {0,1}
 	2: DFS, workers: {2,3}
 \end{cmd}
-Note that assets can be restart-based search engines themselves.
+Note that assets can be also restart-based search engines.
 
 
 \paragraph{Node-events.}
 
+\begin{figure}
+\insertlitcode{example search tracer:node}
+\caption{Member function for node-events}
+\label{fig:m:search:tracer:node}
+\end{figure}
+
+
 The virtual member function called for a node-event takes
 information about an edge of type
-\gecoderef[class]{SearchTracer::EdgeInfo} and a node
-of type \gecoderef[class]{SearchTracer::NodeInfo} as input. The
-following code
-\insertlitcode{example search tracer:node}
-prints the type of the node followed by information whether the
-node is the root node (as the edge does not exist). It then
-prints information about the worker identifier (\?ni.wid()?) and
-node identifier (\?ni.nid()?). Note the edge also has information
-about the parent node of the current node and which worker
-created it. The string printed corresponds to the output printed
+\gecoderef[class]{SearchTracer::EdgeInfo} and a node of type
+\gecoderef[class]{SearchTracer::NodeInfo} as input. The code
+shown in \autoref{fig:m:search:tracer:node} prints the type of
+the node. It then prints information about the worker identifier
+(\?ni.wid()?) and node identifier (\?ni.nid()?). Both worker and
+node identifiers are of type \?unsigned int?. Note that the edge
+also has information about the parent node of the current node
+and which worker created it. In case the edge does not exist
+(that is, the test \?ei? is false), the node is in fact the root
+node of the search tree. The string printed is the output printed
 by the brancher corresponding to the edge (see
 \autoref{sec:m:branch:print} for more information).
 
-Note that the node identifiers are unique only per worker. As the
+Note that the node identifiers are unique per worker. As the
 number of workers is available with the \?workers()? member
-function, the numbers can be made easily unique for all engines.
+function, the numbers can be made easily unique globally.
 
 \paragraph{Round-events.}
 
-A round event is generated either before a restart by a
-restart-based search engine or when a limited-discreapncy search
-engine starts a new probe. The information passed to the
-\?round()? member function is the engine identifier corresponding
-to the engine starting a new round.
+A round-event is generated either before a restart by a
+restart-based search engine or when a limited-discrepancy search
+engine starts a new probe with an increased discrepancy. The
+information passed to the \?round()? member function is the
+engine identifier corresponding to the engine starting a new
+round:
 \insertlitcode{example search tracer:round}
+
+Note that the node identifiers are not reset at a round-event.
 
 \paragraph{Skip-events.}
 
 A skip event occurs when a worker decides that a certain node
-will not be explored. This can happen for
-branch-and-bound search engine where an entire subtree might be
+does not need to be explored. This can happen for
+branch-and-bound search engines where an entire subtree is
 pruned or for limited discrepancy search where a solution is
 omitted as it had already been found during a previous probe with
 a smaller discrepancy limit. The information provided to the
@@ -2135,6 +2147,11 @@ it just prints this fact:
 
 
 \begin{litcode}{example search tracer}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/search.hh>
+
+using namespace Gecode;
+\end{litblock}
 class SimpleSearchTracer : public SearchTracer {
 protected:
   static const char* t2s(EngineType et)  {
@@ -2154,26 +2171,25 @@ public:
   \begin{litblock}{init}
   virtual void init(void) {
     std::cout << "trace<Search>::init()" << std::endl;
-      for (unsigned int e=0U; e<engines(); e++) {
-        std::cout << "\t" << e << ": " 
-                  << t2s(engine(e).type());
-        if (engine(e).meta()) {
-          \begin{litblock}{init for meta engines}
-          std::cout << ", engines: {";
-          for (unsigned int i=engine(e).efst(); i<engine(e).elst(); i++) {
-            std::cout << i; if (i+1 < engine(e).elst()) std::cout << ",";
-          }
-          \end{litblock}
-        } else {
-          \begin{litblock}{init for engines}
-          std::cout << ", workers: {";
-          for (unsigned int i=engine(e).wfst(); i<engine(e).wlst(); i++) {
-            std::cout << i; if (i+1 < engine(e).wlst()) std::cout << ",";
-          }
-          \end{litblock}
+    for (unsigned int e=0U; e<engines(); e++) {
+      std::cout << "\t" << e << ": " 
+                << t2s(engine(e).type());
+      if (engine(e).meta()) {
+        \begin{litblock}{init for meta engines}
+        std::cout << ", engines: {";
+        for (unsigned int i=engine(e).efst(); i<engine(e).elst(); i++) {
+          std::cout << i; if (i+1 < engine(e).elst()) std::cout << ",";
         }
-        std::cout << "}" << std::endl;
+        \end{litblock}
+      } else {
+        \begin{litblock}{init for engines}
+        std::cout << ", workers: {";
+        for (unsigned int i=engine(e).wfst(); i<engine(e).wlst(); i++) {
+          std::cout << i; if (i+1 < engine(e).wlst()) std::cout << ",";
+        }
+        \end{litblock}
       }
+      std::cout << "}" << std::endl;
     }
   }
   \end{litblock}

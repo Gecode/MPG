@@ -511,7 +511,7 @@ to your program when you want to branch on float variables.
 \?FLOAT_VAR_CHB_MIN(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
 lowest CHB Q-score\\
 \?FLOAT_VAR_CHB_MAX(?\SpecialArg{\?chb?}\?,?\OptArg{\?t?}\?)? &
-highest CHQ Q-score\\
+highest CHB Q-score\\
 \?FLOAT_VAR_MIN_MIN(?\OptArg{\?t?}\?)? & smallest minimum value\\
 \?FLOAT_VAR_MIN_MAX(?\OptArg{\?t?}\?)? & largest minimum value\\
 \?FLOAT_VAR_MAX_MIN(?\OptArg{\?t?}\?)? & smallest maximum value\\
@@ -824,7 +824,7 @@ are used:
 \item The \emph{failure counter} $\mathtt{\#f}$ counts how often
   failure has been encountered. That is, each time a space is
   failed, $\mathtt{\#f}$ is incremented by one and it is
-  initalized to zero.
+  initialized to zero.
 \item The \emph{step size} $\alpha$ is also updated when a
   failure occurs, it is updated by
 $$\alpha = \alpha - \mathtt{10}^{-\mathtt 6}$$
