@@ -62,7 +62,7 @@ and returns a pointer to a no-good literal of class
 no-good generation (see \autoref{sec:m:search:nogoods}) and the
 returned no-good literal is then used by a no-good propagator
 that propagates the no-goods (if you are curious, the propagator
-is implemented by \gecoderef[class]{Search::Meta::NoGoodsProp}).
+is implemented by \gecoderef[class]{Search::NoGoodsProp}).
 
 \begin{figure}
 \insertlitcode{none min with no-good support}
