@@ -1883,6 +1883,21 @@ t.add(0,0,0).add(0,1,0).add(1,0,0)
  .finalize();
 \end{code}
 
+Tuple sets can also be initialized by specifying their arity and
+a DFA. Hence, if \?d? refers to the DFA for the Swedish drinking
+protocol, the above example can also be written as:
+\begin{code}
+TupleSet t(3,d);
+\end{code}
+
+\tip{When to use tuple sets rather than DFAs}{
+  If a DFA is small and the arity is small, then it is typically
+  more efficient to create a tuple set from the DFA and use it
+  instead with an extensional constraint. However, if the arity is
+  large or the DFA encodes many different tuples, it is typically
+  more efficient to use the DFA directly.
+}
+
 The propagators for the \?extensional? constraint are domain
 consistent and are based on~\cite{compact-table}
 \GCCAT{\CAT[int]{in_relation}{extensional}{TaskModelIntExt}}.
