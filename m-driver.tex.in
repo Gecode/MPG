@@ -207,7 +207,7 @@ Examples with tracing include \gecoderef[example]{money},
 \gecoderef[example]{descartes-folium}.
 
 \paragraph{Search tracer options.} For more details on search
-tracers, please consult \autoref{m:search:trace}.
+tracers, please consult \autoref{sec:m:search:trace}.
 
 \paragraph{Examples.}
 

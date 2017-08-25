@@ -78,54 +78,78 @@ The rest of this section presents the different ways to construct expressions an
 \begin{center}
 \begin{tabular}{rcl@{\quad}l}
 $\NLE$ & $::=$ & $\NINT$ & integer value\\
-       & $|$   & $\NVAR$ & integer or Boolean variable\\
+       & $|$   & $\NIVAR$ & integer or Boolean variable\\
        & $|$   & $\operatorname{\texttt{-}}\NLE$ & unary minus \\
        & $|$   & $\NLE \mathbin{\texttt{+}} \NLE$ & addition\\
        & $|$   & $\NLE \mathbin{\texttt{-}} \NLE$ & subtraction\\
        & $|$   & $\NLE \mathbin{\texttt{*}} \NLE$ & multiplication\\
        & $|$   & $\NLE \mathbin{\texttt{/}} \NLE$ & integer division\\
        & $|$   & $\NLE \mathbin{\texttt{\%}} \NLE$ & modulo\\
-       & $|$   & $\texttt{sum(}\NVARS\texttt{)}$ & sum of integer
+       & $|$   & $\texttt{sum(}\NIVARS\texttt{)}$ & sum of integer
        or Boolean variables\\
-       & $|$   & $\texttt{sum(}\NINTS\texttt{,}\NVARS\texttt{)}$ & sum of integer
+       & $|$   & $\texttt{sum(}\NINTS\texttt{,}\NIVARS\texttt{)}$ & sum of integer
        or Boolean variables\\&&& with integer coefficients\\
        & $|$   & $\operatorname{\texttt{min}}(\NLE,\NLE)$ & minimum\\
-       & $|$   & $\operatorname{\texttt{min}}(\NVARS)$ & minimum of integer variables\\
+       & $|$   & $\operatorname{\texttt{min}}(\NIVARS)$ & minimum of integer variables\\
        & $|$   & $\operatorname{\texttt{max}}(\NLE,\NLE)$ & maximum\\
-       & $|$   & $\operatorname{\texttt{max}}(\NVARS)$ & maximum of integer variables\\
+       & $|$   & $\operatorname{\texttt{max}}(\NIVARS)$ & maximum of integer variables\\
        & $|$   & $\operatorname{\texttt{abs}}(\NLE)$ & absolute value\\
        & $|$   & $\operatorname{\texttt{sqr}}(\NLE)$ & square\\
        & $|$   & $\operatorname{\texttt{sqrt}}(\NLE)$ & square root\\
        & $|$   & $\operatorname{\texttt{pow}}(\NLE,\NINT)$ & power\\
        & $|$   & $\operatorname{\texttt{nroot}}(\NLE,\NINT)$ & $n$-th root\\
-       & $|$   & $\operatorname{\texttt{element}}(\NVARS,\NLE)$ & array element of integer variables\\
+       & $|$   & $\operatorname{\texttt{element}}(\NIVARS,\NLE)$ & array element of integer variables\\
        & $|$   & $\operatorname{\texttt{element}}(\NINTS,\NLE)$ & array element of integers\\
        & $|$   & $\operatorname{\texttt{ite}}(\NBE,\NLE,\NLE)$ & if-then-else\\
        & $|$   & $\operatorname{\texttt{min}}(\NSE)$ & minimum of a set expression\\
        & $|$   & $\operatorname{\texttt{max}}(\NSE)$ & maximum of a set expression\\
        & $|$   & $\operatorname{\texttt{cardinality}}(\NSE)$ & cardinality of a set expression\\
 \\
-$\NLR$ & $::=$ & $\NLE \mathrel{\NREL} \NLE$ & relation\\
-\\
-$\NREL$ & $::=$ & 
-\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
-\texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
-\texttt{>} $\;|\;$ \texttt{>=}
-& relation symbol\\
-$\NVARS$ & $::=$ & \multicolumn{2}{l}{array of integer or Boolean variables}\\
+$\NIVARS$ & $::=$ & \multicolumn{2}{l}{array of integer or Boolean variables}\\
 $\NINTS$ & $::=$ & \multicolumn{2}{l}{array of integers}\\
 \end{tabular}
 \end{center}
-\caption{Integer expressions and relations}
-\label{fig:m:minimodel:integer}
+\caption{Integer expressions}
+\label{fig:m:minimodel:integer:expr}
 \end{figure}
 
-Integer expressions (that is, expressions that evaluate to an integer) are constructed according to the structure sketched in \autoref{fig:m:minimodel:integer}. We use the standard \CPP{}
-operators (for an example, see
-\autoref{sec:m:comfy:expr}), as well as several functions with intuitive names such as \?min? or \?max?. Integer expressions and relations can
-be constructed over integer, Boolean, and set variables. 
-In Gecode, integer expressions are of type \gecoderef[class]{LinIntExpr}, which
-are constructed using \gecoderef[group]{TaskModelMiniModelLin},
+\begin{figure}
+\begin{center}
+\begin{tabular}{rcl@{\quad}l}
+$\NLR$ & $::=$ & $\NLE \mathrel{\NIREL} \NLE$ & integer relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NIVAR,\NINT)$ &
+       domain relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NIVAR,\NINT,\NINT)$ &
+       domain relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NIVAR,\NSET)$ &
+       domain relation\\
+\\
+$\NINT$  & $::=$ & \multicolumn{2}{l}{integer value}\\
+$\NSET$  & $::=$ & \multicolumn{2}{l}{set constant (\?IntSet?)}\\
+$\NIVAR$  & $::=$ & \multicolumn{2}{l}{integer or Boolean variable}\\
+$\NIREL$ & $::=$ & 
+\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
+\texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
+\texttt{>} $\;|\;$ \texttt{>=}
+& integer relation symbol\\
+\end{tabular}
+\end{center}
+\caption{Integer relations}
+\label{fig:m:minimodel:integer:rel}
+\end{figure}
+
+Integer expressions (that is, expressions that evaluate to an
+integer) are constructed according to the structure sketched in
+\autoref{fig:m:minimodel:integer:expr}, whereas integer relations
+are constructed according to the structure sketched in
+\autoref{fig:m:minimodel:integer:rel}.  We use the standard
+\CPP{} operators (for an example, see
+\autoref{sec:m:comfy:expr}), as well as several functions with
+intuitive names such as \?min? or \?max?. Integer expressions and
+relations can be constructed over integer, Boolean, and set
+variables.  In Gecode, integer expressions are of type
+\gecoderef[class]{LinIntExpr}, which are constructed using
+\gecoderef[group]{TaskModelMiniModelLin},
 \gecoderef[group]{TaskModelMiniModelArith}, and some
 \gecoderef[group]{TaskModelMiniModelSet}.
 
@@ -140,11 +164,16 @@ rel(home, x+2*sum(z) < 4*y);
 posts a single linear constraint that involves all variables from
 the array \?z?.
 
-As long as an expression is \emph{linear} (i.e., it can be represented as $\sum a_i\cdot x_i$ where the $a_i$ are integers and $x_i$ are integer or Boolean variables), the constraint posted for the expression will be as few \?linear? constraints as possible (see \autoref{sec:m:integer:linear}) to ensure maximal constraint propagation.\footnote{In case a linear
-  expression has only integer variables or only Boolean
-  variables, a single \?linear? constraint is posted. If the
-  expression contains both integer and Boolean variables, two
-  \?linear? constraints are posted.}
+As long as an expression is \emph{linear} (i.e., it can be
+represented as $\sum a_i\cdot x_i$ where the $a_i$ are integers
+and $x_i$ are integer or Boolean variables), the constraint
+posted for the expression will be as few \?linear? constraints as
+possible (see \autoref{sec:m:integer:linear}) to ensure maximal
+constraint propagation.\footnote{In case a linear expression has
+  only integer variables or only Boolean variables, a single
+  \?linear? constraint is posted. If the expression contains both
+  integer and Boolean variables, two \?linear? constraints are
+  posted.}
 
 \emph{Non-linear} expressions, such as a multiplication of two variables, are handled by MiniModel using \emph{decomposition}. For example, posting the constraint
 \begin{code}
@@ -187,7 +216,7 @@ For examples of integer expressions, see
 \begin{figure}
 \begin{center}
 \begin{tabular}{rcl@{\quad}l}
-$\NBE$ & $::=$ & $\NVAR$ & Boolean variable\\
+$\NBE$ & $::=$ & $\NIVAR$ & Boolean variable\\
        & $|$   & $\operatorname{\texttt{!}}\NBE$ & negation \\
        & $|$   & $\NBE \mathbin{\texttt{\&\&}} \NBE$ & conjunction\\
        & $|$   & $\NBE \mathbin{\texttt{||}} \NBE$ & disjunction\\
@@ -196,7 +225,7 @@ $\NBE$ & $::=$ & $\NVAR$ & Boolean variable\\
        & $|$   & $\NBE \mathbin{\texttt{>{}>{}}} \NBE$ & implication\\
        & $|$   & $\NBE \mathbin{\texttt{<{}<{}}} \NBE$ & reverse implication\\
        & $|$   & $\NBE \mathbin{\texttt{\^{}}} \NBE$ & exclusive or\\
-       & $|$   & $\operatorname{\texttt{element}}(\NVARS,\NLE)$ & array element of Boolean variables\\
+       & $|$   & $\operatorname{\texttt{element}}(\NIVARS,\NLE)$ & array element of Boolean variables\\
        & $|$   & $\NLR$ & reified integer relation\\
        & $|$   & $\NSR$ & reified set relation\\
        & $|$   & $\NFR$ & reified float relation
@@ -331,25 +360,45 @@ including reification, see \autoref{chap:c:photo}.
 \begin{figure}
 \begin{center}
 \begin{tabular}{rcl@{\quad}l}
-$\NSE$ & $::=$ & $\NVAR$ & set variable\\
+$\NSE$ & $::=$ & $\NSVAR$ & set variable\\
        & $|$   & $\NSET$ & set constant (\?IntSet?)\\
        & $|$   & $\operatorname{\texttt{-}}\NSE$ & complement \\
        & $|$   & $\NSE \mathbin{\texttt{\&}} \NSE$ & intersection\\
        & $|$   & $\NSE \mathbin{\texttt{|}} \NSE$ & union\\
        & $|$   & $\NSE \mathbin{\texttt{+}} \NSE$ & disjoint union\\
        & $|$   & $\NSE \mathbin{\texttt{-}} \NSE$ & set difference\\
-       & $|$   & $\operatorname{\texttt{inter}}(\NVARS)$ & intersection of variables\\
-       & $|$   & $\operatorname{\texttt{setunion}}(\NVARS)$ & union of variables\\
-       & $|$   & $\operatorname{\texttt{setdunion}}(\NVARS)$ & disjoint union of variables\\
+       & $|$   & $\operatorname{\texttt{inter}}(\NSVARS)$ & intersection of variables\\
+       & $|$   & $\operatorname{\texttt{setunion}}(\NSVARS)$ & union of variables\\
+       & $|$   & $\operatorname{\texttt{setdunion}}(\NSVARS)$ & disjoint union of variables\\
        & $|$   & $\operatorname{\texttt{singleton}}(\NLE)$ & singleton given by integer expression\\
 \\
 $\NSR$ & $::=$ & $\NSE \mathbin{\texttt{==}} \NSE $ & expressions are equal\\
        & $|$   & $\NSE \mathbin{\texttt{!=}} \NSE $ & expressions are not equal\\
        & $|$   & $\NSE \mathbin{\texttt{<=}} \NSE $ & first is subset of second expression\\
        & $|$   & $\NSE \mathbin{\texttt{>=}} \NSE $ & first is superset of second expression\\
-       & $|$   & $\NSE \mathbin{\texttt{||}} \NSE $ & expressions are disjoint\\
+       & $|$   & $\NSE \mathbin{\texttt{||}} \NSE $ & expressions
+       are disjoint\\
+       & $|$   & $\NSE \mathrel{\NIREL} \NLE $ & set-integer relation\\
+       & $|$   & $\NLE \mathrel{\NIREL} \NSE $ & integer-set relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NSVAR,\NSREL,\NINT)$ &
+       domain relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NSVAR,\NSREL,\NINT,\NINT)$ &
+       domain relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NSVAR,\NSREL,\NSET)$ &
+       domain relation\\
 \\
-$\NVARS$ & $::=$ & \multicolumn{2}{l}{array of set variables}\\
+$\NINT$  & $::=$ & \multicolumn{2}{l}{integer value}\\
+$\NSVARS$ & $::=$ & \multicolumn{2}{l}{array of set variables}\\
+$\NIREL$ & $::=$ & 
+\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
+\texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
+\texttt{>} $\;|\;$ \texttt{>=}
+& integer relation symbol\\
+$\NSREL$ & $::=$ & 
+\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
+\texttt{<=} $\;|\;$ \texttt{>=} $\;|\;$
+\texttt{||}
+& set relation symbol\\
 \end{tabular}
 \end{center}
 \caption{Set expressions and relations}
@@ -405,19 +454,19 @@ rel(home, IntSet(0,10) <= x <= IntSet(0,20));
 \begin{center}
 \newcommand{\MPFRMARK}{${}^{\decimal{footnote}}$}%
 \begin{tabular}{rcl@{\quad}l}
-$\NFE$ & $::=$ & $\NVAR$ & float variable\\
+$\NFE$ & $::=$ & $\NFVAR$ & float variable\\
        & $|$   & $\NFLOAT$ & float value\\
        & $|$   & $\operatorname{\texttt{-}}\NFE$ & unary minus \\
        & $|$   & $\NFE \mathbin{\texttt{+}} \NFE$ & addition\\
        & $|$   & $\NFE \mathbin{\texttt{-}} \NFE$ & subtraction\\
        & $|$   & $\NFE \mathbin{\texttt{*}} \NFE$ & multiplication\\
        & $|$   & $\NFE \mathbin{\texttt{/}} \NFE$ & division\\
-       & $|$   & $\texttt{sum(}\NVARS\texttt{)}$ & sum of float variables\\
-       & $|$   & $\texttt{sum(}\NFLOATS\texttt{,}\NVARS\texttt{)}$ & sum of float with coefficients\\
+       & $|$   & $\texttt{sum(}\NFVARS\texttt{)}$ & sum of float variables\\
+       & $|$   & $\texttt{sum(}\NFLOATS\texttt{,}\NFVARS\texttt{)}$ & sum of float with coefficients\\
        & $|$   & $\operatorname{\texttt{min}}(\NFE,\NFE)$ & minimum\\
-       & $|$   & $\operatorname{\texttt{min}}(\NVARS)$ & minimum of float variables\\
+       & $|$   & $\operatorname{\texttt{min}}(\NFVARS)$ & minimum of float variables\\
        & $|$   & $\operatorname{\texttt{max}}(\NFE,\NFE)$ & maximum\\
-       & $|$   & $\operatorname{\texttt{max}}(\NVARS)$ & maximum of float variables\\
+       & $|$   & $\operatorname{\texttt{max}}(\NFVARS)$ & maximum of float variables\\
        & $|$   & $\operatorname{\texttt{abs}}(\NFE)$ & absolute value\\
        & $|$   & $\operatorname{\texttt{sqr}}(\NFE)$ & square\\
        & $|$   & $\operatorname{\texttt{sqrt}}(\NFE)$ & square root\\
@@ -434,29 +483,46 @@ $\NFE$ & $::=$ & $\NVAR$ & float variable\\
        & $|$   & $\operatorname{\texttt{acos}}(\NFE)$ & arccosine\MPFRMARK\\
        & $|$   & $\operatorname{\texttt{atan}}(\NFE)$ & arctangent\MPFRMARK\\
 \\
-$\NFR$ & $::=$ & $\NFE \mathrel{\NREL} \NFE$ & relation\\
-\\
-$\NREL$ & $::=$ & 
-\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
-\texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
-\texttt{>} $\;|\;$ \texttt{>=}
-& relation symbol\\
-$\NVARS$ & $::=$ & \multicolumn{2}{l}{array of float variables}\\
+$\NFVARS$ & $::=$ & \multicolumn{2}{l}{array of float variables}\\
 $\NFLOATS$ & $::=$ & \multicolumn{2}{l}{array of float values}\\
 \end{tabular}
 \end{center}
-\caption{Float expressions and relations}
-\label{fig:m:minimodel:float}
+\caption{Float expressions}
+\label{fig:m:minimodel:float:expr}
 \end{figure}
 
 \gecoderef[group]{TaskModelMiniModelFloat} are constructed using
 the standard \CPP{} operators and the functions listed in
-\autoref{fig:m:minimodel:float} (see also
+\autoref{fig:m:minimodel:float:expr} and
+\autoref{fig:m:minimodel:float:rel} (see also
 \gecoderef[group]{TaskModelMiniModelArith},
 \gecoderef[group]{TaskModelMiniModelTrans}, and
 \gecoderef[group]{TaskModelMiniModelTrigo}). Posting a float
 expression returns a new float variable that is constrained to
 the value of the expression.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{rcl@{\quad}l}
+$\NFR$ & $::=$ & $\NFE \mathrel{\NIREL} \NFE$ & float relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NFVAR,\NFLOAT)$ &
+       domain relation\\
+       & $|$   & $\operatorname{\texttt{dom}}(\NFVAR,\NDOUBLE,\NDOUBLE)$ &
+       domain relation\\
+\\
+$\NIREL$ & $::=$ & 
+\texttt{==} $\;|\;$ \texttt{!=} $\;|\;$
+\texttt{<} $\;|\;$ \texttt{<=} $\;|\;$
+\texttt{>} $\;|\;$ \texttt{>=}
+& float relation symbol\\
+$\NFLOAT$  & $::=$ & \multicolumn{2}{l}{float value}\\
+$\NDOUBLE$ & $::=$ & \multicolumn{2}{l}{float number}\\
+$\NFVAR$ & $::=$ & \multicolumn{2}{l}{float variable}\\
+\end{tabular}
+\end{center}
+\caption{Float relations}
+\label{fig:m:minimodel:float:rel}
+\end{figure}
 
 Instead of a float variable, you can always use a constant of type
 \gecoderef[class]{FloatVal}.
