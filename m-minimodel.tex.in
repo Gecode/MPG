@@ -668,9 +668,17 @@ of minimal and maximal, respectively, integer cost.
 \gecoderef[class]{FloatMinimizeSpace} and
 \gecoderef[class]{FloatMaximizeSpace} support search for a
 solution of minimal and maximal, respectively, float
-cost, possibly with an improvement step (see below).
+cost, possibly with an improvement step (see
+below). \gecoderef[class]{IntLexMinimizeSpace} and
+\gecoderef[class]{IntLexMaximizeSpace} support search for the
+lexicographically smallest and largest solution where the cost is
+defined as an array of integer variables.
 
 \paragraph{Optimizing integer cost.}
+
+The classes \gecoderef[class]{IntMinimizeSpace} and
+\gecoderef[class]{IntMaximizeSpace} support searching a
+solution of minimal and maximal, respectively, integer cost.
 
 \begin{samepage}
 In order to use these abstract classes, a class inheriting from
@@ -715,6 +723,23 @@ solution must have a cost that is strictly smaller than
 $\mathtt{c}-\mathtt{s}$. For
 \gecoderef[class]{FloatMaximizeSpace}, the next solution must
 have a cost that is strictly larger than $\mathtt{c}+\mathtt{s}$.
+
+\paragraph{Lexicographically optimizing for integer costs.}
+
+The classes \gecoderef[class]{IntLexMinimizeSpace} and
+\gecoderef[class]{IntLexMaximizeSpace} support searching for a
+solution with lexicographically smallest and largest cost. The
+cost is defined by an array of integer variables.
+
+In order to use these abstract classes, a class inheriting from
+\gecoderef[class]{IntLexMinimizeSpace} and
+\gecoderef[class]{IntLexMaximizeSpace} must implement a virtual
+cost function of type
+\begin{code}
+virtual IntVarArgs cost(void) const { ... }
+\end{code}
+The function must return an array of integer variable as cost. 
+For an example, see \gecoderef[example]{warehouses}.
 
 
 \section{Regular expressions for extensional constraints}

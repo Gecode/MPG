@@ -237,10 +237,11 @@ objects of class \gecoderef[class]{Options} and
 
 In particular, the driver module defines scripts
 \?IntMinimizeScript?, \?IntMaximizeScript?,
+\?IntLexMinimizeScript?, \?IntLexMaximizeScript?,
 \?FloatMinimizeScript?, and \?FloatMaximizeScript? that can be
 used for finding best solutions based on a virtual \?cost()?
 function, see also \autoref{sec:m:comfy:cost} and
-\autoref{sec:m:minimodel:optimize}. 
+\autoref{sec:m:minimodel:optimize}.
 
 Subclasses of \?FloatMinimizeScript? and \?FloatMaximizeScript?
 use the value passed on the command line option \?-step? as value
