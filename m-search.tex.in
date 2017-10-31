@@ -2000,24 +2000,6 @@ o.tracer = t;
 DFS<Script> e(s,o);
 \end{code}
 
-For convenience, the command line interface provides an option
-for defining a search tracer. On the command line, the option
-\begin{cmd}
--search-tracer none
-\end{cmd}
-specifies that no search tracer is used, whereas
-\begin{cmd}
--search-tracer std
-\end{cmd}
-defines that the standard search tracer is used. In addition, if
-\?o? is an object of class \gecoderef[class]{Options} (or one of
-its sub-classes), then
-\begin{code}
-o.search_tracer(t);
-\end{code}
-defines that the search tracer is being used with the command
-line interface.
-
 \paragraph{Init-event.}
 
 After the search engine(s) have completed their initialization, the member

@@ -95,8 +95,6 @@ $\{\mathtt{init},\mathtt{prune},\mathtt{fix},\mathtt{fail},\mathtt{done}$
 & which events to trace\\
 &$\;\mathtt{propagate},\mathtt{commit},\mathtt{none},\mathtt{all}\}$&\\
 \hline
-\texttt{-search-tracer}&
-$\{\mathtt{none},\mathtt{std}\}$&whether to use a search tracer
 \end{tabular}
 \end{center}
 \caption{Predefined commandline options}
@@ -113,7 +111,7 @@ option & type & explanation \\
 \texttt{-model} & string & general model options\\
 \texttt{-propagation} & string & propagation options\\
 \texttt{-symmetry} & string & symmetry breaking options\\
-\texttt{-search} & string &  search options\\\hline
+\texttt{-search} & string & search options\\\hline
 \end{tabular}
 \end{center}
 \caption{User-definable commandline options}
