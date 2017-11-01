@@ -2127,6 +2127,8 @@ The done event is executed if all workers have terminated. Here
 it just prints this fact:
 \insertlitcode{example search tracer:done}
 
+Note that, however that the tracer is not deleted after a done
+event. This is the obligation of the user of the tracer.
 
 \begin{litcode}{example search tracer}{schulte}
 \begin{litblock}{anonymous}
