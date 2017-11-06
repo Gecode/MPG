@@ -2136,19 +2136,54 @@ event. This is the obligation of the user of the tracer.
 \label{sec:m:search:cpprofiler}
 
 \begin{important}
-  Do not forget to add
-\begin{code}
-#include <gecode/int.hh>
-\end{code}
-to your program when you want to use integer or Boolean variables
-and constraints.
+  Note that support for the CPProfiler is experimental.
 \end{important}
 
-\cite{cpprofiler}
+The CPProfiler is a graphical tool for better understanding the
+search space of a problem~\cite{cpprofiler}. It can be downloaded
+from
+\AURL{https://github.com/cp-profiler/cp-profiler}{\texttt{github.com/cp-profiler}}.
 
+Gecode can connect to an already running instance of the
+CPProfiler by means of creating a search tracer. The tracer then
+sends all search trace information to the respective instance of
+the CPProfiler, which then can use the trace information for
+visualization and analysis.
 
-% https://github.com/cp-profiler/cp-profiler
+A search tracer to connect to a running CPProfiler instance can
+be created by creating an object of class
+\gecoderef[class]{CPProfilerSearchTracer} as follows:
+\begin{code}
+auto t = new CPProfilerSearchTracer(id,name,port,gi);
+\end{code}
+where \?id? (an integer) defines the execution identifier to be
+displayed by the CPProfiler, \?name? (a string of type
+\?std::string?) defines the name displayed by the CPProfiler,
+\?port? (an unsigned integer) defines the network port used by
+the CPProfiler, and \?gi? is a pointer to an object of class
+\gecoderef[class]{CPProfilerSearchTracer::GetInfo} for
+information about a search tree to be displayed by the
+CPProfiler. The arguments for \?port? and \?gi? are optional, the
+default for \?port? is defined by
+\?Search::Config::cpprofiler_port? (currently \?6565?) and the
+default for \?gi? is \?nullptr?.
 
+Note that commandline support for the CPProfiler is provided, see
+\autoref{sec:m:driver:options}. There are options to specify the
+execution identifier, the port, and whether default information
+about nodes in the search tree should be transferred to the
+CPProfiler.
+
+An object that determines which information about a search tree
+node should be displayed when the node is inspected in the
+CPProfiler, can be defined by inheriting from the class
+\gecoderef[class]{CPProfilerSearchTracer::GetInfo} and
+defining the virtual member function:
+\begin{code}
+virtual std::string getInfo(const Space& home) const;
+\end{code}
+that must return an information string of type \?std::string?
+for the search tree node \?home?.
 
 \begin{litcode}{example search tracer}{schulte}
 \begin{litblock}{anonymous}
