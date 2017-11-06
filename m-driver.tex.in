@@ -76,9 +76,22 @@ depth limit for no-good recording\\
 \texttt{-assets} &
 \?unsigned int? &
 number of assets in a portfolio\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Predefined commandline options}
+\label{fig:m:driver:options:a}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+option & type & explanation \\
 \hline\hline
 \multicolumn{3}{|c|}{execution options}\\\hline
-\texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},\mathtt{gist}\}$ & script mode to run\\
+\texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},$ & script mode to run\\
+        & $\;\mathtt{gist},\mathtt{cpprofiler}\}$ & \\
 \texttt{-samples} & \?unsigned int? & how many samples\\
 \texttt{-iterations} & \?unsigned int? & how many iterations per
 sample\\
@@ -91,14 +104,21 @@ where to print statistics\\
 \texttt{-interrupt} & $\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
 whether driver catches Ctrl-C\\
 \texttt{-trace} &
-$\{\mathtt{init},\mathtt{prune},\mathtt{fix},\mathtt{fail},\mathtt{done}$
+$\{\mathtt{init},\mathtt{prune},\mathtt{fix},\mathtt{fail},\mathtt{done},$
 & which events to trace\\
 &$\;\mathtt{propagate},\mathtt{commit},\mathtt{none},\mathtt{all}\}$&\\
 \hline
+\texttt{-cpprofiler-id} & \?int? &
+execution identifier for CPProfiler\\
+\texttt{-cpprofiler-port} & \?unsigned int? &
+port used to connect to CPProfiler\\
+\texttt{-cpprofiler-info} & $\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
+whether to send node information\\
+\hline
 \end{tabular}
 \end{center}
-\caption{Predefined commandline options}
-\label{fig:m:driver:options}
+\caption{Predefined commandline options, continued}
+\label{fig:m:driver:options:b}
 \end{figure}
 
 \begin{figure}
@@ -122,7 +142,8 @@ The commandline driver provides classes
 \gecoderef[class]{Options}, \gecoderef[class]{SizeOptions}, and
 \gecoderef[class]{InstanceOptions} that support parsing
 commandline options. All classes support the options as
-summarized in \autoref{fig:m:driver:options} and
+summarized in \autoref{fig:m:driver:options:a},
+\autoref{fig:m:driver:options:b}, and
 \autoref{fig:m:driver:options:user}. Here, for a commandline
 option with name \?-name?, the option classes provide two
 functions with name \?name()?: one that takes no argument and
@@ -135,6 +156,9 @@ functions are named \?c_d()?, \?a_d()?, \?d_l()?.
 
 The values for \?-threads? are interpreted as described in
 \autoref{sec:m:search:options}.
+
+Note that all commanline options can also be used with a starting
+double hyphen~\?--? instead of a single hyphen.
 
 \paragraph{Invoking help.}
 
@@ -166,7 +190,6 @@ addition to a basic integer propagation level.
 
 \paragraph{Mode options.}
 
-\begin{samepage}
 The different modes passed as argument for the option \?-mode?
 have the following meaning:
 \begin{itemize}
@@ -188,8 +211,15 @@ have the following meaning:
   \autoref{tip:m:comfy:conf} for how to find out about Gecode's
   configuration), the mode \texttt{gist} will be ignored and the
   mode \texttt{solution} is used instead.
+\item \texttt{cpprofiler} runs the script in solution mode but
+  also connects to the CPProfiler, see also
+  \autoref{sec:m:search:cpprofiler}.  
+  
+  If Gecode has not been compiled with support for the CPProfiler (see
+  \autoref{tip:m:comfy:conf} for how to find out about Gecode's
+  configuration), the mode \texttt{cpprofiler} will be ignored and the
+  mode \texttt{solution} is used instead.
 \end{itemize}
-\end{samepage}
 
 \paragraph{Trace options.}
 
@@ -204,8 +234,9 @@ Examples with tracing include \gecoderef[example]{money},
 \gecoderef[example]{hamming}, and
 \gecoderef[example]{descartes-folium}.
 
-\paragraph{Search tracer options.} For more details on search
-tracers, please consult \autoref{sec:m:search:trace}.
+\paragraph{CPProfiler options.} For more details on the
+CPProfiler, please consult \autoref{sec:m:search:cpprofiler} as
+the commandline arguments are used exactly as described there.
 
 \paragraph{Examples.}
 

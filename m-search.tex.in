@@ -26,7 +26,9 @@ in \autoref{sec:m:search:restart} and portfolio-based search is
 discussed in \autoref{sec:m:search:portfolio}. This is followed
 by a discussion in \autoref{sec:m:search:nogoods} how no-goods
 from restarts can be used. \autoref{sec:m:search:trace} describes
-how the execution of search engines can be traced.
+how the execution of search engines can be traced and
+\autoref{sec:m:search:cpprofiler} how the CPProfiler can be used
+for tracing during search.
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -2129,6 +2131,24 @@ it just prints this fact:
 
 Note that, however that the tracer is not deleted after a done
 event. This is the obligation of the user of the tracer.
+
+\section{Using the CPProfiler}
+\label{sec:m:search:cpprofiler}
+
+\begin{important}
+  Do not forget to add
+\begin{code}
+#include <gecode/int.hh>
+\end{code}
+to your program when you want to use integer or Boolean variables
+and constraints.
+\end{important}
+
+\cite{cpprofiler}
+
+
+% https://github.com/cp-profiler/cp-profiler
+
 
 \begin{litcode}{example search tracer}{schulte}
 \begin{litblock}{anonymous}
