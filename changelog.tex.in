@@ -9,9 +9,9 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
-  \cle{2017-11-05}{Explained how to use CPProfiler
+  \cle{2017-11-06}{Explained how to use CPProfiler
     (see \autoref{sec:m:search:cpprofiler}).}
-  \cle{2017-11-05}{Documented commandline options for CPProfiler
+  \cle{2017-11-06}{Documented commandline options for CPProfiler
     (see \autoref{sec:m:driver:options}).}
   \cle{2017-05-10}{Updated explanation of regions for memory
     management
