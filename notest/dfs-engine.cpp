@@ -48,12 +48,12 @@ public:
     distinct(*this, q);
     branch(*this, q, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
   }
-  Queens(bool share, Queens& s) : Space(share,s) {
-    q.update(*this, share, s.q);
+  Queens(Queens& s) : Space(s) {
+    q.update(*this, s.q);
   }
   virtual Space*
-  copy(bool share) {
-    return new Queens(share,*this);
+  copy(void) {
+    return new Queens(*this);
   }
   virtual void
   print(std::ostream& os) const {

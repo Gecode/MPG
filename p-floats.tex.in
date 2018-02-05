@@ -284,10 +284,10 @@ public:
     (void) new (home) Linear(home,x0,x1,x2);
     return ES_OK;
   }
-  Linear(Space& home, bool share, Linear& p)
-    : TernaryPropagator<Float::FloatView,Float::PC_FLOAT_BND>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Linear(home,share,*this);
+  Linear(Space& home, Linear& p)
+    : TernaryPropagator<Float::FloatView,Float::PC_FLOAT_BND>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Linear(home,*this);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&)  {

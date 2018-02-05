@@ -310,10 +310,9 @@ updated during cloning in the copy constructor used by a space's
 \?copy()? member function. For example, a variable \?x?  is updated
 by
 \begin{code}
-x.update(home, share, y);
+x.update(home, y);
 \end{code}
-where \?share? is the Boolean argument passed as argument to
-\?copy()? and \?y? is the variable from which \?x? is to be
+where \?y? is the variable from which \?x? is to be
 updated. While \?x? belongs to \?home?, \?y? belongs
 to the space being cloned.
 
@@ -345,10 +344,7 @@ Gecode has very few \emph{proper} data structures. The proper
 data structures for integer and Boolean variables are the
 variables themselves, integer sets, and arrays of variables.
 Proper means that these data structures can be updated and hence
-be stored in a space. Other proper data structures are
-DFAs (deterministic finite automata) and tuple sets used for
-extensional constraints. These data structures are discussed
-in \autoref{sec:m:integer:extensional}.
+be stored in a space. 
 
 Of course, data structures that themselves do not contain proper
 data structures can be stored in a space, such as integers,
@@ -414,8 +410,7 @@ space from the heap\footnote{Actually, if an argument array has
   implementing the array rather than allocating memory from the
   heap.  Hence, small argument arrays reside entirely on the
   stack.} and the memory is freed when their destructor is
-executed. They are \emph{not} proper data structures as they
-cannot be updated.
+executed.
 
 Argument arrays can be created empty:
 \begin{code}
@@ -769,27 +764,21 @@ documentation for each post function.
 In addition to the basic propagation levels listed above, the
 following pre-defined values exist:
 \begin{itemize}
-\item \?IPL_SPEED?: try to optimize propagation for execution
-  performance, possibly at the expense of using more memory.
-\item \?IPL_MEMORY?: try to optimize propagation for memory
-  consumption, possibly at the expense of being less efficient.
 \item \?IPL_BASIC?: try to optimize for execution performance at
   the expense of performing less propagation.
 \item \?IPL_ADVANCED?: try to optimize for more propagation at
   the expensive of being less efficient.
 \end{itemize}
 The propagation levels can be specified as disjunctions, for
-example \?IPL_DEF|IPL_MEMORY? requests default propagation that
-saves memory which is equivalent to \?IPL_MEMORY? (the \?IPL_DEF?
-can always be omitted). Note that in particular the combination
-\?IPL_BASIC|IPL_ADVANCED? is meaningful requesting both basic
-and advanced propagation to be performed.
+example \?IPL_DEF|IPL_BASIC? requests basic default propagation
+which is equivalent to \?IPL_BASIC? (the \?IPL_DEF?  can always
+be omitted). Note that in particular the combination
+\?IPL_BASIC|IPL_ADVANCED? is meaningful requesting both basic and
+advanced propagation to be performed.
 
-Extensional constraints using tuple sets, see
-\autoref{sec:m:integer:extensional}, support propagation levels
-with \?IPL_SPEED? and \?IPL_MEMORY?, whereas some scheduling
-constraints, see \autoref{sec:m:integer:scheduling}, support
-basic and advanced propagation levels.
+Some scheduling constraints, see
+\autoref{sec:m:integer:scheduling}, support basic and advanced
+propagation levels.
 
 \tip{Different propagation levels have different costs}{
   Note that propagators of different propagation level for the
@@ -1794,16 +1783,6 @@ ad-hoc constraints) provide constraints that are specified in
 tuple set \gecoderef[class]{TupleSet}. DFAs can also be specified
 conveniently by regular expressions, see \autoref{sec:m:minimodel:reg}.
 
-Note that both DFAs and tuple sets are proper Gecode
-data structures. When storing a DFA or a tuple set as
-a space member, the member must be updated with an
-\?update? function during cloning exactly as described for
-variables in \autoref{sec:m:integer:update}.\footnote{In most cases,
-  the data structure is actually shared between spaces created by
-  cloning. Only when a non-shared clone is requested (for
-  parallel search), a copy of the data structure is created. This
-  is the reason why updating is required.}
-
 \paragraph{Deterministic finite automata.}
 
 Suppose we want to plan the activities of an evening that follows
@@ -1886,7 +1865,7 @@ tuple defines one solution of the extensional constraint. For
 example, the following defines the Swedish drinking protocol for
 three activities by a list of tuples:
 \begin{code}
-TupleSet t;
+TupleSet t(3);
 t.add(IntArgs(3, 0,0,0));
 t.add(IntArgs(3, 0,1,0));
 t.add(IntArgs(3, 1,0,0));
@@ -1897,8 +1876,30 @@ must be finalized as shown above. If a not-yet finalized tuple
 set is used for posting a constraint, an exception of type
 \gecoderef[class]{Int::NotYetFinalized} is thrown.
 
+Note that the above example can be written more concisely as:
+\begin{code}
+TupleSet t(3);
+t.add(0,0,0).add(0,1,0).add(1,0,0)
+ .finalize();
+\end{code}
+
+Tuple sets can also be initialized by specifying their arity and
+a DFA. Hence, if \?d? refers to the DFA for the Swedish drinking
+protocol, the above example can also be written as:
+\begin{code}
+TupleSet t(3,d);
+\end{code}
+
+\tip{When to use tuple sets rather than DFAs}{
+  If a DFA is small and the arity is small, then it is typically
+  more efficient to create a tuple set from the DFA and use it
+  instead with an extensional constraint. However, if the arity is
+  large or the DFA encodes many different tuples, it is typically
+  more efficient to use the DFA directly.
+}
+
 The propagators for the \?extensional? constraint are domain
-consistent and are based on~\cite{gacschema} and~\cite{gac2001}
+consistent and are based on~\cite{compact-table}
 \GCCAT{\CAT[int]{in_relation}{extensional}{TaskModelIntExt}}.
 
 Constraining a sequence of variables to the Swedish drinking
@@ -1906,18 +1907,6 @@ protocol using a tuple set is done by
 \begin{code}
 BoolVarArray x(home, 3, 0, 1);
 extensional(home, x, t);
-\end{code}
-Propagation for extensional constraints using tuple sets can
-either give preference to execution speed or memory consumption
-by passing an appropriate integer propagation level (see
-\autoref{sec:m:integer:ipl}) argument. For example, to prefer
-execution speed (the default) the constraint can be posted as:
-\begin{code}
-extensional(home, x, t, IPL_SPEED);
-\end{code}
-In order to optimize for memory, the constraint can be posted as:
-\begin{code}
-extensional(home, x, t, IPL_MEMORY);
 \end{code}
 
 For several examples of extensional constraints using tuple sets, see

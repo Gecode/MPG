@@ -54,13 +54,13 @@ public:
   }
 
   /// Constructor for cloning \a s
-  Alpha(bool share, Alpha& s) : Space(share,s) {
-    le.update(*this, share, s.le);
+  Alpha(Alpha& s) : Space(s) {
+    le.update(*this, s.le);
   }
   /// Copy during cloning
   virtual Space*
-  copy(bool share) {
-    return new Alpha(share,*this);
+  copy(void) {
+    return new Alpha(*this);
   }
   /// Print solution
   void

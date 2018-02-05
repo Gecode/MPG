@@ -1,8 +1,8 @@
 class S : public Space {
 public:
   S(void) {}
-  S(bool share, S& s) : Space(share,s) {}
-  virtual Space* copy(bool share) { return new S(share,*this); }
+  S(S& s) : Space(s) {}
+  virtual Space* copy(void) { return new S(*this); }
 };
 
 int

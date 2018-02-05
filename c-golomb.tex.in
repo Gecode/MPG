@@ -311,13 +311,13 @@ public:
     os << m << std::endl;
   }
   // Constructor for cloning \a s
-  GolombRuler(bool share, GolombRuler& s)
-    : IntMinimizeScript(share,s) {
-    m.update(*this, share, s.m);
+  GolombRuler(GolombRuler& s)
+    : IntMinimizeScript(s) {
+    m.update(*this, s.m);
   }
   // Copy during cloning
-  virtual Space* copy(bool share) {
-    return new GolombRuler(share,*this);
+  virtual Space* copy(void) {
+    return new GolombRuler(*this);
   }
   \end{litblock}
 };

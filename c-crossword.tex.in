@@ -271,16 +271,14 @@ computed \?n? times: for each word variable for words of length
 \label{fig:c:crossword:optimized}
 \end{figure}
 
-The first optimization is to swap the loops that iterate over the
-dictionary index \?i? and the letter position \?p?, as shown in
-\autoref{fig:c:crossword:optimized}. However, one can go even
-further. By default, each time an \?element?  constraint is
-posted, a new shared array for the integer argument array is
-created (these will be still shared among all spaces of the same
-thread). To just have a single copy of the array, we can create a
-shared integer array of type \?IntSharedArray?  instead. Then, for
-each word length \?l? and each position \?p?  there will be a
-single shared array only. See
+The first optimization is to swap the loops that iterate over the dictionary
+index \?i? and the letter position \?p?, as shown in
+\autoref{fig:c:crossword:optimized}. However, one can go even further. By
+default, each time an \?element?  constraint is posted, a new shared array for
+the integer argument array is created (it will be still shared among all
+spaces). To just have a single copy of the array, we can create a shared integer
+array of type \?IntSharedArray?  instead. Then, for each word length \?l? and
+each position \?p?  there will be a single shared array only. See
 \autoref{tip:m:integer:sharedelement} for more on shared arrays.
 
 The shared integer array is initialized as follows:
@@ -7171,12 +7169,12 @@ public:
   }
   \end{litblock}
   \begin{litblock}{anonymous}
-  Crossword(bool share, Crossword& s) 
-    : Script(share,s), w(s.w), h(s.h) {
-    letters.update(*this, share, s.letters);
+  Crossword(Crossword& s) 
+    : Script(s), w(s.w), h(s.h) {
+    letters.update(*this, s.letters);
   }
-  virtual Space* copy(bool share) {
-    return new Crossword(share,*this);
+  virtual Space* copy(void) {
+    return new Crossword(*this);
   }
   virtual void print(std::ostream& os) const {
     Matrix<IntVarArray> ml(letters, w, h);
@@ -14192,12 +14190,12 @@ public:
       << ((a == 0) ? "=" : "!=") << " "
       << static_cast<char>(n);
   }
-  Crossword(bool share, Crossword& s) 
-    : Script(share,s), w(s.w), h(s.h) {
-    letters.update(*this, share, s.letters);
+  Crossword(Crossword& s) 
+    : Script(s), w(s.w), h(s.h) {
+    letters.update(*this, s.letters);
   }
-  virtual Space* copy(bool share) {
-    return new Crossword(share,*this);
+  virtual Space* copy(void) {
+    return new Crossword(*this);
   }
   virtual void print(std::ostream& os) const {
     Matrix<IntVarArray> ml(letters, w, h);

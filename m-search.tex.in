@@ -25,7 +25,10 @@ principle.  How search engines can be used is explained in
 in \autoref{sec:m:search:restart} and portfolio-based search is
 discussed in \autoref{sec:m:search:portfolio}. This is followed
 by a discussion in \autoref{sec:m:search:nogoods} how no-goods
-from restarts can be used.
+from restarts can be used. \autoref{sec:m:search:trace} describes
+how the execution of search engines can be traced and
+\autoref{sec:m:search:cpprofiler} how the CPProfiler can be used
+for tracing during search.
 
 \begin{convention}
   Note that the same conventions hold as in \autoref{chap:m:int}.
@@ -689,12 +692,11 @@ The default values for the options are defined in the namespace
 \hline
 \?assets? & \?unsigned int? & number of assets in a portfolio\\
 \hline
-\?share_rbs? & \?bool? & whether AFC is shared between restarts\\
-\?share_pbs? & \?bool? & whether AFC is shared between assets\\
-\hline
 \?stop? & \?Search::Stop*? & stop object (\?NULL? if none)\\
 \hline
 \?cutoff? & \?Search::Cutoff*? & cutoff object (\?NULL? if none)\\
+\hline
+\?tracer? & \?SearchTracer*? & search tracer (\?NULL? if none)\\
 \hline
 \end{tabular}
 \end{center}
@@ -705,10 +707,9 @@ The default values for the options are defined in the namespace
 The meaning of the values for the search options are
 straightforward but for \?threads? (\?cutoff? is explained in
 \autoref{sec:m:search:restart}, \?assets? is explained in
-\autoref{sec:m:search:portfolio}, \?share_rbs? and \?share_pbs?
-are explained in \autoref{tip:m:search:share:rbs} and
-\autoref{tip:m:search:share:rbs}, while \?nogoods_limit? is
-explained in \autoref{sec:m:search:nogoods}).
+\autoref{sec:m:search:portfolio}, \?nogoods_limit? is
+explained in \autoref{sec:m:search:nogoods}, and \?tracer? is
+explained in \autoref{sec:m:search:trace}).
 
 Assume that your computer has
 $m$ processing units\footnote{This is a very rough
@@ -1249,17 +1250,6 @@ in \autoref{fig:m:search:restart:default}. The part of the
 specific for restart-based search is as follows:
 \insertlitcode{default master and slave functions:restart-based search}
 
-\tip{Sharing branching information among restarts}{
-\label{tip:m:search:share:rbs}%
-By default, the accumulated failure count (AFC) of a variable
-(see \autoref{sec:m:branch:afc}) is maintained between restarts.
-This is also typically the desired behavior as it learns from
-failures in previous restarts. However, whether the AFC is shared
-among restarts can be determined by the \?share_afc? member of
-the search options passed to the restart-based search engine, see
-also \autoref{sec:m:search:options}.  }
-
-
 
 \subsection{Large Neighborhood Search}
 \label{sec:m:search:restart:lns}
@@ -1386,7 +1376,7 @@ void next(const Model& b) {
 relaxes each variable in \?x? with a probability of $0.7$
 (or, with other words: each variable in \?x? would be assigned
 the value from \?b.x? with a probability of $0.3$). The random
-numbers are drwan from the random number generator~\?r?.
+numbers are drawn from the random number generator~\?r?.
 
 The \?relax()? function makes sure that at least one of the
 variables in~\?x? remains unassigned (if needed, the variable to
@@ -1495,18 +1485,6 @@ has for restart-based search).
 For an example using several branchers using different random
 seeds in a portfolio, see \gecoderef[example]{qcp}.
 
-\tip{Not sharing branching information among assets}{
-\label{tip:m:search:share:pbs}%
-In contrast to restart-based search, each asset in a portfolio
-should be as different from each other as possible. Therefore,
-typically no information about the accumulated failure count (AFC) of
-a variable (see \autoref{sec:m:branch:afc}) should be shared
-among different assets in a portfolio. This can be controlled by
-the \?share_pbs? field in the search options as described in
-\autoref{sec:m:search:options} (as said, the default value is
-\?false?). 
-}
-
 \tip{Kill your branchers, or maybe not$\ldots$}{
 \label{tip:m:search:kill}%
 Instead of killing your branchers in the master space of a
@@ -1594,7 +1572,7 @@ $\left\lfloor \frac{m}{n} \right\rfloor$ threads are requested.
   on a single processing unit tends to be the better approach.  
 }
 
-\tip{Controling portfolios from the commandline}{ 
+\tip{Controlling portfolios from the commandline}{ 
   The commandline driver transparently supports portfolio search.
   Depending on which options are passed on the commandline,
   either a search engine or a portfolio engine is used for
@@ -1962,6 +1940,346 @@ search. While parallel search engines also support the extraction
 of no-goods, the number of no-goods that can be extracted tend to
 be rather small.
 
+
+
+\section{Tracing search}
+\label{sec:m:search:trace}
+
+The execution of search engines can be traced, where all
+important events of a search engine can be recorded and processed
+by a \emph{search tracer}. A search tracer is implemented by a
+subclass of \gecoderef[class]{SearchTracer} where several virtual
+member functions must be implemented that are called when a
+corresponding event occurs:
+\begin{itemize}
+\item A single \emph{init-event} occurs when the initialization
+  of a search engine together with all of its components such as
+  sub-engines and workers is complete. See below for more
+  details about sub-engines and workers.
+\item A single \emph{done-event} occurs when all components
+  (workers) of a search engine have been deleted.
+\item Each time a new node of the search tree is created, a
+  \emph{node-event} occurs that provides information about the
+  newly created node and the edge leading to it (unless it is the
+  root node).
+\item Some search engines perform several \emph{rounds}: each
+  time a new round starts, a \emph{round-event} occurs.
+  Restart-based search (RBS) starts a new round by performing a
+  restart (see \autoref{sec:m:search:restart}) and
+  limited-discrepancy search (LDS) starts a new round for each
+  probe with a different discrepancy.
+\item Some search engines might skip edges, in these cases a
+  \emph{skip-event} is generated. See below for more details.
+\end{itemize}
+
+\paragraph{Search tracers.}
+
+\begin{figure}
+\insertlitcode{example search tracer}
+\caption{A simple tracer printing to \?std::cout?}
+\label{fig:m:search:tracer}
+\end{figure}
+
+A simple search tracer printing information to \?std::cout? is
+shown in \autoref{fig:m:search:tracer}. A similar search tracer
+is defined by the class \gecoderef[class]{StdSearchTracer}.
+
+As mentioned above, all events correspond to virtual member
+functions that are called when an event occurs. The member
+functions are executed in mutual exclusion as the events might
+occur in parallel from search engines using multiple workers
+(threads). 
+
+\paragraph{Defining a search tracer.}
+
+A search tracer can be defined as part of the search options (see
+\autoref{sec:m:search:options}). For example, if \?t? is a search
+tracer, then creating a depth-first search engine using the tracer
+\?t? can be done as follows:
+\begin{code}
+Search::Options o;
+o.tracer = t;
+DFS<Script> e(s,o);
+\end{code}
+
+\paragraph{Init-event.}
+
+After the search engine(s) have completed their initialization, the member
+function \?init()? is called. The class
+\gecoderef[class]{SearchTracer} provides member functions with
+which the configuration of the search engine can be
+inspected. Search engines are identified by engine identifiers of
+type \?unsigned int?. 
+
+The root engine has always the identifier \?0U?. Meta engines
+such as restart-based search (RBS) and portfolio-based search
+(PBS) have sub engines whereas non-meta engines have workers that
+perform the actual exploration of the search tree. The following
+code:
+\insertlitcode{example search tracer:init}
+lists all engines together with their engine identifiers starting
+with the root engine (the member function \?engines()? returns the
+number of engines). Information about an engine is provided by the
+member function \?engine()? which takes an engine identifier and
+returns a reference to an object of type
+\gecoderef[class]{SearchTracer::EngineInfo} providing
+information about an engine.
+
+For simple engines (that is, non-meta engines) such as
+depth-first (DFS), branch-and-bound (BAB), and
+limited-discrepancy search (LDS), the following code prints
+information about their workers:
+\insertlitcode{example search tracer:init for engines}
+An engine of type AOE (for any other engine) is an engine that
+Gecode creates in certain situations if the root of the search
+tree is already known to be failed.
+
+For meta engines, the following code prints information about
+their sub-engines:
+\insertlitcode{example search tracer:init for meta engines}
+
+For example, for a branch-and-bound engine with a single worker
+(using a single thread), the \?init()? function prints:
+\begin{cmd}
+	0: BAB, workers: {0}
+\end{cmd}
+
+For a branch-and-bound engine with four workers (using four
+threads), the \?init()? function prints:
+\begin{cmd}
+trace<Search>::init()
+	0: DFS, workers: {0,1,2,3}
+\end{cmd}
+
+For a restart-based search engine using a depth-first engine with
+a single worker (using a single thread), the \?init()? function
+prints:
+\begin{cmd}
+trace<Search>::init()
+	0: RBS, engines: {1}
+	1: DFS, workers: {0}
+\end{cmd}
+
+For a portfolio-based search engines with two depth-first search
+engines as assets using four threads, the \?init()? function prints:
+\begin{cmd}
+trace<Search>::init()
+	0: PBS, engines: {1,2}
+	1: DFS, workers: {0,1}
+	2: DFS, workers: {2,3}
+\end{cmd}
+Note that assets can be also restart-based search engines.
+
+
+\paragraph{Node-events.}
+
+\begin{figure}
+\insertlitcode{example search tracer:node}
+\caption{Member function for node-events}
+\label{fig:m:search:tracer:node}
+\end{figure}
+
+
+The virtual member function called for a node-event takes
+information about an edge of type
+\gecoderef[class]{SearchTracer::EdgeInfo} and a node of type
+\gecoderef[class]{SearchTracer::NodeInfo} as input. The code
+shown in \autoref{fig:m:search:tracer:node} prints the type of
+the node. It then prints information about the worker identifier
+(\?ni.wid()?) and node identifier (\?ni.nid()?). Both worker and
+node identifiers are of type \?unsigned int?. Note that the edge
+also has information about the parent node of the current node
+and which worker created it. In case the edge does not exist
+(that is, the test \?ei? is false), the node is in fact the root
+node of the search tree. The string printed is the output printed
+by the brancher corresponding to the edge (see
+\autoref{sec:m:branch:print} for more information).
+
+Note that the node identifiers are unique per worker. As the
+number of workers is available with the \?workers()? member
+function, the numbers can be made easily unique globally.
+
+\paragraph{Round-events.}
+
+A round-event is generated either before a restart by a
+restart-based search engine or when a limited-discrepancy search
+engine starts a new probe with an increased discrepancy. The
+information passed to the \?round()? member function is the
+engine identifier corresponding to the engine starting a new
+round:
+\insertlitcode{example search tracer:round}
+
+Note that the node identifiers are not reset at a round-event.
+
+\paragraph{Skip-events.}
+
+A skip event occurs when a worker decides that a certain node
+does not need to be explored. This can happen for
+branch-and-bound search engines where an entire subtree is
+pruned or for limited discrepancy search where a solution is
+omitted as it had already been found during a previous probe with
+a smaller discrepancy limit. The information provided to the
+\?skip()? member function is of type
+\gecoderef[class]{SearchTracer::EdgeInfo}:
+\insertlitcode{example search tracer:skip}
+
+\paragraph{Done-event.}
+
+The done event is executed if all workers have terminated. Here
+it just prints this fact:
+\insertlitcode{example search tracer:done}
+
+Note that, however that the tracer is not deleted after a done
+event. This is the obligation of the user of the tracer.
+
+\section{Using the CPProfiler}
+\label{sec:m:search:cpprofiler}
+
+\begin{important}
+  Note that support for the CPProfiler is experimental.
+\end{important}
+
+The CPProfiler is a graphical tool for better understanding the
+search space of a problem~\cite{cpprofiler}. It can be downloaded
+from
+\AURL{https://github.com/cp-profiler/cp-profiler}{\texttt{github.com/cp-profiler}}.
+
+Gecode can connect to an already running instance of the
+CPProfiler by means of creating a search tracer. The tracer then
+sends all search trace information to the respective instance of
+the CPProfiler, which then can use the trace information for
+visualization and analysis.
+
+A search tracer to connect to a running CPProfiler instance can
+be created by creating an object of class
+\gecoderef[class]{CPProfilerSearchTracer} as follows:
+\begin{code}
+auto t = new CPProfilerSearchTracer(id,name,port,gi);
+\end{code}
+where \?id? (an integer) defines the execution identifier to be
+displayed by the CPProfiler, \?name? (a string of type
+\?std::string?) defines the name displayed by the CPProfiler,
+\?port? (an unsigned integer) defines the network port used by
+the CPProfiler, and \?gi? is a pointer to an object of class
+\gecoderef[class]{CPProfilerSearchTracer::GetInfo} for
+information about a search tree to be displayed by the
+CPProfiler. The arguments for \?port? and \?gi? are optional, the
+default for \?port? is defined by
+\?Search::Config::cpprofiler_port? (currently \?6565?) and the
+default for \?gi? is \?nullptr?.
+
+Note that commandline support for the CPProfiler is provided, see
+\autoref{sec:m:driver:options}. There are options to specify the
+execution identifier, the port, and whether default information
+about nodes in the search tree should be transferred to the
+CPProfiler.
+
+An object that determines which information about a search tree
+node should be displayed when the node is inspected in the
+CPProfiler, can be defined by inheriting from the class
+\gecoderef[class]{CPProfilerSearchTracer::GetInfo} and
+defining the virtual member function:
+\begin{code}
+virtual std::string getInfo(const Space& home) const;
+\end{code}
+that must return an information string of type \?std::string?
+for the search tree node \?home?.
+
+\begin{litcode}{example search tracer}{schulte}
+\begin{litblock}{anonymous}
+#include <gecode/search.hh>
+
+using namespace Gecode;
+\end{litblock}
+class SimpleSearchTracer : public SearchTracer {
+protected:
+  static const char* t2s(EngineType et)  {
+    \begin{litblock}{anonymous}
+    switch (et) {
+    case EngineType::DFS: return "DFS";
+    case EngineType::BAB: return "BAB";
+    case EngineType::LDS: return "LDS";
+    case EngineType::RBS: return "RBS";
+    case EngineType::PBS: return "PBS";
+    case EngineType::AOE: return "AOE";
+    }
+    \end{litblock}
+  }
+public:
+  SimpleSearchTracer(void) {}
+  \begin{litblock}{init}
+  virtual void init(void) {
+    std::cout << "trace<Search>::init()" << std::endl;
+    for (unsigned int e=0U; e<engines(); e++) {
+      std::cout << "\t" << e << ": " 
+                << t2s(engine(e).type());
+      if (engine(e).meta()) {
+        \begin{litblock}{init for meta engines}
+        std::cout << ", engines: {";
+        for (unsigned int i=engine(e).efst(); i<engine(e).elst(); i++) {
+          std::cout << i; if (i+1 < engine(e).elst()) std::cout << ",";
+        }
+        \end{litblock}
+      } else {
+        \begin{litblock}{init for engines}
+        std::cout << ", workers: {";
+        for (unsigned int i=engine(e).wfst(); i<engine(e).wlst(); i++) {
+          std::cout << i; if (i+1 < engine(e).wlst()) std::cout << ",";
+        }
+        \end{litblock}
+      }
+      std::cout << "}" << std::endl;
+    }
+  }
+  \end{litblock}
+  \begin{litblock}{node}
+  virtual void node(const EdgeInfo& ei, const NodeInfo& ni) {
+    std::cout << "trace<Search>::node(";
+    switch (ni.type()) {
+    \begin{litblock}{anonymous}
+    case NodeType::FAILED:
+      std::cout << "FAILED";
+      break;
+    case NodeType::SOLVED:
+      std::cout << "SOLVED";
+      break;
+    \end{litblock}
+    case NodeType::BRANCH:
+      std::cout << "BRANCH(" << ni.choice().alternatives() << ")";
+      break;
+    }
+    std::cout << ',' << "w:" << ni.wid() << ','
+              << "n:" << ni.nid() << ')';
+    if (ei) {
+      if (ei.wid() != ni.wid())
+        std::cout << " [stolen from w:" << ei.wid() << "]";
+      std::cout << std::endl << '\t' << ei.string()
+                << std::endl;
+    } else {
+      std::cout << std::endl;
+    }
+  }
+  \end{litblock}
+  \begin{litblock}{round}
+  virtual void round(unsigned int eid) {
+    std::cout << "trace<Search>::round(e:" << eid << ")" << std::endl;
+  }
+  \end{litblock}
+  \begin{litblock}{skip}
+  virtual void skip(const EdgeInfo& ei) {
+    std::cout << "trace<Search>Search::skip(w:" << ei.wid()
+              << ",n:" << ei.nid()
+              << ",a:" << ei.alternative() << ")" << std::endl;
+  }
+  \end{litblock}
+  \begin{litblock}{done}
+  virtual void done(void) {
+    std::cout << "trace<Search>::done()" << std::endl;
+  }
+  \end{litblock}
+  virtual ~SimpleSearchTracer(void) {}
+};
+\end{litcode}
 
 \begin{litcode}[texonly]{default master and slave functions}
 virtual bool Space::master(const MetaInfo& mi) {

@@ -237,9 +237,6 @@ protected:
     int pos; int val;
     PosVal(const Warnsdorff& b, int p, int v)
       : Choice(b,2), pos(p), val(v) {}
-    virtual size_t size(void) const {
-      return sizeof(Choice);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
@@ -256,12 +253,12 @@ public:
   virtual size_t dispose(Space&) {
     return sizeof(*this);
   }
-  Warnsdorff(Space& home, bool share, Warnsdorff& b) 
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  Warnsdorff(Space& home, Warnsdorff& b) 
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) Warnsdorff(home, share, *this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) Warnsdorff(home, *this);
   }
   \end{litblock}
   \begin{litblock}{status function}
@@ -356,11 +353,11 @@ public:
     warnsdorff(*this, succ);
   }
   \begin{litblock}{anonymous}
-  Knights(bool share, Knights& s) : Script(share,s), n(s.n) {
-    succ.update(*this, share, s.succ);
+  Knights(Knights& s) : Script(s), n(s.n) {
+    succ.update(*this, s.succ);
   }
-  virtual Space* copy(bool share) {
-    return new Knights(share,*this);
+  virtual Space* copy(void) {
+    return new Knights(*this);
   }
   virtual void
   print(std::ostream& os) const {

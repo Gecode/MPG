@@ -38,6 +38,7 @@
 #include <gecode/driver.hh>
 #include <gecode/int.hh>
 #include <gecode/minimodel.hh>
+#include <gecode/search.hh>
 
 using namespace Gecode;
 
@@ -67,9 +68,6 @@ public:
     IntVar
       s(le[0]), e(le[1]), n(le[2]), d(le[3]),
       m(le[4]), o(le[5]), r(le[6]), y(le[7]);
-
-    if (opt.trace() != 0)
-      trace(*this, opt.trace(), *new StdCoutTracer);
 
     rel(*this, s, IRT_NQ, 0);
     rel(*this, m, IRT_NQ, 0);
@@ -126,7 +124,7 @@ main(int argc, char* argv[]) {
   opt.model(Money::MODEL_CARRY, "carry", "use carry");
   opt.solutions(0);
   opt.iterations(20000);
-  opt.trace(TE_INIT | TE_PRUNE | TE_FIX | TE_DONE);
+  opt.search_tracer(&StdSearchTracer::def);
   opt.parse(argc,argv);
   Script::run<Money,DFS,Options>(opt);
   return 0;

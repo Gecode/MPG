@@ -245,10 +245,9 @@ operator \?<<?.
 Float variables behave exactly like integer variables during
 cloning of a space. A float variable is updated by
 \begin{code}
-x.update(home, share, y);
+x.update(home, y);
 \end{code}
-where \?share? is the Boolean argument passed as argument to
-\?copy()? and \?y? is the variable from which \?x? is to be
+where \?y? is the variable from which \?x? is to be
 updated. While \?home? is the space \?x? belongs to, \?y? belongs
 to the space which is being cloned.
 

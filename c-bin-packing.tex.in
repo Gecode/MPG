@@ -692,15 +692,15 @@ public:
   }
   \begin{litblock}{anonymous}
   // Constructor for cloning s
-  BinPacking(bool share, BinPacking& s) 
-    : IntMinimizeScript(share,s), l(s.l), u(s.u) {
-    load.update(*this, share, s.load);
-    bin.update(*this, share, s.bin);
-    bins.update(*this, share, s.bins);
+  BinPacking(BinPacking& s) 
+    : IntMinimizeScript(s), l(s.l), u(s.u) {
+    load.update(*this, s.load);
+    bin.update(*this, s.bin);
+    bins.update(*this, s.bins);
   }
   // Copy during cloning
-  virtual Space* copy(bool share) {
-    return new BinPacking(share,*this);
+  virtual Space* copy(void) {
+    return new BinPacking(*this);
   }
   // Print solution
   virtual void print(std::ostream& os) const {
@@ -827,15 +827,15 @@ public:
     return bins;
   }
   // Constructor for cloning s
-  BinPacking(bool share, BinPacking& s) 
-    : IntMinimizeScript(share,s), l(s.l), u(s.u) {
-    load.update(*this, share, s.load);
-    bin.update(*this, share, s.bin);
-    bins.update(*this, share, s.bins);
+  BinPacking(BinPacking& s) 
+    : IntMinimizeScript(s), l(s.l), u(s.u) {
+    load.update(*this, s.load);
+    bin.update(*this, s.bin);
+    bins.update(*this, s.bins);
   }
   // Copy during cloning
-  virtual Space* copy(bool share) {
-    return new BinPacking(share,*this);
+  virtual Space* copy(void) {
+    return new BinPacking(*this);
   }
   // Print solution
   virtual void print(std::ostream& os) const {
@@ -938,9 +938,6 @@ protected:
       for (int k=0; k<n_same; k++)
         same[k] = s[k];
     }
-    virtual size_t size(void) const {
-      return sizeof(Choice) + sizeof(int) * n_same;
-    }
     virtual ~Choice(void) {
       heap.free<int>(same,n_same);
     }
@@ -975,7 +972,7 @@ public:
   \begin{litblock}{choice function}
   virtual Gecode::Choice* choice(Space& home) {
     int n = bin.size(), m = load.size();
-    Region region(home);
+    Region region;
     \begin{litblock}{initialize free space in bins}
     int* free = region.alloc<int>(m);
     for (int j=0; j<m; j++)
@@ -1055,22 +1052,21 @@ public:
     }
   }
   // Initialize brancher
-  CDBF(Space& home, bool share, CDBF& cdbf) 
-    : Brancher(home, share, cdbf), item(cdbf.item) {
-    load.update(home, share, cdbf.load);
-    bin.update(home, share, cdbf.bin);
-    size.update(home, share, cdbf.size);
+  CDBF(Space& home, CDBF& cdbf) 
+    : Brancher(home, cdbf), size(cdbf.size), item(cdbf.item) {
+    load.update(home, cdbf.load);
+    bin.update(home, cdbf.bin);
   }
   // Copy brancher
-  virtual Actor* copy(Space& home, bool share) {
-    return new (home) CDBF(home, share, *this);
+  virtual Actor* copy(Space& home) {
+    return new (home) CDBF(home, *this);
   }
   // Create choice from archive
   virtual const Gecode::Choice*
   choice(const Space& home, Archive& e) {
     int alt, item, n_same;
     e >> alt >> item >> n_same;
-    Region region(home);
+    Region region;
     int* same = region.alloc<int>(n_same);
     for (int i=n_same; i--;) 
       e >> same[i];
@@ -1139,15 +1135,15 @@ public:
     return bins;
   }
   // Constructor for cloning s
-  BinPacking(bool share, BinPacking& s) 
-    : IntMinimizeScript(share,s), l(s.l), u(s.u) {
-    load.update(*this, share, s.load);
-    bin.update(*this, share, s.bin);
-    bins.update(*this, share, s.bins);
+  BinPacking(BinPacking& s) 
+    : IntMinimizeScript(s), l(s.l), u(s.u) {
+    load.update(*this, s.load);
+    bin.update(*this, s.bin);
+    bins.update(*this, s.bins);
   }
   // Copy during cloning
-  virtual Space* copy(bool share) {
-    return new BinPacking(share,*this);
+  virtual Space* copy(void) {
+    return new BinPacking(*this);
   }
   // Print solution
   virtual void print(std::ostream& os) const {

@@ -528,10 +528,10 @@ public:
     (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
-  Equal(Space& home, bool share, Equal& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal(home,share,*this);
+  Equal(Space& home, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal(home,*this);
   }
   \end{litblock}
   virtual ExecStatus propagate(Space& home, const ModEventDelta&) {
@@ -583,10 +583,10 @@ public:
     (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
-  Equal(Space& home, bool share, Equal& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal(home,share,*this);
+  Equal(Space& home, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal(home,*this);
   }
   \end{litblock}
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
@@ -653,11 +653,11 @@ public:
     (void) BinaryPropagator<Int::IntView,Int::PC_INT_DOM>::dispose(home);
     return sizeof(*this);
   }
-  EqualOffset(Space& home, bool share, EqualOffset& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p),
+  EqualOffset(Space& home, EqualOffset& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,p),
       c(p.c) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) EqualOffset(home,share,*this);
+  virtual Propagator* copy(Space& home) {
+    return new (home) EqualOffset(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::HI);
@@ -711,10 +711,10 @@ public:
     return ES_OK;
   }
   \begin{litblock}{anonymous}
-  Equal(Space& home, bool share, Equal& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal(home,share,*this);
+  Equal(Space& home, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::HI);
@@ -760,10 +760,10 @@ public:
       (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
-  Equal(Space& home, bool share, Equal& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal(home,share,*this);
+  Equal(Space& home, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal(home,*this);
   }
   virtual PropCost cost(const Space&, const ModEventDelta&) const {
     return PropCost::binary(PropCost::HI);
@@ -825,10 +825,10 @@ public:
       (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
-  Equal(Space& home, bool share, Equal& p) 
-    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,share,p) {}
-  virtual Propagator* copy(Space& home, bool share) {
-    return new (home) Equal(home,share,*this);
+  Equal(Space& home, Equal& p) 
+    : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,p) {}
+  virtual Propagator* copy(Space& home) {
+    return new (home) Equal(home,*this);
   }
   \end{litblock}
   virtual PropCost cost(const Space&, 

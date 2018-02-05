@@ -234,12 +234,7 @@ integer value \?n?.  When the brancher's \?commit()? function is
 executed, the brancher provides the view array \?x? (the part
 that is specific to a space) and the choice provides the position
 $i$ and the value \?n? (the parts that are space-independent).
-
-A choice must inherit from the class \gecoderef[class]{Choice}
-and needs to implement a single virtual member function \?size()?
-which returns the size (of type \?size_t?) of the choice. This
-function can be used by a search engine to compute the amount of
-memory allocated by a choice (this can be useful for statistics).
+A choice must inherit from the class \gecoderef[class]{Choice}.
 
 \paragraph{Even more on (archives of) choices.}
 
@@ -380,8 +375,7 @@ value as integers as follows:
 The constructor of \?PosVal? uses the constructor of \?Choice? for
 initialization, where both the brancher \?b? and the number of
 alternatives of the choice (\?2? for \?PosVal?) are passed as
-arguments. The \?size()? function just returns the size of a
-\?PosVal? object. The \?archive()? function calls \?Choice::archive()? and then writes the position and value to the archive.
+arguments. The \?archive()? function calls \?Choice::archive()? and then writes the position and value to the archive.
 
 The \?choice(Space& home)? member function of the brancher is called directly (by the
 \?choice(Space& home)? function of a space) after the \?status()?
@@ -531,9 +525,6 @@ protected:
     int pos; int val;
     PosVal(const NoneMin& b, int p, int v)
       : Choice(b,2), pos(p), val(v) {}
-    virtual size_t size(void) const {
-      return sizeof(*this);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
@@ -551,12 +542,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin(home,*this);
   }
   \end{litblock}
   \begin{litblock}{status}
@@ -630,9 +621,6 @@ protected:
     int pos; int val;
     PosVal(const NoneMin& b, int p, int v)
       : Choice(b,2), pos(p), val(v) {}
-    virtual size_t size(void) const {
-      return sizeof(*this);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
@@ -648,12 +636,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin(home,*this);
   }
   \end{litblock}
   virtual bool status(const Space& home) const {
@@ -720,9 +708,6 @@ protected:
     int pos; int val;
     PosVal(const SizeMin& b, int p, int v)
       : Choice(b,2), pos(p), val(v) {}
-    virtual size_t size(void) const {
-      return sizeof(*this);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
@@ -738,12 +723,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  SizeMin(Space& home, bool share, SizeMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  SizeMin(Space& home, SizeMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) SizeMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) SizeMin(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)

@@ -62,7 +62,7 @@ and returns a pointer to a no-good literal of class
 no-good generation (see \autoref{sec:m:search:nogoods}) and the
 returned no-good literal is then used by a no-good propagator
 that propagates the no-goods (if you are curious, the propagator
-is implemented by \gecoderef[class]{Search::Meta::NoGoodsProp}).
+is implemented by \gecoderef[class]{Search::NoGoodsProp}).
 
 \begin{figure}
 \insertlitcode{none min with no-good support}
@@ -260,9 +260,6 @@ protected:
     PosVal(const AssignMin& b, int p, int v)
       : Choice(b,1), pos(p), val(v) {}
     \begin{litblock}{anonymous}
-    virtual size_t size(void) const {
-      return sizeof(*this);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
@@ -280,12 +277,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  AssignMin(Space& home, bool share, AssignMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  AssignMin(Space& home, AssignMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) AssignMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) AssignMin(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)
@@ -349,9 +346,6 @@ protected:
     int pos; int val;
     PosVal(const NoneMin& b, int p, int v)
       : Choice(b,2), pos(p), val(v) {}
-    virtual size_t size(void) const {
-      return sizeof(*this);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
@@ -367,12 +361,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin<View>(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin<View>(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)
@@ -441,9 +435,9 @@ protected:
 public:
   EqNGL(Space& home, Int::IntView x0, int n0)
     : NGL(home), x(x0), n(n0) {}
-  EqNGL(Space& home, bool share, EqNGL& ngl)
-    : NGL(home, share, ngl), n(ngl.n) {
-    x.update(home, share, ngl.x);
+  EqNGL(Space& home, EqNGL& ngl)
+    : NGL(home, ngl), n(ngl.n) {
+    x.update(home, ngl.x);
   }
   \begin{litblock}{status}
   virtual NGL::Status status(const Space& home) const {
@@ -471,8 +465,8 @@ public:
     x.reschedule(home, p, Int::PC_INT_VAL);
   }
   \end{litblock}
-  virtual NGL* copy(Space& home, bool share) {
-    return new (home) EqNGL(home, share, *this);
+  virtual NGL* copy(Space& home) {
+    return new (home) EqNGL(home,*this);
   }
   virtual size_t dispose(Space& home) {
     (void) NGL::dispose(home);
@@ -490,9 +484,6 @@ protected:
     int pos; int val;
     PosVal(const NoneMin& b, int p, int v)
       : Choice(b,2), pos(p), val(v) {}
-    virtual size_t size(void) const {
-      return sizeof(*this);
-    }
     virtual void archive(Archive& e) const {
       Choice::archive(e);
       e << pos << val;
@@ -510,12 +501,12 @@ public:
     (void) Brancher::dispose(home);
     return sizeof(*this);
   }
-  NoneMin(Space& home, bool share, NoneMin& b)
-    : Brancher(home,share,b), start(b.start) {
-    x.update(home,share,b.x);
+  NoneMin(Space& home, NoneMin& b)
+    : Brancher(home,b), start(b.start) {
+    x.update(home,b.x);
   }
-  virtual Brancher* copy(Space& home, bool share) {
-    return new (home) NoneMin(home,share,*this);
+  virtual Brancher* copy(Space& home) {
+    return new (home) NoneMin(home,*this);
   }
   virtual bool status(const Space& home) const {
     for (int i=start; i<x.size(); i++)

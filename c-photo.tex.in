@@ -139,12 +139,12 @@ public:
     return violations;
   }  
   \begin{litblock}{anonymous}
-  Photo(bool share, Photo& p) : IntMinimizeScript(share,p) {
-    pos.update(*this, share, p.pos);
-    violations.update(*this, share, p.violations);
+  Photo(Photo& p) : IntMinimizeScript(p) {
+    pos.update(*this, p.pos);
+    violations.update(*this, p.violations);
   }
-  virtual Space* copy(bool share) {
-    return new Photo(share,*this);
+  virtual Space* copy(void) {
+    return new Photo(*this);
   }
   virtual void print(std::ostream& os) const {
     if (pos.assigned()) {
@@ -225,12 +225,12 @@ public:
   virtual IntVar cost(void) const {
     return violations;
   }  
-  Photo(bool share, Photo& p) : IntMinimizeScript(share,p) {
-    pos.update(*this, share, p.pos);
-    violations.update(*this, share, p.violations);
+  Photo(Photo& p) : IntMinimizeScript(p) {
+    pos.update(*this, p.pos);
+    violations.update(*this, p.violations);
   }
-  virtual Space* copy(bool share) {
-    return new Photo(share,*this);
+  virtual Space* copy(void) {
+    return new Photo(*this);
   }
   virtual void print(std::ostream& os) const {
     if (pos.assigned()) {
