@@ -1,5 +1,5 @@
 VERSION = 6.0.0
-YEAR    = 2017
+YEAR    = 2018
 
 CHAPSRC = \
 	intro \
