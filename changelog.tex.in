@@ -9,6 +9,7 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2018-02-05}{Released for Gecode 6.0.0} 
   \cle{2017-11-06}{Explained how to use CPProfiler
     (see \autoref{sec:m:search:cpprofiler}).}
   \cle{2017-11-06}{Documented commandline options for CPProfiler
