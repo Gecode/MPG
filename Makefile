@@ -132,11 +132,7 @@ gecode.pl: ${CHAPSRC:%=%.tex.in}
 	perl bin/gccat.perl ${VERSION} ${YEAR} prolog ${CHAPSRC:%=%.tex.in} > \
 		gecode.pl
 
-gecode.xml: ${CHAPSRC:%=%.tex.in}
-	perl bin/solver.perl ${VERSION} ${CHAPSRC:%=%.tex.in} > \
-		gecode.xml
-
-distzip: MPG.bib MPG.tex.in MPG.pdf gecode.pl gecode.xml
+distzip: MPG.bib MPG.tex.in MPG.pdf gecode.pl
 	rm -rf dist
 	mkdir dist
 	mkdir dist/MPG
@@ -147,9 +143,9 @@ distzip: MPG.bib MPG.tex.in MPG.pdf gecode.pl gecode.xml
 	 7z a MPG.7z MPG; \
 	 rm -rf MPG)
 	mkdir dist/MPG
-	cp MPG.pdf MPG.bib gecode.pl gecode.xml dist
+	cp MPG.pdf MPG.bib gecode.pl dist
 	cp *.cpp int.vis int.hh template.vis dist/MPG
-	(cd dist;zip -9 -r ../MPG.zip gecode.pl gecode.xml MPG.pdf MPG.bib MPG.tar.gz MPG.7z MPG)
+	(cd dist;zip -9 -r ../MPG.zip gecode.pl MPG.pdf MPG.bib MPG.tar.gz MPG.7z MPG)
 	rm -rf dist
 
 .SUFFIXES: .dvi .ps .pdf .aux .bbl .tex.in .tex .cpp .exe
@@ -223,7 +219,7 @@ clean::
 
 realclean:: clean
 	rm -f MPG.ps MPG.dvi MPG.pdf MPG.zip MPG.bib
-	rm -f gecode.pl gecode.xml
+	rm -f gecode.pl
 	rm -f *.cpp int.hh
 
 veryclean:: realclean
