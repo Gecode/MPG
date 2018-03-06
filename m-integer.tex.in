@@ -2418,14 +2418,6 @@ for costs for edges in a Hamiltonian path, see
 
 This section provides an overview of scheduling constraints.
 
-\begin{important}
-  The support for scheduling constraints is still experimental.
-  It is not yet complete, as it still lacks modeling abstractions
-  and specialized branchings. The existing code is tested and
-  efficient, but the interfaces may change in future
-  versions.
-\end{important}
-
 \subsubsection{Unary resource constraints}
 \label{sec:m:integer:unary}
 
