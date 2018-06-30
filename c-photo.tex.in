@@ -211,8 +211,8 @@ public:
     BoolVarArgs viol(*this,n_prefs,0,1);
     for (int i=0; i<n_prefs; i++) {
       IntVar distance(*this,0,n), diff(*this,-n,n);
-      linear(*this, IntArgs(2, 1,-1),
-             IntVarArgs() << pos[spec[i][0]] << pos[spec[i][1]],
+      linear(*this, {1,-1},
+                    IntVarArgs({pos[spec[i][0]],pos[spec[i][1]]}),
              IRT_EQ, diff);
       abs(*this, diff, distance);
       rel(*this, distance, IRT_GR, 1, viol[i]);

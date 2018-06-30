@@ -60,14 +60,14 @@ using namespace Gecode;
  * \ingroup ExProblem
  *
  */
-class Golomb : public MinimizeScript {
+class Golomb : public IntMinimizeScript {
 protected:
   /// Array for ruler marks
   IntVarArray m;
 public:
   /// Actual model
   Golomb(const Options& opt)
-    : MinimizeScript(opt), m(*this,10,0,Int::Limits::max) {
+    : IntMinimizeScript(opt), m(*this,10,0,Int::Limits::max) {
 
     // Assume first mark to be zero
     rel(*this, m[0], IRT_EQ, 0);
@@ -111,7 +111,7 @@ public:
 
   /// Constructor for cloning \a s
   Golomb(Golomb& s)
-    : MinimizeScript(s) {
+    : IntMinimizeScript(s) {
     m.update(*this, s.m);
   }
   /// Copy during cloning

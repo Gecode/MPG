@@ -1,4 +1,4 @@
-VERSION = 6.0.1
+VERSION = 6.1.0
 YEAR    = 2018
 
 CHAPSRC = \
@@ -71,8 +71,8 @@ MSVCTESTEXE	= $(TESTCPP:%=test-%.exe)
 MSVCNOTESTEXE	= $(NOTESTCPP:%=notest-%.exe)
 MSVCCPPOPT	= -nologo -EHsc -MDd -wd4355	
 MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
-MSVCINCL	= -I"../../gecode/trunk"
-MSVCLINK	= /link /LIBPATH:"../../gecode/trunk"
+MSVCINCL	= -I"../../GitHub/gecode"
+MSVCLINK	= /link /LIBPATH:"../../GitHub/gecode"
 
 GCCEXE = $(MODELCPP)
 GCCTESTEXE = $(TESTCPP:%=test-%)
@@ -164,10 +164,10 @@ notest-%.cpp: %.cpp notest/%.cpp
 
 test-%.exe: test-%.obj
 	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ \
-		../../gecode/trunk/test/test.obj \
-		../../gecode/trunk/test/int.obj \
-		../../gecode/trunk/test/float.obj \
-		../../gecode/trunk/test/set.obj \
+		../../GitHub/gecode/test/test.obj \
+		../../GitHub/gecode/test/int.obj \
+		../../GitHub/gecode/test/float.obj \
+		../../GitHub/gecode/test/set.obj \
 		$< $(MSVCLINK)
 %.exe: %.obj
 	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ $< $(MSVCLINK)
