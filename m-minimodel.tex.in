@@ -690,7 +690,7 @@ $\langle \mathtt{r},\mathtt{c}\rangle$ of the matrix \?m?
   Consider the following array of integers \?x? together with its
   matrix interface \?m?
 \begin{code}
-IntArgs x(4, 0,2,2,1);
+IntArgs x({0,2,2,1});
 Matrix<IntArgs> m(x,2,2);
 \end{code}
   That is, \?m? represents the matrix
@@ -822,7 +822,7 @@ For an example, see \gecoderef[example]{warehouses}.
    initialize \?r? as $\epsilon$ (empty)\\
 \?REG r(4)? &
    initialize \?r? as single integer (symbol) \?4?\\
-\?REG r(IntArgs(3, 0,2,4))? &
+\?REG r(IntArgs({0,2,4}))? &
    initialize \?r? as alternative of integers 
    $\mathtt 0 | \mathtt 2 | \mathtt 4 $\\
 \hline

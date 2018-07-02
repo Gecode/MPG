@@ -438,8 +438,8 @@ variable \?y? to be the sum of the weights of the elements of
 \?x?. The mapping is given using two integer arrays, \?e? and
 \?w?. For example,
 \begin{code}
-IntArgs e(6,   1, 3, 4, 5, 7, 9);
-IntArgs w(6,  -1, 4, 1, 1, 3, 3);
+IntArgs e({ 1, 3, 4, 5, 7, 9});
+IntArgs w({-1, 4, 1, 1, 3, 3});
 weights(home, e, w, x, y);
 \end{code}
 enforces that \?x? is a subset of $\{1,3,4,5,7,9\}$ (the set of

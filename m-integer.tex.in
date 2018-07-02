@@ -420,6 +420,11 @@ with a certain size but without initializing the elements:
 \begin{code}
 IntVarArgs x(5);
 \end{code}
+using standard initializer lists (assuming that \?a?, \?b?, \?c?,
+and \?d? are integer variables):
+\begin{code}
+IntVarArgs x({a,b,c,d});
+\end{code}
 or fully initialized:
 \begin{code}
 IntVarArgs x(home,5,0,10);
@@ -484,6 +489,14 @@ x.slice(x.size()-1,-1)
 }
 
 \paragraph{Creating integer argument arrays.}
+
+Integer argument arrays support standard initializer lists, for
+example
+\begin{code}
+IntArgs c({1,2,3,4});
+\end{code}
+creates an array with the four elements \?0?, \?1?, \?2?, and
+\?3?.
 
 Integer argument arrays with simple sequences of integers can be
 generated using the static method
@@ -886,7 +899,7 @@ Domain constraints also take integers (assigning variables to the
 integer value) and integer sets of type
 \gecoderef[class]{IntSet}. For example,
 \begin{code}
-IntArgs a(4, 1,-3,5,-7)
+IntArgs a({1,-3,5,-7})
 IntSet d(a);
 dom(home, x, d);
 \end{code}
@@ -1700,7 +1713,7 @@ For an example, see \gecoderef[example]{pentominoes}.
 \gecoderef[group]{TaskModelIntElement} generalize array access
 to integer variables. For example,
 \begin{code}
-IntArgs c(5, 1,4,9,16,25);
+IntArgs c({1,4,9,16,25});
 element(home, c, x, y);
 \end{code}
 constrains the integer variable \?y? to be the element of the
@@ -1737,7 +1750,7 @@ constraints.
 
 Consider the following example
 \begin{code}
-IntArgs c(5, 1,4,9,16,25);
+IntArgs c({1,4,9,16,25});
 element(home, c, x, y);
 element(home, c, a, b);
 \end{code}
@@ -1748,7 +1761,7 @@ arrays are created). If the integer array is large or many
 element constraints are posted, it is beneficial to
 explicitly create a shared integer array, such as in:
 \begin{code}
-IntArgs c(5, 1,4,9,16,25);
+IntArgs c({1,4,9,16,25});
 IntSharedArray cs(c);
 element(home, cs, x, y);
 element(home, cs, a, b);
@@ -1866,9 +1879,9 @@ example, the following defines the Swedish drinking protocol for
 three activities by a list of tuples:
 \begin{code}
 TupleSet t(3);
-t.add(IntArgs(3, 0,0,0));
-t.add(IntArgs(3, 0,1,0));
-t.add(IntArgs(3, 1,0,0));
+t.add(IntArgs({0,0,0}));
+t.add(IntArgs({0,1,0}));
+t.add(IntArgs({1,0,0}));
 t.finalize();
 \end{code}
 Note that before a tuple set can be used by a post function, it
@@ -1879,7 +1892,7 @@ set is used for posting a constraint, an exception of type
 Note that the above example can be written more concisely as:
 \begin{code}
 TupleSet t(3);
-t.add(0,0,0).add(0,1,0).add(1,0,0)
+t.add({0,0,0}).add({0,1,0}).add({1,0,0})
  .finalize();
 \end{code}
 
@@ -2343,10 +2356,10 @@ $
 
 Then, by
 \begin{code}
-IntArgs c(4*4, 0, 3, 5, 7,
-               4, 0, 9, 6,
-               2, 1, 0, 5,
-              -7, 8,-2, 0);
+IntArgs c({ 0, 3, 5, 7,
+            4, 0, 9, 6,
+            2, 1, 0, 5,
+           -7, 8,-2, 0});
 circuit(home, c, x, y, z);
 \end{code}
 the integer variables \?x? are constrained to the values forming
@@ -2433,7 +2446,7 @@ For example, assume that four tasks with durations \?2?, \?7?,
 start times are specified by an array of integer variables (of
 course, with four variables). Then, posting
 \begin{code}
-IntArgs d(4, 2,7,4,11);
+IntArgs d({2,7,4,11});
 unary(home, s, d);
 \end{code}
 constrains the start times in \?s? such that the execution of
@@ -2494,7 +2507,7 @@ is scheduled on the resource. If $b=0$ then the task is
 to be \emph{optional}. Assume that \?b? refers to an array of
 Boolean variables also of size \?4?, then
 \begin{code}
-IntArgs d(4, 2,7,4,11);
+IntArgs d({2,7,4,11});
 unary(home, s, d, b);
 \end{code}
 posts a propagator that constrains the start times \?s? (of
@@ -2551,7 +2564,7 @@ models a resource where two tasks can overlap, and the first
 three tasks require one unit of the resource, while the last task
 requires two:
 \begin{code}
-IntArgs u(4, 1,1,1,2);
+IntArgs u({1,1,1,2});
 cumulative(home, 2, s, d, u);
 \end{code}
 The capacity can be an integer variable or a nonnegative integer.

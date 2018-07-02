@@ -164,6 +164,17 @@ as arguments. Other variants of \?linear? exist that do not take
 coefficients (all coefficients are one) or accept an integer
 variable as the right-hand side instead of an integer constant.
 
+Note that the linear equation could have been expressed simpler
+by using standard initialization lists as in:
+\begin{code}
+IntArgs c({         1000,  100,  10,  1,
+                    1000,  100,  10,  1,
+           -10000, -1000, -100, -10, -1});
+IntVarArgs x({         s,    e,   n,  d,
+                       m,    o,   r,  e,
+                 m,    o,    n,   e,  y});
+\end{code}
+
 \autoref{sec:m:comfy:expr} demonstrates additional support for
 posting linear expressions constructed from the usual arithmetic
 operators such as \?+?, \?-?, and \?*?.
