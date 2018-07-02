@@ -165,7 +165,7 @@ coefficients (all coefficients are one) or accept an integer
 variable as the right-hand side instead of an integer constant.
 
 Note that the linear equation could have been expressed simpler
-by using standard initialization lists as in:
+by using standard initializer lists as in:
 \begin{code}
 IntArgs c({         1000,  100,  10,  1,
                     1000,  100,  10,  1,
