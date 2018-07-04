@@ -69,6 +69,7 @@ public:
       s(le[0]), e(le[1]), n(le[2]), d(le[3]),
       m(le[4]), o(le[5]), r(le[6]), y(le[7]);
 
+    
     rel(*this, s, IRT_NQ, 0);
     rel(*this, m, IRT_NQ, 0);
 
@@ -122,11 +123,14 @@ main(int argc, char* argv[]) {
   opt.model(Money::MODEL_SINGLE);
   opt.model(Money::MODEL_SINGLE, "single", "use single linear equation");
   opt.model(Money::MODEL_CARRY, "carry", "use carry");
-  opt.solutions(0);
-  opt.iterations(20000);
-  opt.search_tracer(&StdSearchTracer::def);
   opt.parse(argc,argv);
-  Script::run<Money,DFS,Options>(opt);
+  Search::Options o;
+  o.tracer = new SimpleSearchTracer;
+  Money* m = new Money(opt);
+  DFS<Money> e(m,o);
+  while (Money* s = e.next()) {
+    s->print(std::cout); delete s;
+  }
   return 0;
 }
 
