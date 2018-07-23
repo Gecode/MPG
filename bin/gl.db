@@ -1266,7 +1266,6 @@ URL class Gecode::ValSelCommitBase classGecode_1_1ValSelCommitBase.html
 URL class Gecode::ValSelFunction classGecode_1_1ValSelFunction.html
 URL class Gecode::Var classGecode_1_1Var.html
 URL class Gecode::VarArgArray classGecode_1_1VarArgArray.html
-URL class Gecode::VarArgArray::VarLess classGecode_1_1VarArgArray_1_1VarLess.html
 URL class Gecode::VarArray classGecode_1_1VarArray.html
 URL class Gecode::VarBranch classGecode_1_1VarBranch.html
 URL class Gecode::VarImp classGecode_1_1VarImp.html
@@ -2180,6 +2179,7 @@ URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
 URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
+URL file examples/test.cpp examples_2test_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
@@ -2674,6 +2674,7 @@ URL file gecode/kernel/branch/view-val.hpp view-val_8hpp.html
 URL file gecode/kernel/branch/view.hpp kernel_2branch_2view_8hpp.html
 URL file gecode/kernel/core.cpp core_8cpp.html
 URL file gecode/kernel/core.hpp core_8hpp.html
+URL file gecode/kernel/data/array.cpp gecode_2kernel_2data_2array_8cpp.html
 URL file gecode/kernel/data/array.hpp kernel_2data_2array_8hpp.html
 URL file gecode/kernel/data/rnd.cpp rnd_8cpp.html
 URL file gecode/kernel/data/rnd.hpp rnd_8hpp.html
@@ -3040,6 +3041,7 @@ URL file test/flatzinc/sat_array_bool_and.cpp sat__array__bool__and_8cpp.html
 URL file test/flatzinc/sat_array_bool_or.cpp sat__array__bool__or_8cpp.html
 URL file test/flatzinc/sat_cmp_reif.cpp sat__cmp__reif_8cpp.html
 URL file test/flatzinc/sat_eq_reif.cpp sat__eq__reif_8cpp.html
+URL file test/flatzinc/shared_array_element.cpp shared__array__element_8cpp.html
 URL file test/flatzinc/simple_sat.cpp simple__sat_8cpp.html
 URL file test/flatzinc/singHoist2.cpp singHoist2_8cpp.html
 URL file test/flatzinc/steiner_triples.cpp steiner__triples_8cpp.html
@@ -3137,7 +3139,7 @@ URL file test/set/rel-op-const.cpp rel-op-const_8cpp.html
 URL file test/set/rel-op.cpp test_2set_2rel-op_8cpp.html
 URL file test/set/rel.cpp test_2set_2rel_8cpp.html
 URL file test/set/sequence.cpp test_2set_2sequence_8cpp.html
-URL file test/test.cpp test_8cpp.html
+URL file test/test.cpp test_2test_8cpp.html
 URL file test/test.hh test_8hh.html
 URL file test/test.hpp test_8hpp.html
 URL group Example group__Example.html

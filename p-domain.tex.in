@@ -644,7 +644,7 @@ public:
       c(c0) {}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1, int c) {
-    if (same(x0,x1))
+    if (x0 == x1)
       return (c == 0) ? ES_OK : ES_FAILED;
     (void) new (home) EqualOffset(home,x0,x1,c);
     return ES_OK;
@@ -706,7 +706,7 @@ public:
   \end{litblock}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1) {
-    if (!same(x0,x1))
+    if (x0 != x1)
       (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
@@ -756,7 +756,7 @@ public:
     : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1) {}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1) {
-    if (!same(x0,x1))
+    if (x0 != x1)
       (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }
@@ -821,7 +821,7 @@ public:
     : BinaryPropagator<Int::IntView,Int::PC_INT_DOM>(home,x0,x1) {}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1) {
-    if (!same(x0,x1))
+    if (x0 != x1)
       (void) new (home) Equal(home,x0,x1);
     return ES_OK;
   }

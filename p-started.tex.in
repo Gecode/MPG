@@ -1479,7 +1479,7 @@ public:
   \begin{litblock}{posting}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1) {
-    if (same(x0,x1))
+    if (x0 == x1)
       return ES_FAILED;
     GECODE_ME_CHECK(x0.le(home,x1.max()));
     GECODE_ME_CHECK(x1.gr(home,x0.min()));
@@ -1553,7 +1553,7 @@ public:
   \begin{litblock}{anonymous}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1) {
-    if (same(x0,x1))
+    if (x0 == x1)
       return ES_FAILED;
     (void) new (home) Disequal(home,x0,x1);
     return ES_OK;
@@ -1619,7 +1619,7 @@ public:
   \begin{litblock}{anonymous}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1) {
-    if (same(x0,x1))
+    if (x0 == x1)
       return ES_FAILED;
     GECODE_ME_CHECK(x0.le(home,x1.max()));
     GECODE_ME_CHECK(x1.gr(home,x0.min()));
@@ -1683,7 +1683,7 @@ public:
     : BinaryPropagator<Int::IntView,Int::PC_INT_BND>(home,x0,x1) {}
   static ExecStatus post(Home home, 
                          Int::IntView x0, Int::IntView x1) {
-    if (same(x0,x1))
+    if (x0 == x1)
       return ES_FAILED;
     GECODE_ME_CHECK(x0.le(home,x1.max()));
     GECODE_ME_CHECK(x1.gr(home,x0.min()));

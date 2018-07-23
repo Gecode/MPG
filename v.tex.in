@@ -1214,18 +1214,19 @@ There are three different functions predefined for views:
   \?x? and \?y? share a common variable implementation (see
   \autoref{par:p:views:sameshared}). Typically, the definition
   of \?shared()? does not need to be overloaded for newly defined views.
-\item The function \?same(x,y)? returns \?true?, if both views
+\item The operator \?x==y? returns \?true?, if both views
   \?x? and \?y? are identical (see
-  \autoref{par:p:views:sameshared}). In some cases, the definition
-  of \?same()? must be overloaded for newly defined views (see
+  \autoref{par:p:views:sameshared}). For constant views and
+  derived views, the definition
+  of \?operator ==()? must be overloaded for newly defined views (see
   \autoref{sec:v:view:const} and \autoref{sec:v:view:offset} for
-  examples). 
-\item The function \?before(x,y)? returns \?true?, if \?x? comes
+  examples). The operator \?x!=y? is analogous.
+\item The operator \?x<y? returns \?true?, if \?x? comes
   before \?y? in some arbitrary total and strict order for
   ordering views. The function is mainly used for sorting arrays
   of views into some order (in particular for detecting
-  duplicate views).  In some cases, the definition
-  of \?before()? must be overloaded for newly defined views (see
+  duplicate views).  For constant views and derived views, the definition
+  of \?operator <()? must be overloaded for newly defined views (see
   \autoref{sec:v:view:const} and \autoref{sec:v:view:offset} for
   examples). 
 \end{itemize}
@@ -1318,8 +1319,8 @@ that updates the value of \?x? as follows:
 
 \paragraph{View tests.}
 
-Also the default definitions of the view test functions \?same()?
-and \?before()? for constant views do not take the integer value \?x?
+Also the default definitions of the view test operators \?==?, \?!=?,
+and \?<? for constant views do not take the integer value \?x?
 of the view into account. Overloaded versions for
 constant integer views are as follows:
 \insertlitcode{int.hh:constintview:view tests}
@@ -1440,7 +1441,7 @@ The \?update()? function must also update the integer offset \?c?
 as follows:
 \insertlitcode{int.hh:offsetview:update during cloning}
 
-Likewise, the view test functions \?same()? and \?before()? must
+Likewise, the view test operators \?==?, \?!=? and \?<? must
 take into account the integer offset \?c?:
 \insertlitcode{int.hh:offsetview:view tests}
 
@@ -2531,10 +2532,13 @@ namespace MPG { namespace Int {
     \end{litblock}
   };
   \begin{litblock}{constintview:view tests}
-  inline bool same(const ConstIntView& x, const ConstIntView& y) {
+  inline bool operator ==(const ConstIntView& x, const ConstIntView& y) {
     return x.min() == y.min();
   }
-  inline bool before(const ConstIntView& x, const ConstIntView& y) {
+  inline bool operator !=(const ConstIntView& x, const ConstIntView& y) {
+    return !(x == y);
+  }
+  inline bool operator <(const ConstIntView& x, const ConstIntView& y) {
     return x.min() < y.min();
   }
   \end{litblock}
@@ -2644,6 +2648,17 @@ namespace MPG { namespace Int {
     \end{litblock}
     \end{litblock}
   };
+  inline bool operator ==(const MinusView& x, const MinusView& y) {
+    return x.base() == y.base();
+  }
+  \begin{litblock}{anonymous}
+  inline bool operator !=(const MinusView& x, const MinusView& y) {
+    return !(x == y);
+  }
+  inline bool operator <(const MinusView& x, const MinusView& y) {
+    return x.base() < y.base();
+  }
+  \end{litblock}
 
   \begin{litblock}{anonymous}
   template<class Char, class Traits>
@@ -2711,12 +2726,15 @@ namespace MPG { namespace Int {
     \end{litblock}
   };
   \begin{litblock}{offsetview:view tests}
-  inline bool same(const OffsetView& x, const OffsetView& y) {
-    return same(x.base(),y.base()) && (x.offset() == y.offset());
+  inline bool operator ==(const OffsetView& x, const OffsetView& y) {
+    return (x.base() == y.base()) && (x.offset() == y.offset());
   }
-  inline bool before(const OffsetView& x, const OffsetView& y) {
-    return before(x.base(),y.base())
-      || (same(x.base(),y.base()) && (x.offset() < y.offset()));
+  inline bool operator !=(const OffsetView& x, const OffsetView& y) {
+    return !(x == y);
+  }
+  inline bool operator <(const OffsetView& x, const OffsetView& y) {
+    return (x.base() < y.base())
+      || ((x.base() == y.base()) && (x.offset() < y.offset()));
   }
   \end{litblock}
   \begin{litblock}{anonymous}
@@ -3470,7 +3488,7 @@ public:
   }
   static Gecode::ExecStatus post(Gecode::Home home, 
                                  V0 x0, V1 x1) {
-    if (Gecode::same(x0,x1))
+    if (x0 == x1)
       return Gecode::ES_FAILED;
     GECODE_ME_CHECK(x0.lq(home,x1.max()));
     GECODE_ME_CHECK(x1.gq(home,x0.min()));
@@ -3523,7 +3541,7 @@ public:
   }
   static Gecode::ExecStatus post(Gecode::Home home, 
                                  Int::IntView x0, Int::IntView x1) {
-    if (Gecode::same(x0,x1))
+    if (x0 == x1)
       return Gecode::ES_FAILED;
     (void) new (home) Disequal(home,x0,x1);
     return Gecode::ES_OK;

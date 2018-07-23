@@ -135,7 +135,7 @@ propagator can be instantiated with different view types for
 \gecoderef[class]{MixBinaryPropagator} as base class as it
 supports different view types as well.
 
-\paragraph{\?shared? versus \?same?.}
+\paragraph{\?shared? versus \?==?.}
 \label{par:p:views:sameshared}%
 
 The domain modification operations \?inter_r? and \?narrow_r?
@@ -148,7 +148,7 @@ modification operations does not depend on the view being
 modified. The post function of \?Equal? ensures this by only
 posting the propagator if the two views \?x0? and \?x1? are not
 referring to the very same variable implementation (that is,
-\?same(x0,x1)? is false).
+\?x0==x1? is false).
 
 With arbitrary views, the situation becomes a little bit more
 involved. Assume that \?x0? is an integer view referring to the
@@ -338,7 +338,7 @@ public:
   Less(Home home, View x0, View x1) 
     : BinaryPropagator<View,Int::PC_INT_BND>(home,x0,x1) {}
   static ExecStatus post(Home home, View x0, View x1) {
-    if (same(x0,x1))
+    if (x0 == x1)
       return ES_FAILED;
     GECODE_ME_CHECK(x0.le(home,x1.max()));
     GECODE_ME_CHECK(x1.gr(home,x0.min()));
