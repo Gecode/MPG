@@ -135,7 +135,7 @@ can profit from it: if the memory allocated last is freed first,
 the freed memory becomes immediately available for future
 allocation.
 
-\tip{Freeing memory explivitly}{ In order to make best use of the
+\tip{Freeing memory explicitly}{ In order to make best use of the
   memory provided by a region you can explicitly deallocate it.
   It is good practice to tie the expelicit deallocation to
   scoping units. For example, suppose that in the following
@@ -180,6 +180,17 @@ operating system. In case memory is exhausted, an exception of
 type \gecoderef[class]{MemoryExhausted} is thrown. The default
 memory allocator can be replaced by a user-defined memory
 allocator as discussed below.
+
+\tip{Memory alignment}{
+\label{tip:p:memory:align}%
+Memory allocated from the heap or a region is aligned as
+defined by \?std::max_align_t?. This is not true for memory
+allocated from a space, which is aligned by
+\?GECODE_MEMORY_ALIGNMENT?. If differently aligned memory is
+needed for storing data structures for a space, it is recommended
+to manage that memory explicitly by allocating it from the heap
+instead.
+}
 
 \paragraph{Using a different memory allocator.}
 \label{par:p:memory:allocator}
