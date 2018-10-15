@@ -1896,7 +1896,7 @@ be found in \autoref{sec:m:minimodel:reg}.
 
 % \CAT[int]{-regular}{extensional}{TaskModelIntExt}
 
-\paragraph{Tuple sets.}
+\paragraph{Tuple sets (tables).}
 
 Constraints can also be defined by a list of tuples, where each
 tuple defines one solution of the extensional constraint. For
@@ -1909,17 +1909,45 @@ t.add(IntArgs({0,1,0}));
 t.add(IntArgs({1,0,0}));
 t.finalize();
 \end{code}
+
+Constraining an array of variables for three activities to the
+Swedish drinking protocol is done by
+\begin{code}
+BoolVarArray x(home, 3, 0, 1);
+extensional(home, x, t);
+\end{code}
+
 Note that before a tuple set can be used by a post function, it
 must be finalized as shown above. If a not-yet finalized tuple
 set is used for posting a constraint, an exception of type
 \gecoderef[class]{Int::NotYetFinalized} is thrown.
 
-Note that the above example can be written more concisely as:
+The above example can be written more concisely as:
 \begin{code}
 TupleSet t(3);
 t.add({0,0,0}).add({0,1,0}).add({1,0,0})
  .finalize();
 \end{code}
+
+A tuple set can also be used as a \emph{negative} tuple set,
+expressing that the tuples in the table are \emph{not} allowed. For
+example, the following expresses that three activities do not follow the
+Swedish drinking protocol:
+\begin{code}
+BoolVarArray x(home, 3, 0, 1);
+extensional(home, x, false, t);
+\end{code}
+
+Note that \?extensional(home, x, t)? abbreviates
+\?extensional(home, x, true, t)?. Extensional constraints using
+tuple sets also support reification. For example, 
+\begin{code}
+BoolVarArray x(home, 3, 0, 1);
+BoolVar b(home, 0, 1)
+extensional(home, x, t, b);
+\end{code}
+constrains \?b? to one, if and only if the drinking activities
+comply with the Swedish drinking protocol.
 
 Tuple sets can also be initialized by specifying their arity and
 a DFA. Hence, if \?d? refers to the DFA for the Swedish drinking
@@ -1937,19 +1965,15 @@ TupleSet t(3,d);
 }
 
 The propagators for the \?extensional? constraint are domain
-consistent and are based on~\cite{compact-table}
+consistent and are based on~\cite{compact-table, negative-compact-table}.
 \GCCAT{\CAT[int]{in_relation}{extensional}{TaskModelIntExt}}.
-
-Constraining a sequence of variables to the Swedish drinking
-protocol using a tuple set is done by
-\begin{code}
-BoolVarArray x(home, 3, 0, 1);
-extensional(home, x, t);
-\end{code}
 
 For several examples of extensional constraints using tuple sets, see
 \autoref{chap:c:kakuro}, 
 \gecoderef[example]{black-hole}, and \gecoderef[example]{kakuro}.
+
+
+
 
 
 
