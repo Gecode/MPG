@@ -183,13 +183,16 @@ allocator as discussed below.
 
 \tip{Memory alignment}{
 \label{tip:p:memory:align}%
-Memory allocated from the heap or a region is aligned as
-defined by \?std::max_align_t?. This is not true for memory
-allocated from a space, which is aligned by
-\?GECODE_MEMORY_ALIGNMENT?. If differently aligned memory is
-needed for storing data structures for a space, it is recommended
-to manage that memory explicitly by allocating it from the heap
-instead.
+Memory allocated from the heap or a region is aligned as defined
+by the maximum \?std::max_align_t? and the macro
+\?GECODE_MEMORY_ALIGNMENT?. This is not true for memory allocated
+from a space, which is aligned by \?GECODE_MEMORY_ALIGNMENT?. If
+differently aligned memory is needed for storing data structures
+for a space, it is recommended to manage that memory explicitly
+by allocating it from the heap instead.  
+
+However, the macro \?GECODE_MEMORY_ALIGNMENT? can be defined when
+Gecode is compiled.
 }
 
 \paragraph{Using a different memory allocator.}
