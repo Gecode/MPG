@@ -2135,14 +2135,6 @@ event. This is the obligation of the user of the tracer.
 \section{Using the CPProfiler}
 \label{sec:m:search:cpprofiler}
 
-\begin{important}
-  Note that support for the CPProfiler is experimental. By
-  default, Gecode is compiled without its support. To enable
-  support for the CPProfiler, you have to configure Gecode with
-  the additional commandline switch
-  \texttt{--enable-cpprofiler}.
-\end{important}
-
 The CPProfiler is a graphical tool for better understanding the
 search space of a problem~\cite{cpprofiler}. It can be downloaded
 from
