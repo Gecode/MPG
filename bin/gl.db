@@ -515,9 +515,7 @@ URL class Gecode::Int::Extensional::BitSet classGecode_1_1Int_1_1Extensional_1_1
 URL class Gecode::Int::Extensional::Compact classGecode_1_1Int_1_1Extensional_1_1Compact.html
 URL class Gecode::Int::Extensional::Compact::CTAdvisor classGecode_1_1Int_1_1Extensional_1_1Compact_1_1CTAdvisor.html
 URL class Gecode::Int::Extensional::Compact::LostSupports classGecode_1_1Int_1_1Extensional_1_1Compact_1_1LostSupports.html
-URL class Gecode::Int::Extensional::Compact::Status classGecode_1_1Int_1_1Extensional_1_1Compact_1_1Status.html
 URL class Gecode::Int::Extensional::Compact::ValidSupports classGecode_1_1Int_1_1Extensional_1_1Compact_1_1ValidSupports.html
-URL class Gecode::Int::Extensional::CompactTable classGecode_1_1Int_1_1Extensional_1_1CompactTable.html
 URL class Gecode::Int::Extensional::GroupStates classGecode_1_1Int_1_1Extensional_1_1GroupStates.html
 URL class Gecode::Int::Extensional::LayeredGraph classGecode_1_1Int_1_1Extensional_1_1LayeredGraph.html
 URL class Gecode::Int::Extensional::LayeredGraph::Edge classGecode_1_1Int_1_1Extensional_1_1LayeredGraph_1_1Edge.html
@@ -527,7 +525,11 @@ URL class Gecode::Int::Extensional::LayeredGraph::Layer classGecode_1_1Int_1_1Ex
 URL class Gecode::Int::Extensional::LayeredGraph::LayerValues classGecode_1_1Int_1_1Extensional_1_1LayeredGraph_1_1LayerValues.html
 URL class Gecode::Int::Extensional::LayeredGraph::State classGecode_1_1Int_1_1Extensional_1_1LayeredGraph_1_1State.html
 URL class Gecode::Int::Extensional::LayeredGraph::Support classGecode_1_1Int_1_1Extensional_1_1LayeredGraph_1_1Support.html
+URL class Gecode::Int::Extensional::NegCompact classGecode_1_1Int_1_1Extensional_1_1NegCompact.html
+URL class Gecode::Int::Extensional::PosCompact classGecode_1_1Int_1_1Extensional_1_1PosCompact.html
+URL class Gecode::Int::Extensional::PosCompact::Status classGecode_1_1Int_1_1Extensional_1_1PosCompact_1_1Status.html
 URL class Gecode::Int::Extensional::PosCompare classGecode_1_1Int_1_1Extensional_1_1PosCompare.html
+URL class Gecode::Int::Extensional::ReCompact classGecode_1_1Int_1_1Extensional_1_1ReCompact.html
 URL class Gecode::Int::Extensional::StateGroup classGecode_1_1Int_1_1Extensional_1_1StateGroup.html
 URL class Gecode::Int::Extensional::StateGroupByGroup classGecode_1_1Int_1_1Extensional_1_1StateGroupByGroup.html
 URL class Gecode::Int::Extensional::TinyBitSet classGecode_1_1Int_1_1Extensional_1_1TinyBitSet.html
@@ -2101,14 +2103,18 @@ TITLE example steiner "Steiner triples"
 URL example steiner:Steiner steiner_8cpp.html
 TITLE example steiner:Steiner "Steiner triples"
 URL example sudoku examples_2sudoku_8cpp.html
-TITLE example sudoku "Solving Sudoku puzzles using both set and integer"
+TITLE example sudoku "Solving Sudoku puzzles using integer constraints"
+URL example sudoku-advanced sudoku-advanced_8cpp.html
+TITLE example sudoku-advanced "Solving Sudoku puzzles using both set and integer"
+URL example sudoku-advanced:Sudoku sudoku-advanced_8cpp.html
+URL example sudoku-advanced:SudokuInt sudoku-advanced_8cpp.html
+TITLE example sudoku-advanced:SudokuInt "Solving Sudoku puzzles using integer constraints"
+URL example sudoku-advanced:SudokuMixed sudoku-advanced_8cpp.html
+TITLE example sudoku-advanced:SudokuMixed "Solving Sudoku puzzles using both set and integer"
+URL example sudoku-advanced:SudokuSet sudoku-advanced_8cpp.html
+TITLE example sudoku-advanced:SudokuSet "Solving Sudoku puzzles using set constraints"
 URL example sudoku:Sudoku examples_2sudoku_8cpp.html
-URL example sudoku:SudokuInt examples_2sudoku_8cpp.html
-TITLE example sudoku:SudokuInt "Solving Sudoku puzzles using integer constraints"
-URL example sudoku:SudokuMixed examples_2sudoku_8cpp.html
-TITLE example sudoku:SudokuMixed "Solving Sudoku puzzles using both set and integer"
-URL example sudoku:SudokuSet examples_2sudoku_8cpp.html
-TITLE example sudoku:SudokuSet "Solving Sudoku puzzles using set constraints"
+TITLE example sudoku:Sudoku "Solving Sudoku puzzles using integer constraints"
 URL example tsp tsp_8cpp.html
 TITLE example tsp "Travelling salesman problem (TSP)"
 URL example tsp:TSP tsp_8cpp.html
@@ -2125,8 +2131,6 @@ URL example word-square word-square_8cpp.html
 TITLE example word-square "Word-square puzzle"
 URL example word-square:WordSquare word-square_8cpp.html
 TITLE example word-square:WordSquare "Word-square puzzle"
-URL file changelog.hh changelog_8hh.html
-URL file doxygen.hh doxygen_8hh.html
 URL file examples/all-interval.cpp all-interval_8cpp.html
 URL file examples/alpha.cpp examples_2alpha_8cpp.html
 URL file examples/archimedean-spiral.cpp archimedean-spiral_8cpp.html
@@ -2178,12 +2182,14 @@ URL file examples/scowl.hpp scowl_8hpp.html
 URL file examples/sports-league.cpp sports-league_8cpp.html
 URL file examples/steel-mill.cpp steel-mill_8cpp.html
 URL file examples/steiner.cpp steiner_8cpp.html
+URL file examples/sudoku-advanced.cpp sudoku-advanced_8cpp.html
+URL file examples/sudoku-instances.hh sudoku-instances_8hh.html
 URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
-URL file examples/test.cpp examples_2test_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
-URL file fzn-gecode.cpp fzn-gecode_8cpp.html
+URL file gecode/changelog.hh changelog_8hh.html
+URL file gecode/doxygen.hh doxygen_8hh.html
 URL file gecode/driver.hh driver_8hh.html
 URL file gecode/driver/options.cpp driver_2options_8cpp.html
 URL file gecode/driver/options.hpp driver_2options_8hpp.html
@@ -2363,6 +2369,7 @@ URL file gecode/int/branch/action.cpp int_2branch_2action_8cpp.html
 URL file gecode/int/branch/action.hpp int_2branch_2action_8hpp.html
 URL file gecode/int/branch/afc.hpp int_2branch_2afc_8hpp.html
 URL file gecode/int/branch/assign.hpp int_2branch_2assign_8hpp.html
+URL file gecode/int/branch/cbs.hpp branch_2cbs_8hpp.html
 URL file gecode/int/branch/chb.cpp int_2branch_2chb_8cpp.html
 URL file gecode/int/branch/chb.hpp int_2branch_2chb_8hpp.html
 URL file gecode/int/branch/merit.hpp int_2branch_2merit_8hpp.html
@@ -2421,6 +2428,8 @@ URL file gecode/int/cumulatives/val.hpp int_2cumulatives_2val_8hpp.html
 URL file gecode/int/distinct.cpp gecode_2int_2distinct_8cpp.html
 URL file gecode/int/distinct.hh int_2distinct_8hh.html
 URL file gecode/int/distinct/bnd.hpp distinct_2bnd_8hpp.html
+URL file gecode/int/distinct/cbs.cpp cbs_8cpp.html
+URL file gecode/int/distinct/cbs.hpp distinct_2cbs_8hpp.html
 URL file gecode/int/distinct/dom-ctrl.hpp dom-ctrl_8hpp.html
 URL file gecode/int/distinct/dom.hpp distinct_2dom_8hpp.html
 URL file gecode/int/distinct/eqite.cpp eqite_8cpp.html
@@ -2446,8 +2455,10 @@ URL file gecode/int/exec.cpp gecode_2int_2exec_8cpp.html
 URL file gecode/int/exec.hh exec_8hh.html
 URL file gecode/int/exec/when.cpp when_8cpp.html
 URL file gecode/int/exec/when.hpp when_8hpp.html
-URL file gecode/int/extensional.cpp gecode_2int_2extensional_8cpp.html
+URL file gecode/int/extensional-regular.cpp extensional-regular_8cpp.html
+URL file gecode/int/extensional-tuple-set.cpp extensional-tuple-set_8cpp.html
 URL file gecode/int/extensional.hh extensional_8hh.html
+URL file gecode/int/extensional.hpp extensional_8hpp.html
 URL file gecode/int/extensional/bit-set.hpp bit-set_8hpp.html
 URL file gecode/int/extensional/compact.hpp compact_8hpp.html
 URL file gecode/int/extensional/dfa.cpp dfa_8cpp.html
@@ -2713,6 +2724,7 @@ URL file gecode/kernel/var-imp.hpp kernel_2var-imp_8hpp.html
 URL file gecode/kernel/var-type.hpp var-type_8hpp.html
 URL file gecode/kernel/var.hpp kernel_2var_8hpp.html
 URL file gecode/kernel/view.hpp kernel_2view_8hpp.html
+URL file gecode/license.hh license_8hh.html
 URL file gecode/minimodel.hh minimodel_8hh.html
 URL file gecode/minimodel/bool-expr.cpp bool-expr_8cpp.html
 URL file gecode/minimodel/bool-expr.hpp bool-expr_8hpp.html
@@ -2932,6 +2944,7 @@ URL file gecode/set/view/const.hpp const_8hpp.html
 URL file gecode/set/view/print.hpp set_2view_2print_8hpp.html
 URL file gecode/set/view/set.hpp gecode_2set_2view_2set_8hpp.html
 URL file gecode/set/view/singleton.hpp singleton_8hpp.html
+URL file gecode/stat.hh stat_8hh.html
 URL file gecode/support.hh support_8hh.html
 URL file gecode/support/allocator.cpp allocator_8cpp.html
 URL file gecode/support/allocator.hpp allocator_8hpp.html
@@ -2969,8 +2982,7 @@ URL file gecode/support/thread/thread.hpp thread_2thread_8hpp.html
 URL file gecode/support/thread/windows.cpp windows_8cpp.html
 URL file gecode/support/thread/windows.hpp windows_8hpp.html
 URL file gecode/support/timer.hpp timer_8hpp.html
-URL file license.hh license_8hh.html
-URL file stat.hh stat_8hh.html
+URL file gecode/tools/flatzinc/fzn-gecode.cpp fzn-gecode_8cpp.html
 URL file test/afc.cpp test_2afc_8cpp.html
 URL file test/array.cpp test_2array_8cpp.html
 URL file test/assign.cpp assign_8cpp.html
@@ -3101,7 +3113,7 @@ URL file test/int/distinct.cpp test_2int_2distinct_8cpp.html
 URL file test/int/dom.cpp test_2int_2dom_8cpp.html
 URL file test/int/element.cpp test_2int_2element_8cpp.html
 URL file test/int/exec.cpp test_2int_2exec_8cpp.html
-URL file test/int/extensional.cpp test_2int_2extensional_8cpp.html
+URL file test/int/extensional.cpp extensional_8cpp.html
 URL file test/int/gcc.cpp test_2int_2gcc_8cpp.html
 URL file test/int/linear.cpp test_2int_2linear_8cpp.html
 URL file test/int/member.cpp test_2int_2member_8cpp.html
@@ -3139,7 +3151,7 @@ URL file test/set/rel-op-const.cpp rel-op-const_8cpp.html
 URL file test/set/rel-op.cpp test_2set_2rel-op_8cpp.html
 URL file test/set/rel.cpp test_2set_2rel_8cpp.html
 URL file test/set/sequence.cpp test_2set_2sequence_8cpp.html
-URL file test/test.cpp test_2test_8cpp.html
+URL file test/test.cpp test_8cpp.html
 URL file test/test.hh test_8hh.html
 URL file test/test.hpp test_8hpp.html
 URL group Example group__Example.html

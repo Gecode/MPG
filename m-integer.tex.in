@@ -1965,7 +1965,7 @@ TupleSet t(3,d);
 }
 
 The propagators for the \?extensional? constraint are domain
-consistent and are based on~\cite{compact-table, negative-compact-table}.
+consistent and are based on~\cite{compact-table, negative-compact-table,IngmarSchulte:CP:2018}.
 \GCCAT{\CAT[int]{in_relation}{extensional}{TaskModelIntExt}}.
 
 For several examples of extensional constraints using tuple sets, see
