@@ -40,7 +40,7 @@ applications. Gecode is:
   float variables that ship with Gecode.
   
 \item[free] Gecode is distributed under the
-  \AURL{http://www.gecode.org/license.html}{MIT license} and is
+  \AURL{https://gecode.github.io/license.html}{MIT license} and is
   \AURL{http://directory.fsf.org/project/gecode/}{listed as free
     software} by the FSF. All of its parts --- including
   reference documentation, implementations of global constraints,
@@ -95,7 +95,7 @@ knowledge in constraint programming.
 
 Furthermore, the document describes the \CPP\ interface to
 Gecode, it is not about modeling with any of the available
-\AURL{http://www.gecode.org/interfaces.html}{interfaces to Gecode}.
+\AURL{https://gecode.github.io/interfaces.html}{interfaces to Gecode}.
 
 \paragraph{Keeping it simple.}
 
@@ -278,7 +278,7 @@ download, just click the download link in the upper right corner
 of an example. 
 
 Note that the code available for download is licensed under the
-\AURL{http://www.gecode.org/license.html}{same license as Gecode}
+\AURL{https://gecode.github.io/license.html}{same license as Gecode}
 and not under the same license as this document. By this, you can
 use an example program as a starting point for your own programs.
 
@@ -336,19 +336,15 @@ to \CPP, and \cite{Weiss:2004} for an introduction to
 
 Gecode has a lively and sizeable user community that can be
 tapped for help. You can ask questions about Gecode on the
-mailing list
-\AURL{http://www.gecode.org/contact.html}{\texttt{users@gecode.org}}.
+\AURL{https://gecode.github.io/contact.html}{discussion forum}.
 But, please make sure to not waste your time and the time of
 others:
 \begin{itemize}
 \item Please check this document and the
   \RURL{reference/index.html}{Gecode reference documentation}
   before asking a question.
-\item Please check the
-  \AURL{http://news.gmane.org/gmane.comp.lib.gecode.user}{archive
-    of the Gecode users mailing list} as to whether a similar
-  question has been asked before (note that the archive can be
-  searched) before asking a question.
+\item Please check whether a similar question has been asked
+  before.
 \item Please focus on questions specific to Gecode. For general
   questions about constraint programming more suitable forums
   exist.
@@ -385,7 +381,7 @@ well.
 And, yes. Please take our apologies in advance if that somewhat
 bold claim does turn out to be false... If you have accepted our
 apologies, you can submit your bug report
-\AURL{http://www.gecode.org/bugs.html}{here}.
+\AURL{https://github.com/Gecode/gecode/issues}{here}.
 
 \section{How to refer to this document?}
 
