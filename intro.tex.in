@@ -40,7 +40,7 @@ applications. Gecode is:
   float variables that ship with Gecode.
   
 \item[free] Gecode is distributed under the
-  \AURL{https://gecode.github.io/license.html}{MIT license} and is
+  \AURL{https://www.gecode.org/license.html}{MIT license} and is
   \AURL{http://directory.fsf.org/project/gecode/}{listed as free
     software} by the FSF. All of its parts --- including
   reference documentation, implementations of global constraints,
@@ -95,7 +95,7 @@ knowledge in constraint programming.
 
 Furthermore, the document describes the \CPP\ interface to
 Gecode, it is not about modeling with any of the available
-\AURL{https://gecode.github.io/interfaces.html}{interfaces to Gecode}.
+\AURL{https://www.gecode.org/interfaces.html}{interfaces to Gecode}.
 
 \paragraph{Keeping it simple.}
 
@@ -278,7 +278,7 @@ download, just click the download link in the upper right corner
 of an example. 
 
 Note that the code available for download is licensed under the
-\AURL{https://gecode.github.io/license.html}{same license as Gecode}
+\AURL{https://www.gecode.org/license.html}{same license as Gecode}
 and not under the same license as this document. By this, you can
 use an example program as a starting point for your own programs.
 
@@ -336,7 +336,7 @@ to \CPP, and \cite{Weiss:2004} for an introduction to
 
 Gecode has a lively and sizeable user community that can be
 tapped for help. You can ask questions about Gecode on the
-\AURL{https://gecode.github.io/community.html}{discussion forum}.
+\AURL{https://www.gecode.org/community.html}{discussion forum}.
 But, please make sure to not waste your time and the time of
 others:
 \begin{itemize}

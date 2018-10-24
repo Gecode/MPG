@@ -382,7 +382,7 @@ return 0;
 This section assumes that you have Gecode with the right version
 (this document uses Gecode~\GecodeVersion) already installed on
 your computer. If that is not the case, you should visit the
-\AURL{https://gecode.github.io/download.html}{download section} on
+\AURL{https://www.gecode.org/download.html}{download section} on
 Gecode's website and read \autoref{sec:m:started:obtain} on how
 to install and/or compile Gecode. 
 
@@ -811,7 +811,7 @@ needed (in particular, Qt for Gist).
 
 \tip{Compiling on Windows for \?x86? versus \?x64?}{
 \label{tip:m:started:x86x64}%
-The \AURL{https://gecode.github.io/download.html}{download section}
+The \AURL{https://www.gecode.org/download.html}{download section}
 on Gecode's website offers Windows packages for two different
 platforms: one for \?x86? (32~bit) and one for \?x64? (64~bit).
 When downloading and installing one of these packages you should
@@ -856,7 +856,7 @@ compile Gecode from the source.
 Gecode can be built on all recent versions of Windows, Linux, and
 MacOS X. Porting to other Unix flavors should be easy, if any
 change is necessary at all. The Gecode source code is available
-from the \AURL{https://gecode.github.io/download.html}{download
+from the \AURL{https://www.gecode.org/download.html}{download
   section} of the Gecode web site.
 
 \paragraph{Prerequisites.}

@@ -76,13 +76,13 @@ up-to-date version of this document.
 
 The location of this document is:
 \begin{center}
-\AURL{https://gecode.github.io/doc/\GecodeVersion/MPG.pdf}{\texttt{https://gecode.github.io/doc/\GecodeVersion/MPG.pdf}}
+\AURL{https://www.gecode.org/doc/\GecodeVersion/MPG.pdf}{\texttt{https://www.gecode.org/doc/\GecodeVersion/MPG.pdf}}
 \end{center}
 
 The location of this document corresponding to the latest Gecode
 version is:
 \begin{center}
-\AURL{https://gecode.github.io/doc-latest/MPG.pdf}{\texttt{https://gecode.github.io/doc-latest/MPG.pdf}}
+\AURL{https://www.gecode.org/doc-latest/MPG.pdf}{\texttt{https://www.gecode.org/doc-latest/MPG.pdf}}
 \end{center}
 
 \phantomsection
