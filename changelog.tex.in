@@ -9,6 +9,7 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle[\AckName{Albin}{Stjerna}]{2018-11-20}{Several small improvements.}
   \cle{2018-10-17}{Released for Gecode 6.1.0} 
   \cle{2018-10-15}{Added tip about memory alignment
     (see \autoref{tip:p:memory:align}).}
