@@ -533,6 +533,10 @@ creates a trace recorder.
 
 A general trace recorder records the following events:
 \begin{itemize}
+\item Each time a constraint is posted, a \emph{post-event} is
+  recorded. The recorder provides information whether posting
+  has lead to failure, the posted constraint is subsumed (that is, no
+  propagator has been  posted for the constraint), or a propagator 
 \item Each time a propagator is executed, a
   \emph{propagate-event} is recorded.  The recorder provides
   information about which propagator has been executed and what
@@ -551,6 +555,9 @@ default general tracer.
 \begin{figure}
 \begin{cmd}
 SEND+MORE=MONEY
+trace::post(s:posted(1))
+trace::post(s:subsumed)
+  ...
 trace::propagate(id:2,s:fix)
   ...
 trace::commit(id:1)
@@ -581,17 +588,21 @@ The output for each event starts with the information
 \begin{cmd}
 trace::
 \end{code}
-After that, the type of event is shown (\?propagate? or
-\?choice?).
+After that, the type of event is shown (\?propagate?, 
+\?choice?, or \?post?).
 
 The information for each event type is as follows:
 \begin{itemize}
 \item For a propagate-event, the propagator identifier is
-  printed, potentially followed by the propagator group.
+  printed, potentially followed by the propagator group. This is
+  followed by status information.
 \item For a choice-event, the brancher identifier is printed,
   potentially followed by the brancher group. This is followed by
   information which alternative the brancher has been committed
   to, see also \autoref{sec:m:branch:print}.
+\item For a post-event, 
+  potentially the propagator group is printed. This is followed by
+  status information.
 \end{itemize}
 
 Defining custom general tracers is straightforward, this is
@@ -616,7 +627,7 @@ trace(home, TE_CHOICE);
 only records choice-events. All events (the default)
 are recorded by
 \begin{code}
-trace(home, TE_PROPAGATE | TE_CHOICE);
+trace(home, TE_POST | TE_PROPAGATE | TE_CHOICE);
 \end{code}
 
 \section{Programming variable tracers}
@@ -817,17 +828,23 @@ The example tracer we discuss is implemented by a class
 \?StdCoutTracer?, prints trace information to \?std::cout?,
 and is shown in \autoref{fig:m:group:gtracer}.
 
-The virtual member function \?propagate()? takes a space and an
-object \?pti? of class \gecoderef[class]{PropagateTraceInfo} as
-input. Information about the propagator and the status of
-propagation can be accessed through the member functions of
-\?pti?.
-
 The virtual member function \?commit()? takes a space and an
 object \?cti? of class \gecoderef[class]{CommitTraceInfo} as
 input. Information about the brancher, the choice, and the
 alternative to commit to can be accessed through the member
 functions of \?cti?.
+
+The virtual member function \?post()? takes a space and an
+object \?pti? of class \gecoderef[class]{PostTraceInfo} as
+input. Information about propagator group, status, and the number
+of posted propagators can be accessed through the member
+functions of \?pti?.
+
+The virtual member function \?propagate()? takes a space and an
+object \?pti? of class \gecoderef[class]{PropagateTraceInfo} as
+input. Information about the propagator and the status of
+propagation can be accessed through the member functions of
+\?pti?.
 
 \begin{litcode}{general tracer}{schulte}
 \begin{litblock}{anonymous}
@@ -839,6 +856,10 @@ using namespace Gecode;
 \end{litblock}
 class StdCoutTracer : public Tracer {
 public:
+  virtual void post(const Space& home,
+                    const PostTraceInfo& pti) {
+    std::cout << "trace::" << pti << std::endl;
+  }
   virtual void propagate(const Space& home,
                          const PropagateTraceInfo& pti) {
     std::cout << "trace::" << pti << std::endl;

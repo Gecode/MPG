@@ -950,6 +950,7 @@ URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
 URL class Gecode::PostInfo classGecode_1_1PostInfo.html
+URL class Gecode::PostTraceInfo classGecode_1_1PostTraceInfo.html
 URL class Gecode::PropCost classGecode_1_1PropCost.html
 URL class Gecode::PropagateTraceInfo classGecode_1_1PropagateTraceInfo.html
 URL class Gecode::Propagator classGecode_1_1Propagator.html
@@ -2006,6 +2007,10 @@ URL example magic-sequence:MagicSequence magic-sequence_8cpp.html
 TITLE example magic-sequence:MagicSequence "Magic sequence"
 URL example magic-square magic-square_8cpp.html
 TITLE example magic-square "Magic squares"
+URL example magic-square-partial magic-square-partial_8cpp.html
+TITLE example magic-square-partial "Magic squares"
+URL example magic-square-partial:MagicSquare magic-square-partial_8cpp.html
+TITLE example magic-square-partial:MagicSquare "Magic squares"
 URL example magic-square:MagicSquare magic-square_8cpp.html
 TITLE example magic-square:MagicSquare "Magic squares"
 URL example minesweeper minesweeper_8cpp.html
@@ -2131,6 +2136,8 @@ URL example word-square word-square_8cpp.html
 TITLE example word-square "Word-square puzzle"
 URL example word-square:WordSquare word-square_8cpp.html
 TITLE example word-square:WordSquare "Word-square puzzle"
+URL file changelog.hh changelog_8hh.html
+URL file doxygen.hh doxygen_8hh.html
 URL file examples/all-interval.cpp all-interval_8cpp.html
 URL file examples/alpha.cpp examples_2alpha_8cpp.html
 URL file examples/archimedean-spiral.cpp archimedean-spiral_8cpp.html
@@ -2161,6 +2168,7 @@ URL file examples/kakuro.cpp kakuro_8cpp.html
 URL file examples/knights.cpp examples_2knights_8cpp.html
 URL file examples/langford-number.cpp langford-number_8cpp.html
 URL file examples/magic-sequence.cpp magic-sequence_8cpp.html
+URL file examples/magic-square-partial.cpp magic-square-partial_8cpp.html
 URL file examples/magic-square.cpp magic-square_8cpp.html
 URL file examples/minesweeper.cpp minesweeper_8cpp.html
 URL file examples/money.cpp money_8cpp.html
@@ -2188,8 +2196,7 @@ URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
-URL file gecode/changelog.hh changelog_8hh.html
-URL file gecode/doxygen.hh doxygen_8hh.html
+URL file fzn-gecode.cpp fzn-gecode_8cpp.html
 URL file gecode/driver.hh driver_8hh.html
 URL file gecode/driver/options.cpp driver_2options_8cpp.html
 URL file gecode/driver/options.hpp driver_2options_8hpp.html
@@ -2724,7 +2731,6 @@ URL file gecode/kernel/var-imp.hpp kernel_2var-imp_8hpp.html
 URL file gecode/kernel/var-type.hpp var-type_8hpp.html
 URL file gecode/kernel/var.hpp kernel_2var_8hpp.html
 URL file gecode/kernel/view.hpp kernel_2view_8hpp.html
-URL file gecode/license.hh license_8hh.html
 URL file gecode/minimodel.hh minimodel_8hh.html
 URL file gecode/minimodel/bool-expr.cpp bool-expr_8cpp.html
 URL file gecode/minimodel/bool-expr.hpp bool-expr_8hpp.html
@@ -2944,7 +2950,6 @@ URL file gecode/set/view/const.hpp const_8hpp.html
 URL file gecode/set/view/print.hpp set_2view_2print_8hpp.html
 URL file gecode/set/view/set.hpp gecode_2set_2view_2set_8hpp.html
 URL file gecode/set/view/singleton.hpp singleton_8hpp.html
-URL file gecode/stat.hh stat_8hh.html
 URL file gecode/support.hh support_8hh.html
 URL file gecode/support/allocator.cpp allocator_8cpp.html
 URL file gecode/support/allocator.hpp allocator_8hpp.html
@@ -2982,7 +2987,8 @@ URL file gecode/support/thread/thread.hpp thread_2thread_8hpp.html
 URL file gecode/support/thread/windows.cpp windows_8cpp.html
 URL file gecode/support/thread/windows.hpp windows_8hpp.html
 URL file gecode/support/timer.hpp timer_8hpp.html
-URL file gecode/tools/flatzinc/fzn-gecode.cpp fzn-gecode_8cpp.html
+URL file license.hh license_8hh.html
+URL file stat.hh stat_8hh.html
 URL file test/afc.cpp test_2afc_8cpp.html
 URL file test/array.cpp test_2array_8cpp.html
 URL file test/assign.cpp assign_8cpp.html

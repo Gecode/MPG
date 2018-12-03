@@ -1797,7 +1797,7 @@ propagators created for posting the element constraints.
 What is also obvious from the first example is that integer
 argument arrays of type \?IntArgs? can automatically be coerced
 to integer shared arrays of type \?IntSharedArray?. Hence, if
-performance is not that important, you even do not need to know
+performance is not that important, you do not even need to know
 that shared integer arrays exist.
 
 For an example that uses shared integer arrays together with
