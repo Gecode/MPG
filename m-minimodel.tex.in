@@ -210,6 +210,40 @@ For examples of integer expressions, see
 \gecoderef[example]{alpha}, \gecoderef[example]{money}, \gecoderef[example]{grocery}, \autoref{chap:c:golomb},
 \autoref{chap:c:warehouses}, and \autoref{sec:m:comfy:expr}.
 
+\paragraph{Integer propagation levels.}
+
+When posting integer expressions and relations it can be
+controlled which integer propagation level is used for each
+constraint. The integer propagation levels for all relevant
+constraints are specified by an object of class
+\gecoderef[class]{IntPropLevels}. The \?expr()? and \?rel()?
+functions for posting expressions take an object of this class as
+last argument.
+
+Declaring an object of class
+\gecoderef[class]{IntPropLevels} by default
+initializes all propagation levels to the default integer
+propagation level \?IPL_DEF?. All integer propagation levels can
+be initialized to, for example, \?IPL_DOM? by
+\begin{code}
+IntPropLevels ipls(IPL_DOM);
+\end{code}
+and then used as last argument of \?rel()? and \?expr()? for
+posting relations and expressions.
+
+However, this also uses domain propagation for linear constraints
+as well as minimum and maximum with an arbitrary number of
+variables where domain propagation can be very slow. To
+use default propagation for these constraints, \?ipls? can be
+modified by
+\begin{code}
+ipls.linear(IPL_DEF).min(IPL_DEF).max(IPL_DEF);
+\end{code}
+
+The list of constraints for which the propagation level can be
+specified can be seen from the class definition
+\gecoderef[class]{IntPropLevels}.
+
 \subsection{Boolean expressions and relations}
 \label{sec:m:minimodel:bool}
 

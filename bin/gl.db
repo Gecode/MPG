@@ -822,6 +822,7 @@ URL class Gecode::IntLexMaximizeSpace classGecode_1_1IntLexMaximizeSpace.html
 URL class Gecode::IntLexMinimizeSpace classGecode_1_1IntLexMinimizeSpace.html
 URL class Gecode::IntMaximizeSpace classGecode_1_1IntMaximizeSpace.html
 URL class Gecode::IntMinimizeSpace classGecode_1_1IntMinimizeSpace.html
+URL class Gecode::IntPropLevels classGecode_1_1IntPropLevels.html
 URL class Gecode::IntSet classGecode_1_1IntSet.html
 URL class Gecode::IntSet::MinInc classGecode_1_1IntSet_1_1MinInc.html
 URL class Gecode::IntSetInit classGecode_1_1IntSetInit.html
@@ -950,6 +951,7 @@ URL class Gecode::Pos classGecode_1_1Pos.html
 URL class Gecode::PosChoice classGecode_1_1PosChoice.html
 URL class Gecode::PosValChoice classGecode_1_1PosValChoice.html
 URL class Gecode::PostInfo classGecode_1_1PostInfo.html
+URL class Gecode::PostTraceInfo classGecode_1_1PostTraceInfo.html
 URL class Gecode::PropCost classGecode_1_1PropCost.html
 URL class Gecode::PropagateTraceInfo classGecode_1_1PropagateTraceInfo.html
 URL class Gecode::Propagator classGecode_1_1Propagator.html
@@ -2006,6 +2008,10 @@ URL example magic-sequence:MagicSequence magic-sequence_8cpp.html
 TITLE example magic-sequence:MagicSequence "Magic sequence"
 URL example magic-square magic-square_8cpp.html
 TITLE example magic-square "Magic squares"
+URL example magic-square-partial magic-square-partial_8cpp.html
+TITLE example magic-square-partial "Magic squares"
+URL example magic-square-partial:MagicSquare magic-square-partial_8cpp.html
+TITLE example magic-square-partial:MagicSquare "Magic squares"
 URL example magic-square:MagicSquare magic-square_8cpp.html
 TITLE example magic-square:MagicSquare "Magic squares"
 URL example minesweeper minesweeper_8cpp.html
@@ -2161,6 +2167,7 @@ URL file examples/kakuro.cpp kakuro_8cpp.html
 URL file examples/knights.cpp examples_2knights_8cpp.html
 URL file examples/langford-number.cpp langford-number_8cpp.html
 URL file examples/magic-sequence.cpp magic-sequence_8cpp.html
+URL file examples/magic-square-partial.cpp magic-square-partial_8cpp.html
 URL file examples/magic-square.cpp magic-square_8cpp.html
 URL file examples/minesweeper.cpp minesweeper_8cpp.html
 URL file examples/money.cpp money_8cpp.html
@@ -2481,7 +2488,7 @@ URL file gecode/int/idx-view.hpp idx-view_8hpp.html
 URL file gecode/int/int-set-1.hpp int-set-1_8hpp.html
 URL file gecode/int/int-set-2.hpp int-set-2_8hpp.html
 URL file gecode/int/int-set.cpp int-set_8cpp.html
-URL file gecode/int/ipl.hpp ipl_8hpp.html
+URL file gecode/int/ipl.hpp int_2ipl_8hpp.html
 URL file gecode/int/irt.hpp irt_8hpp.html
 URL file gecode/int/ldsb.cpp gecode_2int_2ldsb_8cpp.html
 URL file gecode/int/ldsb.hh int_2ldsb_8hh.html
@@ -2726,8 +2733,10 @@ URL file gecode/kernel/var.hpp kernel_2var_8hpp.html
 URL file gecode/kernel/view.hpp kernel_2view_8hpp.html
 URL file gecode/license.hh license_8hh.html
 URL file gecode/minimodel.hh minimodel_8hh.html
+URL file gecode/minimodel/aliases.hpp aliases_8hpp.html
 URL file gecode/minimodel/bool-expr.cpp bool-expr_8cpp.html
 URL file gecode/minimodel/bool-expr.hpp bool-expr_8hpp.html
+URL file gecode/minimodel/channel.hpp minimodel_2channel_8hpp.html
 URL file gecode/minimodel/dom.cpp gecode_2minimodel_2dom_8cpp.html
 URL file gecode/minimodel/exception.cpp minimodel_2exception_8cpp.html
 URL file gecode/minimodel/exception.hpp minimodel_2exception_8hpp.html
@@ -2739,6 +2748,8 @@ URL file gecode/minimodel/int-arith.cpp int-arith_8cpp.html
 URL file gecode/minimodel/int-expr.cpp int-expr_8cpp.html
 URL file gecode/minimodel/int-rel.cpp int-rel_8cpp.html
 URL file gecode/minimodel/int-rel.hpp int-rel_8hpp.html
+URL file gecode/minimodel/ipl.cpp ipl_8cpp.html
+URL file gecode/minimodel/ipl.hpp minimodel_2ipl_8hpp.html
 URL file gecode/minimodel/ldsb.hpp ldsb_8hpp.html
 URL file gecode/minimodel/matrix.hpp matrix_8hpp.html
 URL file gecode/minimodel/optimize.cpp optimize_8cpp.html
