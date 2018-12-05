@@ -822,6 +822,7 @@ URL class Gecode::IntLexMaximizeSpace classGecode_1_1IntLexMaximizeSpace.html
 URL class Gecode::IntLexMinimizeSpace classGecode_1_1IntLexMinimizeSpace.html
 URL class Gecode::IntMaximizeSpace classGecode_1_1IntMaximizeSpace.html
 URL class Gecode::IntMinimizeSpace classGecode_1_1IntMinimizeSpace.html
+URL class Gecode::IntPropLevels classGecode_1_1IntPropLevels.html
 URL class Gecode::IntSet classGecode_1_1IntSet.html
 URL class Gecode::IntSet::MinInc classGecode_1_1IntSet_1_1MinInc.html
 URL class Gecode::IntSetInit classGecode_1_1IntSetInit.html
@@ -2136,8 +2137,6 @@ URL example word-square word-square_8cpp.html
 TITLE example word-square "Word-square puzzle"
 URL example word-square:WordSquare word-square_8cpp.html
 TITLE example word-square:WordSquare "Word-square puzzle"
-URL file changelog.hh changelog_8hh.html
-URL file doxygen.hh doxygen_8hh.html
 URL file examples/all-interval.cpp all-interval_8cpp.html
 URL file examples/alpha.cpp examples_2alpha_8cpp.html
 URL file examples/archimedean-spiral.cpp archimedean-spiral_8cpp.html
@@ -2196,7 +2195,8 @@ URL file examples/sudoku.cpp examples_2sudoku_8cpp.html
 URL file examples/tsp.cpp tsp_8cpp.html
 URL file examples/warehouses.cpp examples_2warehouses_8cpp.html
 URL file examples/word-square.cpp word-square_8cpp.html
-URL file fzn-gecode.cpp fzn-gecode_8cpp.html
+URL file gecode/changelog.hh changelog_8hh.html
+URL file gecode/doxygen.hh doxygen_8hh.html
 URL file gecode/driver.hh driver_8hh.html
 URL file gecode/driver/options.cpp driver_2options_8cpp.html
 URL file gecode/driver/options.hpp driver_2options_8hpp.html
@@ -2488,7 +2488,7 @@ URL file gecode/int/idx-view.hpp idx-view_8hpp.html
 URL file gecode/int/int-set-1.hpp int-set-1_8hpp.html
 URL file gecode/int/int-set-2.hpp int-set-2_8hpp.html
 URL file gecode/int/int-set.cpp int-set_8cpp.html
-URL file gecode/int/ipl.hpp ipl_8hpp.html
+URL file gecode/int/ipl.hpp int_2ipl_8hpp.html
 URL file gecode/int/irt.hpp irt_8hpp.html
 URL file gecode/int/ldsb.cpp gecode_2int_2ldsb_8cpp.html
 URL file gecode/int/ldsb.hh int_2ldsb_8hh.html
@@ -2731,9 +2731,12 @@ URL file gecode/kernel/var-imp.hpp kernel_2var-imp_8hpp.html
 URL file gecode/kernel/var-type.hpp var-type_8hpp.html
 URL file gecode/kernel/var.hpp kernel_2var_8hpp.html
 URL file gecode/kernel/view.hpp kernel_2view_8hpp.html
+URL file gecode/license.hh license_8hh.html
 URL file gecode/minimodel.hh minimodel_8hh.html
+URL file gecode/minimodel/aliases.hpp aliases_8hpp.html
 URL file gecode/minimodel/bool-expr.cpp bool-expr_8cpp.html
 URL file gecode/minimodel/bool-expr.hpp bool-expr_8hpp.html
+URL file gecode/minimodel/channel.hpp minimodel_2channel_8hpp.html
 URL file gecode/minimodel/dom.cpp gecode_2minimodel_2dom_8cpp.html
 URL file gecode/minimodel/exception.cpp minimodel_2exception_8cpp.html
 URL file gecode/minimodel/exception.hpp minimodel_2exception_8hpp.html
@@ -2745,6 +2748,8 @@ URL file gecode/minimodel/int-arith.cpp int-arith_8cpp.html
 URL file gecode/minimodel/int-expr.cpp int-expr_8cpp.html
 URL file gecode/minimodel/int-rel.cpp int-rel_8cpp.html
 URL file gecode/minimodel/int-rel.hpp int-rel_8hpp.html
+URL file gecode/minimodel/ipl.cpp ipl_8cpp.html
+URL file gecode/minimodel/ipl.hpp minimodel_2ipl_8hpp.html
 URL file gecode/minimodel/ldsb.hpp ldsb_8hpp.html
 URL file gecode/minimodel/matrix.hpp matrix_8hpp.html
 URL file gecode/minimodel/optimize.cpp optimize_8cpp.html
@@ -2950,6 +2955,7 @@ URL file gecode/set/view/const.hpp const_8hpp.html
 URL file gecode/set/view/print.hpp set_2view_2print_8hpp.html
 URL file gecode/set/view/set.hpp gecode_2set_2view_2set_8hpp.html
 URL file gecode/set/view/singleton.hpp singleton_8hpp.html
+URL file gecode/stat.hh stat_8hh.html
 URL file gecode/support.hh support_8hh.html
 URL file gecode/support/allocator.cpp allocator_8cpp.html
 URL file gecode/support/allocator.hpp allocator_8hpp.html
@@ -2987,8 +2993,7 @@ URL file gecode/support/thread/thread.hpp thread_2thread_8hpp.html
 URL file gecode/support/thread/windows.cpp windows_8cpp.html
 URL file gecode/support/thread/windows.hpp windows_8hpp.html
 URL file gecode/support/timer.hpp timer_8hpp.html
-URL file license.hh license_8hh.html
-URL file stat.hh stat_8hh.html
+URL file gecode/tools/flatzinc/fzn-gecode.cpp fzn-gecode_8cpp.html
 URL file test/afc.cpp test_2afc_8cpp.html
 URL file test/array.cpp test_2array_8cpp.html
 URL file test/assign.cpp assign_8cpp.html
