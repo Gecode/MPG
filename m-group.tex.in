@@ -536,7 +536,8 @@ A general trace recorder records the following events:
 \item Each time a constraint is posted, a \emph{post-event} is
   recorded. The recorder provides information whether posting
   has lead to failure, the posted constraint is subsumed (that is, no
-  propagator has been  posted for the constraint), or a propagator 
+  propagator has been  posted for the constraint), or one or
+  several propagators have been created. 
 \item Each time a propagator is executed, a
   \emph{propagate-event} is recorded.  The recorder provides
   information about which propagator has been executed and what
