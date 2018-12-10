@@ -491,15 +491,18 @@ been installed.}
   \?Cygwin.bat? file that starts Cygwin. The file  \?vcvarsall.bat? comes
   with Microsoft Visual Studio (for example, it is used to start
   the Visual Studio Command Prompt). On my machine using the Visual
-  Studio 2015 Community Edition, the added line is
+  Studio 2017 Community Edition, the added line is
 \begin{cmd}
-call "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
+call "c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\...
+  VC\Auxiliary\Build\vcvarsall.bat" x86
 \end{cmd}
   for the 32-bit compiler version (\texttt{x86}) and
 \begin{cmd}
-call "c:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x64
+call "c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\...
+VC\Auxiliary\Build\vcvarsall.bat" x64
 \end{cmd}
-  for the 64-bit compiler version (\texttt{x64}). The line needs
+  for the 64-bit compiler version (\texttt{x64}), where \?...?
+  menas that line continues. The line needs
   to be after the \texttt{\@echo~off} command at the beginning of
   the file.
  
@@ -518,17 +521,19 @@ These compilation instructions assume that you use the Gecode binary package for
 
 \paragraph{Commandline.}
 
-When compiling your code using the \?gcc? compiler (invoking it as \?g++?),
-the Gecode header files are found automatically, they are on the default
-header search path. For linking against the Gecode framework, just add
-\?-framework gecode? as option. Note that only versions 4.2 or better of
-\?gcc? are supported.
+When compiling your code using the \?gcc? compiler (invoking it
+as \?g++?), the Gecode header files are found automatically, they
+are on the default header search path. For linking against the
+Gecode framework, just add \?-F/Library/Frameworks? and
+\?-framework gecode? as options. Note that only versions 4.2 or
+better of \?gcc? are supported.
 
 The following command compiles and links \?send-more-money.cpp? as a
 release build (including optimization):
 \begin{cmd}
-g++ -O3 -c send-more-money.cpp
-g++ -framework gecode -o send-more-money send-more-money.cpp
+g++ -std=c++11 -F/Library/Frameworks -O3 -c send-more-money.cpp
+g++ -std=c++11 -F/Library/Frameworks -framework gecode \
+  -o send-more-money send-more-money.cpp
 \end{cmd}
 
 \paragraph{XCode.}
