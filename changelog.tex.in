@@ -8,6 +8,7 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
+% \cle[\AckName{Marco}{Correia}]
 \begin{changelog}
   \cle[\AckName{Albin}{Stjerna}]{2018-11-20}{Several small improvements.}
   \cle{2018-10-17}{Released for Gecode 6.1.0} 

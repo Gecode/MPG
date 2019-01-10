@@ -39,7 +39,7 @@ to your program when you want to use Gist.
 \end{figure}
 
 The central metaphor in Gist is the \emph{search tree}. Each node
-in the tree represents a fixpoint of propagatation (that is, an
+in the tree represents a fixpoint of propagation (that is, an
 invocation of \?status()?, see \autoref{tip:m:started:status}).
 Inner nodes stand for \emph{choices} (fixpoints with a subsequent
 brancher), while leaf nodes correspond to \emph{failure} (dead
