@@ -8,9 +8,8 @@
 % \cle[\AckName{Gabriel}{Hjort Blindell}]
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
-% \cle[\AckName{Marco}{Correia}]
 \begin{changelog}
-  \cle[\AckName{Albin}{Stjerna}]{2018-11-20}{Several small improvements.}
+  \cle{2019-02-13}{Released for Gecode 6.1.1} 
   \cle{2018-10-17}{Released for Gecode 6.1.0} 
   \cle{2018-10-15}{Added tip about memory alignment
     (see \autoref{tip:p:memory:align}).}
@@ -26,7 +25,7 @@
   \cle{2017-05-10}{Updated explanation of shared handles and objects
     management
     (see \autoref{sec:p:memory:shared}).}
-  \cle{2017-04-18}{Released for Gecode 5.1.0} 
+  \cle{2017-04-18}{Released for Gecode 5.1.0}
   \cle{2017-03-20}{Explained general tracing
     (see \autoref{sec:m:group:trace} and \autoref{sec:m:group:tracers}).}
   \cle{2017-02-28}{Explained CHB for branching
@@ -224,7 +223,9 @@
     (\autoref{part:v})}
   \cle[\AckName{Dan}{Scott}]{2010-06-17}{Explain that the
     compiler defines the platform used on Windows
-    (\autoref{tip:m:started:x86x64})}
+    (\autoref{tip:m:started:x86x64})} \cle{2010-06-04}{Explained
+    that variables do not have \?init()?  functions as they are
+    not needed in \autoref{tip:m:integer:init}}
   \cle[\AckName{Andreas}{Karlsson}]{2010-05-10}{Fixed typo in
     \autoref{sec:m:search:recomp}} \cle{2010-05-07}{Documented
     new MiniModel for set constraints
