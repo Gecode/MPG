@@ -636,7 +636,7 @@ best solution &
 parallel \\
 \hline\hline
 \gecoderef[class]{DFS} & \?dfs? & depth-first left-most & & \YES\\
-\gecoderef[class]{LDS} & \?lds? & limited discrepancy~\cite{HarveyGinsberg:95} &\\
+\gecoderef[class]{LDS} & \?lds? & limited discrepancy~\cite{HarveyGinsberg:95} &&\\
 \hline
 \gecoderef[class]{BAB} & \?bab? & branch-and-bound & \YES & \YES\\
 \hline
