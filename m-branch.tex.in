@@ -879,7 +879,7 @@ is responsible for recording CHB Q-score information.
 \begin{samepage}
 If \?x? is an integer variable array, then
 \begin{code}
-IntCHB chb(home,x,0.99);
+IntCHB chb(home,x);
 \end{code}
 \end{samepage}
 initializes the CHB information \?chb? for the variables in \?x?.
