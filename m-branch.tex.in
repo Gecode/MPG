@@ -199,6 +199,9 @@ refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
 
+Omitting the variable selection strategy is equivalent to using
+\?INT_VAR_NONE()?.
+
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
@@ -343,6 +346,10 @@ class \gecoderef[class]{BoolCHB}). The optional argument
 \gecoderef[typedef]{BranchTbl}.
 
 
+Omitting the variable selection strategy is equivalent to using
+\?BOOL_VAR_NONE()?.
+
+
 \begin{figure}
 \begin{center}
 \begin{tabular}{l@{\quad}l}
@@ -451,6 +458,8 @@ argument \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
 
+Omitting the variable selection strategy is equivalent to using
+\?SET_VAR_NONE()?.
 
 \begin{figure}
 \begin{center}
@@ -565,6 +574,9 @@ arguments of type \?double? defining a decay-factor. The argument
 argument \?t?  refers to a tie-breaking limit function of type
 \gecoderef[typedef]{BranchTbl} and is discussed in
 \autoref{sec:m:branch:tbl}.
+
+Omitting the variable selection strategy is equivalent to using
+\?FLOAT_VAR_NONE()?.
 
 
 \begin{figure}
@@ -1591,10 +1603,18 @@ assignment has been propagated.
 \end{figure}
 
 For example, the next code fragment assigns all integer variables
-in \?x?  their smallest possible value:
+in \?x? to their smallest possible value:
 \begin{code}
 assign(home, x, INT_ASSIGN_MIN());
 \end{code}
+with the default variable selection strategy to select the next
+unassigned variable. All other variable selection criteria can
+also be used, the following is equivalent to the previous
+example:
+\begin{code}
+assign(home, x, INT_VAR_NONE(), INT_ASSIGN_MIN());
+\end{code}
+
 The strategy to select the value for assignment is defined by a
 value of class \gecoderef[class]{IntAssign} (see also
 \gecoderef[group]{TaskModelIntBranchAssign}) for integer
