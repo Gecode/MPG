@@ -1296,7 +1296,7 @@ public:
   \begin{litblock}{slave function}
   virtual bool slave(const MetaInfo& mi) {
     if (mi.type() == MetaInfo::RESTART) {
-      if (mi.restart() == 0) {
+      if (mi.last() == nullptr) {
         first();
         return true;
       } else {
@@ -1348,7 +1348,9 @@ Both \?first()? and \?next()? are executed on the slave space
 when the restart-based search engine performs a restart or
 executes search for the first time. This can be achieved by
 defining the \?slave()? function as follows. Note how it returns \?true?
-to indicate that the search is going to be complete for the first restart,
+to indicate that the search is going to be complete until it has
+found a first solution\footnote{Please note that the engine might
+  restart several times until a first solution has been found.}
 but \?false? for subsequent restarts, which only explore a neighborhood and
 are therefore incomplete:
 \insertlitcode{model sketch for LNS:slave function}

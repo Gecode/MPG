@@ -9,6 +9,9 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2019-04-12}{Released for Gecode 6.2.0} 
+  \cle[\AckName{Marco}{Correia}]{2019-04-10}{Fixed description of LNS in
+    \autoref{sec:m:search:restart:lns}.}
   \cle{2019-02-13}{Released for Gecode 6.1.1} 
   \cle{2018-10-17}{Released for Gecode 6.1.0} 
   \cle{2018-10-15}{Added tip about memory alignment
@@ -225,7 +228,7 @@
     compiler defines the platform used on Windows
     (\autoref{tip:m:started:x86x64})} \cle{2010-06-04}{Explained
     that variables do not have \?init()?  functions as they are
-    not needed in \autoref{tip:m:integer:init}}
+    not needed.}
   \cle[\AckName{Andreas}{Karlsson}]{2010-05-10}{Fixed typo in
     \autoref{sec:m:search:recomp}} \cle{2010-05-07}{Documented
     new MiniModel for set constraints
