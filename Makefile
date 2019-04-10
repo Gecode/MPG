@@ -66,13 +66,15 @@ NOTESTCPP = \
 	dfs-engine integer-variable-tracer general-tracer \
 	example-search-tracer
 
+GECODEPATH	= ../gecode/
+
 MSVCEXE		= $(MODELCPP:%=%.exe)
 MSVCTESTEXE	= $(TESTCPP:%=test-%.exe)
 MSVCNOTESTEXE	= $(NOTESTCPP:%=notest-%.exe)
 MSVCCPPOPT	= -nologo -EHsc -MDd -wd4355	
 MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
-MSVCINCL	= -I"../../GitHub/gecode"
-MSVCLINK	= /link /LIBPATH:"../../GitHub/gecode"
+MSVCINCL	= -I"${GECODEPATH}"
+MSVCLINK	= /link /LIBPATH:"${GECODEPATH}"
 
 GCCEXE = $(MODELCPP)
 GCCTESTEXE = $(TESTCPP:%=test-%)
@@ -80,8 +82,8 @@ GCCNOTESTEXE = $(NOTESTCPP:%=notest-%)
 GCCCPPOPT = -NDEBUG -fvisibility=hidden -ffast-math -fno-strict-aliasing \
 	-pthread -O3 -ggdb
 #GCCCPPOPT = -pthread -ggdb
-GCCINCL = -I../../gecode/trunk
-GCCLINK = -L../../gecode/trunk -lgecodedriver -lgecodegist -lgecodesearch \
+GCCINCL = -I"${GECODEPATH}"
+GCCLINK = -L"${GECODEPATH}" -lgecodedriver -lgecodegist -lgecodesearch \
 	-lgecodeminimodel -lgecodeset \
 	-lgecodeint -lgecodekernel -lgecodesupport
 
@@ -164,20 +166,20 @@ notest-%.cpp: %.cpp notest/%.cpp
 
 test-%.exe: test-%.obj
 	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ \
-		../../GitHub/gecode/test/test.obj \
-		../../GitHub/gecode/test/int.obj \
-		../../GitHub/gecode/test/float.obj \
-		../../GitHub/gecode/test/set.obj \
+		"${GECODEPATH}"/test/test.obj \
+		"${GECODEPATH}"/test/int.obj \
+		"${GECODEPATH}"/test/float.obj \
+		"${GECODEPATH}"/test/set.obj \
 		$< $(MSVCLINK)
 %.exe: %.obj
 	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ $< $(MSVCLINK)
 
 $(TESTCPP:%=test-%): test-%: test-%.o
 	$(CXX) $(GCCCPPOPT) $(GCCINCL) -o $@ \
-		../gecode/trunk/test/test.o \
-		../gecode/trunk/test/int.o \
-		../gecode/trunk/test/float.o \
-		../gecode/trunk/test/set.o \
+		"${GECODEPATH}"/test/test.o \
+		"${GECODEPATH}"/test/int.o \
+		"${GECODEPATH}"/test/float.o \
+		"${GECODEPATH}"/test/set.o \
 		$< $(GCCLINK)
 
 $(TESTCPP:%=test-%.o): test-%.o: test-%.cpp
