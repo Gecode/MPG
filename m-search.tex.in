@@ -1629,9 +1629,11 @@ s2.threads = 1;
 s2.cutoff  = Search::Cutoff::luby(10);
 Search::Options s;
 s.threads = 3;
-PBS<Script> e(master, dfs<Script>(s0),
-                      dfs<Script>(s1),
-                      rbs<Script,DFS>(s2), s);
+PBS<Script> e(master,
+              SEBs({dfs<Script>(s0),
+                    dfs<Script>(s1),
+                    rbs<Script,DFS>(s2)}),
+             s);
 \end{code}
 Note that the number of assets is defined by the number of SEBs
 passed as argument and not by \?s.assets? as with the simpler
@@ -1639,20 +1641,6 @@ interface. Executing a function such as \?dfs()? in fact creates
 a new SEB \?seb? that eventually must be deleted by 
 \?delete seb?. When creating a portfolio engine from a SEB, the engine
 takes care of deleting the SEB.
-
-\begin{samepage}
-In case more than four assets are needed, one needs to use arrays of
-SEBs of type \gecoderef[class]{SEBs}. The example from above
-could then be expressed as:
-\begin{code}
-SEBs sebs(3, dfs<Script>(s0),
-             dfs<Script>(s1),
-             rbs<Script,DFS>(s2));
-PBS<Script> e(master, sebs, s);
-\end{code}
-where the definitions of \?s?, \?s0?, \?s1?, and \?s2? are
-exactly as before and are omitted.
-\end{samepage}
 
 \paragraph{Best solution search.}
 
