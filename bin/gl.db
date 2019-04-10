@@ -12,6 +12,7 @@ URL class CarSequencing classCarSequencing.html
 URL class CartesianHeart classCartesianHeart.html
 URL class ColoredMatrix classColoredMatrix.html
 URL class ColoredMatrixOptions classColoredMatrixOptions.html
+URL class CommonOptions classCommonOptions.html
 URL class Course classCourse.html
 URL class Crew classCrew.html
 URL class Crossword classCrossword.html
@@ -25,6 +26,7 @@ URL class Donald classDonald.html
 URL class EFPA classEFPA.html
 URL class EFPAOptions classEFPAOptions.html
 URL class Eq20 classEq20.html
+URL class FailTimeStop classFailTimeStop.html
 URL class FileSizeOptions classFileSizeOptions.html
 URL class Gecode::AFC classGecode_1_1AFC.html
 URL class Gecode::Action classGecode_1_1Action.html
@@ -635,7 +637,8 @@ URL class Gecode::Int::Linear::ScaleBoolArray classGecode_1_1Int_1_1Linear_1_1Sc
 URL class Gecode::Int::Linear::SupportIter classGecode_1_1Int_1_1Linear_1_1SupportIter.html
 URL class Gecode::Int::Linear::SupportSet classGecode_1_1Int_1_1Linear_1_1SupportSet.html
 URL class Gecode::Int::Linear::Term classGecode_1_1Int_1_1Linear_1_1Term.html
-URL class Gecode::Int::Linear::TermLess classGecode_1_1Int_1_1Linear_1_1TermLess.html
+URL class Gecode::Int::Linear::TermBySizePos classGecode_1_1Int_1_1Linear_1_1TermBySizePos.html
+URL class Gecode::Int::Linear::TermByView classGecode_1_1Int_1_1Linear_1_1TermByView.html
 URL class Gecode::Int::ManTaskViewIter classGecode_1_1Int_1_1ManTaskViewIter.html
 URL class Gecode::Int::ManToOptTask classGecode_1_1Int_1_1ManToOptTask.html
 URL class Gecode::Int::Member::Prop classGecode_1_1Int_1_1Member_1_1Prop.html
@@ -665,6 +668,7 @@ URL class Gecode::Int::NotYetFinalized classGecode_1_1Int_1_1NotYetFinalized.htm
 URL class Gecode::Int::NotZeroOne classGecode_1_1Int_1_1NotZeroOne.html
 URL class Gecode::Int::Offset classGecode_1_1Int_1_1Offset.html
 URL class Gecode::Int::OffsetView classGecode_1_1Int_1_1OffsetView.html
+URL class Gecode::Int::Order::OrderProp classGecode_1_1Int_1_1Order_1_1OrderProp.html
 URL class Gecode::Int::OutOfLimits classGecode_1_1Int_1_1OutOfLimits.html
 URL class Gecode::Int::PLA classGecode_1_1Int_1_1PLA.html
 URL class Gecode::Int::PLB classGecode_1_1Int_1_1PLB.html
@@ -803,6 +807,7 @@ URL class Gecode::Int::ViewToVarArg<Gecode::Set::SetView> classGecode_1_1Int_1_1
 URL class Gecode::Int::ViewToVarArg<Gecode::Set::SingletonView> classGecode_1_1Int_1_1ViewToVarArg_3_01Gecode_1_1Set_1_1SingletonView_01_4.html
 URL class Gecode::Int::ViewToVarArg<IntView> classGecode_1_1Int_1_1ViewToVarArg_3_01IntView_01_4.html
 URL class Gecode::Int::ViewToVarArg<MinusView> classGecode_1_1Int_1_1ViewToVarArg_3_01MinusView_01_4.html
+URL class Gecode::Int::ViewToVarArg<NegBoolView> classGecode_1_1Int_1_1ViewToVarArg_3_01NegBoolView_01_4.html
 URL class Gecode::Int::ViewValGraph::BiLink classGecode_1_1Int_1_1ViewValGraph_1_1BiLink.html
 URL class Gecode::Int::ViewValGraph::CombPtrFlag classGecode_1_1Int_1_1ViewValGraph_1_1CombPtrFlag.html
 URL class Gecode::Int::ViewValGraph::Edge classGecode_1_1Int_1_1ViewValGraph_1_1Edge.html
@@ -898,6 +903,7 @@ URL class Gecode::Kernel::MemoryManager classGecode_1_1Kernel_1_1MemoryManager.h
 URL class Gecode::Kernel::SharedMemory classGecode_1_1Kernel_1_1SharedMemory.html
 URL class Gecode::Kernel::SharedSpaceData classGecode_1_1Kernel_1_1SharedSpaceData.html
 URL class Gecode::Kernel::SharedSpaceData::Data classGecode_1_1Kernel_1_1SharedSpaceData_1_1Data.html
+URL class Gecode::Kernel::ViewOcc classGecode_1_1Kernel_1_1ViewOcc.html
 URL class Gecode::LDS classGecode_1_1LDS.html
 URL class Gecode::LinFloatExpr classGecode_1_1LinFloatExpr.html
 URL class Gecode::LinFloatExpr::Node classGecode_1_1LinFloatExpr_1_1Node.html
@@ -1311,6 +1317,10 @@ URL class HammingOptions classHammingOptions.html
 URL class IndSet classIndSet.html
 URL class IntLexMinimizeScript classIntLexMinimizeScript.html
 URL class IntMinimizeScript classIntMinimizeScript.html
+URL class JobShopBase classJobShopBase.html
+URL class JobShopOptions classJobShopOptions.html
+URL class JobShopProbe classJobShopProbe.html
+URL class JobShopSolve classJobShopSolve.html
 URL class Kakuro classKakuro.html
 URL class Knights classKnights.html
 URL class KnightsCircuit classKnightsCircuit.html
@@ -1491,8 +1501,12 @@ URL class Test::Float::Trigonometric::TanXYSol classTest_1_1Float_1_1Trigonometr
 URL class Test::Int::Arithmetic::AbsXX classTest_1_1Int_1_1Arithmetic_1_1AbsXX.html
 URL class Test::Int::Arithmetic::AbsXY classTest_1_1Int_1_1Arithmetic_1_1AbsXY.html
 URL class Test::Int::Arithmetic::ArgMax classTest_1_1Int_1_1Arithmetic_1_1ArgMax.html
+URL class Test::Int::Arithmetic::ArgMaxBool classTest_1_1Int_1_1Arithmetic_1_1ArgMaxBool.html
+URL class Test::Int::Arithmetic::ArgMaxBoolShared classTest_1_1Int_1_1Arithmetic_1_1ArgMaxBoolShared.html
 URL class Test::Int::Arithmetic::ArgMaxShared classTest_1_1Int_1_1Arithmetic_1_1ArgMaxShared.html
 URL class Test::Int::Arithmetic::ArgMin classTest_1_1Int_1_1Arithmetic_1_1ArgMin.html
+URL class Test::Int::Arithmetic::ArgMinBool classTest_1_1Int_1_1Arithmetic_1_1ArgMinBool.html
+URL class Test::Int::Arithmetic::ArgMinBoolShared classTest_1_1Int_1_1Arithmetic_1_1ArgMinBoolShared.html
 URL class Test::Int::Arithmetic::ArgMinShared classTest_1_1Int_1_1Arithmetic_1_1ArgMinShared.html
 URL class Test::Int::Arithmetic::Create classTest_1_1Int_1_1Arithmetic_1_1Create.html
 URL class Test::Int::Arithmetic::Div classTest_1_1Int_1_1Arithmetic_1_1Div.html
@@ -1708,6 +1722,8 @@ URL class Test::Int::NoOverlap::IntOpt2 classTest_1_1Int_1_1NoOverlap_1_1IntOpt2
 URL class Test::Int::NoOverlap::Var2 classTest_1_1Int_1_1NoOverlap_1_1Var2.html
 URL class Test::Int::NoOverlap::VarOpt2 classTest_1_1Int_1_1NoOverlap_1_1VarOpt2.html
 URL class Test::Int::NoOverlap::VarOptShared2 classTest_1_1Int_1_1NoOverlap_1_1VarOptShared2.html
+URL class Test::Int::Order::Create classTest_1_1Int_1_1Order_1_1Create.html
+URL class Test::Int::Order::Int classTest_1_1Int_1_1Order_1_1Int.html
 URL class Test::Int::Precede::Multi classTest_1_1Int_1_1Precede_1_1Multi.html
 URL class Test::Int::Precede::Single classTest_1_1Int_1_1Precede_1_1Single.html
 URL class Test::Int::RandomAssignment classTest_1_1Int_1_1RandomAssignment.html
@@ -1981,6 +1997,19 @@ URL example ind-set ind-set_8cpp.html
 TITLE example ind-set "Independent sets in a graph"
 URL example ind-set:IndSet ind-set_8cpp.html
 TITLE example ind-set:IndSet "Independent sets in a graph"
+URL example job-shop job-shop_8cpp.html
+TITLE example job-shop "Job Shop Scheduling"
+URL example job-shop:CommonOptions job-shop_8cpp.html
+TITLE example job-shop:CommonOptions "Job Shop Scheduling"
+URL example job-shop:FailTimeStop job-shop_8cpp.html
+TITLE example job-shop:FailTimeStop "Job Shop Scheduling"
+URL example job-shop:JobShopBase job-shop_8cpp.html
+TITLE example job-shop:JobShopBase "Job Shop Scheduling"
+URL example job-shop:JobShopOptions job-shop_8cpp.html
+URL example job-shop:JobShopProbe job-shop_8cpp.html
+TITLE example job-shop:JobShopProbe "Job Shop Scheduling"
+URL example job-shop:JobShopSolve job-shop_8cpp.html
+TITLE example job-shop:JobShopSolve "Job Shop Scheduling"
 URL example kakuro kakuro_8cpp.html
 TITLE example kakuro "Kakuro"
 URL example kakuro:DistinctLinear kakuro_8cpp.html
@@ -2163,6 +2192,7 @@ URL file examples/graph-color.cpp graph-color_8cpp.html
 URL file examples/grocery.cpp grocery_8cpp.html
 URL file examples/hamming.cpp hamming_8cpp.html
 URL file examples/ind-set.cpp ind-set_8cpp.html
+URL file examples/job-shop.cpp job-shop_8cpp.html
 URL file examples/kakuro.cpp kakuro_8cpp.html
 URL file examples/knights.cpp examples_2knights_8cpp.html
 URL file examples/langford-number.cpp langford-number_8cpp.html
@@ -2206,7 +2236,7 @@ URL file gecode/flatzinc.hh gecode_2flatzinc_8hh.html
 URL file gecode/flatzinc/ast.hh ast_8hh.html
 URL file gecode/flatzinc/branch.cpp gecode_2flatzinc_2branch_8cpp.html
 URL file gecode/flatzinc/branch.hh gecode_2flatzinc_2branch_8hh.html
-URL file gecode/flatzinc/branch.hpp branch_8hpp.html
+URL file gecode/flatzinc/branch.hpp flatzinc_2branch_8hpp.html
 URL file gecode/flatzinc/conexpr.hh conexpr_8hh.html
 URL file gecode/flatzinc/flatzinc.cpp gecode_2flatzinc_2flatzinc_8cpp.html
 URL file gecode/flatzinc/option.hh option_8hh.html
@@ -2233,6 +2263,7 @@ URL file gecode/float/bool.hh float_2bool_8hh.html
 URL file gecode/float/bool/ite.hpp float_2bool_2ite_8hpp.html
 URL file gecode/float/branch.cpp gecode_2float_2branch_8cpp.html
 URL file gecode/float/branch.hh gecode_2float_2branch_8hh.html
+URL file gecode/float/branch.hpp float_2branch_8hpp.html
 URL file gecode/float/branch/action.cpp float_2branch_2action_8cpp.html
 URL file gecode/float/branch/action.hpp float_2branch_2action_8hpp.html
 URL file gecode/float/branch/afc.hpp float_2branch_2afc_8hpp.html
@@ -2358,7 +2389,7 @@ URL file gecode/int/bin-packing.cpp gecode_2int_2bin-packing_8cpp.html
 URL file gecode/int/bin-packing.hh bin-packing_8hh.html
 URL file gecode/int/bin-packing/conflict-graph.cpp conflict-graph_8cpp.html
 URL file gecode/int/bin-packing/conflict-graph.hpp conflict-graph_8hpp.html
-URL file gecode/int/bin-packing/propagate.cpp propagate_8cpp.html
+URL file gecode/int/bin-packing/propagate.cpp bin-packing_2propagate_8cpp.html
 URL file gecode/int/bin-packing/propagate.hpp bin-packing_2propagate_8hpp.html
 URL file gecode/int/bool.cpp gecode_2int_2bool_8cpp.html
 URL file gecode/int/bool.hh int_2bool_8hh.html
@@ -2372,6 +2403,7 @@ URL file gecode/int/bool/lq.hpp int_2bool_2lq_8hpp.html
 URL file gecode/int/bool/or.hpp or_8hpp.html
 URL file gecode/int/branch.cpp gecode_2int_2branch_8cpp.html
 URL file gecode/int/branch.hh gecode_2int_2branch_8hh.html
+URL file gecode/int/branch.hpp int_2branch_8hpp.html
 URL file gecode/int/branch/action.cpp int_2branch_2action_8cpp.html
 URL file gecode/int/branch/action.hpp int_2branch_2action_8hpp.html
 URL file gecode/int/branch/afc.hpp int_2branch_2afc_8hpp.html
@@ -2535,6 +2567,10 @@ URL file gecode/int/nvalues/int-gq.hpp nvalues_2int-gq_8hpp.html
 URL file gecode/int/nvalues/int-lq.hpp nvalues_2int-lq_8hpp.html
 URL file gecode/int/nvalues/range-event.hpp range-event_8hpp.html
 URL file gecode/int/nvalues/sym-bit-matrix.hpp sym-bit-matrix_8hpp.html
+URL file gecode/int/order.cpp gecode_2int_2order_8cpp.html
+URL file gecode/int/order.hh order_8hh.html
+URL file gecode/int/order/propagate.cpp order_2propagate_8cpp.html
+URL file gecode/int/order/propagate.hpp order_2propagate_8hpp.html
 URL file gecode/int/precede.cpp gecode_2int_2precede_8cpp.html
 URL file gecode/int/precede.hh int_2precede_8hh.html
 URL file gecode/int/precede/single.hpp int_2precede_2single_8hpp.html
@@ -2742,10 +2778,12 @@ URL file gecode/minimodel/exception.cpp minimodel_2exception_8cpp.html
 URL file gecode/minimodel/exception.hpp minimodel_2exception_8hpp.html
 URL file gecode/minimodel/float-arith.cpp float-arith_8cpp.html
 URL file gecode/minimodel/float-expr.cpp float-expr_8cpp.html
+URL file gecode/minimodel/float-expr.hpp float-expr_8hpp.html
 URL file gecode/minimodel/float-rel.cpp float-rel_8cpp.html
 URL file gecode/minimodel/float-rel.hpp float-rel_8hpp.html
 URL file gecode/minimodel/int-arith.cpp int-arith_8cpp.html
 URL file gecode/minimodel/int-expr.cpp int-expr_8cpp.html
+URL file gecode/minimodel/int-expr.hpp int-expr_8hpp.html
 URL file gecode/minimodel/int-rel.cpp int-rel_8cpp.html
 URL file gecode/minimodel/int-rel.hpp int-rel_8hpp.html
 URL file gecode/minimodel/ipl.cpp ipl_8cpp.html
@@ -2832,6 +2870,7 @@ URL file gecode/set/array.hpp set_2array_8hpp.html
 URL file gecode/set/bool.cpp gecode_2set_2bool_8cpp.html
 URL file gecode/set/branch.cpp gecode_2set_2branch_8cpp.html
 URL file gecode/set/branch.hh gecode_2set_2branch_8hh.html
+URL file gecode/set/branch.hpp set_2branch_8hpp.html
 URL file gecode/set/branch/action.cpp set_2branch_2action_8cpp.html
 URL file gecode/set/branch/action.hpp set_2branch_2action_8hpp.html
 URL file gecode/set/branch/afc.hpp set_2branch_2afc_8hpp.html
@@ -3135,6 +3174,7 @@ URL file test/int/mm-lin.cpp int_2mm-lin_8cpp.html
 URL file test/int/mm-rel.cpp mm-rel_8cpp.html
 URL file test/int/no-overlap.cpp test_2int_2no-overlap_8cpp.html
 URL file test/int/nvalues.cpp test_2int_2nvalues_8cpp.html
+URL file test/int/order.cpp test_2int_2order_8cpp.html
 URL file test/int/precede.cpp test_2int_2precede_8cpp.html
 URL file test/int/rel.cpp test_2int_2rel_8cpp.html
 URL file test/int/sequence.cpp test_2int_2sequence_8cpp.html
@@ -3547,6 +3587,8 @@ URL group TaskTestIntNValues group__TaskTestIntNValues.html
 TITLE group TaskTestIntNValues "Number of values constraints"
 URL group TaskTestIntNoOverlap group__TaskTestIntNoOverlap.html
 TITLE group TaskTestIntNoOverlap "No-overlap constraints"
+URL group TaskTestIntOrder group__TaskTestIntOrder.html
+TITLE group TaskTestIntOrder "Order constraint"
 URL group TaskTestIntRel group__TaskTestIntRel.html
 TITLE group TaskTestIntRel "Relation constraints"
 URL group TaskTestIntSequence group__TaskTestIntSequence.html
@@ -3634,6 +3676,7 @@ URL namespace Gecode::Int::Linear namespaceGecode_1_1Int_1_1Linear.html
 URL namespace Gecode::Int::Member namespaceGecode_1_1Int_1_1Member.html
 URL namespace Gecode::Int::NValues namespaceGecode_1_1Int_1_1NValues.html
 URL namespace Gecode::Int::NoOverlap namespaceGecode_1_1Int_1_1NoOverlap.html
+URL namespace Gecode::Int::Order namespaceGecode_1_1Int_1_1Order.html
 URL namespace Gecode::Int::Precede namespaceGecode_1_1Int_1_1Precede.html
 URL namespace Gecode::Int::Rel namespaceGecode_1_1Int_1_1Rel.html
 URL namespace Gecode::Int::Sequence namespaceGecode_1_1Int_1_1Sequence.html
@@ -3671,6 +3714,7 @@ URL namespace Gecode::Set::Rel namespaceGecode_1_1Set_1_1Rel.html
 URL namespace Gecode::Set::RelOp namespaceGecode_1_1Set_1_1RelOp.html
 URL namespace Gecode::Set::Sequence namespaceGecode_1_1Set_1_1Sequence.html
 URL namespace Gecode::Support namespaceGecode_1_1Support.html
+URL namespace JobShopConfig namespaceJobShopConfig.html
 URL namespace Test namespaceTest.html
 URL namespace Test::Array namespaceTest_1_1Array.html
 URL namespace Test::Assign namespaceTest_1_1Assign.html
@@ -3712,6 +3756,7 @@ URL namespace Test::Int::MiniModelLin namespaceTest_1_1Int_1_1MiniModelLin.html
 URL namespace Test::Int::MiniModelSet namespaceTest_1_1Int_1_1MiniModelSet.html
 URL namespace Test::Int::NValues namespaceTest_1_1Int_1_1NValues.html
 URL namespace Test::Int::NoOverlap namespaceTest_1_1Int_1_1NoOverlap.html
+URL namespace Test::Int::Order namespaceTest_1_1Int_1_1Order.html
 URL namespace Test::Int::Precede namespaceTest_1_1Int_1_1Precede.html
 URL namespace Test::Int::Rel namespaceTest_1_1Int_1_1Rel.html
 URL namespace Test::Int::Sequence namespaceTest_1_1Int_1_1Sequence.html
