@@ -1,4 +1,4 @@
-VERSION = 6.2.0
+VERSION = 6.2.1
 YEAR    = 2019
 
 CHAPSRC = \

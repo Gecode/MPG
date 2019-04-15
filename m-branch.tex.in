@@ -779,10 +779,27 @@ initializes the action information \?act? for the variables in \?x?
 with decay-factor $\mathtt{d}=\mathtt{0.99}$. The decay-factor is
 optional and defaults to no decay ($\mathtt{d}=1$).
 
+Note that it can be specified whether the action counter is
+incremented when a variable is pruned (propagation) or when a
+variable domain has been wiped out (failure). For example, the
+following creates action information that onky considers
+propagation:
+\begin{code}
+IntAction act(home,x,0.99,true,false);
+\end{code}
+whereas the following only considers failure:
+\begin{code}
+IntAction act(home,x,0.99,false,true);
+\end{code}
+By default, both are considered which corresponds to:
+\begin{code}
+IntAction act(home,x,0.99,true,true);
+\end{code}
+
 The action of each variable in an array \?x? can be initialized
 by a merit function, see \autoref{sec:m:branch:uservar}. Here
 \begin{code}
-IntAction act(home,x,0.99,
+IntAction act(home,x,0.99,true,true
               [](const Space& home, IntVar x, int i) {
                 return 1.0;
               });
