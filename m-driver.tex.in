@@ -49,9 +49,9 @@ integer propagation level\\
 \texttt{-c-d} & \?unsigned int? & commit recomputation distance\\
 \texttt{-a-d} & \?unsigned int? & adaptive recomputation distance\\
 \texttt{-d-l} & \?unsigned int? & discrepancy limit for \?LDS?\\
-\texttt{-node} & \?unsigned int? & cutoff for number of nodes\\
-\texttt{-fail} & \?unsigned int? & cutoff for number of failures\\
-\texttt{-time} & \?unsigned int? & cutoff for time in milliseconds\\
+\texttt{-node} & \?unsigned long long int? & cutoff for number of nodes\\
+\texttt{-fail} & \?unsigned long long int? & cutoff for number of failures\\
+\texttt{-time} & \?double? & cutoff for time in milliseconds\\
 \texttt{-step} & \?double? & improvement step for floats\\
 \hline\hline
 \multicolumn{3}{|c|}{restart-based and portfolio search options}\\\hline

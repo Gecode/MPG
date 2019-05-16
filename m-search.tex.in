@@ -573,10 +573,10 @@ to your program when you want to use search engines.
 \multicolumn{1}{c|}{type} & 
 \multicolumn{1}{c|}{meaning} \\
 \hline\hline
-\?propagate? & \?unsigned long int? & propagators executed\\
+\?propagate? & \?unsigned long long int? & propagators executed\\
 \hline
-\?fail? & \?unsigned long int? & failed nodes explored\\
-\?node? & \?unsigned long int? & nodes explored\\
+\?fail? & \?unsigned long long int? & failed nodes explored\\
+\?node? & \?unsigned long long int? & nodes explored\\
 \?restart? & \?unsigned long int? & restarts performed\\
 \?nogood? & \?unsigned long int? & no-goods generated\\
 \hline
