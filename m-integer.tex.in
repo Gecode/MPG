@@ -2497,7 +2497,7 @@ none of the tasks overlaps in time (see
 
 \tip{Tasks with duration zero}{%
 Tasks with duration zero are still useful for modeling: even
-though the do not take any time to be executed on the resource,
+though they do not take any time to be executed on the resource,
 they prevent that any other task can run at the same time.
 }
 
