@@ -409,7 +409,7 @@ That is, if the equality propagator using staging is in stage
 \begin{figure}
 \center
 \newcommand{\boxit}[1]{%
-\rnode{#1}{\fcbox{GecodeRed}{\makebox[2cm][c]{$\strut$#1}}}}
+\rnode{#1}{\fcbox{GecodeRed}{GecodeRedOp50}{\makebox[2cm][c]{$\strut$#1}}}}
 \begin{tabular}{c@{\qquad\qquad\qquad\qquad}c@{\qquad\qquad\qquad\qquad}c}
 \\\\\\
 \boxit{idle}&\boxit{domain}&\boxit{bounds}\\

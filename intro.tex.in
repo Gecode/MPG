@@ -123,12 +123,12 @@ topics covered in this document.
 \psset{unit=0.88cm}
 \begin{pspicture}(18,8)
 %\psgrid
-\fcframe{GecodeGreen}{(4,6)(18,8)}
+\fcframe{GecodeGreen}{GecodeGreenOp50}{(4,6)(18,8)}
 \put(10,7){\makebox(0,0){Modeling (\autoref{part:m})}}
 \fcbwframe(4,0)(16,2)
 \put(10,1){\makebox(0,0){Gecode kernel}}
 
-\fcframe{GecodeBlue}{(0,3)(10,5)}
+\fcframe{GecodeBlue}{GecodeBlueOp50}{(0,3)(10,5)}
 \put(0.2,4.3){\makebox(0,.5)[l]{\footnotesize Programming}}
 \put(0.2,3.7){\makebox(0,.5)[l]{\footnotesize propagators (\autoref{part:p})}}
 \put(0.2,3.2){\makebox(0,.5)[l]{\footnotesize and branchers (\autoref{part:b})}}
@@ -149,12 +149,12 @@ topics covered in this document.
 \put(11.05,4.3){\makebox(0,0){\?Search?}}
 \put(11.05,3.8){\makebox(0,0){\footnotesize module}}
 
-\fcframe{GecodeOrange}{(12.25,1.8)(14.85,6.2)}
+\fcframe{GecodeOrange}{GecodeOrangeOp50}{(12.25,1.8)(14.85,6.2)}
 \put(13.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
 \put(13.55,4.0){\makebox(0,0){{\footnotesize variables}}}
 \put(13.55,3.5){\makebox(0,0){{\footnotesize (\autoref{part:v})}}}
 
-\fcframe{GecodeRed}{(15.25,1.8)(17.85,6.2)}
+\fcframe{GecodeRed}{GecodeRedOp50}{(15.25,1.8)(17.85,6.2)}
 \put(16.55,4.5){\makebox(0,0){{\footnotesize Programming}}}
 \put(16.55,4.0){\makebox(0,0){{\footnotesize search}}}
 \put(16.55,3.5){\makebox(0,0){{\footnotesize engines}}}
@@ -232,14 +232,14 @@ topics:
 \begin{figure}
 \newcommand{\depentry}[3]{%
 \rput(#1,#2){%
-\psframe[cornersize=absolute,linearc=0.05,linecolor=GecodeOrange,linewidth=0.01pt,opacity=0.50,fillcolor=GecodeOrange,fillstyle=solid](-5,-2.2)(5,2.2)}
+\psframe[cornersize=absolute,linearc=0.05,linecolor=GecodeOrange,linewidth=0.01pt,fillcolor=GecodeOrangeOp50,fillstyle=solid](-5,-2.2)(5,2.2)}
 \rput(#1,#2){\makebox(0,0){\footnotesize #3}}}
 \centering
 \psset{xunit=0.38,yunit=0.18}
 \begin{pspicture}(5,0)(45,55)
 \rput(10,50){\makebox(0,0){\textbf{Modeling}}}%
 \rput(25,50){\makebox(0,0){\textbf{Programming}}}%
-\psline[linecolor=GecodeBlue,linewidth=2pt,opacity=0.1]{-}(17.5,5)(17.5,45)
+\psline[linecolor=GecodeBlueOp10,linewidth=2pt]{-}(17.5,5)(17.5,45)
 \depentry{10}{40}{Modeling (\autoref{part:m})}
 \depentry{10}{10}{Case studies (\autoref{part:c})}
 \depentry{25}{30}{Propagators (\autoref{part:p})}

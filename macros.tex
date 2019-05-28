@@ -8,7 +8,8 @@
 \usepackage[scaled=0.88]{beramono}
 \usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{color}
+\usepackage[dvips]{color}
+\usepackage[dvips]{xcolor}
 \usepackage{pifont}
 \usepackage[dvips]{graphicx}
 \usepackage{pstricks}
@@ -25,6 +26,20 @@
 \definecolor{GecodeBlue}{rgb}{0,0.36078,0.631273}
 \definecolor{GecodeRed}{rgb}{0.8549,0.1451,0.1137255}
 \definecolor{GecodeOrange}{rgb}{0.9216,0.537255,0.10588}
+
+\colorlet{GecodeGreenOp20}{GecodeGreen!20}
+\colorlet{GecodeBlueOp10}{GecodeBlue!10}
+\colorlet{GecodeBlueOp20}{GecodeBlue!20}
+\colorlet{GecodeBlueOp30}{GecodeBlue!30}
+\colorlet{GecodeBlueOp30}{GecodeBlue!30}
+\colorlet{GecodeBlueOp40}{GecodeBlue!40}
+\colorlet{GecodeRedOp20}{GecodeRed!20}
+\colorlet{GecodeOrangeOp20}{GecodeOrange!20}
+
+\colorlet{GecodeGreenOp50}{GecodeGreen!50}
+\colorlet{GecodeBlueOp50}{GecodeBlue!50}
+\colorlet{GecodeRedOp50}{GecodeRed!50}
+\colorlet{GecodeOrangeOp50}{GecodeOrange!50}
 
 \usepackage[ps2pdf,%
             breaklinks=false,
@@ -83,27 +98,27 @@
 \DOWNLOAD{#3}{[download]}}}}
 \newcommand{\litref}[2]{\hyperlink{#1}{$\blacktriangleright$\,\normalfont\bfseries\textsc{#2}}}
 
-\newcommand{\fcbox}[2]{%
-\psframebox[cornersize=absolute,linearc=0.05,linecolor=#1,linewidth=0.01pt,opacity=0.20,fillcolor=#1,fillstyle=solid]{#2}}
+\newcommand{\fcbox}[3]{%
+\psframebox[cornersize=absolute,linearc=0.05,linecolor=#1,linewidth=0.01pt,fillcolor=#2,fillstyle=solid]{#3}}
 
 \newcommand{\litcmdblock}[1]{%
-\begin{center}\fcbox{GecodeRed}{\begin{minipage}{0.95\textwidth}\ttfamily #1%
+\begin{center}\fcbox{GecodeRed}{GecodeRedOp20}{\begin{minipage}{0.95\textwidth}\ttfamily #1%
 \end{minipage}}\end{center}}
 
 \newcommand{\smalllitcmdblock}[1]{%
-\begin{center}\fcbox{GecodeRed}{\begin{minipage}{0.9\textwidth}\ttfamily #1%
+\begin{center}\fcbox{GecodeRed}{GecodeRedOp20}{\begin{minipage}{0.9\textwidth}\ttfamily #1%
 \end{minipage}}\end{center}}
 
 \newcommand{\litcodeblock}[1]{%
-\begin{center}\fcbox{GecodeOrange}{\begin{minipage}{0.95\textwidth}\ttfamily #1%
+\begin{center}\fcbox{GecodeOrange}{GecodeOrangeOp20}{\begin{minipage}{0.95\textwidth}\ttfamily #1%
 \end{minipage}}\end{center}}
 
 \newcommand{\smalllitcodeblock}[1]{%
-\begin{center}\fcbox{GecodeOrange}{\begin{minipage}{0.9\textwidth}\ttfamily #1%
+\begin{center}\fcbox{GecodeOrange}{GecodeOrangeOp20}{\begin{minipage}{0.9\textwidth}\ttfamily #1%
 \end{minipage}}\end{center}}
 
 \newcommand{\litcodepage}[2]{%
-\fcbox{GecodeOrange}{\begin{minipage}{#2}\ttfamily #1\end{minipage}}}
+\fcbox{GecodeOrange}{GecodeOrangeOp20}{\begin{minipage}{#2}\ttfamily #1\end{minipage}}}
 
 \newcommand{\gecodedocbaseref}[2]{\RURL{reference/#1}{#2}}
 \newcommand{\litdocref}[2]{\gecodedocbaseref{#1}{#2}}
@@ -142,14 +157,14 @@
 \newcommand{\OptArg}[1]{$\mbox{#1}^*$}
 \newcommand{\SpecialArg}[1]{$\mbox{#1}^+$}
 
-\newcommand{\fcframe}[2]{%
-\psframe[cornersize=absolute,linearc=0.05,linecolor=white,linewidth=0.0,fillcolor=white,fillstyle=solid]#2%
-\psframe[cornersize=absolute,linearc=0.05,linecolor=#1,linewidth=0.01pt,opacity=0.50,fillcolor=#1,fillstyle=solid]#2%
+\newcommand{\fcframe}[3]{%
+\psframe[cornersize=absolute,linearc=0.05,linecolor=white,linewidth=0.0,fillcolor=white,fillstyle=solid]#3%
+\psframe[cornersize=absolute,linearc=0.05,linecolor=#1,linewidth=0.01pt,fillcolor=#2,fillstyle=solid]#3%
 }
 \newcommand{\fcbwframe}{%
 \psframe[cornersize=absolute,linearc=0.05,linecolor=black,linewidth=0.25pt,fillcolor=white,fillstyle=solid]}
-\newcommand{\fccircle}[1]{%
-\pscircle[linecolor=#1,linewidth=0.01pt,opacity=0.50,fillcolor=#1,fillstyle=solid]}
+\newcommand{\fccircle}[2]{%
+\pscircle[linecolor=#1,linewidth=0.01pt,fillcolor=#2,fillstyle=solid]}
 
 
 %%%
@@ -173,7 +188,7 @@
      \interlinepenalty \@M
      \normalfont
      \ifnum \c@secnumdepth >-2\relax
-        \psframebox[linewidth=.1pt,linecolor=GecodeOrange,framearc=.05,framesep=.2in,fillcolor=GecodeOrange,opacity=0.2,fillstyle=solid,boxsep=false]{\bfseries\MyBigNumber\thepart}
+        \psframebox[linewidth=.1pt,linecolor=GecodeOrange,framearc=.05,framesep=.2in,fillcolor=GecodeOrangeOp20,fillstyle=solid,boxsep=false]{\bfseries\MyBigNumber\thepart}
        \vskip 60\p@
      \fi
     \interlinepenalty\@M
@@ -219,7 +234,7 @@
         \setlength{\MyChapterRestWidth}{\textwidth}
         \addtolength{\MyChapterRestWidth}{-\MyChapterNumberWidth}
         \addtolength{\MyChapterRestWidth}{-40pt}
-        \parbox[t]{\MyChapterNumberWidth}{\psframebox[linewidth=.1pt,linecolor=GecodeBlue,framearc=.05,framesep=.2in,fillcolor=GecodeBlue,opacity=0.2,fillstyle=solid,boxsep=false]{\bfseries\MyBigNumber\thechapter}}
+        \parbox[t]{\MyChapterNumberWidth}{\psframebox[linewidth=.1pt,linecolor=GecodeBlue,framearc=.05,framesep=.2in,fillcolor=GecodeBlueOp40,fillstyle=solid,boxsep=false]{\bfseries\MyBigNumber\thechapter}}
     \fi
     \interlinepenalty\@M
     \hfill\parbox[b]{\MyChapterRestWidth}{\raggedleft\MyBigTitle\bfseries #1}
@@ -264,10 +279,10 @@
 \rput(#1,#2){\pscircle[fillcolor=GecodeBlue,fillstyle=solid]{10}\makebox(0,0){#3}}}
 \newcommand{\UChoiceNode}[2]{%
 \rput(#1,#2){\pscircle[fillcolor=white,fillstyle=solid]{10}}%
-\rput(#1,#2){\pscircle[fillcolor=GecodeBlue,fillstyle=solid,opacity=0.4]{10}}}
+\rput(#1,#2){\pscircle[fillcolor=GecodeBlueOp40,fillstyle=solid]{10}}}
 \newcommand{\UChoiceNodeI}[3]{%
 \rput(#1,#2){\pscircle[fillcolor=white,fillstyle=solid]{10}}%
-\rput(#1,#2){\pscircle[fillcolor=GecodeBlue,fillstyle=solid,opacity=0.4]{10}\makebox(0,0){#3}}}
+\rput(#1,#2){\pscircle[fillcolor=GecodeBlueOp40,fillstyle=solid]{10}\makebox(0,0){#3}}}
 \newcommand{\RootNode}[2]{%
 \rput(#1,#2){\pscircle[fillcolor=GecodeOrange,fillstyle=solid]{10}}}
 \newcommand{\RootNodeI}[3]{%
@@ -339,7 +354,7 @@
 %% KNIGHTS board
 
 \newcommand{\knsolidfield}{%
-\psframe[fillstyle=solid,fillcolor=GecodeBlue,opacity=0.3,linecolor=GecodeBlue,linewidth=0pt,dimen=inner](0,0)(2,2)%
+\psframe[fillstyle=solid,fillcolor=GecodeBlueOp30,linecolor=GecodeBlue,linewidth=0pt,dimen=inner](0,0)(2,2)%
 }
 \newcounter{knsize}%
 \newcounter{knlines}%
@@ -362,7 +377,7 @@
 \newcommand{\knfield}[4]{%
 \setcounter{knx}{2*#3+1}\setcounter{kny}{2*#4+1}%
 \rput(\value{knx},\value{kny}){\rnode{n#1}{%
-\textcolor{GecodeBlue}{#2}}}%
+\textcolor{GecodeBlue}{\textbf{#2}}}}%
 }
 \newcommand{\knmove}[3]{%
 \ncline[linewidth=1.8pt,nodesep=3pt]{->}{n#2}{n#3}%
