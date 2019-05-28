@@ -336,8 +336,8 @@ $$
 \psset{framearc=.0,xunit=16pt,yunit=16pt}%
 \vspace{25pt}%
 \begin{pspicture}(1.5,0)(9.5,8.5)\footnotesize%
-\psframe[fillstyle=solid,linewidth=.1pt,fillcolor=GecodeBlue,opacity=0.20](2,2)(5,5)%
-\psframe[fillstyle=solid,linewidth=.1pt,fillcolor=GecodeGreen,opacity=0.20](6,6)(8,8)%
+\psframe[fillstyle=solid,linewidth=.1pt,fillcolor=GecodeBlueOp50](2,2)(5,5)%
+\psframe[fillstyle=solid,linewidth=.1pt,fillcolor=GecodeGreenOp50](6,6)(8,8)%
 \rput(3.5,3.5){$s_1$}%
 \rput(7,7){$s_2$}%
 \rput(2.5,1.5){$\mathtt{x}_1$}\rput(6.5,5.5){$\mathtt{x}_2$}%

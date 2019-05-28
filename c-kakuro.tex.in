@@ -11,7 +11,7 @@
 
 \newcommand{\kakflaw}[2]{%
 \rput(#1,#2){%
-  \psframe[fillstyle=solid,fillcolor=GecodeGreen,dimen=inner,opacity=0.5](0,0)(1,1)}}
+  \psframe[fillstyle=solid,fillcolor=GecodeGreenOp50,dimen=inner](0,0)(1,1)}}
 
 \newcommand{\kakvhint}[3]{%
 \rput(#1,#2){\rput(0.3,0.3){\makebox(0,0){\white%

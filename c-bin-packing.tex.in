@@ -32,7 +32,7 @@ each bin is not exceeded.
 }
 \newcommand{\bppitem}[3]{
 \rput(#1,#2){%
-\psframe[fillstyle=solid,fillcolor=GecodeBlue,opacity=0.3,linecolor=GecodeBlue,linewidth=0.75pt,dimen=inner](0.15,0.15)(1.85,#3.85)%
+\psframe[fillstyle=solid,fillcolor=GecodeBlueOp30,linecolor=GecodeBlue,linewidth=0.75pt,dimen=inner](0.15,0.15)(1.85,#3.85)%
 }}
 \newcommand{\bppmark}[3]{
 \rput(#1,#2){\makebox(0,0){\textbf{#3}}}
