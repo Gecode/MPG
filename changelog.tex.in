@@ -9,6 +9,9 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle[\AckName{Florian}{???}]{2019-08-22}{Fixed symmetry
+    breaking when using CDBF
+  \autoref{chap:c:bpp}.}
   \cle{2019-05-28}{Fixed opaque colors} 
   \cle{2019-04-12}{Released for Gecode 6.2.0} 
   \cle[\AckName{Marco}{Correia}]{2019-04-10}{Fixed description of LNS in

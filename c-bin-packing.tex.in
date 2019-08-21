@@ -415,6 +415,11 @@ Note that the second alternative of CDBF performs symmetry
 breaking during search as it prunes also with respect to
 equivalent items and bins.
 
+Also note that the symmetry breaking based on items of same size
+as discussed in \autoref{sec:c:bpp:naive} cannot be used as it is
+incompatible with rule for a perfect fit\footnote{Thanks to
+  Florian ??? for pointing this out.}.
+
 \paragraph{Model.}
 
 \begin{figure}
@@ -1117,10 +1122,6 @@ public:
       rel(*this, (bins < i) == (load[i-1] == 0));
     IntArgs sizes(n, size);
     binpacking(*this, load, bin, sizes);
-    // symmetry breaking
-    for (int i=1; i<n; i++)
-      if (size[i-1] == size[i])
-        rel(*this, bin[i-1] <= bin[i]);
     // pack items that require a bin
     for (int i=0; (i < n) && (i < u) && (size[i] * 2 > c); i++)
       rel(*this, bin[i] == i);
