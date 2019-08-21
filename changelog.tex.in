@@ -9,7 +9,7 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
-  \cle[\AckName{Florian}{???}]{2019-08-22}{Fixed symmetry
+  \cle[\AckName{Florian}{Fontan}]{2019-08-22}{Fixed symmetry
     breaking when using CDBF
   \autoref{chap:c:bpp}.}
   \cle{2019-05-28}{Fixed opaque colors} 
