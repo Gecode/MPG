@@ -938,7 +938,7 @@ abstract class requires that two virtual member functions
 \?operator()()? and \?operator++()? are implemented, where the
 first returns the current cutoff value and the second increments
 to the next cutoff value and returns it. Cutoff values are of
-type \?unsigned long int?.
+type \?unsigned long long int?.
 
 When using the restart meta engine, an instance of a subclass of
 \gecoderef[class]{Search::Cutoff} must be passed to the engine by
@@ -963,7 +963,7 @@ $$
 
 \begin{samepage}
   A cutoff generator \?c? for a geometric cutoff sequence with
-  scale-factor \?s? (of type \?unsigned long int?) and base \?b?
+  scale-factor \?s? (of type \?unsigned long long int?) and base \?b?
   (of type \?double?) is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::geometric(s,b);
@@ -985,7 +985,7 @@ $$
   scaled by multiplying them with a scale-factor \?s?.
   
   A cutoff generator \?c? for a Luby cutoff sequence with scale-factor
-  \?s?  (of type \?unsigned long int?) is created by:
+  \?s?  (of type \?unsigned long long int?) is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::luby(s);
 \end{smallcode}
@@ -1001,8 +1001,9 @@ $$
 are chosen randomly.
 
    A cutoff generator \?c? for a random sequence with lower bound
-   \?min?, upper bound \?max?, and number of values \?n? (all of
-   type \?unsigned long int?)
+   \?min?, upper bound \?max?, and number of values \?n? (where
+   \?c?, \?min?, and \?max? are of
+   type \?unsigned long long int? and \?n? of type \?unsigned long int?)
    is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::rnd(seed,min,max,n);
@@ -1022,7 +1023,7 @@ The generator is implemented by the class
 
 \begin{samepage}
   A cutoff generator \?c? for a constant cutoff sequence with
-  scale-factor \?s? (of type \?unsigned long int?) is created by:
+  scale-factor \?s? (of type \?unsigned long long int?) is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::constant(s);
 \end{smallcode}
@@ -1036,7 +1037,7 @@ $$
 
 \begin{samepage}
   A cutoff generator \?c? for a linear cutoff sequence with
-  scale-factor \?s? (of type \?unsigned long int?) is created by:
+  scale-factor \?s? (of type \?unsigned long long int?) is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::linear(s);
 \end{smallcode}
@@ -1053,7 +1054,7 @@ The generator is implemented by the class
 k_0,k_1,\ldots,k_{\mathtt{n}-2},k_{\mathtt{n}-1},l_0,l_1,l_2,\ldots
 $$
   A cutoff generator \?c? for an appended cutoff sequence with
-  \?n? (of type \?unsigned long int?) values from cutoff generator
+  \?n? (of type \?unsigned long long int?) values from cutoff generator
   \?c1? followed by values from cutoff generator \?c2? is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::append(c1,n,c2);
@@ -1079,7 +1080,7 @@ The generator is implemented by the class
 \gecoderef[class]{Search::CutoffMerge}.
 
 \item[Repeat.] A repeated cutoff sequence \?c? with repeat factor
-  \?n? (of type \?unsigned long int?) 
+  \?n? (of type \?unsigned long long int?) 
   for the cutoff sequence $\mathtt{c}'$ (with values
   $k_0,k_1,k_2,\ldots$) consists of the following values:
   $$
@@ -1095,7 +1096,7 @@ The generator is implemented by the class
 $$
   A cutoff generator \?c? for a repeated cutoff sequence with
   repeat factor
-  \?n? (of type \?unsigned long int?) and values from the cutoff generator
+  \?n? (of type \?unsigned long long int?) and values from the cutoff generator
   \?c1? is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::repeat(c1,n);
@@ -1167,9 +1168,9 @@ idea how \?constrain()?  works for best solution search).
 \multicolumn{3}{|c|}{restart-based information}\\
 \hline
 \?restart()? & \?unsigned long int? & number of restart\\
-\?solution()? & \?unsigned long int? & number of solutions since
+\?solution()? & \?unsigned long long int? & number of solutions since
 last restart\\
-\?fail()? & \?unsigned long int? & number of failures since
+\?fail()? & \?unsigned long long int? & number of failures since
 last restart\\
 \?last()? & \?const Space*? & last solution found (or \?NULL?)\\
 \?nogoods()? & \?const NoGoods&? & no-goods recorded from restart\\
