@@ -1000,11 +1000,9 @@ $$
 $$
 are chosen randomly.
 
-   A cutoff generator \?c? for a random sequence with lower bound
-   \?min?, upper bound \?max?, and number of values \?n? (where
-   \?c?, \?min?, and \?max? are of
-   type \?unsigned long long int? and \?n? of type \?unsigned long int?)
-   is created by:
+A cutoff generator \?c? for a random sequence with lower bound
+\?min?, upper bound \?max?, and number of values \?n? (all of
+type \?unsigned long long int?)  is created by:
 \begin{smallcode}
 Search::Cutoff* c = Search::Cutoff::rnd(seed,min,max,n);
 \end{smallcode}
