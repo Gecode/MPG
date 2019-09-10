@@ -22,8 +22,9 @@ the [Gecode Documentation Page](https://www.gecode.org/documentation.html).
 
 ## License
 
-All material in this repository but the example C++ code snippets
-are released under the terms of the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/) license.
+All material in this repository are released under the terms of
+the [Creative Commons Attribution-NonCommercial-NoDerivs
+3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/) license.
 
 ## This Repository
 
@@ -31,19 +32,12 @@ This repository contains the LaTex source code for MPG together with scripts and
 
 ## Building MPG
 
-Coming.
+In order to build MPG you need:
+ * a sufficiently recent TeX installation such as TeXLive
+ * perl
+ * ps2pdf which is part of GhostScript
 
-## Testing the Included Example Programs
-
-Coming.
-
-## Contributors
-
-Coming.
-
-## License 
-
-See above.
+Typing `make` `(up to three times) generates the file MPG.pdf.
 
 ## Contact
 
