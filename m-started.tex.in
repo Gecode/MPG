@@ -244,6 +244,14 @@ copies the array \?s.l?  from the space \?s? being cloned
 updating variables and variable arrays can be found in
 \autoref{sec:m:integer:update}.
 
+\tip{What is allowed during cloning}{
+\label{tip:m:started:cloneallowed}%
+In the copy constructor used during cloning the only thing that
+is allowed, is to update variables and other data structures. No
+new variables can be created and also no new constraints or
+branchers can be posted.
+}
+
 
 \paragraph{Printing solutions.}
 
