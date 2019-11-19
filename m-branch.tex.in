@@ -978,11 +978,7 @@ the seed value is set to \?2? (the \?seed()? function also
 expects an argument of type \?unsigned int?).
 
 A random number generator is passed by reference to the
-brancher. In the terms of \autoref{sec:m:integer:proper}, a
-random number generator is a proper data structure. When a random
-number generator is stored as a member of a space it must be
-updated by using the \?update()? function of the random number
-generator.
+brancher. 
 
 \begin{samepage}
 It is possible to use the same random number generator for both
