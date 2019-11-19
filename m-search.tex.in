@@ -1816,7 +1816,7 @@ function as discussed in the previous section.
 
 From the argument of class \gecoderef[class]{MetaInfo} that is passed to the \?master()? function a
 no-good of class \gecoderef[class]{NoGoods} can be retrieved by
-calling the \?nogoods()? function. A no-good It has really only
+calling the \?nogoods()? function. A no-good has really only
 \?post()? as its single important member function. The following
 \?master()? function posts all constraints corresponding to the
 no-goods that can be derived from a restart (this is also the

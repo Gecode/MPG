@@ -510,7 +510,7 @@ call "c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\...
 VC\Auxiliary\Build\vcvarsall.bat" x64
 \end{cmd}
   for the 64-bit compiler version (\texttt{x64}), where \?...?
-  menas that line continues. The line needs
+  means that line continues. The line needs
   to be after the \texttt{\@echo~off} command at the beginning of
   the file.
  
