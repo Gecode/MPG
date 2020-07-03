@@ -79,7 +79,7 @@
     optimization spaces and scripts (see
     \autoref{sec:m:minimodel:optimize} and
     \autoref{sec:m:driver:script}).}
-  \cle[\AckName{Roberto}{Castañeda Lozano}]{2015-02-26}{Improved
+  \cle[\AckName{Roberto}{CastaÃ±eda Lozano}]{2015-02-26}{Improved
     explanation of activity.}  \cle{2015-01-20}{Released for
     Gecode 4.3.3} \cle{2015-01-19}{Documented the argument of
     minimum and maximum constraints (see
@@ -109,7 +109,7 @@
     \autoref{sec:m:gist:print})} \cle{2013-05-03}{Documented
     variable-value print functions for branching (see
     \autoref{sec:m:branch:print})} \cle{2013-03-14}{Released for
-    Gecode 4.0.0} \cle[\AckName{Roberto}{Castañeda
+    Gecode 4.0.0} \cle[\AckName{Roberto}{CastaÃ±eda
     Lozano}]{2013-04-12}{Fixed documentation of user-defined
     variable selection (the \?_MERIT_? part was missing) (see
     \autoref{sec:m:branch:uservar})} \cle{2013-03-08}{Documented
@@ -273,18 +273,18 @@
   \cle{2009-05-20}{Released for Gecode 3.1.0}
   \cle{2009-05-12}{Documented parallel search
     (\autoref{sec:m:search:parallel})}
-  \cle[\AckName{Markus}{Böhm}]{2009-05-08}{Clarified the use of
+  \cle[\AckName{Markus}{BÃ¶hm}]{2009-05-08}{Clarified the use of
     \?"<GECODEDIR>"?.  (\autoref{sec:m:started:windows})}
   \cle{2009-04-20}{Documented script commandline driver
     (\autoref{sec:m:comfy:driver}, \autoref{chap:m:driver})}
   \cle{2009-04-09}{Documented \?wait? post functions
     (\autoref{sec:m:integer:exec}, \autoref{sec:m:set:exec})}
   \cle{2009-03-26}{Released for Gecode 3.0.2}
-  \cle[\AckName{Roberto}{Castañeda Lozano}]{2009-03-26}{Fix for
+  \cle[\AckName{Roberto}{CastaÃ±eda Lozano}]{2009-03-26}{Fix for
     gcc compilation instructions in
     \autoref{sec:m:started:linux}} \cle{2009-03-24}{Released for
     Gecode 3.0.1}
-  \cle[\AckName{Håkan}{Kjellerstrand}]{2009-03-23}{Generate
+  \cle[\AckName{HÃ¥kan}{Kjellerstrand}]{2009-03-23}{Generate
     shorter inter-document references to avoid problems with some
     PDF viewers} \cle{2009-03-13}{Initial release for Gecode
     3.0.0}

@@ -2019,12 +2019,12 @@ example script.
   this chapter!
 \end{important}
 
-\section{Golomb rulers à la integer interval variables}
+\section{Golomb rulers Ã  la integer interval variables}
 \label{sec:v:all:golomb}
 
 \begin{figure}
 \insertlitcode{putting everything together}
-\caption{Golomb rulers à la integer interval variables}
+\caption{Golomb rulers Ã  la integer interval variables}
 \label{fig:v:all:golomb}
 \end{figure}
 
