@@ -1,5 +1,5 @@
-VERSION = 6.2.1
-YEAR    = 2019
+VERSION = 6.3.1
+YEAR    = 2020
 
 CHAPSRC = \
 	intro \
