@@ -91,7 +91,7 @@ option & type & explanation \\
 \hline\hline
 \multicolumn{3}{|c|}{execution options}\\\hline
 \texttt{-mode} & $\{\mathtt{solution},\mathtt{time},\mathtt{stat},$ & script mode to run\\
-        & $\;\mathtt{gist},\mathtt{cpprofiler}\}$ & \\
+       & $\;\mathtt{gist}\}$ & \\
 \texttt{-samples} & \?unsigned int? & how many samples\\
 \texttt{-iterations} & \?unsigned int? & how many iterations per
 sample\\
@@ -108,12 +108,9 @@ $\{\mathtt{init},\mathtt{prune},\mathtt{fix},\mathtt{fail},\mathtt{done},$
 & which events to trace\\
 &$\;\mathtt{propagate},\mathtt{commit},\mathtt{none},\mathtt{all}\}$&\\
 \hline
-\texttt{-cpprofiler-id} & \?int? &
-execution identifier for CPProfiler\\
-\texttt{-cpprofiler-port} & \?unsigned int? &
-port used to connect to CPProfiler\\
-\texttt{-cpprofiler-info} & $\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}$ &
-whether to send node information\\
+\texttt{-cp-profiler} & \?int,int? &
+      Comma separated pair of execution id \\
+  & & and port number to connect to CPProfiler. \\
 \hline
 \end{tabular}
 \end{center}
@@ -210,14 +207,6 @@ have the following meaning:
   If Gecode has not been compiled with support for Gist (see
   \autoref{tip:m:comfy:conf} for how to find out about Gecode's
   configuration), the mode \texttt{gist} will be ignored and the
-  mode \texttt{solution} is used instead.
-\item \texttt{cpprofiler} runs the script in solution mode but
-  also connects to the CPProfiler, see also
-  \autoref{sec:m:search:cpprofiler}.  
-  
-  If Gecode has not been compiled with support for the CPProfiler (see
-  \autoref{tip:m:comfy:conf} for how to find out about Gecode's
-  configuration), the mode \texttt{cpprofiler} will be ignored and the
   mode \texttt{solution} is used instead.
 \end{itemize}
 
