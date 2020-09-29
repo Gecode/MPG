@@ -252,6 +252,15 @@ new variables can be created and also no new constraints or
 branchers can be posted.
 }
 
+\tip{Do not use the copy constructor directly}{
+\label{tip:m:started:donotusecopyconstructor}%
+The copy constructor for a Space is not enough to create a fully
+initialized clone, and therefore you should not call it directly. The
+same goes for the copy member function. If
+you do need to create a clone, the clone member of
+\gecoderef[class]{Space} should be used.
+}
+
 
 \paragraph{Printing solutions.}
 
