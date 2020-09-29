@@ -9,6 +9,8 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2020-09-29}{Added tip about not using the copy constructor directly
+    (see \autoref{tip:m:started:donotusecopyconstructor}).}
   \cle[\AckName{Florian}{Fontan}]{2019-08-22}{Fixed symmetry
     breaking when using CDBF
   \autoref{chap:c:bpp}.}

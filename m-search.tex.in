@@ -68,6 +68,10 @@ course equivalent. Restoration with cloning is straightforward:
 before following a particular alternative during search, a clone
 of the space is made and used later if necessary.
 
+Remember~\autoref{tip:m:started:donotusecopyconstructor}. To create a
+clone of a Space the clone member function should be called, not the
+copy function nor the copy constructor.
+
 \subsection{Recomputation}
 \label{sec:m:search:recomp}
 
