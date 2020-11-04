@@ -353,11 +353,11 @@ supports propagators that are weakly monotonic but not
 necessarily monotonic. In summary, a weakly monotonic propagator
 can perform more or less propagation (that is, prune more values
 from variables domains or prune fewer values from variable
-domains) but is still correct and complete, see also
+domains) but is still correct and checking, see also
 \autoref{par:p:started:wmp}.
 
 As weakly monotonic constraint propagation is still correct and
-complete, also recomputation is
+checking, also recomputation is
 correct in the following sense: All solutions that are found by
 search starting from space \?s? are also found by search starting
 from space \?t?. However, search might find the solutions in
