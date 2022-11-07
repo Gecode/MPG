@@ -471,11 +471,7 @@ cl /DNDEBUG /EHsc /MD /Ox /wd4355 -I"%GECODEDIR%\include" \
 When your Microsoft Visual Studio solution uses Gecode, all
 necessary settings can be configured in the properties dialog of
 your solution. We assume that Gecode is installed in the default
-location \?"<GECODEDIR>"?.\footnote{Unfortunately, the development
-environment does
-not resolve \?%GECODEDIR%? automatically. So you have to replace
-\?"<GECODEDIR>"? in the following by the path where Gecode has
-been installed.}
+location \?"<GECODEDIR>"?.
 \begin{itemize}
 \item You must use dynamic linking against a multithreaded
   library. That is, either \?/MD? (release build) or \?/MDd?
@@ -487,11 +483,11 @@ been installed.}
   assertions by defining \?/DNDEBUG? (this is true by default).
 \item Configuration Properties, \CPP, General: set the
   "Additional Include Directories" to include 
-  \?"<GECODEDIR>\include"? as the directory
+  \?"$(GECODEDIR)\include"? as the directory
   containing the Gecode header files.
 \item Configuration Properties, Linker, General: set the
   "Additional Library Directories" to 
-  \?"<GECODEDIR>\lib"? as the path containing the
+  \?"$(GECODEDIR)\lib"? as the path containing the
   libraries.
 \end{itemize}
 
@@ -500,7 +496,7 @@ been installed.}
   A setup that works well for us is to install
   \AURL{http://www.cygwin.com}{Cygwin} and Microsoft Visual
   Studio (Microsoft distributes a free
-  \AURL{https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx}{Community Edition}). 
+  \AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Community Edition}). 
   
   The easiest way to use the Microsoft Visual Studio \CPP{}
   compiler (\?cl?) from Cygwin is to add a line that loads the
@@ -508,28 +504,30 @@ been installed.}
   \?Cygwin.bat? file that starts Cygwin. The file  \?vcvarsall.bat? comes
   with Microsoft Visual Studio (for example, it is used to start
   the Visual Studio Command Prompt). On my machine using the Visual
-  Studio 2017 Community Edition, the added line is
+  Studio Community 2022, the added line is
 \begin{cmd}
-call "c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\...
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\...
   VC\Auxiliary\Build\vcvarsall.bat" x86
 \end{cmd}
   for the 32-bit compiler version (\texttt{x86}) and
 \begin{cmd}
-call "c:\Program Files (x86)\Microsoft Visual Studio\2017\Community\...
-VC\Auxiliary\Build\vcvarsall.bat" x64
+call "C:\Program Files\Microsoft Visual Studio\2022\Community\...
+  VC\Auxiliary\Build\vcvarsall.bat" x64
 \end{cmd}
   for the 64-bit compiler version (\texttt{x64}), where \?...?
-  means that line continues. The line needs
+  means that the line continues. The line needs
   to be after the \texttt{\@echo~off} command at the beginning of
   the file.
  
-  Or, you start the Visual Studio Command Prompt first, and then
-  start the bash shell by hand with
+  Or, you start the appropriate version of the Visual Studio Command Prompt
+  first (look for \emph{x64 Native Tools Command Prompt for VS 2022},
+  \emph{x86 Native Tools Command Prompt for VS 2022}, or similar),
+  and then start the bash shell by hand with
 \begin{cmd}
-chdir c:\Cygwin\bin
+cd C:\Cygwin\bin
 bash --login -i
 \end{cmd}
-  provided that Cygwin is installed in \?c:\Cygwin?.
+  provided that Cygwin is installed in \?C:\Cygwin?.
 }
 
 \subsection{Apple Mac OS}
@@ -823,24 +821,13 @@ Naturally the following sections are platform specific.
 \label{sec:m:started:install:windows}
 
 The pre-compiled Gecode binaries available for download require
-Microsoft Visual Studio. Note that Visual Express
-Editions are available free of charge from 
-\AURL{http://www.microsoft.com/Express}{Microsoft}.
+Microsoft Visual Studio. Note that Visual Studio Community
+is available free of charge from
+\AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Microsoft}.
 
 Pre-compiled binaries are available for several versions of
 Microsoft Visual \CPP. The binary packages include everything
 needed (in particular, Qt for Gist).
-
-\tip{Compiling on Windows for \?x86? versus \?x64?}{
-\label{tip:m:started:x86x64}%
-The \AURL{https://www.gecode.org/download.html}{download section}
-on Gecode's website offers Windows packages for two different
-platforms: one for \?x86? (32~bit) and one for \?x64? (64~bit).
-When downloading and installing one of these packages you should
-make sure that the package's platform matches the compiler you are using
-(the Windows platform does not matter). Some freely available
-Express Editions of Visual Studio only support \?x86?.
-}
 
 \subsubsection{Installing Gecode on Apple Mac OS}
 \label{sec:m:started:install:macos}
@@ -898,9 +885,9 @@ all necessary tools (see also \autoref{tip:m:started:cygwin}).
 
 We currently support:
 \begin{itemize}
-\item Microsoft Visual \CPP{} compilers for Windows. The Microsoft
-  Visual \CPP{} Express Edition is available free of charge
-  from \AURL{http://www.microsoft.com/Express}{Microsoft}.
+\item Microsoft Visual \CPP{} compilers for Windows. Microsoft
+  Visual Studio Community is available free of charge
+  from \AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Microsoft}.
 \item GNU Compiler Collection (gcc) for Unix flavors
   such as Linux and MacOS X. The GNU gcc is open source software
   and available from \AURL{http://gcc.gnu.org/}{the GCC home
