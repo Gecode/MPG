@@ -524,8 +524,7 @@ call "C:\Program Files\Microsoft Visual Studio\2022\Community\...
   \emph{x86 Native Tools Command Prompt for VS 2022}, or similar),
   and then start the bash shell by hand with
 \begin{cmd}
-cd C:\Cygwin\bin
-bash --login -i
+C:\Cygwin\Cygwin.bat
 \end{cmd}
   provided that Cygwin is installed in \?C:\Cygwin?.
 }
@@ -825,9 +824,12 @@ Microsoft Visual Studio. Note that Visual Studio Community
 is available free of charge from
 \AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Microsoft}.
 
-Pre-compiled binaries are available for several versions of
-Microsoft Visual \CPP. The binary packages include everything
-needed (in particular, Qt for Gist).
+The provided binary package should work with the version of
+Microsoft Visual \CPP identified in the package name
+as well as with newer versions of Microsoft Visual \CPP;
+please see \AURL{https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017}{https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017}
+for additional information.
+The binary package includes everything needed (in particular, Qt for Gist).
 
 \subsubsection{Installing Gecode on Apple Mac OS}
 \label{sec:m:started:install:macos}
@@ -971,21 +973,22 @@ the toplevel compile directory or the installation directory
 
 The Gecode Interactive Search Tool (Gist) is a graphical search
 engine for Gecode, built on top of the
-\AURL{http://qt.nokia.com/}{Qt GUI toolkit}.
+\AURL{http://qt.io/}{Qt GUI toolkit}.
 
 In order to compile Gecode with Gist, you need an installation of
 the Qt library including the development header files. The Qt
 binary packages for Windows and Mac OS (available from
-\AURL{http://qt.nokia.com/}{the Nokia Qt web pages}) as well as
+\AURL{http://qt.io/}{the Qt web pages}) as well as
 the Qt packages in the usual Linux distributions contain
 everything that is necessary. You can however also compile Qt
-from its sources, \AURL{http://qt.nokia.com/}{available from
-  Nokia under both free and commercial licenses}.
+from its sources, \AURL{http://qt.io/}{available
+  under both free and commercial licenses}.
 
-\textbf{Please note that if you develop closed-source software with Gecode and Gist, you will have to either comply with the LGPL, or obtain a commercial license for Qt from Nokia!}
+\textbf{Please note that if you develop closed-source software with Gecode and Gist, you will have to either comply with the LGPL, or obtain a commercial license for Qt!}
 
 If you are developing on Windows using the Microsoft Visual \CPP{} compiler,
-make sure to compile the Qt library with the same compiler.
+preferably compile the Qt library with the same compiler that you use for Gecode
+(see also see \AURL{https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017}{https://learn.microsoft.com/en-us/cpp/porting/binary-compat-2015-2017}).
 
 After installing Qt, make sure that the \?qmake? tool is in your
 shell path. The Gecode \?configure? script will then detect the
@@ -995,8 +998,8 @@ presence of Qt and automatically compile with support for Gist.
 \label{tip:m:started:samecompiler}%
 Please make sure that the compiler with which Qt has been
 compiled is compatible with the compiler you intend to use for
-Gecode (most likely, the requirement is that both packages must
-be compiled with the very same compiler).
+Gecode (the requirement might be that both packages have been
+compiled with the very same compiler).
 
 In particular, make sure that this is true when you install a Qt
 binary package. Watch out for pre-installed Qt packages! For
@@ -1004,6 +1007,13 @@ example: the Qt packages on Windows available through Cygwin
 should be disabled or deinstalled when you want to use Qt and
 Gecode with the Microsoft Visual \CPP{} compiler.
 }
+
+On Windows, it is possible to use \AURL{https://vcpkg.io/}{vcpkg};
+in the Visual Studio Command Prompt, run
+\begin{cmd}
+vcpkg install qtbase[core,gui,widgets]
+\end{cmd}
+and make sure that Qt is in the PATH prior to running \?configure?.
 
 \paragraph{Compilation with support for trigonometric and
   transcendental float constraints.}
@@ -1028,6 +1038,12 @@ instruct \?configure? to use these packages:
   files of MPFR are installed.
 \end{itemize}
 
+On Windows, it is possible to use \AURL{https://vcpkg.io/}{vcpkg};
+in the Visual Studio Command Prompt, run
+\begin{cmd}
+vcpkg install gmp mpfr
+\end{cmd}
+and point \?configure? at the appropriate directories.
 
 \subsection{Advanced configuration and compilation}
 \label{sec:m:started:compileadvanced}
