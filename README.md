@@ -7,15 +7,18 @@ This repository contains the LaTeX source and generated code examples for **Mode
 The project now uses a Python CLI as the primary interface:
 
 ```bash
-uv run -- python bin/mpg.py doctor
-uv run -- python bin/mpg.py extract
-uv run -- python bin/mpg.py build --kind all
-uv run -- python bin/mpg.py run --kind all
-uv run -- python bin/mpg.py test --kind all
-uv run -- python bin/mpg.py docs
+uv run -- python -m tools.mpg doctor
+uv run -- python -m tools.mpg extract
+uv run -- python -m tools.mpg build --kind all
+uv run -- python -m tools.mpg run --kind all
+uv run -- python -m tools.mpg test --kind all
+uv run -- python -m tools.mpg docs
+uv run -- python -m unittest discover -s tests -p "test_*.py"
 ```
 
-A thin `Makefile` is kept for compatibility (`make quick`, `make gcc`, `make gcc-test`, `make gcc-notest`, `make clean`).
+A thin `Makefile` is kept with modern targets:
+`make quick`, `make docs`, `make extract`, `make build`, `make build-test`, `make build-notest`, `make test`, `make clean`.
+Compatibility aliases (`make tex`, `make gcc`, `make gcc-test`, `make gcc-notest`) are retained.
 You can pass Gecode location through make variables, for example:
 `make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make gcc GECODE_PREFIX=/usr/local`.
 If neither is set and `../gecode/test/test.cpp` exists, the Makefile auto-uses `../gecode` for full test coverage.
@@ -35,7 +38,7 @@ If these are unavailable from the current configuration, MPG fails with guidance
 For full coverage, use:
 
 ```bash
-uv run -- python bin/mpg.py test --kind all --gecode-root ../gecode
+uv run -- python -m tools.mpg test --kind all --gecode-root ../gecode
 ```
 
 ## Workspace Layout
@@ -51,7 +54,7 @@ Generated files are written to `.mpg/`:
 
 ## Docs Build
 
-`uv run -- python bin/mpg.py docs` uses the layout-compatible legacy pipeline:
+`uv run -- python -m tools.mpg docs` uses the layout-compatible legacy pipeline:
 
 - `latex`
 - `bibtex`
@@ -72,5 +75,5 @@ This preserves chapter/code structure and link behavior while modernizing orches
 
 ## CI
 
-- `examples.yml` runs `doctor`, `extract`, and `test --kind all` on Linux/macOS/Windows.
+- `examples.yml` runs periodic checks for `make test` and `make docs` on Linux.
 - `docs.yml` builds the PDF on Linux and publishes it as an artifact.

@@ -7,7 +7,7 @@ import tarfile
 import zipfile
 from pathlib import Path
 
-from .common import GEN_SRC, GEN_TEX, ROOT, WORK, ensure_dirs, run_cmd, which, write_json
+from .common import GEN_SRC, GEN_TEX, ROOT, WORK, ensure_dirs, which, write_json
 from .config import get_config, write_default_config
 from .examples import build, run_examples, write_manifest
 from .gecode import has_test_framework, resolve_gecode

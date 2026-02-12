@@ -21,6 +21,12 @@ def _existing(ps: list[Path]) -> list[Path]:
     return [p for p in ps if p.exists()]
 
 
+def _prefix_dirs(prefix: Path) -> tuple[list[Path], list[Path]]:
+    include_dirs = _existing([prefix / "include", prefix / "include" / "gecode"])
+    lib_dirs = _existing([prefix / "lib", prefix / "lib64", prefix / "bin"])
+    return include_dirs, lib_dirs
+
+
 def resolve_gecode(gecode_root: str | None, gecode_prefix: str | None) -> GecodeConfig:
     root: Path | None = Path(gecode_root).resolve() if gecode_root else None
     prefix: Path | None = Path(gecode_prefix).resolve() if gecode_prefix else None
@@ -28,18 +34,22 @@ def resolve_gecode(gecode_root: str | None, gecode_prefix: str | None) -> Gecode
     if root:
         include_dirs = _existing([root, root / "gecode", root / "build", root / "build" / "gecode"])
         lib_dirs = _existing([root, root / "build", root / "lib", root / "build" / "lib"])
+        if prefix:
+            p_inc, p_lib = _prefix_dirs(prefix)
+            include_dirs.extend(p_inc)
+            lib_dirs.extend(p_lib)
         env = os.environ.copy()
         var = platform_lib_path_var()
         prior = env.get(var, "")
-        entries = [str(p) for p in lib_dirs]
+        entries = [str(p) for p in dict.fromkeys(lib_dirs)]
         if prior:
             entries.append(prior)
         env[var] = os.pathsep.join(entries)
-        return GecodeConfig("root", root, None, include_dirs, lib_dirs, env)
+        mode = "root+prefix" if prefix else "root"
+        return GecodeConfig(mode, root, prefix, include_dirs, lib_dirs, env)
 
     if prefix:
-        include_dirs = _existing([prefix / "include", prefix / "include" / "gecode"])
-        lib_dirs = _existing([prefix / "lib", prefix / "lib64", prefix / "bin"])
+        include_dirs, lib_dirs = _prefix_dirs(prefix)
         env = os.environ.copy()
         var = platform_lib_path_var()
         prior = env.get(var, "")

@@ -1,9 +1,7 @@
-.PHONY: all quick tex gcc gcc-test gcc-notest test docs dist clean realclean veryclean doctor
+.PHONY: all quick docs extract build build-test build-notest test dist doctor clean tex gcc gcc-test gcc-notest
 
 UV ?= uv
-export UV_CACHE_DIR ?= $(CURDIR)/.mpg/uv-cache
-export UV_PROJECT_ENVIRONMENT ?= $(CURDIR)/.mpg/.venv
-MPG = $(UV) run -- python bin/mpg.py
+MPG = $(UV) run -- python -m tools.mpg
 AUTO_GECODE_ROOT := $(abspath ../gecode)
 ifeq ($(strip $(GECODE_ROOT)$(GECODE_PREFIX)),)
 ifneq ($(wildcard $(AUTO_GECODE_ROOT)/test/test.cpp),)
@@ -22,16 +20,16 @@ quick: docs
 docs:
 	$(MPG) docs $(GC_ARGS)
 
-tex:
+extract:
 	$(MPG) extract $(GC_ARGS)
 
-gcc:
+build:
 	$(MPG) build --kind all $(GC_ARGS)
 
-gcc-test:
+build-test:
 	$(MPG) build --kind tests $(GC_ARGS)
 
-gcc-notest:
+build-notest:
 	$(MPG) build --kind notest $(GC_ARGS)
 
 test:
@@ -46,5 +44,7 @@ doctor:
 clean:
 	$(MPG) clean $(GC_ARGS)
 
-realclean: clean
-veryclean: clean
+tex: extract
+gcc: build
+gcc-test: build-test
+gcc-notest: build-notest

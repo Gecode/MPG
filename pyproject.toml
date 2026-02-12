@@ -3,10 +3,3 @@ name = "mpg"
 version = "0.1.0"
 description = "Modern tooling for Modeling and Programming with Gecode"
 requires-python = ">=3.10"
-
-[project.scripts]
-mpg = "tools.mpg.cli:main"
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]

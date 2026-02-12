@@ -3,22 +3,26 @@ name: examples
 on:
   push:
   pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
 
 jobs:
-  test:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+  checks:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - name: Install Ninja
         uses: seanmiddleditch/gha-setup-ninja@v5
-      - name: Doctor
-        run: uv run -- python bin/mpg.py doctor
-      - name: Extract
-        run: uv run -- python bin/mpg.py extract
-      - name: Test all examples
-        run: uv run -- python bin/mpg.py test --kind all
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgecode-dev texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended dvipsk-java ghostscript
+      - name: Checkout Gecode sources
+        run: git clone --depth=1 https://github.com/Gecode/gecode.git ../gecode
+      - name: Python unit tests
+        run: uv run -- python -m unittest discover -s tests -p "test_*.py"
+      - name: make test
+        run: make test GECODE_ROOT=../gecode GECODE_PREFIX=/usr
+      - name: make docs
+        run: make docs

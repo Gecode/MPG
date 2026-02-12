@@ -34,11 +34,11 @@ def _quote_tex(s: str) -> str:
 
 def _inline_cpp_to_tex(line: str) -> str:
     while True:
-        m = re.search(r"\\\?([^\?]+)\?", line)
+        m = re.search(r"\\\?(.+?)\\\?", line)
         if not m:
             return line
-        content = m.group(1).replace(" ", r"\lits{}")
-        repl = "\\CppInline{" + _quote_tex(content) + "}"
+        content = _quote_tex(m.group(1)).replace(" ", r"\lits{}")
+        repl = "\\CppInline{" + content + "}"
         line = line[: m.start()] + repl + line[m.end() :]
 
 
@@ -145,7 +145,7 @@ def process_literate_file(src: Path, dst: Path, year: str, emit_cpp: bool = True
                 document.append(_inline_cpp_to_tex(l) + "\n")
                 continue
 
-            m = re.match(r"\\begin\{litblock\}\{(.*)\}", l)
+            m = re.match(r"\s*\\begin\{litblock\}\{(.*)\}", l)
             if m:
                 name = m.group(1)
                 if name == "texonly":

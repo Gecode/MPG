@@ -5,7 +5,7 @@ The Perl scripts in this directory are deprecated and retained for one compatibi
 Active workflows are now provided by:
 
 ```bash
-uv run -- python bin/mpg.py ...
+uv run -- python -m tools.mpg ...
 ```
 
 Legacy scripts are not part of the default build/test/docs pipeline anymore.
