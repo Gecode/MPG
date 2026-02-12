@@ -186,3 +186,5 @@ test-samedom-using-predefined-view-advisors.cpp
 test-samedom.cpp
 MPG.pdf
 *.exe
+.mpg/
+dist/

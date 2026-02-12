@@ -1,228 +1,50 @@
-VERSION = 6.3.0
-YEAR    = 2020
+.PHONY: all quick tex gcc gcc-test gcc-notest test docs dist clean realclean veryclean doctor
 
-CHAPSRC = \
-	intro \
-	m-started m-comfy m-integer m-set m-float m-minimodel \
-	m-branch m-search m-gist m-driver m-group \
-	p-started p-avoid p-reified p-views \
-	p-domain p-advisors p-memory p-sets p-floats \
-	b-started b-advanced \
-	s-started s-recomputation s-engine \
-	v \
-	c-knights c-nonogram c-magic-sequence c-warehouses \
-	c-golf c-golomb c-kakuro c-crossword c-photo \
-	c-bin-packing
-
-INSRC = ${CHAPSRC} \
-	changelog acks titles
-
-INTEXSRC = \
-	${INSRC:%=%.tex}
-
-MODELCPP = \
-	send-more-money-de-mystified \
-	send-more-money-with-gist \
-	send-more-money-with-gist-inspection \
-	send-more-money \
-	send-most-money-with-cost \
-	send-most-money-with-driver \
-	send-most-money \
-	knights nonogram magic-sequence magic-sequence-gcc \
-	warehouses golf golomb kakuro kakuro-naive crossword \
-	crossword-optimized photo photo-without-modeling-support \
-	bin-packing-naive bin-packing-propagation \
-	bin-packing-branching \
-	latin-square-ldsb
-TESTCPP = \
-	less-even-better less-better less-concise less \
-	disequality \
-	equal-naive equal equal-idempotent \
-	equal-idempotent-using-modification-events \
-	or-true or-true-concise \
-	or-true-with-dynamic-subscriptions \
-	less-or-equal-reified-full less-or-equal-reified-half \
-	max-using-rewriting \
-	or-true-using-rewriting \
-	min-and-max less-for-integer-and-Boolean-variables \
-	domain-equal-with-and-without-offset \
-	or-and-and-from-or \
-	naive-domain-equal non-shared-domain-equal \
-	domain-equal-using-bounds-propagation \
-	domain-equal-using-staging \
-	domain-equal-with-offset \
-	samedom samedom-using-predefined-view-advisors or \
-	intersection \
-	linear
-NOTESTCPP = \
-	shared-object-and-handle local-object-and-handle \
-	local-object-with-external-resources \
-	none-min none-min-improved size-min assign-min none-min-and-none-max \
-	none-min-with-no-good-support \
-	dfs-binary dfs bab \
-	dfs-using-full-recomputation dfs-using-full-recomputation-and-lao \
-	dfs-using-hybrid-recomputation dfs-using-adaptive-recomputation \
-	bab-using-full-recomputation \
-	dfs-engine integer-variable-tracer general-tracer \
-	example-search-tracer
-
-GECODEPATH	= ../gecode/
-
-MSVCEXE		= $(MODELCPP:%=%.exe)
-MSVCTESTEXE	= $(TESTCPP:%=test-%.exe)
-MSVCNOTESTEXE	= $(NOTESTCPP:%=notest-%.exe)
-MSVCCPPOPT	= -nologo -EHsc -MDd -wd4355	
-MSVCCPPOPT	= -DNDEBUG -nologo -EHsc -MD -Ox -fp:fast -GS- -wd4355
-MSVCINCL	= -I"${GECODEPATH}"
-MSVCLINK	= /link /LIBPATH:"${GECODEPATH}"
-
-GCCEXE = $(MODELCPP)
-GCCTESTEXE = $(TESTCPP:%=test-%)
-GCCNOTESTEXE = $(NOTESTCPP:%=notest-%)
-GCCCPPOPT = -NDEBUG -fvisibility=hidden -ffast-math -fno-strict-aliasing \
-	-pthread -O3 -ggdb
-#GCCCPPOPT = -pthread -ggdb
-GCCINCL = -I"${GECODEPATH}"
-GCCLINK = -L"${GECODEPATH}" -lgecodedriver -lgecodegist -lgecodesearch \
-	-lgecodeminimodel -lgecodeset \
-	-lgecodeint -lgecodekernel -lgecodesupport
-
-MAIN = MPG
-
-TEXSRC = \
-	${MAIN}.tex macros.tex ${INTEXSRC}
-
-PS2PDF	= ps2pdf
-DVIPS	= dvips -K -Ppdf
-DVIPDF	= dvipdf
-BIBTEX	= bibtex
-LATEX	= latex
-GL	= perl bin/gl.perl $(YEAR)
+UV ?= uv
+export UV_CACHE_DIR ?= $(CURDIR)/.mpg/uv-cache
+export UV_PROJECT_ENVIRONMENT ?= $(CURDIR)/.mpg/.venv
+MPG = $(UV) run -- python bin/mpg.py
+AUTO_GECODE_ROOT := $(abspath ../gecode)
+ifeq ($(strip $(GECODE_ROOT)$(GECODE_PREFIX)),)
+ifneq ($(wildcard $(AUTO_GECODE_ROOT)/test/test.cpp),)
+GC_ARGS = --gecode-root $(AUTO_GECODE_ROOT)
+else
+GC_ARGS =
+endif
+else
+GC_ARGS = $(if $(GECODE_ROOT),--gecode-root $(GECODE_ROOT),) $(if $(GECODE_PREFIX),--gecode-prefix $(GECODE_PREFIX),)
+endif
 
 all: quick
 
-acks.tex: changelog.tex.in
-	perl bin/gen-ack.perl < changelog.tex.in > acks.tex
+quick: docs
 
-titles.tex.in: ${CHAPSRC:%=%.tex.in} bin/gen-titles.perl
-	perl bin/gen-titles.perl ${CHAPSRC:%=%.tex.in} > titles.tex.in
+docs:
+	$(MPG) docs $(GC_ARGS)
 
-MPG.tex.in: MPG.tex.in.in ${INTEXSRC}
-	sed "s|@VERSION@|$(VERSION)|g" < MPG.tex.in.in | \
-	sed "s|@YEAR@|$(YEAR)|g" | \
-	perl bin/include.perl | \
-	perl bin/shorten.perl > MPG.tex.in
+tex:
+	$(MPG) extract $(GC_ARGS)
 
-#MPG.tex.in: MPG.tex.in.in ${INTEXSRC}
-#	sed "s|@VERSION@|$(VERSION)|g" < MPG.tex.in.in | \
-#	sed "s|@YEAR@|$(YEAR)|g" > MPG.tex.in
+gcc:
+	$(MPG) build --kind all $(GC_ARGS)
 
-quick: MPG.tex references.bib
-	$(LATEX) MPG
-	$(BIBTEX) MPG
-	mv MPG.out MPG.out.in
-	perl bin/fixout.perl < MPG.out.in > MPG.out
-	$(LATEX) MPG
-	$(DVIPS) MPG.dvi
-	$(PS2PDF) MPG.ps
+gcc-test:
+	$(MPG) build --kind tests $(GC_ARGS)
 
-MPG.bib: MPG.bib.in
-	sed "s|@VERSION@|$(VERSION)|g" < MPG.bib.in | \
-	sed "s|@YEAR@|$(YEAR)|g" > MPG.bib
+gcc-notest:
+	$(MPG) build --kind notest $(GC_ARGS)
 
-gecode.pl: ${CHAPSRC:%=%.tex.in}
-	perl bin/gccat.perl ${VERSION} ${YEAR} prolog ${CHAPSRC:%=%.tex.in} > \
-		gecode.pl
+test:
+	$(MPG) test --kind all $(GC_ARGS)
 
-distzip: MPG.bib MPG.tex.in MPG.pdf gecode.pl
-	rm -rf dist
-	mkdir dist
-	mkdir dist/MPG
-	(cd dist/MPG; \
-	 perl ../../bin/gen-files.perl '../..' < ../../MPG.tex.in; \
-	 cd ..; \
-	 tar cf - MPG | gzip -9 > MPG.tar.gz; \
-	 7z a MPG.7z MPG; \
-	 rm -rf MPG)
-	mkdir dist/MPG
-	cp MPG.pdf MPG.bib gecode.pl dist
-	cp *.cpp int.vis int.hh template.vis dist/MPG
-	(cd dist;zip -9 -r ../MPG.zip gecode.pl MPG.pdf MPG.bib MPG.tar.gz MPG.7z MPG)
-	rm -rf dist
+dist:
+	$(MPG) dist $(GC_ARGS)
 
-.SUFFIXES: .dvi .ps .pdf .aux .bbl .tex.in .tex .cpp .exe
-.PRECIOUS: .obj .cpp
+doctor:
+	$(MPG) doctor $(GC_ARGS)
 
-%.tex: %.tex.in bin/gl.perl
-	$(GL) < $< > $@
+clean:
+	$(MPG) clean $(GC_ARGS)
 
-test-%.cpp: %.cpp test/%.cpp
-	cat $< test/$< > test-$<
-notest-%.cpp: %.cpp notest/%.cpp
-	cat $< notest/$< > notest-$<
-
-%.obj: %.cpp
-	cl $(MSVCINCL) $(MSVCCPPOPT) -c -Fo$@ -Tp$<
-
-test-%.exe: test-%.obj
-	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ \
-		"${GECODEPATH}"/test/test.obj \
-		"${GECODEPATH}"/test/int.obj \
-		"${GECODEPATH}"/test/float.obj \
-		"${GECODEPATH}"/test/set.obj \
-		$< $(MSVCLINK)
-%.exe: %.obj
-	cl $(MSVCCPPOPT) $(MSVCINCL) -Fe$@ $< $(MSVCLINK)
-
-$(TESTCPP:%=test-%): test-%: test-%.o
-	$(CXX) $(GCCCPPOPT) $(GCCINCL) -o $@ \
-		"${GECODEPATH}"/test/test.o \
-		"${GECODEPATH}"/test/int.o \
-		"${GECODEPATH}"/test/float.o \
-		"${GECODEPATH}"/test/set.o \
-		$< $(GCCLINK)
-
-$(TESTCPP:%=test-%.o): test-%.o: test-%.cpp
-	$(CXX) $(GCCCPPOPT) $(GCCINCL) -c $< -o $@
-
-$(NOTESTCPP:%=notest-%.o): notest-%.o: notest-%.cpp
-	$(CXX) $(GCCCPPOPT) $(GCCINCL) -c $< -o $@
-
-$(MODELCPP:%=%.o): %.o: %.cpp
-	$(CXX) $(GCCCPPOPT) $(GCCINCL) -c $< -o $@
-
-$(MODELCPP) $(NOTESTCPP:%=notest-%): %: %.o
-	$(CXX) $(GCCCPPOPT) -o $@ $< $(GCCLINK)
-
-msvc: msvc-programs msvc-test msvc-notest
-
-msvc-programs: $(INTEXSRC) $(MSVCEXE)
-
-msvc-test: $(INTEXSRC) $(MSVCTESTEXE) $(TESTCPP:%=%.cpp)
-
-msvc-notest: $(INTEXSRC) $(MSVCNOTESTEXE) $(NOTESTCPP:%=%.cpp)
-
-gcc: gcc-programs gcc-test gcc-notest
-
-gcc-programs: $(INTEXSRC) $(GCCEXE)
-
-gcc-test: $(INTEXSRC) $(GCCTESTEXE) $(TESTCPP:%=%.cpp)
-
-gcc-notest: $(INTEXSRC) $(GCCNOTESTEXE) $(NOTESTCPP:%=%.cpp)
-
-tex: $(INTEXSRC)
-
-clean::
-	rm -f MPG.warns MPG.out MPG.out.in
-	rm -f *.aux *.lo[gftp] *.bbl *.blg *~ *.toc *.bak *.ilg *.ind *.idx *.idxx *.brf *.ps.bz2 *.pdf.bz2 *.top 
-	rm -f *.obj *.exe *.manifest
-	rm -f ${INTEXSRC} titles.tex.in
-	rm -f MPG.tex MPG.tex.in
-
-realclean:: clean
-	rm -f MPG.ps MPG.dvi MPG.pdf MPG.zip MPG.bib
-	rm -f gecode.pl
-	rm -f *.cpp int.hh
-
-veryclean:: realclean
-
+realclean: clean
+veryclean: clean

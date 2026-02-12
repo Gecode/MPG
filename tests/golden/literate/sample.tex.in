@@ -1,0 +1,13 @@
+Before \?int x = 1;\?
+\begin{litcode}{sample code}{schulte}
+\begin{litblock}{main}
+int main() {
+  \begin{litblock}{anonymous}
+  int x = 1;
+  \end{litblock}
+  return 0;
+}
+\end{litblock}
+\end{litcode}
+After
+\insertlitcode{sample code:main}

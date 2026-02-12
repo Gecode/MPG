@@ -1,0 +1,1790 @@
+Modeling and Programming
+with Gecode
+Christian Schulte
+Guido Tack
+Mikael Z. Lagerkvist
+
+This document was published on November 7, 2022. It corresponds to Gecode 6.3.0.
+
+© Christian Schulte, Guido Tack, Mikael Z. Lagerkvist, 2008–2020.
+
+License information
+This document is provided under the terms of the
+
+cbnd
+Creative Commons License Attribution-Noncommercial-No Derivative Works 3.0
+The complete license text can be found at the end of this document.
+We kindly ask you to not make this document available on the Internet such that it might
+be indexed by a search engine. We insist that search engines should point to a single and
+up-to-date version of this document.
+The location of this document is:
+https://www.gecode.org/doc/6.3.0/MPG.pdf
+
+The location of this document corresponding to the latest Gecode version is:
+https://www.gecode.org/doc-latest/MPG.pdf
+
+Acknowledgments
+We thank the following people for helpful comments: Vincent Barichard, Léonard Benedetti,
+Pavel Bochman, Markus Böhm, Roberto Castañeda Lozano, Marco Correia, Gregory Crosswhite, Pierre Flener, Florian Fontan, Gustavo Gutierrez, Gabriel Hjort Blindell, Sverker Janson, Andreas Karlsson, Håkan Kjellerstrand, Chris Mears, Benjamin Negrevergne, Flutra Osmani, Max Ostrowski, David Rijsman, Dan Scott, Kish Shen.
+
+Contents
+1 Introduction
+1.1 What is Gecode? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.2 What is this document? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.3 How to read this document? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.4 Do I need to be a C++ wizard? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.5 Can you help me? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.6 Does Gecode have bugs? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.7 How to refer to this document? . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1.8 Do you have comments? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+1
+2
+4
+5
+6
+6
+6
+7
+
+M Modeling
+
+9
+
+2 Getting started
+2.1 A first Gecode model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.2 Searching for solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3 Compiling, linking, and executing . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3.1 Microsoft Visual Studio . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3.2 Apple Mac OS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.3.3 Linux and relatives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.4 Using Gist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.5 Best solution search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.6 Obtaining Gecode . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.6.1 Installing Gecode . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.6.2 Compiling Gecode . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.6.3 Advanced configuration and compilation . . . . . . . . . . . . . . . . . .
+
+13
+13
+18
+20
+20
+22
+23
+25
+27
+29
+29
+29
+32
+
+3 Getting comfortable
+3.1 Posting linear constraints de-mystified . . . . . . . . . . . . . . . . . . . . . . . .
+3.2 Using a cost function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3 Using the script commandline driver . . . . . . . . . . . . . . . . . . . . . . . . .
+
+35
+35
+35
+38
+
+4 Integer and Boolean variables and constraints
+4.1 Integer and Boolean variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1.1 Creating integer variables . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+43
+44
+44
+
+I
+
+4.2
+
+4.3
+
+4.4
+
+4.5
+
+4.1.2 Limits for integer values . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1.3 Variable domains are never empty . . . . . . . . . . . . . . . . . . . . . .
+4.1.4 Creating Boolean variables . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1.5 Variable access functions . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1.6 Iterating over integer variable domains . . . . . . . . . . . . . . . . . . .
+4.1.7 When to inspect a variable . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.1.8 Updating variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Variable and argument arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2.1 Integer and Boolean variable arrays . . . . . . . . . . . . . . . . . . . . .
+4.2.2 Argument arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.2.3 STL-style iterators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Posting constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.1 Post functions are clever . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.2 Everything is copied . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.3 Reified constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.4 Half reification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.5 Selecting the propagation level . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.6 Exceptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.3.7 Unsharing arguments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Constraint overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.1 Domain constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.2 Membership constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.3 Simple relation constraints over integer variables . . . . . . . . . . . . .
+4.4.4 Simple relation constraints over Boolean variables . . . . . . . . . . . .
+4.4.5 Arithmetic constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.6 Linear constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.7 Distinct constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.8 Counting constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.9 Number of values constraints . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.10 Sequence constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.11 Channel constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.12 Element constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.13 Extensional constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.14 Sorted constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.15 Bin-packing constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.16 Geometrical packing constraints . . . . . . . . . . . . . . . . . . . . . . .
+4.4.17 Circuit and Hamiltonian path constraints . . . . . . . . . . . . . . . . . .
+4.4.18 Scheduling constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.4.19 Value precedence constraints . . . . . . . . . . . . . . . . . . . . . . . . .
+Synchronized execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+II
+
+45
+45
+46
+46
+46
+47
+47
+48
+48
+49
+52
+52
+52
+53
+53
+53
+55
+56
+56
+57
+57
+58
+58
+60
+61
+62
+63
+64
+66
+67
+67
+68
+69
+72
+72
+74
+74
+77
+80
+81
+
+5 Set variables and constraints
+5.1 Set variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2 Constraint overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.1 Domain constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.2 Relation constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.3 Set operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.4 Element constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.5 Constraints connecting set and integer variables . . . . . . . . . . . . .
+5.2.6 Set channeling constraints . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.7 Convexity constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.8 Sequence constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.9 Value precedence constraints . . . . . . . . . . . . . . . . . . . . . . . . .
+5.3 Synchronized execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+83
+83
+86
+86
+87
+88
+89
+89
+90
+91
+91
+91
+92
+
+6 Float variables and constraints
+93
+6.1 Float values and numbers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 93
+6.2 Float variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 94
+6.3 Constraint overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 97
+6.3.1 Domain constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 97
+6.3.2 Simple relation constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . 98
+6.3.3 Arithmetic constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 99
+6.3.4 Linear constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+6.3.5 Channel constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+6.4 Synchronized execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+7 Modeling convenience: MiniModel
+7.1 Expressions and relations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.1.1 Integer expressions and relations . . . . . . . . . . . . . . . . . . . . . . .
+7.1.2 Boolean expressions and relations . . . . . . . . . . . . . . . . . . . . . .
+7.1.3 Set expressions and relations . . . . . . . . . . . . . . . . . . . . . . . . .
+7.1.4 Float expressions and relations . . . . . . . . . . . . . . . . . . . . . . . .
+7.1.5 Extending Boolean expressions and relations . . . . . . . . . . . . . . .
+7.2 Matrix interface for arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.3 Support for cost-based optimization . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.4 Regular expressions for extensional constraints . . . . . . . . . . . . . . . . . . .
+7.5 Channeling functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.6 Aliases for integer constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7.7 Aliases for set constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+103
+103
+104
+107
+109
+112
+112
+114
+116
+117
+118
+119
+119
+
+8 Branching
+8.1 Branching basics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.2 Branching on integer and Boolean variables . . . . . . . . . . . . . . . . . . . . .
+8.3 Branching on set variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+121
+121
+122
+127
+
+III
+
+8.4 Branching on float variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.5 Local versus shared variable selection criteria . . . . . . . . . . . . . . . . . . . .
+8.5.1 Local variable selection criteria . . . . . . . . . . . . . . . . . . . . . . . .
+8.5.2 Selection using accumulated failure count . . . . . . . . . . . . . . . . .
+8.5.3 Selection using action . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.5.4 Selection using CHB . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.6 Random variable and value selection . . . . . . . . . . . . . . . . . . . . . . . . .
+8.7 User-defined variable selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.8 User-defined value selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.9 Tie-breaking . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.10 Lightweight Dynamic Symmetry Breaking . . . . . . . . . . . . . . . . . . . . . .
+8.10.1 Specifying Symmetry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.10.2 Notes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.11 Using branch filter functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.12 Using variable-value print functions . . . . . . . . . . . . . . . . . . . . . . . . . .
+8.13 Assigning integer, Boolean, set, and float variables . . . . . . . . . . . . . . . . .
+8.14 Executing code between branchers . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+127
+130
+130
+131
+132
+134
+135
+136
+137
+138
+140
+142
+143
+143
+144
+145
+147
+
+9 Search
+9.1 Hybrid recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.1.1 Cloning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.1.2 Recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.1.3 Hybrid recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.1.4 Why recomputation is almost for free . . . . . . . . . . . . . . . . . . . .
+9.1.5 Adaptive recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.1.6 Controlling recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.2 Parallel search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.3 Search engines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.3.1 Search options . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.3.2 Stop objects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.4 Restart-based search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.4.1 Restart-based search as a meta search engine . . . . . . . . . . . . . . .
+9.4.2 Cutoff generators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.4.3 Computing a next solution . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.4.4 Master and slave configuration . . . . . . . . . . . . . . . . . . . . . . . .
+9.4.5 Large Neighborhood Search . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.5 Portfolio search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.5.1 Simple portfolio search as a meta search engine . . . . . . . . . . . . . .
+9.5.2 Master and slave configuration . . . . . . . . . . . . . . . . . . . . . . . .
+9.5.3 Parallel and sequential portfolios . . . . . . . . . . . . . . . . . . . . . . .
+9.5.4 Mixed portfolios . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.6 No-goods from restarts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9.7 Tracing search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+149
+149
+150
+150
+151
+151
+152
+153
+153
+157
+158
+159
+160
+161
+162
+165
+165
+167
+170
+170
+171
+172
+173
+175
+178
+
+IV
+
+9.8 Using the CPProfiler . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 182
+10 Gist
+10.1 The search tree . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.2 Invoking Gist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.2.1 Standalone use . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.2.2 Use as a Qt widget . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.3 Using Gist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.3.1 Automatic search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.3.2 Interactive search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.3.3 Branch-and-bound search . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.3.4 Inspecting and comparing nodes . . . . . . . . . . . . . . . . . . . . . . .
+10.3.5 Zooming, centering, exporting, printing . . . . . . . . . . . . . . . . . . .
+10.3.6 Options and preferences . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+185
+185
+186
+186
+187
+187
+187
+188
+189
+189
+192
+194
+
+11 Script commandline driver
+197
+11.1 Commandline options . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 197
+11.2 Scripts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 201
+12 Groups and tracing
+12.1 Propagator groups . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.2 Brancher groups . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.3 Variable tracing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.3.1 Creating a variable trace recorder . . . . . . . . . . . . . . . . . . . . . .
+12.3.2 Default variable tracers . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.3.3 Using trace filters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.3.4 Selecting the events to trace . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.3.5 Enabling and disabling variable trace recorders . . . . . . . . . . . . . .
+12.4 General tracing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.4.1 Creating a general trace recorder . . . . . . . . . . . . . . . . . . . . . . .
+12.4.2 Default general tracers . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.5 Programming variable tracers . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+12.5.1 Tracers for integer and Boolean variables . . . . . . . . . . . . . . . . . .
+12.5.2 Variable tracers for set variables . . . . . . . . . . . . . . . . . . . . . . .
+12.5.3 Variable tracers for float variables . . . . . . . . . . . . . . . . . . . . . .
+12.6 Programming general tracers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+203
+203
+205
+206
+207
+207
+210
+210
+211
+211
+211
+212
+213
+213
+217
+217
+218
+
+C
+
+221
+
+Case studies
+
+13 Golomb rulers
+13.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13.3 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+V
+
+223
+223
+225
+227
+
+14 Magic sequence
+14.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14.3 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+229
+229
+229
+231
+
+15 Photo alignment
+15.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+15.3 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+233
+233
+233
+236
+
+16 Locating warehouses
+16.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+16.3 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+237
+237
+238
+241
+
+17 Nonogram
+17.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17.3 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+243
+243
+243
+247
+
+18 Social golfers
+18.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18.3 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+249
+249
+249
+252
+
+19 Knight’s tour
+19.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+19.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+19.3 Branching . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+19.4 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+253
+253
+253
+256
+258
+
+20 Bin packing
+20.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20.2 A naive model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20.3 Improving propagation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20.4 Improving branching . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20.5 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+261
+261
+262
+267
+268
+274
+
+21 Kakuro
+21.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21.2 A naive model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21.3 A working model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21.4 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+275
+275
+275
+280
+283
+
+VI
+
+22 Crossword puzzle
+22.1 Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22.2 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22.3 An optimized model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22.4 More information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+285
+285
+285
+291
+293
+
+P
+
+299
+
+Programming propagators
+
+23 Getting started
+23.1 Constraint propagation in a nutshell . . . . . . . . . . . . . . . . . . . . . . . . .
+23.2 Background reading . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.3 What to implement? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.4 Implementing the less constraint . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.5 Improving the Less propagator . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.6 Propagation conditions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.7 Using propagator patterns . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.8 Propagator obligations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.9 Waiving obligations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+301
+301
+304
+305
+310
+314
+318
+322
+324
+325
+
+24 Avoiding execution
+24.1 Fixpoint reasoning reconsidered . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24.2 A Boolean disjunction propagator . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24.3 Dynamic subscriptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+327
+327
+331
+335
+
+25 Reification and rewriting
+25.1 Reification . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+25.2 A fully reified less or equal propagator . . . . . . . . . . . . . . . . . . . . . . . .
+25.3 Supporting both full and half reification . . . . . . . . . . . . . . . . . . . . . . .
+25.4 Rewriting during propagation . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+25.5 Rewriting during cloning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+339
+339
+340
+342
+345
+347
+
+26 Domain propagation
+26.1 Why domain operations are needed . . . . . . . . . . . . . . . . . . . . . . . . . .
+26.2 Iterator-based modification operations . . . . . . . . . . . . . . . . . . . . . . . .
+26.3 Taking advantage of iterators . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+26.4 Modification event deltas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+26.5 Staging . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+351
+351
+353
+356
+358
+360
+
+27 Advisors
+27.1 Advisors for incremental propagation . . . . . . . . . . . . . . . . . . . . . . . . .
+27.2 The samedom constraint . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27.3 General Boolean disjunction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27.4 Forced propagator re-scheduling . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+365
+365
+368
+375
+378
+
+VII
+
+28 Views
+28.1 Integer views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28.1.1 Minus views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28.1.2 Offset views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28.1.3 Constant and scale views . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28.2 Boolean views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28.3 Integer propagators on Boolean views . . . . . . . . . . . . . . . . . . . . . . . .
+
+379
+379
+379
+381
+382
+382
+382
+
+29 Propagators for set constraints
+385
+29.1 A simple example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 385
+29.2 Modification events, propagation conditions, views, and advisors . . . . . . . . 389
+30 Propagators for float constraints
+393
+30.1 A simple example . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 393
+30.2 Modification events, propagation conditions, views, and advisors . . . . . . . . 396
+31 Managing memory
+31.1 Memory areas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+31.2 Managing propagator state . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+31.3 Shared objects and handles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+31.4 Local objects and handles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+399
+399
+402
+404
+406
+
+B Programming branchers
+
+409
+
+32 Getting started
+32.1 What to implement? . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+32.2 Implementing a nonemin branching . . . . . . . . . . . . . . . . . . . . . . . . . .
+32.2.1 A naive brancher . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+32.2.2 Improving status and choice . . . . . . . . . . . . . . . . . . . . . . . . . .
+32.3 Implementing a sizemin branching . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+411
+411
+415
+417
+419
+421
+
+33 Advanced topics
+33.1 Assignment branchers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33.2 Supporting no-goods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33.2.1 Returning no-good literals . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33.2.2 Implementing no-good literals . . . . . . . . . . . . . . . . . . . . . . . .
+33.3 Using variable views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+423
+423
+423
+425
+427
+429
+
+V
+
+431
+
+Programming variables
+
+34 Getting started
+433
+34.1 Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 433
+VIII
+
+34.2 Structure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 435
+35 Variable implementations
+35.1 Design decisions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+35.2 Base definitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+35.3 Variable implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+35.4 Additional specification options . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+439
+439
+442
+445
+450
+
+36 Variables and variable arrays
+453
+36.1 Variables . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 453
+36.2 Variable arrays and variable argument arrays . . . . . . . . . . . . . . . . . . . . 455
+37 Views
+37.1 View types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+37.2 Variable implementation views: integer view . . . . . . . . . . . . . . . . . . . .
+37.3 Constant views: constant integer view . . . . . . . . . . . . . . . . . . . . . . . .
+37.4 Derived views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+37.4.1 Minus views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+37.4.2 Offset views . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+459
+459
+461
+462
+464
+466
+468
+
+38 Variable-value branchings
+38.1 Type, traits, action, and more . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+38.2 Variable and value selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+38.3 View selection creation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+38.4 Value selection and commit creation . . . . . . . . . . . . . . . . . . . . . . . . .
+38.5 Branchings . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+471
+471
+475
+477
+480
+483
+
+39 Variable tracing support
+39.1 Trace views and deltas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+39.2 Tracers and trace recorders . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+39.3 Trace post functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+487
+487
+490
+490
+
+40 Putting everything together
+493
+40.1 Golomb rulers à la integer interval variables . . . . . . . . . . . . . . . . . . . . 493
+40.2 Configuring and compiling Gecode . . . . . . . . . . . . . . . . . . . . . . . . . . 493
+
+S Programming search engines
+
+497
+
+41 Getting started
+41.1 Space-based search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+41.2 Binary depth-first search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+41.3 Depth-first search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+41.4 Branch-and-bound search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+499
+499
+503
+505
+507
+
+IX
+
+42 Recomputation
+42.1 Full recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+42.2 Recomputation invariants . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+42.2.1 Choice compatibility . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+42.2.2 Recomputation is not deterministic . . . . . . . . . . . . . . . . . . . . . .
+42.3 Branch-and-bound search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+42.4 Last alternative optimization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+42.5 Hybrid recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+42.6 Adaptive recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+511
+511
+515
+515
+516
+517
+519
+521
+524
+
+43 An example engine
+43.1 Engine design . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+43.2 Engine implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+43.3 Exploration . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+43.4 Recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+527
+527
+527
+530
+533
+
+Bibliography
+
+537
+
+Changelog
+
+545
+
+License
+
+551
+
+X
+
+Figures
+1.1
+1.2
+
+Gecode architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Dependencies among different parts of this document . . . . . . . . . . . . .
+
+3
+4
+
+2.1
+2.2
+2.3
+2.4
+2.5
+
+A Gecode model for Send More Money . . . . . . . . . . . . . . . . . . . . . . .
+Using Gist for Send More Money . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Gist screen shots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Using Gist for Send More Money with node inspection . . . . . . . . . . . . .
+A Gecode model for Send Most Money finding a best solution . . . . . . . . .
+
+14
+25
+26
+26
+27
+
+3.1
+3.2
+3.3
+
+A Gecode model for Send More Money using modeling support . . . . . . . .
+A Gecode model for Send Most Money using a cost function . . . . . . . . . .
+A Gecode model for Send Most Money using the script commandline driver
+
+36
+37
+39
+
+4.1
+4.2
+4.3
+4.4
+4.5
+4.6
+
+Integer relation types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Boolean operation types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Arithmetic constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+A DFA for the Swedish drinking protocol . . . . . . . . . . . . . . . . . . . . . .
+Representing edges and propagating circuit . . . . . . . . . . . . . . . . . .
+Representing edges and propagating circuit with cost . . . . . . . . . . . .
+
+58
+60
+62
+70
+75
+76
+
+5.1
+5.2
+
+Set relation types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Set operation types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+87
+88
+
+6.1
+6.2
+6.3
+
+Functions on float values . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Float relation types . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Arithmetic constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+95
+98
+99
+
+7.1
+7.2
+7.3
+7.4
+7.5
+7.6
+7.7
+7.8
+7.9
+
+Integer expressions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Integer relations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Boolean expressions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Set expressions and relations . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Float expressions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Float relations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+The class BoolDomExpr and the dom() function . . . . . . . . . . . . . . . . . .
+Constructing regular expressions . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Aliases for integer constraints . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+105
+106
+107
+110
+111
+112
+113
+117
+119
+
+XI
+
+8.1
+8.2
+8.3
+8.4
+8.5
+8.6
+8.7
+8.8
+8.9
+8.10
+8.11
+8.12
+8.13
+8.14
+
+Integer variable selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Integer value selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Boolean variable selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Boolean value selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Set variable selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Set value selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Float variable selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Float value selection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Branch value functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Branch commit functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+A Gecode model for Latin Squares with LDSB . . . . . . . . . . . . . . . . . . .
+Symmetric solutions of the Latin Square problem . . . . . . . . . . . . . . . .
+Model sketch for branch filter function . . . . . . . . . . . . . . . . . . . . . . .
+Value selection for assigning variables . . . . . . . . . . . . . . . . . . . . . . .
+
+123
+124
+126
+126
+128
+128
+129
+130
+137
+138
+141
+141
+144
+146
+
+9.1
+9.2
+9.3
+9.4
+9.5
+9.6
+9.7
+9.8
+9.9
+9.10
+9.11
+9.12
+9.13
+9.14
+
+Example search tree . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Hybrid recomputation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Output for Golomb rulers with eight workers . . . . . . . . . . . . . . . . . . .
+Output for Golomb rulers with one worker . . . . . . . . . . . . . . . . . . . .
+Search statistics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Available search engines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Search options . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Predefined stop objects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Meta information . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Default master() and slave() functions . . . . . . . . . . . . . . . . . . . . .
+Model sketch for LNS . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Search tree after cutoff 3 has been reached . . . . . . . . . . . . . . . . . . . .
+A simple tracer printing to std::cout . . . . . . . . . . . . . . . . . . . . . . .
+Member function for node-events . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+150
+152
+155
+156
+157
+158
+159
+160
+166
+167
+168
+175
+179
+181
+
+10.1 A search tree . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.2 Gist, solving the Send More Money problem . . . . . . . . . . . . . . . . . . . .
+10.3 A hidden subtree in Gist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.4 The Node menu . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.5 Branch information in Gist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.6 The Tools menu . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.7 Inspecting a solution in Gist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.8 Using Gist for Send More Money with node comparison . . . . . . . . . . . .
+10.9 Node statistics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.10 Gist preferences . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10.11 Displaying where Gist stores spaces in the tree . . . . . . . . . . . . . . . . . .
+
+185
+186
+188
+189
+190
+191
+192
+193
+194
+195
+196
+
+11.1
+
+Predefined commandline options . . . . . . . . . . . . . . . . . . . . . . . . . . 198
+XII
+
+11.2
+11.3
+
+Predefined commandline options, continued . . . . . . . . . . . . . . . . . . . 199
+User-definable commandline options . . . . . . . . . . . . . . . . . . . . . . . . 199
+
+12.1
+12.2
+12.3
+12.4
+
+Abridged output for variable tracing Send More Money . . . . . . . . . . . . .
+Abridged output for general tracing of Send More Money . . . . . . . . . . .
+An integer variable tracer printing to std::cout . . . . . . . . . . . . . . . . .
+A general tracer printing to std::cout . . . . . . . . . . . . . . . . . . . . . . .
+
+13.1
+13.2
+13.3
+
+An optimal Golomb ruler with 6 marks . . . . . . . . . . . . . . . . . . . . . . . 223
+A constructed Golomb ruler with 6 marks . . . . . . . . . . . . . . . . . . . . . 223
+A script for computing Golomb rulers . . . . . . . . . . . . . . . . . . . . . . . . 224
+
+14.1
+14.2
+
+A script for solving magic sequence puzzles . . . . . . . . . . . . . . . . . . . . 230
+Magic sequence puzzles with a global counting constraint . . . . . . . . . . . 231
+
+15.1
+
+A script for the photo alignment problem . . . . . . . . . . . . . . . . . . . . . 234
+
+16.1
+
+A script for locating warehouses . . . . . . . . . . . . . . . . . . . . . . . . . . . 239
+
+17.1
+17.2
+17.3
+
+Example nonogram puzzle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 244
+Solution to the example puzzle . . . . . . . . . . . . . . . . . . . . . . . . . . . . 244
+A script for solving nonogram puzzles . . . . . . . . . . . . . . . . . . . . . . . 245
+
+18.1
+
+A script for the social golfers’ problem . . . . . . . . . . . . . . . . . . . . . . . 250
+
+19.1
+19.2
+19.3
+
+8 × 8-knight’s tour . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 254
+A script for the knight’s tour problem . . . . . . . . . . . . . . . . . . . . . . . . 255
+A brancher for Warnsdorff’s heuristic . . . . . . . . . . . . . . . . . . . . . . . . 259
+
+208
+212
+214
+218
+
+20.1 An example optimal bin packing . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20.2 Instance data for a bin packing problem . . . . . . . . . . . . . . . . . . . . . .
+20.3 Computing a lower bound for the number of bins . . . . . . . . . . . . . . . .
+20.4 Computing an upper bound for the number of bins . . . . . . . . . . . . . . .
+20.5 An non-optimal bin packing found during upper bound computation . . . .
+20.6 A naive script for solving a bin packing problem . . . . . . . . . . . . . . . . .
+20.7 A script with improved propagation for solving a bin packing problem . . .
+20.8 A script with improved branching for solving a bin packing problem . . . . .
+20.9 CDBF brancher and branching . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+20.10 CDBF choice . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+261
+262
+262
+263
+264
+265
+268
+269
+270
+273
+
+21.1
+21.2
+21.3
+21.4
+21.5
+
+276
+276
+277
+280
+281
+
+A Kakuro puzzle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Solution for Kakuro puzzle from Figure 21.1 . . . . . . . . . . . . . . . . . . .
+A naive script and board specification for solving Kakuro puzzles . . . . . . .
+Propagation for the Kakuro puzzle . . . . . . . . . . . . . . . . . . . . . . . . . .
+A working script for solving Kakuro puzzles . . . . . . . . . . . . . . . . . . . .
+XIII
+
+22.1 A crossword puzzle grid . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22.2 Solution for crossword puzzle grid from Figure 22.1 . . . . . . . . . . . . . .
+22.3 Crossword script . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22.4 Grid and words specification . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22.5 An optimized crossword script . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+22.6 Comparison of Gecode model with COMBUS . . . . . . . . . . . . . . . . . . . .
+22.7 Comparison of Gecode model using restarts with COMBUS . . . . . . . . . . .
+22.8 Results for some hard words dictionary instances . . . . . . . . . . . . . . . .
+22.9 Solution for instance words-21×21-10 . . . . . . . . . . . . . . . . . . . . . . .
+22.10 Solution for instance words-23×23-06 . . . . . . . . . . . . . . . . . . . . . . .
+
+286
+286
+287
+288
+292
+294
+296
+296
+297
+297
+
+23.1 Scheduling and executing propagators . . . . . . . . . . . . . . . . . . . . . . .
+23.2 Propagators, views, and variable implementations . . . . . . . . . . . . . . . .
+23.3 A constraint and propagator for less . . . . . . . . . . . . . . . . . . . . . . . .
+23.4 Summary of propagation cost functions . . . . . . . . . . . . . . . . . . . . . .
+23.5 Value-based modification functions for integer variable views . . . . . . . . .
+23.6 A better constraint and propagator for less . . . . . . . . . . . . . . . . . . . .
+23.7 Check and fail macros . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.8 An even better constraint and propagator for less . . . . . . . . . . . . . . . .
+23.9 A propagator for disequality . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.10 Propagator patterns . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23.11 A concise constraint and propagator for less . . . . . . . . . . . . . . . . . . .
+
+303
+306
+309
+312
+314
+315
+318
+319
+321
+322
+323
+
+24.1
+24.2
+24.3
+24.4
+24.5
+24.6
+24.7
+24.8
+24.9
+
+A naive equality bounds propagator . . . . . . . . . . . . . . . . . . . . . . . . .
+An equality bounds propagator with fixpoint reasoning . . . . . . . . . . . . .
+An idempotent equality bounds propagator . . . . . . . . . . . . . . . . . . . .
+An idempotent equality bounds propagator using modification events . . . .
+Naive Boolean disjunction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Propagation for naive Boolean disjunction . . . . . . . . . . . . . . . . . . . . .
+Naive Boolean disjunction using a propagator pattern . . . . . . . . . . . . . .
+Boolean disjunction with dynamic subscriptions . . . . . . . . . . . . . . . . .
+Resubscribing for Boolean disjunction with dynamic subscriptions . . . . . .
+
+328
+329
+329
+330
+332
+334
+335
+336
+338
+
+25.1
+25.2
+25.3
+25.4
+25.5
+
+A constraint and propagator for fully reified less or equal . . . . . . . . . . .
+A constraint and propagator for full and half reified less or equal . . . . . . .
+Propagate function for full and half reified less or equal . . . . . . . . . . . .
+A maximum propagator using rewriting . . . . . . . . . . . . . . . . . . . . . .
+A Boolean disjunction propagator using rewriting . . . . . . . . . . . . . . . .
+
+341
+343
+344
+346
+348
+
+26.1
+26.2
+26.3
+26.4
+26.5
+
+An incorrect propagator for domain equal . . . . . . . . . . . . . . . . . . . . .
+A naive propagator for domain equal . . . . . . . . . . . . . . . . . . . . . . . .
+A propagator for domain equal without sharing . . . . . . . . . . . . . . . . .
+A propagator for domain equal with offset . . . . . . . . . . . . . . . . . . . . .
+A propagator for domain equal using bounds propagation . . . . . . . . . . .
+
+352
+353
+355
+357
+359
+
+XIV
+
+26.6
+26.7
+
+Stage transitions for the equality propagator . . . . . . . . . . . . . . . . . . . 361
+A propagator for domain equal using staging . . . . . . . . . . . . . . . . . . . 362
+
+27.1
+27.2
+27.3
+
+A samedom propagator using advisors . . . . . . . . . . . . . . . . . . . . . . . . 370
+A samedom propagator using predefined view advisors . . . . . . . . . . . . . 374
+A Boolean disjunction propagator using advisors . . . . . . . . . . . . . . . . . 376
+
+28.1
+28.2
+28.3
+28.4
+
+Minimum and maximum constraints implemented by a Max propagator . . .
+Domain equality with and without offset . . . . . . . . . . . . . . . . . . . . . .
+Disjunction and conjunction from same propagator . . . . . . . . . . . . . . .
+Less constraints for both integer and Boolean variables . . . . . . . . . . . . .
+
+29.1
+29.2
+29.3
+
+A constraint and propagator for set intersection . . . . . . . . . . . . . . . . . 386
+Set view operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 388
+Set modification events and propagation conditions . . . . . . . . . . . . . . . 391
+
+30.1
+30.2
+30.3
+30.4
+
+A constraint and propagator for ternary linear . . . . . . . . . . . . . . . . . .
+Most important float view operations . . . . . . . . . . . . . . . . . . . . . . . .
+Rounding operations on float numbers . . . . . . . . . . . . . . . . . . . . . . .
+Float modification events and propagation conditions . . . . . . . . . . . . . .
+
+394
+395
+395
+397
+
+31.1
+31.2
+31.3
+31.4
+
+Declaration of an Allocator class . . . . . . . . . . . . . . . . . . . . . . . . . .
+A simple shared object and handle . . . . . . . . . . . . . . . . . . . . . . . . .
+A simple local object and handle . . . . . . . . . . . . . . . . . . . . . . . . . . .
+A local object and handle with external resources . . . . . . . . . . . . . . . .
+
+403
+405
+407
+408
+
+32.1
+32.2
+32.3
+
+A branching and brancher for nonemin . . . . . . . . . . . . . . . . . . . . . . . 416
+An improved brancher for nonemin . . . . . . . . . . . . . . . . . . . . . . . . . 420
+A brancher for sizemin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 421
+
+33.1
+33.2
+33.3
+
+A brancher for assignmin . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 424
+Branching for nonemin with no-good support . . . . . . . . . . . . . . . . . . . 426
+Branchings for nonemin and nonemax . . . . . . . . . . . . . . . . . . . . . . . . 429
+
+34.1
+
+The header file for integer interval variables . . . . . . . . . . . . . . . . . . . 436
+
+35.1
+35.2
+35.3
+35.4
+35.5
+
+Variable implementation specification . . . . . . . . . . . . . . . . . . . . . . . .
+Modification event section . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Propagation condition section . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Variable implementation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Summary of member functions predefined by variable implementations . .
+
+443
+444
+445
+446
+450
+
+36.1
+36.2
+36.3
+36.4
+
+Variable programmed from a variable implementation . . . . . . . . . . . . .
+Summary of member functions predefined by variables . . . . . . . . . . . . .
+Array traits for variable arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Variable arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+454
+455
+456
+457
+
+XV
+
+380
+381
+383
+384
+
+37.1
+37.2
+37.3
+37.4
+37.5
+37.6
+
+Summary of member functions predefined by views . . . . . . . . . . . . . . .
+Integer view . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Constant integer view . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Minus view . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Negation of modification events and propagation conditions . . . . . . . . .
+Offset view . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+460
+461
+463
+465
+466
+469
+
+38.1
+38.2
+38.3
+38.4
+38.5
+38.6
+38.7
+
+Part of header file concerned with branching . . . . . . . . . . . . . . . . . . .
+Variable selection class . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+View selection creation function . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Size merit class . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Value selection and commit creation function . . . . . . . . . . . . . . . . . . .
+Branch function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Branch function with tie-breaking . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+472
+476
+478
+479
+480
+484
+485
+
+39.1
+
+Part of header file concerned with tracing . . . . . . . . . . . . . . . . . . . . . 488
+
+40.1
+
+Golomb rulers à la integer interval variables . . . . . . . . . . . . . . . . . . . 494
+
+41.1
+41.2
+41.3
+
+Depth-first search for binary choices . . . . . . . . . . . . . . . . . . . . . . . . 504
+Depth-first search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 506
+Branch-and-bound search . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 508
+
+42.1
+42.2
+42.3
+42.4
+42.5
+42.6
+42.7
+42.8
+
+Depth-first search using full recomputation . . . . . . . . . . . . . . . . . . . .
+Edge class for depth-first search using full recomputation . . . . . . . . . . .
+Example situations during recomputation . . . . . . . . . . . . . . . . . . . . .
+Branch-and-bound search using full recomputation . . . . . . . . . . . . . . .
+Last alternative optimization (LAO) . . . . . . . . . . . . . . . . . . . . . . . . .
+Depth-first search using full recomputation and LAO . . . . . . . . . . . . . .
+Depth-first search using hybrid recomputation . . . . . . . . . . . . . . . . . .
+Depth-first search using adaptive recomputation . . . . . . . . . . . . . . . . .
+
+512
+513
+516
+518
+520
+520
+522
+525
+
+43.1
+43.2
+43.3
+43.4
+43.5
+43.6
+
+Depth-first search engine . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Implementation of depth-first search engine . . . . . . . . . . . . . . . . . . . .
+Implementation of exploration . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Implementation of edges . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Implementation of path of edges . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Implementation of recomputation . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+528
+529
+531
+532
+533
+534
+
+XVI
+
+Tips
+2.1
+2.2
+2.3
+2.4
+2.5
+2.6
+2.7
+2.8
+2.9
+2.10
+2.11
+
+Space& versus Home . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+What is allowed during cloning . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Do not use the copy constructor directly . . . . . . . . . . . . . . . . . . . . . .
+Propagation is explicit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Catching Gecode exceptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Cygwin with Microsoft Visual Studio . . . . . . . . . . . . . . . . . . . . . . . .
+Eclipse on Windows and Mac OS . . . . . . . . . . . . . . . . . . . . . . . . . .
+Gist scales . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Linking against Gist . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Do not forget the library path . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Compatible compilers and installations for Gecode and Qt . . . . . . . . . . .
+
+15
+18
+18
+19
+20
+22
+24
+27
+27
+31
+31
+
+3.1
+3.2
+3.3
+3.4
+
+Linking against the driver . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Aborting execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+How Gecode has been configured . . . . . . . . . . . . . . . . . . . . . . . . . .
+Which version of Gecode are we using? . . . . . . . . . . . . . . . . . . . . . .
+
+40
+42
+42
+42
+
+4.1
+4.2
+4.3
+4.4
+4.5
+4.6
+4.7
+4.8
+4.9
+4.10
+4.11
+4.12
+
+Do not use views for modeling . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Small variable domains are beautiful . . . . . . . . . . . . . . . . . . . . . . . .
+Reversing argument arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Dynamically constructing models . . . . . . . . . . . . . . . . . . . . . . . . . .
+Different propagation levels have different costs . . . . . . . . . . . . . . . . .
+Unsharing is expensive . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Boolean negation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Shared integer arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Shared arrays also provide STL-style iterators . . . . . . . . . . . . . . . . . . .
+When to use tuple sets rather than DFAs . . . . . . . . . . . . . . . . . . . . . .
+Tasks with duration zero . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Failing a space . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+44
+46
+50
+51
+56
+56
+60
+69
+69
+71
+78
+81
+
+5.1
+5.2
+5.3
+
+Still do not use views for modeling . . . . . . . . . . . . . . . . . . . . . . . . .
+Small variable domains are still beautiful . . . . . . . . . . . . . . . . . . . . .
+Reification by decomposition . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+83
+85
+86
+
+6.1
+6.2
+
+Transcendental and trigonometric functions and constraints . . . . . . . . . .
+Still do not use views for modeling . . . . . . . . . . . . . . . . . . . . . . . . .
+
+93
+94
+
+XVII
+
+6.3
+6.4
+
+Small variable domains are still beautiful . . . . . . . . . . . . . . . . . . . . .
+Weak propagation for strict inequalities (<, >) and disequality (6=) . . . . .
+
+96
+98
+
+7.1
+7.2
+7.3
+7.4
+7.5
+
+Boolean precedences . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Reification of non-functional constraints . . . . . . . . . . . . . . . . . . . . . .
+Element for matrix can compromise propagation . . . . . . . . . . . . . . . . .
+Cost must be assigned for solutions . . . . . . . . . . . . . . . . . . . . . . . . .
+Creating a DFA only once . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+107
+108
+115
+116
+118
+
+8.1
+8.2
+8.3
+
+Variables are re-selected during branching . . . . . . . . . . . . . . . . . . . . . 125
+Do not try all values . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125
+Propagation is still explicit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 148
+
+9.1
+9.2
+9.3
+9.4
+9.5
+9.6
+9.7
+9.8
+9.9
+9.10
+9.11
+
+Search is indeterministic . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Values for cd and ad . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Be optimistic about parallel search . . . . . . . . . . . . . . . . . . . . . . . . .
+Do not optimize by branching alone . . . . . . . . . . . . . . . . . . . . . . . . .
+Number of threads for stop objects . . . . . . . . . . . . . . . . . . . . . . . . .
+Controlling restart-based search with the commandline driver . . . . . . . .
+Kill your branchers, or maybe not. . . . . . . . . . . . . . . . . . . . . . . . . . .
+Always use parallel portfolios . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Controlling portfolios from the commandline . . . . . . . . . . . . . . . . . . .
+Mixing parallel and sequential portfolios . . . . . . . . . . . . . . . . . . . . . .
+Controlling no-goods with the commandline driver . . . . . . . . . . . . . . .
+
+12.1
+12.2
+
+Enabling tracing with a commandline option . . . . . . . . . . . . . . . . . . . 208
+Naming propagators, branchers, variables, and groups . . . . . . . . . . . . . 217
+
+13.1
+
+Small variable domains are still beautiful . . . . . . . . . . . . . . . . . . . . . 225
+
+16.1
+16.2
+
+Choose variables to avoid constraints . . . . . . . . . . . . . . . . . . . . . . . . 238
+Small variable domains are still beautiful . . . . . . . . . . . . . . . . . . . . . 240
+
+23.1
+23.2
+
+Variables and views are passed by value . . . . . . . . . . . . . . . . . . . . . . 305
+Immediately return after subsumption . . . . . . . . . . . . . . . . . . . . . . . 314
+
+24.1
+24.2
+24.3
+24.4
+
+Understanding ES_NOFIX . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+View arrays also provide STL-style iterators . . . . . . . . . . . . . . . . . . . .
+View arrays have non-copying copy constructors . . . . . . . . . . . . . . . . .
+drop_fst() and drop_lst() are efficient . . . . . . . . . . . . . . . . . . . . .
+
+26.1
+26.2
+
+Narrow is dangerous . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 354
+Iterators must be increasing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 354
+
+27.1
+27.2
+
+Different types of advisors for the same propagator . . . . . . . . . . . . . . . 369
+Getting a propagator started with advisors . . . . . . . . . . . . . . . . . . . . . 371
+XVIII
+
+151
+153
+154
+157
+160
+162
+171
+173
+173
+174
+177
+
+330
+333
+333
+337
+
+27.3
+27.4
+
+Advisors and propagator obligations . . . . . . . . . . . . . . . . . . . . . . . . 373
+Advisor space requirements . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 375
+
+28.1
+28.2
+
+Using using clauses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 380
+Boolean variables are not integer variables . . . . . . . . . . . . . . . . . . . . 384
+
+31.1
+31.2
+
+Freeing memory explicitly . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 401
+Memory alignment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 402
+
+32.1
+
+Never execute . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 418
+
+35.1
+35.2
+
+Correctness matters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 440
+Variable implementations must always be consistent . . . . . . . . . . . . . . 448
+
+41.1
+
+Printing information about alternatives. . . . . . . . . . . . . . . . . . . . . . . 501
+
+XIX
+
+XX
+
+

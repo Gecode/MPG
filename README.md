@@ -1,51 +1,76 @@
-Modeling and Programming with Gecode
-======
+# Modeling and Programming with Gecode (MPG)
 
-**Modeling and Programming with Gecode** (also known as **MPG**)
-provides an introduction to modeling and programming with Gecode,
-an open, free, portable, accessible, and efficient environment
-for developing constraint-based systems and applications.
+This repository contains the LaTeX source and generated code examples for **Modeling and Programming with Gecode**.
 
-The hands-on, tutorial-style approach will get you started very
-quickly. The focus is on giving an overview of the key concepts and
-ideas required to model and program with Gecode. Each concept is
-introduced using concrete C++ code examples that are developed and
-explained step by step. This document is complemented by the complete
-{Gecode reference documentation}, as well
-as pointers to introductory and more advanced material throughout the
-text.
+## Modern Tooling
 
-## Downloading MPG
+The project now uses a Python CLI as the primary interface:
 
-If you want to download the latest version of MPG as a PDF, please consult
-the [Gecode Documentation Page](https://www.gecode.org/documentation.html).
+```bash
+uv run -- python bin/mpg.py doctor
+uv run -- python bin/mpg.py extract
+uv run -- python bin/mpg.py build --kind all
+uv run -- python bin/mpg.py run --kind all
+uv run -- python bin/mpg.py test --kind all
+uv run -- python bin/mpg.py docs
+```
 
-## License
+A thin `Makefile` is kept for compatibility (`make quick`, `make gcc`, `make gcc-test`, `make gcc-notest`, `make clean`).
+You can pass Gecode location through make variables, for example:
+`make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make gcc GECODE_PREFIX=/usr/local`.
+If neither is set and `../gecode/test/test.cpp` exists, the Makefile auto-uses `../gecode` for full test coverage.
 
-All material in this repository but the example C++ code snippets
-are released under the terms of the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](https://creativecommons.org/licenses/by-nc-nd/3.0/) license.
+## Dependency Resolution
 
-## This Repository
+MPG supports three dependency modes:
 
-This repository contains the LaTex source code for MPG together with scripts and a Makefile to build MPG and test the programs contained in MPG.
+1. System install (default): no path flags.
+2. Explicit install prefix: `--gecode-prefix /path/to/prefix`.
+3. Explicit source/build tree: `--gecode-root /path/to/gecode`.
 
-## Building MPG
+### Important: full test coverage
 
-Coming.
+Some `test` examples require Gecode test framework sources (`test.cpp`, `int.cpp`, `float.cpp`, `set.cpp`).
+If these are unavailable from the current configuration, MPG fails with guidance.
+For full coverage, use:
 
-## Testing the Included Example Programs
+```bash
+uv run -- python bin/mpg.py test --kind all --gecode-root ../gecode
+```
 
-Coming.
+## Workspace Layout
 
-## Contributors
+Generated files are written to `.mpg/`:
 
-Coming.
+- `.mpg/generated/tex/` processed TeX files
+- `.mpg/generated/src/` extracted C++ snippets
+- `.mpg/build/` CMake/Ninja build trees
+- `.mpg/bin/` compiled executables
+- `.mpg/results/` machine-readable run summaries
+- `.mpg/manifest.json` extracted example manifest
 
-## License 
+## Docs Build
 
-See above.
+`uv run -- python bin/mpg.py docs` uses the layout-compatible legacy pipeline:
 
-## Contact
+- `latex`
+- `bibtex`
+- `dvips`
+- `ps2pdf`
 
-Please see the main [Gecode webpages](https://www.gecode.org) on how to get in touch.
+This preserves chapter/code structure and link behavior while modernizing orchestration.
 
+## Configuration
+
+`mpg.toml` is optional and supports overrides:
+
+- `version`, `year`
+- `chapters`, `models`, `tests`, `notest`
+- `compile_flags`
+- `run_timeout_sec`
+- per-example metadata in `[examples.<id>]`
+
+## CI
+
+- `examples.yml` runs `doctor`, `extract`, and `test --kind all` on Linux/macOS/Windows.
+- `docs.yml` builds the PDF on Linux and publishes it as an artifact.

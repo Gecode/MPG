@@ -1,0 +1,23 @@
+name: docs
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install TeX tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended dvipsk-java ghostscript
+      - name: Build docs
+        run: uv run -- python bin/mpg.py docs
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: MPG.pdf
+          path: MPG.pdf

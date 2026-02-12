@@ -1,0 +1,18 @@
+version = "6.3.0"
+year = 2020
+run_timeout_sec = 20
+
+# Optional overrides:
+# chapters = ["intro", "m-started"]
+# models = ["send-more-money"]
+# tests = ["less"]
+# notest = ["none-min"]
+# compile_flags = ["-O2"]
+
+[examples]
+# [examples.send-more-money]
+# kind = "model"
+# source = "send-more-money.cpp"
+# run_args = ["-help"]
+# timeout_sec = 10
+# enabled = true
