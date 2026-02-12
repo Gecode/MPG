@@ -12,6 +12,7 @@ from .config import get_config, write_default_config
 from .examples import build, run_examples, write_manifest
 from .gecode import has_test_framework, resolve_gecode
 from .latex import build_docs
+from .sources import bib_template, chapter_source, main_template, static_tex_files
 
 
 def cmd_doctor(args: argparse.Namespace) -> int:
@@ -48,7 +49,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
         shutil.copytree(ROOT / "bin", extract_work / "bin", dirs_exist_ok=True)
 
     # Copy static .tex files for include.perl expansion context.
-    for p in ROOT.glob("*.tex"):
+    for p in static_tex_files():
         shutil.copy2(p, extract_work / p.name)
 
     def run_gl(src: Path, dst: Path) -> None:
@@ -57,30 +58,39 @@ def cmd_extract(args: argparse.Namespace) -> int:
 
     # Chapter generation.
     for ch in cfg["chapters"]:
-        p_in = ROOT / f"{ch}.tex.in"
-        p_tex = ROOT / f"{ch}.tex"
         out = extract_work / f"{ch}.tex"
-        if p_in.exists():
-            run_gl(p_in, out)
-        elif p_tex.exists():
-            shutil.copy2(p_tex, out)
+        src = chapter_source(ch)
+        if src.name.endswith(".tex.in"):
+            run_gl(src, out)
         else:
-            raise FileNotFoundError(f"Missing chapter source for {ch}")
+            shutil.copy2(src, out)
 
     # changelog + acknowledgements.
-    if (ROOT / "changelog.tex.in").exists():
-        run_gl(ROOT / "changelog.tex.in", extract_work / "changelog.tex")
-        with (ROOT / "changelog.tex.in").open("r", encoding="utf-8") as fin, (extract_work / "acks.tex").open("w", encoding="utf-8") as fout:
+    try:
+        changelog = chapter_source("changelog")
+    except FileNotFoundError:
+        changelog = None
+    if changelog is not None:
+        out = extract_work / "changelog.tex"
+        if changelog.name.endswith(".tex.in"):
+            run_gl(changelog, out)
+        else:
+            shutil.copy2(changelog, out)
+        with changelog.open("r", encoding="utf-8") as fin, (extract_work / "acks.tex").open("w", encoding="utf-8") as fout:
             subprocess.run(["perl", "bin/gen-ack.perl"], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
 
     # titles.
-    title_inputs = [str(ROOT / f"{c}.tex.in") for c in cfg["chapters"] if (ROOT / f"{c}.tex.in").exists()]
+    title_inputs: list[str] = []
+    for c in cfg["chapters"]:
+        src = chapter_source(c)
+        if src.name.endswith(".tex.in"):
+            title_inputs.append(str(src))
     with (extract_work / "titles.tex.in").open("w", encoding="utf-8") as fout:
         subprocess.run(["perl", "bin/gen-titles.perl", *title_inputs], cwd=extract_work, stdout=fout, check=True, text=True)
     run_gl(extract_work / "titles.tex.in", extract_work / "titles.tex")
 
     # Main document include+shorten+gl.
-    base = (ROOT / "MPG.tex.in.in").read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"])
+    base = main_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"])
     p1 = subprocess.run(["perl", "bin/include.perl"], cwd=extract_work, input=base, text=True, stdout=subprocess.PIPE, check=True)
     p2 = subprocess.run(["perl", "bin/shorten.perl"], cwd=extract_work, input=p1.stdout, text=True, stdout=subprocess.PIPE, check=True)
     (extract_work / "MPG.tex.in").write_text(p2.stdout, encoding="utf-8")
@@ -88,7 +98,7 @@ def cmd_extract(args: argparse.Namespace) -> int:
 
     # Bibliography template.
     (extract_work / "MPG.bib").write_text(
-        (ROOT / "MPG.bib.in").read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"]),
+        bib_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"]),
         encoding="utf-8",
     )
 

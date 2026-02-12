@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 
 from .common import GEN_TEX, ROOT
+from .sources import main_template, resolve_include_tex
 
 
 def gen_acks(changelog_in: Path, out: Path) -> None:
@@ -63,17 +64,13 @@ def expand_includes(text: str, include_base: Path) -> str:
         m = re.match(r"^\\include\{(.*)\}", line)
         if m:
             name = m.group(1) + ".tex"
-            p = include_base / name
-            if not p.exists():
-                p = ROOT / name
+            p = resolve_include_tex(name, include_base)
             out.append(p.read_text(encoding="utf-8"))
             continue
         m = re.match(r"^\\input (.*)", line)
         if m:
             name = m.group(1) + ".tex"
-            p = include_base / name
-            if not p.exists():
-                p = ROOT / name
+            p = resolve_include_tex(name, include_base)
             out.append(p.read_text(encoding="utf-8"))
             continue
         out.append(line)
@@ -125,7 +122,7 @@ def fixout(text: str) -> str:
 
 
 def render_mpg_tex(version: str, year: str) -> tuple[Path, Path]:
-    mpg_in_in = ROOT / "MPG.tex.in.in"
+    mpg_in_in = main_template()
     text = mpg_in_in.read_text(encoding="utf-8")
     text = text.replace("@VERSION@", version).replace("@YEAR@", year)
     text = expand_includes(text, GEN_TEX)

@@ -4,7 +4,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from .common import GEN_SRC, GEN_TEX, ROOT, ensure_dirs, normalize_name
+from .common import GEN_SRC, GEN_TEX, ensure_dirs, normalize_name
+from .sources import chapter_source
 
 
 AUTHOR = {
@@ -236,12 +237,9 @@ def process_many(chapters: list[str], year: str) -> list[str]:
     generated_cpp: list[str] = []
     for ch in chapters:
         dst = GEN_TEX / f"{ch}.tex"
-        src_in = ROOT / f"{ch}.tex.in"
-        src_tex = ROOT / f"{ch}.tex"
-        if src_in.exists():
-            generated_cpp.extend(process_literate_file(src_in, dst, year=year, emit_cpp=True))
-        elif src_tex.exists():
-            dst.write_text(src_tex.read_text(encoding="utf-8"), encoding="utf-8")
+        src = chapter_source(ch)
+        if src.name.endswith(".tex.in"):
+            generated_cpp.extend(process_literate_file(src, dst, year=year, emit_cpp=True))
         else:
-            raise FileNotFoundError(f"Neither {src_in} nor {src_tex} exist")
+            dst.write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
     return sorted(set(generated_cpp))

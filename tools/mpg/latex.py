@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .common import GEN_TEX, ROOT, run_cmd
 from .preprocess import fixout
+from .sources import references_bib
 
 
 def _link_or_copy_tree(work: Path, name: str) -> None:
@@ -28,8 +29,8 @@ def build_docs() -> Path:
     work = GEN_TEX
     _link_or_copy_tree(work, "images")
     _link_or_copy_tree(work, "misc")
-    refs = ROOT / "references.bib"
-    if refs.exists():
+    refs = references_bib()
+    if refs is not None:
         shutil.copy2(refs, work / "references.bib")
 
     def _run_pipeline(cwd: Path) -> Path:

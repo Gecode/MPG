@@ -22,6 +22,8 @@ jobs:
         run: git clone --depth=1 https://github.com/Gecode/gecode.git ../gecode
       - name: Python unit tests
         run: uv run -- python -m unittest discover -s tests -p "test_*.py"
+      - name: Guard root chapter files
+        run: test -z "$(find . -maxdepth 1 -type f -name '*.tex.in' -print -quit)"
       - name: make test
         run: make test GECODE_ROOT=../gecode GECODE_PREFIX=/usr
       - name: make docs

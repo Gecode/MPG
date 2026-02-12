@@ -11,6 +11,7 @@ except ModuleNotFoundError:  # Python <3.11
 
 import re
 from .common import ROOT
+from .sources import main_template
 
 
 DEFAULT_VERSION = "6.3.0"
@@ -131,9 +132,9 @@ def get_config() -> dict:
 
 
 def _discover_chapters() -> list[str]:
-    src = (ROOT / "MPG.tex.in.in").read_text(encoding="utf-8")
+    src = main_template().read_text(encoding="utf-8")
     names = re.findall(r"\\include\{([^}]+)\}", src)
-    names = [n for n in names if n not in {"changelog", "acks", "titles"}]
+    names = [n for n in names if n not in {"changelog", "acks", "titles", "license"}]
     return names
 
 

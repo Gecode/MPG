@@ -2,6 +2,19 @@
 
 This repository contains the LaTeX source and generated code examples for **Modeling and Programming with Gecode**.
 
+## Source Layout
+
+Document inputs now live under `docs/src/`:
+
+- `docs/src/template/` main template (`MPG.tex.in.in`)
+- `docs/src/chapters/` chapter sources grouped by domain
+- `docs/src/static/` static TeX includes (`macros.tex`, `license.tex`)
+- `docs/src/bib/` bibliography inputs
+- `docs/src/assets/` non-TeX source assets (for example `.vis`, `.xsd`)
+- `docs/src/notes/` plain-text companion material
+
+During migration, tooling still supports legacy root paths with runtime warnings.
+
 ## Modern Tooling
 
 The project now uses a Python CLI as the primary interface:

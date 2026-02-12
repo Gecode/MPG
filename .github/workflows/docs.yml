@@ -14,6 +14,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended dvipsk-java ghostscript
+      - name: Guard root chapter files
+        run: test -z "$(find . -maxdepth 1 -type f -name '*.tex.in' -print -quit)"
       - name: Build docs
         run: make docs
       - name: Upload PDF
