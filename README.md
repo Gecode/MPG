@@ -18,9 +18,8 @@ uv run -- python -m unittest discover -s tests -p "test_*.py"
 
 A thin `Makefile` is kept with modern targets:
 `make quick`, `make docs`, `make extract`, `make build`, `make build-test`, `make build-notest`, `make test`, `make clean`.
-Compatibility aliases (`make tex`, `make gcc`, `make gcc-test`, `make gcc-notest`) are retained.
 You can pass Gecode location through make variables, for example:
-`make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make gcc GECODE_PREFIX=/usr/local`.
+`make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make build GECODE_PREFIX=/usr/local`.
 If neither is set and `../gecode/test/test.cpp` exists, the Makefile auto-uses `../gecode` for full test coverage.
 
 ## Dependency Resolution
@@ -54,7 +53,7 @@ Generated files are written to `.mpg/`:
 
 ## Docs Build
 
-`uv run -- python -m tools.mpg docs` uses the layout-compatible legacy pipeline:
+`uv run -- python -m tools.mpg docs` uses the standard document pipeline:
 
 - `latex`
 - `bibtex`

@@ -38,28 +38,28 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 def cmd_extract(args: argparse.Namespace) -> int:
     ensure_dirs()
     cfg = get_config()
-    legacy = WORK / "legacy"
-    if legacy.exists():
-        shutil.rmtree(legacy)
-    legacy.mkdir(parents=True, exist_ok=True)
+    extract_work = WORK / "extract"
+    if extract_work.exists():
+        shutil.rmtree(extract_work)
+    extract_work.mkdir(parents=True, exist_ok=True)
     try:
-        (legacy / "bin").symlink_to(ROOT / "bin", target_is_directory=True)
+        (extract_work / "bin").symlink_to(ROOT / "bin", target_is_directory=True)
     except OSError:
-        shutil.copytree(ROOT / "bin", legacy / "bin", dirs_exist_ok=True)
+        shutil.copytree(ROOT / "bin", extract_work / "bin", dirs_exist_ok=True)
 
     # Copy static .tex files for include.perl expansion context.
     for p in ROOT.glob("*.tex"):
-        shutil.copy2(p, legacy / p.name)
+        shutil.copy2(p, extract_work / p.name)
 
     def run_gl(src: Path, dst: Path) -> None:
         with src.open("r", encoding="utf-8") as fin, dst.open("w", encoding="utf-8") as fout:
-            subprocess.run(["perl", "bin/gl.perl", cfg["year"]], cwd=legacy, stdin=fin, stdout=fout, check=True, text=True)
+            subprocess.run(["perl", "bin/gl.perl", cfg["year"]], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
 
     # Chapter generation.
     for ch in cfg["chapters"]:
         p_in = ROOT / f"{ch}.tex.in"
         p_tex = ROOT / f"{ch}.tex"
-        out = legacy / f"{ch}.tex"
+        out = extract_work / f"{ch}.tex"
         if p_in.exists():
             run_gl(p_in, out)
         elif p_tex.exists():
@@ -69,40 +69,40 @@ def cmd_extract(args: argparse.Namespace) -> int:
 
     # changelog + acknowledgements.
     if (ROOT / "changelog.tex.in").exists():
-        run_gl(ROOT / "changelog.tex.in", legacy / "changelog.tex")
-        with (ROOT / "changelog.tex.in").open("r", encoding="utf-8") as fin, (legacy / "acks.tex").open("w", encoding="utf-8") as fout:
-            subprocess.run(["perl", "bin/gen-ack.perl"], cwd=legacy, stdin=fin, stdout=fout, check=True, text=True)
+        run_gl(ROOT / "changelog.tex.in", extract_work / "changelog.tex")
+        with (ROOT / "changelog.tex.in").open("r", encoding="utf-8") as fin, (extract_work / "acks.tex").open("w", encoding="utf-8") as fout:
+            subprocess.run(["perl", "bin/gen-ack.perl"], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
 
     # titles.
     title_inputs = [str(ROOT / f"{c}.tex.in") for c in cfg["chapters"] if (ROOT / f"{c}.tex.in").exists()]
-    with (legacy / "titles.tex.in").open("w", encoding="utf-8") as fout:
-        subprocess.run(["perl", "bin/gen-titles.perl", *title_inputs], cwd=legacy, stdout=fout, check=True, text=True)
-    run_gl(legacy / "titles.tex.in", legacy / "titles.tex")
+    with (extract_work / "titles.tex.in").open("w", encoding="utf-8") as fout:
+        subprocess.run(["perl", "bin/gen-titles.perl", *title_inputs], cwd=extract_work, stdout=fout, check=True, text=True)
+    run_gl(extract_work / "titles.tex.in", extract_work / "titles.tex")
 
     # Main document include+shorten+gl.
     base = (ROOT / "MPG.tex.in.in").read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"])
-    p1 = subprocess.run(["perl", "bin/include.perl"], cwd=legacy, input=base, text=True, stdout=subprocess.PIPE, check=True)
-    p2 = subprocess.run(["perl", "bin/shorten.perl"], cwd=legacy, input=p1.stdout, text=True, stdout=subprocess.PIPE, check=True)
-    (legacy / "MPG.tex.in").write_text(p2.stdout, encoding="utf-8")
-    run_gl(legacy / "MPG.tex.in", legacy / "MPG.tex")
+    p1 = subprocess.run(["perl", "bin/include.perl"], cwd=extract_work, input=base, text=True, stdout=subprocess.PIPE, check=True)
+    p2 = subprocess.run(["perl", "bin/shorten.perl"], cwd=extract_work, input=p1.stdout, text=True, stdout=subprocess.PIPE, check=True)
+    (extract_work / "MPG.tex.in").write_text(p2.stdout, encoding="utf-8")
+    run_gl(extract_work / "MPG.tex.in", extract_work / "MPG.tex")
 
     # Bibliography template.
-    (legacy / "MPG.bib").write_text(
+    (extract_work / "MPG.bib").write_text(
         (ROOT / "MPG.bib.in").read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"]),
         encoding="utf-8",
     )
 
-    # Mirror legacy outputs into .mpg workspace.
+    # Copy extracted outputs into the .mpg workspace.
     GEN_TEX.mkdir(parents=True, exist_ok=True)
-    for p in legacy.glob("*.tex"):
+    for p in extract_work.glob("*.tex"):
         shutil.copy2(p, GEN_TEX / p.name)
     for p in ("MPG.tex.in", "MPG.bib"):
-        if (legacy / p).exists():
-            shutil.copy2(legacy / p, GEN_TEX / p)
+        if (extract_work / p).exists():
+            shutil.copy2(extract_work / p, GEN_TEX / p)
     generated_cpp = []
     GEN_SRC.mkdir(parents=True, exist_ok=True)
     for ext in ("*.cpp", "*.hh", "*.vis"):
-        for p in legacy.glob(ext):
+        for p in extract_work.glob(ext):
             shutil.copy2(p, GEN_SRC / p.name)
             if p.suffix == ".cpp":
                 generated_cpp.append(p.name)

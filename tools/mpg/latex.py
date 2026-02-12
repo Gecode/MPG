@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import shutil
-import subprocess
 from pathlib import Path
 
 from .common import GEN_TEX, ROOT, run_cmd
@@ -48,11 +47,7 @@ def build_docs() -> Path:
         run_cmd(["ps2pdf", "MPG.ps"], cwd=cwd)
         return cwd / "MPG.pdf"
 
-    try:
-        pdf = _run_pipeline(work)
-    except subprocess.CalledProcessError:
-        # Compatibility fallback: use already checked-in preprocessed sources.
-        pdf = _run_pipeline(ROOT)
+    pdf = _run_pipeline(work)
     target = ROOT / "MPG.pdf"
     if pdf.resolve() != target.resolve():
         shutil.copy2(pdf, target)

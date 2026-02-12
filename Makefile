@@ -1,4 +1,4 @@
-.PHONY: all quick docs extract build build-test build-notest test dist doctor clean tex gcc gcc-test gcc-notest
+.PHONY: all quick docs extract build build-test build-notest test dist doctor clean
 
 UV ?= uv
 MPG = $(UV) run -- python -m tools.mpg
@@ -43,8 +43,3 @@ doctor:
 
 clean:
 	$(MPG) clean $(GC_ARGS)
-
-tex: extract
-gcc: build
-gcc-test: build-test
-gcc-notest: build-notest

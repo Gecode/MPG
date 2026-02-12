@@ -71,7 +71,7 @@ def _output_block(blockref: str, blockname: str, code: str, with_label: bool, sm
 def _resolve_block_key(key: str, blocks: dict[str, str]) -> str | None:
     if key in blocks:
         return key
-    # Compatibility with legacy names where block ids may be stored with duplicated prefixes.
+    # Accept aliased block ids that include repeated prefixes.
     for k in blocks:
         if k.endswith(":" + key):
             return k
