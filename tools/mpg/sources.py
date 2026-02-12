@@ -1,3 +1,16 @@
+"""Resolve document source files for MPG with docs-first lookup.
+
+This module centralizes path resolution for document inputs used by the MPG
+toolchain. The current migration policy is:
+
+1. Prefer files under ``docs/src``.
+2. Fall back to legacy repository-root locations when needed.
+3. Emit a one-time runtime warning whenever fallback is used.
+
+It also validates that chapter basenames in ``docs/src/chapters`` are unique
+to prevent ambiguous include resolution.
+"""
+
 from __future__ import annotations
 
 from functools import lru_cache

@@ -1,3 +1,11 @@
+"""Unit tests for docs/source path resolution.
+
+Coverage includes:
+- docs/src-first resolution
+- legacy root fallback with warning emission
+- duplicate chapter basename detection
+"""
+
 import tempfile
 import unittest
 import warnings
