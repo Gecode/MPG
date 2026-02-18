@@ -16,7 +16,9 @@ for skill in \
   gecode-modeling \
   gecode-propagator-implementation \
   gecode-brancher-implementation \
-  gecode-memory-handling; do
+  gecode-memory-handling \
+  gecode-search-engines \
+  gecode-search-engine-implementation; do
   rm -rf "$DEST/$skill"
   cp -R "$SCRIPT_DIR/$skill" "$DEST/$skill"
   echo "installed: $DEST/$skill"

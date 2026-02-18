@@ -19,7 +19,9 @@ description: "Manage Gecode memory areas and actor state: space/region/heap/free
 - Allocate fixed actor members in home space.
 - Allocate resize-heavy buffers on heap; free in `dispose()`.
 - Build heavy internal state lazily on first propagation when possible.
+- Choose eager vs lazy vs hybrid allocation based on clone-footprint and hit rate.
 - Use regions for short-lived temporary iterators/buffers.
+- Explicitly `Region::free()` at clear control-flow boundaries to maximize reuse.
 - Use `SharedHandle` for immutable/global lookup data.
 - Use `LocalHandle` for shared per-space mutable state.
 - Use `IntSharedArray`/shared arrays for read-only large data reused across clones.

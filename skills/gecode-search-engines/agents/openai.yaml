@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gecode Search Engines"
+  short_description: "Use and tune existing Gecode search engines"
+  default_prompt: "Recommend and configure Gecode DFS/BAB/LDS/RBS/PBS usage, including restart/portfolio/no-good and completeness tradeoffs."

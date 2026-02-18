@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gecode Search Engine Implementation"
+  short_description: "Implement custom Gecode search engines safely"
+  default_prompt: "Guide implementation of a custom Gecode search engine, including recomputation, invariants, ownership, and branch-and-bound integration."
