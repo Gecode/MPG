@@ -17,6 +17,7 @@ description: "Core Gecode architecture and runtime model: spaces, propagators, b
 ## Key Patterns
 - Model as `class M : public Space`.
 - Implement copy constructor + virtual `copy()`.
+- In space cloning, clone variable arrays via `x.update(home, s.x)`; do not use a variable-array copy constructor.
 - Seed search engine with model, then delete seed model.
 - Treat solution as space closure over member variables.
 - Use groups/tracing for observability, selective control.
@@ -31,11 +32,3 @@ description: "Core Gecode architecture and runtime model: spaces, propagators, b
 - Forgetting ownership/deletion of choices and returned solution spaces.
 - Cloning unstable/failed spaces.
 - Assuming one modeling pass is enough; most case studies need staged refinement.
-
-## Source Focus
-- `/Users/zayenz/gecode/MPG/docs/src/chapters/core/intro.tex.in`
-- `/Users/zayenz/gecode/MPG/docs/src/chapters/modeling/m-started.tex.in`
-- `/Users/zayenz/gecode/MPG/docs/src/chapters/search/s-started.tex.in`
-- `/Users/zayenz/gecode/MPG/docs/src/chapters/modeling/m-group.tex.in`
-- `/Users/zayenz/gecode/MPG/docs/src/chapters/case-studies/c-bin-packing.tex.in`
-- `/Users/zayenz/gecode/MPG/docs/src/chapters/case-studies/c-crossword.tex.in`
