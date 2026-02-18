@@ -15,6 +15,32 @@ Document inputs now live under `docs/src/`:
 
 During migration, tooling still supports legacy root paths with runtime warnings.
 
+## Gecode Skills
+
+Canonical Gecode skills are now maintained in:
+
+- `Gecode/gecode-skills`
+
+Install from the canonical repository:
+
+```bash
+npx skills add Gecode/gecode-skills
+```
+
+List available skills:
+
+```bash
+npx skills add Gecode/gecode-skills --list
+```
+
+Install a single skill:
+
+```bash
+npx skills add Gecode/gecode-skills --skill gecode-modeling
+```
+
+The `skills/` directory in this repository is retained as a reference snapshot for MPG work and is not the release source for published skills.
+
 ## Modern Tooling
 
 The project now uses a Python CLI as the primary interface:
