@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gecode Modeling"
+  short_description: "Model Gecode CP problems and search setup"
+  default_prompt: "Guide concise Gecode modeling choices, constraints, branchings, and search configuration."

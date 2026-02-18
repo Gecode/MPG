@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gecode General Knowledge"
+  short_description: "Core Gecode architecture and workflow guide"
+  default_prompt: "Explain core Gecode concepts, spaces, propagation, and search operations concisely."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gecode Memory Handling"
+  short_description: "Manage Gecode memory and shared/local state"
+  default_prompt: "Summarize concise best practices for Gecode memory areas, lifecycle, and handle-based sharing."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gecode Propagator Implementation"
+  short_description: "Implement custom Gecode propagators safely"
+  default_prompt: "Provide concise implementation guidance for Gecode propagators, obligations, and optimization."

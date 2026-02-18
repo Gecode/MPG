@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gecode Brancher Implementation"
+  short_description: "Implement custom Gecode branchers and NGLs"
+  default_prompt: "Provide concise implementation guidance for Gecode branchers, choices, commits, and NGL support."
