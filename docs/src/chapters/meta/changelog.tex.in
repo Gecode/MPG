@@ -236,8 +236,8 @@
   \cle{2010-07-02}{Added the part on programming variables
     (\autoref{part:v})}
   \cle[\AckName{Dan}{Scott}]{2010-06-17}{Explain that the
-    compiler defines the platform used on Windows
-    (\autoref{tip:m:started:x86x64})} \cle{2010-06-04}{Explained
+    compiler environment is set up on Windows
+    (\autoref{tip:m:started:cygwin})} \cle{2010-06-04}{Explained
     that variables do not have \?init()?  functions as they are
     not needed.}
   \cle[\AckName{Andreas}{Karlsson}]{2010-05-10}{Fixed typo in

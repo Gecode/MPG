@@ -85,6 +85,7 @@ number of assets in a portfolio\\
 
 \begin{figure}
 \begin{center}
+\small
 \begin{tabular}{|l|l|l|}
 \hline
 option & type & explanation \\
@@ -271,4 +272,3 @@ As scripts are absolutely straightforward, all can be understood
 by following some examples. For an example see
 \autoref{sec:m:comfy:driver} or all examples that come with
 Gecode, see \gecoderef[group]{Example}.
-

@@ -435,6 +435,7 @@ during search.
 \paragraph{Brancher creation.}
 
 \begin{figure}
+\small
 \insertlitcode{bin packing branching:CDBF}
 \caption{CDBF brancher and branching}
 \label{fig:c:bpp:cdbf}
@@ -744,6 +745,7 @@ int main(int argc, char* argv[]) {
 }
 \end{litblock}
 \end{litcode}
+
 
 \begin{litcode}{bin packing propagation}{schulte}
 \begin{litblock}{anonymous}
@@ -1183,4 +1185,3 @@ int main(int argc, char* argv[]) {
 }
 \end{litblock}
 \end{litcode}
-

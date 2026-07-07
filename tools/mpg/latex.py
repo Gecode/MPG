@@ -33,8 +33,18 @@ def build_docs() -> Path:
     if refs is not None:
         shutil.copy2(refs, work / "references.bib")
 
-    def _run_pipeline(cwd: Path) -> Path:
+    def _run_latex(cwd: Path) -> None:
         run_cmd(["latex", "-halt-on-error", "-interaction=nonstopmode", "-file-line-error", "MPG"], cwd=cwd)
+
+    def _needs_latex_rerun(cwd: Path) -> bool:
+        log = cwd / "MPG.log"
+        if not log.exists():
+            return False
+        text = log.read_text(encoding="utf-8", errors="replace")
+        return "Rerun to get outlines right" in text or "Label(s) may have changed" in text
+
+    def _run_pipeline(cwd: Path) -> Path:
+        _run_latex(cwd)
         run_cmd(["bibtex", "MPG"], cwd=cwd)
 
         out = cwd / "MPG.out"
@@ -43,9 +53,13 @@ def build_docs() -> Path:
             out.replace(out_in)
             out.write_text(fixout(out_in.read_text(encoding="utf-8")), encoding="utf-8")
 
-        run_cmd(["latex", "-halt-on-error", "-interaction=nonstopmode", "-file-line-error", "MPG"], cwd=cwd)
+        _run_latex(cwd)
+        for _ in range(2):
+            if not _needs_latex_rerun(cwd):
+                break
+            _run_latex(cwd)
         run_cmd(["dvips", "-K", "-Ppdf", "MPG.dvi"], cwd=cwd)
-        run_cmd(["ps2pdf", "MPG.ps"], cwd=cwd)
+        run_cmd(["ps2pdf", "-dALLOWPSTRANSPARENCY", "MPG.ps"], cwd=cwd)
         return cwd / "MPG.pdf"
 
     pdf = _run_pipeline(work)
