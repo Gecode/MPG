@@ -8,7 +8,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from .common import BIN, BUILD, GEN_SRC, RESULTS, ROOT, ensure_dirs, run_cmd, write_json
+from .common import BIN, BUILD, GEN_SRC, MANIFESTS, RESULTS, ROOT, ensure_dirs, run_cmd, write_json
 from .config import get_config
 from .gecode import GecodeConfig, has_test_framework
 
@@ -98,16 +98,24 @@ def _build_examples(kind: str, cfg: dict) -> list[Example]:
     return [e for e in out if e.enabled]
 
 
-def write_manifest(kind: str) -> list[Example]:
-    cfg = get_config()
-    examples = _build_examples(kind, cfg)
-    manifest = {
+def manifest_path(kind: str) -> Path:
+    return MANIFESTS / f"{kind}.json"
+
+
+def _manifest_payload(kind: str, cfg: dict, examples: list[Example]) -> dict:
+    return {
         "kind": kind,
         "version": cfg["version"],
         "year": cfg["year"],
         "examples": _manifest_rows(examples),
     }
-    write_json(ROOT / ".mpg" / "manifest.json", manifest)
+
+
+def write_manifest(kind: str, path: Path | None = None) -> list[Example]:
+    cfg = get_config()
+    examples = _build_examples(kind, cfg)
+    manifest = _manifest_payload(kind, cfg, examples)
+    write_json(path or (ROOT / ".mpg" / "manifest.json"), manifest)
     return examples
 
 
@@ -175,6 +183,7 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
     cmake_dir.mkdir(parents=True, exist_ok=True)
     runtime_dir = BIN / kind
     runtime_dir.mkdir(parents=True, exist_ok=True)
+    gist_available = _has_library("gecodegist", gc.lib_dirs)
 
     lines: list[str] = [
         "cmake_minimum_required(VERSION 3.16)",
@@ -199,9 +208,10 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
             + (" NO_DEFAULT_PATH" if gc.lib_dirs else "")
             + ")"
         )
-        lines.append(
-            f"if(NOT MPG_LIB_{lib.upper()})\n  find_library(MPG_LIB_{lib.upper()} NAMES {lib})\nendif()"
-        )
+        if not gc.lib_dirs:
+            lines.append(
+                f"if(NOT MPG_LIB_{lib.upper()})\n  find_library(MPG_LIB_{lib.upper()} NAMES {lib})\nendif()"
+            )
 
     if any(e.kind == "test" for e, _ in mapped):
         if not has_test_framework(gc):
@@ -221,7 +231,9 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
     for ex, src in mapped:
         lines.append(f'add_executable({ex.name} "{src.as_posix()}")')
         libs = list(TEST_LIBS if ex.kind == "test" else MODEL_LIBS)
-        if ex.requires_gist:
+        if ex.kind != "test" and gist_available:
+            libs.insert(1, "gecodegist")
+        elif ex.requires_gist:
             libs.insert(1, "gecodegist")
         if ex.kind == "test":
             lines.append(f"target_sources({ex.name} PRIVATE $<TARGET_OBJECTS:mpg_gecode_test_objs>)")
@@ -236,7 +248,7 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
 def build(kind: str, gc: GecodeConfig) -> list[Example]:
     ensure_dirs()
     cfg = get_config()
-    examples = write_manifest(kind)
+    examples = write_manifest(kind, manifest_path(kind))
     skipped: list[dict[str, str]] = []
     if not _has_library("gecodegist", gc.lib_dirs):
         kept: list[Example] = []
@@ -250,15 +262,9 @@ def build(kind: str, gc: GecodeConfig) -> list[Example]:
     build_dir = BUILD / kind
     src_dir = build_dir / "src"
     mapped = _prepare_sources(examples, src_dir)
-    write_json(
-        ROOT / ".mpg" / "manifest.json",
-        {
-            "kind": kind,
-            "version": cfg["version"],
-            "year": cfg["year"],
-            "examples": _manifest_rows(examples),
-        },
-    )
+    manifest = _manifest_payload(kind, cfg, examples)
+    write_json(manifest_path(kind), manifest)
+    write_json(ROOT / ".mpg" / "manifest.json", manifest)
     cmake_dir = _emit_cmake(build_dir, mapped, gc, cfg, kind)
 
     gen = "Ninja"
@@ -270,7 +276,10 @@ def build(kind: str, gc: GecodeConfig) -> list[Example]:
 
 
 def run_examples(kind: str, gc: GecodeConfig, timeout: int | None = None) -> dict:
-    manifest = json.loads((ROOT / ".mpg" / "manifest.json").read_text(encoding="utf-8"))
+    kind_manifest = manifest_path(kind)
+    if not kind_manifest.exists():
+        kind_manifest = ROOT / ".mpg" / "manifest.json"
+    manifest = json.loads(kind_manifest.read_text(encoding="utf-8"))
     rows = list(manifest["examples"])
     out_rows = []
 

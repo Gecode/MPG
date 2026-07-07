@@ -1038,7 +1038,7 @@ public:
     }
   }
   \end{litblock}
-  virtual ~ReDomExpr(void) {}
+  virtual ~BoolDomExpr(void) {}
 };
 \begin{litblock}{create Boolean domain expression}
 BoolExpr dom(IntVar x, int l, int u) {

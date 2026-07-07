@@ -9,6 +9,9 @@
 % \cle[\AckName{Flutra}{Osmani}]
 % \cle[\AckName{Joseph}{Scott}]
 \begin{changelog}
+  \cle{2026-05-25}{Prepared the Gecode 6.4.0 release. Updated the
+    build instructions for the source release and added tag- or
+    branch-selectable MPG validation against the Gecode source tree.}
   \cle[\AckName{Pierre}{Flener}]{2020-11-04}{Fixed description of
     weakly monotonic propagators in \autoref{sec:s:re:wmp}.}
   \cle{2020-09-29}{Added tip about not using the copy constructor directly
@@ -293,4 +296,3 @@
     PDF viewers} \cle{2009-03-13}{Initial release for Gecode
     3.0.0}
 \end{changelog}
-

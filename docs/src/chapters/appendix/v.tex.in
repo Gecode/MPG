@@ -2054,9 +2054,9 @@ interval variables:
 \begin{smallcmd}
 mkdir MPG; cd MPG
 \end{smallcmd}
-\item Download a Gecode~\GecodeVersion{} source package or
-  check-out Gecode~\GecodeVersion{} from \texttt{svn}. We assume
-  that the Gecode source code is contained in a directory named
+\item Download the Gecode~\GecodeVersion{} source release from
+  the Gecode GitHub releases. We assume that the Gecode source
+  code is contained in a directory named
   \texttt{gecode-\GecodeVersion}.
 \item If you have not yet done so, download and copy all files
   required for integer interval variables and the example into
@@ -2073,15 +2073,15 @@ mkdir MPG; cd MPG
 \item Configure Gecode to incorporate integer interval variables:
 \smalllitcmdblock{\ttfamily
 cd gecode-\GecodeVersion\\
-./configure -{}-with-vis=../int.vis
+cmake -S . -B build -DGECODE\_WITH\_VIS=../int.vis
 }
 After this step, Gecode has been configured to incorporate the
 generated definitions as described by the specification file
-\texttt{int.vis}. If you need to pass other options to
-\?configure? to successfully build Gecode, please do so.
+\texttt{int.vis}. If you need to pass other CMake options to
+successfully build Gecode, please do so.
 \item Compile Gecode and leave the directory
 \smalllitcmdblock{\ttfamily
-make;cd ..
+cmake -{}-build build;cd ..
 }
 \item 
 \begin{samepage}
@@ -2831,8 +2831,10 @@ namespace MPG {
     IntAction(const IntAction& a);
     IntAction& operator =(const IntAction& a);
     IntAction(Home home, const IntVarArgs& x, double d=1.0,
+              bool p=true, bool f=true,
               IntBranchMerit bm=nullptr);
     void init(Home home, const IntVarArgs& x, double d=1.0,
+              bool p=true, bool f=true,
               IntBranchMerit bm=nullptr);
   };
   \begin{litblock}{anonymous}
@@ -2847,15 +2849,17 @@ namespace MPG {
   }
   inline
   IntAction::IntAction(Home home, const IntVarArgs& x, double d,
+                       bool p, bool f,
                        IntBranchMerit bm) {
     ViewArray<Int::IntView> y(home,x);
-    Action::init(home,y,d,bm);
+    Action::init(home,y,d,p,f,bm);
   }
   inline void
   IntAction::init(Home home, const IntVarArgs& x, double d,
+                  bool p, bool f,
                   IntBranchMerit bm) {
     ViewArray<Int::IntView> y(home,x);
-    Action::init(home,y,d,bm);
+    Action::init(home,y,d,p,f,bm);
   }
   \end{litblock}
 }
@@ -3110,7 +3114,7 @@ namespace MPG { namespace Int {
     ValSelRnd(Space& home, const ValBranch<IntVar>& vb)
       : ValSel<IntView,int>(home,vb), r(vb.rnd()) {}
     ValSelRnd(Space& home, ValSelRnd& vs)
-      : ValSel<IntView,int>(home,share,vs), r(vs.r) {}
+      : ValSel<IntView,int>(home,vs), r(vs.r) {}
     int val(const Space& home, IntView x, int i) {
       return x.min() + r(x.max() - x.min());
     }

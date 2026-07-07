@@ -4,9 +4,9 @@ Christian Schulte
 Guido Tack
 Mikael Z. Lagerkvist
 
-This document was published on November 7, 2022. It corresponds to Gecode 6.3.0.
+This document corresponds to Gecode 6.4.0.
 
-© Christian Schulte, Guido Tack, Mikael Z. Lagerkvist, 2008–2020.
+© Christian Schulte, Guido Tack, Mikael Z. Lagerkvist, 2008–2026.
 
 License information
 This document is provided under the terms of the
@@ -18,7 +18,7 @@ We kindly ask you to not make this document available on the Internet such that 
 be indexed by a search engine. We insist that search engines should point to a single and
 up-to-date version of this document.
 The location of this document is:
-https://www.gecode.org/doc/6.3.0/MPG.pdf
+https://www.gecode.org/doc/6.4.0/MPG.pdf
 
 The location of this document corresponding to the latest Gecode version is:
 https://www.gecode.org/doc-latest/MPG.pdf

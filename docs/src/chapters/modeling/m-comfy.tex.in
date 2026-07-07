@@ -287,8 +287,9 @@ using the commandline driver with the \?-help? option. At the
 beginning of the printed text, you will find a short
 configuration summary.
 
-Note that all features are enabled for the precompiled binaries
-that are available from the Gecode webpages.
+The official source release can be configured with all optional
+features, provided that the corresponding dependencies are
+available when Gecode is built.
 }
 
 \tip{Which version of Gecode are we using?}{

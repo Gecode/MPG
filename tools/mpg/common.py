@@ -15,10 +15,11 @@ GEN_SRC = GEN / "src"
 BUILD = WORK / "build"
 BIN = WORK / "bin"
 RESULTS = WORK / "results"
+MANIFESTS = WORK / "manifests"
 
 
 def ensure_dirs() -> None:
-    for p in (WORK, GEN, GEN_TEX, GEN_SRC, BUILD, BIN, RESULTS):
+    for p in (WORK, GEN, GEN_TEX, GEN_SRC, BUILD, BIN, RESULTS, MANIFESTS):
         p.mkdir(parents=True, exist_ok=True)
 
 

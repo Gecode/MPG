@@ -445,8 +445,8 @@ part should be read.  The chapters capture the following:
 
 \begin{important}
   Programming variables requires to configure and recompile
-  Gecode from its source code. Using one of the pre-compiled
-  packages is not sufficient. More details can be found in
+  Gecode from its source code. Using an already installed package
+  is not sufficient. More details can be found in
   \autoref{chap:v:all}.
 \end{important}
 }

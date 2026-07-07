@@ -1,6 +1,6 @@
 # Modeling and Programming with Gecode (MPG)
 
-This repository contains the LaTeX source and generated code examples for **Modeling and Programming with Gecode**.
+This repository contains the LaTeX source and generated code examples for **Modeling and Programming with Gecode**. The current release configuration is for Gecode 6.4.0.
 
 ## Source Layout
 
@@ -35,6 +35,20 @@ You can pass Gecode location through make variables, for example:
 `make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make build GECODE_PREFIX=/usr/local`.
 If neither is set and `../gecode/test/test.cpp` exists, the Makefile auto-uses `../gecode` for full test coverage.
 
+For release validation, build the current Gecode `main` branch and pass that checkout as `GECODE_ROOT`:
+
+```bash
+git clone --depth=1 --branch main https://github.com/Gecode/gecode.git ../gecode
+cmake -S ../gecode -B ../gecode/build -G Ninja -DCMAKE_BUILD_TYPE=Release \
+  -DGECODE_ENABLE_QT=OFF -DGECODE_ENABLE_GIST=OFF \
+  -DGECODE_ENABLE_MPFR=OFF -DGECODE_ENABLE_CPPROFILER=OFF
+cmake --build ../gecode/build --parallel
+make test GECODE_ROOT=../gecode
+make docs
+```
+
+Once the Gecode release tag exists, use `--branch release-6.4.0` for the final release check. The old 6.3.0 state is kept as the `release-6.3.0` tag.
+
 ## Dependency Resolution
 
 MPG supports three dependency modes:
@@ -62,7 +76,8 @@ Generated files are written to `.mpg/`:
 - `.mpg/build/` CMake/Ninja build trees
 - `.mpg/bin/` compiled executables
 - `.mpg/results/` machine-readable run summaries
-- `.mpg/manifest.json` extracted example manifest
+- `.mpg/manifests/` per-kind example manifests used by `run`
+- `.mpg/manifest.json` compatibility snapshot of the last manifest
 
 ## Docs Build
 
@@ -87,5 +102,5 @@ This preserves chapter/code structure and link behavior while modernizing orches
 
 ## CI
 
-- `examples.yml` runs periodic checks for `make test` and `make docs` on Linux.
+- `examples.yml` runs periodic checks for `make test` and `make docs` on Linux. It checks out and builds `Gecode/gecode` at `main` by default, and can be run manually against another repository/ref through the `gecode_repository` and `gecode_ref` workflow inputs. For the final release check, set `gecode_ref` to `release-6.4.0` once that tag exists.
 - `docs.yml` builds the PDF on Linux and publishes it as an artifact.

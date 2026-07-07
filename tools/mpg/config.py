@@ -14,12 +14,13 @@ from .common import ROOT
 from .sources import main_template
 
 
-DEFAULT_VERSION = "6.3.0"
-DEFAULT_YEAR = "2020"
+DEFAULT_VERSION = "6.4.0"
+DEFAULT_YEAR = "2026"
 DEFAULT_MODELS = [
     "send-more-money-de-mystified",
     "send-more-money-with-gist",
     "send-more-money-with-gist-inspection",
+    "send-more-money-with-gist-comparison",
     "send-more-money",
     "send-most-money-with-cost",
     "send-most-money-with-driver",
@@ -145,8 +146,8 @@ def write_default_config() -> None:
     if cfg.exists():
         return
     cfg.write_text(
-        """version = "6.3.0"
-year = 2020
+        """version = "6.4.0"
+year = 2026
 run_timeout_sec = 20
 
 # Optional explicit overrides.

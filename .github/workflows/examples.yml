@@ -3,6 +3,16 @@ name: examples
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      gecode_repository:
+        description: "Gecode repository to test against"
+        required: false
+        default: "Gecode/gecode"
+      gecode_ref:
+        description: "Gecode branch, tag, or commit to test against"
+        required: false
+        default: "main"
   schedule:
     - cron: "0 6 * * 1"
 
@@ -17,14 +27,27 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgecode-dev texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended dvipsk-java ghostscript
+          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended dvipsk-java ghostscript
       - name: Checkout Gecode sources
-        run: git clone --depth=1 https://github.com/Gecode/gecode.git ../gecode
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.inputs.gecode_repository || 'Gecode/gecode' }}
+          ref: ${{ github.event.inputs.gecode_ref || 'main' }}
+          path: gecode-source
+      - name: Build selected Gecode ref
+        run: |
+          cmake -S "$GITHUB_WORKSPACE/gecode-source" -B "$GITHUB_WORKSPACE/gecode-source/build" -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DGECODE_ENABLE_QT=OFF \
+            -DGECODE_ENABLE_GIST=OFF \
+            -DGECODE_ENABLE_MPFR=OFF \
+            -DGECODE_ENABLE_CPPROFILER=OFF
+          cmake --build "$GITHUB_WORKSPACE/gecode-source/build" --parallel
       - name: Python unit tests
         run: uv run -- python -m unittest discover -s tests -p "test_*.py"
       - name: Guard root chapter files
         run: test -z "$(find . -maxdepth 1 -type f -name '*.tex.in' -print -quit)"
       - name: make test
-        run: make test GECODE_ROOT=../gecode GECODE_PREFIX=/usr
+        run: make test GECODE_ROOT="$GITHUB_WORKSPACE/gecode-source"
       - name: make docs
         run: make docs

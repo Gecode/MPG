@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import shutil
 import tarfile
@@ -39,96 +40,99 @@ def cmd_doctor(args: argparse.Namespace) -> int:
 def cmd_extract(args: argparse.Namespace) -> int:
     ensure_dirs()
     cfg = get_config()
-    extract_work = WORK / "extract"
+    extract_work = WORK / "extract" / str(os.getpid())
     if extract_work.exists():
         shutil.rmtree(extract_work)
     extract_work.mkdir(parents=True, exist_ok=True)
     try:
-        (extract_work / "bin").symlink_to(ROOT / "bin", target_is_directory=True)
-    except OSError:
-        shutil.copytree(ROOT / "bin", extract_work / "bin", dirs_exist_ok=True)
+        try:
+            (extract_work / "bin").symlink_to(ROOT / "bin", target_is_directory=True)
+        except OSError:
+            shutil.copytree(ROOT / "bin", extract_work / "bin", dirs_exist_ok=True)
 
-    # Copy static .tex files for include.perl expansion context.
-    for p in static_tex_files():
-        shutil.copy2(p, extract_work / p.name)
+        # Copy static .tex files for include.perl expansion context.
+        for p in static_tex_files():
+            shutil.copy2(p, extract_work / p.name)
 
-    def run_gl(src: Path, dst: Path) -> None:
-        with src.open("r", encoding="utf-8") as fin, dst.open("w", encoding="utf-8") as fout:
-            subprocess.run(["perl", "bin/gl.perl", cfg["year"]], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
+        def run_gl(src: Path, dst: Path) -> None:
+            with src.open("r", encoding="utf-8") as fin, dst.open("w", encoding="utf-8") as fout:
+                subprocess.run(["perl", "bin/gl.perl", cfg["year"]], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
 
-    # Chapter generation.
-    for ch in cfg["chapters"]:
-        out = extract_work / f"{ch}.tex"
-        src = chapter_source(ch)
-        if src.name.endswith(".tex.in"):
-            run_gl(src, out)
-        else:
-            shutil.copy2(src, out)
+        # Chapter generation.
+        for ch in cfg["chapters"]:
+            out = extract_work / f"{ch}.tex"
+            src = chapter_source(ch)
+            if src.name.endswith(".tex.in"):
+                run_gl(src, out)
+            else:
+                shutil.copy2(src, out)
 
-    # changelog + acknowledgements.
-    try:
-        changelog = chapter_source("changelog")
-    except FileNotFoundError:
-        changelog = None
-    if changelog is not None:
-        out = extract_work / "changelog.tex"
-        if changelog.name.endswith(".tex.in"):
-            run_gl(changelog, out)
-        else:
-            shutil.copy2(changelog, out)
-        with changelog.open("r", encoding="utf-8") as fin, (extract_work / "acks.tex").open("w", encoding="utf-8") as fout:
-            subprocess.run(["perl", "bin/gen-ack.perl"], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
+        # changelog + acknowledgements.
+        try:
+            changelog = chapter_source("changelog")
+        except FileNotFoundError:
+            changelog = None
+        if changelog is not None:
+            out = extract_work / "changelog.tex"
+            if changelog.name.endswith(".tex.in"):
+                run_gl(changelog, out)
+            else:
+                shutil.copy2(changelog, out)
+            with changelog.open("r", encoding="utf-8") as fin, (extract_work / "acks.tex").open("w", encoding="utf-8") as fout:
+                subprocess.run(["perl", "bin/gen-ack.perl"], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
 
-    # titles.
-    title_inputs: list[str] = []
-    for c in cfg["chapters"]:
-        src = chapter_source(c)
-        if src.name.endswith(".tex.in"):
-            title_inputs.append(str(src))
-    with (extract_work / "titles.tex.in").open("w", encoding="utf-8") as fout:
-        subprocess.run(["perl", "bin/gen-titles.perl", *title_inputs], cwd=extract_work, stdout=fout, check=True, text=True)
-    run_gl(extract_work / "titles.tex.in", extract_work / "titles.tex")
+        # titles.
+        title_inputs: list[str] = []
+        for c in cfg["chapters"]:
+            src = chapter_source(c)
+            if src.name.endswith(".tex.in"):
+                title_inputs.append(str(src))
+        with (extract_work / "titles.tex.in").open("w", encoding="utf-8") as fout:
+            subprocess.run(["perl", "bin/gen-titles.perl", *title_inputs], cwd=extract_work, stdout=fout, check=True, text=True)
+        run_gl(extract_work / "titles.tex.in", extract_work / "titles.tex")
 
-    # Main document include+shorten+gl.
-    base = main_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"])
-    p1 = subprocess.run(["perl", "bin/include.perl"], cwd=extract_work, input=base, text=True, stdout=subprocess.PIPE, check=True)
-    p2 = subprocess.run(["perl", "bin/shorten.perl"], cwd=extract_work, input=p1.stdout, text=True, stdout=subprocess.PIPE, check=True)
-    (extract_work / "MPG.tex.in").write_text(p2.stdout, encoding="utf-8")
-    run_gl(extract_work / "MPG.tex.in", extract_work / "MPG.tex")
+        # Main document include+shorten+gl.
+        base = main_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"])
+        p1 = subprocess.run(["perl", "bin/include.perl"], cwd=extract_work, input=base, text=True, stdout=subprocess.PIPE, check=True)
+        p2 = subprocess.run(["perl", "bin/shorten.perl"], cwd=extract_work, input=p1.stdout, text=True, stdout=subprocess.PIPE, check=True)
+        (extract_work / "MPG.tex.in").write_text(p2.stdout, encoding="utf-8")
+        run_gl(extract_work / "MPG.tex.in", extract_work / "MPG.tex")
 
-    # Bibliography template.
-    (extract_work / "MPG.bib").write_text(
-        bib_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"]),
-        encoding="utf-8",
-    )
+        # Bibliography template.
+        (extract_work / "MPG.bib").write_text(
+            bib_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"]),
+            encoding="utf-8",
+        )
 
-    # Copy extracted outputs into the .mpg workspace.
-    GEN_TEX.mkdir(parents=True, exist_ok=True)
-    for p in extract_work.glob("*.tex"):
-        shutil.copy2(p, GEN_TEX / p.name)
-    for p in ("MPG.tex.in", "MPG.bib"):
-        if (extract_work / p).exists():
-            shutil.copy2(extract_work / p, GEN_TEX / p)
-    generated_cpp = []
-    GEN_SRC.mkdir(parents=True, exist_ok=True)
-    for ext in ("*.cpp", "*.hh", "*.vis"):
-        for p in extract_work.glob(ext):
-            shutil.copy2(p, GEN_SRC / p.name)
-            if p.suffix == ".cpp":
-                generated_cpp.append(p.name)
+        # Copy extracted outputs into the .mpg workspace.
+        GEN_TEX.mkdir(parents=True, exist_ok=True)
+        for p in extract_work.glob("*.tex"):
+            shutil.copy2(p, GEN_TEX / p.name)
+        for p in ("MPG.tex.in", "MPG.bib"):
+            if (extract_work / p).exists():
+                shutil.copy2(extract_work / p, GEN_TEX / p)
+        generated_cpp = []
+        GEN_SRC.mkdir(parents=True, exist_ok=True)
+        for ext in ("*.cpp", "*.hh", "*.vis"):
+            for p in extract_work.glob(ext):
+                shutil.copy2(p, GEN_SRC / p.name)
+                if p.suffix == ".cpp":
+                    generated_cpp.append(p.name)
 
-    manifest_examples = write_manifest("all")
-    write_json(
-        ROOT / ".mpg" / "extract.json",
-        {
-            "generated_cpp": sorted(set(generated_cpp)),
-            "chapter_count": len(cfg["chapters"]),
-            "example_count": len(manifest_examples),
-        },
-    )
-    print(f"Extracted chapters: {len(cfg['chapters'])}")
-    print(f"Generated C++ files: {len(generated_cpp)}")
-    return 0
+        manifest_examples = write_manifest("all")
+        write_json(
+            ROOT / ".mpg" / "extract.json",
+            {
+                "generated_cpp": sorted(set(generated_cpp)),
+                "chapter_count": len(cfg["chapters"]),
+                "example_count": len(manifest_examples),
+            },
+        )
+        print(f"Extracted chapters: {len(cfg['chapters'])}")
+        print(f"Generated C++ files: {len(generated_cpp)}")
+        return 0
+    finally:
+        shutil.rmtree(extract_work, ignore_errors=True)
 
 
 def cmd_build(args: argparse.Namespace) -> int:
@@ -152,8 +156,7 @@ def cmd_test(args: argparse.Namespace) -> int:
 
 
 def cmd_docs(args: argparse.Namespace) -> int:
-    if not (GEN_TEX / "MPG.tex").exists():
-        cmd_extract(args)
+    cmd_extract(args)
     pdf = build_docs()
     print(f"Built PDF: {pdf}")
     return 0

@@ -21,11 +21,10 @@ interactive search tool can be used for developing constraint
 models. Search for a best
 solution of a model is explained in \autoref{sec:m:started:search-best}.
 
-The chapter also includes an explanation of how to obtain Gecode
-in \autoref{sec:m:started:obtain} which covers both installation
-of binary packages available for some platforms and compilation
-of source packages. There is no need to say, that this section is
-very important reading!
+The chapter also includes an explanation of how to obtain and
+build the Gecode source release in \autoref{sec:m:started:obtain}.
+That section is worth reading before compiling the examples by
+hand, as it fixes the version and build layout assumed here.
 
 
 \section{A first Gecode model}
@@ -396,36 +395,57 @@ return 0;
 \section{Compiling, linking, and executing}
 \label{sec:m:started:run}
 
-This section assumes that you have Gecode with the right version
-(this document uses Gecode~\GecodeVersion) already installed on
-your computer. If that is not the case, you should visit the
-\AURL{https://www.gecode.org/download.html}{download section} on
-Gecode's website and read \autoref{sec:m:started:obtain} on how
-to install and/or compile Gecode. 
+This section assumes that you have built or installed the Gecode
+version used by this document, namely Gecode~\GecodeVersion.  It
+is a source release, so the usual path is to build Gecode locally
+and either use it directly from its build tree or install it into
+a prefix.  If you have not done that yet, read
+\autoref{sec:m:started:obtain} first.
 
-Naturally, the following sections are platform-specific.
+The most convenient way to use an installed Gecode from a new
+project is through CMake.  A minimal \?CMakeLists.txt? for the
+\?send-more-money.cpp? example is:
+
+\begin{cmd}
+cmake_minimum_required(VERSION 3.21)
+project(send_more_money LANGUAGES CXX)
+find_package(Gecode CONFIG REQUIRED)
+add_executable(send-more-money send-more-money.cpp)
+target_link_libraries(send-more-money PRIVATE Gecode::gecode)
+\end{cmd}
+
+\noindent If Gecode has been installed in a non-standard prefix,
+point CMake to that prefix:
+
+\begin{cmd}
+cmake -S . -B build -DCMAKE_PREFIX_PATH=<dir>
+cmake --build build --config Release
+\end{cmd}
+
+\noindent The remaining sections show the underlying compiler and
+linker settings.  They are useful when a small example is compiled
+by hand or when an existing project does not use CMake.
 
 \subsection{Microsoft Visual Studio}
 \label{sec:m:started:windows}
 
-Gecode uses a technique called auto-linking with Visual Studio:
-by including Gecode header files, the compiler/linker knows which
-library and DLL must be linked against. Hence, it is sufficient
-to provide information to the compiler where the libraries
-reside.
+For Visual Studio, the recommended route is to configure Gecode
+and the application with CMake.  Visual Studio is a multi-configuration
+generator, so the configuration name is supplied when building:
 
-The library and DLL names encode the Gecode version, the platform
-(\?x86?, \?x64?, or \?ia64?), and whether Gecode has been built
-as release (optimized) or debug. That has the advantage that a
-single set of header files can be shared among different
-platforms and builds and the appropriate libraries and DLLs are
-selected automatically.
+\begin{cmd}
+cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Release
+cmake --install build --config Release --prefix C:\gecode
+\end{cmd}
 
-In the following we assume that you are using one of the pre-compiled
-Windows packages we provide (see \autoref{sec:m:started:install:windows}). The packages define the environment
-variable \?%GECODEDIR%? where Gecode has been installed, and 
-update the \?Path? environment variable so that Gecode DLLs are
-found for execution.
+\noindent For an application using the installed tree:
+
+\begin{cmd}
+cmake -S . -B build -G "Visual Studio 17 2022" -A x64 \
+  -DGecode_ROOT=C:\gecode
+cmake --build build --config Release
+\end{cmd}
 
 \paragraph{Commandline.}
 
@@ -441,10 +461,9 @@ the following into account:
 \item If you want a release build, you need to switch off
   assertions by defining \?/DNDEBUG?.
 \item You should instruct the compiler \?cl? to search for the
-  Gecode header
-  files by adding \?/I"%GECODEDIR%\include"? as an option.
+  Gecode header files by adding \?/I"<dir>\include"? as an option.
 \item When using \?cl? for linking, you should add at
-  the very end of the commandline: \?/link /LIBPATH:"%GECODEDIR%\lib"?.
+  the very end of the commandline: \?/link /LIBPATH:"<dir>\lib"?.
 \item By default, \?cl? warns if \?this? is used in an
   initializer list (Gecode uses this for the initialization of
   variables and variable arrays). You can suppress the warning by
@@ -454,24 +473,23 @@ the following into account:
 The full command for compiling \?send-more-money.cpp? as a
 release build (including optimization with \?/Ox?) is
 \begin{cmd}
-cl /DNDEBUG /EHsc /MD /Ox /wd4355 -I"%GECODEDIR%\include" \
+cl /DNDEBUG /EHsc /MD /Ox /wd4355 -I"<dir>\include" \
   -c -Fosend-more-money.obj -Tpsend-more-money.cpp
 \end{cmd}
 where the \?\? at the end of a line means that the line actually
 continues on the next line. The following command links the
 program:
 \begin{cmd}
-cl /DNDEBUG /EHsc /MD /Ox /wd4355 -I"%GECODEDIR%\include" \
+cl /DNDEBUG /EHsc /MD /Ox /wd4355 -I"<dir>\include" \
   -Fesend-more-money.exe send-more-money.obj \
-  /link /LIBPATH:"%GECODEDIR%\lib"
+  /link /LIBPATH:"<dir>\lib"
 \end{cmd}
 
 \paragraph{Integrated development environment.}
 
 When your Microsoft Visual Studio solution uses Gecode, all
 necessary settings can be configured in the properties dialog of
-your solution. We assume that Gecode is installed in the default
-location \?"<GECODEDIR>"?.
+your solution. We assume that Gecode is installed in \?"<dir>"?.
 \begin{itemize}
 \item You must use dynamic linking against a multithreaded
   library. That is, either \?/MD? (release build) or \?/MDd?
@@ -483,99 +501,65 @@ location \?"<GECODEDIR>"?.
   assertions by defining \?/DNDEBUG? (this is true by default).
 \item Configuration Properties, \CPP, General: set the
   "Additional Include Directories" to include 
-  \?"$(GECODEDIR)\include"? as the directory
+  \?"<dir>\include"? as the directory
   containing the Gecode header files.
 \item Configuration Properties, Linker, General: set the
   "Additional Library Directories" to 
-  \?"$(GECODEDIR)\lib"? as the path containing the
+  \?"<dir>\lib"? as the path containing the
   libraries.
 \end{itemize}
 
-\tip{Cygwin with Microsoft Visual Studio}{%
+\tip{Visual Studio command prompts}{%
 \label{tip:m:started:cygwin}%
-  A setup that works well for us is to install
-  \AURL{http://www.cygwin.com}{Cygwin} and Microsoft Visual
-  Studio (Microsoft distributes a free
-  \AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Community Edition}). 
-  
-  The easiest way to use the Microsoft Visual Studio \CPP{}
-  compiler (\?cl?) from Cygwin is to add a line that loads the
-  file \?vcvarsall.bat? to the
-  \?Cygwin.bat? file that starts Cygwin. The file  \?vcvarsall.bat? comes
-  with Microsoft Visual Studio (for example, it is used to start
-  the Visual Studio Command Prompt). On my machine using the Visual
-  Studio Community 2022, the added line is
-\begin{cmd}
-call "C:\Program Files\Microsoft Visual Studio\2022\Community\...
-  VC\Auxiliary\Build\vcvarsall.bat" x86
-\end{cmd}
-  for the 32-bit compiler version (\texttt{x86}) and
-\begin{cmd}
-call "C:\Program Files\Microsoft Visual Studio\2022\Community\...
-  VC\Auxiliary\Build\vcvarsall.bat" x64
-\end{cmd}
-  for the 64-bit compiler version (\texttt{x64}), where \?...?
-  means that the line continues. The line needs
-  to be after the \texttt{\@echo~off} command at the beginning of
-  the file.
- 
-  Or, you start the appropriate version of the Visual Studio Command Prompt
-  first (look for \emph{x64 Native Tools Command Prompt for VS 2022},
-  \emph{x86 Native Tools Command Prompt for VS 2022}, or similar),
-  and then start the bash shell by hand with
-\begin{cmd}
-cd C:\Cygwin\bin
-bash --login -i
-\end{cmd}
-  provided that Cygwin is installed in \?C:\Cygwin?.
+  If you compile by hand, start the appropriate Visual Studio
+  developer prompt first, for example \emph{x64 Native Tools
+  Command Prompt for VS 2022}.  This sets up \?cl?, \?link?, and
+  the Windows SDK paths.  CMake uses the same compiler environment
+  when it is launched from that prompt.
 }
 
 \subsection{Apple Mac OS}
 
-These compilation instructions assume that you use the Gecode binary package for Mac OS (see \autoref{sec:m:started:install:macos}). If you compiled and installed Gecode from the source package, please read \autoref{sec:m:started:linux}.
+On macOS, build Gecode from the source release with CMake and
+install it into a prefix such as \?/opt/gecode? or \?/usr/local?.
+Xcode or the Xcode command line tools provide the compiler.
 
 \paragraph{Commandline.}
 
 When compiling your code using the \?gcc? compiler (invoking it
-as \?g++?), the Gecode header files are found automatically, they
-are on the default header search path. For linking against the
-Gecode framework, just add \?-F/Library/Frameworks? and
-\?-framework gecode? as options. Note that only versions 4.2 or
-better of \?gcc? are supported.
+as \?g++?), add the include and library directories for the
+prefix where Gecode has been installed.
 
 The following command compiles and links \?send-more-money.cpp? as a
 release build (including optimization):
 \begin{cmd}
-g++ -std=c++11 -F/Library/Frameworks -O3 -c send-more-money.cpp
-g++ -std=c++11 -F/Library/Frameworks -framework gecode \
-  -o send-more-money send-more-money.cpp
+g++ -std=c++17 -I<dir>/include -O3 -c send-more-money.cpp
+g++ -std=c++17 -o send-more-money send-more-money.o \
+  -L<dir>/lib -lgecodesearch -lgecodeint \
+  -lgecodekernel -lgecodesupport
 \end{cmd}
 
-\paragraph{XCode.}
+\paragraph{Xcode.}
 
-You can easily use Gecode within the XCode development
-environment by choosing \emph{Add} $\rhd$ \emph{Existing Frameworks\dots} 
-from the context menu on your target. Then pick the \?gecode? framework from 
-the list. You may have to edit your project settings to choose \emph{Mac~OS~10.6} as the base SDK.
+Xcode projects should normally be generated or configured through
+CMake.  If you manage an Xcode project by hand, add
+\?<dir>/include? to the header search paths, \?<dir>/lib? to the
+library search paths, and link the Gecode libraries used by the
+program.
 
 \subsection{Linux and relatives}
 \label{sec:m:started:linux}
 
-On Linux (and similar operating systems), Gecode is installed as
-a set of shared libraries. The default installation directory is
-\?"/usr/local"?, which means that the header files can be found
-in \?"/usr/local/include"? and the libraries in
-\?"/usr/local/lib"?. Depending on your Linux distribution, a
-binary package may have been installed under the \?"/usr"? path
-instead. If you installed Gecode from the source package, you may
-have chosen a different installation directory. For now, assume
-that Gecode is installed in \?"<dir>"?.
+On Linux and similar operating systems, Gecode is installed as a
+set of libraries and headers.  The default installation prefix is
+\?"/usr/local"?, but a source build can be installed anywhere.
+For now, assume that Gecode is installed in \?"<dir>"?.
 
 \paragraph{Commandline.}
 
 To compile your code using the \?gcc? compiler, you have to add
 the option \?-I<dir>/include? so that \?gcc? can find the header
-files. Note that only versions 4.2 or better of \?gcc? are supported.
+files.
 
 For linking, the path has to be given as \?-L<dir>/lib?, and
 in addition the individual Gecode libraries must be linked. You
@@ -799,147 +783,120 @@ general \?constrain()? function.
 \section{Obtaining Gecode}
 \label{sec:m:started:obtain}
 
-This section explains how to obtain Gecode. There are two basic
-options: install Gecode as a binary package (explained in
-\autoref{sec:m:started:install}) or compile Gecode from its
-source (explained in \autoref{sec:m:started:compile} and
-\autoref{sec:m:started:compileadvanced}).
-
-We recommend to use the pre-compiled binaries we provide, unless
-you like to tinker. The advantage of the packages we provide is
-that required and additional software for those platforms not
-having automatic package management (for example, Microsoft
-Windows) and reference documentation in platform-specific format
-are already included.
+This section explains how to obtain Gecode.  Gecode~\GecodeVersion{}
+is distributed as a source release.  Some operating systems also
+provide Gecode packages, but those packages are maintained by the
+corresponding distribution and may not match the version used by
+this document.  For a predictable setup, download the source
+release and build it locally.
 
 \subsection{Installing Gecode}
 \label{sec:m:started:install}
 
-Naturally the following sections are platform specific.
+The official release artifact is the source archive available
+from the \AURL{https://github.com/Gecode/gecode/releases}{Gecode
+GitHub releases}.  Download the archive for
+Gecode~\GecodeVersion{} and unpack it into a working directory.
+The commands in the next section assume that the source directory
+is called \?gecode-\GecodeVersion?.
 
 \subsubsection{Installing Gecode on Windows}
 \label{sec:m:started:install:windows}
 
-The pre-compiled Gecode binaries available for download require
-Microsoft Visual Studio. Note that Visual Studio Community
-is available free of charge from
-\AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Microsoft}.
-
-Pre-compiled binaries are available for several versions of
-Microsoft Visual \CPP. The binary packages include everything
-needed (in particular, Qt for Gist).
+Install Visual Studio 2022 with the \CPP{} toolchain and CMake.
+If you need MPFR support, using the source release with CMake and
+vcpkg is the most direct path.
 
 \subsubsection{Installing Gecode on Apple Mac OS}
 \label{sec:m:started:install:macos}
 
-The pre-compiled Gecode binaries for Mac OS require the XCode
-developer tools, version 3.1 or higher. XCode is available from
-the Mac OS install DVD, or from the
-\AURL{http://developer.apple.com/devcenter/mac/index.action}{Apple
-  Mac Dev Center}.
-
-The binary packages include the Qt library (necessary for Gist).
-
-After installing these prerequisites, simply download and open
-the Gecode disk image for Mac OS, double-click the installer
-package, and follow the instructions.
+Install Xcode or the Xcode command line tools.  CMake can then
+use the Apple compiler directly.  Optional components such as
+Gist require the corresponding optional dependencies, in
+particular Qt.
 
 \subsubsection{Installing Gecode on Linux and relatives}
 
 The Debian and Ubuntu Linux distributions come with pre-compiled
 packages for Gecode. These packages (and all the packages they
 depend on) can be installed with the usual package management
-tools (for example, \texttt{apt-get}). Note that we do not maintain these
-packages, and that the repositories do not always provide the
-most up-to-date version.
-
-If the Linux distribution of your choice does not provide a
-binary package for Gecode, or does not contain the latest
-version, please refer to the next section for instructions how to
-compile Gecode from the source.
+tools.  These packages can be useful for quick experiments.  They
+are not the release artifact for Gecode~\GecodeVersion{}, and
+they should not be used when exact version matching matters.
 
 
 \subsection{Compiling Gecode}
 \label{sec:m:started:compile}
 
-Gecode can be built on all recent versions of Windows, Linux, and
-MacOS X. Porting to other Unix flavors should be easy, if any
-change is necessary at all. The Gecode source code is available
-from the \AURL{https://www.gecode.org/download.html}{download
-  section} of the Gecode web site.
+Gecode can be built on recent versions of Windows, Linux, and
+macOS.  The source code is available from the
+\AURL{https://github.com/Gecode/gecode/releases}{Gecode GitHub
+releases}.
 
 \paragraph{Prerequisites.}
 
-In order to compile Gecode, you need a standard Unix toolchain
-including the following programs: a bash-compatible shell, GNU
-make, sed, cp, diff, tar, perl, grep.
-
-These are available in all standard installations of Linux. On
-MacOS X, you need to install the XCode developer tools, version
-3.1 or higher. XCode is available from the Mac OS install DVD, or
-from the
-\AURL{http://developer.apple.com/devcenter/mac/index.action}{Apple
-  Mac Dev Center}. For Windows, we require the
-\AURL{http://www.cygwin.com/}{Cygwin environment} that provides
-all necessary tools (see also \autoref{tip:m:started:cygwin}).
+In order to compile Gecode with the CMake build, you need CMake
+3.21 or newer, a \CPP{}17-capable compiler, and \?uv? on the
+search path.  Optional modules have optional dependencies: MPFR
+for trigonometric and transcendental float constraints, and Qt5
+or Qt6 for Gist.
 
 We currently support:
 \begin{itemize}
-\item Microsoft Visual \CPP{} compilers for Windows. Microsoft
+\item Microsoft Visual \CPP{} compilers for Windows.  Microsoft
   Visual Studio Community is available free of charge
   from \AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Microsoft}.
-\item GNU Compiler Collection (gcc) for Unix flavors
-  such as Linux and MacOS X. The GNU gcc is open source software
+\item GNU Compiler Collection (gcc) for Unix flavors such as
+  Linux and macOS.  The GNU gcc is open source software
   and available from \AURL{http://gcc.gnu.org/}{the GCC home
-    page}. It is included in all Linux distributions and the
-  Apple MacOS X developer tools.  
-
-  \textbf{Important:} Gecode requires at least
-  version 4.2 of \texttt{gcc}.
-\item Intel \CPP{} compiler, although we do not test the binaries
-  produced by it.
+    page}.  It is included in many Linux distributions.
+\item The Apple compiler shipped with Xcode and the Xcode command
+  line tools.
 \end{itemize}
 
 \paragraph{Configuring the sources.}
 
-After unpacking the sources, you need to run the \?configure?
-script in the toplevel directory. This script (which uses GNU
-autoconf) acquires information about the system you try to
-compile Gecode on.
+For a single-configuration generator such as Ninja or Unix
+Makefiles, configure a release build as follows:
 
-To setup Gecode for your particular system, you may need to add
-one or more of the following options to \?configure?:
+\begin{cmd}
+cmake -S gecode-\GecodeVersion -B build \
+  -DCMAKE_BUILD_TYPE=Release
+\end{cmd}
 
-\begin{itemize}
-\item To install Gecode somewhere else than the default
-   \?/usr/local?, please use the commandline \?--prefix=[...]? switch.
-\item You can enable and disable the individual modules Gecode consists of
-   by using \?--enable-[MODULE]? and \?--disable-[MODULE]?.
-\end{itemize}
+\noindent For a multi-configuration generator such as Visual
+Studio or Xcode, omit \?CMAKE_BUILD_TYPE? and choose the
+configuration when building:
 
-You can get a list of all supported configuration options by
-calling \?configure? with the \?--help? switch.
-\autoref{sec:m:started:compileadvanced} explains the
-configuration options in more detail, if the defaults do not work
-for you.
+\begin{cmd}
+cmake -S gecode-\GecodeVersion -B build
+\end{cmd}
 
 \paragraph{Compiling the sources.}
 
-After successful configuration, simply invoking
+After successful configuration, build Gecode with:
 \begin{cmd}
-make
+cmake --build build --config Release
 \end{cmd}
-in the toplevel Gecode directory will compile the whole library
-and the examples.
+
+\noindent With single-configuration generators, the
+\?--config Release? argument is harmless and may also be omitted.
+
+\paragraph{Running the test suite.}
+
+The CMake build defines a \?check? target when tests are enabled:
+
+\begin{cmd}
+cmake --build build --config Release --target check
+\end{cmd}
 
 \paragraph{Installation.}
 
 After a successful compilation, you can install the Gecode library
 and all header files necessary for compiling against it by invoking
 \begin{cmd}
-make install
+cmake --install build --config Release --prefix <dir>
 \end{cmd}
-in the build directory.
 
 \tip{Do not forget the library path}{
 \label{tip:m:started:install:ld}%
@@ -951,15 +908,15 @@ path. See \autoref{sec:m:started:linux} for details.
 
 \paragraph{Running the examples.}
 
-After compiling the examples, they can be run directly from the command
-line. For instance, try the Golomb Rulers Problem:
+After compiling the examples, they can be run directly from the
+build tree.  For instance, try the Golomb Rulers Problem:
 
 \begin{cmd}
-./examples/golomb
+./build/examples/golomb
 \end{cmd}
-or (when running Windows):
+or, when using a multi-configuration generator on Windows:
 \begin{cmd}
-./examples/golomb.exe
+./build/examples/Release/golomb.exe
 \end{cmd}
 
 On some platforms, you may need to set environment variables like
@@ -970,26 +927,13 @@ the toplevel compile directory or the installation directory
 \paragraph{Compilation with Gist.}
 
 The Gecode Interactive Search Tool (Gist) is a graphical search
-engine for Gecode, built on top of the
-\AURL{http://qt.nokia.com/}{Qt GUI toolkit}.
+engine for Gecode, built on top of Qt.  CMake looks for Qt5 or
+Qt6 when Gist is enabled.  If Qt is not found, Gist is disabled
+automatically.  To make this choice explicit, configure with:
 
-In order to compile Gecode with Gist, you need an installation of
-the Qt library including the development header files. The Qt
-binary packages for Windows and Mac OS (available from
-\AURL{http://qt.nokia.com/}{the Nokia Qt web pages}) as well as
-the Qt packages in the usual Linux distributions contain
-everything that is necessary. You can however also compile Qt
-from its sources, \AURL{http://qt.nokia.com/}{available from
-  Nokia under both free and commercial licenses}.
-
-\textbf{Please note that if you develop closed-source software with Gecode and Gist, you will have to either comply with the LGPL, or obtain a commercial license for Qt from Nokia!}
-
-If you are developing on Windows using the Microsoft Visual \CPP{} compiler,
-make sure to compile the Qt library with the same compiler.
-
-After installing Qt, make sure that the \?qmake? tool is in your
-shell path. The Gecode \?configure? script will then detect the
-presence of Qt and automatically compile with support for Gist.
+\begin{cmd}
+cmake -S gecode-\GecodeVersion -B build -DGECODE_ENABLE_GIST=ON
+\end{cmd}
 
 \tip{Compatible compilers and installations for Gecode and Qt}{
 \label{tip:m:started:samecompiler}%
@@ -998,91 +942,70 @@ compiled is compatible with the compiler you intend to use for
 Gecode (most likely, the requirement is that both packages must
 be compiled with the very same compiler).
 
-In particular, make sure that this is true when you install a Qt
-binary package. Watch out for pre-installed Qt packages! For
-example: the Qt packages on Windows available through Cygwin
-should be disabled or deinstalled when you want to use Qt and
-Gecode with the Microsoft Visual \CPP{} compiler.
+In particular, make sure that this is true when you install Qt
+through a package manager.  On Windows, vcpkg is often the
+simplest way to keep Qt and the Visual Studio compiler in the
+same toolchain.
 }
 
 \paragraph{Compilation with support for trigonometric and
   transcendental float constraints.}
 \label{par:m:started:mpfr}
 
-By default, trigonometric and transcendental float constraints are
-\emph{disabled} (see also \autoref{m:float:mpfr}). To enable
-them, Gecode must be configured to use the
-\AURL{http://gmplib.org/}{GMP} (or
-\AURL{http://www.mpir.org/}{MPIR} instead) and
-\AURL{http://www.mpfr.org/}{MPFR} libraries. After having
-installed the libraries, the following commandline options
-instruct \?configure? to use these packages:
-\begin{itemize}
-\item \?-with-gmp-include=...?: the directory where the header
-  files of GMP or MPIR are installed.
-\item \?-with-gmp-lib=...?: the directory where the library
-  files of GMP or MPIR are installed.
-\item \?-with-mpfr-include=...?: the directory where the header
-  files of MPFR are installed.
-\item \?-with-mpfr-lib=...?: the directory where the library
-  files of MPFR are installed.
-\end{itemize}
+Trigonometric and transcendental float constraints require MPFR
+(see also \autoref{m:float:mpfr}).  CMake searches for MPFR when
+float support with MPFR is enabled.  Use \?CMAKE_PREFIX_PATH?,
+\?MPFR_ROOT?, or a toolchain file to point CMake to a non-standard
+MPFR installation.
 
 
 \subsection{Advanced configuration and compilation}
 \label{sec:m:started:compileadvanced}
 
 If the instructions from the previous section do not work for
-your system, please have a look at the following example
-configurations and advanced options to configure Gecode to your
-needs.
+your system, the following examples show the CMake options most
+commonly needed when configuring Gecode.
 
 
 \subsubsection{Example configurations}
 
-To compile only the Gecode library \textbf{without examples} on a Unix machine, use
+To compile only the Gecode library \textbf{without examples}, use
 
 \begin{cmd}
-./configure --disable-examples
+cmake -S gecode-\GecodeVersion -B build \
+  -DGECODE_ENABLE_EXAMPLES=OFF
 \end{cmd}
 
-\noindent To compile on a \textbf{Unix machine} using a different than the default
-\?gcc? compiler, and install under \?/opt/gecode?, use
+\noindent To compile using a different compiler and install under
+\?/opt/gecode?, use
 
 \begin{cmd}
-./configure --prefix=/opt/gecode CC=gcc-4.2 CXX=g++-4.2
+cmake -S gecode-\GecodeVersion -B build \
+  -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ \
+  -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+cmake --install build --prefix /opt/gecode
 \end{cmd}
 
-\noindent To compile a \textbf{debug build} on Unix, turning on all assertions and not
-inlining anything, use
+\noindent To compile a \textbf{debug build}, use
 
 \begin{cmd}
-./configure --enable-debug
+cmake -S gecode-\GecodeVersion -B build -DCMAKE_BUILD_TYPE=Debug
 \end{cmd}
 
-\noindent To compile on a system using a different than the default compiler,
-and a \?/bin/sh? that is not bash compatible (for example, on a
-\textbf{Solaris machine}), use
+\noindent To disable an optional module, use the corresponding
+\?GECODE_ENABLE_...? option.  For example, to build without Gist:
 
 \begin{cmd}
-./configure --with-host-os=linux \
-      CC="gcc-4.2" CXX="g++-4.2" \
-      SHELL="/bin/bash"
-make SHELL="/bin/bash"
+cmake -S gecode-\GecodeVersion -B build -DGECODE_ENABLE_GIST=OFF
 \end{cmd}
 
-\noindent You can compile as \textbf{universal binary} on a Mac OS
-machine. Configure with
+\noindent On macOS, universal binaries are configured through the
+standard CMake architecture setting:
 
 \begin{cmd}
-./configure --with-architectures=i386,ppc
-\end{cmd}
-
-\noindent For building universal binaries on a PowerPC machine, you have to supply the path to the universal SDK (which is the default on Intel based Macs):
-
-\begin{cmd}
-./configure --with-architectures=i386,ppc \
-      --with-sdk=/Developer/SDKs/MacOSX10.4u.sdk
+cmake -S gecode-\GecodeVersion -B build \
+  -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
 \end{cmd}
 
 \paragraph{Disabling the default memory allocator.}
@@ -1093,7 +1016,8 @@ standard library functions \?malloc()? and \?free()?. This
 default allocator can be disabled by
 
 \begin{cmd}
-./configure --disable-allocator
+cmake -S gecode-\GecodeVersion -B build \
+  -DGECODE_ENABLE_ALLOCATOR=OFF
 \end{cmd}
 
 If the default allocator is disabled, one must supply the
@@ -1103,85 +1027,54 @@ implementation of an allocator, this is explained in
 
 \paragraph{Passing options for compilation.}
 
-Additional options for compilation can be passed to the compiler
-from the make commandline via the variable \?CXXUSR?. For
-example, to pass to \?gcc? the additional option \?-mtune=i686? the following
-can be used:
+Additional options for compilation can be passed through the
+standard CMake compiler flags.  For example:
 
 \begin{cmd}
-make CXXUSR="-mtune=i686"
+cmake -S gecode-\GecodeVersion -B build \
+  -DCMAKE_CXX_FLAGS="-mtune=native"
 \end{cmd}
 
 \paragraph{Compiling in a separate directory.}
 
-The Gecode library can be built in a separate directory. This is useful
-if you do not want to clutter the source tree with all the object files
-and libraries.
-
-Configuring Gecode in a separate directory is easy. Assume that the
-sources can be found in directory \?$GSOURCEDIR?, change to
-the directory where you want to compile Gecode and call
+The Gecode library should normally be built in a separate build
+directory.  Assume that the sources can be found in directory
+\?$GSOURCEDIR?.  Configure the build directory with:
 
 \begin{cmd}
-$GSOURCEDIR/configure [options]
+cmake -S $GSOURCEDIR -B build [options]
 \end{cmd}
-This will generate all necessary files in the new build directory.
+This keeps generated files out of the source tree.
 
 \paragraph{Dependency management.}
 
-The dependencies between source files are not handled automatically. If you
-are using a Gecode version from our subversion repository or if you
-modified any of the source files, you will have to call
-\?make depend? before compilation in order to determine the
-source dependencies.
-
-Dependency management is only needed for recompiling Gecode after changing
-something. In an unmodified version (or after a \?make clean?)
-all files are compiled anyway.
+CMake tracks source dependencies for normal builds.  If you change
+the variable implementation specifications and want to regenerate
+the checked-in generated headers, configure with
+\?GECODE_REGENERATE_VARIMP=ON?.  This requires \?uv? on the
+search path.
 
 \paragraph{Compiling for unsupported platforms.}
 
 If you want to try compiling Gecode on a platform that we do not
-mention, you can override the platform tests during
-\?configure?. There are two options to specify the type of
-platform:
-
-\begin{itemize}
-\item \?--with-host-os=[linux|darwin|windows]?
-\item \?--with-compiler-vendor=[gnu|microsoft]?
-\end{itemize}
-
-Using the first option, you can state that your platform should behave like
-Linux, Darwin (which is actually BSD), or Windows. This affects mainly
-the filenames and the tools used to generate shared and static libraries.
-
-The second option says
-that your compiler can be used very much like the gnu compiler
-\?gcc?, or the Microsoft compiler \?cl?.
-Please let us know of any successful attempt at
-compiling Gecode on other platforms.
+mention, start with the closest native CMake generator and
+toolchain file for that platform.  CMake, rather than Gecode's
+own configure logic, should describe the compiler, target system,
+SDK, and architecture.
 
 \subsubsection{Useful Makefile targets}
 
-The main Gecode Makefile supports the following useful targets:
+The CMake build supports the following useful targets:
 
 \begin{itemize}
-\item \?all? compiles all parts of the library that were enabled
-                    during \?configure?, and the examples if
-                    enabled.
-\item \?install? installs library, headers and examples (if enabled)
-                        into the \?prefix? given at
-                        \?configure?.
-\item \?clean? removes object files.
-\item \?veryclean? removes object files, libraries, and all files 
-                          generated during \?make?.
-\item \?distclean? removes object files, libraries, and all
-                          generated files.
-\item \?depend? generates dependencies between source files.
-\item \?test? compiles the test suite.
-\item \?doc? generates the reference documentation using doxygen.
-\item \?installdoc? installs the documentation.
-\item \?distdoc? creates tgz and zip archives of the documentation.
+\item \?all? compiles the enabled parts of the library and the
+  examples if examples are enabled.
+\item \?check? builds and runs the test suite when tests are
+  enabled.
+\item \?install? installs libraries, headers, tools, and CMake
+  package files into the selected prefix.
+\item \?clean? removes files generated by the current build
+  configuration.
 \end{itemize}
 
 \begin{litcode}{send more money}{schulte}
