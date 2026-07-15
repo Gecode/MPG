@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
     inputs:
       gecode_repository:
-        description: "Gecode repository to test against"
+        description: "Gecode repository used for validation"
         required: false
         default: "Gecode/gecode"
       gecode_ref:
-        description: "Gecode branch, tag, or commit to test against"
+        description: "Gecode branch, tag, or commit used for validation"
         required: false
         default: "main"
   schedule:

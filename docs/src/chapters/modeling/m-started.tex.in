@@ -24,7 +24,7 @@ solution of a model is explained in \autoref{sec:m:started:search-best}.
 The chapter also includes an explanation of how to obtain and
 build the Gecode source release in \autoref{sec:m:started:obtain}.
 That section is worth reading before compiling the examples by
-hand, as it fixes the version and build layout assumed here.
+hand, as it gives the version and build layout assumed here.
 
 
 \section{A first Gecode model}
@@ -520,7 +520,7 @@ your solution. We assume that Gecode is installed in \?"<dir>"?.
 
 \subsection{Apple Mac OS}
 
-On macOS, build Gecode from the source release with CMake and
+On Mac OS, build Gecode from the source release with CMake and
 install it into a prefix such as \?/opt/gecode? or \?/usr/local?.
 Xcode or the Xcode command line tools provide the compiler.
 
@@ -787,18 +787,18 @@ This section explains how to obtain Gecode.  Gecode~\GecodeVersion{}
 is distributed as a source release.  Some operating systems also
 provide Gecode packages, but those packages are maintained by the
 corresponding distribution and may not match the version used by
-this document.  For a predictable setup, download the source
-release and build it locally.
+this document.  To get the version described here, download the
+source release and build it locally.
 
 \subsection{Installing Gecode}
 \label{sec:m:started:install}
 
-The official release artifact is the source archive available
-from the \AURL{https://github.com/Gecode/gecode/releases}{Gecode
-GitHub releases}.  Download the archive for
-Gecode~\GecodeVersion{} and unpack it into a working directory.
-The commands in the next section assume that the source directory
-is called \?gecode-\GecodeVersion?.
+The source archive is available from the
+\AURL{https://github.com/Gecode/gecode/releases}{Gecode GitHub
+releases}.  Download the archive for Gecode~\GecodeVersion{} and
+unpack it into a working directory.  The commands in the next
+section assume that the source directory is called
+\?gecode-\GecodeVersion?.
 
 \subsubsection{Installing Gecode on Windows}
 \label{sec:m:started:install:windows}
@@ -811,9 +811,8 @@ vcpkg is the most direct path.
 \label{sec:m:started:install:macos}
 
 Install Xcode or the Xcode command line tools.  CMake can then
-use the Apple compiler directly.  Optional components such as
-Gist require the corresponding optional dependencies, in
-particular Qt.
+use the Apple compiler directly.  Optional components require
+their own dependencies; Gist, for example, requires Qt.
 
 \subsubsection{Installing Gecode on Linux and relatives}
 
@@ -821,15 +820,15 @@ The Debian and Ubuntu Linux distributions come with pre-compiled
 packages for Gecode. These packages (and all the packages they
 depend on) can be installed with the usual package management
 tools.  These packages can be useful for quick experiments.  They
-are not the release artifact for Gecode~\GecodeVersion{}, and
-they should not be used when exact version matching matters.
+are not the Gecode~\GecodeVersion{} release, and they should not
+be used when exact version matching matters.
 
 
 \subsection{Compiling Gecode}
 \label{sec:m:started:compile}
 
 Gecode can be built on recent versions of Windows, Linux, and
-macOS.  The source code is available from the
+Mac OS.  The source code is available from the
 \AURL{https://github.com/Gecode/gecode/releases}{Gecode GitHub
 releases}.
 
@@ -847,7 +846,7 @@ We currently support:
   Visual Studio Community is available free of charge
   from \AURL{https://visualstudio.microsoft.com/free-developer-offers/}{Microsoft}.
 \item GNU Compiler Collection (gcc) for Unix flavors such as
-  Linux and macOS.  The GNU gcc is open source software
+  Linux and Mac OS.  The GNU gcc is open source software
   and available from \AURL{http://gcc.gnu.org/}{the GCC home
     page}.  It is included in many Linux distributions.
 \item The Apple compiler shipped with Xcode and the Xcode command
@@ -874,7 +873,7 @@ cmake -S gecode-\GecodeVersion -B build
 
 \paragraph{Compiling the sources.}
 
-After successful configuration, build Gecode with:
+After configuration succeeds, build Gecode with:
 \begin{cmd}
 cmake --build build --config Release
 \end{cmd}
@@ -892,7 +891,7 @@ cmake --build build --config Release --target check
 
 \paragraph{Installation.}
 
-After a successful compilation, you can install the Gecode library
+After compilation succeeds, you can install the Gecode library
 and all header files necessary for compiling against it by invoking
 \begin{cmd}
 cmake --install build --config Release --prefix <dir>
@@ -963,8 +962,8 @@ MPFR installation.
 \label{sec:m:started:compileadvanced}
 
 If the instructions from the previous section do not work for
-your system, the following examples show the CMake options most
-commonly needed when configuring Gecode.
+your system, the following examples show common CMake options for
+configuring Gecode.
 
 
 \subsubsection{Example configurations}
@@ -1000,7 +999,7 @@ cmake -S gecode-\GecodeVersion -B build -DCMAKE_BUILD_TYPE=Debug
 cmake -S gecode-\GecodeVersion -B build -DGECODE_ENABLE_GIST=OFF
 \end{cmd}
 
-\noindent On macOS, universal binaries are configured through the
+\noindent On Mac OS, universal binaries are configured through the
 standard CMake architecture setting:
 
 \begin{cmd}
@@ -1056,11 +1055,10 @@ search path.
 
 \paragraph{Compiling for unsupported platforms.}
 
-If you want to try compiling Gecode on a platform that we do not
-mention, start with the closest native CMake generator and
-toolchain file for that platform.  CMake, rather than Gecode's
-own configure logic, should describe the compiler, target system,
-SDK, and architecture.
+For a platform not mentioned here, start with the closest native
+CMake generator and toolchain file for that platform.  The CMake
+settings should describe the compiler, target system, SDK, and
+architecture.
 
 \subsubsection{Useful Makefile targets}
 

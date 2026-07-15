@@ -2055,8 +2055,8 @@ interval variables:
 mkdir MPG; cd MPG
 \end{smallcmd}
 \item Download the Gecode~\GecodeVersion{} source release from
-  the Gecode GitHub releases. We assume that the Gecode source
-  code is contained in a directory named
+  the Gecode GitHub releases page. We assume that the Gecode
+  source code is contained in a directory named
   \texttt{gecode-\GecodeVersion}.
 \item If you have not yet done so, download and copy all files
   required for integer interval variables and the example into
@@ -2077,8 +2077,8 @@ cmake -S . -B build -DGECODE\_WITH\_VIS=../int.vis
 }
 After this step, Gecode has been configured to incorporate the
 generated definitions as described by the specification file
-\texttt{int.vis}. If you need to pass other CMake options to
-successfully build Gecode, please do so.
+\texttt{int.vis}. Add any other CMake options required by your
+build environment.
 \item Compile Gecode and leave the directory
 \smalllitcmdblock{\ttfamily
 cmake -{}-build build;cd ..

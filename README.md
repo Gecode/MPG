@@ -1,10 +1,10 @@
 # Modeling and Programming with Gecode (MPG)
 
-This repository contains the LaTeX source and generated code examples for **Modeling and Programming with Gecode**. The current release configuration is for Gecode 6.4.0.
+This repository contains the LaTeX source and generated code examples for **Modeling and Programming with Gecode**. This checkout targets Gecode 6.4.0.
 
 ## Source Layout
 
-Document inputs now live under `docs/src/`:
+Document inputs live under `docs/src/`:
 
 - `docs/src/template/` main template (`MPG.tex.in.in`)
 - `docs/src/chapters/` chapter sources grouped by domain
@@ -13,9 +13,9 @@ Document inputs now live under `docs/src/`:
 - `docs/src/assets/` non-TeX source assets (for example `.vis`, `.xsd`)
 - `docs/src/notes/` plain-text companion material
 
-During migration, tooling still supports legacy root paths with runtime warnings.
+The tooling also recognizes the legacy root paths and warns when it uses them.
 
-## Modern Tooling
+## Tooling
 
 The project now uses a Python CLI as the primary interface:
 
@@ -29,7 +29,7 @@ uv run -- python -m tools.mpg docs
 uv run -- python -m unittest discover -s tests -p "test_*.py"
 ```
 
-A thin `Makefile` is kept with modern targets:
+A thin `Makefile` is kept with the common targets:
 `make quick`, `make docs`, `make extract`, `make build`, `make build-test`, `make build-notest`, `make test`, `make clean`.
 You can pass Gecode location through make variables, for example:
 `make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make build GECODE_PREFIX=/usr/local`.
@@ -47,7 +47,7 @@ make test GECODE_ROOT=../gecode
 make docs
 ```
 
-Once the Gecode release tag exists, use `--branch release-6.4.0` for the final release check. The old 6.3.0 state is kept as the `release-6.3.0` tag.
+Once the Gecode release tag exists, use `--branch release-6.4.0` for the final release check. The 6.3.0 sources remain available as the `release-6.3.0` tag.
 
 ## Dependency Resolution
 
@@ -77,7 +77,7 @@ Generated files are written to `.mpg/`:
 - `.mpg/bin/` compiled executables
 - `.mpg/results/` machine-readable run summaries
 - `.mpg/manifests/` per-kind example manifests used by `run`
-- `.mpg/manifest.json` compatibility snapshot of the last manifest
+- `.mpg/manifest.json` copy of the last manifest, kept for older tooling
 
 ## Docs Build
 
@@ -88,7 +88,7 @@ Generated files are written to `.mpg/`:
 - `dvips`
 - `ps2pdf`
 
-This preserves chapter/code structure and link behavior while modernizing orchestration.
+This keeps the existing chapter, code, and link structure while using the Python CLI to run the build steps.
 
 ## Configuration
 
@@ -102,5 +102,5 @@ This preserves chapter/code structure and link behavior while modernizing orches
 
 ## CI
 
-- `examples.yml` runs periodic checks for `make test` and `make docs` on Linux. It checks out and builds `Gecode/gecode` at `main` by default, and can be run manually against another repository/ref through the `gecode_repository` and `gecode_ref` workflow inputs. For the final release check, set `gecode_ref` to `release-6.4.0` once that tag exists.
+- `examples.yml` runs periodic checks for `make test` and `make docs` on Linux. By default, it checks out and builds `Gecode/gecode` at `main`. It can also be run manually against another repository or ref through the `gecode_repository` and `gecode_ref` workflow inputs. For the final release check, set `gecode_ref` to `release-6.4.0` once that tag exists.
 - `docs.yml` builds the PDF on Linux and publishes it as an artifact.

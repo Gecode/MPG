@@ -287,8 +287,8 @@ using the commandline driver with the \?-help? option. At the
 beginning of the printed text, you will find a short
 configuration summary.
 
-The official source release can be configured with all optional
-features, provided that the corresponding dependencies are
+The source release can be configured with all optional features,
+provided that the corresponding dependencies are
 available when Gecode is built.
 }
 
