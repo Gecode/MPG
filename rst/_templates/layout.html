@@ -4,42 +4,29 @@
 
 {% block extrahead %}
 {{ super() }}
+<link rel="stylesheet" href="https://www.gecode.dev/assets/css/site.css">
 <script src="{{ pathto('_static/mpg-search.js', 1)|e }}"></script>
+<script src="{{ pathto('_static/mpg-navigation.js', 1)|e }}" defer></script>
 {% endblock %}
 
 {% block header %}
 <a class="mpg-skip" href="#mpg-main">Skip to content</a>
-<header class="mpg-manual-header">
-  <a href="{{ pathto(root_doc)|e }}">Modeling and Programming with Gecode</a>
-  <span>Release {{ release|e }}</span>
-</header>
 {% endblock %}
 
 {% block relbar1 %}
-<nav class="mpg-breadcrumbs" aria-label="Breadcrumb">
-  <ol>
-    <li><a href="{{ pathto(root_doc)|e }}">Contents</a></li>
-    {% for parent in parents %}
-    <li><a href="{{ parent.link|e }}">{{ parent.title }}</a></li>
-    {% endfor %}
-    {% if pagename != root_doc %}<li aria-current="page">{{ title }}</li>{% endif %}
-  </ol>
-</nav>
 {% endblock %}
 
 {% block content %}
-<div class="mpg-document">
-  {% if render_sidebar %}
-  <details class="mpg-page-tools">
-    <summary>Page contents and search</summary>
-    <div class="mpg-page-tools-body">
-      {% for sidebartemplate in sidebars %}{% include sidebartemplate %}{% endfor %}
-    </div>
-  </details>
-  {% endif %}
-  <main id="mpg-main" class="mpg-body" tabindex="-1">
-    {% block body %}{% endblock %}
-  </main>
+<div class="mpg-page-frame">
+  {% include "mpg-sidebar.html" %}
+  <div class="mpg-main-column">
+    <a class="mpg-page-logo" href="https://www.gecode.dev/">
+      <img src="{{ logo_url|e }}" alt="Gecode">
+    </a>
+    <main id="mpg-main" class="mpg-body" tabindex="-1">
+      {% block body %}{% endblock %}
+    </main>
+  </div>
 </div>
 {% endblock %}
 
@@ -54,7 +41,7 @@
 
 {% block footer %}
 <footer class="mpg-footer">
-  <p>Modeling and Programming with Gecode, release {{ release|e }}</p>
+  <p>Modeling and Programming with Gecode · release {{ release|e }}</p>
   {% if show_copyright %}<p>{{ copyright_block() }}</p>{% endif %}
 </footer>
 {% endblock %}

@@ -161,6 +161,29 @@ def _prepare_run_in_paragraphs(app, doctree: nodes.document, docname: str) -> No
             parent.replace(marker, wrapper)
 
 
+def _remove_duplicate_part_page_title(app, doctree: nodes.document, docname: str) -> None:
+    """Let the designed part opening be the sole visible HTML page title.
+
+    Standalone part documents need a normal reST title for Sphinx metadata,
+    navigation, and stable section targets.  The ``mpg-part`` node supplies
+    the reader-facing opening, including its own h1.  Once Sphinx has resolved
+    the doctree, remove the immediately preceding document title from HTML so
+    that the two representations do not appear one after the other.
+
+    A part node embedded later in a chapter is left alone.  LaTeX is also left
+    alone because it uses the node to construct the classical part opening.
+    """
+    if getattr(app.builder, "format", "") == "latex":
+        return
+    for part in doctree.findall(MpgPart):
+        parent = part.parent
+        if not isinstance(parent, nodes.section):
+            continue
+        index = parent.index(part)
+        if index == 1 and isinstance(parent[0], nodes.title):
+            parent.remove(parent[0])
+
+
 def visit_mpg_paragraph_latex(translator, node: MpgParagraph) -> None:
     translator.body.append(r"\paragraph{")
 
@@ -502,6 +525,7 @@ def setup(app):
     app.connect("doctree-read", _use_pdf_figure_derivatives, priority=100)
     app.connect("env-updated", _route_latex_part_labels)
     app.connect("doctree-resolved", _assign_tip_numbers, priority=500)
+    app.connect("doctree-resolved", _remove_duplicate_part_page_title, priority=600)
     app.connect("doctree-resolved", _prepare_run_in_paragraphs, priority=700)
     app.connect("doctree-resolved", _restore_typed_reference_text, priority=800)
     app.connect("doctree-resolved", _start_unnumbered_backmatter, priority=900)

@@ -1,0 +1,93 @@
+{% macro manual_navigation(instance) -%}
+  <form class="mpg-search" action="{{ pathto('search')|e }}" method="get" role="search">
+    <label for="mpg-search-field-{{ instance }}">Search the manual</label>
+    <div>
+      <input id="mpg-search-field-{{ instance }}" type="search" name="q" autocomplete="off" spellcheck="false">
+      <button type="submit" aria-label="Search">Search</button>
+    </div>
+  </form>
+
+  <div class="mpg-navigation-scroll">
+    <nav class="mpg-manual-navigation" aria-label="Manual chapters">
+      {% if hasdoc('core/intro') %}
+        <a class="mpg-nav-home{% if pagename == 'core/intro' %} is-current{% endif %}"
+           {% if pagename == 'core/intro' %}aria-current="page"{% endif %}
+           href="{{ pathto('core/intro')|e }}">Introduction</a>
+        {% if pagename == 'core/intro' and toc %}
+        <div class="mpg-section-navigation">
+          {{ toc|safe }}
+        </div>
+        {% endif %}
+      {% endif %}
+
+      {% for group in mpg_navigation %}
+      {% if hasdoc(group.overview) %}
+      {% set active = pagename == group.overview or pagename in group.pages|map(attribute=0)|list %}
+      <details class="mpg-nav-group" data-nav-key="{{ group.letter|lower }}"{% if active %} data-active open{% endif %}>
+        <summary>
+          <span class="mpg-nav-letter">{{ group.letter }}</span>
+          <span>{{ group.title }}</span>
+        </summary>
+        <ol>
+          <li>
+            <a{% if pagename == group.overview %} class="is-current" aria-current="page"{% endif %}
+               href="{{ pathto(group.overview)|e }}">Overview</a>
+            {% if pagename == group.overview and toc %}
+            <div class="mpg-section-navigation">
+              {{ toc|safe }}
+            </div>
+            {% endif %}
+          </li>
+          {% for page, label in group.pages %}
+          {% if hasdoc(page) %}
+          <li>
+            <a{% if pagename == page %} class="is-current" aria-current="page"{% endif %}
+               href="{{ pathto(page)|e }}">{{ label }}</a>
+            {% if pagename == page and toc %}
+            <div class="mpg-section-navigation">
+              {{ toc|safe }}
+            </div>
+            {% endif %}
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ol>
+      </details>
+      {% endif %}
+      {% endfor %}
+    </nav>
+  </div>
+{%- endmacro %}
+
+<header class="mpg-mobile-header">
+  <a class="mpg-mobile-brand" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
+  <button class="mpg-mobile-menu-button" type="button" data-mpg-dialog-open="mpg-mobile-navigation"
+          aria-haspopup="dialog" aria-controls="mpg-mobile-navigation">
+    <span aria-hidden="true">☰</span>
+    <span>Contents</span>
+  </button>
+</header>
+
+<aside class="mpg-sidebar" aria-label="Manual navigation">
+  <header class="mpg-sidebar-brand">
+    <a class="mpg-manual-title" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
+    <span class="mpg-current-title">{{ title|striptags }}</span>
+  </header>
+  <div class="mpg-sidebar-panel">
+    {{ manual_navigation('desktop') }}
+  </div>
+</aside>
+
+<dialog class="mpg-mobile-navigation" id="mpg-mobile-navigation" aria-labelledby="mpg-mobile-navigation-title">
+  <div class="mpg-mobile-navigation-shell">
+    <header class="mpg-mobile-navigation-header">
+      <h2 id="mpg-mobile-navigation-title">Browse the manual</h2>
+      <form method="dialog">
+        <button class="mpg-mobile-menu-close" type="submit" aria-label="Close manual contents">Close</button>
+      </form>
+    </header>
+    <div class="mpg-mobile-navigation-panel">
+      {{ manual_navigation('mobile') }}
+    </div>
+  </div>
+</dialog>

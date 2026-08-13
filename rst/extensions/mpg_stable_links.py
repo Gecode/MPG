@@ -9,24 +9,24 @@ import re
 from docutils import nodes
 from sphinx.errors import ConfigError, ExtensionError
 
-# Legacy MPG labels are public URLs and frequently use a colon hierarchy such
-# as ``chap:m:started`` and ``fig:c:nonogram:ex``.  HTML permits colons in ids;
-# preserving them exactly is safer than inventing a second naming scheme.
+# MPG source labels frequently use a LaTeX-oriented colon hierarchy such as
+# ``chap:m:started`` and ``fig:c:nonogram:ex``. They remain internal identifiers
+# for cross-references and PDF numbering. Public HTML exposes readable slugs only.
 LABEL_RE = re.compile(r"^[a-z][a-z0-9_]*(?:[-.:][a-z0-9_]+)*$")
 
 
-class MpgLegacyAlias(nodes.General, nodes.Element):
-    """An exact historical fragment id alongside Sphinx's normalized id."""
+class MpgWebAnchor(nodes.General, nodes.Element):
+    """A readable public fragment for a target with an internal source label."""
 
 
-def _visit_alias_html(translator, node: MpgLegacyAlias) -> None:
+def _visit_web_anchor_html(translator, node: MpgWebAnchor) -> None:
     translator.body.append(
-        f'<span id="{translator.encode(node["alias"])}" class="mpg-anchor-alias"></span>'
+        f'<span id="{translator.encode(node["fragment"])}" class="mpg-web-anchor"></span>'
     )
     raise nodes.SkipNode
 
 
-def _skip_alias(translator, node: MpgLegacyAlias) -> None:
+def _skip_web_anchor(translator, node: MpgWebAnchor) -> None:
     raise nodes.SkipNode
 
 
@@ -67,7 +67,7 @@ def _validate_explicit_labels(app, doctree: nodes.document) -> None:
             display = title.astext() if title is not None else "<untitled>"
             raise ExtensionError(
                 f'{docname}: section "{display}" needs an explicit stable label '
-                "(`.. _legacy:label:` immediately before its heading)"
+                "(`.. _label:` immediately before its heading)"
             )
         for stable_label, stable_id in explicit.items():
             if stable_id not in section_ids:
@@ -78,9 +78,9 @@ def _validate_explicit_labels(app, doctree: nodes.document) -> None:
                 )
 
 
-def _prepare_legacy_aliases(app, env) -> None:
+def _prepare_web_fragments(app, env) -> None:
     labels = env.domains.standard_domain.labels
-    aliases: dict[str, list[tuple[str, str]]] = {}
+    source_targets: dict[str, list[tuple[str, str]]] = {}
     reverse: dict[str, str] = {}
     for label, (docname, label_id, _title) in list(labels.items()):
         if ":" not in label or label == label_id:
@@ -88,20 +88,75 @@ def _prepare_legacy_aliases(app, env) -> None:
         previous = reverse.setdefault(label_id, label)
         if previous != label:
             raise ExtensionError(
-                f"legacy labels {previous!r} and {label!r} normalize to the same "
+                f"source labels {previous!r} and {label!r} normalize to the same "
                 f"Sphinx target {label_id!r}"
             )
-        aliases.setdefault(docname, []).append((label, label_id))
+        source_targets.setdefault(docname, []).append((label, label_id))
         # Do not mutate the standard-domain target.  ``:numref:`` must resolve
         # the normalized id to the enumerable doctree node before public HTML
         # links are rewritten below.  Changing the label table here makes
         # Sphinx's number-reference resolver crash because no node has the
         # colon id.
-    env.mpg_legacy_aliases = aliases
+    env.mpg_source_targets = source_targets
+    web_fragments: dict[str, str] = {}
+    if app.builder.format != "html":
+        env.mpg_web_fragments = web_fragments
+        return
+    for target_doc, page_targets in source_targets.items():
+        if target_doc not in env.found_docs:
+            continue
+        doctree = env.get_doctree(target_doc)
+        elements = list(doctree.findall(nodes.Element))
+        claimed = {
+            target_id
+            for element in elements
+            for target_id in element.get("ids", [])
+        }
+        generated: set[str] = set()
+        for source_label, normalized_id in page_targets:
+            target = next(
+                (node for node in elements if normalized_id in node.get("ids", [])),
+                None,
+            )
+            if target is None:
+                raise ExtensionError(
+                    f"{target_doc}: cannot find web target {normalized_id!r}"
+                )
+            section = target if isinstance(target, nodes.section) else target.parent
+            if (source_label.startswith(("chap:", "sec:", "part:"))
+                    and isinstance(section, nodes.section) and section.get("ids")):
+                web_fragments[normalized_id] = section["ids"][0]
+            elif isinstance(target, nodes.rubric):
+                base = nodes.make_id(target.astext()) or normalized_id
+                candidate = base
+                suffix = 2
+                while candidate in claimed or candidate in generated:
+                    candidate = f"{base}-{suffix}"
+                    suffix += 1
+                generated.add(candidate)
+                web_fragments[normalized_id] = candidate
+            elif isinstance(target, nodes.target) and target.parent is not None:
+                siblings = target.parent.children
+                index = siblings.index(target)
+                following = siblings[index + 1] if index + 1 < len(siblings) else None
+                if isinstance(following, nodes.rubric):
+                    base = nodes.make_id(following.astext())
+                else:
+                    base = nodes.make_id(source_label.rsplit(":", 1)[-1])
+                candidate = base or normalized_id
+                suffix = 2
+                while candidate in claimed or candidate in generated:
+                    candidate = f"{base}-{suffix}"
+                    suffix += 1
+                generated.add(candidate)
+                web_fragments[normalized_id] = candidate
+            else:
+                web_fragments[normalized_id] = normalized_id
+    env.mpg_web_fragments = web_fragments
 
 
 def _validate_redirect_targets(app, env) -> None:
-    _prepare_legacy_aliases(app, env)
+    _prepare_web_fragments(app, env)
     labels = env.domains.standard_domain.labels
     docs = set(env.found_docs)
     for source, target in app.config.mpg_redirects.items():
@@ -117,39 +172,37 @@ def _validate_redirect_targets(app, env) -> None:
             raise ExtensionError(f"redirect {source!r} targets unknown label {anchor!r}")
 
 
-def _insert_legacy_aliases(app, doctree: nodes.document, docname: str) -> None:
+def _publish_web_fragments(app, doctree: nodes.document, docname: str) -> None:
     if app.builder.format != "html":
         return
-    aliases = getattr(app.env, "mpg_legacy_aliases", {}).get(docname, [])
+    source_targets = getattr(app.env, "mpg_source_targets", {}).get(docname, [])
     elements = list(doctree.findall(nodes.Element))
-    for alias, normalized_id in aliases:
+    normalized_to_canonical = dict(getattr(app.env, "mpg_web_fragments", {}))
+    for source_label, normalized_id in source_targets:
         target = next((node for node in elements if normalized_id in node.get("ids", [])), None)
         if target is None or target.parent is None:
             raise ExtensionError(
-                f"{docname}: cannot attach legacy alias {alias!r} to {normalized_id!r}"
+                f"{docname}: cannot publish source target {source_label!r} as {normalized_id!r}"
             )
+        canonical = normalized_to_canonical.get(normalized_id, normalized_id)
+        canonical_exists = any(canonical in node.get("ids", []) for node in elements)
         index = target.parent.index(target)
-        target.parent.insert(index, MpgLegacyAlias(alias=alias))
+        if not canonical_exists:
+            target.parent.insert(index, MpgWebAnchor(fragment=canonical))
 
     # Reference resolution is complete at this event.  Keep Sphinx's internal
-    # normalized ids for numbering and LaTeX, but make every emitted HTML link
-    # advertise the exact historical fragment.  Local references use
-    # ``refid``; cross-document references use a ``refuri`` fragment.
-    normalized_to_alias = {
-        normalized_id: alias
-        for page_aliases in getattr(app.env, "mpg_legacy_aliases", {}).values()
-        for alias, normalized_id in page_aliases
-    }
+    # ids for numbering and LaTeX, and point emitted HTML at human-readable
+    # public fragments.
     for reference in doctree.findall(nodes.reference):
         refid = reference.get("refid")
-        if refid in normalized_to_alias:
-            reference["refid"] = normalized_to_alias[refid]
+        if refid in normalized_to_canonical:
+            reference["refid"] = normalized_to_canonical[refid]
         refuri = reference.get("refuri")
         if not refuri or "#" not in refuri:
             continue
         page, marker, fragment = refuri.rpartition("#")
-        if fragment in normalized_to_alias:
-            reference["refuri"] = page + marker + normalized_to_alias[fragment]
+        if fragment in normalized_to_canonical:
+            reference["refuri"] = page + marker + normalized_to_canonical[fragment]
 
 
 def _write_redirect_manifest(app, exception) -> None:
@@ -171,12 +224,12 @@ def setup(app):
     app.connect("config-inited", _load_redirects)
     app.connect("doctree-read", _validate_explicit_labels)
     app.connect("env-updated", _validate_redirect_targets)
-    app.connect("doctree-resolved", _insert_legacy_aliases)
+    app.connect("doctree-resolved", _publish_web_fragments)
     app.connect("build-finished", _write_redirect_manifest)
     app.add_node(
-        MpgLegacyAlias,
-        html=(_visit_alias_html, None),
-        latex=(_skip_alias, None),
+        MpgWebAnchor,
+        html=(_visit_web_anchor_html, None),
+        latex=(_skip_web_anchor, None),
     )
     return {
         "version": "1.0",

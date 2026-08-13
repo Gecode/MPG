@@ -12,12 +12,18 @@ each part includes the same blurb inside an `only:: latex` `mpg-part`
 directive, which produces the lettered classical part opening without changing
 chapter numbers.
 
+For web development, run `npm run dev` from the repository root. It performs
+the initial strict build, serves the output with live reload, and watches all
+web publication inputs. Use `npm run build` for a production-shaped HTML build
+and `npm run preview` to inspect the last build without rebuilding it.
+
 ## Authoring conventions
 
-Every public section has an explicit label. Existing colon labels are part of
-the publication interface and are emitted as exact HTML aliases, so do not
-replace them with title-derived IDs. Use `:ref:` for named sections and
-`:numref:` for numbered programs, figures, tables, equations, and tips.
+Every public section has an explicit source label. Colon labels are internal
+authoring identifiers used for cross-references and shared PDF numbering; they
+are never emitted into HTML. Web links use readable, title-derived fragments. Use
+`:ref:` for named sections and `:numref:` for numbered programs, figures,
+tables, equations, and tips.
 
 Use `mpg-code` for published source. Its key resolves through
 `manifests/code-projections.json` to a hash-checked canonical artifact or

@@ -1,4 +1,4 @@
-.PHONY: all quick docs extract build build-test build-notest test dist doctor clean
+.PHONY: all quick docs web extract build build-test build-notest test dist doctor clean
 
 UV ?= uv
 MPG = $(UV) run -- python -m tools.mpg
@@ -19,6 +19,9 @@ quick: docs
 
 docs:
 	$(MPG) docs $(GC_ARGS)
+
+web:
+	npm run dev
 
 extract:
 	$(MPG) extract $(GC_ARGS)

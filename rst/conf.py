@@ -94,6 +94,7 @@ html_title = project
 html_short_title = "MPG"
 html_static_path = [str(RST_ROOT / "_static")]
 html_css_files = ["mpg.css"]
+html_logo = str(RST_ROOT / "figures" / "gecode-logo.svg")
 html_sidebars = {"**": ["mpg-localtoc.html", "mpg-search.html"]}
 html_use_index = True
 html_domain_indices = True
@@ -103,6 +104,76 @@ html_show_sphinx = False
 html_show_copyright = True
 html_search_language = "en"
 html_baseurl = os.environ.get("MPG_HTML_BASEURL", "")
+html_context = {
+    # Deliberately short, web-navigation labels.  The authored page titles
+    # remain canonical; this hierarchy is the stable documentation shell.
+    "mpg_navigation": [
+        {
+            "letter": "M", "title": "Modeling", "overview": "parts/modeling",
+            "pages": [
+                ("modeling/started", "Getting started"),
+                ("modeling/comfy", "Getting comfortable"),
+                ("modeling/integer", "Integer and Boolean constraints"),
+                ("modeling/set", "Set constraints"),
+                ("modeling/float", "Floating-point constraints"),
+                ("modeling/minimodel", "MiniModel"),
+                ("modeling/branch", "Branching"),
+                ("modeling/search", "Search"),
+                ("modeling/gist", "Gist"),
+                ("modeling/driver", "Command-line driver"),
+                ("modeling/group", "Groups"),
+            ],
+        },
+        {
+            "letter": "C", "title": "Case studies", "overview": "parts/case-studies",
+            "pages": [
+                ("case-studies/golomb", "Golomb rulers"),
+                ("case-studies/magic-sequence", "Magic sequence"),
+                ("case-studies/photo", "Photo arrangement"),
+                ("case-studies/warehouses", "Warehouses"),
+                ("case-studies/nonogram", "Nonograms"),
+                ("case-studies/golf", "Golf tournament"),
+                ("case-studies/knights", "Knights"),
+                ("case-studies/bin-packing", "Bin packing"),
+                ("case-studies/kakuro", "Kakuro"),
+                ("case-studies/crossword", "Crossword"),
+            ],
+        },
+        {
+            "letter": "P", "title": "Propagators", "overview": "parts/propagators",
+            "pages": [
+                ("propagators/started", "Getting started"),
+                ("propagators/avoid", "What to avoid"),
+                ("propagators/reified", "Reification and rewriting"),
+                ("propagators/domain", "Domain constraints"),
+                ("propagators/advisors", "Advisors"),
+                ("propagators/views", "Views"),
+                ("propagators/sets", "Set propagators"),
+                ("propagators/floats", "Float propagators"),
+                ("propagators/memory", "Memory management"),
+            ],
+        },
+        {
+            "letter": "B", "title": "Branchers", "overview": "parts/branchers",
+            "pages": [
+                ("branchers/started", "Getting started"),
+                ("branchers/advanced", "Advanced branchers"),
+            ],
+        },
+        {
+            "letter": "V", "title": "Variables", "overview": "parts/variables",
+            "pages": [("variables/index", "Programming variables")],
+        },
+        {
+            "letter": "S", "title": "Search engines", "overview": "parts/search-engines",
+            "pages": [
+                ("search-engines/started", "Getting started"),
+                ("search-engines/recomputation", "Recomputation"),
+                ("search-engines/engine", "Engine implementation"),
+            ],
+        },
+    ],
+}
 
 # Every section label is a public interface.  Title-derived ids may still be
 # emitted by docutils, but references and redirects must use explicit labels.

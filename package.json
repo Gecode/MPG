@@ -1,0 +1,13 @@
+{
+  "name": "gecode-mpg-web",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node rst/scripts/web.mjs dev",
+    "build": "node rst/scripts/web.mjs build",
+    "preview": "node rst/scripts/web.mjs preview"
+  }
+}

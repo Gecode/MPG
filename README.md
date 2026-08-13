@@ -35,6 +35,27 @@ You can pass Gecode location through make variables, for example:
 `make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make build GECODE_PREFIX=/usr/local`.
 If neither is set and `../gecode/test/test.cpp` exists, the Makefile auto-uses `../gecode` for full test coverage.
 
+### Web manual
+
+The HTML edition has the same development loop as the Gecode Astro site. No
+separate build and web-server commands are needed:
+
+```bash
+npm run dev
+```
+
+This builds the manual, serves it at <http://127.0.0.1:8000/>, watches the
+reStructuredText, templates, styles, extensions, manifests, and figures, and
+reloads open browser tabs after a successful rebuild. The commands intended
+for CI and release preview are:
+
+```bash
+npm run build
+npm run preview
+```
+
+Use `npm run dev -- --port 8765` to select another port.
+
 For release validation, build the current Gecode `main` branch and pass that checkout as `GECODE_ROOT`:
 
 ```bash

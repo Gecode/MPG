@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -71,16 +72,30 @@ def main() -> int:
         root = Path(temporary)
         output = root / "html"
         sphinx(FIXTURE, output)
-        run([sys.executable, str(RST_ROOT / "scripts" / "verify_html.py"), str(output)])
+        run([
+            sys.executable,
+            str(RST_ROOT / "scripts" / "verify_html.py"),
+            str(output),
+            "--site-prefix", "/doc/development/reference/",
+            "--site-prefix", "/doc/development/MPG.pdf",
+        ])
 
         chapter = (output / "chapter" / "index.html").read_text(encoding="utf-8")
         for expected in (
-            'id="chap:m:fixture"',
-            'href="#chap:m:fixture"',
-            'id="fig:m:fixture"',
+            'href="#getting-started"',
             'id="fixture-first-model"',
             'id="fixture-tip"',
             'class="mpg-tip',
+            'alt="Gecode"',
+            'gecode-logo.svg',
+            'class="mpg-page-logo"',
+            '>Modeling &amp; Programming with Gecode</a>',
+            'class="mpg-current-title"',
+            'class="mpg-navigation-scroll"',
+            'data-mpg-dialog-open="mpg-mobile-navigation"',
+            'aria-controls="mpg-mobile-navigation"',
+            '<dialog class="mpg-mobile-navigation"',
+            'method="dialog"',
             'Tip 1.1',
             '>Name constraints after their intent</span></a>',
             'class="mpg-part-opening',
@@ -94,13 +109,36 @@ def main() -> int:
         ):
             if expected not in chapter:
                 raise RuntimeError(f"HTML omitted {expected}")
+        for unexpected in ('>Manual contents</a>', '>Current chapter<'):
+            if unexpected in chapter:
+                raise RuntimeError(f"HTML retained obsolete sidebar text {unexpected}")
+        if chapter.count('id="mpg-search-field-desktop"') != 1 or chapter.count('id="mpg-search-field-mobile"') != 1:
+            raise RuntimeError("desktop and mobile navigation need unique search labels")
 
         index = (output / "index.html").read_text(encoding="utf-8")
         for expected in ('href="chapter/#fixture-tip"',
-                         'href="chapter/#fig:m:fixture"',
+                         'href="chapter/#fig-m-fixture"',
                          '>Name constraints after their intent</span></a>'):
             if expected not in index:
                 raise RuntimeError(f"cross-page tip reference omitted {expected}")
+        html = "\n".join(path.read_text(encoding="utf-8") for path in output.rglob("*.html"))
+        if (re.search(r'id="[^"]*:[^"]*"', html)
+                or re.search(r'href="[^"]*#[^"]*:[^"]*"', html)):
+            raise RuntimeError("HTML exposed LaTeX-oriented authoring labels")
+
+        part = (output / "part" / "index.html").read_text(encoding="utf-8")
+        if part.count("<h1") != 1:
+            raise RuntimeError("HTML part page must have exactly one h1")
+        for expected in ('class="mpg-part-opening', '<h1>Modeling</h1>',
+                         '<strong class="mpg-paragraph-heading">Start here.</strong>'):
+            if expected not in part:
+                raise RuntimeError(f"HTML part page omitted {expected}")
+
+        css = (output / "_static" / "mpg.css").read_text(encoding="utf-8")
+        for expected in ('.mpg-body :is(ul, ol) > li + li',
+                         '.mpg-body dt {', '.mpg-body dd {'):
+            if expected not in css:
+                raise RuntimeError(f"web reading rhythm omitted {expected}")
 
         latex_output = root / "latex"
         sphinx_latex(FIXTURE, latex_output)

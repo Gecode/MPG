@@ -144,7 +144,6 @@ def verify_pdf_build(directory: Path, release: str, *, full_book: bool) -> None:
     for inaccessible_font in ("FontAwesome", "Dingbats", "CCIcons"):
         if inaccessible_font in fonts:
             failures.append(f"PDF embeds non-semantic icon font {inaccessible_font}")
-
     if shutil.which("pdfinfo") is None:
         raise RuntimeError("pdfinfo is required for the PDF metadata and URL checks")
     info = subprocess.run(
@@ -221,6 +220,9 @@ def main() -> int:
                 str(RST_ROOT / "scripts" / "verify_html.py"),
                 str(build / "html"),
                 "--site-prefix", reference_prefix,
+                # The PDF is assembled beside the HTML and reference trees by
+                # the release job, not inside Sphinx's HTML output directory.
+                "--site-prefix", f"/doc/{os.environ.get('GECODE_VERSION', 'development')}/MPG.pdf",
             ])
 
         if arguments.target in {"pdf", "all"}:
