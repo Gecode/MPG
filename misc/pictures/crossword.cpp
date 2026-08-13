@@ -1,6 +1,6 @@
 /*
  *  Authors:
- *    Christian Schulte <schulte@gecode.org>
+ *    Christian Schulte <schulte@gecode.dev>
  *
  *  Copyright:
  *    Christian Schulte, 2008-2010

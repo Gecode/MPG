@@ -61,7 +61,9 @@ def _kind_names(kind: str, cfg: dict) -> list[tuple[str, str]]:
 def _build_examples(kind: str, cfg: dict) -> list[Example]:
     out: list[Example] = []
     for name, ex_kind in _kind_names(kind, cfg):
-        source = ROOT / f"{name}.cpp"
+        source = ROOT / "rst" / "examples" / "src" / f"{name}.cpp"
+        if not source.exists():
+            source = ROOT / f"{name}.cpp"
         if not source.exists():
             source = GEN_SRC / f"{name}.cpp"
         wrapper = None
@@ -72,7 +74,8 @@ def _build_examples(kind: str, cfg: dict) -> list[Example]:
 
         md = cfg["examples"].get(name, {})
         if "source" in md:
-            source = GEN_SRC / md["source"]
+            candidate = ROOT / "rst" / "examples" / "src" / md["source"]
+            source = candidate if candidate.exists() else GEN_SRC / md["source"]
         if "wrapper" in md:
             wrapper = ROOT / md["wrapper"]
         run_args = list(md.get("run_args", []))

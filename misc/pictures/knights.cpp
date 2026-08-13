@@ -1,7 +1,7 @@
 /*
  *  Authors:
- *    Mikael Lagerkvist <lagerkvist@gecode.org>
- *    Christian Schulte <schulte@gecode.org>
+ *    Mikael Lagerkvist <lagerkvist@gecode.dev>
+ *    Christian Schulte <schulte@gecode.dev>
  *
  *  Copyright:
  *    Mikael Lagerkvist, 2008

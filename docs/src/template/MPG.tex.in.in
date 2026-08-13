@@ -28,15 +28,15 @@
 
 \vspace*{3em}
 
-\AURL{mailto:schulte@gecode.org}{Christian Schulte}
+\AURL{mailto:schulte@gecode.dev}{Christian Schulte}
 
 \medskip
 
-\AURL{mailto:tack@gecode.org}{Guido Tack}
+\AURL{mailto:tack@gecode.dev}{Guido Tack}
 
 \medskip
 
-\AURL{mailto:lagerkvist@gecode.org}{Mikael Z.\ Lagerkvist}
+\AURL{mailto:lagerkvist@gecode.dev}{Mikael Z.\ Lagerkvist}
 
 
 \end{raggedleft}
@@ -82,13 +82,13 @@ up-to-date version of this document.
 
 The location of this document is:
 \begin{center}
-\AURL{https://www.gecode.org/doc/\GecodeVersion/MPG.pdf}{\texttt{https://www.gecode.org/doc/\GecodeVersion/MPG.pdf}}
+\AURL{https://www.gecode.dev/doc/\GecodeVersion/MPG.pdf}{\texttt{https://www.gecode.dev/doc/\GecodeVersion/MPG.pdf}}
 \end{center}
 
 The location of this document corresponding to the latest Gecode
 version is:
 \begin{center}
-\AURL{https://www.gecode.org/doc-latest/MPG.pdf}{\texttt{https://www.gecode.org/doc-latest/MPG.pdf}}
+\AURL{https://www.gecode.dev/doc-latest/MPG.pdf}{\texttt{https://www.gecode.dev/doc-latest/MPG.pdf}}
 \end{center}
 
 \phantomsection

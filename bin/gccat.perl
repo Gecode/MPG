@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 #
 #  Main authors:
-#     Christian Schulte <schulte@gecode.org>
+#     Christian Schulte <schulte@gecode.dev>
 #
 #  Copyright:
 #     Christian Schulte, 2011
@@ -12,7 +12,7 @@
 #
 #  This file is part of Gecode, the generic constraint
 #  development environment:
-#     http://www.gecode.org
+#     http://www.gecode.dev
 #
 #  Permission is hereby granted, free of charge, to any person obtaining
 #  a copy of this software and associated documentation files (the
@@ -50,7 +50,7 @@ while ($e = <DBFILE>) {
 close(DBFILE);
 
 $gccaturl  = "http://www.emn.fr/z-info/sdemasse/gccat/C";
-$gecodeurl = "http://www.gecode.org/doc/$version/reference/";
+$gecodeurl = "http://www.gecode.dev/doc/$version/reference/";
 
 # Extract Global Constraint Catalog information
 while ($l = <>) {
@@ -81,7 +81,7 @@ if ($type =~ /prolog/) {
 %%
 %% Corresponding to Gecode version: $version
 %%
-%% Copyright: Christian Schulte <schulte\@gecode.org>, $year
+%% Copyright: Christian Schulte <schulte\@gecode.dev>, $year
 %%
 %%  Permission is hereby granted, free of charge, to any person obtaining
 %%  a copy of this software and associated documentation files (the

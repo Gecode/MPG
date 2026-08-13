@@ -580,7 +580,7 @@ void distinctlinear(Home home, const IntVarArgs& x, int c) {
   delete e;
   \end{litblock}
   \begin{litblock}{compute tuple set}
-  TupleSet ts;
+  TupleSet ts(x.size());
   while (DistinctLinear* s = d.next()) {
     ts.add(s->solution()); delete s;
   }

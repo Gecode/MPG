@@ -12,7 +12,7 @@
 #
 #  This file is part of Gecode, the generic constraint
 #  development environment:
-#     http://www.gecode.org
+#     http://www.gecode.dev
 #
 #  Permission is hereby granted, free of charge, to any person obtaining
 #  a copy of this software and associated documentation files (the
@@ -79,14 +79,14 @@ print <<EOF
      This file has been automatically generated. Do not edit!
 
    Main author:
-      Christian Schulte <schulte\@gecode.org>
+      Christian Schulte <schulte\@gecode.dev>
 
    Copyright:
       Christian Schulte, 2013
 
    The generated description is part of Gecode, the generic
    constraint development environment:
-      http://www.gecode.org
+      http://www.gecode.dev
 
    Permission is hereby granted, free of charge, to any person obtaining
    a copy of this software and associated documentation files (the
@@ -111,8 +111,8 @@ print <<EOF
 
    <questionnaire orderid="gecode" >
          <productname>Gecode</productname>
-         <website>http://www.gecode.org/</website>
-         <forum>http://www.gecode.org/community.html</forum>
+         <website>http://www.gecode.dev/</website>
+         <forum>http://www.gecode.dev/community.html</forum>
          <implementationlanguage>C++</implementationlanguage>
          <modelinglanguage>C++, MiniZinc, AMPL</modelinglanguage>
          <supportedapis>
@@ -171,7 +171,7 @@ print <<EOF
          </additionalcomments>
          <submittedby>Christian Schulte</submittedby>
          <submittedwhen>$today</submittedwhen>
-         <email>schulte\@gecode.org</email>
+         <email>schulte\@gecode.dev</email>
          <organization>Gecode Team</organization>
          <position>development lead</position>
    </questionnaire>

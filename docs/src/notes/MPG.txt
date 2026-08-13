@@ -18,10 +18,10 @@ We kindly ask you to not make this document available on the Internet such that 
 be indexed by a search engine. We insist that search engines should point to a single and
 up-to-date version of this document.
 The location of this document is:
-https://www.gecode.org/doc/6.4.0/MPG.pdf
+https://www.gecode.dev/doc/6.4.0/MPG.pdf
 
 The location of this document corresponding to the latest Gecode version is:
-https://www.gecode.org/doc-latest/MPG.pdf
+https://www.gecode.dev/doc-latest/MPG.pdf
 
 Acknowledgments
 We thank the following people for helpful comments: Vincent Barichard, Léonard Benedetti,
