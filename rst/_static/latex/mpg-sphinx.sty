@@ -226,18 +226,33 @@
 % used a centered display whose entrance and exit space followed \medskip;
 % retain that calmer separation without asking authors for spacer markup.
 \renewcommand{\sphinxverbatimsmallskipamount}{\medskipamount}
-% Integrated literate titles already carry their own full-width background;
-% do not insert table-caption spacing between that field and the code field.
-\renewcommand{\sphinxbelowcaptionspace}{\dp\strutbox}
+% The literate title is the first row of the same framed orange panel as its
+% code.  Overlap the two hairline borders so there is one outline rather than
+% a caption blob sitting behind a second rounded code blob.
+\newcommand{\MPGLiterateBorderWidth}{.4pt}
+\renewcommand{\sphinxbelowcaptionspace}{%
+  \dimexpr\dp\strutbox-\MPGLiterateBorderWidth\relax}
 % An unnumbered literate label uses Sphinx's title box only for layout.  Do not
 % let hypcap treat it as a numbered Program caption and manufacture repeated
 % PDF destinations.  The flag resets before the next verbatim environment.
+\makeatletter
 \newif\ifMPGUnnumberedVerbatimTitle
 \AtBeginEnvironment{sphinxVerbatim}{%
   \ifMPGUnnumberedVerbatimTitle
     \capstartfalse
+    \def\sphinxVerbatim@Title{%
+      \spx@verb@fcolorbox@put@c{%
+        \begingroup
+          \setlength{\fboxsep}{4pt}%
+          \setlength{\fboxrule}{\MPGLiterateBorderWidth}%
+          \fcolorbox{GecodeOrange}{GecodeOrangeOp20}{%
+            \hb@xt@\dimexpr\spx@verb@fcolorbox@width@sp
+                              -2\fboxsep-2\fboxrule\relax{%
+              \strut\MPGCodeTitleText{\MPGCurrentCodeTitle}\hfil}}%
+        \endgroup}}%
     \global\MPGUnnumberedVerbatimTitlefalse
   \fi}
+\makeatother
 \renewcommand{\literalblockname}{\textcolor{GecodeRed}{\MPGProgramLabel}\space}
 \sphinxsetup{
   HeaderFamily={\rmfamily\bfseries},
@@ -246,10 +261,10 @@
   OuterLinkColor={named}{GecodeGreen},
   VerbatimColor={named}{GecodeOrangeOp20},
   VerbatimBorderColor={named}{GecodeOrange},
-  % The original literate display is a single orange field.  Its title is
-  % carried by Sphinx's non-detachable title hook, and a zero-width border
-  % lets the title field meet the code field without a false dividing rule.
-  verbatimborder=0pt,
+  % The original literate display is a single orange field.  Square corners
+  % and one shared hairline frame keep title and contents visually unified.
+  verbatimborder=.4pt,
+  pre_border-radius=0pt,
   div.tip_border-TeXcolor=GecodeBlue,
   div.tip_background-TeXcolor=GecodeBlueOp10,
   div.tip_title-background-TeXcolor=GecodeBlueOp20,

@@ -33,7 +33,8 @@ def visit_mpg_code_title_latex(translator, node: MpgCodeTitle) -> None:
     # block looks detached and can be stranded at a page boundary.
     translator.body.append(
         '\\global\\MPGUnnumberedVerbatimTitletrue\n'
-        f'\\gdef\\sphinxVerbatimTitle{{\\MPGCodeTitle{{{translator.encode(node["title"])}}}}}\n'
+        f'\\gdef\\MPGCurrentCodeTitle{{{translator.encode(node["title"])}}}\n'
+        '\\gdef\\sphinxVerbatimTitle{\\relax}\n'
     )
 
 

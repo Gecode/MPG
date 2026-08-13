@@ -40,11 +40,13 @@
 \newcommand{\MPGLogo}{%
   \IfFileExists{gecode-logo.pdf}{\includegraphics[width=.35\textwidth]{gecode-logo.pdf}}{}}
 \newcommand{\MPGCodeFont}{\fontencoding{T1}\fontfamily{fvm}\selectfont}
+\newcommand{\MPGCodeTitleText}[1]{%
+  \color{GecodeRed}\normalfont\bfseries\textsc{#1}%
+  \enspace$\equiv$}
 \newcommand{\MPGCodeTitle}[1]{%
   \noindent\colorbox{GecodeOrangeOp20}{%
     \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
-      \color{GecodeRed}\normalfont\bfseries\textsc{#1}%
-      \enspace$\equiv$}}%
+      \MPGCodeTitleText{#1}}}%
   \par
 }
 \newenvironment{MPGTip}[2]{%
