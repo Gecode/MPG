@@ -188,6 +188,20 @@ def extracted_block(record: dict[str, object]) -> str:
     raise RuntimeError(f"expanded figure not found: {wanted} in {expanded}")
 
 
+def resolve_static_part_references(body: str) -> str:
+    r"""Resolve part references embedded in standalone figure artwork.
+
+    Figure assets are compiled without the book's auxiliary files, so a live
+    ``\autoref{part:*}`` has no target there.  The mnemonic MPG part letters
+    are publication-stable and belong in the artwork itself.
+    """
+    return re.sub(
+        r"\\autoref\{part:([mcpbvs])\}",
+        lambda match: f"Part {match.group(1).upper()}",
+        body,
+    )
+
+
 def add_accessibility(svg_path: Path, title: str, description: str) -> None:
     text = svg_path.read_text()
     if "<title" in text:
@@ -213,7 +227,7 @@ def build_legacy_vector(record: dict[str, object], preamble: str) -> None:
     work = WORK / name
     work.mkdir(parents=True, exist_ok=True)
     wrapper = work / "figure.tex"
-    body = extracted_block(record)
+    body = resolve_static_part_references(extracted_block(record))
     wrapper.write_text(
         preamble
         + "\n\\usepackage[active,tightpage]{preview}\n"

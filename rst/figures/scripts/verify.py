@@ -115,6 +115,20 @@ for name, expected in expected_style.items():
     actual = tuple(node.get(attribute) for attribute in ("fill", "stroke", "stroke-width"))
     assert actual == expected, f"{name} no longer uses the classical MPG palette and line weight"
 
+# The dependency diagram is generated outside the book's reference context.
+# Its six part references must therefore be resolved to static, visible part
+# names before conversion; empty parentheses lose the diagram's semantics.
+dependency = ET.parse(FIGURES / "fig-intro-dep.svg").getroot()
+dependency_uses = [
+    node.get("{http://www.w3.org/1999/xlink}href", "")
+    for node in dependency.iter()
+    if node.tag.rsplit("}", 1)[-1] == "use"
+]
+assert not any(
+    left.endswith("-40") and right.endswith("-41")
+    for left, right in zip(dependency_uses, dependency_uses[1:])
+), "dependency diagram contains an unresolved empty part reference"
+
 supplemental = json.loads((RST / "manifests" / "supplemental-figures.json").read_text())
 assert supplemental["schema"] == "mpg-supplemental-figures-v1"
 assert len(supplemental["figures"]) == 2
