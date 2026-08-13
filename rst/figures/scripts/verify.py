@@ -69,6 +69,21 @@ bridges = [
     box("programming-variables"),
     box("programming-search-engines"),
 ]
+expected_boxes = {
+    # Exact transcription of docs/src/chapters/core/intro.tex.in after mapping
+    # its 18 x 8 PSTricks coordinate space to this SVG's 1000 x 444 viewBox.
+    "modeling-layer": (222.0, 0.0, 1000.0, 111.0),
+    "gecode-kernel": (222.0, 333.0, 889.0, 444.0),
+    "programming-propagators-branchers": (0.0, 167.0, 556.0, 278.0),
+    "module-int": (236.0, 100.0, 325.0, 344.0),
+    "module-set": (347.0, 100.0, 436.0, 344.0),
+    "module-float": (458.0, 100.0, 547.0, 344.0),
+    "module-search": (569.0, 100.0, 658.0, 344.0),
+    "programming-variables": (681.0, 100.0, 825.0, 344.0),
+    "programming-search-engines": (847.0, 100.0, 992.0, 344.0),
+}
+for name, expected in expected_boxes.items():
+    assert box(name) == expected, f"{name} no longer matches the legacy MPG coordinate table"
 for name, (_, top, _, bottom) in zip(
     ("Int", "Set", "Float", "Search", "variables", "search engines"), bridges
 ):
@@ -76,6 +91,29 @@ for name, (_, top, _, bottom) in zip(
 programming = box("programming-propagators-branchers")
 assert programming[2] > bridges[2][0], "propagators/branchers no longer overlap the core modules"
 assert programming[2] < bridges[3][0], "propagators/branchers incorrectly subsume the Search module"
+ordered_ids = [node.get("id") for node in architecture if node.get("id")]
+assert ordered_ids == [
+    "modeling-layer",
+    "gecode-kernel",
+    "programming-propagators-branchers",
+    "module-int",
+    "module-set",
+    "module-float",
+    "module-search",
+    "programming-variables",
+    "programming-search-engines",
+], "architecture paint order no longer matches the legacy MPG composition"
+expected_style = {
+    "modeling-layer": ("#85baa2", "#0b7646", "0.02"),
+    "programming-propagators-branchers": ("#80add0", "#005ca1", "0.02"),
+    "programming-variables": ("#f5c48d", "#eb891b", "0.02"),
+    "programming-search-engines": ("#ed928e", "#da251d", "0.02"),
+    "gecode-kernel": ("#ffffff", "#000000", "0.5"),
+}
+for name, expected in expected_style.items():
+    node = by_id[name]
+    actual = tuple(node.get(attribute) for attribute in ("fill", "stroke", "stroke-width"))
+    assert actual == expected, f"{name} no longer uses the classical MPG palette and line weight"
 
 supplemental = json.loads((RST / "manifests" / "supplemental-figures.json").read_text())
 assert supplemental["schema"] == "mpg-supplemental-figures-v1"
