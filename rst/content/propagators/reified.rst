@@ -7,7 +7,7 @@ This chapter discusses how to implement propagators for reified constraints and 
 
 .. _propagators:reified:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 Reified constraints and how they can be propagated is reviewed in :ref:`sec:p:reified:overview`. The following section (:ref:`sec:p:reified:leeq`) presents a reified less or equal propagator as an example. How to implement both half and full reification is discussed in the following section. General propagator rewriting during constraint propagation is discussed in :ref:`sec:p:reified:max`, whereas :ref:`sec:p:reified:or` presents how to rewrite propagators during cloning.
 
@@ -64,7 +64,7 @@ The propagator ``ReLeEq`` for reified less or equal relies on propagators ``Less
 
 .. _propagators:reified:propagator-rewriting:
 
-.. rubric:: Propagator rewriting.
+.. mpg-paragraph:: Propagator rewriting.
 
 The ``GECODE_REWRITE`` macro takes the propagator (here, ``*this``) to be rewritten and an expression that posts the new propagator as arguments. It relies on the fact that the identifier ``home`` refers to the current home space (like the fail macros in :ref:`sec:p:started:better`). The macro expands to something along the following lines:
 
@@ -77,7 +77,7 @@ Another essential part is that after calling ``ES_SUBSUMED()``, a propagator is 
 
 .. _propagators:reified:adding-information-to-home:
 
-.. rubric:: Adding information to ``Home``.
+.. mpg-paragraph:: Adding information to ``Home``.
 
 As has been discussed in :numref:`tip:m:started:home` and :ref:`sec:p:started:better`, posting uses a value of class ``Home``\ instead of a reference to a ``Space``. In the expansion of ``GECODE_REWRITE`` as shown above, the call operator ``()`` as in
 
@@ -88,7 +88,7 @@ returns a new value of type ``Home`` with the additional information added that 
 
 .. _propagators:reified:testing-relations-between-views:
 
-.. rubric:: Testing relations between views.
+.. mpg-paragraph:: Testing relations between views.
 
 Rather than testing whether :math:`\mathtt{x0}\leq\mathtt{x1}` or :math:`\mathtt{x0}>\mathtt{x1}` hold individually, we use the function ``Int::rtest_lq()`` that tests whether two views are less or equal and returns whether the relation holds (``Int::RT_TRUE``), does not hold (``Int::RT_FALSE``), or might hold or not (``Int::RT_MAYBE``).
 
@@ -98,7 +98,7 @@ While ``Int::rtest_eq_bnd()`` only uses the bounds for testing the relation (wit
 
 .. _propagators:reified:reified-propagator-patterns:
 
-.. rubric:: Reified propagator patterns.
+.. mpg-paragraph:: Reified propagator patterns.
 
 The integer module (as these patterns require Boolean views they are part of the integer module) provides reified propagator patterns for unary propagators (``Int::ReUnaryPropagator``) and binary propagators (``Int::ReBinaryPropagator``\ and ``Int::ReMixBinaryPropagator``). In addition to views ``x0`` (and ``x1`` for the binary variants), they define a Boolean control variable ``b``. Please note that in :numref:`fig:p:reified:leeq` a reified propagator pattern requires an additional template argument for the Boolean control view used (the mystery why this is useful is lifted in :ref:`chap:p:views`).
 
@@ -216,6 +216,6 @@ The ``copy()`` function takes advantage of two cases:
 
 .. _propagators:reified:constructors-for-copying:
 
-.. rubric:: Constructors for copying.
+.. mpg-paragraph:: Constructors for copying.
 
 The relevant parts of the two special propagators for rewriting ``SubsumedOrTrue`` and ``BinaryOrTrue`` are shown in :numref:`fig:p:reified:or`. Their ``propagate()`` functions are exactly as sketched above. The only other non-obvious aspect are the constructors used for copying during cloning: they are now called for a propagator of class ``OrTrue``. In this example, it is sufficient to have a single constructor for copying as all the propagators ``OrTrue``, ``SubsumedOrTrue``, and ``BinaryOrTrue`` inherit from ``BinaryPropagator``. In other cases, it might be necessary to have more than a single constructor for copying defined by a propagator class ``C``: one for copying a propagator of class ``C`` and one for creating propagators as rewrites of other propagators.

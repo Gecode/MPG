@@ -10,7 +10,7 @@ The Graphical Interactive Search Tool, Gist, provides user-controlled search, se
 
 .. _modeling:m-gist:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 How the search tree of a problem is used as the central metaphor in Gist is sketched in :ref:`sec:m:gist:tree`. :ref:`sec:m:gist:invoke` explains how to invoke Gist, whereas :ref:`sec:m:gist:use` explains how to use Gist.
 
@@ -112,7 +112,7 @@ The search engines always only explore the subtree under the *currently selected
 
 .. _modeling:m-gist:stopping-search-after-exhausting-a-branching:
 
-.. rubric:: Stopping search after exhausting a branching.
+.. mpg-paragraph:: Stopping search after exhausting a branching.
 
 If you want to learn more about how your branchings affect the shape of the search tree, you can add *stop branchings* to your problem using the ``Gist::stopBranch()`` function. This will install a brancher that does not modify the search tree (in fact, it simply inserts a single unary choice), but Gist will recognize the brancher and halt exploration. A special node (shaped like a stop-sign) marks the position in the tree where the stop brancher was active. You can toggle whether Gist continues exploration beyond the brancher using the options in the *Node* menu. Obviously, this is most useful if the call to ``stopBranch`` is placed *between* calls to other branchings.
 
@@ -134,7 +134,7 @@ If you want to start over, the *Search* menu provides an option to reset Gist.
 
 .. _modeling:m-gist:bookmarks:
 
-.. rubric:: Bookmarks.
+.. mpg-paragraph:: Bookmarks.
 
 The *Node* menu has a submenu *Bookmarks*, where you can collect nodes for quick access. You can set a bookmark for the currently selected node by chosing *Add/remove bookmark* from the submenue, or by pressing *Shift+B*. You can then enter a name for the bookmark (or leave it empty, then the bookmark will get a number). Chosing *Add/remove bookmark* for an already bookmarked node removes the bookmark. Bookmarked nodes are drawn with a small black circle. Selecting a bookmark moves you directly to the corresponding node.
 
@@ -166,7 +166,7 @@ Of course just looking at the shape of the tree is most of the time not very enl
 
 .. _modeling:m-gist:displaying-branching-information:
 
-.. rubric:: Displaying branching information.
+.. mpg-paragraph:: Displaying branching information.
 
 The *Node* menu (:numref:`fig:m:gist:node_menu`) has two options for displaying information about branches in the tree. Choosing *Label/clear branches* will add information on all branches in the subtree below the currently selected node (or clear that information if it is already present). *Label/clear path* adds that information on the path from the current node to the root. :numref:`fig:m:gist:branches` shows branching information for the Send More Money problem.
 
@@ -179,7 +179,7 @@ Gist uses print functions provided by the branchers of a space. For variable-val
 
 .. _modeling:m-gist:invoking-inspectors-and-comparators:
 
-.. rubric:: Invoking inspectors and comparators.
+.. mpg-paragraph:: Invoking inspectors and comparators.
 
 The *Node* menu (:numref:`fig:m:gist:node_menu`) provides several options for inspecting and comparing nodes. If you choose *Inspect* from the *Inspect* submenu (or simply press *Return*), all double-click inspectors that are active in the *Tools* menu (see below) will be invoked for the currently selected node. You can also invoke a particular inspector by choosing it from th *Inspect* menu or typing its shortcut (the first nine inspectors get the shortcuts 0–9).
 
@@ -189,7 +189,7 @@ When choosing the *Compare* option, the mouse cursor turns into a crosshair, and
 
 .. _modeling:m-gist:choosing-the-active-inspectors-and-comparators:
 
-.. rubric:: Choosing the active inspectors and comparators.
+.. mpg-paragraph:: Choosing the active inspectors and comparators.
 
 Gist distinguishes between three groups of inspectors, and the group of comparators, which can be chosen from the *Tools* menu (:numref:`fig:m:gist:tools_menu`):
 
@@ -208,7 +208,7 @@ Gist distinguishes between three groups of inspectors, and the group of comparat
 
 .. _modeling:m-gist:the-printing-inspector:
 
-.. rubric:: The printing inspector.
+.. mpg-paragraph:: The printing inspector.
 
 .. figure:: /figures/fig-m-gist-inspect.svg
    :name: fig:m:gist:inspect
@@ -219,13 +219,13 @@ The simplest way to add an inspector to your model is to use the `Gist::Print <h
 
 .. _modeling:m-gist:implementing-inspectors:
 
-.. rubric:: Implementing inspectors.
+.. mpg-paragraph:: Implementing inspectors.
 
 An inspector is an object that inherits from the abstract base class `Gist::Inspector <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Inspector.html>`__. The abstract base class declares a virtual member function, ``inspect(const Space& s)``, which is called when one of the events described above happens. The space that is passed as an argument corresponds to the inspected node in the tree. The inspector is free to perform any ``const`` operation on the space.
 
 .. _modeling:m-gist:the-variable-comparator:
 
-.. rubric:: The variable comparator.
+.. mpg-paragraph:: The variable comparator.
 
 Similar to the printing inspector, there is a predefined comparator `Gist::VarComparator <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1VarComparator.html>`__ that can be easily added to scripts. It requires the script to implement a member function ``compare()`` in which it outputs the result of comparing itself to another space. :numref:`fig:m:gist:gist-compare` shows how to add comparison to the example from :ref:`sec:m:started:gist`. It uses a convenience member function from the class `Gist::Comparator <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Comparator.html>`__ that produces a string representation of the differences between two variable arrays.
 
@@ -236,13 +236,13 @@ Similar to the printing inspector, there is a predefined comparator `Gist::VarCo
 
 .. _modeling:m-gist:implementing-comparators:
 
-.. rubric:: Implementing comparators.
+.. mpg-paragraph:: Implementing comparators.
 
 A comparator inherits from `Gist::Comparator <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Comparator.html>`__ and implements at least its ``compare(const Space& s0, const Space& s1)`` member function. This function is called when the currently selected node with space ``s0`` is compared to the node with space ``s1``. As for inspectors, a comparator can perform any ``const`` operation on these two spaces.
 
 .. _modeling:m-gist:subtree-statistics:
 
-.. rubric:: Subtree statistics.
+.. mpg-paragraph:: Subtree statistics.
 
 The *Node* menu provides an option *Node statistics*, which when clicked opens a small window that displays statistics of the subtree rooted at the currently selected node, as shown in :numref:`fig:m:gist:subtreestats`. The statistics include the depth of the current node (the upper right number in :numref:`fig:m:gist:subtreestats`), the maximum depth of the subtree (the lower right number), and how many of the different node types the subtree contains (the numbers at the small nodes). The information is automatically updated when you select a different node.
 
@@ -260,19 +260,19 @@ Here is some functionality you may have already found during your experiments wi
 
 .. _modeling:m-gist:mouse-wheel-zoom:
 
-.. rubric:: Mouse wheel zoom.
+.. mpg-paragraph:: Mouse wheel zoom.
 
 You probably noticed that the slider right of the search tree lets you zoom in and out. Another way of zooming is to hold *Shift* while using the mouse wheel. It will zoom in and out keeping the area under the mouse cursor visible.
 
 .. _modeling:m-gist:zoom-and-center:
 
-.. rubric:: Zoom and center.
+.. mpg-paragraph:: Zoom and center.
 
 In addition to manual zooming, Gist provides automatic options. The button with the magnifying glass icon above the zoom slider toggles the auto-zoom feature, which always zooms the tree such that as much of it as possible is visible in the window. During auto-zoom, the manual zoom is disabled. Instead of auto-zoom, you can also select *Zoom to fit* from the *Node* menu (or press *Z*) in order to adjust the zoom so that the current tree fits. When working with large trees, it is sometimes useful to scroll back to the currently selected node by choosing *Center current node* from the *Node* menu or pressing *C*.
 
 .. _modeling:m-gist:exporting-and-printing:
 
-.. rubric:: Exporting and printing.
+.. mpg-paragraph:: Exporting and printing.
 
 The *File* menu provides options for exporting the current search tree as a PDF file or printing it. If you want to export a single subtree, select *Export subtree PDF* from the *Node* menu. The tree is exported or printed as seen, including hidden nodes.
 

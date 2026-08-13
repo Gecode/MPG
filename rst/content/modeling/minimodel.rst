@@ -10,7 +10,7 @@ This chapter provides an overview of modeling convenience implemented by MiniMod
 
 .. _modeling:m-minimodel:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:minimodel:exprrel` surveys how constraints represented by integer, Boolean, set, and float expressions and relations can be posted. How matrix interfaces for arrays can be defined and used is discussed in :ref:`sec:m:minimodel:matrix`. Support for defining cost functions for cost-based optimization is presented in :ref:`sec:m:minimodel:optimize`. Regular expressions for expressing extensional constraints are discussed in :ref:`sec:m:minimodel:reg`. :ref:`sec:m:minimodel:channel` surveys channeling functions, whereas :ref:`sec:m:minimodel:intalias` and :ref:`sec:m:minimodel:setalias` discuss aliases for some commonly used constraints.
 
@@ -197,7 +197,7 @@ For examples of integer expressions, see `Alpha puzzle <https://www.gecode.dev/d
 
 .. _modeling:m-minimodel:integer-propagation-levels:
 
-.. rubric:: Integer propagation levels.
+.. mpg-paragraph:: Integer propagation levels.
 
 When posting integer expressions and relations it can be controlled which integer propagation level is used for each constraint. The integer propagation levels for all relevant constraints are specified by an object of class `IntPropLevels <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntPropLevels.html>`__. The ``expr()`` and ``rel()`` functions for posting expressions take an object of this class as last argument.
 
@@ -573,7 +573,7 @@ In order to extend Boolean expressions one must implement the following:
 
 .. _modeling:m-minimodel:the-dom-function:
 
-.. rubric:: The ``dom()`` function.
+.. mpg-paragraph:: The ``dom()`` function.
 
 The definition of the ``dom()`` function is straightforward and as follows:
 
@@ -584,7 +584,7 @@ It returns a new Boolean expression that contains an object of class ``BoolDomEx
 
 .. _modeling:m-minimodel:the-boolean-domain-expression-class:
 
-.. rubric:: The Boolean domain expression class.
+.. mpg-paragraph:: The Boolean domain expression class.
 
 The class is shown in :numref:`fig:m:minimodel:domexpr`. An object of class ``BoolDomExpr`` stores the information needed for the actual post function: the variable ``x`` and lower and upper bounds ``l`` and ``u``. Note that our class does not need a destructor, it is only shown as a reminder for classes that actually need a destructor!
 
@@ -635,7 +635,7 @@ For more examples that use the ``Matrix`` class, see :ref:`chap:c:crossword`, :r
 
 .. _modeling:m-minimodel:element-constraints:
 
-.. rubric:: Element constraints.
+.. mpg-paragraph:: Element constraints.
 
 A matrix can also be used with an element constraint that propagates information about the row and column of matrix entries.
 
@@ -695,7 +695,7 @@ Support for cost-based optimization
 
 .. _modeling:m-minimodel:optimizing-integer-cost:
 
-.. rubric:: Optimizing integer cost.
+.. mpg-paragraph:: Optimizing integer cost.
 
 The classes `IntMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMinimizeSpace.html>`__ and `IntMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMaximizeSpace.html>`__ support searching a solution of minimal and maximal, respectively, integer cost.
 
@@ -718,7 +718,7 @@ The function must return an integer variable for the cost. For an example, see :
 
 .. _modeling:m-minimodel:optimizing-float-cost-with-improvement-step:
 
-.. rubric:: Optimizing float cost with improvement step.
+.. mpg-paragraph:: Optimizing float cost with improvement step.
 
 The classes `FloatMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatMinimizeSpace.html>`__ and `FloatMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatMaximizeSpace.html>`__ support searching a solution of minimal and maximal, respectively, float cost.
 
@@ -732,7 +732,7 @@ that searching for a best solution of ``WithStep`` finds a solution ``s`` with c
 
 .. _modeling:m-minimodel:lexicographically-optimizing-for-integer-costs:
 
-.. rubric:: Lexicographically optimizing for integer costs.
+.. mpg-paragraph:: Lexicographically optimizing for integer costs.
 
 The classes `IntLexMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMinimizeSpace.html>`__ and `IntLexMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMaximizeSpace.html>`__ support searching for a solution with lexicographically smallest and largest cost. The cost is defined by an array of integer variables.
 

@@ -21,7 +21,7 @@ This chapter provides a basic overview of how to program, compile, link, and exe
 
 .. _modeling:m-started:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:started:first` explains the basics of how a model is programmed in Gecode. This is followed in :ref:`sec:m:started:search` by a discussion of how search is used to find solutions of a model. How a model is compiled, linked, and executed is explained for several different operating systems in :ref:`sec:m:started:run`. :ref:`sec:m:started:gist` shows how Gist as a graphical and interactive search tool can be used for developing constraint models. Search for a best solution of a model is explained in :ref:`sec:m:started:search-best`.
 
@@ -41,7 +41,7 @@ Not surprisingly in an object-oriented language such as C++, an elegant approach
 
 .. _modeling:m-started:send-more-money:
 
-.. rubric:: Send More Money.
+.. mpg-paragraph:: Send More Money.
 
 The model we choose as an example is Send More Money: find distinct digits for the letters :math:`S`, :math:`E`, :math:`N`, :math:`D`, :math:`M`, :math:`O`, :math:`R`, and :math:`Y` such that the well-formed equation (no leading zeros) :math:`SEND+MORE=MONEY` holds.
 
@@ -60,7 +60,7 @@ To simplify the posting of constraints, the constructor defines a variable of ty
 
 .. _modeling:m-started:posting-constraints:
 
-.. rubric:: Posting constraints.
+.. mpg-paragraph:: Posting constraints.
 
 For each constraint there is a *constraint post function* that creates *propagators* implementing the constraint (in the home space that is passed as argument).
 
@@ -106,7 +106,7 @@ Note that the linear equation could have been expressed simpler by using standar
 
 .. _modeling:m-started:posting-branchings:
 
-.. rubric:: Posting branchings.
+.. mpg-paragraph:: Posting branchings.
 
 Branchings determine the shape of the search tree. Common branchings take a variable array of the variables to be assigned values during search, a variable selection strategy, and a value selection strategy.
 
@@ -121,7 +121,7 @@ A space can have several branchers, where the brancher that is posted first is a
 
 .. _modeling:m-started:search-support:
 
-.. rubric:: Search support.
+.. mpg-paragraph:: Search support.
 
 As mentioned before, a space must implement an additional ``copy()`` function that is capable of returning a fresh copy during search. Search in Gecode is based on a hybrid of *recomputation* and *cloning* (see :ref:`chap:m:search`). Cloning during search relies on the capability of a space to create a copy of itself.
 
@@ -152,7 +152,7 @@ The obligation of the copy constructor is to invoke the copy constructor of the 
 
 .. _modeling:m-started:printing-solutions:
 
-.. rubric:: Printing solutions.
+.. mpg-paragraph:: Printing solutions.
 
 Finally, the following prints the variable array ``l``:
 
@@ -290,7 +290,7 @@ For an application using the installed tree:
 
 .. _modeling:m-started:commandline:
 
-.. rubric:: Commandline.
+.. mpg-paragraph:: Commandline.
 
 In the following we assume that you use the Visual Studio Command Prompt. When compiling and linking with ``cl``, you have to take the following into account:
 
@@ -320,7 +320,7 @@ where the :math:`\backslash` at the end of a line means that the line actually c
 
 .. _modeling:m-started:integrated-development-environment:
 
-.. rubric:: Integrated development environment.
+.. mpg-paragraph:: Integrated development environment.
 
 When your Microsoft Visual Studio solution uses Gecode, all necessary settings can be configured in the properties dialog of your solution. We assume that Gecode is installed in ``"<dir>"``.
 
@@ -354,7 +354,7 @@ On Mac OS, build Gecode from the source release with CMake and install it into a
 
 .. _modeling:m-started:commandline-1:
 
-.. rubric:: Commandline.
+.. mpg-paragraph:: Commandline.
 
 When compiling your code using the ``gcc`` compiler (invoking it as ``g++``), add the include and library directories for the prefix where Gecode has been installed.
 
@@ -366,7 +366,7 @@ The following command compiles and links ``send-more-money.cpp`` as a release bu
 
 .. _modeling:m-started:xcode:
 
-.. rubric:: Xcode.
+.. mpg-paragraph:: Xcode.
 
 Xcode projects should normally be generated or configured through CMake. If you manage an Xcode project by hand, add ``<dir>/include`` to the header search paths, ``<dir>/lib`` to the library search paths, and link the Gecode libraries used by the program.
 
@@ -384,7 +384,7 @@ On Linux and similar operating systems, Gecode is installed as a set of librarie
 
 .. _modeling:m-started:commandline-2:
 
-.. rubric:: Commandline.
+.. mpg-paragraph:: Commandline.
 
 To compile your code using the ``gcc`` compiler, you have to add the option ``-I<dir>/include`` so that ``gcc`` can find the header files.
 
@@ -424,7 +424,7 @@ In order to run programs that are linked against Gecode, the Gecode libraries mu
 
 .. _modeling:m-started:eclipse-development-environment:
 
-.. rubric:: Eclipse development environment.
+.. mpg-paragraph:: Eclipse development environment.
 
 If you use the `Eclipse IDE <http://www.eclipse.org/>`__ with the `CDT <http://www.eclipse.org/cdt/>`__ (C/C++ development tools), you have to configure the paths to the Gecode header files and libraries.
 
@@ -512,7 +512,7 @@ First, the integer value of ``money`` in the so-far best solution is computed fr
 
 .. _modeling:m-started:using-a-best-solution-search-engine:
 
-.. rubric:: Using a best solution search engine.
+.. mpg-paragraph:: Using a best solution search engine.
 
 The main function now uses a branch-and-bound search engine rather than a plain depth-first engine:
 
@@ -586,7 +586,7 @@ Gecode can be built on recent versions of Windows, Linux, and Mac OS. The source
 
 .. _modeling:m-started:prerequisites:
 
-.. rubric:: Prerequisites.
+.. mpg-paragraph:: Prerequisites.
 
 In order to compile Gecode with the CMake build, you need CMake 3.21 or newer, a C++17-capable compiler, and ``uv`` on the search path. Optional modules have optional dependencies: MPFR for trigonometric and transcendental float constraints, and Qt5 or Qt6 for Gist.
 
@@ -600,7 +600,7 @@ We currently support:
 
 .. _modeling:m-started:configuring-the-sources:
 
-.. rubric:: Configuring the sources.
+.. mpg-paragraph:: Configuring the sources.
 
 For a single-configuration generator such as Ninja or Unix Makefiles, configure a release build as follows:
 
@@ -616,7 +616,7 @@ For a multi-configuration generator such as Visual Studio or Xcode, omit ``CMAKE
 
 .. _modeling:m-started:compiling-the-sources:
 
-.. rubric:: Compiling the sources.
+.. mpg-paragraph:: Compiling the sources.
 
 After configuration succeeds, build Gecode with:
 
@@ -628,7 +628,7 @@ With single-configuration generators, the ``--config Release`` argument is harm
 
 .. _modeling:m-started:running-the-test-suite:
 
-.. rubric:: Running the test suite.
+.. mpg-paragraph:: Running the test suite.
 
 The CMake build defines a ``check`` target when tests are enabled:
 
@@ -638,7 +638,7 @@ The CMake build defines a ``check`` target when tests are enabled:
 
 .. _modeling:m-started:installation:
 
-.. rubric:: Installation.
+.. mpg-paragraph:: Installation.
 
 After compilation succeeds, you can install the Gecode library and all header files necessary for compiling against it by invoking
 
@@ -657,7 +657,7 @@ After compilation succeeds, you can install the Gecode library and all header fi
 
 .. _modeling:m-started:running-the-examples:
 
-.. rubric:: Running the examples.
+.. mpg-paragraph:: Running the examples.
 
 After compiling the examples, they can be run directly from the build tree. For instance, try the Golomb Rulers Problem:
 
@@ -675,7 +675,7 @@ On some platforms, you may need to set environment variables like ``LD_LIBRARY_P
 
 .. _modeling:m-started:compilation-with-gist:
 
-.. rubric:: Compilation with Gist.
+.. mpg-paragraph:: Compilation with Gist.
 
 The Gecode Interactive Search Tool (Gist) is a graphical search engine for Gecode, built on top of Qt. CMake looks for Qt5 or Qt6 when Gist is enabled. If Qt is not found, Gist is disabled automatically. To make this choice explicit, configure with:
 
@@ -699,7 +699,7 @@ The Gecode Interactive Search Tool (Gist) is a graphical search engine for Gecod
 
 .. _modeling:m-started:compilation-with-support-for-trigonometric-and-transcendental-float-constraints:
 
-.. rubric:: Compilation with support for trigonometric and transcendental float constraints.
+.. mpg-paragraph:: Compilation with support for trigonometric and transcendental float constraints.
 
 Trigonometric and transcendental float constraints require MPFR (see also :ref:`m:float:mpfr`). CMake searches for MPFR when float support with MPFR is enabled. Use ``CMAKE_PREFIX_PATH``, ``MPFR_ROOT``, or a toolchain file to point CMake to a non-standard MPFR installation.
 
@@ -753,7 +753,7 @@ On Mac OS, universal binaries are configured through the standard CMake architec
 
 .. _modeling:m-started:disabling-the-default-memory-allocator:
 
-.. rubric:: Disabling the default memory allocator.
+.. mpg-paragraph:: Disabling the default memory allocator.
 
 By default, Gecode uses a default memory allocator based on the C standard library functions ``malloc()`` and ``free()``. This default allocator can be disabled by
 
@@ -765,7 +765,7 @@ If the default allocator is disabled, one must supply the implementation of an a
 
 .. _modeling:m-started:passing-options-for-compilation:
 
-.. rubric:: Passing options for compilation.
+.. mpg-paragraph:: Passing options for compilation.
 
 Additional options for compilation can be passed through the standard CMake compiler flags. For example:
 
@@ -775,7 +775,7 @@ Additional options for compilation can be passed through the standard CMake comp
 
 .. _modeling:m-started:compiling-in-a-separate-directory:
 
-.. rubric:: Compiling in a separate directory.
+.. mpg-paragraph:: Compiling in a separate directory.
 
 The Gecode library should normally be built in a separate build directory. Assume that the sources can be found in directory ``$GSOURCEDIR``. Configure the build directory with:
 
@@ -787,13 +787,13 @@ This keeps generated files out of the source tree.
 
 .. _modeling:m-started:dependency-management:
 
-.. rubric:: Dependency management.
+.. mpg-paragraph:: Dependency management.
 
 CMake tracks source dependencies for normal builds. If you change the variable implementation specifications and want to regenerate the checked-in generated headers, configure with ``GECODE_REGENERATE_VARIMP=ON``. This requires ``uv`` on the search path.
 
 .. _modeling:m-started:compiling-for-unsupported-platforms:
 
-.. rubric:: Compiling for unsupported platforms.
+.. mpg-paragraph:: Compiling for unsupported platforms.
 
 For a platform not mentioned here, start with the closest native CMake generator and toolchain file for that platform. The CMake settings should describe the compiler, target system, SDK, and architecture.
 

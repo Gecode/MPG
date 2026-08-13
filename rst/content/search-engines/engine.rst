@@ -7,7 +7,7 @@ This chapter puts all techniques for search and recomputation from :ref:`chap:s:
 
 .. _search-engines:engine:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:s:engine:design` sketches the design of the example depth-first search engine to be used in this chapter. How the engine is implemented is shown in :ref:`sec:s:engine:imp`. :ref:`sec:s:engine:explore` details how exploration is implemented, whereas :ref:`sec:s:engine:re` details how recomputation is implemented for the search engine.
 
@@ -52,7 +52,7 @@ The distance ``d`` describes the number of commit operations needed for recomput
 
 .. _search-engines:engine:exploration-mode:
 
-.. rubric:: Exploration mode.
+.. mpg-paragraph:: Exploration mode.
 
 The engine operates in two modes: *exploration mode* and *recomputation mode*. It operates in exploration mode while the current space ``s`` is not ``NULL``. Exploration mode continues until the current space ``s`` becomes failed or solved. In both cases, the current space is set to ``NULL``.
 
@@ -60,7 +60,7 @@ If the space ``s`` becomes solved, it is returned as a solution by the ``next()`
 
 .. _search-engines:engine:recomputation-mode:
 
-.. rubric:: Recomputation mode.
+.. mpg-paragraph:: Recomputation mode.
 
 In recomputation mode, the engine tries to recompute the current space. The ``next()`` function of the path ``p`` moves the path to the next alternative. If there is a next alternative (the search space has not yet been completely explored), the ``next()`` function of a path returns ``true``. The ``recompute()`` function tries to recompute the current space ``s`` according to the path ``p``. Due to adaptive recomputation, the ``recompute()`` function might update the distance ``d`` and might actually fail to recompute a space that corresponds to the current path (in which case it returns ``NULL``). Recomputation is detailed in :ref:`sec:s:engine:re`.
 
@@ -85,7 +85,7 @@ The search engine continues in exploration mode while the current space ``s`` is
 
 .. _search-engines:engine:edge-implementation:
 
-.. rubric:: Edge implementation.
+.. mpg-paragraph:: Edge implementation.
 
 .. mpg-covered: caption:docs/src/chapters/search/s-engine.tex.in:127:fig:s:engine:edge
 
@@ -103,7 +103,7 @@ Rather than having a default constructor and a destructor, edges use the ``init(
 
 .. _search-engines:engine:path-implementation:
 
-.. rubric:: Path implementation.
+.. mpg-paragraph:: Path implementation.
 
 .. mpg-covered: caption:docs/src/chapters/search/s-engine.tex.in:147:fig:s:engine:path
 
@@ -119,7 +119,7 @@ Rather than having a default constructor and a destructor, edges use the ``init(
 
 .. _search-engines:engine:pushing-edges-on-the-path:
 
-.. rubric:: Pushing edges on the path.
+.. mpg-paragraph:: Pushing edges on the path.
 
 During exploration, the engine pushes new edges on the path ``p`` as shown in :numref:`fig:s:engine:explore`. If the distance ``d`` has reached the commit distance ``c_d``, the engine pushes an edge to the path that has an additional clone and resets the distance ``d`` accordingly.
 
@@ -140,7 +140,7 @@ In recomputation mode, the engine uses operations to move the engine to the next
 
 .. _search-engines:engine:move-to-next-alternative:
 
-.. rubric:: Move to next alternative.
+.. mpg-paragraph:: Move to next alternative.
 
 Moving to a next alternative discards all edges from the path that are already at their last alternative (that is, the function ``la()`` returns true). If the engine finds an edge with remaining alternatives, it moves the edge to the next alternative. If no edges are left, the function ``next()`` returns ``false`` as follows:
 
@@ -150,7 +150,7 @@ Moving to a next alternative discards all edges from the path that are already a
 
 .. _search-engines:engine:perform-recomputation:
 
-.. rubric:: Perform recomputation.
+.. mpg-paragraph:: Perform recomputation.
 
 .. mpg-covered: caption:docs/src/chapters/search/s-engine.tex.in:194:fig:s:engine:re
 
@@ -166,7 +166,7 @@ The ``recompute()`` function shown in :numref:`fig:s:engine:re` performs recompu
 
 .. _search-engines:engine:last-alternative-optimization:
 
-.. rubric:: Last alternative optimization.
+.. mpg-paragraph:: Last alternative optimization.
 
 Before actually starting recomputation, the ``recompute()`` function checks whether it can perform LAO. It checks whether the last edge of the path can perform LAO (in which case ``t`` is different from NULL) as follows:
 
@@ -186,7 +186,7 @@ If this is the case, the clone from the edge is removed and is committed to the 
 
 .. _search-engines:engine:adaptive-recomputation:
 
-.. rubric:: Adaptive recomputation.
+.. mpg-paragraph:: Adaptive recomputation.
 
 .. container:: samepage
 

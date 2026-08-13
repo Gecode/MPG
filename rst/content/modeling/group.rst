@@ -10,7 +10,7 @@ Groups are a means to control certain execution aspects of propagators and branc
 
 .. _modeling:m-group:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:group:prop` explains groups of propagators, whereas :ref:`sec:m:group:branch` explains groups of branchers. Tracing variables is explained in :ref:`sec:m:group:vartrace` and general tracing in :ref:`sec:m:group:trace`. :ref:`sec:m:group:vartracers` shows how variable tracers and :ref:`sec:m:group:tracers` shows how general tracers (the objects that process trace information) can be programmed.
 
@@ -26,7 +26,7 @@ Each propagator belongs to exactly one *propagator group* of type `PropagatorGro
 
 .. _modeling:m-group:adding-propagators-to-groups:
 
-.. rubric:: Adding propagators to groups.
+.. mpg-paragraph:: Adding propagators to groups.
 
 The following code creates a propagator group ``pg``:
 
@@ -50,7 +50,7 @@ If no propagator group is specified when a propagator is created, then the propa
 
 .. _modeling:m-group:moving-propagators-between-groups:
 
-.. rubric:: Moving propagators between groups.
+.. mpg-paragraph:: Moving propagators between groups.
 
 Propagators can be moved from one group to another. For example, if ``pga`` and ``pgb`` are propagator groups, then
 
@@ -88,7 +88,7 @@ moves both ``p`` and ``q`` to ``pg``.
 
 .. _modeling:m-group:operations-on-propagator-groups:
 
-.. rubric:: Operations on propagator groups.
+.. mpg-paragraph:: Operations on propagator groups.
 
 The number of propagators in a group can be computed by the ``size()`` member function. The following expression:
 
@@ -142,7 +142,7 @@ All propagators in a group can be killed by
 
 .. _modeling:m-group:groups-for-all-propagators:
 
-.. rubric:: Groups for all propagators.
+.. mpg-paragraph:: Groups for all propagators.
 
 For convenience, there is one special propagator group ``PropagatorGroup::all`` which refers to all propagators in a space (one can think of it as the union of all propagator groups). For example,
 
@@ -246,7 +246,7 @@ The following paragraphs explain the information printed by the default variable
 
 .. _modeling:m-group:integer-and-boolean-variables:
 
-.. rubric:: Integer and Boolean variables.
+.. mpg-paragraph:: Integer and Boolean variables.
 
 .. mpg-code:: snippet:m-group:sec:m:group:vartrace:cmd:1
    :name: fig:m:group:varsmm
@@ -302,7 +302,7 @@ Defining custom variable tracers is straightforward, this is explained in :ref:`
 
 .. _modeling:m-group:set-variables:
 
-.. rubric:: Set variables.
+.. mpg-paragraph:: Set variables.
 
 The information printed for init-, fixpoint-, failure-, and done-events for set variables is analogous to the information for integer variables. The slack of a set variable here is defined as the number of values that can be still included in or excluded from the set variable (that is, it corresponds to ``x.unknownSize()`` where ``x`` is a set variable of type `SetVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVar.html>`__).
 
@@ -322,7 +322,7 @@ the values ``4``, ``5``, and ``6`` have been excluded. You can try the `Generati
 
 .. _modeling:m-group:float-variables:
 
-.. rubric:: Float variables.
+.. mpg-paragraph:: Float variables.
 
 For float variables, the slack is defined as the width of the variable domain. The information printed for the events is analogous to the information for integer variables, where for a prune-event the interval containing the pruned values is printed.
 
@@ -498,7 +498,7 @@ Defining custom general tracers is straightforward, this is explained in :ref:`s
 
 .. _modeling:m-group:additional-features:
 
-.. rubric:: Additional features.
+.. mpg-paragraph:: Additional features.
 
 Like for variable tracers, general tracers can also be controlled by trace filters (see :ref:`sec:m:group:filters`) and can be disabled (see :ref:`sec:m:group:traceonoff`).
 
@@ -549,7 +549,7 @@ The example tracer we discuss is implemented by a class ``StdCoutIntTracer``, pr
 
 .. _modeling:m-group:printing-propagator-information:
 
-.. rubric:: Printing propagator information.
+.. mpg-paragraph:: Printing propagator information.
 
 The example tracer prints information about propagators and branchers using overloaded static member functions ``ids()`` (for identifiers). Printing information about propagators is implemented as follows:
 
@@ -560,7 +560,7 @@ The function always prints the identifier ``p.id()`` of the propagator ``p``. If
 
 .. _modeling:m-group:printing-variable-trace-information:
 
-.. rubric:: Printing variable trace information.
+.. mpg-paragraph:: Printing variable trace information.
 
 The member function ``prune()`` receives as an argument a reference to an object of class `ViewTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1ViewTraceInfo.html>`__ providing information about which entity triggered the corresponding prune-event. The following function illustrates the information provided by an object of class `ViewTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1ViewTraceInfo.html>`__.
 
@@ -569,7 +569,7 @@ The member function ``prune()`` receives as an argument a reference to an object
 
 .. _modeling:m-group:printing-prune-events:
 
-.. rubric:: Printing prune-events.
+.. mpg-paragraph:: Printing prune-events.
 
 A ``prune()`` member function takes arguments that provide information about *what* is being pruned (this is given by the integer ``i`` as the position of the variable in the array passed to the ``trace()`` function), *how* the variable has been pruned (this is given by the argument ``d`` of class `IntTraceDelta <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntTraceDelta.html>`__), and by *whom* (this is given by the class `ViewTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1ViewTraceInfo.html>`__, which has been discussed in the previous paragraph). It also gets access to the trace recorder of type `IntTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__.
 
@@ -583,7 +583,7 @@ As can be seen, the argument ``d`` of type `IntTraceDelta <https://www.gecode.d
 
 .. _modeling:m-group:printing-fixpoint-events:
 
-.. rubric:: Printing fixpoint-events.
+.. mpg-paragraph:: Printing fixpoint-events.
 
 The ``fix()`` function also receives an argument of type `IntTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__ as shown here:
 
@@ -605,13 +605,13 @@ Note that the slack information is only updated when a fixpoint-, init-, or done
 
 .. _modeling:m-group:variable-tracers-for-boolean-variables:
 
-.. rubric:: Variable tracers for Boolean variables.
+.. mpg-paragraph:: Variable tracers for Boolean variables.
 
 Variable tracers for Boolean variables are exactly like variable tracers for integer variables: a Boolean variable trace recorder is of type `BoolTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__, the trace delta is also a range iterator of class `BoolTraceDelta <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolTraceDelta.html>`__, and the slack is defined as for integer variables and is also of type ``unsigned long long int``.
 
 .. _modeling:m-group:memory-and-concurrency-properties-of-tracers:
 
-.. rubric:: Memory and concurrency properties of tracers.
+.. mpg-paragraph:: Memory and concurrency properties of tracers.
 
 There is no automatic memory management for tracers, the user is responsible for creating and deleting tracers. A tracer can be used across several threads where it is ensured that the execution of a trace function is synchronized in that at most one thread executes any trace function at any given time.
 

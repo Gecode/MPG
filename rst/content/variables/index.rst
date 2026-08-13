@@ -71,7 +71,7 @@ This chapter outlines how a new variable type can be programmed with Gecode. The
 
 .. _variables:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 An overview of what needs to be designed and programmed is presented in :ref:`sec:v:started:overview`. The structure of how the implementation of a variable type is organized is presented in :ref:`sec:v:started:structure`.
 
@@ -92,7 +92,7 @@ Even though integer interval variables seem not very interesting, variants of th
 
 .. _variables:what-must-be-programmed:
 
-.. rubric:: What must be programmed.
+.. mpg-paragraph:: What must be programmed.
 
 Programming variables includes the following tasks:
 
@@ -124,7 +124,7 @@ Programming variables includes the following tasks:
 
 .. _variables:putting-everything-together:
 
-.. rubric:: Putting everything together.
+.. mpg-paragraph:: Putting everything together.
 
 Even though we are presenting the implementation of integer interval variables only as an example, :ref:`chap:v:all` shows how everything is put together. This includes examples of propagators, post functions using various views, and a simple script (Golomb rulers, see :ref:`chap:c:golomb`) using integer interval variables.
 
@@ -150,7 +150,7 @@ The implementation of integer interval variables is contained in a single header
 
 .. _variables:namespaces:
 
-.. rubric:: Namespaces.
+.. mpg-paragraph:: Namespaces.
 
 The implementation is contained in the namespace ``MPG`` (for ``M``\ odeling and ``P``\ rogramming with ``G``\ ecode) to avoid name-clashes with functionality provided by Gecode. To keep the implementation of integer interval variables concise, some important definitions in the ``Gecode`` namespace are made available by ``using`` declarations (see :ref:`fig:v:started:header`).
 
@@ -168,7 +168,7 @@ As discussed above, ``Exception`` is ``Gecode::Exception`` (see ``Exception``) a
 
 .. _variables:naming-scheme:
 
-.. rubric:: Naming scheme.
+.. mpg-paragraph:: Naming scheme.
 
 The naming scheme follows the same naming scheme for integer variables as defined by Gecode (albeit defined in the namespace ``MPG`` instead of ``Gecode``):
 
@@ -184,7 +184,7 @@ The naming scheme follows the same naming scheme for integer variables as define
 
 .. _variables:inline-functions-as-simplification:
 
-.. rubric:: Inline functions as simplification.
+.. mpg-paragraph:: Inline functions as simplification.
 
 All functions, be they member or non-member functions are defined as ``inline``. The reason for this is to make it easier to follow the example, as only the single header file ``int.hh`` is needed. In a real implementation one would move the definitions of some functions to a source file and only leave the declaration of the functions in the header file. This is in particular true for many of the functions defined in :ref:`chap:v:branch`.
 
@@ -197,7 +197,7 @@ This chapter describes how variable implementations can be programmed with Gecod
 
 .. _variables:overview-2:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 The design of integer interval variables is detailed in :ref:`sec:v:varimp:design`. After having finalized the design, :ref:`sec:v:varimp:spec` explains how the domain-independent base class for the variable implementation together with definitions of modification events and propagation conditions can be generated from a simple specification. :ref:`sec:v:varimp:varimp` shows how the actual variable implementation is programmed from the generated base class for a variable implementation. :ref:`sec:v:varimp:add` provides an overview of additional options for generating a variable implementation base class from its specification.
 
@@ -210,7 +210,7 @@ Before starting with the description of the implementation of integer interval v
 
 .. _variables:variable-domain-and-operations:
 
-.. rubric:: Variable domain and operations.
+.. mpg-paragraph:: Variable domain and operations.
 
 Unsurprisingly, the variable domain of an integer variable implementation is represented by two integers ``l`` (lower bound) and ``u`` (upper bound). The variable implementation provides access operations ``min()`` and ``max()`` that return these integers.
 
@@ -238,13 +238,13 @@ The choice of values for ``Limits::min`` and ``Limits::max`` are motivated by si
 
 .. _variables:assigned-variables:
 
-.. rubric:: Assigned variables.
+.. mpg-paragraph:: Assigned variables.
 
 An integer interval variable is assigned iff :math:`\mathtt l=\mathtt u`.
 
 .. _variables:deltas-for-advisors:
 
-.. rubric:: Deltas for advisors.
+.. mpg-paragraph:: Deltas for advisors.
 
 We design the delta information for an advisor computed by a modification operation on the variable implementation to be an interval as well. The interval defines the values that are removed by a modification operation. Due to the nature of the modification operations ``lq()`` and ``gq()``, the removed values always form an interval.
 
@@ -252,7 +252,7 @@ The design of deltas to be used by advisors for a variable implementation depend
 
 .. _variables:modification-events:
 
-.. rubric:: Modification events.
+.. mpg-paragraph:: Modification events.
 
 Any variable implementation must support the mandatory events for no modification (to be implemented as ``ME_INT_NONE``), for failure (to be implemented as ``ME_INT_FAILED``), and for assignment to a value (to be implemented as ``ME_INT_VAL``).
 
@@ -266,7 +266,7 @@ Again, there is quite some degree of freedom in the choice of modification event
 
 .. _par:v:varimp:design:pc:
 
-.. rubric:: Propagation conditions.
+.. mpg-paragraph:: Propagation conditions.
 
 To make our example variable implementations sufficiently interesting, we design the propagation conditions such that they can take full advantage of the modification events.
 
@@ -290,7 +290,7 @@ A simpler design would be to have the single non-mandatory propagation condition
 
 .. _par:v:varimp:design:cost:
 
-.. rubric:: Costs and limits for modification events and propagation conditions.
+.. mpg-paragraph:: Costs and limits for modification events and propagation conditions.
 
 The cost per each individual modification event and propagation condition is as follows:
 
@@ -315,7 +315,7 @@ In the following we describe how to turn the parts of the design from the previo
 
 .. _variables:general-section:
 
-.. rubric:: General section.
+.. mpg-paragraph:: General section.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:500:fig:v:varimp:vis
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:500:fig:v:varimp:vis
@@ -341,7 +341,7 @@ The general section (and also the other sections discussed below) supports addit
 
 .. _variables:modification-event-section:
 
-.. rubric:: Modification event section.
+.. mpg-paragraph:: Modification event section.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:536:fig:v:varimp:vis:me
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:536:fig:v:varimp:vis:me
@@ -404,7 +404,7 @@ We will not present the full mathematical detail of the properties that must hol
 
 .. _variables:propagation-condition-section:
 
-.. rubric:: Propagation condition section.
+.. mpg-paragraph:: Propagation condition section.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:617:fig:v:varimp:vis:pc
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:617:fig:v:varimp:vis:pc
@@ -462,7 +462,7 @@ The variable implementation for integer interval variables is shown in :ref:`fig
 
 .. _variables:access-operations:
 
-.. rubric:: Access operations.
+.. mpg-paragraph:: Access operations.
 
 Every variable implementation must implement a member function ``assigned()`` that tests whether the variable is assigned to a value:
 
@@ -476,7 +476,7 @@ The access operations for the lower and upper bound are straightforward. Here, a
 
 .. _variables:modification-operations:
 
-.. rubric:: Modification operations.
+.. mpg-paragraph:: Modification operations.
 
 The modification operations must notify the Gecode kernel if a variable implementation is modified. As a description how a variable implementation changes, they must pass a modification event and delta information for advisors to a member function ``notify()``. The ``notify()`` function executes subscribed advisors and schedules subscribed propagators (depending on the passed modification event and the propagators’ propagation conditions). The ``notify()`` function is inherited from the generated variable implementation base class and depends on the specified modification events and propagation conditions.
 
@@ -500,7 +500,7 @@ If a modification operation fails it must return ``ME_INT_FAILED`` as modificati
 
 .. _variables:delta-information-access:
 
-.. rubric:: Delta information access.
+.. mpg-paragraph:: Delta information access.
 
 The variable implementation must also implement functions that provide access to the delta information:
 
@@ -510,7 +510,7 @@ This construction appears nonsensical at first sight, however there are two good
 
 .. _variables:subscriptions:
 
-.. rubric:: Subscriptions.
+.. mpg-paragraph:: Subscriptions.
 
 A variable implementation must implement ``subscribe()`` operations for both propagators and advisors. The implementation of these operations always follow the same structure as shown below.
 
@@ -520,7 +520,7 @@ The reason why these functions have to be implemented in the variable implementa
 
 .. _variables:re-scheduling:
 
-.. rubric:: Re-scheduling.
+.. mpg-paragraph:: Re-scheduling.
 
 A variable implementation must implement a ``reschedule()`` operation for propagators. The implementation of this operation is almost identical to the ``subscribe()`` member function discussed previously. The definition is as follows:
 
@@ -528,7 +528,7 @@ A variable implementation must implement a ``reschedule()`` operation for propag
 
 .. _variables:copying-during-cloning:
 
-.. rubric:: Copying during cloning.
+.. mpg-paragraph:: Copying during cloning.
 
 Copying a variable implementation during cloning is implemented by a constructor and a ``copy()`` function. The constructor is straightforward and the ``copy()`` function only creates a new variable implementation if the variable implementation has not been copied before. If it has been copied before (that is, ``copied()`` returns ``true``), the ``copy()`` function must return the forwarding pointer to the previously created copy as follows:
 
@@ -536,7 +536,7 @@ Copying a variable implementation during cloning is implemented by a constructor
 
 .. _variables:additional-inherited-member-functions:
 
-.. rubric:: Additional inherited member functions.
+.. mpg-paragraph:: Additional inherited member functions.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:813:fig:v:varimp:inherited
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:813:fig:v:varimp:inherited
@@ -605,13 +605,13 @@ This section provides an overview of additional specification options not discus
 
 .. _variables:comments:
 
-.. rubric:: Comments.
+.. mpg-paragraph:: Comments.
 
 Any line starting with ``#`` is discarded and hence can serve as a comment in the specification file.
 
 .. _variables:generating-headers-footers-and-comments:
 
-.. rubric:: Generating headers, footers, and comments.
+.. mpg-paragraph:: Generating headers, footers, and comments.
 
 Any text after the options for a ``[ModEvent]`` and ``[PropCond]`` definition until the next definition is added to the generated C++-code before the generated identifier definition. This can be used for defining comments to be added to the generated C++-code. For example, by
 
@@ -638,7 +638,7 @@ Related support exists for putting a header before (or a footer after) all gener
 
 .. _variables:conditional-compilation:
 
-.. rubric:: Conditional compilation.
+.. mpg-paragraph:: Conditional compilation.
 
 Giving an option ``Ifdef`` in the general section followed by some C++-preprocessor identifier ``IDENT`` wraps the entire generated code in preprocessor directives as follows:
 
@@ -649,7 +649,7 @@ By this, the Gecode kernel can be compiled with or without a particular variable
 
 .. _par:v:varimp:dispose:
 
-.. rubric:: Explicitly disposing variable implementations.
+.. mpg-paragraph:: Explicitly disposing variable implementations.
 
 Our example variables are entirely space-allocated and do not require external memory or other resources. However, for some variable types, the variable implementation might use external resources or memory that is not space-allocated and must explicitly be freed.
 
@@ -678,7 +678,7 @@ The ``disposer`` object must be initialized before the first variable using ``MP
 
 .. _variables:reserving-bits:
 
-.. rubric:: Reserving bits.
+.. mpg-paragraph:: Reserving bits.
 
 A limited number of bits :math:`b` can be reserved within each variable implementation by specifying in the general section
 
@@ -690,7 +690,7 @@ Then, the variable implementation can get a reference to a value of type ``unsig
 
 .. _variables:specification-file-template:
 
-.. rubric:: Specification file template.
+.. mpg-paragraph:: Specification file template.
 
 The specification template contains all possible specification options to assist in defining your own variable types.
 
@@ -703,7 +703,7 @@ This chapter describes how variables can be programmed from variable implementat
 
 .. _variables:overview-3:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 How integer interval variables are implemented is detailed in :ref:`sec:v:var:var`. Variable arrays and variable argument arrays are discussed in :ref:`sec:v:var:array`.
 
@@ -733,7 +733,7 @@ It is important to remember that variables are defined in the namespace ``MPG``.
 
 .. _variables:variable-creation:
 
-.. rubric:: Variable creation.
+.. mpg-paragraph:: Variable creation.
 
 Creating a new variable is done with the following constructor that creates a new variable implementation as follows:
 
@@ -743,7 +743,7 @@ Note that the constructor ensures the invariants for the lower and upper bound o
 
 .. _variables:access-operations-2:
 
-.. rubric:: Access operations.
+.. mpg-paragraph:: Access operations.
 
 In addition to constructors, variables typically implement the same access operations as their corresponding variable implementation:
 
@@ -751,7 +751,7 @@ In addition to constructors, variables typically implement the same access opera
 
 .. _variables:additional-inherited-member-functions-2:
 
-.. rubric:: Additional inherited member functions.
+.. mpg-paragraph:: Additional inherited member functions.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1032:fig:v:var:inherited
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1032:fig:v:var:inherited
@@ -799,7 +799,7 @@ Defining variable arrays and variable argument arrays (see also :ref:`sec:m:inte
 
 .. _variables:array-traits:
 
-.. rubric:: Array traits.
+.. mpg-paragraph:: Array traits.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1070:fig:v:var:traits
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1070:fig:v:var:traits
@@ -818,7 +818,7 @@ The second step requires to define traits for these two array types. The trait c
 
 .. _variables:variable-arrays:
 
-.. rubric:: Variable arrays.
+.. mpg-paragraph:: Variable arrays.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1093:fig:v:var:array
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1093:fig:v:var:array
@@ -842,7 +842,7 @@ This chapter describes how views as needed for programming propagators and branc
 
 .. _variables:overview-4:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:v:view:types` provides an overview of the different types of views available in Gecode. The remaining sections provide examples for each different view type: :ref:`sec:v:view:varview` shows how an integer view ``IntView`` is constructed as a variable implementation view; :ref:`sec:v:view:const` shows how a constant integer view ``ConstIntView`` is programmed as a constant view; :ref:`sec:v:view:derived` shows how a minus view ``MinusView`` and an offset view ``OffsetView`` are programmed as derived views.
 
@@ -861,7 +861,7 @@ Gecode provides three different types of views:
 
 .. _variables:predefined-member-functions:
 
-.. rubric:: Predefined member functions.
+.. mpg-paragraph:: Predefined member functions.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1167:fig:v:view:predefined
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1167:fig:v:view:predefined
@@ -937,7 +937,7 @@ Note that the ``varimp()`` function for a constant view or for a view derived fr
 
 .. _variables:view-test-functions:
 
-.. rubric:: View test functions.
+.. mpg-paragraph:: View test functions.
 
 There are three different functions predefined for views:
 
@@ -949,7 +949,7 @@ There are three different functions predefined for views:
 
 .. _variables:output-operator:
 
-.. rubric:: Output operator.
+.. mpg-paragraph:: Output operator.
 
 For every view also an output operator ``<<`` must be defined. We sketch this only for integer views in :ref:`sec:v:view:varview`, for all other views the definition is analogous.
 
@@ -1011,7 +1011,7 @@ Slightly less obvious is the implementation of operations that access delta info
 
 .. _variables:update-during-cloning:
 
-.. rubric:: Update during cloning.
+.. mpg-paragraph:: Update during cloning.
 
 The definition of the ``update()`` member function of ``ConstView`` does not take care of the integer value ``x``. Hence we need to provide a new ``update()`` function that updates the value of ``x`` as follows:
 
@@ -1019,7 +1019,7 @@ The definition of the ``update()`` member function of ``ConstView`` does not tak
 
 .. _variables:view-tests:
 
-.. rubric:: View tests.
+.. mpg-paragraph:: View tests.
 
 Also the default definitions of the view test operators ``==``, ``!=``, and ``<`` for constant views do not take the integer value ``x`` of the view into account. Overloaded versions for constant integer views are as follows:
 
@@ -1052,7 +1052,7 @@ Minus views
 
 .. _variables:access-operations-3:
 
-.. rubric:: Access operations.
+.. mpg-paragraph:: Access operations.
 
 The access operations are as to be expected for a minus view. That is, the lower bound of the derived view is the negation of the upper bound of the base view:
 
@@ -1060,7 +1060,7 @@ The access operations are as to be expected for a minus view. That is, the lower
 
 .. _variables:modification-operations-2:
 
-.. rubric:: Modification operations.
+.. mpg-paragraph:: Modification operations.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1364:fig:v:view:minusmepc
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1364:fig:v:view:minusmepc
@@ -1083,7 +1083,7 @@ Using the function ``minusme``, the modification operations can be defined as fo
 
 .. _variables:accessing-delta-information:
 
-.. rubric:: Accessing delta information.
+.. mpg-paragraph:: Accessing delta information.
 
 Accessing delta information must also take into account that the modification event stored in a delta must be converted with ``minusme()``. Also the other operations for accessing delta information must be adopted accordingly:
 
@@ -1091,7 +1091,7 @@ Accessing delta information must also take into account that the modification ev
 
 .. _variables:additional-operations:
 
-.. rubric:: Additional operations.
+.. mpg-paragraph:: Additional operations.
 
 Any operation that is concerned with either modification events or propagation conditions must be implemented to take the switch between lower bound and upper bound into account. These operations include the operations for handling subscriptions of propagators (the function ``minuspc()`` is defined analogously to ``minusme()`` in :ref:`fig:v:view:minusmepc`):
 
@@ -1142,7 +1142,7 @@ This chapter explains how to program common variable-value branchings using the 
 
 .. _variables:overview-5:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:v:branch:type` explains which simple types must be defined for variable-value branchings. How functions for variable selection and value selection are implemented is demonstrated in :ref:`sec:v:branch:varval`. :ref:`sec:v:branch:viewsel` shows how a function that creates an object for selecting views during branching is implemented. How functions for selecting values and committing to these values are implemented is shown in :ref:`sec:v:branch:valcommit`. This section also explains how to add support for no-goods to a variable-value brancher. How the actual branchings are implemented is then detailed in :ref:`sec:v:branch:branch`.
 
@@ -1209,7 +1209,7 @@ An important part of the interface of the branching is support for specifying ho
 
 .. _variables:variable-selection:
 
-.. rubric:: Variable selection.
+.. mpg-paragraph:: Variable selection.
 
 The variable selection functions we are considering here are defined as follows (their names and what they do coincides with the variable selection functions for normal integer variables in Gecode, see :ref:`sec:m:branch:int`):
 
@@ -1240,7 +1240,7 @@ The class must also implement an ``expand()`` member function. It checks whether
 
 .. _variables:value-selection:
 
-.. rubric:: Value selection.
+.. mpg-paragraph:: Value selection.
 
 Value selection functions are implemented similarly to variable selection functions. They return an object of class ``IntValBranch`` (inheriting from the template base class ``ValBranch``) which stores the necessary information for creating the appropriate brancher. We are considering the following value selection functions as examples:
 
@@ -1270,7 +1270,7 @@ Selection of the first unassigned view (corresponding to ``SEL_NONE``, that is, 
 
 .. _variables:view-selection-with-tbl-function:
 
-.. rubric:: View selection with tbl-function.
+.. mpg-paragraph:: View selection with tbl-function.
 
 The other strategies for view selection exist in two variants: one variant that uses a tbl-function and one variant that does not. In case a tbl-function has been supplied as additional argument to one of the variable selection functions, the following creates the appropriate object for view selection:
 
@@ -1302,7 +1302,7 @@ In case the merit class uses members that must be deallocated when the home-spac
 
 .. _variables:view-selection-without-tbl-function:
 
-.. rubric:: View selection without tbl-function.
+.. mpg-paragraph:: View selection without tbl-function.
 
 Implementing view selection without a tbl-function is analogous, the only difference is that the classes ``ViewSelMax`` (instead of ``ViewSelMaxTbl``) and ``ViewSelMin`` (instead of ``ViewSelMinTbl``) must be used:
 
@@ -1332,7 +1332,7 @@ The class ``ValSelCommit`` is parametric with respect to a value selection class
 
 .. _variables:value-selection-classes:
 
-.. rubric:: Value selection classes.
+.. mpg-paragraph:: Value selection classes.
 
 A value selection class must inherit from the class ``ValSel`` which again is parametric with respect to the view and value type. The constructors (one for creation and for cloning) are exactly the same as for merit classes discussed in the previous section.
 
@@ -1344,7 +1344,7 @@ In addition, the classes must define a member function ``val()`` that returns a 
 
 .. _variables:value-commit-classes:
 
-.. rubric:: Value commit classes.
+.. mpg-paragraph:: Value commit classes.
 
 For our integer interval variables and views we need a single value commit class only (how many classes are needed depends of course on which value selection strategies are provided). A value commit class must inherit from the parametric class ``ValCommit`` and must implement one constructor for creation and one for cloning. In addition, it must define a ``commit()`` function, an ``ngl()`` function (to be discussed later), and a default ``print()`` function. The ``commit()`` function returns a modification event and takes the number of the alternative ``a``, a view ``x``, its position ``i``, and a value ``n`` as arguments. The ``print()`` function takes an output stream ``o`` as additional argument:
 
@@ -1352,7 +1352,7 @@ For our integer interval variables and views we need a single value commit class
 
 .. _variables:no-good-support:
 
-.. rubric:: No-good support.
+.. mpg-paragraph:: No-good support.
 
 The value commit class must also implement a function ``ngl()`` that returns a no-good literal for an alternative. The idea is exactly the same as described in :ref:`sec:b:advanced:nogoods`, the only difference is that the ``ngl()`` function here gets a view and a value as arguments rather than a choice.
 
@@ -1368,7 +1368,7 @@ It inherits from the template class ``ViewValNGL``, which expects a view type, a
 
 .. _variables:user-defined-value-selection-and-commit-functions:
 
-.. rubric:: User-defined value selection and commit functions.
+.. mpg-paragraph:: User-defined value selection and commit functions.
 
 For the value selection function ``INT_VAL(v,c)`` for a user-defined value selection function ``v`` and a user-defined commit function ``c`` it is possible to leave out ``c``, as it has been declared as an optional argument. When the argument is not provided, ``c`` is equal to ``nullptr``. This is taken into account as follows:
 
@@ -1385,7 +1385,7 @@ Implementing the actual ``branch()`` functions with and without tie-breaking is 
 
 .. _variables:branching-without-tie-breaking:
 
-.. rubric:: Branching without tie-breaking.
+.. mpg-paragraph:: Branching without tie-breaking.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1832:fig:v:branch:branch
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1832:fig:v:branch:branch
@@ -1410,7 +1410,7 @@ The ``branch()`` function is shown in :ref:`fig:v:branch:branch`. It creates an 
 
 .. _variables:branching-with-tie-breaking:
 
-.. rubric:: Branching with tie-breaking.
+.. mpg-paragraph:: Branching with tie-breaking.
 
 .. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1862:fig:v:branch:branchtb
 .. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1862:fig:v:branch:branchtb
@@ -1451,7 +1451,7 @@ This chapter shows how to add variable tracing support for a new variable type.
 
 .. _variables:overview-6:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`fig:v:trace:tracing` shows the part of the header file concerned with tracing. Trace views are used to save the state of a view’s domain after it has been modified by a prune-event and trace deltas are used to compute the values that have been removed by a prune-event. They are discussed in :ref:`sec:v:trace:views`. How tracers and trace recorders are instantiated is described in :ref:`sec:v:trace:tracer`. Finally, :ref:`sec:v:trace:post` describes how to actually post trace recorders through trace post functions.
 
@@ -1468,7 +1468,7 @@ The trace view is initialized by its constructor. It does not have to implement 
 
 .. _variables:prune-function:
 
-.. rubric:: Prune function.
+.. mpg-paragraph:: Prune function.
 
 The prune function is executed when a prune-event has occurred. Here the integer view ``x`` is the view after the prune event and the modification delta ``d`` contains information about the prune-event. For integer interval variables it is sufficient to update the lower and upper bound of the trace view as follows:
 
@@ -1476,7 +1476,7 @@ The prune function is executed when a prune-event has occurred. Here the integer
 
 .. _variables:slack-function:
 
-.. rubric:: Slack function.
+.. mpg-paragraph:: Slack function.
 
 For all other event types, the slack of a variable must be available, computed by a ``slack()`` function as follows:
 
@@ -1486,7 +1486,7 @@ Here the slack is defined as the values that are still to be removed and to avoi
 
 .. _variables:trace-delta:
 
-.. rubric:: Trace delta.
+.. mpg-paragraph:: Trace delta.
 
 The trace delta provides information about which values have been removed by a prune-event. For integer interval variables, the trace delta is defined and computed as follows:
 
@@ -1537,7 +1537,7 @@ This chapter finally explains how integer interval variables can be used with Ge
 
 .. _variables:overview-7:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:v:all:golomb` sketches an example script together with implementations of constraints and branchings using integer interval variables. The following section, :ref:`sec:v:all:conf`, shows how Gecode can be configured to use integer interval variables and how to compile and run the example script.
 

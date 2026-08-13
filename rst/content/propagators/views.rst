@@ -11,7 +11,7 @@ As it comes to importance, this chapter should be the second in this part. Howev
 
 .. _propagators:views:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 Integer variable views are discussed in :ref:`sec:p:views:int` and Boolean variable views are discussed in :ref:`sec:p:views:bool`. How integer propagators can be reused for Boolean views is presented in :ref:`sec:p:views:inttobool`.
 
@@ -75,7 +75,7 @@ An *offset view* ``o`` with offset ``c`` (an integer value) for a variable imple
 
 .. _par:p:views:sameshared:
 
-.. rubric:: ``shared`` versus ``==``.
+.. mpg-paragraph:: ``shared`` versus ``==``.
 
 The domain modification operations ``inter_r`` and ``narrow_r`` used in the ``Equal`` propagator from :ref:`sec:p:domain:iter` are used such that the operations perform a more efficient in-place update of the view domain (with an additional Boolean value ``false`` as last and optional argument). This is only legal because the range iterator passed as argument to the modification operations does not depend on the view being modified. The post function of ``Equal`` ensures this by only posting the propagator if the two views ``x0`` and ``x1`` are not referring to the very same variable implementation (that is, ``x0==x1`` is false).
 

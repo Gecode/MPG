@@ -9,7 +9,7 @@ To conveniently program efficient propagators that perform domain reasoning, Gec
 
 .. _propagators:domain:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 This chapters motivates why special domain operations on variable views are needed (:ref:`sec:p:domain:crash`) and demonstrates how iterators are used for domain propagation (:ref:`sec:p:domain:iter` and :ref:`sec:p:domain:iterators`). :ref:`sec:p:domain:med` and :ref:`sec:p:domain:staging` describe modification event deltas and staging for efficiently combining bounds with domain propagation.
 
@@ -60,7 +60,7 @@ The motivation to iterate over range sequences rather than individual values is 
 
 .. _propagators:domain:iterator-based-modification-operations:
 
-.. rubric:: Iterator-based modification operations.
+.. mpg-paragraph:: Iterator-based modification operations.
 
 The propagator uses two modification operations for range iterators: ``x1.inter_r()`` intersects the current domain of ``x1`` with the set defined by the range iterator ``r0`` for ``x0``. After this operation (provided no failure occurred), the view ``x1`` has the correct domain: the intersection of the domains of ``x0`` and ``x1``. The operation ``x0.narrow_r()`` replaces the current domain of ``x0`` by the set defined by the range iterator ``r1`` (which iterates the intersection of the domains of ``x0`` and ``x1``).
 
@@ -86,7 +86,7 @@ Instead of using range iterators for modification operations, one can also use v
 
 .. _propagators:domain:avoiding-shared-iterators:
 
-.. rubric:: Avoiding shared iterators.
+.. mpg-paragraph:: Avoiding shared iterators.
 
 The problem that made our attempt to implement propagation for equality in :ref:`sec:p:domain:crash` incorrect is to use iterators for iterating over views that are simultaneously modified.
 
@@ -116,7 +116,7 @@ Suppose that we want to implement a close variant of the equality constraint, na
 
 .. _propagators:domain:mapping-range-sequences:
 
-.. rubric:: Mapping range sequences.
+.. mpg-paragraph:: Mapping range sequences.
 
 Assume a range sequence :math:`\left\langle \left[m_i\;..\;n_i\right]\right\rangle_{i=0}^{k}` for the values in the domain of :math:`y`. Then, what we want to compute is a range sequence
 
@@ -152,7 +152,7 @@ While the propagator is reasonably easy to construct using map iterators, :ref:`
 
 .. _propagators:domain:using-and-defining-iterators:
 
-.. rubric:: Using and defining iterators.
+.. mpg-paragraph:: Using and defining iterators.
 
 Gecode comes with a multitude of range and value iterators to transform range and value sequences of other iterators. These iterators are defined in the namespace ``Iter``. Range iterators are defined in the namespace ``Iter::Ranges``\ and value iterators in the namespace ``Iter::Values``. Example iterators include: iterators to convert value into range iterators and vice versa, iterators to compute the union and intersection, iterators to iterate over arrays and bitsets, just to name a few.
 
@@ -160,7 +160,7 @@ But even if the predefined iterators are not sufficient, it is straightforward t
 
 .. _propagators:domain:benefits-of-iterators:
 
-.. rubric:: Benefits of iterators.
+.. mpg-paragraph:: Benefits of iterators.
 
 The true benefit of using iterators for performing value or range transformations is that the iterator-based domain modification operation with which an iterator is used is automatically specialized at compile time. Typically, no intermediate data structures are created and the modification operations are optimized at compile time for each individual iterator. [1]_
 
@@ -236,7 +236,7 @@ When the propagator is executed, it can be either in stage “bounds” or stage
 
 .. _propagators:domain:re-scheduling-propagators:
 
-.. rubric:: Re-scheduling propagators.
+.. mpg-paragraph:: Re-scheduling propagators.
 
 The cost of a propagator depends on its modification event delta. This connection goes even further: only if the modification event delta of a propagator changes, a propagator is re-scheduled according to its cost by recomputing the ``cost()`` function.
 
@@ -246,7 +246,7 @@ Not recomputing cost each time a propagator might be scheduled is done for two r
 
 .. _propagators:domain:controlling-staging-by-modification-event-deltas:
 
-.. rubric:: Controlling staging by modification event deltas.
+.. mpg-paragraph:: Controlling staging by modification event deltas.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:466:fig:p:domain:staging
 
@@ -267,7 +267,7 @@ The ``propagate()`` function is almost identical to the function shown in the pr
 
 .. _propagators:domain:constructing-modification-event-deltas:
 
-.. rubric:: Constructing modification event deltas.
+.. mpg-paragraph:: Constructing modification event deltas.
 
 Every view type provides a static ``med()`` function that translates a modification event of that view type into a modification event delta. Modification event deltas for different view types can be combined with the ``|`` operator. For example, the following expression combines the modification event ``ME_INT_BND`` for integer views with the modification event ``ME_BOOL_VAL`` for Boolean views:
 

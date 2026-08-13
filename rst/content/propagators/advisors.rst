@@ -7,7 +7,7 @@ This chapter is concerned with advisors for efficient incremental propagation. A
 
 .. _propagators:advisors:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 In :ref:`sec:p:advisors:advisors`, a motivation and a model for advisors is presented. The following two sections demonstrate advisors. :ref:`sec:p:advisors:samedom` shows an example propagator that exploits the information provided by an advisor about which view has changed. :ref:`sec:p:advisors:or` shows an example propagator that exploits information on how the domain of its views have changed. :ref:`sec:p:advisors:force` sketches how advisors can be used for forcing propagators to be re-scheduled.
 
@@ -24,7 +24,7 @@ Consider the following, rather simple, example constraint. The constraint ``same
 
 .. _propagators:advisors:more-knowledge-is-needed:
 
-.. rubric:: More knowledge is needed.
+.. mpg-paragraph:: More knowledge is needed.
 
 Obviously, there are two different approaches to realize ``samedom``:
 
@@ -44,7 +44,7 @@ For a simple constraint such as ``samedom``, the linear overhead is prohibitive.
 
 .. _propagators:advisors:advisors:
 
-.. rubric:: Advisors.
+.. mpg-paragraph:: Advisors.
 
 Gecode provides *advisors* to inform propagators about view changes. An advisor belongs to a propagator and can be defined (by inheriting from ``Advisor``) to store information as needed by its propagator. The sole purpose of an advisor is to subscribe to a view of its propagator: each time the view changes, an ``advise()`` function of the advisor’s propagator is executed with the advisor as argument (sometimes we will be a little sloppy by saying that the advisor is executed itself).
 
@@ -96,7 +96,7 @@ The idea how the ``SameDom`` propagator implements the ``samedom`` constraint is
 
 .. _propagators:advisors:todo-information:
 
-.. rubric:: Todo information.
+.. mpg-paragraph:: Todo information.
 
 .. container:: samepage
 
@@ -110,7 +110,7 @@ Initially, ``todo`` is ``NOTHING``. When the propagator is scheduled on behalf o
 
 .. _propagators:advisors:view-advisors:
 
-.. rubric:: View advisors.
+.. mpg-paragraph:: View advisors.
 
 Each advisor used by the ``SameDom`` propagator stores the view it is subscribed to. By this, the ``advise()`` function can use the view stored with an advisor to decide what the propagator needs to do. A view advisor is defined as follows:
 
@@ -134,7 +134,7 @@ The propagator maintains a council of view advisors ``c``. A council controls di
 
 .. _propagators:advisors:the-propagator-proper:
 
-.. rubric:: The propagator proper.
+.. mpg-paragraph:: The propagator proper.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-advisors.tex.in:262:fig:p:advisors:samedom
 
@@ -151,7 +151,7 @@ The ``SameDom`` propagator is shown in :numref:`fig:p:advisors:samedom`. The fun
 
 .. _propagators:advisors:posting-the-propagator:
 
-.. rubric:: Posting the propagator.
+.. mpg-paragraph:: Posting the propagator.
 
 The propagator post function (not shown) makes sure that the propagator is only posted if for all views :math:`\mathtt{x}_i`, it cannot be decided whether :math:`\mathtt{x}_i\in\mathtt d` or :math:`\mathtt{x}_i\not\in\mathtt d`. If this is not the case, the post function already performs the necessary propagation. Note that the propagator post function by performing some propagation ensures the central invariant of the ``SameDom`` propagator: the value of ``todo`` (which is ``NOTHING`` initially) corresponds to the current domains of the propagator’s views.
 
@@ -184,7 +184,7 @@ The constructor for posting creates the required advisors as follows:
 
 .. _propagators:advisors:re-scheduling-the-propagator:
 
-.. rubric:: Re-scheduling the propagator.
+.. mpg-paragraph:: Re-scheduling the propagator.
 
 The ``reschedule()`` member function just checks whether the propagator needs to be scheduled and uses the ``reschedule()`` member functions of integer views as discussed above:
 
@@ -194,7 +194,7 @@ The ``reschedule()`` member function just checks whether the propagator needs to
 
 .. _propagators:advisors:mandatory-propagator-disposal:
 
-.. rubric:: Mandatory propagator disposal.
+.. mpg-paragraph:: Mandatory propagator disposal.
 
 The constructor also puts a notice on the propagator that it must always be disposed, even if the home space is deleted (as discussed in :ref:`sec:p:started:obligations`). Putting a notice is required because the integer set ``d`` of type ``IntSet``\ is a proper data structure and must hence be deleted when a ``SameDom`` propagator is disposed.
 
@@ -210,7 +210,7 @@ It is essential to ignore the notice in ``dispose()`` by calling ``home.notice()
 
 .. _propagators:advisors:propagation-with-advice:
 
-.. rubric:: Propagation with advice.
+.. mpg-paragraph:: Propagation with advice.
 
 The ``advise()`` function is straightforward:
 
@@ -240,7 +240,7 @@ The ``Advisors`` class provides an iterator over all advisors in the council ``c
 
 .. _propagators:advisors:advisor-disposal:
 
-.. rubric:: Advisor disposal.
+.. mpg-paragraph:: Advisor disposal.
 
 The ``SameDom`` propagator leaves the disposal of its advisors to its own ``dispose()`` function. However, it could also request disposal of an advisor in the ``advise()`` function itself. A different implementation of the advise function would be:
 
@@ -255,7 +255,7 @@ With this design, all advisors would be disposed on behalf of the ``advise()`` f
 
 .. _propagators:advisors:using-predefined-view-advisors:
 
-.. rubric:: Using predefined view advisors.
+.. mpg-paragraph:: Using predefined view advisors.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-advisors.tex.in:421:fig:p:advisors:samedomview
 
@@ -291,7 +291,7 @@ As it comes to the :math:`\mathtt{x}_i`, the ``Or`` propagator uses a similar te
 
 .. _propagators:advisors:the-or-propagator:
 
-.. rubric:: The ``Or`` propagator.
+.. mpg-paragraph:: The ``Or`` propagator.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-advisors.tex.in:467:fig:p:advisors:or
 
@@ -330,7 +330,7 @@ It first checks whether the propagator has been executed because ``y`` has been 
 
 .. _par:p:advisors:delta:
 
-.. rubric:: Delta information for integer views.
+.. mpg-paragraph:: Delta information for integer views.
 
 The delta information provided to the ``advise()`` function can be interpreted through the view the advisor has subscribed to. Boolean views provide static member functions ``zero()`` and ``one()`` to find out whether the view has been assigned to ``0`` or ``1``.
 

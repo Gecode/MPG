@@ -7,7 +7,7 @@ This chapter serves two purposes. First, it discusses techniques for avoiding pr
 
 .. _propagators:avoid:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 Fixpoint reasoning as an important technique for avoiding propagator execution is discussed in detail in :ref:`sec:p:avoid:eqbnd` (we already briefly touched on this subject in :ref:`sec:p:started:better`). The following section (:ref:`sec:p:avoid:ortrue`) presents an example propagator for Boolean disjunction introducing Boolean variable views and view arrays for propagators with arbitrarily many views. The Boolean disjunction propagator is used in :ref:`sec:p:avoid:dynamic` as an example for dynamic subscriptions (a propagator only subscribes to a subset of its views and the subscriptions change while the propagator is being executed) as another technique to avoid propagator execution.
 
@@ -20,7 +20,7 @@ In this section, we develop a propagator for equality :math:`x=y` that performs 
 
 .. _propagators:avoid:a-naive-propagator:
 
-.. rubric:: A naive propagator.
+.. mpg-paragraph:: A naive propagator.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:39:fig:p:avoid:equal:naive
 
@@ -49,7 +49,7 @@ The propagator might actually sometimes compute a fixpoint and sometimes not. Co
 
 .. _propagators:avoid:reporting-fixpoints:
 
-.. rubric:: Reporting fixpoints.
+.. mpg-paragraph:: Reporting fixpoints.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:79:fig:p:avoid:equal
 
@@ -66,7 +66,7 @@ The above example shows that the equality propagator computes a fixpoint if and 
 
 .. _propagators:avoid:an-idempotent-propagator:
 
-.. rubric:: An idempotent propagator.
+.. mpg-paragraph:: An idempotent propagator.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:93:fig:p:avoid:equal:idempotent
 
@@ -85,7 +85,7 @@ The idempotent propagator always computes a fixpoint. That means that it does no
 
 .. _propagators:avoid:an-idempotent-propagator-using-modification-events:
 
-.. rubric:: An idempotent propagator using modification events.
+.. mpg-paragraph:: An idempotent propagator using modification events.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:122:fig:p:avoid:equal:modevent
 
@@ -148,7 +148,7 @@ Before we demonstrate dynamic subscriptions in the next section, we discuss a pr
 
 .. _propagators:avoid:constraint-post-function:
 
-.. rubric:: Constraint post function.
+.. mpg-paragraph:: Constraint post function.
 
 The constraint post function ``dis()`` constrains the disjunction of the Boolean variables in ``x`` to be equal to the integer ``n``:
 
@@ -164,7 +164,7 @@ A more general case of Boolean disjunction, where ``n`` is an integer variable i
 
 .. _propagators:avoid:propagation:
 
-.. rubric:: Propagation.
+.. mpg-paragraph:: Propagation.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:259:fig:p:avoid:ortrue:prop
 
@@ -188,7 +188,7 @@ The operation ``x.move_lst(i)`` of a view array ``x`` moves the last element of 
 
 .. _propagators:avoid:using-propagator-patterns:
 
-.. rubric:: Using propagator patterns.
+.. mpg-paragraph:: Using propagator patterns.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:297:fig:p:avoid:or:concise
 
@@ -205,7 +205,7 @@ How to use a propagator pattern with an array of views is shown in :numref:`fig:
 
 .. _propagators:avoid:boolean-views:
 
-.. rubric:: Boolean views.
+.. mpg-paragraph:: Boolean views.
 
 A Boolean view ``Int::BoolView``\ provides operations for testing whether it is assigned to ``1`` (``one()``) or ``0`` (``zero()``), or whether it is not assigned yet (``none()``). As modification operations Boolean views offer ``one(home)`` and ``zero(home)``. Also, Boolean views only support ``PC_BOOL_NONE`` and ``PC_BOOL_VAL`` as propagation conditions and ``ME_BOOL_NONE``, ``ME_BOOL_FAILED``, and ``ME_BOOL_VAL`` as modification events.
 
@@ -222,7 +222,7 @@ The previous section has been nothing but a warm-up to the presentation of dynam
 
 .. _propagators:avoid:watched-literals:
 
-.. rubric:: Watched literals.
+.. mpg-paragraph:: Watched literals.
 
 The naive propagator presented above is disastrous: every time the propagator is executed, it checks all of its views to determine whether a view has been assigned to ``0`` or ``1``. Worse yet, pretty much all of the propagator executions are entirely pointless for propagation (but not for determining subsumption as is discussed below).
 
@@ -243,7 +243,7 @@ The idea to stop scanning after two unassigned views have been encountered can b
 
 .. _propagators:avoid:the-propagator:
 
-.. rubric:: The propagator.
+.. mpg-paragraph:: The propagator.
 
 The propagator using dynamic subscriptions maintains exactly two subscriptions to its Boolean views. :numref:`fig:p:avoid:or:dynamic` shows the ``OrTrue`` propagator with dynamic subscriptions. It inherits from the ``BinaryPropagator`` pattern and the views ``x0`` and ``x1`` of the pattern are exactly the two views with subscriptions. All remaining views without subscriptions are stored in the view array ``x``. The operation ``drop_fst(n)`` for an integer ``n`` drops the first ``n`` elements of a view array and shortens the array by ``n`` elements accordingly (that is, ``drop_fst()`` is dual to ``drop_lst()`` as used in the previous section). Note that the propagator must define a ``dispose()`` member function: this is needed not because ``dispose()`` must cancel additional subscriptions (the very point is that ``x`` has no subscriptions) but that it must return the correct size of ``OrTrue``.
 
@@ -256,7 +256,7 @@ The propagator using dynamic subscriptions maintains exactly two subscriptions t
 
 .. _propagators:avoid:dynamic-subscriptions-propagation:
 
-.. rubric:: Propagation.
+.. mpg-paragraph:: Propagation.
 
 The idea of how to perform propagation is fairly simple: if one of the views with subscriptions is assigned to ``1``, the propagator is subsumed. If one of the subscription views is assigned to ``0``, say ``x0``, a function ``resubscribe()`` tries to find a yet unassigned view to subscribe to it and store it as ``x0``. If there is no such view but there is a view assigned to ``1``, the propagator is subsumed. If there is no such view, then the propagator tries to assign ``1`` to ``x1``, and, if successful, the propagator is also subsumed. The implementation is as follows:
 
@@ -266,7 +266,7 @@ The idea of how to perform propagation is fairly simple: if one of the views wit
 
 .. _propagators:avoid:resubscribing:
 
-.. rubric:: Resubscribing.
+.. mpg-paragraph:: Resubscribing.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:423:fig:p:avoid:ortrue:re
 
@@ -282,7 +282,7 @@ The function ``resubscribe()`` implements the search for a yet unassigned view f
 
 .. _propagators:avoid:copying:
 
-.. rubric:: Copying.
+.. mpg-paragraph:: Copying.
 
 The assigned views in ``x`` do not really matter much: all views assigned to ``0`` can be discarded. If there is a view assigned to ``1`` all other views can be discarded (of course, a single view assigned to ``1`` must be kept for correctness). Hence a good idea for copying is: copy only those views that still matter. This leads to a smaller view array requiring less memory. We decide to discard assigned views as much as we can in the ``copy()`` function rather than in the constructor used for copying. By this, also the original and not only the copy profits from fewer views. While the copy benefits because there are less views to be stored, the original propagator benefits because ``resubscribe()`` does not have to scan assigned views as they already have been eliminated. Following this discussion, the ``copy()`` function can be implemented as:
 

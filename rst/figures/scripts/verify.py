@@ -46,6 +46,37 @@ for name in ("gecode-logo.svg",):
     assert (FIGURES / name).is_file()
     assert (FIGURES / "pdf" / Path(name).with_suffix(".pdf")).is_file()
 
+# The architecture overview is relational, not a row of independent boxes.
+# Preserve the original PSTricks topology: core modules and the two extension
+# areas bridge the kernel and Modeling layers, while propagators/branchers
+# overlap the modules from the left.
+architecture = ET.parse(FIGURES / "fig-intro-gecode_architecture.svg").getroot()
+by_id = {node.get("id"): node for node in architecture.iter() if node.get("id")}
+
+
+def box(name: str) -> tuple[float, float, float, float]:
+    node = by_id[name]
+    if node.tag.rsplit("}", 1)[-1] == "g":
+        node = next(child for child in node if child.tag.rsplit("}", 1)[-1] == "rect")
+    x, y = float(node.get("x", "0")), float(node.get("y", "0"))
+    return x, y, x + float(node.get("width", "0")), y + float(node.get("height", "0"))
+
+
+modeling = box("modeling-layer")
+kernel = box("gecode-kernel")
+bridges = [
+    *(box(f"module-{name}") for name in ("int", "set", "float", "search")),
+    box("programming-variables"),
+    box("programming-search-engines"),
+]
+for name, (_, top, _, bottom) in zip(
+    ("Int", "Set", "Float", "Search", "variables", "search engines"), bridges
+):
+    assert top < modeling[3] and bottom > kernel[1], f"{name} no longer bridges Modeling and the kernel"
+programming = box("programming-propagators-branchers")
+assert programming[2] > bridges[2][0], "propagators/branchers no longer overlap the core modules"
+assert programming[2] < bridges[3][0], "propagators/branchers incorrectly subsume the Search module"
+
 supplemental = json.loads((RST / "manifests" / "supplemental-figures.json").read_text())
 assert supplemental["schema"] == "mpg-supplemental-figures-v1"
 assert len(supplemental["figures"]) == 2

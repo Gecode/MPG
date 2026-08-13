@@ -14,6 +14,10 @@ the publication vocabulary. It also references the arbitrary-content
 :numref:`fig:m:fixture` and
 the semantic :ref:`fixture-tip`.
 
+.. mpg-paragraph:: Classical heading.
+
+This paragraph verifies the classical paragraph structure in both editions.
+
 .. mpg-figure:: Available values
    :name: fig:m:fixture
    :short-caption: Values

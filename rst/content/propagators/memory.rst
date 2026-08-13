@@ -7,7 +7,7 @@ This chapter provides an overview of memory management for propagators. In fact,
 
 .. _propagators:memory:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:p:memory:areas` describes the different memory areas available in Gecode together with their allocation policies. The following section (:ref:`sec:p:memory:state`) discusses how a propagator can efficiently manage its own state. :ref:`sec:p:memory:shared` discusses an abstraction for sharing data structures globally, whereas :ref:`sec:p:memory:local` discusses an abstraction for sharing data structures among several propagators (or branchers) that belong to the same space.
 
@@ -22,7 +22,7 @@ All memory areas but freelists provide operations ``alloc()``, ``realloc()``, an
 
 .. _propagators:memory:memory-management-functions:
 
-.. rubric:: Memory management functions.
+.. mpg-paragraph:: Memory management functions.
 
 Let us consider allocation from the ``heap`` as an example. By
 
@@ -45,7 +45,7 @@ The memory management functions implement C++ semantics: ``alloc()`` calls the d
 
 .. _propagators:memory:space:
 
-.. rubric:: Space.
+.. mpg-paragraph:: Space.
 
 Space-allocated memory (see ``FuncMemSpace``) is managed per each individual space. All space-allocated memory is returned to the operating system if a space is deleted. Freeing memory (via the ``free()`` operation) enables the memory to be reused by later ``alloc()`` operations.
 
@@ -59,7 +59,7 @@ Note that space-allocated memory is available with allocators compatible with th
 
 .. _par:p:memory:region:
 
-.. rubric:: Region.
+.. mpg-paragraph:: Region.
 
 A region is a chunk of memory for temporary data structures with very efficient allocation and deallocation (again, its exact size is defined in the namespace ``Kernel::MemoryConfig``). The code fragment
 
@@ -95,7 +95,7 @@ The speciality of a region is that it does not require ``free()`` operations. If
 
 .. _propagators:memory:heap:
 
-.. rubric:: Heap.
+.. mpg-paragraph:: Heap.
 
 The ``heap`` (a global variable, see ``FuncMemHeap``) is nothing but a C++-wrapper around memory allocation functions typically provided by the underlying operating system. In case memory is exhausted, an exception of type ``MemoryExhausted``\ is thrown. The default memory allocator can be replaced by a user-defined memory allocator as discussed below.
 
@@ -108,7 +108,7 @@ The ``heap`` (a global variable, see ``FuncMemHeap``) is nothing but a C++-wrapp
 
 .. _par:p:memory:allocator:
 
-.. rubric:: Using a different memory allocator.
+.. mpg-paragraph:: Using a different memory allocator.
 
 The ``heap`` object uses an object ``allocator`` of class ``Support::Allocator``. The class provides the basic operations for allocation, re-allocation, de-allocation, and copying of memory areas. By default, the ``allocator`` object uses functions such as ``malloc()`` and ``free()`` from the underlying operating system.
 
@@ -126,7 +126,7 @@ If a different allocator is needed, Gecode can be configured to not enable the d
 
 .. _propagators:memory:space-allocated-freelists:
 
-.. rubric:: Space-allocated freelists.
+.. mpg-paragraph:: Space-allocated freelists.
 
 Freelists are allocated from space memory. Any object to be managed by a freelist must inherit from the class ``FreeList``\ which already defines a pointer to a next freelist element. The sizes for freelist objects are quite constrained, check the values ``fl_size_min`` and ``fl_size_max`` as defined in the namespace ``Kernel::MemoryConfig``.
 
@@ -141,7 +141,7 @@ Many propagators require sophisticated data structures to perform propagation. T
 
 .. _propagators:memory:where-to-allocate:
 
-.. rubric:: Where to allocate.
+.. mpg-paragraph:: Where to allocate.
 
 Typically, the data structures used by a propagator are of dynamic size and hence cannot be stored in a simple member of the propagator. This means that the propagator is free to allocate the memory from either its own space or from the heap. Allocation from the heap could also mean to use other operations to allocate and free memory, such as ``malloc()`` and ``free()`` provided by the operating system or ``new`` and ``delete`` provided by C++.
 
@@ -151,7 +151,7 @@ In case the data structure requires frequent reallocation operations, it is bett
 
 .. _propagators:memory:when-to-allocate:
 
-.. rubric:: When to allocate.
+.. mpg-paragraph:: When to allocate.
 
 An important fact on which search engines in Gecode rely (see :ref:`part:s`) is that they always store a space created by cloning for backtracking and never a space that has already been used for propagation. The reason is that in order to perform propagation, the propagators, variables, and branchers might require some additional memory. Hence, a space that has performed propagation is likely to require more memory than a pristine clone. As the spaces stored by a search engine define the total amount of memory allocated for solving a problem with Gecode, it pays to save memory by storing pristine clones.
 

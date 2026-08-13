@@ -10,7 +10,7 @@ This chapter discusses how *exploration* for search is used for solving Gecode m
 
 .. _modeling:m-search:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:search:re` explains how search in Gecode makes use of hybrid recomputation and why it is efficient. Even though this section does not belong to the basic reading material, you are highly encouraged to read it.
 
@@ -448,7 +448,7 @@ The meta engine honors all search options as discussed in :ref:`sec:m:search:opt
 
 .. _modeling:m-search:best-solution-search:
 
-.. rubric:: Best solution search.
+.. mpg-paragraph:: Best solution search.
 
 Restart-based search can be used for both finding any solution or finding a best solution. For searching for a best solution, the meta engine should be used with the `BAB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BAB.html>`__ engine, for example as:
 
@@ -462,7 +462,7 @@ When using restart-based search for finding a best solution it is essential to u
 
 .. _modeling:m-search:parallel-search-2:
 
-.. rubric:: Parallel search.
+.. mpg-paragraph:: Parallel search.
 
 The restart-based search engine supports parallel search in that the engine used for performing the restarts can be run in parallel. The number of threads used can be described by the search options passed to the restart-based search engine as described in :ref:`sec:m:search:parallel`.
 
@@ -743,7 +743,7 @@ The default ``master()`` function as shown in :ref:`sec:m:search:restart:configu
 
 .. _modeling:m-search:relaxing-variable-assignments:
 
-.. rubric:: Relaxing variable assignments.
+.. mpg-paragraph:: Relaxing variable assignments.
 
 A typical way to relax a given solution, is to assign some but not all variables before a restart to a value from a previous solution. This is supported by the ``relax()`` function for integer, Boolean, set, and float variables.
 
@@ -837,7 +837,7 @@ Whether the assets in a portfolio are run in parallel or just concurrently is co
 
 .. _modeling:m-search:sequential-portfolios:
 
-.. rubric:: Sequential portfolios.
+.. mpg-paragraph:: Sequential portfolios.
 
 A sequential portfolio consisting of :math:`n` assets is executed in a simple round-robin scheme: the first asset is given a certain slice, measured in the number of failures encountered during search for that asset. If a solution is found within this slice, the portfolio search engine reports this solution (as a result of its ``next()`` function). If no solution is found, the portfolio engine gives a slice to the second assets, and so on. If the last asset exceeds its slice, search continues with the first asset again.
 
@@ -851,7 +851,7 @@ creates a portfolio with three assets, where a slice is :math:`50` failures. Th
 
 .. _modeling:m-search:parallel-portfolios:
 
-.. rubric:: Parallel portfolios.
+.. mpg-paragraph:: Parallel portfolios.
 
 If parallel execution is requested (the numbers of threads requested is greater than one, see :ref:`sec:m:search:options`), a parallel portfolio engine is created where each asset is run in its own thread. For example,
 
@@ -923,7 +923,7 @@ Note that the number of assets is defined by the number of SEBs passed as argume
 
 .. _modeling:m-search:best-solution-search-4:
 
-.. rubric:: Best solution search.
+.. mpg-paragraph:: Best solution search.
 
 Whether a portfolio search engine created from SEBs performs best solution search is determined by the SEBs. If the SEBs are created by ``bab<Script>()``, ``rbs<Script,BAB>()``, or ``pbs<Script,BAB>()`` then the engine performs best solution search. Mixing best solution search SEBs with non-best solution search SEBs throws an exception of type `Search::MixedBest <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1MixedBest.html>`__.
 
@@ -992,7 +992,7 @@ No-goods from restarts in Gecode follow the idea from :cite:`NogoodsRestarts`, 
 
 .. _modeling:m-search:generating-and-posting-no-goods:
 
-.. rubric:: Generating and posting no-goods.
+.. mpg-paragraph:: Generating and posting no-goods.
 
 When the restart-based search engine reaches the current cutoff limit or finds a solution it calls the ``master()`` member function as discussed in the previous section.
 
@@ -1031,7 +1031,7 @@ The larger the depth limit, the more no-goods can of course be extracted. Howeve
 
 .. _modeling:m-search:no-goods-from-solutions-restarts:
 
-.. rubric:: No-goods from solutions restarts.
+.. mpg-paragraph:: No-goods from solutions restarts.
 
 The ``master()`` function shown above posts no-goods even when the restart meta search engine has found a solution. When the engine continues this means that the same solution might not be found again as it has been excluded by a no-good. The situation is even slightly more complicated: the solution might not be excluded if it has been found at a depth that exceeds the no-good depth limit.
 
@@ -1043,7 +1043,7 @@ If no-goods should not be posted when a solution has been found, the ``master()`
 
 .. _modeling:m-search:limitations:
 
-.. rubric:: Limitations.
+.. mpg-paragraph:: Limitations.
 
 Not all branchers support the generation of no-goods. In that case the longest sequence of no-goods starting from the root of the search tree up to the first choice that belongs to a brancher that does not support no-goods is used.
 
@@ -1051,7 +1051,7 @@ All pre-defined branchers for integer, Boolean, and set variables support no-goo
 
 .. _modeling:m-search:no-goods-and-parallel-search:
 
-.. rubric:: No-goods and parallel search.
+.. mpg-paragraph:: No-goods and parallel search.
 
 The reason why after a restart no-goods can be extracted is because search computed the no-goods by exploring entire failed subtrees during search. This might not be true during parallel search. While parallel search engines also support the extraction of no-goods, the number of no-goods that can be extracted tend to be rather small.
 
@@ -1077,7 +1077,7 @@ The execution of search engines can be traced, where all important events of a s
 
 .. _modeling:m-search:search-tracers:
 
-.. rubric:: Search tracers.
+.. mpg-paragraph:: Search tracers.
 
 .. mpg-code:: example search tracer
    :name: fig:m:search:tracer
@@ -1090,7 +1090,7 @@ As mentioned above, all events correspond to virtual member functions that are c
 
 .. _modeling:m-search:defining-a-search-tracer:
 
-.. rubric:: Defining a search tracer.
+.. mpg-paragraph:: Defining a search tracer.
 
 A search tracer can be defined as part of the search options (see :ref:`sec:m:search:options`). For example, if ``t`` is a search tracer, then creating a depth-first search engine using the tracer ``t`` can be done as follows:
 
@@ -1100,7 +1100,7 @@ A search tracer can be defined as part of the search options (see :ref:`sec:m:se
 
 .. _modeling:m-search:init-event:
 
-.. rubric:: Init-event.
+.. mpg-paragraph:: Init-event.
 
 After the search engine(s) have completed their initialization, the member function ``init()`` is called. The class `SearchTracer <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer.html>`__ provides member functions with which the configuration of the search engine can be inspected. Search engines are identified by engine identifiers of type ``unsigned int``.
 
@@ -1151,7 +1151,7 @@ Note that assets can be also restart-based search engines.
 
 .. _modeling:m-search:node-events:
 
-.. rubric:: Node-events.
+.. mpg-paragraph:: Node-events.
 
 .. mpg-code:: example search tracer:node
    :name: fig:m:search:tracer:node
@@ -1164,7 +1164,7 @@ Note that the node identifiers are unique per worker. As the number of workers i
 
 .. _modeling:m-search:round-events:
 
-.. rubric:: Round-events.
+.. mpg-paragraph:: Round-events.
 
 A round-event is generated either before a restart by a restart-based search engine or when a limited-discrepancy search engine starts a new probe with an increased discrepancy. The information passed to the ``round()`` member function is the engine identifier corresponding to the engine starting a new round:
 
@@ -1175,7 +1175,7 @@ Note that the node identifiers are not reset at a round-event.
 
 .. _modeling:m-search:skip-events:
 
-.. rubric:: Skip-events.
+.. mpg-paragraph:: Skip-events.
 
 A skip event occurs when a worker decides that a certain node does not need to be explored. This can happen for branch-and-bound search engines where an entire subtree is pruned or for limited discrepancy search where a solution is omitted as it had already been found during a previous probe with a smaller discrepancy limit. The information provided to the ``skip()`` member function is of type `SearchTracer::EdgeInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer_1_1EdgeInfo.html>`__:
 
@@ -1184,7 +1184,7 @@ A skip event occurs when a worker decides that a certain node does not need to b
 
 .. _modeling:m-search:done-event:
 
-.. rubric:: Done-event.
+.. mpg-paragraph:: Done-event.
 
 The done event is executed if all workers have terminated. Here it just prints this fact:
 

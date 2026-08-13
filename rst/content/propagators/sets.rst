@@ -9,7 +9,7 @@ We also assume a basic knowledge of propagation for set constraints. To read mor
 
 .. _propagators:sets:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:p:sets:simple_example` demonstrates a propagator that implements set interesection. Set views and their related concepts are summarized in :ref:`sec:p:sets:propagation_conditions_etc`.
 
@@ -37,7 +37,7 @@ In order to understand the ``propagate()`` function, we have to look at how set 
 
 .. _propagators:sets:the-set-bounds-approximation:
 
-.. rubric:: The set bounds approximation.
+.. mpg-paragraph:: The set bounds approximation.
 
 We already saw in :ref:`chap:m:set` that set variable domains are represented as intervals in order to avoid an exponential representation. For example, recall that
 
@@ -51,7 +51,7 @@ For each set view, ``Set::GlbRanges``\ provides a range iterator for its lower b
 
 .. _propagators:sets:filtering-rules:
 
-.. rubric:: Filtering rules.
+.. mpg-paragraph:: Filtering rules.
 
 Coming back to the example propagator for ternary intersection, we have to devise filtering rules that express the constraint in terms of the interval bounds. In the following, we write :math:`\underline{x}` and :math:`\overline{x}` for the lower bound resp. upper bound of a view :math:`x`. Then, ternary intersection can be propagated with the following rules and implemented with set domain operations:
 
@@ -152,13 +152,13 @@ The first four rules should be self-explanatory. The last two rules state that a
 
 .. _propagators:sets:fixpoint:
 
-.. rubric:: Fixpoint.
+.. mpg-paragraph:: Fixpoint.
 
 Note how the propagator determines which execution status to return. Before applying any of the filtering rules, it checks whether all of the variables are already assigned. If they are, then propagation will compute a fixpoint and the propagator can return that it is subsumed after applying the filtering rules. Otherwise, it has not necessarily computed a fixpoint (e.g. rule 6 may modify the upper bound of :math:`\mathtt{x}_0`, making it necessary to apply rule 2 again).
 
 .. _propagators:sets:cardinality:
 
-.. rubric:: Cardinality.
+.. mpg-paragraph:: Cardinality.
 
 In addition to the interval bounds, set variables store *cardinality bounds*, that is, the minimum and maximum cardinality of the set variable. These bounds are stored and modified independently of the interval bounds, but of course modifications to these different bounds affect each other.
 
@@ -181,7 +181,7 @@ This section summarizes how these concepts are specialized for set variables and
 
 .. _propagators:sets:modification-events-and-propagation-conditions:
 
-.. rubric:: Modification events and propagation conditions.
+.. mpg-paragraph:: Modification events and propagation conditions.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-sets.tex.in:180:fig:p:sets:propagation_conditions
 
@@ -242,7 +242,7 @@ One could imagine a richer set, for example distinguishing between lower and upp
 
 .. _propagators:sets:set-variable-views:
 
-.. rubric:: Set variable views.
+.. mpg-paragraph:: Set variable views.
 
 In addition to the basic ``Set::SetView``\ class, there are five other set views: ``Set::ConstSetView``, ``Set::EmptyView``, ``Set::UniverseView``, ``Set::SingletonView``, and ``Set::ComplementView``.
 
@@ -250,6 +250,6 @@ The first three are constant views. A ``SingletonView`` wraps an integer view :m
 
 .. _propagators:sets:advisors-for-set-propagators:
 
-.. rubric:: Advisors for set propagators.
+.. mpg-paragraph:: Advisors for set propagators.
 
 Advisors for set constraints get informed about the domain modifications using a ``Set::SetDelta``. The set delta provides only information about the minimum and maximum values that were added to the lower bound and/or removed from the upper bound.

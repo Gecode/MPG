@@ -7,7 +7,7 @@ This chapter demonstrates recomputation as the most essential technique for effi
 
 .. _search-engines:recomputation:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 The simplest possible search engine based on recomputation, where all spaces needed for search are recomputed from the root of the search tree, is discussed in :ref:`sec:s:re:full`. Important invariants for recomputation and how they must be taken into account by search engines using recomputation are discussed in :ref:`sec:s:re:invariants`. How best solution search is combined with recomputation is discussed in :ref:`sec:s:re:bab`. The following three sections present important optimizations for search engines using recomputation: :ref:`sec:s:re:lao` shows how last alternative optimization can avoid ``commit()`` operations during recomputation; :ref:`sec:s:re:hybrid` shows how hybrid recomputation that stores additional spaces can be used to speed up search; :ref:`sec:s:re:adaptive` shows adaptive recomputation that helps speeding up search in case of failures.
 
@@ -24,7 +24,7 @@ This section demonstrates search based on full recomputation. While full recompu
 
 .. _search-engines:recomputation:search-engine:
 
-.. rubric:: Search engine.
+.. mpg-paragraph:: Search engine.
 
 .. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:51:fig:s:re:full
 
@@ -45,7 +45,7 @@ Initially, when the user calls the ``dfs()`` function taking a single argument, 
 
 .. _search-engines:recomputation:edges-for-recomputation:
 
-.. rubric:: Edges for recomputation.
+.. mpg-paragraph:: Edges for recomputation.
 
 .. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:84:fig:s:re:full:edge
 
@@ -87,7 +87,7 @@ First, the function traverses the path of edges upwards until the root of the pa
 
 .. _search-engines:recomputation:exploring-alternatives:
 
-.. rubric:: Exploring alternatives.
+.. mpg-paragraph:: Exploring alternatives.
 
 The central invariant that the current path of edges ``p`` must always correspond to the current space is essential for how the search engine implementing full recomputation explores the search tree.
 
@@ -107,7 +107,7 @@ Again, exploration of the second alternative maintains the central invariant: th
 
 .. _search-engines:recomputation:cost-of-recomputation:
 
-.. rubric:: Cost of recomputation.
+.. mpg-paragraph:: Cost of recomputation.
 
 It is important to notice the following facts about the cost of recomputation, where we compare the search engine using full recomputation to the search engine without recomputation in :ref:`sec:s:started:dfsbin`:
 
@@ -162,7 +162,7 @@ Suppose that recomputation proceeds by recomputing the space ``s`` for node ``4`
 
 .. _search-engines:recomputation:order-of-commit-operations:
 
-.. rubric:: Order of ``commit()`` operations.
+.. mpg-paragraph:: Order of ``commit()`` operations.
 
 The choices ``ch0``, ``ch1``, and ``ch2`` do not have to be used for ``commit()`` in the same order in which they have been created. However, it is more efficient to use them in the order ``ch0``, ``ch1``, and ``ch2``. The difference is that if a space has :math:`n` branchers and the choices correspond to different branchers, then a ``commit()`` operation uses :math:`O(1)` time to find the corresponding brancher for a choice if the choices are used in order. If they are not used in order, a ``commit()`` operation uses :math:`O(n)` time to find the corresponding brancher. Having said all that, :math:`n` is typically just one or two.
 

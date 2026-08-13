@@ -12,7 +12,7 @@ The chapter does not make an attempt to duplicate the reference documentation (s
 
 .. _modeling:m-integer:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:integer:var` details how integer and Boolean variables (and variables in general) can be used for modeling. Variable arrays and argument arrays are discussed in :ref:`sec:m:integer:proper`. Important aspects of how constraints are posted in Gecode are explained in :ref:`sec:m:integer:generic`. These sections belong to the basic reading material of :ref:`part:m`.
 
@@ -288,7 +288,7 @@ The other operations on variable arrays are as one would expect. For example, on
 
 .. _modeling:m-integer:matrix-interface:
 
-.. rubric:: Matrix interface.
+.. mpg-paragraph:: Matrix interface.
 
 Many models are naturally expressed by using matrices. Gecode offers support that superimposes a matrix interface for modeling on an array, see :ref:`sec:m:minimodel:matrix`.
 
@@ -332,7 +332,7 @@ For a typical example, consider :ref:`sec:m:started:first` where an integer argu
 
 .. _modeling:m-integer:dynamic-argument-arrays:
 
-.. rubric:: Dynamic argument arrays.
+.. mpg-paragraph:: Dynamic argument arrays.
 
 In contrast to variable arrays, argument arrays can grow dynamically by adding elements or whole arrays using ``operator<<``:
 
@@ -348,7 +348,7 @@ Furthermore, argument arrays can be concatenated using ``operator+``:
 
 .. _modeling:m-integer:slices:
 
-.. rubric:: Slices.
+.. mpg-paragraph:: Slices.
 
 It is sometimes necessary to post constraints on a subsequence of the variables in an array. This is made possible by the ``slice(start,inc,n)`` method of variable and argument arrays. The ``start`` parameter gives the starting index of the subsequence. The ``inc`` optional parameter gives the increment, i.e., how to get from one element to the next (its default is :math:`1`). The ``n`` parameter gives the maximal length of the resulting array (its default is :math:`-1`, meaning as long as possible).
 
@@ -384,7 +384,7 @@ Then the following calls of ``slice()`` return:
 
 .. _modeling:m-integer:creating-integer-argument-arrays:
 
-.. rubric:: Creating integer argument arrays.
+.. mpg-paragraph:: Creating integer argument arrays.
 
 Integer argument arrays support standard initializer lists, for example
 
@@ -762,7 +762,7 @@ Simple relation constraints over integer variables
 
 .. _modeling:m-integer:binary-relation-constraints:
 
-.. rubric:: Binary relation constraints.
+.. mpg-paragraph:: Binary relation constraints.
 
 Assume that ``x`` and ``y`` are integer variables. Then
 
@@ -780,7 +780,7 @@ constrains ``x`` to be strictly less than ``y``. Similarly, by
 
 .. _modeling:m-integer:constraints-between-variable-arrays-and-a-single-variable:
 
-.. rubric:: Constraints between variable arrays and a single variable.
+.. mpg-paragraph:: Constraints between variable arrays and a single variable.
 
 If ``x`` is an integer variable array and ``y`` is an integer variable, then
 
@@ -798,7 +798,7 @@ constrains all variables in ``x`` to be larger than ``7`` (see also GCCat: `arit
 
 .. _modeling:m-integer:constraints-between-array-elements:
 
-.. rubric:: Constraints between array elements.
+.. mpg-paragraph:: Constraints between array elements.
 
 If ``x`` is an integer variable array, then
 
@@ -846,7 +846,7 @@ For an example, see `Schur’s lemma <https://www.gecode.dev/doc/6.4.0/reference
 
 .. _modeling:m-integer:lexicographic-constraints-between-variable-arrays:
 
-.. rubric:: Lexicographic constraints between variable arrays.
+.. mpg-paragraph:: Lexicographic constraints between variable arrays.
 
 .. container:: samepage
 
@@ -940,7 +940,7 @@ Again, ``y`` can also be ``0`` or ``1``.
 
 .. _modeling:m-integer:clause-constraint:
 
-.. rubric:: Clause constraint.
+.. mpg-paragraph:: Clause constraint.
 
 .. container:: samepage
 
@@ -964,7 +964,7 @@ For an example, see `CNF SAT solver <https://www.gecode.dev/doc/6.4.0/reference/
 
 .. _modeling:m-integer:if-then-else-constraint:
 
-.. rubric:: If-then-else constraint.
+.. mpg-paragraph:: If-then-else constraint.
 
 An if-then-else constraint can be posted by
 
@@ -1155,7 +1155,7 @@ Counting constraints
 
 .. _modeling:m-integer:counting-single-values:
 
-.. rubric:: Counting single values.
+.. mpg-paragraph:: Counting single values.
 
 `Counting constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntCount.html>`__ count how often values are taken by an array of integer variables. The simplest case is
 
@@ -1187,7 +1187,7 @@ Here, :math:`\#s` denotes the cardinality (number of elements) of a set :math:`s
 
 .. _modeling:m-integer:counting-multiple-values:
 
-.. rubric:: Counting multiple values.
+.. mpg-paragraph:: Counting multiple values.
 
 The ``count`` constraint also supports counting multiple values (also known as gcc, or *g*\ lobal *c*\ ardinality *c*\ onstraint). Suppose that ``x`` and ``y`` (the *counting variables*) are two integer variable arrays (not necessarily of the same size). Then
 
@@ -1364,7 +1364,7 @@ Channel constraints
 
 .. _modeling:m-integer:channeling-integer-variables:
 
-.. rubric:: Channeling integer variables.
+.. mpg-paragraph:: Channeling integer variables.
 
 For two integer variable arrays ``x`` and ``y`` of same size,
 
@@ -1396,7 +1396,7 @@ posts the constraint
 
 .. _modeling:m-integer:channeling-between-integer-and-boolean-variables:
 
-.. rubric:: Channeling between integer and Boolean variables.
+.. mpg-paragraph:: Channeling between integer and Boolean variables.
 
 As integer and Boolean variables are unrelated (see :ref:`sec:m:integer:var`), the only way to express that a Boolean variable ``x`` is equal to an integer variable ``y`` is by posting either
 
@@ -1495,7 +1495,7 @@ Extensional constraints
 
 .. _modeling:m-integer:deterministic-finite-automata:
 
-.. rubric:: Deterministic finite automata.
+.. mpg-paragraph:: Deterministic finite automata.
 
 Suppose we want to plan the activities of an evening that follows the Swedish drinking protocol: you may have as many drinks as you like, but now and then you sing a song after which you have to have a drink. We want to constrain an array of activities (Boolean or integer variables) such that the activities (drinking and singing) follow the protocol.
 
@@ -1529,7 +1529,7 @@ Examples that use regular expressions for defining DFAs can be found in :ref:`se
 
 .. _modeling:m-integer:tuple-sets-tables:
 
-.. rubric:: Tuple sets (tables).
+.. mpg-paragraph:: Tuple sets (tables).
 
 Constraints can also be defined by a list of tuples, where each tuple defines one solution of the extensional constraint. For example, the following defines the Swedish drinking protocol for three activities by a list of tuples:
 
@@ -1624,7 +1624,7 @@ Bin-packing constraints
 
 .. _modeling:m-integer:single-dimensional-bin-packing-constraints:
 
-.. rubric:: Single-dimensional bin-packing constraints.
+.. mpg-paragraph:: Single-dimensional bin-packing constraints.
 
 The bin-packing constraint is posted as
 
@@ -1654,7 +1654,7 @@ The constraint is implemented by the propagator introduced in :cite:`Shaw:CP:20
 
 .. _modeling:m-integer:multi-dimensional-bin-packing-constraints:
 
-.. rubric:: Multi-dimensional bin-packing constraints.
+.. mpg-paragraph:: Multi-dimensional bin-packing constraints.
 
 The multi-dimensional bin-packing constraint is posted as
 
@@ -1775,7 +1775,7 @@ The ``circuit`` and ``path`` constraints (see `Graph constraints <https://www.ge
 
 .. _modeling:m-integer:circuit-constraints:
 
-.. rubric:: Circuit constraints.
+.. mpg-paragraph:: Circuit constraints.
 
 Assume that ``x`` is an integer variable array (``circuit`` does not support Boolean variables). Then,
 
@@ -1821,7 +1821,7 @@ the integer variables ``x`` are constrained to the values forming the circuit as
 
 .. _modeling:m-integer:hamiltonian-path-constraints:
 
-.. rubric:: Hamiltonian path constraints.
+.. mpg-paragraph:: Hamiltonian path constraints.
 
 The ``path`` constraint (see `Graph constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntGraph.html>`__) is similar to the ``circuit`` constraint and enforces that nodes in a graph from a Hamiltonian path. Assume that ``x`` is an integer variable array (``path`` does not support Boolean variables) and ``s`` (for start) and ``e`` (for end) are integer variables. Then,
 
@@ -1894,7 +1894,7 @@ constrains the start times in ``s`` such that the execution of none of the tasks
 
 .. _modeling:m-integer:selecting-the-propagation-level-1:
 
-.. rubric:: Selecting the propagation level.
+.. mpg-paragraph:: Selecting the propagation level.
 
 All propagators implementing ``unary`` perform overload-checking. The propagators can be posted offering basic or advanced propagation, where basic propagation only is the default. Basic propagation is selected if the constraint is posted with an additional integer propagation level argument (see :ref:`sec:m:integer:ipl`) as
 
@@ -1930,7 +1930,7 @@ All algorithms require :math:`O(n \log n)` runtime for :math:`n` tasks, however 
 
 .. _modeling:m-integer:optional-tasks:
 
-.. rubric:: Optional tasks.
+.. mpg-paragraph:: Optional tasks.
 
 A common variant for unary resource constraints is where tasks can be optional: each task :math:`t` has a Boolean variable :math:`b` attached to it. If :math:`b=1` then the task is *mandatory* and is scheduled on the resource. If :math:`b=0` then the task is *excluded* and is not scheduled. Otherwise, the task is said to be *optional*. Assume that ``b`` refers to an array of Boolean variables also of size ``4``, then
 
@@ -1942,7 +1942,7 @@ posts a propagator that constrains the start times ``s`` (of course, only if a t
 
 .. _modeling:m-integer:tasks-with-flexible-duration:
 
-.. rubric:: Tasks with flexible duration.
+.. mpg-paragraph:: Tasks with flexible duration.
 
 The duration of a task can also be given as an integer variable instead of a constant integer. In this case, we say that the tasks are *flexible*. In addition to the flexible duration, the ``unary`` constraint also requires variables for the end time of each task.
 
@@ -1972,7 +1972,7 @@ Gecode provides two generalizations of the unary resource scheduling constraint.
 
 .. _modeling:m-integer:cumulative-single-resource-constraint:
 
-.. rubric:: Cumulative single-resource constraint.
+.. mpg-paragraph:: Cumulative single-resource constraint.
 
 The single-resource constraint ``cumulative`` has nearly the same interface as ``unary``. The only difference is a parameter ``c`` specifying the resource capacity, and an additional integer array ``u`` for the resource usage of each task. Assuming that ``s`` and ``d`` give the start times and durations as before, the following models a resource where two tasks can overlap, and the first three tasks require one unit of the resource, while the last task requires two:
 
@@ -1986,7 +1986,7 @@ The propagators implementing the ``cumulative`` constraint always perform overlo
 
 .. _modeling:m-integer:cumulative-multi-resource-constraint:
 
-.. rubric:: Cumulative multi-resource constraint.
+.. mpg-paragraph:: Cumulative multi-resource constraint.
 
 Given a *set* of resources that have some specified usage limit and a set of tasks that must be placed on these resources according to start-times, durations, resource usage, and resource compatibility, the ``cumulatives`` constraint (see `Scheduling constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntScheduling.html>`__) can be used for the placement of these tasks. The limit for the resources can be either a maximum or a minimum, and the resource usage of a task can be positive, negative, or zero. The limit is only valid over the intervals where there is at least one task assigned on that particular resource.
 

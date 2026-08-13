@@ -24,7 +24,7 @@ Here, and in the following chapters, the focus is on propagators over integer an
 
 .. _propagators:started:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 The first three sections set the stage for programming propagators. :ref:`sec:p:started:solving` sketches how propagators perform constraint propagation and is followed by an overview of some useful background reading material (:ref:`sec:p:started:back`). :ref:`sec:p:started:overview` provides an overview of what needs to be implemented for a constraint followed by the first naive implementation of a simple constraint (:ref:`sec:p:started:implement`). The naive implementation is improved in :ref:`sec:p:started:better` by both taking advantage of some predefined abstractions in Gecode and straightforward optimizations. This is followed by a discussion of propagation conditions as a further optimization to avoid redundant propagator executions (:ref:`sec:p:started:propcond`). The next section (:ref:`sec:p:started:patterns`) presents a first reasonable propagator that takes advantage of predefined patterns to cut down on programming effort. The last two sections discuss the obligations a propagator must meet (:ref:`sec:p:started:obligations`) and how some of these obligations can be waived by a propagator (:ref:`sec:p:started:waive`).
 
@@ -37,7 +37,7 @@ Constraints and variables are used for modeling constraint problems. However, th
 
 .. _propagators:started:views-versus-variables:
 
-.. rubric:: Views versus variables.
+.. mpg-paragraph:: Views versus variables.
 
 The essence of a propagator is to remove values from variables that are in conflict with the constraint the propagator implements. However, a propagator does not use variables directly as they only offer operations for accessing but not removing values. Instead, a propagator uses *variable views* (or just views) as they offer operations for both value access and removal.
 
@@ -49,7 +49,7 @@ By the *domain* of a variable (or a view, or a variable implementation) we refer
 
 .. _propagators:started:executing-propagators:
 
-.. rubric:: Executing propagators.
+.. mpg-paragraph:: Executing propagators.
 
 A propagator is implemented in Gecode as a subclass of the class ``Propagator``\ where the different tasks a propagator must be able to perform are implemented as virtual member functions. Before we describe these functions and their purpose, we sketch how a propagator actually performs constraint propagation.
 
@@ -80,13 +80,13 @@ Propagation is interleaved in that a space executes only one propagator at a tim
 
 .. _propagators:started:space-and-propagator-fixpoints:
 
-.. rubric:: Space and propagator fixpoints.
+.. mpg-paragraph:: Space and propagator fixpoints.
 
 We often refer to the fact that no more propagation is possible for a space by saying that the space is at *fixpoint*. Likewise, we say that a propagator that cannot remove any more values is at *fixpoint*. The term fixpoint is intuitive when one looks at typical models for constraint propagation: propagators are modeled as functions that take variables and their values as input and output, often referred to as stores or domains. A domain that is a fixpoint means that input and output for a propagator are the same and hence the propagator did not perform any propagation.
 
 .. _par:p:started:disable:
 
-.. rubric:: Disabling and re-enabling propagators.
+.. mpg-paragraph:: Disabling and re-enabling propagators.
 
 As mentioned above, propagators can be disabled and re-enabled. When re-enabling a disabled propagator, the propagator might have to be re-scheduled for execution. The re-scheduling is implemented by the ``reschedule()`` member function of a propagator.
 
@@ -114,7 +114,7 @@ Our first propagator implements the ``less`` constraint :math:`x<y` for two inte
 
 .. _propagators:started:constraint-post-functions:
 
-.. rubric:: Constraint post functions.
+.. mpg-paragraph:: Constraint post functions.
 
 Before discussing what a propagator must do in detail, we need to discuss how to implement the function for our ``less`` constraint that can be used for modeling. As known from :ref:`part:m`, the function should have a declaration such as
 
@@ -131,7 +131,7 @@ We call a function implementing a constraint a *constraint post function*. The c
 
 .. _propagators:started:what-a-propagator-must-do:
 
-.. rubric:: What a propagator must do.
+.. mpg-paragraph:: What a propagator must do.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:311:fig:p:started:propagators_views_varimp
 
@@ -212,7 +212,7 @@ re-scheduling
 
 .. _propagators:started:obligations-of-a-propagator:
 
-.. rubric:: Obligations of a propagator.
+.. mpg-paragraph:: Obligations of a propagator.
 
 What becomes quite clear is that a propagator has to meet certain obligations (disposing subscriptions, detecting failure, detecting subsumption, and so on). Some obligations must be met in order to comply with Gecode’s requirements of a well-behaved propagator, other obligations must be met so that a propagator becomes a faithful implementation of a constraint. :ref:`sec:p:started:obligations` provides an overview of all obligations a propagator must meet.
 
@@ -238,7 +238,7 @@ The ``Less`` propagator inherits from the class ``Propagator``\ defined by the G
 
 .. _par:p:started:post:
 
-.. rubric:: Constraint post function.
+.. mpg-paragraph:: Constraint post function.
 
 The constraint post function is implemented as follows:
 
@@ -250,7 +250,7 @@ The constraint post function creates two integer variable views ``y0`` and ``y1`
 
 .. _propagators:started:propagator-posting:
 
-.. rubric:: Propagator posting.
+.. mpg-paragraph:: Propagator posting.
 
 The posting of the ``Less`` propagator is defined by a constructor designed for initialization and a static post function returning an execution status as follows:
 
@@ -264,7 +264,7 @@ The propagator post function is entirely naive in that it always creates a ``Les
 
 .. _propagators:started:disposal:
 
-.. rubric:: Disposal.
+.. mpg-paragraph:: Disposal.
 
 The virtual ``dispose()`` function for the ``Less`` propagator takes a home space as argument and returns the size of the just disposed propagator (as type ``size_t``). [3]_ Otherwise, the ``dispose()`` function does exactly what has been described above: it cancels the subscriptions created by the constructor used for posting:
 
@@ -276,7 +276,7 @@ Note that the arguments for canceling a subscription are (and must be) exactly t
 
 .. _propagators:started:copying:
 
-.. rubric:: Copying.
+.. mpg-paragraph:: Copying.
 
 The virtual ``copy()`` function and the corresponding copy constructor are unsurprising in that they follow exactly the same structure as the corresponding function and constructor for spaces used for modeling:
 
@@ -288,7 +288,7 @@ The only aspect that deserves some attention is that a propagator must be create
 
 .. _propagators:started:cost-computation:
 
-.. rubric:: Cost computation.
+.. mpg-paragraph:: Cost computation.
 
 Cost values for propagators are defined by the class ``PropCost``. The class ``PropCost``\ defines several static member functions with which cost values can be created. For ``Less``, the ``cost()`` function returns a cost value for a binary propagator with low cost (as we will see below, the ``propagate()`` function is really cheap to execute):
 
@@ -342,7 +342,7 @@ As mentioned before, propagation cost is nothing but an approximation of the rea
 
 .. _propagators:started:re-scheduling:
 
-.. rubric:: Re-scheduling.
+.. mpg-paragraph:: Re-scheduling.
 
 Re-scheduling the propagator after it has been enabled again, is done by the virtual ``reschedule()`` member function as follows:
 
@@ -354,7 +354,7 @@ Re-scheduling depends, like creating and cancelling subscriptions, on the views 
 
 .. _propagators:started:propagation-proper:
 
-.. rubric:: Propagation proper.
+.. mpg-paragraph:: Propagation proper.
 
 Before starting with the code for propagation, we have to work out how the propagator should prune. This can be rather involved, leading to specialized *pruning* or *filtering* algorithms. For our ``Less`` propagator, the filtering rules are simple:
 
@@ -433,7 +433,7 @@ A recurring theme in improving propagators in this and in the next section is no
 
 .. _par:p:started:home:
 
-.. rubric:: Improving posting.
+.. mpg-paragraph:: Improving posting.
 
 As mentioned above, all functions related to posting (constructor, propagator post function, and constraint post function) should take a value of type ``Home``\ rather than ``Space&``. The improved propagator honors this without any further changes (a ``Space`` is automatically casted to a ``Home`` if needed, and vice-versa). An example of how passing a ``Home`` value is actually useful can be found in :ref:`sec:p:reified:leeq`.
 
@@ -469,7 +469,7 @@ It includes the following improvements:
 
 .. _propagators:started:improving-propagation:
 
-.. rubric:: Improving propagation.
+.. mpg-paragraph:: Improving propagation.
 
 .. container:: samepage
 
@@ -526,7 +526,7 @@ with the following improvements:
 
 .. _propagators:started:check-and-fail-macros:
 
-.. rubric:: Check and fail macros.
+.. mpg-paragraph:: Check and fail macros.
 
 Check and fail macros available in Gecode are summarized in :numref:`fig:p:started:macros`. Note that a check macro can be used in a propagator post function or in a ``propagate()`` function, whereas a fail macro can only be used in a constraint post function. Note also that both fail macros assume that the identifier ``home`` refers to the current home space. For an example of how to use ``GECODE_ES_CHECK``, see :ref:`sec:p:avoid:dynamic`. For an example of how to use ``GECODE_ME_FAIL``, see :ref:`sec:p:avoid:ortrue`.
 
@@ -546,7 +546,7 @@ This section discusses modification events and propagation conditions in more de
 
 .. _propagators:started:modification-events:
 
-.. rubric:: Modification events.
+.. mpg-paragraph:: Modification events.
 
 Modification operations on integer views might return the following values for ``ModEvent`` (we assume that the view ``x`` has the domain :math:`\{\mathtt 0, \mathtt 2, \mathtt 3\}`):
 
@@ -575,7 +575,7 @@ Modification operations on integer views might return the following values for `
 
 .. _propagators:started:propagation-conditions:
 
-.. rubric:: Propagation conditions.
+.. mpg-paragraph:: Propagation conditions.
 
 The propagation condition used in subscriptions determine, based on modification events, when a propagator is scheduled. Assume that a propagator ``p`` subscribes to the integer view ``x`` with one of the following propagation conditions:
 
@@ -593,7 +593,7 @@ The ``Less`` propagator subscribes to both of its views (that is, ``x0`` and ``x
 
 .. _propagators:started:scheduling-when-posting:
 
-.. rubric:: Scheduling when posting.
+.. mpg-paragraph:: Scheduling when posting.
 
 As mentioned earlier, a propagator also needs to be scheduled when it is created to get the process of constraint propagation started. More precisely, a propagator ``p`` might be scheduled when it subscribes to a view ``x``. If ``x`` is assigned, ``p`` is always scheduled regardless of the propagation condition used for subscribing. If ``x`` is not assigned, ``p`` is only scheduled if the propagation condition is different from ``Int::PC_INT_VAL``. The same holds for the ``schedule()`` function discussed in the previous section.
 
@@ -675,7 +675,7 @@ The patterns define a constructor for creation (that also creates subscriptions 
 
 .. _propagators:started:post-macro:
 
-.. rubric:: Post macro.
+.. mpg-paragraph:: Post macro.
 
 Please note that the constraint post function in :numref:`fig:p:started:less:concise` use the macro ``GECODE_POST`` to replace the check whether ``home`` is failed and the creation of an object of type ``PostInfo`` as discussed in :ref:`par:p:started:home`.
 
@@ -688,7 +688,7 @@ A propagator has to meet three different kinds of obligations: obligations towar
 
 .. _propagators:started:constraint-implementation:
 
-.. rubric:: Constraint implementation.
+.. mpg-paragraph:: Constraint implementation.
 
 A propagator must be
 
@@ -700,7 +700,7 @@ checking
 
 .. _propagators:started:amount-of-propagation:
 
-.. rubric:: Amount of propagation.
+.. mpg-paragraph:: Amount of propagation.
 
 A propagator must be
 
@@ -720,7 +720,7 @@ fixpoint and subsumption honest
 
 .. _propagators:started:implementation-specific-obligations:
 
-.. rubric:: Implementation specific obligations.
+.. mpg-paragraph:: Implementation specific obligations.
 
 A propagator must be
 
@@ -750,7 +750,7 @@ A propagator can notify its home space about some of its properties (as defined 
 
 .. _par:p:started:wmp:
 
-.. rubric:: Weakly monotonic propagators.
+.. mpg-paragraph:: Weakly monotonic propagators.
 
 If a propagator ``p`` intends to be non-monotonic, it can notify its ``home`` space ``home`` by
 
@@ -768,7 +768,7 @@ Currently, the information about a propagator being weakly monotonic is ignored.
 
 .. _par:p:started:dispose:
 
-.. rubric:: Calling ``dispose()`` during space deletion.
+.. mpg-paragraph:: Calling ``dispose()`` during space deletion.
 
 If a propagator ``p`` needs to use external resources or non-space allocated memory, it must inform its ``home`` space during posting about this fact by:
 

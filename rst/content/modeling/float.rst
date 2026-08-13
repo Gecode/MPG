@@ -10,7 +10,7 @@ This chapter gives an overview over float variables and float constraints in Gec
 
 .. _modeling:m-float:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:float:val` explains float values whereas :ref:`sec:m:float:var` explains float variables. The sections :ref:`sec:m:float:post` and :ref:`sec:m:float:exec` provide an overview of the constraints that are available for float variables in Gecode.
 
@@ -74,19 +74,19 @@ or
 
 .. _modeling:m-float:predefined-float-values:
 
-.. rubric:: Predefined float values.
+.. mpg-paragraph:: Predefined float values.
 
 The static member functions ``pi_half()``, ``pi()``, and ``pi_twice()`` of `FloatVal <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVal.html>`__ return float values for :math:`\frac{\pi}{2}`, :math:`\pi`, and :math:`2\pi` respectively.
 
 .. _modeling:m-float:arithmetic-operators:
 
-.. rubric:: Arithmetic operators.
+.. mpg-paragraph:: Arithmetic operators.
 
 For float values, the standard arithmetic operators ``+``, ``-``, ``*``, and ``/`` and their assignment variants ``+=``, ``-=``, ``*=``, and ``/=`` are defined with the obvious meaning.
 
 .. _modeling:m-float:comparison-operators:
 
-.. rubric:: Comparison operators.
+.. mpg-paragraph:: Comparison operators.
 
 The usual float value comparisons ``==``, ``!=``, ``<=``, ``<``, ``>``, and ``>=`` are provided with *entailment* semantics (or subsumption semantics).
 
@@ -100,7 +100,7 @@ returns ``true`` if and only if ``x.max()<y.min()`` returns ``true``. That means
 
 .. _modeling:m-float:functions-on-float-values:
 
-.. rubric:: Functions on float values.
+.. mpg-paragraph:: Functions on float values.
 
 .. mpg-figure:: Functions on float values (``x`` and ``y`` are float values; ``n`` is a non-negative integer)
    :name: fig:m:float:val:fun
@@ -175,13 +175,13 @@ Float variables in Gecode model sets of real numbers and are instances of the cl
 
 .. _modeling:m-float:representing-float-domains-as-intervals:
 
-.. rubric:: Representing float domains as intervals.
+.. mpg-paragraph:: Representing float domains as intervals.
 
 The domain of a float variable is represented exactly as a float value: a closed interval :math:`\left[a..b\right]` which represents all real numbers :math:`n\in\RR` such that :math:`a\leq n` and :math:`n\leq b`. A float variable is *assigned* if the interval :math:`\left[a..b\right]` is tight (see :ref:`sec:m:float:val`). [1]_
 
 .. _modeling:m-float:creating-a-float-variable:
 
-.. rubric:: Creating a float variable.
+.. mpg-paragraph:: Creating a float variable.
 
 New float variables are created using a constructor. A new float variable ``x`` is created by
 
@@ -203,7 +203,7 @@ the variables ``x``, ``y``, and ``z`` all refer to the same float variable imple
 
 .. _modeling:m-float:limits:
 
-.. rubric:: Limits.
+.. mpg-paragraph:: Limits.
 
 Float numbers range from :math:`\mathtt{Float::Limits::min}` to :math:`\mathtt{Float::Limits::max}` which also define the numbers that can represent float values and float variables. The limits are defined in the namespace `Float::Limits <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode_1_1Float_1_1Limits.html>`__.
 
@@ -214,13 +214,13 @@ Float numbers range from :math:`\mathtt{Float::Limits::min}` to :math:`\mathtt{F
 
 .. _modeling:m-float:variable-access-functions:
 
-.. rubric:: Variable access functions.
+.. mpg-paragraph:: Variable access functions.
 
 You can access the current domain of a float variable ``x`` using member functions such as ``x.min()`` and ``x.max()``. Furthermore, you can print a float variable’s domain using the standard output operator ``<<``.
 
 .. _modeling:m-float:updating-variables:
 
-.. rubric:: Updating variables.
+.. mpg-paragraph:: Updating variables.
 
 Float variables behave exactly like integer variables during cloning of a space. A float variable is updated by
 
@@ -232,7 +232,7 @@ where ``y`` is the variable from which ``x`` is to be updated. While ``home`` is
 
 .. _modeling:m-float:variable-and-argument-arrays:
 
-.. rubric:: Variable and argument arrays.
+.. mpg-paragraph:: Variable and argument arrays.
 
 Float variable arrays can be allocated using the class `FloatVarArray <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVarArray.html>`__. The constructors of this class take the same arguments as the float variable constructors, preceded by the size of the array. For example,
 
@@ -256,7 +256,7 @@ This section introduces the different groups of constraints over float variables
 
 .. _modeling:m-float:reified-constraints:
 
-.. rubric:: Reified constraints.
+.. mpg-paragraph:: Reified constraints.
 
 Some float constraints (relation constraints, see :ref:`sec:m:float:rel`, and linear constraints, see :ref:`sec:m:float:linear`) also exist as a reified variant. If a reified version does exist, the reification information combining the Boolean control variable and an optional reification mode is passed as the last non-optional argument, see :ref:`sec:m:integer:halfreify`.
 
@@ -311,7 +311,7 @@ Simple relation constraints
 
 .. _modeling:m-float:binary-relation-constraints:
 
-.. rubric:: Binary relation constraints.
+.. mpg-paragraph:: Binary relation constraints.
 
 Assume that ``x`` and ``y`` are float variables. Then
 
@@ -340,7 +340,7 @@ constrains ``x`` to be strictly less than ``y``. Similarly, by
 
 .. _modeling:m-float:constraints-between-variable-arrays-and-a-single-variable:
 
-.. rubric:: Constraints between variable arrays and a single variable.
+.. mpg-paragraph:: Constraints between variable arrays and a single variable.
 
 If ``x`` is a float variable array and ``y`` is an float variable, then
 
@@ -358,7 +358,7 @@ constrains all variables in ``x`` to be larger than ``7.0``.
 
 .. _modeling:m-float:if-then-else-constraint:
 
-.. rubric:: If-then-else constraint.
+.. mpg-paragraph:: If-then-else constraint.
 
 An if-then-else constraint can be posted by
 

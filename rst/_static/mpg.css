@@ -84,6 +84,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .mpg-body h2 { margin: 3.2rem 0 1rem; font-size: 1.65rem; }
 .mpg-body h3 { margin: 2.4rem 0 .75rem; font-size: 1.28rem; }
 .mpg-body h4 { margin: 1.9rem 0 .65rem; font-size: 1.08rem; }
+.mpg-paragraph-heading { font-weight: 700; }
+.mpg-paragraph-standalone { margin-bottom: .35rem; }
 .mpg-body h1 .section-number {
   box-sizing: content-box;
   min-width: 1.3em;

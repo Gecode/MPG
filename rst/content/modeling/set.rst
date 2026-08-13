@@ -10,7 +10,7 @@ This chapter gives an overview over set variables and set constraints in Gecode 
 
 .. _modeling:m-set:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:set:var` details how set variables can be used for modeling. The sections :ref:`sec:m:set:post` and :ref:`sec:m:set:exec` provide an overview of the constraints that are available for set variables in Gecode.
 
@@ -40,7 +40,7 @@ Set variables in Gecode model sets of integers and are instances of the class `S
 
 .. _modeling:m-set:representing-set-domains-as-intervals:
 
-.. rubric:: Representing set domains as intervals.
+.. mpg-paragraph:: Representing set domains as intervals.
 
 The domain of a set variable is a set of sets of integers (in contrast to a simple set of integers for an integer variable). For example, assume that the domain of the set variable :math:`x` is the set of subsets of :math:`\{1,2,3\}`:
 
@@ -56,7 +56,7 @@ cannot be captured exactly by an interval. The closest interval would be :math:`
 
 .. _modeling:m-set:creating-a-set-variable:
 
-.. rubric:: Creating a set variable.
+.. mpg-paragraph:: Creating a set variable.
 
 New set variables are created using a constructor. A new set variable ``x`` is created by
 
@@ -78,7 +78,7 @@ the variables ``x``, ``y``, and ``z`` all refer to the same set variable impleme
 
 .. _modeling:m-set:limits-for-set-elements:
 
-.. rubric:: Limits for set elements.
+.. mpg-paragraph:: Limits for set elements.
 
 All set variable bounds are subsets of the *universe*, defined as
 
@@ -99,13 +99,13 @@ Any attempt to create a set variable with values outside the defined limits thro
 
 .. _modeling:m-set:variable-access-functions:
 
-.. rubric:: Variable access functions.
+.. mpg-paragraph:: Variable access functions.
 
 You can access the current domain of a set variable ``x`` using member functions such as ``x.cardMax()``, returning the upper bound of the cardinality, or ``x.glbMin()``, returning the smallest element of the lower bound. Furthermore, you can print a set variable’s domain using the standard output operator ``<<``.
 
 .. _modeling:m-set:iterating-variable-domain-interval-bounds:
 
-.. rubric:: Iterating variable domain interval bounds.
+.. mpg-paragraph:: Iterating variable domain interval bounds.
 
 For access to the interval bounds of a set variable, Gecode provides three value iterators and corresponding range iterators. For example, the following loop
 
@@ -123,13 +123,13 @@ uses the range iterator ``i`` to print all ranges of the least upper bound of th
 
 .. _modeling:m-set:when-to-inspect-a-variable:
 
-.. rubric:: When to inspect a variable.
+.. mpg-paragraph:: When to inspect a variable.
 
 The same restrictions hold as for integer variables (see :ref:`sec:m:integer:inspect`). The important restriction is that one must not change the domain of a variable (for example, by posting a constraint on that variable) while an iterator for that variable is being used.
 
 .. _modeling:m-set:updating-variables:
 
-.. rubric:: Updating variables.
+.. mpg-paragraph:: Updating variables.
 
 Set variables behave exactly like integer variables during cloning of a space. A set variable is updated by
 
@@ -141,7 +141,7 @@ where ``y`` is the variable from which ``x`` is to be updated. While ``home`` is
 
 .. _modeling:m-set:variable-and-argument-arrays:
 
-.. rubric:: Variable and argument arrays.
+.. mpg-paragraph:: Variable and argument arrays.
 
 Set variable arrays can be allocated using the class `SetVarArray <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVarArray.html>`__. The constructors of this class take the same arguments as the set variable constructors, preceded by the size of the array. For example,
 
@@ -165,7 +165,7 @@ This section introduces the different groups of constraints over set variables a
 
 .. _modeling:m-set:reified-constraints:
 
-.. rubric:: Reified constraints.
+.. mpg-paragraph:: Reified constraints.
 
 Several set constraints also exist as a reified variant. Whether a reified version exists for a given constraint can be found in the reference documentation. If a reified version does exist, the reification information combining the Boolean control variable and an optional reification mode is passed as the last non-optional argument, see :ref:`sec:m:integer:halfreify`.
 
@@ -264,7 +264,7 @@ Gecode provides reified versions of all set relation constraints. For an example
 
 .. _modeling:m-set:if-then-else-constraint:
 
-.. rubric:: If-then-else constraint.
+.. mpg-paragraph:: If-then-else constraint.
 
 An if-then-else constraint can be posted by
 
@@ -371,7 +371,7 @@ For an example of constraints connecting integer and set variables, see `Steiner
 
 .. _modeling:m-set:weighted-sets:
 
-.. rubric:: Weighted sets.
+.. mpg-paragraph:: Weighted sets.
 
 The ``weights`` constraint assigns a weight to each possible element of a set variable ``x``, and then constrains an integer variable ``y`` to be the sum of the weights of the elements of ``x``. The mapping is given using two integer arrays, ``e`` and ``w``. For example,
 

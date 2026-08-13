@@ -10,7 +10,7 @@ This chapter provides an overview of some functionality in Gecode that makes mod
 
 .. _modeling:m-comfy:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 Expressions constructed from standard arithmetic operators for posting linear constraints are discussed in :ref:`sec:m:comfy:expr`, cost functions for best solution search are discussed in :ref:`sec:m:comfy:cost`, and a script commandline driver that supports the most common options for running models from the commandline is discussed in :ref:`sec:m:comfy:driver`.
 
@@ -66,7 +66,7 @@ In order to experiment from the commandline with different model variants, diffe
 
 .. _modeling:m-comfy:defining-a-script-class:
 
-.. rubric:: Defining a script class.
+.. mpg-paragraph:: Defining a script class.
 
 Suppose that we want to experiment with two different variants of Send Most Money with a cost function: the first variant uses the model from :ref:`sec:m:comfy:cost` and the second variant models the equation :math:`SEND+MOST=MONEY` by using carry variables.
 
@@ -102,7 +102,7 @@ The class ``SendMostMoney`` defines an enumeration type with values ``MODEL_SING
 
 .. _modeling:m-comfy:defining-commandline-options:
 
-.. rubric:: Defining commandline options.
+.. mpg-paragraph:: Defining commandline options.
 
 The mapping between strings passed on the commandline and the values ``MODEL_SINGLE`` and ``MODEL_CARRY`` is established by configuring an object of class `Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Options.html>`__ accordingly as follows:
 
@@ -124,7 +124,7 @@ The last piece of our model is calling the static ``run`` method of the script c
 
 .. _modeling:m-comfy:running-the-script-from-the-commandline:
 
-.. rubric:: Running the script from the commandline.
+.. mpg-paragraph:: Running the script from the commandline.
 
 Suppose that we have compiled our script example as the file ``send-most-money-with-driver.exe`` (for some platforms, just drop ``.exe``). Then
 

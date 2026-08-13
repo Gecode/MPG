@@ -10,7 +10,7 @@ This chapter discusses how *branching* is used for solving Gecode models. Branch
 
 .. _modeling:m-branch:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:branch:basics` explains the basics of Gecode’s predefined branchings. An overview of available branchings for integer and Boolean variables is provided in :ref:`sec:m:branch:int`, for set variables in :ref:`sec:m:branch:set`, and for float variables in :ref:`sec:m:branch:float`. These sections belong to the basic reading material of :ref:`part:m`.
 
@@ -46,7 +46,7 @@ The ``branch()`` function also accepts a branch filter function and a variable-v
 
 .. _modeling:m-branch:several-branchers:
 
-.. rubric:: Several branchers.
+.. mpg-paragraph:: Several branchers.
 
 A space in Gecode can have *several* branchers posted on behalf of a *branching* that are executed in order of creation. Assume that in
 
@@ -58,7 +58,7 @@ both calls to ``branch()`` create a brancher. Search branches first on the varia
 
 .. _modeling:m-branch:branching-on-single-variables:
 
-.. rubric:: Branching on single variables.
+.. mpg-paragraph:: Branching on single variables.
 
 In addition to branching on an array of variables, Gecode also supports branching on a single variable.
 
@@ -84,7 +84,7 @@ is equivalent, albeit considerably less efficient, to
 
 .. _modeling:m-branch:brancher-groups:
 
-.. rubric:: Brancher groups.
+.. mpg-paragraph:: Brancher groups.
 
 Branchers can be controlled by brancher groups, they are discussed in detail in :ref:`sec:m:group:branch`.
 
@@ -176,7 +176,7 @@ Branching on integer and Boolean variables
 
 .. _modeling:m-branch:branching-on-integer-variables:
 
-.. rubric:: Branching on integer variables.
+.. mpg-paragraph:: Branching on integer variables.
 
 For integer variables, variable selection is defined by a value of class `IntVarBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVarBranch.html>`__ and value selection is defined by a value of type `IntValBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntValBranch.html>`__. Values of these types are obtained by calling functions (possibly taking arguments) that correspond to variable and value selection strategies. For example, a call ``INT_VAR_SIZE_MIN()`` returns an object of class `IntVarBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVarBranch.html>`__.
 
@@ -260,7 +260,7 @@ Note that variable-value branchers are just common cases for branching based on 
 
 .. _modeling:m-branch:branching-on-boolean-variables:
 
-.. rubric:: Branching on Boolean variables.
+.. mpg-paragraph:: Branching on Boolean variables.
 
 .. mpg-figure:: Boolean variable selection
    :name: fig:m:branch:int:var:bool
@@ -977,7 +977,7 @@ Here, ``r`` must be a random number generator as discussed in :ref:`sec:m:branch
 
 .. _modeling:m-branch:using-tie-breaking-limit-functions:
 
-.. rubric:: Using tie-breaking limit functions.
+.. mpg-paragraph:: Using tie-breaking limit functions.
 
 In the discussion so far only exact ties have been considered. Often it is necessary to consider several variables as ties even though some of them are not among the best variables. Which variables are considered as ties can be controlled by *tie-breaking limit functions*.
 

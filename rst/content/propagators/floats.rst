@@ -7,7 +7,7 @@ This chapter shows how to implement propagators for constraints over float varia
 
 .. _propagators:floats:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:p:floats:example` demonstrates a propagator that implements a ternary linear constraint. Float views and their related concepts are summarized in :ref:`sec:p:floats:propagation`.
 
@@ -33,7 +33,7 @@ As you can see, propagators for float constraints follow exactly the same struct
 
 .. _propagators:floats:operations-on-float-views:
 
-.. rubric:: Operations on float views.
+.. mpg-paragraph:: Operations on float views.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-floats.tex.in:42:fig:p:float:view
 
@@ -76,7 +76,7 @@ The most important operations on float views for programming propagators are sum
 
 .. _propagators:floats:creating-a-rounding-object:
 
-.. rubric:: Creating a rounding object.
+.. mpg-paragraph:: Creating a rounding object.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-floats.tex.in:74:fig:p:floats:rounding
 
@@ -148,7 +148,7 @@ Hence, the first thing that the ``propagate()`` function of the ``Linear`` propa
 
 .. _propagators:floats:pruning-lower-and-upper-bounds:
 
-.. rubric:: Pruning lower and upper bounds.
+.. mpg-paragraph:: Pruning lower and upper bounds.
 
 The propagation rules for ``Linear`` are quite straightforward. As :math:`\mathtt{x}_0+\mathtt{x}_1+\mathtt{x}_2=0` we can isolate :math:`\mathtt{x}_0` (:math:`\mathtt{x}_1` and :math:`\mathtt{x}_2` are of course analogous):
 
@@ -195,7 +195,7 @@ This section summarizes how these concepts are specialized for float variables a
 
 .. _propagators:floats:modification-events-and-propagation-conditions:
 
-.. rubric:: Modification events and propagation conditions.
+.. mpg-paragraph:: Modification events and propagation conditions.
 
 .. mpg-covered: caption:docs/src/chapters/programming/p-floats.tex.in:215:fig:p:floats:propagation_conditions
 
@@ -234,13 +234,13 @@ The modification events and propagation conditions for float propagators (see :n
 
 .. _propagators:floats:float-variable-views:
 
-.. rubric:: Float variable views.
+.. mpg-paragraph:: Float variable views.
 
 In addition to the basic ``Float::FloatView``\ class, there are two other float views: ``Float::MinusView``, and ``Float::ScaleView``. The two latter views are defined similarly to minus view for integers (see :ref:`sec:p:views:int:minus`) and scale views for integers (see :ref:`sec:p:views:int:constantscale`).
 
 .. _propagators:floats:advisors-for-float-propagators:
 
-.. rubric:: Advisors for float propagators.
+.. mpg-paragraph:: Advisors for float propagators.
 
 Advisors for float constraints get informed about the domain modifications using a float delta of class ``Float::FloatDelta``.
 

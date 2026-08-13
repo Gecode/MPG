@@ -138,6 +138,13 @@
 % Sphinx defaults headings to sans serif and expands definition-list labels
 % to a full line.  MPG has always used bold Charter section headings and
 % compact, run-in description terms.
+% Sphinx also changes LaTeX's standard run-in paragraph heading into a
+% displayed heading through titlesec.  Restore the classical MPG behaviour:
+% ``Heading.`` and its text belong to the same paragraph and line.
+\titleformat{\paragraph}[runin]
+  {\normalfont\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\paragraph}{0pt}
+  {1.5ex plus .5ex minus .2ex}{1em}
 \renewcommand{\sphinxlineitem}[2]{%
   \item[\normalfont\bfseries #1]\leavevmode\ignorespaces #2}
 % MPG used a run-in ``Important.`` paragraph, not an icon-bearing callout.

@@ -22,7 +22,7 @@ This chapters presents how to program branchers as implementations of branchings
 
 .. _branchers:started:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:b:started:overview` sets the stage for programming branchers by explaining how search engines, spaces, and branchers together implement the branching process during search. A simple brancher is used as an initial example in :ref:`sec:b:started:nonemin`. A brancher that chooses its views for branching according to some criterion is demonstrated in :ref:`sec:b:started:sizemin`.
 
@@ -35,13 +35,13 @@ A *branching* is used in modeling for describing the shape of the search tree. A
 
 .. _branchers:started:brancher-order:
 
-.. rubric:: Brancher order.
+.. mpg-paragraph:: Brancher order.
 
 Creating a brancher registers it with its home space. A space maintains a queue of its branchers in that the brancher that is registered first is also used first for branching. The first brancher in the queue of branchers is referred to as the *current brancher*.
 
 .. _branchers:started:executing-branchers:
 
-.. rubric:: Executing branchers.
+.. mpg-paragraph:: Executing branchers.
 
 A brancher in Gecode is implemented as a subclass of the class :api:`Brancher`. Similar to a propagator, a brancher must implement several virtual member functions defining the brancher’s behavior.
 
@@ -63,7 +63,7 @@ How branchers execute is best understood when studying the operations that are p
 
 .. _branchers:started:status-computation:
 
-.. rubric:: Status computation.
+.. mpg-paragraph:: Status computation.
 
 A search engine calls the ``status()`` function of a space to determine whether a space is failed, solved, or must be branched on. When the ``status()`` function of a space is executed, constraint propagation is performed as described in :ref:`sec:p:started:solving`. If the space is failed, ``status()`` returns the value ``SS_FAILED`` (a value of type ``SpaceStatus``, see :api:`TaskSearch`).
 
@@ -73,7 +73,7 @@ The ``status()`` function of a brancher does not do anything to actually perform
 
 .. _branchers:started:choice-creation:
 
-.. rubric:: Choice creation.
+.. mpg-paragraph:: Choice creation.
 
 In case the space’s ``status()`` function has returned ``SS_BRANCH``, the search engine typically branches. In order to actually branch, the search engine must know how to branch. To keep search engines orthogonal to the space type they compute with (that is, the problem a search engine tries to find solutions for), a search engine can request a *choice* as a description of how to branch. With a choice, a search engine can *commit* a space to a particular alternative as defined by the choice. Alternatives are numbered from zero to the number of alternatives minus one, where the number of alternatives is defined by the choice. A choice is specific to a brancher and must provide sufficient information such that the brancher together with the choice can commit to all possible alternatives.
 
@@ -87,7 +87,7 @@ A search engine must execute the ``choice()`` function of a space *immediately* 
 
 .. _branchers:started:committing-to-alternatives:
 
-.. rubric:: Committing to alternatives.
+.. mpg-paragraph:: Committing to alternatives.
 
 Assume that the engine has a choice ``ch`` with two alternatives and that the engine has created a clone ``c`` of the current space ``s`` by [1]_
 
@@ -119,7 +119,7 @@ Then, the ``commit()`` function of the space ``c`` tries to find the brancher co
 
 .. _branchers:started:more-on-choices:
 
-.. rubric:: More on choices.
+.. mpg-paragraph:: More on choices.
 
 A consequence of the discussion of ``commit()`` is that choices cannot store information that belongs to a particular space: the very idea of a choice is that it can be used with different spaces (above: original and clone)! That also entails that a choice is allocated independently from any space and must be deleted explicitly by a search engine.
 
@@ -127,7 +127,7 @@ Consider as an example a brancher that wants to create the choice :math:`(\matht
 
 .. _branchers:started:even-more-on-archives-of-choices:
 
-.. rubric:: Even more on (archives of) choices.
+.. mpg-paragraph:: Even more on (archives of) choices.
 
 Branchers and choices must support one more operation, the *(un-)archiving* of choices. Archiving enables choices to be used not only in the same search engine with a different space, but transferred to a search engine in a different process, possibly on a different computer. The main application for this are distributed search engines.
 
@@ -135,7 +135,7 @@ An :api:`Archive` is simply an array of unsigned integers, which is easy to tran
 
 .. _branchers:started:brancher-invariants-and-life-cycle:
 
-.. rubric:: Brancher invariants and life cycle.
+.. mpg-paragraph:: Brancher invariants and life cycle.
 
 The very idea of a choice is that it is a space-independent description of how to perform commits on a space. Consider the following example scenario: a search engine has a space ``s`` and a clone ``c`` of ``s``. Then, the search engine explores part of the search tree starting from ``s`` and stores a sequence of choices while exploring. Then, the engine wants to recompute a node in the search tree and uses the clone ``c`` for it: it can recompute by performing commits with the choices it has stored.
 
@@ -147,7 +147,7 @@ Spaces impose an important invariant on the use of its ``commit()`` and ``choice
 
 .. _par:b:started:gc:
 
-.. rubric:: Garbage collection of branchers.
+.. mpg-paragraph:: Garbage collection of branchers.
 
 As the ``choice()`` function of a space performs garbage collection of branchers, it can also be called in case the space’s ``status()`` function returned ``SS_SOLVED`` (signaling that no more branchers are left). In this case, the branchers are garbage collected but no choice is returned (instead, ``NULL`` is returned). See :ref:`sec:s:started:dfsbin` for an example and :ref:`sec:s:started:space` for a discussion.
 
@@ -193,7 +193,7 @@ A naive brancher
 
 .. _branchers:started:status-computation-2:
 
-.. rubric:: Status computation.
+.. mpg-paragraph:: Status computation.
 
 The status computation of a ``NoneMin`` brancher is straightforward. The ``status()`` function scans all views in the view array ``x`` and returns ``true`` if there is an unassigned view left:
 
@@ -203,7 +203,7 @@ The status computation of a ``NoneMin`` brancher is straightforward. The ``statu
 
 .. _branchers:started:choice-computation:
 
-.. rubric:: Choice computation.
+.. mpg-paragraph:: Choice computation.
 
 Computing the choice for a brancher involves two aspects: the definition of the class for the choice object and the ``choice()`` member function of a brancher that creates choice objects.
 
@@ -231,7 +231,7 @@ The ``choice(Space& home)`` function returns a new ``PosVal`` object for positio
 
 .. _branchers:started:committing-to-alternatives-2:
 
-.. rubric:: Committing to alternatives.
+.. mpg-paragraph:: Committing to alternatives.
 
 The ``commit()`` function of ``NoneMin`` can safely assume that the choice ``c`` passed as argument is in fact an object ``pv`` of class ``PosVal``. This is due to the fact that the space ``commit()`` function uses the identity stored in a choice object to find the corresponding brancher.
 
@@ -243,7 +243,7 @@ From the ``PosVal`` object the position of the view ``pos`` and the value ``val`
 
 .. _par:b:started:print:
 
-.. rubric:: Printing information on alternatives.
+.. mpg-paragraph:: Printing information on alternatives.
 
 The ``print()`` function of ``NoneMin`` is straightforward, it prints on the standard output stream ``o`` information about an alternative (it prints what ``commit()`` does):
 

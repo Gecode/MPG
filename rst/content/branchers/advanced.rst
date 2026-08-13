@@ -7,7 +7,7 @@ This chapters presents advanced topics for programming branchers as implementati
 
 .. _branchers:advanced:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:b:advanced:assign` presents a specialized brancher for assigning views rather than branching on them. How branchers support no-goods is discussed in :ref:`sec:b:advanced:nogoods`. Variable views for branchers are discussed in :ref:`sec:b:advanced:views`.
 

@@ -58,24 +58,25 @@ Furthermore, the document describes the C++ interface to Gecode, it is not abou
 
 .. _core:intro:keeping-it-simple:
 
-.. rubric:: Keeping it simple.
+.. mpg-paragraph:: Keeping it simple.
 
 Throughout this document, we will use simple examples to explain the concepts you have to understand in order to model and program with Gecode. However, these simple examples demonstrate the *complete array of techniques* that are sufficient to implement complex models, constraints, branchings, variables, and search engines. In fact, Gecode itself is based on the very same techniques – you will learn how to develop code that is just as good as (or maybe better than?) what Gecode itself provides.
 
 .. _core:intro:gecode-architecture:
 
-.. rubric:: Gecode architecture.
+.. mpg-paragraph:: Gecode architecture.
 
 This document follows the general architecure of Gecode, containing one part for each major component. :numref:`fig:intro:gecode_architecture` gives an overview of the Gecode architecture. The kernel provides common functionality, upon which the modules for integer, set, and float constraints as well as the search engines are built. The colored boxes refer to the topics covered in this document.
 
 .. figure:: /figures/fig-intro-gecode_architecture.svg
    :name: fig:intro:gecode_architecture
+   :alt: Gecode architecture: Int, Set, Float, and Search modules bridge the Gecode kernel and Modeling; propagators and branchers overlap the core modules, while variables and search engines extend the stack vertically.
 
    Gecode architecture
 
 .. _core:intro:modeling:
 
-.. rubric:: Modeling.
+.. mpg-paragraph:: Modeling.
 
 The modeling part (:ref:`part:m`) of this document assumes some basic knowledge of modeling and solving constraint problems, as well as some basic C++ skills. The document restricts itself to simple and well known problems as examples. A constraint programming novice should have no difficulty to concentrate on the how-to-model with Gecode in particular, rather than the how-to-model with constraint programming in general.
 
@@ -83,13 +84,13 @@ The modeling part starts with a very simple constraint model that already touche
 
 .. _core:intro:case-studies:
 
-.. rubric:: Case studies.
+.. mpg-paragraph:: Case studies.
 
 This document includes a collection of case studies in :ref:`part:c`. The case studies mix modeling and programming with Gecode. Some case studies are just interesting constraint models. Other case studies are constraint models that include the programming of new constraints and/or branchings.
 
 .. _core:intro:programming:
 
-.. rubric:: Programming.
+.. mpg-paragraph:: Programming.
 
 The programming parts of this document require the same knowledge as the modeling part, plus some additional basic knowledge of how constraint propagation is organized. :ref:`sec:p:started:back` provides pointers to recommended background reading.
 
@@ -126,7 +127,7 @@ The dashed arrows from programming propagators (:ref:`part:p`) and programming b
 
 .. _core:intro:downloading-example-programs:
 
-.. rubric:: Downloading example programs.
+.. mpg-paragraph:: Downloading example programs.
 
 All example program code used in this document is available for download, just click the download link in the upper right corner of an example.
 

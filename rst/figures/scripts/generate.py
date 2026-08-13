@@ -280,40 +280,42 @@ def nonogram_svg(solution: bool) -> str:
 
 
 def architecture_svg() -> str:
-    """Authored, maintainable redraw of the MPG architecture overview."""
+    """Faithful semantic transcription of the original PSTricks overview."""
     modules = ("Int", "Set", "Float", "Search")
     module_markup = []
     for index, name in enumerate(modules):
-        x = 304 + index * 112
+        x = 236 + index * 111
         module_markup.append(
-            f'<g><rect x="{x}" y="142" width="92" height="150" fill="#ffffff" '
-            f'stroke="#17211d"/><text class="module" x="{x + 46}" y="208">{name}</text>'
-            f'<text class="small" x="{x + 46}" y="231">module</text></g>'
+            f'<g id="module-{name.lower()}"><rect x="{x}" y="100" width="89" height="244" fill="#ffffff" '
+            f'stroke="#17211d"/><text class="module" x="{x + 44.5}" y="211">{name}</text>'
+            f'<text class="small" x="{x + 44.5}" y="238">module</text></g>'
         )
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 1000 390">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 1000 444">
 <title>Gecode architecture</title>
-<desc>The Modeling layer spans the Int, Set, Float, and Search modules. Programming propagators and branchers extends those modules from the left. Programming variables and programming search engines are extension areas on the right. Every module rests on the Gecode kernel.</desc>
+<desc>The Gecode kernel is the foundation. The Int, Set, Float, and Search modules rise from the kernel into the Modeling part. Programming propagators and branchers overlaps the modules from the left. Programming variables and programming search engines extend vertically from the kernel through the Modeling layer.</desc>
 <style>
   text {{ font-family: Charter, Georgia, serif; fill: #17211d; }}
   .label {{ font-size: 21px; font-weight: 700; text-anchor: middle; }}
   .module {{ font: 700 19px "Bera Mono", "DejaVu Sans Mono", monospace; text-anchor: middle; }}
   .small {{ font-size: 15px; text-anchor: middle; }}
   .side {{ font-size: 18px; font-weight: 700; text-anchor: middle; }}
+  .side-start {{ font-size: 18px; font-weight: 700; text-anchor: start; }}
   .side-small {{ font-size: 13px; text-anchor: middle; }}
 </style>
-<rect width="1000" height="390" fill="#ffffff"/>
-<rect x="260" y="28" width="710" height="76" fill="#d1e6dc" stroke="#0b7646" stroke-width="2"/>
-<text class="label" x="615" y="74">Modeling</text>
-<rect x="20" y="142" width="260" height="150" fill="#c9deee" stroke="#005ca1" stroke-width="2"/>
-<text class="side" x="150" y="205">Programming propagators</text>
-<text class="side" x="150" y="231">and branchers</text>
+<rect width="1000" height="444" fill="#ffffff"/>
+<rect id="modeling-layer" x="222" y="0" width="778" height="111" fill="#82baa2" stroke="#0b7646" stroke-width="2"/>
+<text class="label" x="556" y="59">Modeling <tspan fill="#005ca1">(Part M)</tspan></text>
+<rect id="programming-propagators-branchers" x="0" y="167" width="556" height="111" fill="#80afd2" stroke="#005ca1" stroke-width="2"/>
+<text class="side-start" x="12" y="205">Programming</text>
+<text class="side-start" x="12" y="232">propagators <tspan fill="#005ca1">(Part P)</tspan></text>
+<text class="side-start" x="12" y="259">and branchers <tspan fill="#005ca1">(Part B)</tspan></text>
 {''.join(module_markup)}
-<rect x="764" y="142" width="94" height="150" fill="#f7d4a8" stroke="#eb8920" stroke-width="2"/>
-<text class="side-small" x="811" y="198">Programming</text><text class="side" x="811" y="229">variables</text>
-<rect x="876" y="142" width="94" height="150" fill="#f2c1bd" stroke="#da251d" stroke-width="2"/>
-<text class="side-small" x="923" y="188">Programming</text><text class="side-small" x="923" y="211">search</text><text class="side" x="923" y="240">engines</text>
-<rect x="260" y="316" width="710" height="52" fill="#ffffff" stroke="#17211d" stroke-width="2"/>
-<text class="label" x="615" y="349">Gecode kernel</text>
+<rect id="programming-variables" x="681" y="100" width="144" height="244" fill="#f3bd7b" stroke="#eb8920" stroke-width="2"/>
+<text class="side-small" x="753" y="198">Programming</text><text class="side" x="753" y="226">variables</text><text class="side-small" x="753" y="253" fill="#005ca1">(Part V)</text>
+<rect id="programming-search-engines" x="847" y="100" width="145" height="244" fill="#e88787" stroke="#da251d" stroke-width="2"/>
+<text class="side-small" x="919.5" y="184">Programming</text><text class="side-small" x="919.5" y="211">search</text><text class="side" x="919.5" y="239">engines</text><text class="side-small" x="919.5" y="266" fill="#005ca1">(Part S)</text>
+<rect id="gecode-kernel" x="222" y="333" width="667" height="111" fill="#ffffff" stroke="#17211d" stroke-width="2"/>
+<text class="label" x="556" y="397">Gecode kernel</text>
 </svg>\n'''
 
 

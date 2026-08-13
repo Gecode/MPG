@@ -10,7 +10,7 @@ The commandline driver (see `Script commandline driver <https://www.gecode.dev/d
 
 .. _modeling:m-driver:overview:
 
-.. rubric:: Overview.
+.. mpg-paragraph:: Overview.
 
 :ref:`sec:m:driver:options` summarizes the commandline options supported by the commandline driver. The base classes for scripts that work together with the commandline driver are sketched in :ref:`sec:m:driver:script`.
 
@@ -144,13 +144,13 @@ Note that all commanline options can also be used with a starting double hyphenÂ
 
 .. _modeling:m-driver:invoking-help:
 
-.. rubric:: Invoking help.
+.. mpg-paragraph:: Invoking help.
 
 The only option for which no value exists is ``-help``: it prints some configuration information and a help text for the options and stops program execution.
 
 .. _modeling:m-driver:size-and-instance-options:
 
-.. rubric:: Size and instance options.
+.. mpg-paragraph:: Size and instance options.
 
 The class `SizeOptions <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SizeOptions.html>`__ accepts an unsigned integer as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``size()``.
 
@@ -158,13 +158,13 @@ The class `InstanceOptions <https://www.gecode.dev/doc/6.4.0/reference/classGeco
 
 .. _modeling:m-driver:integer-propagation-level-options:
 
-.. rubric:: Integer propagation level options.
+.. mpg-paragraph:: Integer propagation level options.
 
 The command line option ``-ipl`` accepts a comma separated list of the basic integer propagation levels: ``def`` for the default level, ``val`` for value propagation, ``bnd`` for bounds propagation, and ``dom`` for domain propagation. In addition it accepts the modifiers ``speed``, ``memory``, ``basic``, and ``advanced`` that are used by some constraints and can be given in addition to a basic integer propagation level.
 
 .. _modeling:m-driver:mode-options:
 
-.. rubric:: Mode options.
+.. mpg-paragraph:: Mode options.
 
 The different modes passed as argument for the option ``-mode`` have the following meaning:
 
@@ -180,7 +180,7 @@ The different modes passed as argument for the option ``-mode`` have the followi
 
 .. _modeling:m-driver:trace-options:
 
-.. rubric:: Trace options.
+.. mpg-paragraph:: Trace options.
 
 Which events to trace (see also :ref:`chap:m:group`) can be specified by the ``-trace`` commandline option. It accepts a comma-separated list of the event types to trace, that is ``init``, ``prune``, ``fix`` for fixpoint, ``fail`` for failure, and ``done`` as well as ``none`` to trace no events and ``all`` to trace events of all types.
 
@@ -188,19 +188,19 @@ Examples with tracing include `SEND+MORE=MONEY puzzle <https://www.gecode.dev/do
 
 .. _modeling:m-driver:cpprofiler-options:
 
-.. rubric:: CPProfiler options.
+.. mpg-paragraph:: CPProfiler options.
 
 For more details on the CPProfiler, please consult :ref:`sec:m:search:cpprofiler` as the commandline arguments are used exactly as described there.
 
 .. _modeling:m-driver:examples:
 
-.. rubric:: Examples.
+.. mpg-paragraph:: Examples.
 
 For an example, in particular, how to use the user-defined options, see :ref:`sec:m:comfy:driver`. As all examples that come with Gecode use the script commandline driver, a plethora of examples is available (see `Example scripts (models) <https://www.gecode.dev/doc/6.4.0/reference/group__Example.html>`__). Also adding additional options is straightforward, for an example see `Golf tournament <https://www.gecode.dev/doc/6.4.0/reference/golf_8cpp.html>`__.
 
 .. _modeling:m-driver:gist-inspectors-and-comparators:
 
-.. rubric:: Gist inspectors and comparators.
+.. mpg-paragraph:: Gist inspectors and comparators.
 
 The driver options can pass inspectors and comparators (see :ref:`sec:m:gist:inspecting_nodes`) to Gist. To register an inspector ``i``, use the ``inspect.click(&i)``, ``inspect.solution(&i)``, or ``inspect.move(&i)`` methods of the option object, for a comparator ``c``, use ``inspect.compare(&c)``.
 

@@ -31,6 +31,16 @@ class MpgCaption(nodes.caption):
     """A figure caption with an optional, deliberately short list title."""
 
 
+class MpgParagraph(nodes.rubric):
+    """A classical run-in paragraph heading awaiting its body paragraph."""
+
+    tagname = "rubric"
+
+
+class MpgParagraphHeading(nodes.Inline, nodes.TextElement):
+    """The HTML form of a run-in paragraph heading."""
+
+
 class MpgPartDirective(Directive):
     required_arguments = 1
     final_argument_whitespace = True
@@ -114,6 +124,57 @@ class MpgFigureDirective(Directive):
         caption.extend(self.state.inline_text(caption_text, self.lineno)[0])
         node += caption
         return [node]
+
+
+class MpgParagraphDirective(Directive):
+    required_arguments = 1
+    final_argument_whitespace = True
+    has_content = False
+
+    def run(self) -> list[nodes.Node]:
+        node = MpgParagraph()
+        inline, messages = self.state.inline_text(self.arguments[0], self.lineno)
+        node.extend(inline)
+        return [node, *messages]
+
+
+def _prepare_run_in_paragraphs(app, doctree: nodes.document, docname: str) -> None:
+    """Merge headings into HTML paragraphs while retaining LaTeX semantics."""
+    if getattr(app.builder, "format", "") == "latex":
+        return
+    for marker in list(doctree.findall(MpgParagraph)):
+        parent = marker.parent
+        index = parent.index(marker)
+        heading = MpgParagraphHeading()
+        heading.extend(marker.children)
+        if index + 1 < len(parent) and isinstance(parent[index + 1], nodes.paragraph):
+            paragraph = parent[index + 1]
+            paragraph.insert(0, nodes.Text(" "))
+            paragraph.insert(0, heading)
+            parent.remove(marker)
+        else:
+            # LaTeX's paragraph command is still meaningful before a figure,
+            # list, or table.  HTML cannot run into a non-paragraph child, so
+            # retain a compact standalone heading with the same semantic class.
+            wrapper = nodes.paragraph(classes=["mpg-paragraph-standalone"])
+            wrapper += heading
+            parent.replace(marker, wrapper)
+
+
+def visit_mpg_paragraph_latex(translator, node: MpgParagraph) -> None:
+    translator.body.append(r"\paragraph{")
+
+
+def depart_mpg_paragraph_latex(translator, node: MpgParagraph) -> None:
+    translator.body.append("}\n")
+
+
+def visit_mpg_paragraph_heading_html(translator, node: MpgParagraphHeading) -> None:
+    translator.body.append('<strong class="mpg-paragraph-heading">')
+
+
+def depart_mpg_paragraph_heading_html(translator, node: MpgParagraphHeading) -> None:
+    translator.body.append("</strong>")
 
 
 def visit_mpg_caption_html(translator, node: MpgCaption) -> None:
@@ -441,12 +502,14 @@ def setup(app):
     app.connect("doctree-read", _use_pdf_figure_derivatives, priority=100)
     app.connect("env-updated", _route_latex_part_labels)
     app.connect("doctree-resolved", _assign_tip_numbers, priority=500)
+    app.connect("doctree-resolved", _prepare_run_in_paragraphs, priority=700)
     app.connect("doctree-resolved", _restore_typed_reference_text, priority=800)
     app.connect("doctree-resolved", _start_unnumbered_backmatter, priority=900)
     app.add_role("api", ApiRole())
     app.add_directive("mpg-part", MpgPartDirective)
     app.add_directive("mpg-tip", MpgTipDirective)
     app.add_directive("mpg-figure", MpgFigureDirective)
+    app.add_directive("mpg-paragraph", MpgParagraphDirective)
     app.add_node(
         MpgPart,
         html=(visit_mpg_part_html, depart_mpg_part_html),
@@ -471,6 +534,14 @@ def setup(app):
         MpgCaption,
         html=(visit_mpg_caption_html, depart_mpg_caption_html),
         latex=(visit_mpg_caption_latex, depart_mpg_caption_latex),
+    )
+    app.add_node(
+        MpgParagraph,
+        latex=(visit_mpg_paragraph_latex, depart_mpg_paragraph_latex),
+    )
+    app.add_node(
+        MpgParagraphHeading,
+        html=(visit_mpg_paragraph_heading_html, depart_mpg_paragraph_heading_html),
     )
     return {
         "version": "1.0",

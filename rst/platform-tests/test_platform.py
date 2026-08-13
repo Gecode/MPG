@@ -89,6 +89,7 @@ def main() -> int:
             '<figure class="mpg-content-figure',
             '<figcaption>',
             '<span class="caption-text">Available values</span>',
+            '<strong class="mpg-paragraph-heading">Classical heading.</strong> This paragraph',
             'Figure 1.1',
         ):
             if expected not in chapter:
@@ -105,6 +106,7 @@ def main() -> int:
         sphinx_latex(FIXTURE, latex_output)
         latex = (latex_output / "MPG.tex").read_text(encoding="utf-8")
         for expected in (r"\begin{figure}[htbp]", r"\caption[Values]{Available values}",
+                         r"\paragraph{Classical heading.}",
                          r"chapter:fig-m-fixture"):
             if expected not in latex:
                 raise RuntimeError(f"LaTeX omitted {expected}")
@@ -112,6 +114,7 @@ def main() -> int:
         for expected in (r"pdflang={en-GB}", r"pdfdisplaydoctitle=true",
                          r"https://www.gecode.dev/doc/\MPGGecodeVersion/MPG.pdf",
                          r"HeaderFamily={\rmfamily\bfseries}",
+                         r"\titleformat{\paragraph}[runin]",
                          r"includegraphics[width=.18\textwidth]{cc-by-nc-nd.pdf}"):
             if expected not in adapter:
                 raise RuntimeError(f"PDF adapter omitted {expected}")
