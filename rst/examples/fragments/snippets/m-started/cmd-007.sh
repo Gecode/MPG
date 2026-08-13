@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.21)
+project(send_more_money LANGUAGES CXX)
+find_package(Gecode CONFIG REQUIRED)
+add_executable(send-more-money send-more-money.cpp)
+target_link_libraries(send-more-money PRIVATE Gecode::gecode)

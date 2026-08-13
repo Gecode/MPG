@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-s-re-hybrid-lao-tree-title fig-s-re-hybrid-lao-tree-desc" viewBox="0 0 520 230">
+  <title id="fig-s-re-hybrid-lao-tree-title">Last alternative optimization with hybrid recomputation</title>
+  <desc id="fig-s-re-hybrid-lao-tree-desc">A complete binary search tree of depth three after last alternative optimization. Grey nodes mark obsolete stored clones, orange nodes mark their new locations, and orange edges mark the last-alternative path.</desc>
+  <g fill="none" stroke-linecap="round">
+    <path d="M220.0,34.0 L124.0,68.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M220.0,34.0 L316.0,68.0" stroke="#eb891b" stroke-width="3"/>
+    <path d="M124.0,86.0 L76.0,120.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M124.0,86.0 L172.0,120.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M316.0,86.0 L268.0,120.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M316.0,86.0 L364.0,120.0" stroke="#eb891b" stroke-width="3"/>
+    <path d="M76.0,138.0 L52.0,172.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M76.0,138.0 L100.0,172.0" stroke="#eb891b" stroke-width="3"/>
+    <path d="M172.0,138.0 L148.0,172.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M172.0,138.0 L196.0,172.0" stroke="#eb891b" stroke-width="3"/>
+    <path d="M268.0,138.0 L244.0,172.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M268.0,138.0 L292.0,172.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M364.0,138.0 L340.0,172.0" stroke="#1f2529" stroke-width="1.4"/>
+    <path d="M364.0,138.0 L388.0,172.0" stroke="#eb891b" stroke-width="3"/>
+  </g>
+  <g aria-label="search tree nodes">
+    <circle class="node obsolete" cx="220.0" cy="25.0" r="9" fill="#d7d7d7" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node choice" cx="124.0" cy="77.0" r="9" fill="#005ca1" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node obsolete" cx="316.0" cy="77.0" r="9" fill="#d7d7d7" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node obsolete" cx="76.0" cy="129.0" r="9" fill="#d7d7d7" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node obsolete" cx="172.0" cy="129.0" r="9" fill="#d7d7d7" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node choice" cx="268.0" cy="129.0" r="9" fill="#005ca1" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node obsolete" cx="364.0" cy="129.0" r="9" fill="#d7d7d7" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node clone" cx="52.0" cy="181.0" r="9" fill="#eb891b" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node choice" cx="100.0" cy="181.0" r="9" fill="#005ca1" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node clone" cx="148.0" cy="181.0" r="9" fill="#eb891b" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node choice" cx="196.0" cy="181.0" r="9" fill="#005ca1" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node clone" cx="244.0" cy="181.0" r="9" fill="#eb891b" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node clone" cx="292.0" cy="181.0" r="9" fill="#eb891b" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node clone" cx="340.0" cy="181.0" r="9" fill="#eb891b" stroke="#1f2529" stroke-width="1.2"/>
+    <circle class="node choice" cx="388.0" cy="181.0" r="9" fill="#005ca1" stroke="#1f2529" stroke-width="1.2"/>
+  </g>
+  <rect x="434" y="38" width="12" height="12" rx="6" fill="#005ca1" stroke="#1f2529"/>
+  <text x="454" y="48" font-family="Arial, sans-serif" font-size="12" fill="#1f2529">choice</text>
+  <rect x="434" y="66" width="12" height="12" rx="6" fill="#eb891b" stroke="#1f2529"/>
+  <text x="454" y="76" font-family="Arial, sans-serif" font-size="12" fill="#1f2529">stored clone</text>
+  <rect x="434" y="94" width="12" height="12" rx="6" fill="#d7d7d7" stroke="#1f2529"/>
+  <text x="454" y="104" font-family="Arial, sans-serif" font-size="12" fill="#1f2529">old clone</text>
+  <line x1="434" y1="132" x2="448" y2="132" stroke="#eb891b" stroke-width="3"/>
+  <text x="454" y="136" font-family="Arial, sans-serif" font-size="12" fill="#1f2529">LAO path</text>
+</svg>

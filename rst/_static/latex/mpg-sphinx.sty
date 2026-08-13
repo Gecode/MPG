@@ -1,0 +1,181 @@
+%% Thin Sphinx adapter for the MPG classical presentation package.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mpg-sphinx}[2026/08/09 Sphinx adapter for MPG classical PDF]
+
+\RequirePackage{mpg-classic}
+
+% Small mathematical vocabulary retained from the original MPG macros.  Most
+% legacy notation is now written directly in reST math; these three commands
+% remain in a handful of faithful source passages and are intentionally kept
+% here rather than importing the old PSTricks-heavy macro file.
+\providecommand{\reifyeqv}[2]{#1=\mathtt 1\Leftrightarrow #2}
+\providecommand{\reifyimp}[2]{#1=\mathtt 1\Rightarrow #2}
+\providecommand{\reifypmi}[2]{#1=\mathtt 1\Leftarrow #2}
+\providecommand{\RR}{\ensuremath{\mathbb R}}
+\providecommand{\arcsinh}{\operatorname{arcsinh}}
+\providecommand{\arccosh}{\operatorname{arccosh}}
+\providecommand{\arctanh}{\operatorname{arctanh}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\makeatletter
+\renewcommand{\sphinxmaketitle}{%
+  \let\sphinxrestorepageanchorsetting\relax
+  \ifHy@pageanchor\def\sphinxrestorepageanchorsetting{\Hy@pageanchortrue}\fi
+  \hypersetup{pageanchor=false,pdfauthor={\@author},pdftitle={\@title}}%
+  \begin{titlepage}
+    \thispagestyle{empty}
+    \vspace*{1in}
+    \begin{flushright}
+      \MPGLogo\par
+      \vspace*{1.5in}
+      {\MPGBigTitle\bfseries\@title\par}
+      \vspace*{3em}
+      {\color{GecodeGreen}\href{mailto:schulte@gecode.dev}{Christian Schulte}\par}
+      \medskip
+      {\color{GecodeGreen}\href{mailto:tack@gecode.dev}{Guido Tack}\par}
+      \medskip
+      {\color{GecodeGreen}\href{mailto:lagerkvist@gecode.dev}{Mikael Z.\ Lagerkvist}\par}
+    \end{flushright}
+  \end{titlepage}
+  \setcounter{footnote}{0}%
+  \clearpage
+  \ifdefined\sphinxbackoftitlepage\sphinxbackoftitlepage\fi
+  \if@openright\cleardoublepage\else\clearpage\fi
+  \sphinxrestorepageanchorsetting}
+
+% The publication page preceded the contents in every classical MPG release.
+% Keeping it in the title adapter avoids turning it into numbered book content
+% while the equivalent semantic material remains available to the HTML build.
+\newcommand{\sphinxbackoftitlepage}{%
+  \thispagestyle{empty}%
+  \vspace*{1in}%
+  This document was published on \today. It corresponds to Gecode \py@release.
+  \vspace*{1in}\par
+  \textcopyright{} Christian Schulte, Guido Tack, Mikael Z.\ Lagerkvist,
+  2008--2026.
+  \vspace*{1in}\par
+  \phantomsection\pdfbookmark{License information}{licenseinformation}%
+  \subsection*{License information}
+  This document is provided under the terms of the
+  \begin{center}
+    \href{https://creativecommons.org/licenses/by-nc-nd/3.0/}{%
+      \Large\bfseries CC BY-NC-ND 3.0}
+    \vskip .75em
+    \href{https://creativecommons.org/licenses/by-nc-nd/3.0/}{Creative Commons
+      License Attribution-Noncommercial-No Derivative Works 3.0}
+  \end{center}
+  The complete license text can be found at the end of this document.
+
+  We kindly ask you to not make this document available on the Internet such
+  that it might be indexed by a search engine. We insist that search engines
+  should point to a single and up-to-date version of this document.
+
+  The location of this document is:
+  \begin{center}\url{https://www.gecode.dev/doc/\MPGGecodeVersion/MPG.pdf}\end{center}
+  The location of this document corresponding to the latest Gecode version is:
+  \begin{center}\url{https://www.gecode.dev/doc-latest/MPG.pdf}\end{center}
+
+  \phantomsection\pdfbookmark{Acknowledgments}{acknowledgments}%
+  \subsection*{Acknowledgments}
+  We thank the following people for helpful comments: Vincent Barichard,
+  L\'eonard Benedetti, Pavel Bochman, Markus B\"ohm, Roberto Casta\~neda
+  Lozano, Marco Correia, Gregory Crosswhite, Pierre Flener, Florian Fontan,
+  Gustavo Gutierrez, Gabriel Hjort Blindell, Sverker Janson, Andreas Karlsson,
+  H\aa kan Kjellerstrand, Chris Mears, Benjamin Negrevergne, Flutra Osmani,
+  Max Ostrowski, David Rijsman, Dan Scott, and Kish Shen.}
+
+% The old Figures list intentionally combined illustrations, tables presented
+% as figures, and numbered program listings.  Sphinx gives programs their own
+% counter; sharing the .lof preserves the distinct Program numbers while
+% restoring the established combined list.
+\renewcommand*{\ext@literalblock}{lof}
+\newcommand*{\l@literalblock}{\@dottedtocline{1}{1.5em}{3em}}
+\newcommand*{\ext@mpgtip}{lotip}
+\newcommand*{\l@mpgtip}{\@dottedtocline{1}{1.5em}{3em}}
+\newcommand{\listoftips}{%
+  \chapter*{Tips}%
+  \@mkboth{\MakeUppercase{Tips}}{\MakeUppercase{Tips}}%
+  \@starttoc{lotip}}
+
+\renewcommand{\sphinxtableofcontents}{%
+  \pagenumbering{Roman}%
+  \pagestyle{plain}%
+  \begingroup
+    \parskip\z@skip
+    \phantomsection\pdfbookmark{Contents}{contents}%
+    \renewcommand*{\@pnumwidth}{2em}%
+    \sphinxtableofcontentshook
+    \tableofcontents
+  \endgroup
+  \cleardoublepage
+  \begingroup
+    \renewcommand{\listfigurename}{Figures}%
+    \renewcommand*{\l@figure}{\@dottedtocline{1}{1.5em}{3em}}%
+    \renewcommand*{\@pnumwidth}{2em}%
+    \phantomsection\pdfbookmark{Figures}{figures}%
+    \listoffigures
+  \endgroup
+  \cleardoublepage
+  \begingroup
+    \renewcommand*{\@pnumwidth}{2em}%
+    \phantomsection\pdfbookmark{Tips}{tips}%
+    \listoftips
+  \endgroup
+  \cleardoublepage
+  \pagenumbering{arabic}%
+  \pagestyle{plain}}
+
+\hypersetup{
+  pdflang={en-GB},
+  pdfdisplaydoctitle=true,
+  pdfsubject={Constraint programming},
+  pdfkeywords={Gecode, constraint programming, constraint solving, modeling,
+    constraints, search, propagators, branchers}}
+
+\renewcommand{\sphinxcrossref}[1]{#1}
+% MPG used a run-in ``Important.`` paragraph, not an icon-bearing callout.
+% Keeping that vocabulary also removes a misleading pause-circle glyph from
+% both the visual page and extracted text.
+\renewenvironment{sphinximportant}[1]{%
+  \begin{trivlist}\item\relax
+  \textbf{\sphinxremovefinalcolon{#1}.}\enspace\ignorespaces
+}{\end{trivlist}}
+\AtBeginDocument{%
+  \setlength{\parindent}{15pt}%
+  \setlength{\parskip}{0pt plus 1pt}}
+
+\@ifpackageloaded{fancyhdr}{%
+  \fancypagestyle{plain}{%
+    \fancyhf{}\fancyfoot[C]{\thepage}%
+    \renewcommand{\headrulewidth}{0pt}%
+    \renewcommand{\footrulewidth}{0pt}}
+  \fancypagestyle{normal}{%
+    \fancyhf{}\fancyfoot[C]{\thepage}%
+    \renewcommand{\headrulewidth}{0pt}%
+    \renewcommand{\footrulewidth}{0pt}}}{}
+\makeatother
+
+\fvset{fontfamily=fvm}
+\let\MPGSphinxOriginalVerbatim\OriginalVerbatim
+\renewcommand{\OriginalVerbatim}{%
+  \fontencoding{T1}\fontfamily{fvm}\selectfont\MPGSphinxOriginalVerbatim}
+\renewcommand{\literalblockname}{\textcolor{GecodeRed}{\MPGProgramLabel}\space}
+\sphinxsetup{
+  TitleColor={named}{black},
+  InnerLinkColor={named}{GecodeBlue},
+  OuterLinkColor={named}{GecodeGreen},
+  VerbatimColor={named}{GecodeOrangeOp20},
+  VerbatimBorderColor={named}{GecodeOrange},
+  verbatimborder=0.4pt,
+  div.tip_border-TeXcolor=GecodeBlue,
+  div.tip_background-TeXcolor=GecodeBlueOp10,
+  div.tip_title-background-TeXcolor=GecodeBlueOp20,
+  div.tip_title-foreground-TeXcolor=GecodeBlue,
+  div.tip_title-icon={},
+  div.tip_border-radius=2pt,
+  div.tip_box-shadow=none,
+  div.note_title-icon={},
+  div.important_title-icon={}
+}
+\endinput

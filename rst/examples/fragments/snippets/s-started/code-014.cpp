@@ -1,0 +1,1 @@
+s->constrain(*b);

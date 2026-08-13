@@ -1,0 +1,3 @@
+for (IntVarArgs::iterator i = a.begin(); i != a.end(); ++i) {
+   ...
+}

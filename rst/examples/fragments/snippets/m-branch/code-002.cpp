@@ -1,0 +1,3 @@
+branch(home, x, INT_VAR_SIZE_MIN(), INT_VAL_MIN());
+...
+branch(home, y, INT_VAR_SIZE_MIN(), INT_VAL_MIN());

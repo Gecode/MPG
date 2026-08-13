@@ -1,0 +1,3226 @@
+[
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 159,
+    "label": "fig:v:started:header",
+    "labels": [
+      "fig:v:started:header"
+    ],
+    "caption_latex": "The header file for integer interval variables",
+    "caption": "The header file for integer interval variables",
+    "alt": "The header file for integer interval variables",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 500,
+    "label": "fig:v:varimp:vis",
+    "labels": [
+      "fig:v:varimp:vis"
+    ],
+    "caption_latex": "Variable implementation specification",
+    "caption": "Variable implementation specification",
+    "alt": "Variable implementation specification",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 536,
+    "label": "fig:v:varimp:vis:me",
+    "labels": [
+      "fig:v:varimp:vis:me"
+    ],
+    "caption_latex": "Modification event section",
+    "caption": "Modification event section",
+    "alt": "Modification event section",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 617,
+    "label": "fig:v:varimp:vis:pc",
+    "labels": [
+      "fig:v:varimp:vis:pc"
+    ],
+    "caption_latex": "Propagation condition section",
+    "caption": "Propagation condition section",
+    "alt": "Propagation condition section",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 673,
+    "label": "fig:v:varimp:varimp",
+    "labels": [
+      "fig:v:varimp:varimp"
+    ],
+    "caption_latex": "Variable implementation",
+    "caption": "Variable implementation",
+    "alt": "Variable implementation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 813,
+    "label": "fig:v:varimp:inherited",
+    "labels": [
+      "fig:v:varimp:inherited"
+    ],
+    "caption_latex": "Summary of member functions predefined by variable implementations",
+    "caption": "Summary of member functions predefined by variable implementations",
+    "alt": "Summary of member functions predefined by variable implementations",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 984,
+    "label": "fig:v:var:var",
+    "labels": [
+      "fig:v:var:var"
+    ],
+    "caption_latex": "Variable programmed from a variable implementation",
+    "caption": "Variable programmed from a variable implementation",
+    "alt": "Variable programmed from a variable implementation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1032,
+    "label": "fig:v:var:inherited",
+    "labels": [
+      "fig:v:var:inherited"
+    ],
+    "caption_latex": "Summary of member functions predefined by variables",
+    "caption": "Summary of member functions predefined by variables",
+    "alt": "Summary of member functions predefined by variables",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1070,
+    "label": "fig:v:var:traits",
+    "labels": [
+      "fig:v:var:traits"
+    ],
+    "caption_latex": "Array traits for variable arrays",
+    "caption": "Array traits for variable arrays",
+    "alt": "Array traits for variable arrays",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1093,
+    "label": "fig:v:var:array",
+    "labels": [
+      "fig:v:var:array"
+    ],
+    "caption_latex": "Variable arrays",
+    "caption": "Variable arrays",
+    "alt": "Variable arrays",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1167,
+    "label": "fig:v:view:predefined",
+    "labels": [
+      "fig:v:view:predefined"
+    ],
+    "caption_latex": "Summary of member functions predefined by views",
+    "caption": "Summary of member functions predefined by views",
+    "alt": "Summary of member functions predefined by views",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1244,
+    "label": "fig:v:view:int",
+    "labels": [
+      "fig:v:view:int"
+    ],
+    "caption_latex": "Integer view",
+    "caption": "Integer view",
+    "alt": "Integer view",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1289,
+    "label": "fig:v:view:const",
+    "labels": [
+      "fig:v:view:const"
+    ],
+    "caption_latex": "Constant integer view",
+    "caption": "Constant integer view",
+    "alt": "Constant integer view",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1341,
+    "label": "fig:v:view:minus",
+    "labels": [
+      "fig:v:view:minus"
+    ],
+    "caption_latex": "Minus view",
+    "caption": "Minus view",
+    "alt": "Minus view",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1364,
+    "label": "fig:v:view:minusmepc",
+    "labels": [
+      "fig:v:view:minusmepc"
+    ],
+    "caption_latex": "Negation of modification events and propagation conditions",
+    "caption": "Negation of modification events and propagation conditions",
+    "alt": "Negation of modification events and propagation conditions",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1425,
+    "label": "fig:v:view:offset",
+    "labels": [
+      "fig:v:view:offset"
+    ],
+    "caption_latex": "Offset view",
+    "caption": "Offset view",
+    "alt": "Offset view",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1469,
+    "label": "fig:v:branch:structure",
+    "labels": [
+      "fig:v:branch:structure"
+    ],
+    "caption_latex": "Part of header file concerned with branching",
+    "caption": "Part of header file concerned with branching",
+    "alt": "Part of header file concerned with branching",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1568,
+    "label": "fig:v:branch:intvarbranch",
+    "labels": [
+      "fig:v:branch:intvarbranch"
+    ],
+    "caption_latex": "Variable selection class",
+    "caption": "Variable selection class",
+    "alt": "Variable selection class",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1619,
+    "label": "fig:v:branch:viewsel",
+    "labels": [
+      "fig:v:branch:viewsel"
+    ],
+    "caption_latex": "View selection creation function",
+    "caption": "View selection creation function",
+    "alt": "View selection creation function",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1665,
+    "label": "fig:v:branch:meritsize",
+    "labels": [
+      "fig:v:branch:meritsize"
+    ],
+    "caption_latex": "Size merit class",
+    "caption": "Size merit class",
+    "alt": "Size merit class",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1713,
+    "label": "fig:v:branch:valcommit",
+    "labels": [
+      "fig:v:branch:valcommit"
+    ],
+    "caption_latex": "Value selection and commit creation function",
+    "caption": "Value selection and commit creation function",
+    "alt": "Value selection and commit creation function",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1832,
+    "label": "fig:v:branch:branch",
+    "labels": [
+      "fig:v:branch:branch"
+    ],
+    "caption_latex": "Branch function",
+    "caption": "Branch function",
+    "alt": "Branch function",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1862,
+    "label": "fig:v:branch:branchtb",
+    "labels": [
+      "fig:v:branch:branchtb"
+    ],
+    "caption_latex": "Branch function with tie-breaking",
+    "caption": "Branch function with tie-breaking",
+    "alt": "Branch function with tie-breaking",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 1899,
+    "label": "fig:v:trace:tracing",
+    "labels": [
+      "fig:v:trace:tracing"
+    ],
+    "caption_latex": "Part of header file concerned with tracing",
+    "caption": "Part of header file concerned with tracing",
+    "alt": "Part of header file concerned with tracing",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/appendix/v.tex.in",
+    "line": 2025,
+    "label": "fig:v:all:golomb",
+    "labels": [
+      "fig:v:all:golomb"
+    ],
+    "caption_latex": "Golomb rulers \u00e0 la integer interval variables",
+    "caption": "Golomb rulers \u00e0 la integer interval variables",
+    "alt": "Golomb rulers \u00e0 la integer interval variables",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 40,
+    "label": "fig:c:bpp:optimal",
+    "labels": [
+      "fig:c:bpp:optimal"
+    ],
+    "caption_latex": "An example optimal bin packing",
+    "caption": "An example optimal bin packing",
+    "alt": "An example optimal bin packing",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-bpp-optimal.svg",
+    "pdf_asset": "figures/pdf/fig-c-bpp-optimal.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 94,
+    "label": "fig:c:bpp:data",
+    "labels": [
+      "fig:c:bpp:data"
+    ],
+    "caption_latex": "Instance data for a bin packing problem",
+    "caption": "Instance data for a bin packing problem",
+    "alt": "Instance data for a bin packing problem",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 112,
+    "label": "fig:c:bpp:lower",
+    "labels": [
+      "fig:c:bpp:lower"
+    ],
+    "caption_latex": "Computing a lower bound for the number of bins",
+    "caption": "Computing a lower bound for the number of bins",
+    "alt": "Computing a lower bound for the number of bins",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 144,
+    "label": "fig:c:bpp:upper",
+    "labels": [
+      "fig:c:bpp:upper"
+    ],
+    "caption_latex": "Computing an upper bound for the number of bins",
+    "caption": "Computing an upper bound for the number of bins",
+    "alt": "Computing an upper bound for the number of bins",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 170,
+    "label": "fig:c:bpp:greedy",
+    "labels": [
+      "fig:c:bpp:greedy"
+    ],
+    "caption_latex": "An non-optimal bin packing found during upper bound computation",
+    "caption": "An non-optimal bin packing found during upper bound computation",
+    "alt": "An non-optimal bin packing found during upper bound computation",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-bpp-greedy.svg",
+    "pdf_asset": "figures/pdf/fig-c-bpp-greedy.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 219,
+    "label": "fig:c:bpp:naive",
+    "labels": [
+      "fig:c:bpp:naive"
+    ],
+    "caption_latex": "A naive script for solving a bin packing problem",
+    "caption": "A naive script for solving a bin packing problem",
+    "alt": "A naive script for solving a bin packing problem",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 350,
+    "label": "fig:c:bpp:prop",
+    "labels": [
+      "fig:c:bpp:prop"
+    ],
+    "caption_latex": "A script with improved propagation for solving a bin packing problem",
+    "caption": "A script with improved propagation for solving a bin packing problem",
+    "alt": "A script with improved propagation for solving a bin packing problem",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 425,
+    "label": "fig:c:bpp:branch",
+    "labels": [
+      "fig:c:bpp:branch"
+    ],
+    "caption_latex": "A script with improved branching for solving a bin packing problem",
+    "caption": "A script with improved branching for solving a bin packing problem",
+    "alt": "A script with improved branching for solving a bin packing problem",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 437,
+    "label": "fig:c:bpp:cdbf",
+    "labels": [
+      "fig:c:bpp:cdbf"
+    ],
+    "caption_latex": "CDBF brancher and branching",
+    "caption": "CDBF brancher and branching",
+    "alt": "CDBF brancher and branching",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-bin-packing.tex.in",
+    "line": 548,
+    "label": "fig:c:bpp:choice",
+    "labels": [
+      "fig:c:bpp:choice"
+    ],
+    "caption_latex": "CDBF choice",
+    "caption": "CDBF choice",
+    "alt": "CDBF choice",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 22,
+    "label": "fig:c:crossword:grid",
+    "labels": [
+      "fig:c:crossword:grid"
+    ],
+    "caption_latex": "A crossword puzzle grid",
+    "caption": "A crossword puzzle grid",
+    "alt": "A crossword puzzle grid",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-crossword-grid.svg",
+    "pdf_asset": "figures/pdf/fig-c-crossword-grid.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 56,
+    "label": "fig:c:crossword:solution",
+    "labels": [
+      "fig:c:crossword:solution"
+    ],
+    "caption_latex": "Solution for crossword puzzle grid from \\autoref{fig:c:crossword:grid}",
+    "caption": "Solution for crossword puzzle grid from fig:c:crossword:grid",
+    "alt": "Solution for crossword puzzle grid from fig:c:crossword:grid",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-crossword-solution.svg",
+    "pdf_asset": "figures/pdf/fig-c-crossword-solution.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 123,
+    "label": "fig:c:crossword:script",
+    "labels": [
+      "fig:c:crossword:script"
+    ],
+    "caption_latex": "Crossword script",
+    "caption": "Crossword script",
+    "alt": "Crossword script",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 138,
+    "label": "fig:c:crossword:spec",
+    "labels": [
+      "fig:c:crossword:spec"
+    ],
+    "caption_latex": "Grid and words specification",
+    "caption": "Grid and words specification",
+    "alt": "Grid and words specification",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 268,
+    "label": "fig:c:crossword:optimized",
+    "labels": [
+      "fig:c:crossword:optimized"
+    ],
+    "caption_latex": "An optimized crossword script",
+    "caption": "An optimized crossword script",
+    "alt": "An optimized crossword script",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 373,
+    "label": "fig:c:crossword:compare",
+    "labels": [
+      "fig:c:crossword:compare"
+    ],
+    "caption_latex": "Comparison of Gecode model with \\COMBUS",
+    "caption": "Comparison of Gecode model with",
+    "alt": "Comparison of Gecode model with",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 457,
+    "label": "fig:c:crossword:restart",
+    "labels": [
+      "fig:c:crossword:restart"
+    ],
+    "caption_latex": "Comparison of Gecode model using restarts with \\COMBUS",
+    "caption": "Comparison of Gecode model using restarts with",
+    "alt": "Comparison of Gecode model using restarts with",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 524,
+    "label": "fig:c:crossword:hard",
+    "labels": [
+      "fig:c:crossword:hard"
+    ],
+    "caption_latex": "Results for some hard \\texttt{words} dictionary instances",
+    "caption": "Results for some hard words dictionary instances",
+    "alt": "Results for some hard words dictionary instances",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 545,
+    "label": "fig:c:crossword:sol:21:10",
+    "labels": [
+      "fig:c:crossword:sol:21:10"
+    ],
+    "caption_latex": "Solution for instance \\inst{words}{21}{10}",
+    "caption": "Solution for instance words2110",
+    "alt": "Solution for instance words2110",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-crossword-sol-21-10.svg",
+    "pdf_asset": "figures/pdf/fig-c-crossword-sol-21-10.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-crossword.tex.in",
+    "line": 608,
+    "label": "fig:c:crossword:sol:23:06",
+    "labels": [
+      "fig:c:crossword:sol:23:06"
+    ],
+    "caption_latex": "Solution for instance \\inst{words}{23}{06}",
+    "caption": "Solution for instance words2306",
+    "alt": "Solution for instance words2306",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-crossword-sol-23-06.svg",
+    "pdf_asset": "figures/pdf/fig-c-crossword-sol-23-06.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-golf.tex.in",
+    "line": 55,
+    "label": "fig:c:golf:script",
+    "labels": [
+      "fig:c:golf:script"
+    ],
+    "caption_latex": "A script for the social golfers' problem",
+    "caption": "A script for the social golfers' problem",
+    "alt": "A script for the social golfers' problem",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-golomb.tex.in",
+    "line": 27,
+    "label": "fig:c:golomb:example",
+    "labels": [
+      "fig:c:golomb:example"
+    ],
+    "caption_latex": "An optimal Golomb ruler with $6$ marks",
+    "caption": "An optimal Golomb ruler with 6 marks",
+    "alt": "An optimal Golomb ruler with 6 marks",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-golomb-example.svg",
+    "pdf_asset": "figures/pdf/fig-c-golomb-example.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-golomb.tex.in",
+    "line": 57,
+    "label": "fig:c:golomb:constructed",
+    "labels": [
+      "fig:c:golomb:constructed"
+    ],
+    "caption_latex": "A constructed Golomb ruler with $6$ marks",
+    "caption": "A constructed Golomb ruler with 6 marks",
+    "alt": "A constructed Golomb ruler with 6 marks",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-golomb-constructed.svg",
+    "pdf_asset": "figures/pdf/fig-c-golomb-constructed.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-golomb.tex.in",
+    "line": 86,
+    "label": "fig:c:golomb:script",
+    "labels": [
+      "fig:c:golomb:script"
+    ],
+    "caption_latex": "A script for computing Golomb rulers",
+    "caption": "A script for computing Golomb rulers",
+    "alt": "A script for computing Golomb rulers",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-kakuro.tex.in",
+    "line": 36,
+    "label": "fig:c:kakuro:board",
+    "labels": [
+      "fig:c:kakuro:board"
+    ],
+    "caption_latex": "A Kakuro puzzle",
+    "caption": "A Kakuro puzzle",
+    "alt": "A Kakuro puzzle",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-kakuro-board.svg",
+    "pdf_asset": "figures/pdf/fig-c-kakuro-board.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-kakuro.tex.in",
+    "line": 68,
+    "label": "fig:c:kakuro:solution",
+    "labels": [
+      "fig:c:kakuro:solution"
+    ],
+    "caption_latex": "Solution for Kakuro puzzle from \\autoref{fig:c:kakuro:board}",
+    "caption": "Solution for Kakuro puzzle from fig:c:kakuro:board",
+    "alt": "Solution for Kakuro puzzle from fig:c:kakuro:board",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-kakuro-solution.svg",
+    "pdf_asset": "figures/pdf/fig-c-kakuro-solution.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-kakuro.tex.in",
+    "line": 105,
+    "label": "fig:c:kakuro:script:naive",
+    "labels": [
+      "fig:c:kakuro:script:naive"
+    ],
+    "caption_latex": "A naive script and board specification for solving Kakuro puzzles",
+    "caption": "A naive script and board specification for solving Kakuro puzzles",
+    "alt": "A naive script and board specification for solving Kakuro puzzles",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-kakuro.tex.in",
+    "line": 209,
+    "label": "fig:c:kakuro:prop",
+    "labels": [
+      "fig:c:kakuro:prop"
+    ],
+    "caption_latex": "Propagation for the Kakuro puzzle",
+    "caption": "Propagation for the Kakuro puzzle",
+    "alt": "Propagation for the Kakuro puzzle",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-kakuro-prop.svg",
+    "pdf_asset": "figures/pdf/fig-c-kakuro-prop.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-kakuro.tex.in",
+    "line": 295,
+    "label": "fig:c:kakuro:script:work",
+    "labels": [
+      "fig:c:kakuro:script:work"
+    ],
+    "caption_latex": "A working script for solving Kakuro puzzles",
+    "caption": "A working script for solving Kakuro puzzles",
+    "alt": "A working script for solving Kakuro puzzles",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-knights.tex.in",
+    "line": 28,
+    "label": "fig:c:knights:example:8",
+    "labels": [
+      "fig:c:knights:example:8"
+    ],
+    "caption_latex": "$8\\times 8$-knight's tour",
+    "caption": "8 8-knight's tour",
+    "alt": "8 8-knight's tour",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-knights-example-8.svg",
+    "pdf_asset": "figures/pdf/fig-c-knights-example-8.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-knights.tex.in",
+    "line": 72,
+    "label": "fig:c:knights:script",
+    "labels": [
+      "fig:c:knights:script"
+    ],
+    "caption_latex": "A script for the knight's tour problem",
+    "caption": "A script for the knight's tour problem",
+    "alt": "A script for the knight's tour problem",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-knights.tex.in",
+    "line": 161,
+    "label": "fig:c:knights:branching",
+    "labels": [
+      "fig:c:knights:branching"
+    ],
+    "caption_latex": "A brancher for Warnsdorff's heuristic",
+    "caption": "A brancher for Warnsdorff's heuristic",
+    "alt": "A brancher for Warnsdorff's heuristic",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-magic-sequence.tex.in",
+    "line": 25,
+    "label": "fig:c:magic_sequence",
+    "labels": [
+      "fig:c:magic_sequence"
+    ],
+    "caption_latex": "A script for solving magic sequence puzzles",
+    "caption": "A script for solving magic sequence puzzles",
+    "alt": "A script for solving magic sequence puzzles",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-magic-sequence.tex.in",
+    "line": 103,
+    "label": "fig:c:magic_sequence_gcc",
+    "labels": [
+      "fig:c:magic_sequence_gcc"
+    ],
+    "caption_latex": "Magic sequence puzzles with a global counting constraint",
+    "caption": "Magic sequence puzzles with a global counting constraint",
+    "alt": "Magic sequence puzzles with a global counting constraint",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-nonogram.tex.in",
+    "line": 27,
+    "label": "fig:c:nonogram:ex",
+    "labels": [
+      "fig:c:nonogram:ex"
+    ],
+    "caption_latex": "Example nonogram puzzle",
+    "caption": "Example nonogram puzzle",
+    "alt": "Example nonogram puzzle",
+    "kind": "data-diagram",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-nonogram-ex.svg",
+    "pdf_asset": "figures/pdf/fig-c-nonogram-ex.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-nonogram.tex.in",
+    "line": 47,
+    "label": "fig:c:nonogram:ex-sol",
+    "labels": [
+      "fig:c:nonogram:ex-sol"
+    ],
+    "caption_latex": "Solution to the example puzzle",
+    "caption": "Solution to the example puzzle",
+    "alt": "Solution to the example puzzle",
+    "kind": "data-diagram",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-c-nonogram-ex-sol.svg",
+    "pdf_asset": "figures/pdf/fig-c-nonogram-ex-sol.pdf"
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-nonogram.tex.in",
+    "line": 86,
+    "label": "fig:c:nonogram",
+    "labels": [
+      "fig:c:nonogram"
+    ],
+    "caption_latex": "A script for solving nonogram puzzles",
+    "caption": "A script for solving nonogram puzzles",
+    "alt": "A script for solving nonogram puzzles",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-photo.tex.in",
+    "line": 44,
+    "label": "fig:c:photo:script",
+    "labels": [
+      "fig:c:photo:script"
+    ],
+    "caption_latex": "A script for the photo alignment problem",
+    "caption": "A script for the photo alignment problem",
+    "alt": "A script for the photo alignment problem",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/case-studies/c-warehouses.tex.in",
+    "line": 62,
+    "label": "fig:c:warehouses:script",
+    "labels": [
+      "fig:c:warehouses:script"
+    ],
+    "caption_latex": "A script for locating warehouses",
+    "caption": "A script for locating warehouses",
+    "alt": "A script for locating warehouses",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/core/intro.tex.in",
+    "line": 121,
+    "label": "fig:intro:gecode_architecture",
+    "labels": [
+      "fig:intro:gecode_architecture"
+    ],
+    "caption_latex": "Gecode architecture",
+    "caption": "Gecode architecture",
+    "alt": "Gecode architecture",
+    "kind": "semantic-redraw",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-intro-gecode_architecture.svg",
+    "pdf_asset": "figures/pdf/fig-intro-gecode_architecture.pdf"
+  },
+  {
+    "source": "docs/src/chapters/core/intro.tex.in",
+    "line": 232,
+    "label": "fig:intro:dep",
+    "labels": [
+      "fig:intro:dep"
+    ],
+    "caption_latex": "Dependencies among different parts of this document",
+    "caption": "Dependencies among different parts of this document",
+    "alt": "Dependencies among different parts of this document",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-intro-dep.svg",
+    "pdf_asset": "figures/pdf/fig-intro-dep.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 119,
+    "label": "fig:m:branch:int:var:int",
+    "labels": [
+      "fig:m:branch:int:var:int"
+    ],
+    "caption_latex": "Integer variable selection",
+    "caption": "Integer variable selection",
+    "alt": "Integer variable selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 205,
+    "label": "fig:m:branch:int:val:int",
+    "labels": [
+      "fig:m:branch:int:val:int"
+    ],
+    "caption_latex": "Integer value selection",
+    "caption": "Integer value selection",
+    "alt": "Integer value selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 299,
+    "label": "fig:m:branch:int:var:bool",
+    "labels": [
+      "fig:m:branch:int:var:bool"
+    ],
+    "caption_latex": "Boolean variable selection",
+    "caption": "Boolean variable selection",
+    "alt": "Boolean variable selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 353,
+    "label": "fig:m:branch:int:val:bool",
+    "labels": [
+      "fig:m:branch:int:val:bool"
+    ],
+    "caption_latex": "Boolean value selection",
+    "caption": "Boolean value selection",
+    "alt": "Boolean value selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 391,
+    "label": "fig:m:branch:set:var",
+    "labels": [
+      "fig:m:branch:set:var"
+    ],
+    "caption_latex": "Set variable selection",
+    "caption": "Set variable selection",
+    "alt": "Set variable selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 464,
+    "label": "fig:m:branch:set:val",
+    "labels": [
+      "fig:m:branch:set:val"
+    ],
+    "caption_latex": "Set value selection",
+    "caption": "Set value selection",
+    "alt": "Set value selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 507,
+    "label": "fig:m:branch:float:var",
+    "labels": [
+      "fig:m:branch:float:var"
+    ],
+    "caption_latex": "Float variable selection",
+    "caption": "Float variable selection",
+    "alt": "Float variable selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 582,
+    "label": "fig:m:branch:float:val",
+    "labels": [
+      "fig:m:branch:float:val"
+    ],
+    "caption_latex": "Float value selection",
+    "caption": "Float value selection",
+    "alt": "Float value selection",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 1051,
+    "label": "fig:m:branch:val",
+    "labels": [
+      "fig:m:branch:val"
+    ],
+    "caption_latex": "Branch value functions",
+    "caption": "Branch value functions",
+    "alt": "Branch value functions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 1127,
+    "label": "fig:m:branch:commit",
+    "labels": [
+      "fig:m:branch:commit"
+    ],
+    "caption_latex": "Branch commit functions",
+    "caption": "Branch commit functions",
+    "alt": "Branch commit functions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 1295,
+    "label": "fig:m:branch:latin:ldsb",
+    "labels": [
+      "fig:m:branch:latin:ldsb"
+    ],
+    "caption_latex": "A Gecode model for Latin Squares with LDSB",
+    "caption": "A Gecode model for Latin Squares with LDSB",
+    "alt": "A Gecode model for Latin Squares with LDSB",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 1318,
+    "label": "fig:m:branch:latin:syms",
+    "labels": [
+      "fig:m:branch:latin:syms"
+    ],
+    "caption_latex": "Symmetric solutions of the Latin Square problem",
+    "caption": "Symmetric solutions of the Latin Square problem",
+    "alt": "Symmetric solutions of the Latin Square problem",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 1499,
+    "label": "fig:m:branch:filter:sketch",
+    "labels": [
+      "fig:m:branch:filter:sketch"
+    ],
+    "caption_latex": "Model sketch for branch filter function",
+    "caption": "Model sketch for branch filter function",
+    "alt": "Model sketch for branch filter function",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-branch.tex.in",
+    "line": 1568,
+    "label": "fig:m:branch:assign",
+    "labels": [
+      "fig:m:branch:assign"
+    ],
+    "caption_latex": "Value selection for assigning variables",
+    "caption": "Value selection for assigning variables",
+    "alt": "Value selection for assigning variables",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-comfy.tex.in",
+    "line": 22,
+    "label": "fig:m:comfy:smm-mm",
+    "labels": [
+      "fig:m:comfy:smm-mm"
+    ],
+    "caption_latex": "A Gecode model for Send More Money using modeling support",
+    "caption": "A Gecode model for Send More Money using modeling support",
+    "alt": "A Gecode model for Send More Money using modeling support",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-comfy.tex.in",
+    "line": 48,
+    "label": "fig:m:comfy:smm-best:minimodel",
+    "labels": [
+      "fig:m:comfy:smm-best:minimodel"
+    ],
+    "caption_latex": "A Gecode model for Send Most Money using a cost function",
+    "caption": "A Gecode model for Send Most Money using a cost function",
+    "alt": "A Gecode model for Send Most Money using a cost function",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-comfy.tex.in",
+    "line": 105,
+    "label": "fig:m:comfy:driver",
+    "labels": [
+      "fig:m:comfy:driver"
+    ],
+    "caption_latex": "A Gecode model for Send Most Money using the script\n  commandline driver",
+    "caption": "A Gecode model for Send Most Money using the script commandline driver",
+    "alt": "A Gecode model for Send Most Money using the script commandline driver",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-driver.tex.in",
+    "line": 29,
+    "label": "fig:m:driver:options:a",
+    "labels": [
+      "fig:m:driver:options:a"
+    ],
+    "caption_latex": "Predefined commandline options",
+    "caption": "Predefined commandline options",
+    "alt": "Predefined commandline options",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-driver.tex.in",
+    "line": 86,
+    "label": "fig:m:driver:options:b",
+    "labels": [
+      "fig:m:driver:options:b"
+    ],
+    "caption_latex": "Predefined commandline options, continued",
+    "caption": "Predefined commandline options, continued",
+    "alt": "Predefined commandline options, continued",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-driver.tex.in",
+    "line": 122,
+    "label": "fig:m:driver:options:user",
+    "labels": [
+      "fig:m:driver:options:user"
+    ],
+    "caption_latex": "User-definable commandline options",
+    "caption": "User-definable commandline options",
+    "alt": "User-definable commandline options",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-float.tex.in",
+    "line": 123,
+    "label": "fig:m:float:val:fun",
+    "labels": [
+      "fig:m:float:val:fun"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig m float val fun",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-float.tex.in",
+    "line": 323,
+    "label": "fig:m:float:frt",
+    "labels": [
+      "fig:m:float:frt"
+    ],
+    "caption_latex": "Float relation types",
+    "caption": "Float relation types",
+    "alt": "Float relation types",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-float.tex.in",
+    "line": 411,
+    "label": "fig:m:float:arithmetic",
+    "labels": [
+      "fig:m:float:arithmetic"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig m float arithmetic",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 33,
+    "label": "fig:m:gist:smm_full_tree_clean",
+    "labels": [
+      "fig:m:gist:smm_full_tree_clean"
+    ],
+    "caption_latex": "A search tree",
+    "caption": "A search tree",
+    "alt": "A search tree",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_smm_full_tree_clean"
+    ],
+    "html_asset": "figures/fig-m-gist-smm_full_tree_clean.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-smm_full_tree_clean.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 63,
+    "label": "fig:m:gist:gist_smm",
+    "labels": [
+      "fig:m:gist:gist_smm"
+    ],
+    "caption_latex": "Gist, solving the Send More Money problem",
+    "caption": "Gist, solving the Send More Money problem",
+    "alt": "Gist, solving the Send More Money problem",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_smm_init",
+      "images/gist_smm_full_tree"
+    ],
+    "html_asset": "figures/fig-m-gist-gist_smm.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-gist_smm.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 120,
+    "label": "fig:m:gist:hidden",
+    "labels": [
+      "fig:m:gist:hidden"
+    ],
+    "caption_latex": "A hidden subtree in Gist",
+    "caption": "A hidden subtree in Gist",
+    "alt": "A hidden subtree in Gist",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_hidden"
+    ],
+    "html_asset": "figures/fig-m-gist-hidden.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-hidden.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 143,
+    "label": "fig:m:gist:node_menu",
+    "labels": [
+      "fig:m:gist:node_menu"
+    ],
+    "caption_latex": "The \\emph{Node} menu",
+    "caption": "The Node menu",
+    "alt": "The Node menu",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_menu_node"
+    ],
+    "html_asset": "figures/fig-m-gist-node_menu.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-node_menu.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 165,
+    "label": "fig:m:gist:branches",
+    "labels": [
+      "fig:m:gist:branches"
+    ],
+    "caption_latex": "Branch information in Gist",
+    "caption": "Branch information in Gist",
+    "alt": "Branch information in Gist",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_smm_branches"
+    ],
+    "html_asset": "figures/fig-m-gist-branches.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-branches.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 207,
+    "label": "fig:m:gist:tools_menu",
+    "labels": [
+      "fig:m:gist:tools_menu"
+    ],
+    "caption_latex": "The \\emph{Tools} menu",
+    "caption": "The Tools menu",
+    "alt": "The Tools menu",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_menu_tools"
+    ],
+    "html_asset": "figures/fig-m-gist-tools_menu.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-tools_menu.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 217,
+    "label": "fig:m:gist:inspect",
+    "labels": [
+      "fig:m:gist:inspect"
+    ],
+    "caption_latex": "Inspecting a solution in Gist",
+    "caption": "Inspecting a solution in Gist",
+    "alt": "Inspecting a solution in Gist",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_smm_solution"
+    ],
+    "html_asset": "figures/fig-m-gist-inspect.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-inspect.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 255,
+    "label": "fig:m:gist:gist-compare",
+    "labels": [
+      "fig:m:gist:gist-compare"
+    ],
+    "caption_latex": "Using Gist for Send More Money with node comparison",
+    "caption": "Using Gist for Send More Money with node comparison",
+    "alt": "Using Gist for Send More Money with node comparison",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 275,
+    "label": "fig:m:gist:subtreestats",
+    "labels": [
+      "fig:m:gist:subtreestats"
+    ],
+    "caption_latex": "Node statistics",
+    "caption": "Node statistics",
+    "alt": "Node statistics",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_node_stats"
+    ],
+    "html_asset": "figures/fig-m-gist-subtreestats.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-subtreestats.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 313,
+    "label": "fig:m:gist:preferences",
+    "labels": [
+      "fig:m:gist:preferences"
+    ],
+    "caption_latex": "Gist preferences",
+    "caption": "Gist preferences",
+    "alt": "Gist preferences",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_preferences_drawing",
+      "images/gist_preferences_search"
+    ],
+    "html_asset": "figures/fig-m-gist-preferences.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-preferences.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-gist.tex.in",
+    "line": 342,
+    "label": "fig:m:gist:copies",
+    "labels": [
+      "fig:m:gist:copies"
+    ],
+    "caption_latex": "Displaying where Gist stores spaces in the tree",
+    "caption": "Displaying where Gist stores spaces in the tree",
+    "alt": "Displaying where Gist stores spaces in the tree",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist_show_copies"
+    ],
+    "html_asset": "figures/fig-m-gist-copies.svg",
+    "pdf_asset": "figures/pdf/fig-m-gist-copies.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-group.tex.in",
+    "line": 275,
+    "label": "fig:m:group:varsmm",
+    "labels": [
+      "fig:m:group:varsmm"
+    ],
+    "caption_latex": "Abridged output for variable tracing Send More Money",
+    "caption": "Abridged output for variable tracing Send More Money",
+    "alt": "Abridged output for variable tracing Send More Money",
+    "kind": "literal-output-or-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-group.tex.in",
+    "line": 556,
+    "label": "fig:m:group:smm",
+    "labels": [
+      "fig:m:group:smm"
+    ],
+    "caption_latex": "Abridged output for general tracing of Send More Money",
+    "caption": "Abridged output for general tracing of Send More Money",
+    "alt": "Abridged output for general tracing of Send More Money",
+    "kind": "literal-output-or-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-group.tex.in",
+    "line": 658,
+    "label": "fig:m:group:tracer",
+    "labels": [
+      "fig:m:group:tracer"
+    ],
+    "caption_latex": "An integer variable tracer printing to \\?std::cout?",
+    "caption": "An integer variable tracer printing to \\?std::cout?",
+    "alt": "An integer variable tracer printing to \\?std::cout?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-group.tex.in",
+    "line": 822,
+    "label": "fig:m:group:gtracer",
+    "labels": [
+      "fig:m:group:gtracer"
+    ],
+    "caption_latex": "A general tracer printing to \\?std::cout?",
+    "caption": "A general tracer printing to \\?std::cout?",
+    "alt": "A general tracer printing to \\?std::cout?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-integer.tex.in",
+    "line": 974,
+    "label": "fig:m:integer:irt",
+    "labels": [
+      "fig:m:integer:irt"
+    ],
+    "caption_latex": "Integer relation types",
+    "caption": "Integer relation types",
+    "alt": "Integer relation types",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-integer.tex.in",
+    "line": 1098,
+    "label": "fig:m:integer:bot",
+    "labels": [
+      "fig:m:integer:bot"
+    ],
+    "caption_latex": "Boolean operation types",
+    "caption": "Boolean operation types",
+    "alt": "Boolean operation types",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-integer.tex.in",
+    "line": 1215,
+    "label": "fig:m:integer:arithmetic",
+    "labels": [
+      "fig:m:integer:arithmetic"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig m integer arithmetic",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-integer.tex.in",
+    "line": 1825,
+    "label": "fig:m:integer:dfa",
+    "labels": [
+      "fig:m:integer:dfa"
+    ],
+    "caption_latex": "A DFA for the Swedish drinking protocol",
+    "caption": "A DFA for the Swedish drinking protocol",
+    "alt": "A DFA for the Swedish drinking protocol",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-m-integer-dfa.svg",
+    "pdf_asset": "figures/pdf/fig-m-integer-dfa.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-integer.tex.in",
+    "line": 2200,
+    "label": "fig:m:integer:circuit",
+    "labels": [
+      "fig:m:integer:circuit:before",
+      "fig:m:integer:circuit:after",
+      "fig:m:integer:circuit"
+    ],
+    "caption_latex": "Representing edges and propagating \\?circuit?",
+    "caption": "Representing edges and propagating \\?circuit?",
+    "alt": "Representing edges and propagating \\?circuit?",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-m-integer-circuit.svg",
+    "pdf_asset": "figures/pdf/fig-m-integer-circuit.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-integer.tex.in",
+    "line": 2308,
+    "label": "fig:m:integer:costcircuit",
+    "labels": [
+      "fig:m:integer:costcircuit:before",
+      "fig:m:integer:costcircuit:after",
+      "fig:m:integer:costcircuit"
+    ],
+    "caption_latex": "Representing edges and propagating \\?circuit? with cost",
+    "caption": "Representing edges and propagating \\?circuit? with cost",
+    "alt": "Representing edges and propagating \\?circuit? with cost",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-m-integer-costcircuit.svg",
+    "pdf_asset": "figures/pdf/fig-m-integer-costcircuit.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 77,
+    "label": "fig:m:minimodel:integer:expr",
+    "labels": [
+      "fig:m:minimodel:integer:expr"
+    ],
+    "caption_latex": "Integer expressions",
+    "caption": "Integer expressions",
+    "alt": "Integer expressions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 116,
+    "label": "fig:m:minimodel:integer:rel",
+    "labels": [
+      "fig:m:minimodel:integer:rel"
+    ],
+    "caption_latex": "Integer relations",
+    "caption": "Integer relations",
+    "alt": "Integer relations",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 250,
+    "label": "fig:m:minimodel:bool",
+    "labels": [
+      "fig:m:minimodel:bool"
+    ],
+    "caption_latex": "Boolean expressions",
+    "caption": "Boolean expressions",
+    "alt": "Boolean expressions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 394,
+    "label": "fig:m:minimodel:set",
+    "labels": [
+      "fig:m:minimodel:set"
+    ],
+    "caption_latex": "Set expressions and relations",
+    "caption": "Set expressions and relations",
+    "alt": "Set expressions and relations",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 487,
+    "label": "fig:m:minimodel:float:expr",
+    "labels": [
+      "fig:m:minimodel:float:expr"
+    ],
+    "caption_latex": "Float expressions",
+    "caption": "Float expressions",
+    "alt": "Float expressions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 538,
+    "label": "fig:m:minimodel:float:rel",
+    "labels": [
+      "fig:m:minimodel:float:rel"
+    ],
+    "caption_latex": "Float relations",
+    "caption": "Float relations",
+    "alt": "Float relations",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 595,
+    "label": "fig:m:minimodel:domexpr",
+    "labels": [
+      "fig:m:minimodel:domexpr"
+    ],
+    "caption_latex": "The class \\?BoolDomExpr? and the \\?dom()? function",
+    "caption": "The class \\?BoolDomExpr? and the \\?dom()? function",
+    "alt": "The class \\?BoolDomExpr? and the \\?dom()? function",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 848,
+    "label": "fig:m:minimodel:reg",
+    "labels": [
+      "fig:m:minimodel:reg"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig m minimodel reg",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-minimodel.tex.in",
+    "line": 955,
+    "label": "fig:m:minimodel:alias",
+    "labels": [
+      "fig:m:minimodel:alias"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig m minimodel alias",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 97,
+    "label": "fig:m:search:tree",
+    "labels": [
+      "fig:m:search:tree"
+    ],
+    "caption_latex": "Example search tree",
+    "caption": "Example search tree",
+    "alt": "Example search tree",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-m-search-tree.svg",
+    "pdf_asset": "figures/pdf/fig-m-search-tree.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 211,
+    "label": "fig:m:search:hybrid",
+    "labels": [
+      "fig:m:search:hybrid"
+    ],
+    "caption_latex": "Hybrid recomputation",
+    "caption": "Hybrid recomputation",
+    "alt": "Hybrid recomputation",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-m-search-hybrid.svg",
+    "pdf_asset": "figures/pdf/fig-m-search-hybrid.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 453,
+    "label": "fig:m:search:out:8",
+    "labels": [
+      "fig:m:search:out:8"
+    ],
+    "caption_latex": "Output for Golomb rulers with eight workers",
+    "caption": "Output for Golomb rulers with eight workers",
+    "alt": "Output for Golomb rulers with eight workers",
+    "kind": "literal-output-or-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 490,
+    "label": "fig:m:search:out:1",
+    "labels": [
+      "fig:m:search:out:1"
+    ],
+    "caption_latex": "Output for Golomb rulers with one worker",
+    "caption": "Output for Golomb rulers with one worker",
+    "alt": "Output for Golomb rulers with one worker",
+    "kind": "literal-output-or-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 572,
+    "label": "fig:m:search:statistics",
+    "labels": [
+      "fig:m:search:statistics"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig m search statistics",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 632,
+    "label": "fig:m:search:engine",
+    "labels": [
+      "fig:m:search:engine"
+    ],
+    "caption_latex": "Available search engines",
+    "caption": "Available search engines",
+    "alt": "Available search engines",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 678,
+    "label": "fig:m:search:options",
+    "labels": [
+      "fig:m:search:options"
+    ],
+    "caption_latex": "Search options",
+    "caption": "Search options",
+    "alt": "Search options",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 772,
+    "label": "fig:m:search:stop",
+    "labels": [
+      "fig:m:search:stop"
+    ],
+    "caption_latex": "Predefined stop objects",
+    "caption": "Predefined stop objects",
+    "alt": "Predefined stop objects",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 1160,
+    "label": "fig:m:search:mi",
+    "labels": [
+      "fig:m:search:mi"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig m search mi",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 1244,
+    "label": "fig:m:search:restart:default",
+    "labels": [
+      "fig:m:search:restart:default"
+    ],
+    "caption_latex": "Default \\?master()? and \\?slave()? functions",
+    "caption": "Default \\?master()? and \\?slave()? functions",
+    "alt": "Default \\?master()? and \\?slave()? functions",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 1322,
+    "label": "fig:m:search:restart:sketch",
+    "labels": [
+      "fig:m:search:restart:sketch"
+    ],
+    "caption_latex": "Model sketch for LNS",
+    "caption": "Model sketch for LNS",
+    "alt": "Model sketch for LNS",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 1699,
+    "label": "fig:m:search:nogoods",
+    "labels": [
+      "fig:m:search:nogoods"
+    ],
+    "caption_latex": "Search tree after cutoff $3$ has been reached",
+    "caption": "Search tree after cutoff 3 has been reached",
+    "alt": "Search tree after cutoff 3 has been reached",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-m-search-nogoods.svg",
+    "pdf_asset": "figures/pdf/fig-m-search-nogoods.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 1970,
+    "label": "fig:m:search:tracer",
+    "labels": [
+      "fig:m:search:tracer"
+    ],
+    "caption_latex": "A simple tracer printing to \\?std::cout?",
+    "caption": "A simple tracer printing to \\?std::cout?",
+    "alt": "A simple tracer printing to \\?std::cout?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-search.tex.in",
+    "line": 2069,
+    "label": "fig:m:search:tracer:node",
+    "labels": [
+      "fig:m:search:tracer:node"
+    ],
+    "caption_latex": "Member function for node-events",
+    "caption": "Member function for node-events",
+    "alt": "Member function for node-events",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-set.tex.in",
+    "line": 217,
+    "label": "fig:m:set:srt",
+    "labels": [
+      "fig:m:set:srt"
+    ],
+    "caption_latex": "Set relation types",
+    "caption": "Set relation types",
+    "alt": "Set relation types",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-set.tex.in",
+    "line": 327,
+    "label": "fig:m:set:sot",
+    "labels": [
+      "fig:m:set:sot"
+    ],
+    "caption_latex": "Set operation types",
+    "caption": "Set operation types",
+    "alt": "Set operation types",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-started.tex.in",
+    "line": 56,
+    "label": "fig:m:started:smm",
+    "labels": [
+      "fig:m:started:smm"
+    ],
+    "caption_latex": "A Gecode model for Send More Money",
+    "caption": "A Gecode model for Send More Money",
+    "alt": "A Gecode model for Send More Money",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-started.tex.in",
+    "line": 632,
+    "label": "fig:m:started:gist",
+    "labels": [
+      "fig:m:started:gist"
+    ],
+    "caption_latex": "Using Gist for Send More Money",
+    "caption": "Using Gist for Send More Money",
+    "alt": "Using Gist for Send More Money",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-started.tex.in",
+    "line": 658,
+    "label": "fig:m:started:gist:shot",
+    "labels": [
+      "fig:m:started:gist:shot"
+    ],
+    "caption_latex": "Gist screen shots",
+    "caption": "Gist screen shots",
+    "alt": "Gist screen shots",
+    "kind": "screenshot",
+    "legacy_includes": [
+      "images/gist-1",
+      "images/gist-2"
+    ],
+    "html_asset": "figures/fig-m-started-gist-shot.svg",
+    "pdf_asset": "figures/pdf/fig-m-started-gist-shot.pdf"
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-started.tex.in",
+    "line": 678,
+    "label": "fig:m:started:gist-inspect",
+    "labels": [
+      "fig:m:started:gist-inspect"
+    ],
+    "caption_latex": "Using Gist for Send More Money with node inspection",
+    "caption": "Using Gist for Send More Money with node inspection",
+    "alt": "Using Gist for Send More Money with node inspection",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/modeling/m-started.tex.in",
+    "line": 725,
+    "label": "fig:m:started:smm-best",
+    "labels": [
+      "fig:m:started:smm-best"
+    ],
+    "caption_latex": "A Gecode model for Send Most Money finding a best solution",
+    "caption": "A Gecode model for Send Most Money finding a best solution",
+    "alt": "A Gecode model for Send Most Money finding a best solution",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-advisors.tex.in",
+    "line": 262,
+    "label": "fig:p:advisors:samedom",
+    "labels": [
+      "fig:p:advisors:samedom"
+    ],
+    "caption_latex": "A \\?samedom? propagator using advisors",
+    "caption": "A \\?samedom? propagator using advisors",
+    "alt": "A \\?samedom? propagator using advisors",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-advisors.tex.in",
+    "line": 421,
+    "label": "fig:p:advisors:samedomview",
+    "labels": [
+      "fig:p:advisors:samedomview"
+    ],
+    "caption_latex": "A \\?samedom? propagator using predefined view advisors",
+    "caption": "A \\?samedom? propagator using predefined view advisors",
+    "alt": "A \\?samedom? propagator using predefined view advisors",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-advisors.tex.in",
+    "line": 467,
+    "label": "fig:p:advisors:or",
+    "labels": [
+      "fig:p:advisors:or"
+    ],
+    "caption_latex": "A Boolean disjunction propagator using advisors",
+    "caption": "A Boolean disjunction propagator using advisors",
+    "alt": "A Boolean disjunction propagator using advisors",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 39,
+    "label": "fig:p:avoid:equal:naive",
+    "labels": [
+      "fig:p:avoid:equal:naive"
+    ],
+    "caption_latex": "A naive equality bounds propagator",
+    "caption": "A naive equality bounds propagator",
+    "alt": "A naive equality bounds propagator",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 79,
+    "label": "fig:p:avoid:equal",
+    "labels": [
+      "fig:p:avoid:equal"
+    ],
+    "caption_latex": "An equality bounds propagator with fixpoint reasoning",
+    "caption": "An equality bounds propagator with fixpoint reasoning",
+    "alt": "An equality bounds propagator with fixpoint reasoning",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 93,
+    "label": "fig:p:avoid:equal:idempotent",
+    "labels": [
+      "fig:p:avoid:equal:idempotent"
+    ],
+    "caption_latex": "An idempotent equality bounds propagator",
+    "caption": "An idempotent equality bounds propagator",
+    "alt": "An idempotent equality bounds propagator",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 122,
+    "label": "fig:p:avoid:equal:modevent",
+    "labels": [
+      "fig:p:avoid:equal:modevent"
+    ],
+    "caption_latex": "An idempotent equality bounds propagator using\n  modification events",
+    "caption": "An idempotent equality bounds propagator using modification events",
+    "alt": "An idempotent equality bounds propagator using modification events",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 210,
+    "label": "fig:p:avoid:or:naive",
+    "labels": [
+      "fig:p:avoid:or:naive"
+    ],
+    "caption_latex": "Naive Boolean disjunction",
+    "caption": "Naive Boolean disjunction",
+    "alt": "Naive Boolean disjunction",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 259,
+    "label": "fig:p:avoid:ortrue:prop",
+    "labels": [
+      "fig:p:avoid:ortrue:prop"
+    ],
+    "caption_latex": "Propagation for naive Boolean disjunction",
+    "caption": "Propagation for naive Boolean disjunction",
+    "alt": "Propagation for naive Boolean disjunction",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 297,
+    "label": "fig:p:avoid:or:concise",
+    "labels": [
+      "fig:p:avoid:or:concise"
+    ],
+    "caption_latex": "Naive Boolean disjunction using a propagator pattern",
+    "caption": "Naive Boolean disjunction using a propagator pattern",
+    "alt": "Naive Boolean disjunction using a propagator pattern",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 375,
+    "label": "fig:p:avoid:or:dynamic",
+    "labels": [
+      "fig:p:avoid:or:dynamic"
+    ],
+    "caption_latex": "Boolean disjunction with dynamic subscriptions",
+    "caption": "Boolean disjunction with dynamic subscriptions",
+    "alt": "Boolean disjunction with dynamic subscriptions",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-avoid.tex.in",
+    "line": 423,
+    "label": "fig:p:avoid:ortrue:re",
+    "labels": [
+      "fig:p:avoid:ortrue:re"
+    ],
+    "caption_latex": "Resubscribing for Boolean disjunction with dynamic subscriptions",
+    "caption": "Resubscribing for Boolean disjunction with dynamic subscriptions",
+    "alt": "Resubscribing for Boolean disjunction with dynamic subscriptions",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-domain.tex.in",
+    "line": 34,
+    "label": "fig:p:domain:incorrect",
+    "labels": [
+      "fig:p:domain:incorrect"
+    ],
+    "caption_latex": "An incorrect propagator for domain equal",
+    "caption": "An incorrect propagator for domain equal",
+    "alt": "An incorrect propagator for domain equal",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-domain.tex.in",
+    "line": 79,
+    "label": "fig:p:domain:naive",
+    "labels": [
+      "fig:p:domain:naive"
+    ],
+    "caption_latex": "A naive propagator for domain equal",
+    "caption": "A naive propagator for domain equal",
+    "alt": "A naive propagator for domain equal",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-domain.tex.in",
+    "line": 171,
+    "label": "fig:p:domain:nonshared",
+    "labels": [
+      "fig:p:domain:nonshared"
+    ],
+    "caption_latex": "A propagator for domain equal without sharing",
+    "caption": "A propagator for domain equal without sharing",
+    "alt": "A propagator for domain equal without sharing",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-domain.tex.in",
+    "line": 231,
+    "label": "fig:p:domain:offset",
+    "labels": [
+      "fig:p:domain:offset"
+    ],
+    "caption_latex": "A propagator for domain equal with offset",
+    "caption": "A propagator for domain equal with offset",
+    "alt": "A propagator for domain equal with offset",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-domain.tex.in",
+    "line": 340,
+    "label": "fig:p:domain:bounds",
+    "labels": [
+      "fig:p:domain:bounds"
+    ],
+    "caption_latex": "A propagator for domain equal using bounds propagation",
+    "caption": "A propagator for domain equal using bounds propagation",
+    "alt": "A propagator for domain equal using bounds propagation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-domain.tex.in",
+    "line": 409,
+    "label": "fig:p:domain:transitions",
+    "labels": [
+      "fig:p:domain:transitions"
+    ],
+    "caption_latex": "Stage transitions for the equality propagator",
+    "caption": "Stage transitions for the equality propagator",
+    "alt": "Stage transitions for the equality propagator",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-p-domain-transitions.svg",
+    "pdf_asset": "figures/pdf/fig-p-domain-transitions.pdf"
+  },
+  {
+    "source": "docs/src/chapters/programming/p-domain.tex.in",
+    "line": 466,
+    "label": "fig:p:domain:staging",
+    "labels": [
+      "fig:p:domain:staging"
+    ],
+    "caption_latex": "A propagator for domain equal using staging",
+    "caption": "A propagator for domain equal using staging",
+    "alt": "A propagator for domain equal using staging",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-floats.tex.in",
+    "line": 22,
+    "label": "fig:p:floats:linear",
+    "labels": [
+      "fig:p:floats:linear"
+    ],
+    "caption_latex": "A constraint and propagator for ternary linear",
+    "caption": "A constraint and propagator for ternary linear",
+    "alt": "A constraint and propagator for ternary linear",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-floats.tex.in",
+    "line": 42,
+    "label": "fig:p:float:view",
+    "labels": [
+      "fig:p:float:view"
+    ],
+    "caption_latex": "Most important float view operations",
+    "caption": "Most important float view operations",
+    "alt": "Most important float view operations",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-floats.tex.in",
+    "line": 74,
+    "label": "fig:p:floats:rounding",
+    "labels": [
+      "fig:p:floats:rounding"
+    ],
+    "caption_latex": "",
+    "caption": "",
+    "alt": "fig p floats rounding",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-floats.tex.in",
+    "line": 215,
+    "label": "fig:p:floats:propagation_conditions",
+    "labels": [
+      "fig:p:floats:propagation_conditions"
+    ],
+    "caption_latex": "Float modification events and propagation conditions",
+    "caption": "Float modification events and propagation conditions",
+    "alt": "Float modification events and propagation conditions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-memory.tex.in",
+    "line": 208,
+    "label": "fig:p:memory:allocator",
+    "labels": [
+      "fig:p:memory:allocator"
+    ],
+    "caption_latex": "Declaration of an \\?Allocator? class",
+    "caption": "Declaration of an \\?Allocator? class",
+    "alt": "Declaration of an \\?Allocator? class",
+    "kind": "literal-output-or-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-memory.tex.in",
+    "line": 349,
+    "label": "fig:p:memory:shared",
+    "labels": [
+      "fig:p:memory:shared"
+    ],
+    "caption_latex": "A simple shared object and handle",
+    "caption": "A simple shared object and handle",
+    "alt": "A simple shared object and handle",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-memory.tex.in",
+    "line": 388,
+    "label": "fig:p:memory:local",
+    "labels": [
+      "fig:p:memory:local"
+    ],
+    "caption_latex": "A simple local object and handle",
+    "caption": "A simple local object and handle",
+    "alt": "A simple local object and handle",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-memory.tex.in",
+    "line": 401,
+    "label": "fig:p:memory:local_res",
+    "labels": [
+      "fig:p:memory:local_res"
+    ],
+    "caption_latex": "A local object and handle with external resources",
+    "caption": "A local object and handle with external resources",
+    "alt": "A local object and handle with external resources",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-reified.tex.in",
+    "line": 80,
+    "label": "fig:p:reified:leeq",
+    "labels": [
+      "fig:p:reified:leeq"
+    ],
+    "caption_latex": "A constraint and propagator for fully reified less or equal",
+    "caption": "A constraint and propagator for fully reified less or equal",
+    "alt": "A constraint and propagator for fully reified less or equal",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-reified.tex.in",
+    "line": 209,
+    "label": "fig:p:reified:leeq:half",
+    "labels": [
+      "fig:p:reified:leeq:half"
+    ],
+    "caption_latex": "A constraint and propagator for full and half reified less or equal",
+    "caption": "A constraint and propagator for full and half reified less or equal",
+    "alt": "A constraint and propagator for full and half reified less or equal",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-reified.tex.in",
+    "line": 225,
+    "label": "fig:p:reified:leeq:half:propagate",
+    "labels": [
+      "fig:p:reified:leeq:half:propagate"
+    ],
+    "caption_latex": "Propagate function for full and half reified less or equal",
+    "caption": "Propagate function for full and half reified less or equal",
+    "alt": "Propagate function for full and half reified less or equal",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-reified.tex.in",
+    "line": 279,
+    "label": "fig:p:reified:max",
+    "labels": [
+      "fig:p:reified:max"
+    ],
+    "caption_latex": "A maximum propagator using rewriting",
+    "caption": "A maximum propagator using rewriting",
+    "alt": "A maximum propagator using rewriting",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-reified.tex.in",
+    "line": 326,
+    "label": "fig:p:reified:or",
+    "labels": [
+      "fig:p:reified:or"
+    ],
+    "caption_latex": "A Boolean disjunction propagator using rewriting",
+    "caption": "A Boolean disjunction propagator using rewriting",
+    "alt": "A Boolean disjunction propagator using rewriting",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-sets.tex.in",
+    "line": 26,
+    "label": "fig:p:sets:intersection",
+    "labels": [
+      "fig:p:sets:intersection"
+    ],
+    "caption_latex": "A constraint and propagator for set intersection",
+    "caption": "A constraint and propagator for set intersection",
+    "alt": "A constraint and propagator for set intersection",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-sets.tex.in",
+    "line": 94,
+    "label": "fig:p:sets:view_operations",
+    "labels": [
+      "fig:p:sets:view_operations"
+    ],
+    "caption_latex": "Set view operations",
+    "caption": "Set view operations",
+    "alt": "Set view operations",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-sets.tex.in",
+    "line": 180,
+    "label": "fig:p:sets:propagation_conditions",
+    "labels": [
+      "fig:p:sets:propagation_conditions"
+    ],
+    "caption_latex": "Set modification events and propagation conditions",
+    "caption": "Set modification events and propagation conditions",
+    "alt": "Set modification events and propagation conditions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 111,
+    "label": "fig:p:started:scheduling_propagators",
+    "labels": [
+      "fig:p:started:scheduling_propagators"
+    ],
+    "caption_latex": "Scheduling and executing propagators",
+    "caption": "Scheduling and executing propagators",
+    "alt": "Scheduling and executing propagators",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-p-started-scheduling_propagators.svg",
+    "pdf_asset": "figures/pdf/fig-p-started-scheduling_propagators.pdf"
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 311,
+    "label": "fig:p:started:propagators_views_varimp",
+    "labels": [
+      "fig:p:started:propagators_views_varimp"
+    ],
+    "caption_latex": "Propagators, views, and variable implementations",
+    "caption": "Propagators, views, and variable implementations",
+    "alt": "Propagators, views, and variable implementations",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-p-started-propagators_views_varimp.svg",
+    "pdf_asset": "figures/pdf/fig-p-started-propagators_views_varimp.pdf"
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 596,
+    "label": "fig:p:started:less",
+    "labels": [
+      "fig:p:started:less"
+    ],
+    "caption_latex": "A constraint and propagator for \\?less?",
+    "caption": "A constraint and propagator for \\?less?",
+    "alt": "A constraint and propagator for \\?less?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 709,
+    "label": "fig:p:started:propcost",
+    "labels": [
+      "fig:p:started:propcost"
+    ],
+    "caption_latex": "Summary of propagation cost functions",
+    "caption": "Summary of propagation cost functions",
+    "alt": "Summary of propagation cost functions",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 806,
+    "label": "fig:p:started:modify",
+    "labels": [
+      "fig:p:started:modify"
+    ],
+    "caption_latex": "Value-based modification functions for integer variable views",
+    "caption": "Value-based modification functions for integer variable views",
+    "alt": "Value-based modification functions for integer variable views",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 860,
+    "label": "fig:p:started:less:better",
+    "labels": [
+      "fig:p:started:less:better"
+    ],
+    "caption_latex": "A better constraint and propagator for \\?less?",
+    "caption": "A better constraint and propagator for \\?less?",
+    "alt": "A better constraint and propagator for \\?less?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 986,
+    "label": "fig:p:started:macros",
+    "labels": [
+      "fig:p:started:macros"
+    ],
+    "caption_latex": "Check and fail macros",
+    "caption": "Check and fail macros",
+    "alt": "Check and fail macros",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 1081,
+    "label": "fig:p:started:less:best",
+    "labels": [
+      "fig:p:started:less:best"
+    ],
+    "caption_latex": "An even better constraint and propagator for \\?less?",
+    "caption": "An even better constraint and propagator for \\?less?",
+    "alt": "An even better constraint and propagator for \\?less?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 1142,
+    "label": "fig:p:started:nq",
+    "labels": [
+      "fig:p:started:nq"
+    ],
+    "caption_latex": "A propagator for disequality",
+    "caption": "A propagator for disequality",
+    "alt": "A propagator for disequality",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 1171,
+    "label": "fig:p:started:patterns",
+    "labels": [
+      "fig:p:started:patterns"
+    ],
+    "caption_latex": "Propagator patterns",
+    "caption": "Propagator patterns",
+    "alt": "Propagator patterns",
+    "kind": "semantic-table",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-started.tex.in",
+    "line": 1231,
+    "label": "fig:p:started:less:concise",
+    "labels": [
+      "fig:p:started:less:concise"
+    ],
+    "caption_latex": "A concise constraint and propagator for \\?less?",
+    "caption": "A concise constraint and propagator for \\?less?",
+    "alt": "A concise constraint and propagator for \\?less?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-views.tex.in",
+    "line": 83,
+    "label": "fig:p:views:minmax",
+    "labels": [
+      "fig:p:views:minmax"
+    ],
+    "caption_latex": "Minimum and maximum constraints implemented by a \\?Max? propagator",
+    "caption": "Minimum and maximum constraints implemented by a \\?Max? propagator",
+    "alt": "Minimum and maximum constraints implemented by a \\?Max? propagator",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-views.tex.in",
+    "line": 116,
+    "label": "fig:p:views:equal",
+    "labels": [
+      "fig:p:views:equal"
+    ],
+    "caption_latex": "Domain equality with and without offset",
+    "caption": "Domain equality with and without offset",
+    "alt": "Domain equality with and without offset",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-views.tex.in",
+    "line": 193,
+    "label": "fig:p:views:orand",
+    "labels": [
+      "fig:p:views:orand"
+    ],
+    "caption_latex": "Disjunction and conjunction from same propagator",
+    "caption": "Disjunction and conjunction from same propagator",
+    "alt": "Disjunction and conjunction from same propagator",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/programming/p-views.tex.in",
+    "line": 216,
+    "label": "fig:p:views:intbool",
+    "labels": [
+      "fig:p:views:intbool"
+    ],
+    "caption_latex": "Less constraints for both integer and Boolean variables",
+    "caption": "Less constraints for both integer and Boolean variables",
+    "alt": "Less constraints for both integer and Boolean variables",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/b-advanced.tex.in",
+    "line": 32,
+    "label": "fig:b:advanced:assignmin",
+    "labels": [
+      "fig:b:advanced:assignmin"
+    ],
+    "caption_latex": "A brancher for \\?assignmin?",
+    "caption": "A brancher for \\?assignmin?",
+    "alt": "A brancher for \\?assignmin?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/b-advanced.tex.in",
+    "line": 67,
+    "label": "fig:b:advanced:nogoods",
+    "labels": [
+      "fig:b:advanced:nogoods"
+    ],
+    "caption_latex": "Branching for \\?nonemin? with no-good support",
+    "caption": "Branching for \\?nonemin? with no-good support",
+    "alt": "Branching for \\?nonemin? with no-good support",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/b-advanced.tex.in",
+    "line": 227,
+    "label": "fig:b:advanced:views",
+    "labels": [
+      "fig:b:advanced:views"
+    ],
+    "caption_latex": "Branchings for \\?nonemin? and \\?nonemax?",
+    "caption": "Branchings for \\?nonemin? and \\?nonemax?",
+    "alt": "Branchings for \\?nonemin? and \\?nonemax?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/b-started.tex.in",
+    "line": 334,
+    "label": "fig:b:started:nonemin",
+    "labels": [
+      "fig:b:started:nonemin"
+    ],
+    "caption_latex": "A branching and brancher for \\?nonemin?",
+    "caption": "A branching and brancher for \\?nonemin?",
+    "alt": "A branching and brancher for \\?nonemin?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/b-started.tex.in",
+    "line": 446,
+    "label": "fig:b:started:improved",
+    "labels": [
+      "fig:b:started:improved"
+    ],
+    "caption_latex": "An improved brancher for \\?nonemin?",
+    "caption": "An improved brancher for \\?nonemin?",
+    "alt": "An improved brancher for \\?nonemin?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/b-started.tex.in",
+    "line": 484,
+    "label": "fig:b:started:sizemin",
+    "labels": [
+      "fig:b:started:sizemin"
+    ],
+    "caption_latex": "A brancher for \\?sizemin?",
+    "caption": "A brancher for \\?sizemin?",
+    "alt": "A brancher for \\?sizemin?",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-engine.tex.in",
+    "line": 34,
+    "label": "fig:s:engine:design",
+    "labels": [
+      "fig:s:engine:design"
+    ],
+    "caption_latex": "Depth-first search engine",
+    "caption": "Depth-first search engine",
+    "alt": "Depth-first search engine",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-engine.tex.in",
+    "line": 53,
+    "label": "fig:s:engine:engine",
+    "labels": [
+      "fig:s:engine:engine"
+    ],
+    "caption_latex": "Implementation of depth-first search engine",
+    "caption": "Implementation of depth-first search engine",
+    "alt": "Implementation of depth-first search engine",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-engine.tex.in",
+    "line": 109,
+    "label": "fig:s:engine:explore",
+    "labels": [
+      "fig:s:engine:explore"
+    ],
+    "caption_latex": "Implementation of exploration",
+    "caption": "Implementation of exploration",
+    "alt": "Implementation of exploration",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-engine.tex.in",
+    "line": 127,
+    "label": "fig:s:engine:edge",
+    "labels": [
+      "fig:s:engine:edge"
+    ],
+    "caption_latex": "Implementation of edges",
+    "caption": "Implementation of edges",
+    "alt": "Implementation of edges",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-engine.tex.in",
+    "line": 147,
+    "label": "fig:s:engine:path",
+    "labels": [
+      "fig:s:engine:path"
+    ],
+    "caption_latex": "Implementation of path of edges",
+    "caption": "Implementation of path of edges",
+    "alt": "Implementation of path of edges",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-engine.tex.in",
+    "line": 194,
+    "label": "fig:s:engine:re",
+    "labels": [
+      "fig:s:engine:re"
+    ],
+    "caption_latex": "Implementation of recomputation",
+    "caption": "Implementation of recomputation",
+    "alt": "Implementation of recomputation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 51,
+    "label": "fig:s:re:full",
+    "labels": [
+      "fig:s:re:full"
+    ],
+    "caption_latex": "Depth-first search using full recomputation",
+    "caption": "Depth-first search using full recomputation",
+    "alt": "Depth-first search using full recomputation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 84,
+    "label": "fig:s:re:full:edge",
+    "labels": [
+      "fig:s:re:full:edge"
+    ],
+    "caption_latex": "\\?Edge? class for depth-first search using full recomputation",
+    "caption": "\\?Edge? class for depth-first search using full recomputation",
+    "alt": "\\?Edge? class for depth-first search using full recomputation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 217,
+    "label": "fig:s:re:ex",
+    "labels": [
+      "fig:s:re:ex"
+    ],
+    "caption_latex": "Example situations during recomputation",
+    "caption": "Example situations during recomputation",
+    "alt": "Example situations during recomputation",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-s-re-ex.svg",
+    "pdf_asset": "figures/pdf/fig-s-re-ex.pdf"
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 415,
+    "label": "fig:s:re:bab",
+    "labels": [
+      "fig:s:re:bab"
+    ],
+    "caption_latex": "Branch-and-bound search using full recomputation",
+    "caption": "Branch-and-bound search using full recomputation",
+    "alt": "Branch-and-bound search using full recomputation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 455,
+    "label": "fig:s:re:lao:ex",
+    "labels": [
+      "fig:s:re:lao:ex"
+    ],
+    "caption_latex": "Last alternative optimization (LAO)",
+    "caption": "Last alternative optimization (LAO)",
+    "alt": "Last alternative optimization (LAO)",
+    "kind": "legacy-vector-conversion",
+    "legacy_includes": [],
+    "html_asset": "figures/fig-s-re-lao-ex.svg",
+    "pdf_asset": "figures/pdf/fig-s-re-lao-ex.pdf"
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 577,
+    "label": "fig:s:re:lao",
+    "labels": [
+      "fig:s:re:lao"
+    ],
+    "caption_latex": "Depth-first search using full recomputation and LAO",
+    "caption": "Depth-first search using full recomputation and LAO",
+    "alt": "Depth-first search using full recomputation and LAO",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 688,
+    "label": "fig:s:re:hybrid",
+    "labels": [
+      "fig:s:re:hybrid"
+    ],
+    "caption_latex": "Depth-first search using hybrid recomputation",
+    "caption": "Depth-first search using hybrid recomputation",
+    "alt": "Depth-first search using hybrid recomputation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-recomputation.tex.in",
+    "line": 839,
+    "label": "fig:s:re:adaptive",
+    "labels": [
+      "fig:s:re:adaptive"
+    ],
+    "caption_latex": "Depth-first search using adaptive recomputation",
+    "caption": "Depth-first search using adaptive recomputation",
+    "alt": "Depth-first search using adaptive recomputation",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-started.tex.in",
+    "line": 293,
+    "label": "fig:s:started:dfsbin",
+    "labels": [
+      "fig:s:started:dfsbin"
+    ],
+    "caption_latex": "Depth-first search for binary choices",
+    "caption": "Depth-first search for binary choices",
+    "alt": "Depth-first search for binary choices",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-started.tex.in",
+    "line": 383,
+    "label": "fig:s:started:dfs",
+    "labels": [
+      "fig:s:started:dfs"
+    ],
+    "caption_latex": "Depth-first search",
+    "caption": "Depth-first search",
+    "alt": "Depth-first search",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  },
+  {
+    "source": "docs/src/chapters/search/s-started.tex.in",
+    "line": 459,
+    "label": "fig:s:started:bab",
+    "labels": [
+      "fig:s:started:bab"
+    ],
+    "caption_latex": "Branch-and-bound search",
+    "caption": "Branch-and-bound search",
+    "alt": "Branch-and-bound search",
+    "kind": "executable-code",
+    "legacy_includes": [],
+    "html_asset": "",
+    "pdf_asset": ""
+  }
+]

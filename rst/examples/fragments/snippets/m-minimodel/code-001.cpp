@@ -1,0 +1,1 @@
+#include <gecode/minimodel.hh>

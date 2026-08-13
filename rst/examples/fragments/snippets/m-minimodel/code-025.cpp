@@ -1,0 +1,3 @@
+IntVarArgs x(n*m);
+...
+Matrix<IntVarArgs> mat(x, n, m);

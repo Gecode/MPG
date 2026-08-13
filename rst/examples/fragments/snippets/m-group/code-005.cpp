@@ -1,0 +1,1 @@
+pg.move(home,p);

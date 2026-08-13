@@ -1,0 +1,1 @@
+IntVarArgs x;

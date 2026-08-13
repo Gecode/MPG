@@ -1,0 +1,1 @@
+trace(home, TE_POST | TE_PROPAGATE | TE_CHOICE);

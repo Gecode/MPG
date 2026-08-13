@@ -1,0 +1,6 @@
+virtual bool master(const MetaInfo& mi) {
+  ...
+  if (mi.solution() == 0)
+    mi.nogoods().post(*this);
+  ...
+}

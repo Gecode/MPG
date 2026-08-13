@@ -1,0 +1,116 @@
+{
+  "base_url": "/doc/6.4.0/reference/",
+  "gecode_version": "6.4.0",
+  "generated_by": "Gecode release Doxygen tag",
+  "objects": {
+    "Actor": {
+      "title": "Gecode::Actor",
+      "url": "classGecode_1_1Actor.html"
+    },
+    "Archive": {
+      "title": "Gecode::Archive",
+      "url": "classGecode_1_1Archive.html"
+    },
+    "Brancher": {
+      "title": "Gecode::Brancher",
+      "url": "classGecode_1_1Brancher.html"
+    },
+    "Choice": {
+      "title": "Gecode::Choice",
+      "url": "classGecode_1_1Choice.html"
+    },
+    "CloneStatistics": {
+      "title": "Gecode::CloneStatistics",
+      "url": "classGecode_1_1CloneStatistics.html"
+    },
+    "CommitStatistics": {
+      "title": "Gecode::CommitStatistics",
+      "url": "classGecode_1_1CommitStatistics.html"
+    },
+    "Int::Limits": {
+      "title": "Gecode::Int::Limits",
+      "url": "namespaceGecode_1_1Int_1_1Limits.html"
+    },
+    "Iter::Values::Array": {
+      "title": "Gecode::Iter::Values::Array",
+      "url": "classGecode_1_1Iter_1_1Values_1_1Array.html"
+    },
+    "NGL": {
+      "title": "Gecode::NGL",
+      "url": "classGecode_1_1NGL.html"
+    },
+    "Search::NoGoodsProp": {
+      "title": "Gecode::Search::NoGoodsProp",
+      "url": "classGecode_1_1Search_1_1NoGoodsProp.html"
+    },
+    "Space": {
+      "title": "Gecode::Space",
+      "url": "classGecode_1_1Space.html"
+    },
+    "SpaceFailed": {
+      "title": "Gecode::SpaceFailed",
+      "url": "classGecode_1_1SpaceFailed.html"
+    },
+    "SpaceNoBrancher": {
+      "title": "Gecode::SpaceNoBrancher",
+      "url": "classGecode_1_1SpaceNoBrancher.html"
+    },
+    "SpaceNotStable": {
+      "title": "Gecode::SpaceNotStable",
+      "url": "classGecode_1_1SpaceNotStable.html"
+    },
+    "StatusStatistics": {
+      "title": "Gecode::StatusStatistics",
+      "url": "classGecode_1_1StatusStatistics.html"
+    },
+    "TaskSearch": {
+      "title": "TaskSearch",
+      "url": "group__TaskSearch.html"
+    },
+    "bin-packing": {
+      "title": "BinPacking",
+      "url": "classBinPacking.html"
+    },
+    "crossword": {
+      "title": "Crossword",
+      "url": "classCrossword.html"
+    },
+    "golf": {
+      "title": "Golf",
+      "url": "classGolf.html"
+    },
+    "golomb-ruler": {
+      "title": "GolombRuler",
+      "url": "classGolombRuler.html"
+    },
+    "kakuro": {
+      "title": "Kakuro",
+      "url": "classKakuro.html"
+    },
+    "knights:KnightsCircuit": {
+      "title": "KnightsCircuit",
+      "url": "classKnightsCircuit.html"
+    },
+    "knights:KnightsReified": {
+      "title": "KnightsReified",
+      "url": "classKnightsReified.html"
+    },
+    "magic-sequence": {
+      "title": "MagicSequence",
+      "url": "classMagicSequence.html"
+    },
+    "nonogram": {
+      "title": "Nonogram",
+      "url": "classNonogram.html"
+    },
+    "photo": {
+      "title": "Photo",
+      "url": "classPhoto.html"
+    },
+    "warehouses": {
+      "title": "Warehouses",
+      "url": "classWarehouses.html"
+    }
+  },
+  "schema_version": 1
+}

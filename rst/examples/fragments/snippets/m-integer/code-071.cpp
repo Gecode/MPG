@@ -1,0 +1,1 @@
+distinct(home, b, x);

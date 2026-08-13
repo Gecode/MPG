@@ -1,0 +1,23 @@
+{
+  "schema": "mpg-supplemental-figures-v1",
+  "figures": [
+    {
+      "source": "docs/src/chapters/search/s-recomputation.tex.in",
+      "line": 617,
+      "legacy_construct": "unlabelled window PSTricks diagram",
+      "stable_label": "fig:s:re:hybrid-tree",
+      "html_asset": "rst/figures/fig-s-re-hybrid-tree.svg",
+      "pdf_asset": "rst/figures/pdf/fig-s-re-hybrid-tree.pdf",
+      "authoring_source": "rst/figures/scripts/generate_recomputation_windows.py"
+    },
+    {
+      "source": "docs/src/chapters/search/s-recomputation.tex.in",
+      "line": 734,
+      "legacy_construct": "unlabelled window PSTricks diagram",
+      "stable_label": "fig:s:re:hybrid-lao-tree",
+      "html_asset": "rst/figures/fig-s-re-hybrid-lao-tree.svg",
+      "pdf_asset": "rst/figures/pdf/fig-s-re-hybrid-lao-tree.pdf",
+      "authoring_source": "rst/figures/scripts/generate_recomputation_windows.py"
+    }
+  ]
+}

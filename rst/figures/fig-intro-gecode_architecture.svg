@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 1000 390">
+<title>Gecode architecture</title>
+<desc>The Modeling layer spans the Int, Set, Float, and Search modules. Programming propagators and branchers extends those modules from the left. Programming variables and programming search engines are extension areas on the right. Every module rests on the Gecode kernel.</desc>
+<style>
+  text { font-family: Charter, Georgia, serif; fill: #17211d; }
+  .label { font-size: 21px; font-weight: 700; text-anchor: middle; }
+  .module { font: 700 19px "Bera Mono", "DejaVu Sans Mono", monospace; text-anchor: middle; }
+  .small { font-size: 15px; text-anchor: middle; }
+  .side { font-size: 18px; font-weight: 700; text-anchor: middle; }
+  .side-small { font-size: 13px; text-anchor: middle; }
+</style>
+<rect width="1000" height="390" fill="#ffffff"/>
+<rect x="260" y="28" width="710" height="76" fill="#d1e6dc" stroke="#0b7646" stroke-width="2"/>
+<text class="label" x="615" y="74">Modeling</text>
+<rect x="20" y="142" width="260" height="150" fill="#c9deee" stroke="#005ca1" stroke-width="2"/>
+<text class="side" x="150" y="205">Programming propagators</text>
+<text class="side" x="150" y="231">and branchers</text>
+<g><rect x="304" y="142" width="92" height="150" fill="#ffffff" stroke="#17211d"/><text class="module" x="350" y="208">Int</text><text class="small" x="350" y="231">module</text></g><g><rect x="416" y="142" width="92" height="150" fill="#ffffff" stroke="#17211d"/><text class="module" x="462" y="208">Set</text><text class="small" x="462" y="231">module</text></g><g><rect x="528" y="142" width="92" height="150" fill="#ffffff" stroke="#17211d"/><text class="module" x="574" y="208">Float</text><text class="small" x="574" y="231">module</text></g><g><rect x="640" y="142" width="92" height="150" fill="#ffffff" stroke="#17211d"/><text class="module" x="686" y="208">Search</text><text class="small" x="686" y="231">module</text></g>
+<rect x="764" y="142" width="94" height="150" fill="#f7d4a8" stroke="#eb8920" stroke-width="2"/>
+<text class="side-small" x="811" y="198">Programming</text><text class="side" x="811" y="229">variables</text>
+<rect x="876" y="142" width="94" height="150" fill="#f2c1bd" stroke="#da251d" stroke-width="2"/>
+<text class="side-small" x="923" y="188">Programming</text><text class="side-small" x="923" y="211">search</text><text class="side" x="923" y="240">engines</text>
+<rect x="260" y="316" width="710" height="52" fill="#ffffff" stroke="#17211d" stroke-width="2"/>
+<text class="label" x="615" y="349">Gecode kernel</text>
+</svg>

@@ -1,0 +1,1 @@
+bg.kill(home);
