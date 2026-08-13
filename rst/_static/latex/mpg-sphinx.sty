@@ -217,6 +217,10 @@
 \makeatother
 
 \fvset{fontfamily=fvm}
+% Sphinx defaults uncaptioned literal blocks to \smallskip.  The original MPG
+% used a centered display whose entrance and exit space followed \medskip;
+% retain that calmer separation without asking authors for spacer markup.
+\renewcommand{\sphinxverbatimsmallskipamount}{\medskipamount}
 \let\MPGSphinxOriginalVerbatim\OriginalVerbatim
 \renewcommand{\OriginalVerbatim}{%
   \fontencoding{T1}\fontfamily{fvm}\selectfont\MPGSphinxOriginalVerbatim}

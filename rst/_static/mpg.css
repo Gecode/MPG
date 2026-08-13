@@ -181,6 +181,17 @@ div[class^="highlight-"] { margin: 1.7rem 0; }
   border: 1px solid var(--mpg-orange);
   background: var(--mpg-orange-12);
 }
+.mpg-code-title {
+  margin: 1.8rem 0 -1.8rem;
+  padding: .35rem .7rem .1rem;
+  color: var(--mpg-red);
+  background: var(--mpg-orange-12);
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+.mpg-code-title + .highlight { margin-top: 0; }
 .literal-block-wrapper .code-block-caption {
   margin: 0;
   padding: .55rem .85rem .45rem;

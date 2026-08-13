@@ -14,6 +14,27 @@ from sphinx.directives.code import CodeBlock
 from sphinx.errors import ExtensionError
 
 
+class MpgCodeTitle(nodes.General, nodes.Element):
+    """An unnumbered literate-block title, distinct from a Program caption."""
+
+
+def visit_mpg_code_title_html(translator, node: MpgCodeTitle) -> None:
+    translator.body.append('<div class="mpg-code-title">')
+    translator.body.append(translator.encode(node["title"]))
+
+
+def depart_mpg_code_title_html(translator, node: MpgCodeTitle) -> None:
+    translator.body.append("</div>")
+
+
+def visit_mpg_code_title_latex(translator, node: MpgCodeTitle) -> None:
+    translator.body.append(f'\\MPGCodeTitle{{{translator.encode(node["title"])}}}\n')
+
+
+def depart_mpg_code_title_latex(translator, node: MpgCodeTitle) -> None:
+    pass
+
+
 def _digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -127,6 +148,16 @@ class MpgCodeDirective(CodeBlock):
         self.options = options
         self.content = StringList(rendered.splitlines(), source=str(source))
         result = super().run()
+        insertion_keys = {
+            site["key"]
+            for site in data.get("display_sites", [])
+            if site.get("site_kind") == "literate-insertion"
+        }
+        if key in insertion_keys and not direct and "caption" not in options:
+            title = key.rsplit(":", 1)[-1]
+            title_node = MpgCodeTitle()
+            title_node["title"] = title
+            result.insert(0, title_node)
         if small:
             for node in result:
                 node["classes"].append("mpg-code-small")
@@ -148,4 +179,9 @@ def setup(app):
     app.add_config_value("mpg_code_manifest_path", "", "env", types={str})
     app.connect("config-inited", _load_manifest)
     app.add_directive("mpg-code", MpgCodeDirective)
+    app.add_node(
+        MpgCodeTitle,
+        html=(visit_mpg_code_title_html, depart_mpg_code_title_html),
+        latex=(visit_mpg_code_title_latex, depart_mpg_code_title_latex),
+    )
     return {"version": "1.0", "parallel_read_safe": True, "parallel_write_safe": True}

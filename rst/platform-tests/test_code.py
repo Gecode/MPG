@@ -50,6 +50,19 @@ class MpgCodeDirectiveTests(unittest.TestCase):
         html = (out / "index.html").read_text(encoding="utf-8")
         self.assertIn("complete example", html)
 
+    def test_literate_insertion_keeps_its_unnumbered_block_title(self) -> None:
+        body = ".. mpg-code:: send more money:no leading zeros\n"
+        html = (self._build("html", body) / "index.html").read_text(encoding="utf-8")
+        self.assertIn('class="mpg-code-title"', html)
+        self.assertIn("no leading zeros", html)
+        self.assertNotIn("Program ", html)
+
+        latex = (self._build("latex", body) / "projectnamenotset.tex").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(r"\MPGCodeTitle{no leading zeros}", latex)
+        self.assertNotIn(r"\caption", latex)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -40,6 +40,15 @@
 \newcommand{\MPGLogo}{%
   \IfFileExists{gecode-logo.pdf}{\includegraphics[width=.35\textwidth]{gecode-logo.pdf}}{}}
 \newcommand{\MPGCodeFont}{\fontencoding{T1}\fontfamily{fvm}\selectfont}
+\newcommand{\MPGCodeTitle}[1]{%
+  \par\addvspace{1.5ex plus .5ex minus .2ex}%
+  \needspace{5\baselineskip}%
+  \noindent\colorbox{GecodeOrangeOp20}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \color{GecodeRed}\sffamily\bfseries\footnotesize
+      \MakeUppercase{#1}\enspace$\equiv$}}%
+  \par\nobreak\vspace{-1.15ex}%
+}
 \newenvironment{MPGTip}[2]{%
   \par\medskip\noindent
   \addcontentsline{lotip}{mpgtip}{\protect\numberline{#1}#2}%

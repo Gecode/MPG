@@ -265,7 +265,7 @@ def visit_mpg_tip_latex(translator, node: MpgTip) -> None:
         translator.body.append(translator.hypertarget(target_id) + "\n")
     translator.body.append(
         f'\\begin{{MPGTip}}{{{node.get("number", "")}}}'
-        f'{{{translator.encode(node["title"])}}}\n'
+        f'{{{translator.encode(node["title"])}}}'
     )
 
 
