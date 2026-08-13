@@ -154,9 +154,43 @@
   \begin{trivlist}\item\relax
   \textbf{\sphinxremovefinalcolon{#1}.}\enspace\ignorespaces
 }{\end{trivlist}}
+% Preserve the standard 12pt report rhythm for authored bullet and numbered
+% lists.  sphinxlatexstylepage loads parskip while \parskip is nonzero and
+% replaces these dimensions with a compact, zero-separation variant.
+\def\MPGClassicalListI{\leftmargin\leftmargini
+  \parsep 5\p@  \@plus2.5\p@ \@minus\p@
+  \topsep 10\p@ \@plus4\p@   \@minus6\p@
+  \itemsep5\p@  \@plus2.5\p@ \@minus\p@}
+\def\MPGClassicalListII{\leftmargin\leftmarginii
+  \labelwidth\leftmarginii
+  \advance\labelwidth-\labelsep
+  \topsep 5\p@   \@plus2.5\p@ \@minus\p@
+  \parsep 2.5\p@ \@plus\p@    \@minus\p@
+  \itemsep\parsep}
+\def\MPGClassicalListIII{\leftmargin\leftmarginiii
+  \labelwidth\leftmarginiii
+  \advance\labelwidth-\labelsep
+  \topsep 2.5\p@ \@plus\p@ \@minus\p@
+  \parsep\z@
+  \partopsep\p@ \@plus\z@ \@minus\p@
+  \itemsep\topsep}
+\def\MPGUseClassicalListSpacing{%
+  \let\@listi\MPGClassicalListI
+  \let\@listii\MPGClassicalListII
+  \let\@listiii\MPGClassicalListIII}
 \AtBeginDocument{%
   \setlength{\parindent}{15pt}%
   \setlength{\parskip}{0pt plus 1pt}%
+  \let\MPGOriginalItemize\itemize
+  \let\MPGOriginalEndItemize\enditemize
+  \renewenvironment{itemize}
+    {\MPGUseClassicalListSpacing\MPGOriginalItemize}
+    {\MPGOriginalEndItemize}
+  \let\MPGOriginalEnumerate\enumerate
+  \let\MPGOriginalEndEnumerate\endenumerate
+  \renewenvironment{enumerate}
+    {\MPGUseClassicalListSpacing\MPGOriginalEnumerate}
+    {\MPGOriginalEndEnumerate}
   % sphinxlatexstylepage loads parskip while paragraph spacing is still
   % nonzero.  The package consequently collapses list top spacing to zero.
   % Restore the standard 12pt report entrance space for definition lists,
@@ -166,6 +200,8 @@
       \labelwidth\z@
       \itemindent-\leftmargin
       \topsep 10\p@ \@plus4\p@ \@minus6\p@
+      \parsep\z@
+      \itemsep\z@
       \let\makelabel\descriptionlabel}}
     {\endlist}}
 

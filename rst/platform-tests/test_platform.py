@@ -117,6 +117,9 @@ def main() -> int:
                          r"\titleformat{\paragraph}[runin]",
                          r"\renewenvironment{description}",
                          r"\topsep 10\p@ \@plus4\p@ \@minus6\p@",
+                         r"\def\MPGClassicalListI",
+                         r"\let\@listi\MPGClassicalListI",
+                         r"\itemsep5\p@  \@plus2.5\p@ \@minus\p@",
                          r"includegraphics[width=.18\textwidth]{cc-by-nc-nd.pdf}"):
             if expected not in adapter:
                 raise RuntimeError(f"PDF adapter omitted {expected}")
