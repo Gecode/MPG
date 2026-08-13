@@ -223,7 +223,13 @@
 \renewcommand{\sphinxverbatimsmallskipamount}{\medskipamount}
 \let\MPGSphinxOriginalVerbatim\OriginalVerbatim
 \renewcommand{\OriginalVerbatim}{%
-  \fontencoding{T1}\fontfamily{fvm}\selectfont\MPGSphinxOriginalVerbatim}
+  % The legacy 12pt MPG selected Bera Mono through ``scaled=0.88``, yielding
+  % roughly 10.1pt listing glyphs.  Selecting the Type 1 family directly under
+  % XeLaTeX lost that scale and produced dense 12pt strokes.  Footnote size
+  % restores the original physical listing size while retaining Pygments'
+  % meaningful bold/italic token distinctions.
+  \footnotesize\fontencoding{T1}\fontfamily{fvm}\selectfont
+  \MPGSphinxOriginalVerbatim}
 \renewcommand{\literalblockname}{\textcolor{GecodeRed}{\MPGProgramLabel}\space}
 \sphinxsetup{
   HeaderFamily={\rmfamily\bfseries},

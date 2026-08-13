@@ -46,6 +46,7 @@ class PdfRhythmTests(unittest.TestCase):
             r"\renewcommand{\sphinxverbatimsmallskipamount}{\medskipamount}",
             adapter,
         )
+        self.assertIn(r"\footnotesize\fontencoding{T1}\fontfamily{fvm}", adapter)
         self.assertIn(r"\needspace{5\baselineskip}", classical)
 
 
