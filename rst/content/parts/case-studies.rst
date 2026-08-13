@@ -15,7 +15,7 @@ Case studies
    This part presents a collection of modeling case studies. The case studies
    are ordered (roughly) according to their complexity.
 
-   **Basic models.**
+   .. mpg-paragraph:: Basic models.
 
    The basic models use classic constraint programming problems in order to
    demonstrate how typical modeling tasks are done with Gecode. The basic
@@ -40,7 +40,7 @@ Case studies
    - :ref:`chap:c:golf` presents a case study on modeling problems using set
      variables and constraints.
 
-   **Advanced models.**
+   .. mpg-paragraph:: Advanced models.
 
    The following models are slightly more advanced:
 

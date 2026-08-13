@@ -21,7 +21,7 @@ Modeling
    This part explains modeling and solving constraint problems, and how to
    program, compile, link, and execute constraint models.
 
-   **Basic material.**
+   .. mpg-paragraph:: Basic material.
 
    The basic material needed for modeling with Gecode is as follows:
 
@@ -55,7 +55,7 @@ Modeling
 
          \mbox{}\vfill\newpage\thispagestyle{empty}\mbox{}\vfill
 
-   **Overview material.**
+   .. mpg-paragraph:: Overview material.
 
    The remaining chapters and sections provide an overview of the available
    functionality for modeling and solving:
