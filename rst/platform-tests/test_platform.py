@@ -115,6 +115,8 @@ def main() -> int:
                          r"https://www.gecode.dev/doc/\MPGGecodeVersion/MPG.pdf",
                          r"HeaderFamily={\rmfamily\bfseries}",
                          r"\titleformat{\paragraph}[runin]",
+                         r"\renewenvironment{description}",
+                         r"\topsep 10\p@ \@plus4\p@ \@minus6\p@",
                          r"includegraphics[width=.18\textwidth]{cc-by-nc-nd.pdf}"):
             if expected not in adapter:
                 raise RuntimeError(f"PDF adapter omitted {expected}")

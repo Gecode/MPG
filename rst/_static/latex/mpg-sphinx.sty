@@ -156,7 +156,18 @@
 }{\end{trivlist}}
 \AtBeginDocument{%
   \setlength{\parindent}{15pt}%
-  \setlength{\parskip}{0pt plus 1pt}}
+  \setlength{\parskip}{0pt plus 1pt}%
+  % sphinxlatexstylepage loads parskip while paragraph spacing is still
+  % nonzero.  The package consequently collapses list top spacing to zero.
+  % Restore the standard 12pt report entrance space for definition lists,
+  % while retaining MPG's compact run-in entries.
+  \renewenvironment{description}
+    {\list{}{%
+      \labelwidth\z@
+      \itemindent-\leftmargin
+      \topsep 10\p@ \@plus4\p@ \@minus6\p@
+      \let\makelabel\descriptionlabel}}
+    {\endlist}}
 
 \@ifpackageloaded{fancyhdr}{%
   \fancypagestyle{plain}{%
