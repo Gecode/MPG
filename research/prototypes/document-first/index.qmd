@@ -1,0 +1,20 @@
+# About this prototype {.unnumbered}
+
+This small book tests a web-primary authoring model for *Modeling and
+Programming with Gecode*. The same Quarto source renders as navigable HTML
+pages and as one typeset PDF. It also treats each complete C++ example as a
+canonical source file that the build includes, compiles, and runs.
+
+The prototype deliberately exercises the document features on which MPG
+depends: mathematics, cross-references, citations, vector diagrams, and tested
+programs. @sec-magic-sequence contains the worked example.
+
+## Build contract
+
+The source tree owns prose (`.qmd`), programs (`examples/*.cpp`), and diagrams
+(`figures/*.dot`). Generated HTML, PDF, SVG, extracted sources, and binaries
+live below `_build/` or match ignored generated figure extensions.
+
+Run `make verify QUARTO=/path/to/quarto` to render both formats and test the
+program. `README.md` in this prototype directory records the exact experiment
+and its limits.

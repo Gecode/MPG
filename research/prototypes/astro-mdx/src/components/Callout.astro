@@ -1,0 +1,16 @@
+---
+interface Props {
+  title: string;
+  kind?: 'tip' | 'warning';
+}
+
+const { title, kind = 'tip' } = Astro.props;
+---
+
+<aside class:list={['callout', `callout--${kind}`]} aria-label={`${kind}: ${title}`}>
+  <span class="callout__mark" aria-hidden="true">{kind === 'warning' ? '!' : 'i'}</span>
+  <div>
+    <h3>{title}</h3>
+    <slot />
+  </div>
+</aside>

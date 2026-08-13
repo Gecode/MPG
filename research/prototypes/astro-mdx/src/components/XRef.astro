@@ -1,0 +1,9 @@
+---
+interface Props {
+  target: string;
+  children?: never;
+  label: string;
+}
+const { target, label } = Astro.props;
+---
+<a class="xref" href={`#${target}`}>{label}</a>

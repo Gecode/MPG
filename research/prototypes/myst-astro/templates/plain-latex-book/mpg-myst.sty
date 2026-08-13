@@ -1,0 +1,64 @@
+%% MyST LaTeX adapter for the shared MPG book design.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mpg-myst}[2026/08/09 MyST adapter for MPG classical PDF]
+
+\RequirePackage{mpg-classic}
+\RequirePackage{framed}
+\RequirePackage{caption}
+\RequirePackage{fancyhdr}
+\RequirePackage{fvextra}
+
+\makeatletter
+
+%% FancyVerb normally keeps fontspec's TU encoding. Register the shared code
+%% font as an explicit family so Bera Mono is selected in its native T1 encoding.
+\@namedef{FV@fontfamily@mpg}{%
+  \def\FV@FontScanPrep{}\def\FV@FontFamily{\MPGCodeFont}}
+%% fvextra's invisible continuation bookkeeping momentarily requests the roman
+%% family while the code block is in T1. Point that request at TeX Charter so
+%% XeTeX never substitutes Computer Modern or emits a misleading font warning.
+\DeclareFontFamily{T1}{Charter(0)}{}
+\DeclareFontShape{T1}{Charter(0)}{m}{n}{<->ssub*bch/m/n}{}
+
+%% Keep MyST's document metadata while recreating the spare MPG front matter.
+\renewcommand{\maketitle}{%
+  \begin{titlepage}\thispagestyle{empty}\vspace*{1in}
+    \begin{flushright}
+      \MPGLogo\par\vspace*{3em}
+      {\MPGBigTitle\bfseries\@title\par}\vspace*{3em}
+      {\large\@author\par}\vfill
+      {\large Classical PDF prototype\par}\vspace*{1in}
+    \end{flushright}
+  \end{titlepage}
+  \setcounter{footnote}{0}\clearpage}
+
+\makeatother
+
+%% Long canonical C++ lines must remain exact in the source and download. Let
+%% the PDF presentation wrap them at safe character boundaries instead of
+%% shrinking them beyond readability or running them out of the program box.
+\newcommand{\MPGConfigureMySTVerbatim}{%
+  \RecustomVerbatimEnvironment{verbatim}{Verbatim}{%
+    breaklines=true,breakanywhere=true,breaksymbolleft={},breaksymbolright={},
+    fontsize=\small,fontfamily=mpg}}
+
+%% MyST's repaired code nodes retain the caption package's program float. Keep
+%% that semantic float, while applying the historical orange visual family.
+\captionsetup[program]{labelfont={bf,color=GecodeOrange},textfont=small}
+\newenvironment{mpgprogram}[1][h]{%
+  \begin{program}[#1]\color{GecodeOrange}\hrule height .4pt\color{black}\smallskip
+}{%
+  \smallskip\color{GecodeOrange}\hrule height .4pt\color{black}\end{program}
+}
+
+%% MyST currently exports titled admonitions as framed blocks. The generated-
+%% TeX adapter recovers the title and hands it to this presentation environment.
+\newenvironment{mpgtip}[1]{\begin{MPGTip}{#1}}{\end{MPGTip}}
+
+%% Match the original's quiet centered folio in both ordinary and opening pages.
+\fancypagestyle{plain}{%
+  \fancyhf{}\fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}}
+\pagestyle{plain}
+
+\endinput

@@ -1,0 +1,8 @@
+---
+import fragment from '../../../../../generated/index.fragment.html?raw';
+import PrototypeLayout from '../../../../../src/layouts/PrototypeLayout.astro';
+---
+
+<PrototypeLayout title="A first model">
+  <article class="mpg-document" set:html={fragment} />
+</PrototypeLayout>

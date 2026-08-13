@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomy of a Gecode model space</title>
+  <desc id="desc">Variables are connected to propagators and branchers inside a space. A search engine clones and explores the space.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#0b7646"/></marker>
+    <pattern id="grid" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#d9e5df" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="920" height="360" rx="24" fill="#f7faf8"/>
+  <rect x="24" y="24" width="650" height="312" rx="18" fill="url(#grid)" stroke="#27393e" stroke-width="2"/>
+  <text x="50" y="66" font-family="sans-serif" font-size="20" font-weight="700" fill="#27393e">MODEL SPACE</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="64" y="103" width="164" height="164" rx="82" fill="#0b7646"/>
+    <text x="146" y="177" font-size="19" font-weight="700" fill="white">VARIABLES</text>
+    <text x="146" y="207" font-size="15" fill="#dff5e9">domains + state</text>
+    <rect x="303" y="90" width="290" height="72" rx="10" fill="white" stroke="#005ba1" stroke-width="2"/>
+    <text x="448" y="123" font-size="18" font-weight="700" fill="#005ba1">PROPAGATORS</text>
+    <text x="448" y="146" font-size="14" fill="#27393e">prune inconsistent values</text>
+    <rect x="303" y="207" width="290" height="72" rx="10" fill="white" stroke="#b5522b" stroke-width="2"/>
+    <text x="448" y="240" font-size="18" font-weight="700" fill="#9d3e1b">BRANCHERS</text>
+    <text x="448" y="263" font-size="14" fill="#27393e">create choices and alternatives</text>
+    <rect x="738" y="112" width="156" height="136" rx="18" fill="#27393e"/>
+    <text x="816" y="171" font-size="18" font-weight="700" fill="white">SEARCH</text>
+    <text x="816" y="198" font-size="14" fill="#d8e4e6">clone · explore</text>
+    <text x="816" y="219" font-size="14" fill="#d8e4e6">recompute</text>
+  </g>
+  <path d="M228 150 C260 135 271 127 303 127" fill="none" stroke="#0b7646" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M228 221 C260 237 271 243 303 243" fill="none" stroke="#0b7646" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M674 180 H730" fill="none" stroke="#0b7646" stroke-width="3" marker-end="url(#arrow)"/>
+</svg>

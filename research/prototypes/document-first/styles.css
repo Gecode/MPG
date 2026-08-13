@@ -1,0 +1,26 @@
+:root {
+  --mpg-ink: #183642;
+  --mpg-blue: #365f76;
+  --mpg-pale: #eef6fa;
+}
+
+.navbar,
+.sidebar-title {
+  color: var(--mpg-ink);
+}
+
+.sidebar-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--mpg-ink);
+}
+
+pre.sourceCode {
+  border-left: 0.25rem solid var(--mpg-blue);
+  background: var(--mpg-pale);
+}

@@ -1,0 +1,45 @@
+---
+title: Getting started
+description: A first constraint model in Gecode, from variables to search.
+chapter: 1
+order: 10
+---
+
+import Callout from '../../components/Callout.astro';
+import CodeListing from '../../components/CodeListing.astro';
+import Figure from '../../components/Figure.astro';
+import XRef from '../../components/XRef.astro';
+import sendMoreMoney from '../../../examples/send-more-money.cpp?raw';
+
+# Getting started
+
+This chapter introduces the core shape of a Gecode model: a space owns variables, propagators, and branchers; a search engine explores copies of that space. The web edition keeps the short route through the material, while the print stylesheet preserves a continuous reading path.
+
+<h2 id="first-model">A first Gecode model</h2>
+
+The running example is **SEND + MORE = MONEY**. Each letter denotes a distinct digit and neither leading letter may be zero. In positional notation, the central constraint is
+
+$$
+1000S + 100E + 10N + D + 1000M + 100O + 10R + E
+= 10000M + 1000O + 100N + 10E + Y.
+$$
+
+<Figure id="fig-space" number="1.1" caption="A model space packages variables with the actors that constrain and branch on them.">
+  <img src={`${import.meta.env.BASE_URL}figures/space.svg`} alt="A model space containing variables, propagators, and branchers, connected to a search engine." />
+</Figure>
+
+As <XRef target="fig-space" label="Figure 1.1" /> shows, propagation and branching belong to the space; search orchestrates cloning and exploration. This separation is also the basis for Gecode’s efficient propagation control [@SchulteTack2008].
+
+<Callout title="Space& versus Home">
+Constraint-posting functions expose `Home`, a lightweight handle to the current space. When modeling, read it as “the space where this actor belongs”; the distinction becomes important when implementing propagators and branchers.
+</Callout>
+
+<h2 id="posting-constraints">Posting constraints</h2>
+
+The listing below is not copied into the chapter source. MDX imports the exact `.cpp` file with Vite’s `?raw` query; the test target compiles that same file against Gecode. That makes the displayed program, downloadable program, and tested program one artifact.
+
+<CodeListing code={sendMoreMoney} filename="send-more-money.cpp" download={`${import.meta.env.BASE_URL}examples/send-more-money.cpp`} />
+
+The coefficient arrays encode the displayed equation, `distinct` posts the global all-different constraint, and the brancher chooses a smallest-domain variable before trying its smallest value. Search uses `DFS` as the complete baseline.
+
+<h2 id="references">References</h2>

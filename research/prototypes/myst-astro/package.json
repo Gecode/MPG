@@ -1,0 +1,23 @@
+{
+  "name": "mpg-myst-astro-spike",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "myst:site": "myst build --site",
+    "myst:html": "myst build --html",
+    "myst:pdf": "myst build --pdf",
+    "myst:tex": "myst build --tex",
+    "render:fragment": "node scripts/render-fragment.mjs",
+    "astro:build": "npm run render:fragment && astro build",
+    "astro:check": "astro check",
+    "verify:fragment": "node scripts/verify-fragment.mjs",
+    "verify:all": "bash scripts/verify-all.sh"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.6",
+    "astro": "7.2.0",
+    "katex": "0.16.22",
+    "mystmd": "1.10.1",
+    "typescript": "5.9.3"
+  }
+}

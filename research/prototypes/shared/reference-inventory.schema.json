@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.gecode.dev/schemas/reference-inventory-v1.json",
+  "title": "Imported Gecode reference-documentation inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "gecode_version",
+    "base_url",
+    "generated_by",
+    "objects"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "gecode_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "base_url": {
+      "type": "string",
+      "pattern": "^/doc/[0-9]+\\.[0-9]+\\.[0-9]+/reference/$"
+    },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "objects": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_-]*:[^\\s]+$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "url"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "url": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]+\\.html(?:#[A-Za-z0-9_.:-]+)?$"
+          }
+        }
+      }
+    }
+  }
+}

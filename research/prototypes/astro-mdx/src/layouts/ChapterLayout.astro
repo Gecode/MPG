@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import 'katex/dist/katex.min.css';
+
+interface Props {
+  title: string;
+  description: string;
+  chapter: number;
+}
+
+const { title, description, chapter } = Astro.props;
+const root = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title} · Modeling and Programming with Gecode</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href={root} aria-label="Gecode documentation home">
+        <span class="brand__mark" aria-hidden="true">G</span>
+        <span><strong>Gecode</strong><small>generic constraint development environment</small></span>
+      </a>
+      <nav aria-label="Primary"><a href="https://www.gecode.dev/">Project</a><a href="https://www.gecode.dev/documentation.html">Documentation</a></nav>
+    </header>
+    <div class="book-shell">
+      <aside class="book-nav" aria-label="Book navigation">
+        <p class="book-nav__eyebrow">Modeling &amp; Programming</p>
+        <h2>Work with Gecode</h2>
+        <ol>
+          <li><span>01</span><a aria-current="page" href={`${root}chapters/m-started/`}>Getting started</a></li>
+          <li class="is-muted"><span>02</span>Modeling integers</li>
+          <li class="is-muted"><span>03</span>Branching</li>
+        </ol>
+        <a class="pdf-link" href={`${root}mpg-prototype.pdf`}>↓ PDF edition</a>
+      </aside>
+      <main id="content" class="chapter">
+        <div class="chapter__number">Chapter {chapter}</div>
+        <article class="prose"><slot /></article>
+        <nav class="chapter-pager" aria-label="Chapter pages"><span>Previous</span><a href="#posting-constraints">Next: Posting constraints →</a></nav>
+      </main>
+      <aside class="on-this-page" aria-label="On this page">
+        <p>On this page</p>
+        <a href="#first-model">A first model</a>
+        <a href="#posting-constraints">Posting constraints</a>
+        <a href="#references">References</a>
+      </aside>
+    </div>
+  </body>
+</html>

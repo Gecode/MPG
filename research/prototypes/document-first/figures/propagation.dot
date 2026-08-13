@@ -1,0 +1,39 @@
+digraph propagation {
+  graph [
+    rankdir=LR,
+    bgcolor="transparent",
+    fontname="Inter, Helvetica, Arial, sans-serif",
+    nodesep=0.42,
+    ranksep=0.7
+  ];
+  node [
+    shape=box,
+    style="rounded,filled",
+    color="#365f76",
+    fillcolor="#eef6fa",
+    fontcolor="#183642",
+    fontname="Inter, Helvetica, Arial, sans-serif",
+    penwidth=1.4,
+    margin="0.14,0.09"
+  ];
+  edge [
+    color="#5b7180",
+    fontcolor="#365f76",
+    fontname="Inter, Helvetica, Arial, sans-serif",
+    penwidth=1.2
+  ];
+
+  model [label="Post model"];
+  stable [label="Propagate to\na stable space"];
+  branch [label="Choose an\nalternative"];
+  clone [label="Clone and\ncommit"];
+  solution [label="Solution", fillcolor="#e4f2e3", color="#477546"];
+  failure [label="Failure", fillcolor="#f9e8e5", color="#994c42"];
+
+  model -> stable [label=" status()"];
+  stable -> branch [label=" SS_BRANCH"];
+  stable -> solution [label=" SS_SOLVED"];
+  stable -> failure [label=" SS_FAILED"];
+  branch -> clone [label=" choice()"];
+  clone -> stable [label=" commit()"];
+}

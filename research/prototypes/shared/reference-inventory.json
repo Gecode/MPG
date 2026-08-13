@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "gecode_version": "6.4.0",
+  "base_url": "/doc/6.4.0/reference/",
+  "generated_by": "Gecode release documentation build (fixture)",
+  "objects": {
+    "class:Gecode::IntVar": {
+      "title": "Gecode::IntVar",
+      "url": "classGecode_1_1IntVar.html"
+    },
+    "class:Gecode::Space": {
+      "title": "Gecode::Space",
+      "url": "classGecode_1_1Space.html"
+    },
+    "group:TaskModelIntRelInt": {
+      "title": "Relation constraints over integer variables",
+      "url": "group__TaskModelIntRelInt.html"
+    }
+  }
+}

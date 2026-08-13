@@ -1,0 +1,9 @@
+node_modules/
+_build/
+.astro/
+dist/
+public/
+generated/
+exports/
+tmp/
+content/assets/hard/

@@ -1,0 +1,45 @@
+# A magic sequence model {#sec-magic-sequence}
+
+A magic sequence of length $n$ contains each value $i$ exactly $x_i$ times.
+The counting equations imply
+
+$$
+\sum_{i=0}^{n-1} x_i = n.
+$$ {#eq-total-count}
+
+The identity in @eq-total-count supplies an implied constraint that can strengthen
+propagation without changing the solution set. The runtime model behind the
+example is a Gecode `Space`: posting creates variables and propagators,
+branching creates the search choices, and depth-first search explores clones.
+This separation is discussed in the propagation-engine literature
+[@SchulteStuckey2008].
+
+## Propagation and search
+
+The diagram source is Graphviz DOT. The build renders SVG for the web and PDF
+for print from that one vector source; @fig-propagation therefore remains sharp
+in both outputs.
+
+![A small model moves from posting through propagation to branching and search.](figures/propagation.svg){#fig-propagation}
+
+## Canonical, tested program
+
+The program in @lst-magic-sequence is not a copy embedded in prose. The `include` attribute
+points to `examples/magic-sequence.cpp`; a Lua filter loads that file into the
+document abstract syntax tree. The test pipeline discovers the same attribute,
+copies the file to an extraction directory, records its SHA-256 digest, then
+compiles and runs the extracted copy.
+
+::: {#lst-magic-sequence}
+
+```{.cpp include="examples/magic-sequence.cpp"}
+```
+
+A complete magic-sequence script, included from its canonical source file.
+
+:::
+
+This direction avoids the old failure mode in which prose snippets and
+downloadable examples diverge. Smaller pedagogical excerpts can later select
+named regions from the canonical file, but the prototype keeps that policy out
+of the author syntax until region semantics are designed.

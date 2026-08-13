@@ -1,0 +1,216 @@
+{
+  "model_version": "0.1",
+  "repository_root": "../../..",
+  "publication": {
+    "id": "publication.mpg",
+    "title": "Modeling and Programming with Gecode",
+    "authors": ["Christian Schulte", "Guido Tack", "Mikael Z. Lagerkvist"],
+    "license": "CC BY-NC-ND 3.0",
+    "gecode": {
+      "version": "6.4.0",
+      "ref": "release-6.4.0"
+    },
+    "navigation": [
+      {
+        "id": "part.programming-propagators",
+        "title": "Programming propagators",
+        "page_ids": ["page.propagators.getting-started"]
+      }
+    ],
+    "bibliography_paths": ["docs/src/bib/references.bib"]
+  },
+  "pages": [
+    {
+      "id": "page.propagators.getting-started",
+      "slug": "programming-propagators/getting-started",
+      "title": "Getting started",
+      "authors": ["Christian Schulte", "Guido Tack"],
+      "blocks": [
+        {
+          "type": "heading",
+          "id": "section.propagators.less-complete",
+          "level": 2,
+          "title": "The complete less-than propagator"
+        },
+        {
+          "type": "prose",
+          "text": "The legacy source presents one complete propagator and then projects each lifecycle operation separately."
+        },
+        {
+          "type": "code_projection",
+          "id": "projection.less.complete",
+          "artifact_id": "artifact.less-propagator",
+          "region_id": "whole",
+          "title": "less",
+          "presentation": "normal",
+          "show_download": true,
+          "fold_overrides": {
+            "posting": "linked",
+            "disposal": "linked",
+            "copying": "linked",
+            "cost-computation": "linked",
+            "rescheduling": "linked",
+            "propagation": "linked",
+            "constraint-post-function": "linked"
+          }
+        },
+        {
+          "type": "code_projection",
+          "id": "projection.less.propagation",
+          "artifact_id": "artifact.less-propagator",
+          "region_id": "propagation",
+          "title": "propagation",
+          "presentation": "normal",
+          "show_download": false
+        }
+      ]
+    }
+  ],
+  "code_artifacts": [
+    {
+      "id": "artifact.less-propagator",
+      "output_path": "less.cpp",
+      "language": "cpp",
+      "authors": ["Christian Schulte"],
+      "license": "MIT",
+      "generation": {
+        "strategy": "legacy-literate",
+        "source_paths": ["docs/src/chapters/programming/p-started.tex.in"]
+      },
+      "required_capabilities": ["gecode-test-framework"],
+      "regions": [
+        {
+          "id": "whole",
+          "title": "less",
+          "parent_id": null,
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1385,
+            "end_line": 1456
+          },
+          "emission": "include",
+          "default_projection": "expanded"
+        },
+        {
+          "id": "posting",
+          "title": "posting",
+          "parent_id": "whole",
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1395,
+            "end_line": 1404
+          },
+          "emission": "include",
+          "default_projection": "linked"
+        },
+        {
+          "id": "disposal",
+          "title": "disposal",
+          "parent_id": "whole",
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1407,
+            "end_line": 1412
+          },
+          "emission": "include",
+          "default_projection": "linked"
+        },
+        {
+          "id": "copying",
+          "title": "copying",
+          "parent_id": "whole",
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1415,
+            "end_line": 1422
+          },
+          "emission": "include",
+          "default_projection": "linked"
+        },
+        {
+          "id": "cost-computation",
+          "title": "cost computation",
+          "parent_id": "whole",
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1425,
+            "end_line": 1427
+          },
+          "emission": "include",
+          "default_projection": "linked"
+        },
+        {
+          "id": "rescheduling",
+          "title": "re-scheduling",
+          "parent_id": "whole",
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1430,
+            "end_line": 1433
+          },
+          "emission": "include",
+          "default_projection": "linked"
+        },
+        {
+          "id": "propagation",
+          "title": "propagation",
+          "parent_id": "whole",
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1436,
+            "end_line": 1445
+          },
+          "emission": "include",
+          "default_projection": "linked"
+        },
+        {
+          "id": "constraint-post-function",
+          "title": "constraint post function",
+          "parent_id": "whole",
+          "source_span": {
+            "path": "docs/src/chapters/programming/p-started.tex.in",
+            "start_line": 1451,
+            "end_line": 1453
+          },
+          "emission": "include",
+          "default_projection": "linked"
+        }
+      ],
+      "validation_profile_ids": ["validation.less.gecode-test"]
+    }
+  ],
+  "validation_profiles": [
+    {
+      "id": "validation.less.gecode-test",
+      "artifact_id": "artifact.less-propagator",
+      "mode": "test-harness",
+      "compile": {
+        "units": [
+          { "kind": "artifact-output" },
+          { "kind": "path", "path": "test/less.cpp" }
+        ],
+        "cpp_standard": 17,
+        "gecode_components": [
+          "gecodeint",
+          "gecodekernel",
+          "gecodeminimodel",
+          "gecodesearch",
+          "gecodesupport",
+          "gecode-test-framework"
+        ],
+        "flags": ["-DNDEBUG"]
+      },
+      "execute": {
+        "arguments": ["-test", "^Less"],
+        "timeout_seconds": 20,
+        "automated": true
+      },
+      "expect": {
+        "exit_codes": [0],
+        "registered_tests_min": 1
+      },
+      "reason": "Run the registered Less test rather than invoking the harness with -help."
+    }
+  ],
+  "figure_assets": []
+}

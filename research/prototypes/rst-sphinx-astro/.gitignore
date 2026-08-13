@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.astro/
+node_modules/
+build/
+dist/
+public/
+src/pages/
+tmp/
+content/assets/hard/

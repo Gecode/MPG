@@ -1,0 +1,19 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  filename: string;
+  download?: string;
+}
+
+const { code, filename, download } = Astro.props;
+---
+
+<figure class="code-listing" id="listing-send-more-money">
+  <figcaption>
+    <span>Canonical source · <code>{filename}</code></span>
+    {download && <a href={download} download>Download source</a>}
+  </figcaption>
+  <Code code={code.trim()} lang="cpp" theme="github-dark" />
+</figure>

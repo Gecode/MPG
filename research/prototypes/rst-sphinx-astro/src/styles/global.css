@@ -1,0 +1,22 @@
+:root { color: #14221c; font-family: "Open Sans", Arial, Helvetica, sans-serif; background: #fbfcf9; }
+body { margin: 0; }
+header { display: flex; align-items: baseline; gap: 1.2rem; padding: 1rem max(1.5rem, calc((100vw - 76rem)/2)); color: white; background: #0b7646; }
+header a { color: white; font-size: 1.5rem; font-weight: 750; text-decoration: none; }
+header small { margin-left: auto; }
+main { display: grid; grid-template-columns: 13rem minmax(0, 48rem); gap: 3rem; max-width: 76rem; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+nav { display: flex; flex-direction: column; gap: .7rem; border-right: 1px solid #cbd8d1; }
+a { color: #075f9f; }
+h1, h2 { color: #075331; font-family: Raleway, Verdana, sans-serif; letter-spacing: -.02em; }
+.section-number { color: #608073; margin-right: .55rem; }
+p { line-height: 1.65; }
+figure { margin: 2rem 0; }
+figure img { display: block; max-width: 100%; margin: auto; }
+figcaption, caption { margin-top: .7rem; color: #496359; font-size: .92rem; text-align: left; }
+.equation { display: grid; grid-template-columns: 1fr auto; align-items: center; }
+pre { overflow-x: auto; padding: 1rem; color: #eef8f2; background: #142f26; border-radius: .4rem; font-family: "Roboto Mono", ui-monospace, monospace; line-height: 1.45; }
+table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+th, td { border: 1px solid #b9c9c1; padding: .65rem; text-align: left; }
+th { background: #e4eee9; }
+.admonition { margin: 2rem 0; padding: .3rem 1rem; border-left: .35rem solid #2a8a60; background: #e7f4ed; }
+.bibliography { padding-left: 0; list-style: none; }
+@media (max-width: 760px) { main { display: block; } nav { flex-direction: row; border: 0; margin-bottom: 2rem; } }

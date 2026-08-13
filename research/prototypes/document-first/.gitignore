@@ -1,0 +1,11 @@
+/.quarto/
+/_build/
+/*.tex
+/figures/*.pdf
+/figures/*.svg
+/site_libs/
+/tmp/
+
+
+/.quarto/
+**/*.quarto_ipynb
