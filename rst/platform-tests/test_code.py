@@ -60,7 +60,11 @@ class MpgCodeDirectiveTests(unittest.TestCase):
         latex = (self._build("latex", body) / "projectnamenotset.tex").read_text(
             encoding="utf-8"
         )
-        self.assertIn(r"\MPGCodeTitle{no leading zeros}", latex)
+        self.assertIn(
+            r"\gdef\sphinxVerbatimTitle{\MPGCodeTitle{no leading zeros}}",
+            latex,
+        )
+        self.assertIn(r"\global\MPGUnnumberedVerbatimTitletrue", latex)
         self.assertNotIn(r"\caption", latex)
 
 

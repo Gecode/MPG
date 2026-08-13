@@ -216,20 +216,28 @@
     \renewcommand{\footrulewidth}{0pt}}}{}
 \makeatother
 
-\fvset{fontfamily=fvm}
+\makeatletter
+\@namedef{FV@fontfamily@mpgbera}{%
+  \def\FV@FontScanPrep{}%
+  \def\FV@FontFamily{\fontencoding{T1}\fontfamily{fvm}}}
+\makeatother
+\fvset{fontfamily=mpgbera,fontsize=auto}
 % Sphinx defaults uncaptioned literal blocks to \smallskip.  The original MPG
 % used a centered display whose entrance and exit space followed \medskip;
 % retain that calmer separation without asking authors for spacer markup.
 \renewcommand{\sphinxverbatimsmallskipamount}{\medskipamount}
-\let\MPGSphinxOriginalVerbatim\OriginalVerbatim
-\renewcommand{\OriginalVerbatim}{%
-  % The legacy 12pt MPG selected Bera Mono through ``scaled=0.88``, yielding
-  % roughly 10.1pt listing glyphs.  Selecting the Type 1 family directly under
-  % XeLaTeX lost that scale and produced dense 12pt strokes.  Footnote size
-  % restores the original physical listing size while retaining Pygments'
-  % meaningful bold/italic token distinctions.
-  \footnotesize\fontencoding{T1}\fontfamily{fvm}\selectfont
-  \MPGSphinxOriginalVerbatim}
+% Integrated literate titles already carry their own full-width background;
+% do not insert table-caption spacing between that field and the code field.
+\renewcommand{\sphinxbelowcaptionspace}{\dp\strutbox}
+% An unnumbered literate label uses Sphinx's title box only for layout.  Do not
+% let hypcap treat it as a numbered Program caption and manufacture repeated
+% PDF destinations.  The flag resets before the next verbatim environment.
+\newif\ifMPGUnnumberedVerbatimTitle
+\AtBeginEnvironment{sphinxVerbatim}{%
+  \ifMPGUnnumberedVerbatimTitle
+    \capstartfalse
+    \global\MPGUnnumberedVerbatimTitlefalse
+  \fi}
 \renewcommand{\literalblockname}{\textcolor{GecodeRed}{\MPGProgramLabel}\space}
 \sphinxsetup{
   HeaderFamily={\rmfamily\bfseries},
@@ -238,7 +246,10 @@
   OuterLinkColor={named}{GecodeGreen},
   VerbatimColor={named}{GecodeOrangeOp20},
   VerbatimBorderColor={named}{GecodeOrange},
-  verbatimborder=0.4pt,
+  % The original literate display is a single orange field.  Its title is
+  % carried by Sphinx's non-detachable title hook, and a zero-width border
+  % lets the title field meet the code field without a false dividing rule.
+  verbatimborder=0pt,
   div.tip_border-TeXcolor=GecodeBlue,
   div.tip_background-TeXcolor=GecodeBlueOp10,
   div.tip_title-background-TeXcolor=GecodeBlueOp20,

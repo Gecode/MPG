@@ -28,7 +28,13 @@ def depart_mpg_code_title_html(translator, node: MpgCodeTitle) -> None:
 
 
 def visit_mpg_code_title_latex(translator, node: MpgCodeTitle) -> None:
-    translator.body.append(f'\\MPGCodeTitle{{{translator.encode(node["title"])}}}\n')
+    # Use Sphinx's verbatim-title hook so the literate label and its code are
+    # measured, kept, framed, and split as one object.  A separate preceding
+    # block looks detached and can be stranded at a page boundary.
+    translator.body.append(
+        '\\global\\MPGUnnumberedVerbatimTitletrue\n'
+        f'\\gdef\\sphinxVerbatimTitle{{\\MPGCodeTitle{{{translator.encode(node["title"])}}}}}\n'
+    )
 
 
 def depart_mpg_code_title_latex(translator, node: MpgCodeTitle) -> None:

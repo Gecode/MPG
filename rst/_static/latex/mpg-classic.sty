@@ -41,13 +41,11 @@
   \IfFileExists{gecode-logo.pdf}{\includegraphics[width=.35\textwidth]{gecode-logo.pdf}}{}}
 \newcommand{\MPGCodeFont}{\fontencoding{T1}\fontfamily{fvm}\selectfont}
 \newcommand{\MPGCodeTitle}[1]{%
-  \par\addvspace{1.5ex plus .5ex minus .2ex}%
-  \needspace{5\baselineskip}%
   \noindent\colorbox{GecodeOrangeOp20}{%
     \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
-      \color{GecodeRed}\sffamily\bfseries\footnotesize
-      \MakeUppercase{#1}\enspace$\equiv$}}%
-  \par\nobreak\vspace{-1.15ex}%
+      \color{GecodeRed}\normalfont\bfseries\textsc{#1}%
+      \enspace$\equiv$}}%
+  \par
 }
 \newenvironment{MPGTip}[2]{%
   \par\medskip\noindent
@@ -68,9 +66,13 @@
     BoldFont=*-Bold,
     BoldItalicFont=*-BoldItalic
   ]{XCharter}%
-  \IfFontExistsTF{Bera Sans Mono}{\setmonofont[Scale=0.88]{Bera Sans Mono}}{%
-    \IfFontExistsTF{DejaVu Sans Mono}{\setmonofont[Scale=0.88]{DejaVu Sans Mono}}{}}%
-}{\RequirePackage[scaled=0.88]{beramono}}
+}{}
+% Use the same TeX Bera Mono face and 0.88 design scale as the original MPG.
+% Sphinx otherwise installs FreeMono through fontspec, while an outer font
+% selection is subsequently overwritten by fancyvrb's own setup.
+\let\MPGDefaultTTFamily\ttdefault
+\RequirePackage[scaled=0.88]{beramono}
+\let\ttdefault\MPGDefaultTTFamily
 
 \renewcommand\thepart{\Alph{part}}
 % A drawn square retains the classical MPG list marker without introducing a

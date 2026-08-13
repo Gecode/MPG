@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
 import sys
 import unittest
 
@@ -46,8 +47,21 @@ class PdfRhythmTests(unittest.TestCase):
             r"\renewcommand{\sphinxverbatimsmallskipamount}{\medskipamount}",
             adapter,
         )
-        self.assertIn(r"\footnotesize\fontencoding{T1}\fontfamily{fvm}", adapter)
-        self.assertIn(r"\needspace{5\baselineskip}", classical)
+        self.assertIn(
+            r"\def\FV@FontFamily{\fontencoding{T1}\fontfamily{fvm}}",
+            adapter,
+        )
+        self.assertIn(r"\RequirePackage[scaled=0.88]{beramono}", classical)
+        self.assertNotIn(r"\par\nobreak\vspace{-1.15ex}", classical)
+
+    def test_built_publication_embeds_the_classical_listing_face(self) -> None:
+        pdf = RST_ROOT / "_build" / "bera-final" / "latex" / "MPG.pdf"
+        if not pdf.exists():
+            self.skipTest("full PDF has not been built")
+        fonts = subprocess.run(
+            ["pdffonts", str(pdf)], check=True, capture_output=True, text=True
+        ).stdout
+        self.assertIn("BeraSansMono-Roman", fonts)
 
 
 if __name__ == "__main__":
