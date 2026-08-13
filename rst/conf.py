@@ -140,6 +140,10 @@ latex_elements = {
     "papersize": "a4paper",
     "pointsize": "12pt",
     "classoptions": ",openright",
+    # Keep figures out of the prose flow in the PDF.  Prefer the top of a
+    # page, allow the bottom or a dedicated float page when necessary, and
+    # deliberately omit LaTeX's `h` (place approximately "here") option.
+    "figure_align": "tbp",
     # Match the long-standing a4wide measure used by MPG.  Sphinx's default
     # manual geometry is narrower and changes both the book's density and the
     # pagination of almost every chapter.

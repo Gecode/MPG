@@ -105,7 +105,7 @@ def main() -> int:
         latex_output = root / "latex"
         sphinx_latex(FIXTURE, latex_output)
         latex = (latex_output / "MPG.tex").read_text(encoding="utf-8")
-        for expected in (r"\begin{figure}[htbp]", r"\caption[Values]{Available values}",
+        for expected in (r"\begin{figure}[tbp]", r"\caption[Values]{Available values}",
                          r"\paragraph{Classical heading.}",
                          r"chapter:fig-m-fixture"):
             if expected not in latex:
