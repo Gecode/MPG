@@ -984,6 +984,7 @@ Arithmetic constraints
 
 .. mpg-figure:: Arithmetic constraints (``x``, ``y``, ``z``, ``d``, and ``m`` are integer variables; ``n`` is an integer)
    :name: fig:m:integer:arithmetic
+   :short-caption: Arithmetic constraints
 
    .. container:: center
 

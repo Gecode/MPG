@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="42" viewBox="0 0 180 42"
+     role="img" aria-labelledby="title description">
+  <title id="title">Creative Commons BY-NC-ND</title>
+  <desc id="description">Creative Commons licence symbols for attribution, noncommercial use, and no derivatives.</desc>
+  <g fill="none" stroke="#0b7646" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="21" cy="21" r="18"/>
+    <circle cx="67" cy="21" r="18"/>
+    <circle cx="113" cy="21" r="18"/>
+    <circle cx="159" cy="21" r="18"/>
+    <!-- Creative Commons: two open letterforms, drawn as paths. -->
+    <path d="M19 15.5a7 7 0 1 0 0 11 M29 15.5a7 7 0 1 0 0 11"/>
+    <!-- Attribution: head and shoulders. -->
+    <circle cx="67" cy="15" r="4"/>
+    <path d="M58 30c1-6 4-9 9-9s8 3 9 9"/>
+    <!-- Noncommercial: a crossed currency mark. -->
+    <path d="M113 10v22 M120 14c-2-2-4-3-7-3-4 0-7 2-7 5 0 7 14 3 14 10 0 3-3 5-7 5-3 0-6-1-8-3 M101 9l24 24"/>
+    <!-- No derivatives: equality mark. -->
+    <path d="M150 17h18 M150 25h18"/>
+  </g>
+</svg>

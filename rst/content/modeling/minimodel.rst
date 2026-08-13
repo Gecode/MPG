@@ -754,6 +754,7 @@ Regular expressions for extensional constraints
 
 .. mpg-figure:: Constructing regular expressions (``r`` and ``s`` are regular expressions, ``n`` and ``m`` are unsigned integers)
    :name: fig:m:minimodel:reg
+   :short-caption: Constructing regular expressions
 
    .. container:: center
 
@@ -845,6 +846,7 @@ Aliases for integer constraints
 
 .. mpg-figure:: Aliases for integer constraints (``x`` and ``y`` are integer variable arrays, ``u`` and ``v`` are integers or integer variables, ``r`` is an integer relation type, ``s`` is an integer set)
    :name: fig:m:minimodel:alias
+   :short-caption: Aliases for integer constraints
 
    .. container:: center
 

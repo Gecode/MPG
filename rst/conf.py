@@ -134,6 +134,7 @@ latex_additional_files = [
     # title page.  The figures workstream will move all publication assets,
     # including this logo, into the final release asset tree.
     str(REPOSITORY_ROOT / "research" / "prototypes" / "shared" / "classical-pdf" / "gecode-logo.pdf"),
+    str(RST_ROOT / "figures" / "pdf" / "cc-by-nc-nd.pdf"),
 ]
 latex_elements = {
     "papersize": "a4paper",

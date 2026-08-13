@@ -27,6 +27,10 @@ class MpgFigure(nodes.figure):
     """A captioned figure whose body may contain arbitrary reST content."""
 
 
+class MpgCaption(nodes.caption):
+    """A figure caption with an optional, deliberately short list title."""
+
+
 class MpgPartDirective(Directive):
     required_arguments = 1
     final_argument_whitespace = True
@@ -93,6 +97,7 @@ class MpgFigureDirective(Directive):
     has_content = True
     option_spec = {
         "name": directives.unchanged_required,
+        "short-caption": directives.unchanged,
         "class": directives.class_option,
     }
 
@@ -104,10 +109,38 @@ class MpgFigureDirective(Directive):
         self.add_name(node)
         self.state.nested_parse(self.content, self.content_offset, node)
         caption_text = self.arguments[0]
-        caption = nodes.caption(caption_text, "")
+        caption = MpgCaption(caption_text, "")
+        caption["short_caption"] = self.options.get("short-caption", "")
         caption.extend(self.state.inline_text(caption_text, self.lineno)[0])
         node += caption
         return [node]
+
+
+def visit_mpg_caption_html(translator, node: MpgCaption) -> None:
+    translator.visit_caption(node)
+
+
+def depart_mpg_caption_html(translator, node: MpgCaption) -> None:
+    translator.depart_caption(node)
+
+
+def visit_mpg_caption_latex(translator, node: MpgCaption) -> None:
+    """Emit LaTeX's optional caption only when the author supplied one.
+
+    The full caption remains visible and is still exposed to HTML.  The short
+    form affects only the list of figures, matching the original MPG source's
+    ``\\caption[short]{full}`` distinction.
+    """
+    translator.in_caption += 1
+    short_caption = node.get("short_caption", "")
+    if short_caption:
+        translator.body.append(r"\caption[" + translator.encode(short_caption) + "]{")
+    else:
+        translator.body.append(r"\caption{")
+
+
+def depart_mpg_caption_latex(translator, node: MpgCaption) -> None:
+    translator.depart_caption(node)
 
 
 def visit_mpg_part_html(translator, node: MpgPart) -> None:
@@ -433,6 +466,11 @@ def setup(app):
               lambda translator, node: translator.depart_figure(node)),
         latex=(lambda translator, node: translator.visit_figure(node),
                lambda translator, node: translator.depart_figure(node)),
+    )
+    app.add_node(
+        MpgCaption,
+        html=(visit_mpg_caption_html, depart_mpg_caption_html),
+        latex=(visit_mpg_caption_latex, depart_mpg_caption_latex),
     )
     return {
         "version": "1.0",

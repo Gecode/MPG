@@ -60,9 +60,10 @@
   This document is provided under the terms of the
   \begin{center}
     \href{https://creativecommons.org/licenses/by-nc-nd/3.0/}{%
-      \Large\bfseries CC BY-NC-ND 3.0}
-    \vskip .75em
-    \href{https://creativecommons.org/licenses/by-nc-nd/3.0/}{Creative Commons
+      \includegraphics[width=.18\textwidth]{cc-by-nc-nd.pdf}}
+    \vskip .5em
+    \href{https://creativecommons.org/licenses/by-nc-nd/3.0/}{%
+      Creative Commons
       License Attribution-Noncommercial-No Derivative Works 3.0}
   \end{center}
   The complete license text can be found at the end of this document.
@@ -134,6 +135,11 @@
     constraints, search, propagators, branchers}}
 
 \renewcommand{\sphinxcrossref}[1]{#1}
+% Sphinx defaults headings to sans serif and expands definition-list labels
+% to a full line.  MPG has always used bold Charter section headings and
+% compact, run-in description terms.
+\renewcommand{\sphinxlineitem}[2]{%
+  \item[\normalfont\bfseries #1]\leavevmode\ignorespaces #2}
 % MPG used a run-in ``Important.`` paragraph, not an icon-bearing callout.
 % Keeping that vocabulary also removes a misleading pause-circle glyph from
 % both the visual page and extracted text.
@@ -162,6 +168,7 @@
   \fontencoding{T1}\fontfamily{fvm}\selectfont\MPGSphinxOriginalVerbatim}
 \renewcommand{\literalblockname}{\textcolor{GecodeRed}{\MPGProgramLabel}\space}
 \sphinxsetup{
+  HeaderFamily={\rmfamily\bfseries},
   TitleColor={named}{black},
   InnerLinkColor={named}{GecodeBlue},
   OuterLinkColor={named}{GecodeGreen},

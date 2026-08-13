@@ -104,6 +104,7 @@ returns ``true`` if and only if ``x.max()<y.min()`` returns ``true``. That means
 
 .. mpg-figure:: Functions on float values (``x`` and ``y`` are float values; ``n`` is a non-negative integer)
    :name: fig:m:float:val:fun
+   :short-caption: Functions on float values
 
    .. container:: center
 
@@ -377,6 +378,7 @@ Arithmetic constraints
 
 .. mpg-figure:: Arithmetic constraints (``x``, ``y``, and ``z`` are float variables; ``n`` is a non-negative integer; ``b`` is a float number)
    :name: fig:m:float:arithmetic
+   :short-caption: Arithmetic constraints
 
    .. container:: center
 

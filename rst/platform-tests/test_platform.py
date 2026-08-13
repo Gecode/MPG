@@ -104,13 +104,15 @@ def main() -> int:
         latex_output = root / "latex"
         sphinx_latex(FIXTURE, latex_output)
         latex = (latex_output / "MPG.tex").read_text(encoding="utf-8")
-        for expected in (r"\begin{figure}[htbp]", r"\caption{Available values}",
+        for expected in (r"\begin{figure}[htbp]", r"\caption[Values]{Available values}",
                          r"chapter:fig-m-fixture"):
             if expected not in latex:
                 raise RuntimeError(f"LaTeX omitted {expected}")
         adapter = (latex_output / "mpg-sphinx.sty").read_text(encoding="utf-8")
         for expected in (r"pdflang={en-GB}", r"pdfdisplaydoctitle=true",
-                         r"https://www.gecode.dev/doc/\MPGGecodeVersion/MPG.pdf"):
+                         r"https://www.gecode.dev/doc/\MPGGecodeVersion/MPG.pdf",
+                         r"HeaderFamily={\rmfamily\bfseries}",
+                         r"includegraphics[width=.18\textwidth]{cc-by-nc-nd.pdf}"):
             if expected not in adapter:
                 raise RuntimeError(f"PDF adapter omitted {expected}")
 

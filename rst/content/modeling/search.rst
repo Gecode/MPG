@@ -246,6 +246,7 @@ Search engines
 
 .. mpg-figure:: Search statistics (partial)
    :name: fig:m:search:statistics
+   :short-caption: Search statistics
 
    .. container:: center
 
@@ -646,6 +647,7 @@ More accurately, it leaves the actual configuration to the user: it calls the vi
 
 .. mpg-figure:: Meta information member functions
    :name: fig:m:search:mi
+   :short-caption: Meta information
 
    .. container:: center
 

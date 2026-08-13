@@ -86,6 +86,7 @@ The most important operations on float views for programming propagators are sum
 
 .. mpg-figure:: Rounding operations on float numbers (``x`` and ``y`` are float numbers)
    :name: fig:p:floats:rounding
+   :short-caption: Rounding operations on float numbers
 
    .. container:: center
 

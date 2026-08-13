@@ -16,6 +16,7 @@ the semantic :ref:`fixture-tip`.
 
 .. mpg-figure:: Available values
    :name: fig:m:fixture
+   :short-caption: Values
 
    +-------+---------+
    | Value | Meaning |
