@@ -46,6 +46,7 @@
   --mpg-rule: #d9dddf;
   --mpg-sidebar-width: clamp(18rem, 22vw, 24rem);
   --mpg-page-gutter: clamp(2rem, 3.5vw, 4rem);
+  --mpg-compact-gutter: clamp(1rem, 4vw, 3rem);
   --mpg-figure-width: 42rem;
   --mpg-figure-compact-width: 27rem;
   --mpg-sidebar-bg: #20372d;
@@ -69,7 +70,7 @@
     overscroll-behavior: none;
     background: linear-gradient(to right, var(--mpg-sidebar-bg) 0 var(--mpg-sidebar-width), white var(--mpg-sidebar-width));
   }
-  body.mpg-manual { text-rendering: optimizeLegibility; }
+  body.mpg-manual { background-image: none; text-rendering: optimizeLegibility; }
   a { color: var(--mpg-blue); text-decoration-thickness: .07em; text-underline-offset: .13em; }
   a:visited { color: var(--mpg-blue); }
   a:hover { color: var(--mpg-blue-dark); background: var(--mpg-blue-10); }
@@ -174,6 +175,25 @@
 .mpg-part-authors { margin: .35rem 0 0; color: var(--mpg-muted); font-size: .88rem; }
 .mpg-part-blurb { max-width: none; margin: 1.6rem 0 0; }
 
+.mpg-contents-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+.mpg-contents-part {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--mpg-rule);
+  border-top: .22rem solid var(--mpg-green);
+  background: var(--mpg-green-05);
+}
+.mpg-contents-part > p:first-child { margin: 0 0 .65rem; font-family: var(--mpg-display); font-size: 1.05rem; }
+.mpg-contents-part > p:first-child a { color: var(--mpg-ink); font-weight: 700; text-decoration: none; }
+.mpg-contents-part > p:first-child a:hover { text-decoration: underline; }
+.mpg-contents-part > ul { margin: 0; padding-left: 1.2rem; columns: 2 10rem; column-gap: 1.5rem; }
+.mpg-contents-part > ul > li { margin: 0 0 .28rem; break-inside: avoid; }
+.mpg-contents-part a { text-underline-offset: .13em; }
+
 .mpg-tip {
   position: relative;
   margin: 1.6rem 0;
@@ -271,6 +291,7 @@ thead th { color: var(--mpg-blue-dark); border-bottom: 2px solid var(--mpg-blue)
 @media (max-width: 40rem) {
   .mpg-part-heading { grid-template-columns: 3rem minmax(0, 1fr); }
   .mpg-part-letter { width: 3rem; height: 3rem; font-size: 1.7rem; }
+  .mpg-contents-grid { grid-template-columns: 1fr; }
 }
 
 @media print {

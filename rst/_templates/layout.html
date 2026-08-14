@@ -28,7 +28,7 @@
 {% block content %}
 <div class="mpg-page-frame block w-full print:w-auto">
   {% include "mpg-sidebar.html" %}
-  <div class="mpg-main-column relative ms-[calc(var(--mpg-sidebar-width)+var(--mpg-page-gutter))] w-[min(64rem,calc(100vw-var(--mpg-sidebar-width)-var(--mpg-page-gutter)-2rem))] min-w-0 max-w-[64rem] py-10 pb-20 max-manual:mx-auto max-manual:w-[min(calc(100%-2rem),58rem)] max-manual:pt-7 print:p-0">
+  <div class="mpg-main-column relative ms-[calc(var(--mpg-sidebar-width)+var(--mpg-page-gutter))] w-[min(64rem,calc(100vw-var(--mpg-sidebar-width)-var(--mpg-page-gutter)-2rem))] min-w-0 max-w-[64rem] py-10 pb-20 max-manual:mx-(--mpg-compact-gutter) max-manual:w-auto max-manual:pt-7 print:p-0">
     <a class="mpg-page-logo absolute end-0 z-[1] block rounded-mpg-sm bg-white p-[.35rem] hover:bg-mpg-brand-soft{% if pagename == master_doc %} top-6 w-30 xl:w-40 2xl:w-48 max-compact:top-5 max-compact:w-20{% else %} top-7 w-[5.25rem] max-compact:top-5 max-compact:w-15{% endif %}" href="https://www.gecode.dev/">
       <img class="block h-auto w-full" src="{{ logo_url|e }}" alt="Gecode">
     </a>
@@ -91,7 +91,7 @@
 
 {% block relbar2 %}
 {% if prev or next %}
-<nav class="mpg-page-nav ms-[calc(var(--mpg-sidebar-width)+var(--mpg-page-gutter))] grid w-[min(64rem,calc(100vw-var(--mpg-sidebar-width)-var(--mpg-page-gutter)-2rem))] grid-cols-2 gap-8 border-t border-mpg-rule pt-5 pb-10 max-manual:mx-auto max-manual:w-[min(calc(100%-2rem),58rem)] max-compact:grid-cols-1 max-compact:gap-3 print:hidden" aria-label="Previous and next chapters">
+<nav class="mpg-page-nav ms-[calc(var(--mpg-sidebar-width)+var(--mpg-page-gutter))] grid w-[min(64rem,calc(100vw-var(--mpg-sidebar-width)-var(--mpg-page-gutter)-2rem))] grid-cols-2 gap-8 border-t border-mpg-rule pt-5 pb-10 max-manual:mx-(--mpg-compact-gutter) max-manual:w-auto max-compact:grid-cols-1 max-compact:gap-3 print:hidden" aria-label="Previous and next chapters">
   {% if prev %}<a class="prev" href="{{ prev.link|e }}"><span class="block text-[.68rem] font-bold tracking-[.06em] text-mpg-brand uppercase">Previous</span>{{ prev.title }}</a>{% endif %}
   {% if next %}<a class="next col-start-2 text-end max-compact:col-start-1 max-compact:text-start" href="{{ next.link|e }}"><span class="block text-[.68rem] font-bold tracking-[.06em] text-mpg-brand uppercase">Next</span>{{ next.title }}</a>{% endif %}
 </nav>

@@ -18,6 +18,12 @@
         {% endif %}
       {% endif %}
 
+      {% if hasdoc('contents') %}
+        <a class="mpg-nav-home my-1 block rounded-mpg-sm px-2 py-1 text-mpg-sidebar-text no-underline visited:text-mpg-sidebar-text hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong aria-[current=page]:bg-mpg-brand aria-[current=page]:font-bold aria-[current=page]:text-mpg-sidebar-strong{% if pagename == 'contents' %} is-current{% endif %}"
+           {% if pagename == 'contents' %}aria-current="page"{% endif %}
+           href="{{ pathto('contents')|e }}">Contents</a>
+      {% endif %}
+
       {% for group in mpg_navigation %}
       {% if hasdoc(group.overview) %}
       {% set active = pagename == group.overview or pagename in group.pages|map(attribute=0)|list %}
@@ -57,7 +63,7 @@
   </div>
 {%- endmacro %}
 
-<header class="mpg-mobile-header sticky top-0 z-[7] hidden min-h-14 items-center justify-between gap-4 bg-mpg-sidebar px-[max(1rem,calc((100%-58rem)/2))] py-[.65rem] text-mpg-sidebar-strong shadow-mpg-1 max-manual:flex! print:hidden">
+<header class="mpg-mobile-header sticky top-0 z-[7] hidden min-h-14 items-center justify-between gap-4 bg-mpg-sidebar px-(--mpg-compact-gutter) py-[.65rem] text-mpg-sidebar-strong shadow-mpg-1 max-manual:flex! print:hidden">
   <a class="mpg-mobile-brand rounded-mpg-sm font-mpg-display text-sm leading-tight font-bold text-mpg-sidebar-strong no-underline visited:text-mpg-sidebar-strong hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
   <button class="mpg-mobile-menu-button inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-mpg-sm border border-[#71877b] bg-mpg-sidebar-hover px-3 py-2 text-xs font-bold text-mpg-sidebar-strong hover:bg-[#3d594c]" type="button" data-mpg-dialog-open="mpg-mobile-navigation"
           aria-haspopup="dialog" aria-controls="mpg-mobile-navigation">

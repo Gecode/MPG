@@ -139,6 +139,7 @@ def main() -> int:
             'class="mpg-part-opening',
             'class="literal-block-wrapper',
             'id="fixture-program"',
+            '<a class="mpg-object-number" href="#fixture-program"><span class="caption-number">Program 1.1 </span></a>',
             'href="#fixture-program" title="Link to this code"',
             'id="fig-m-fixture-external-program"',
             'href="#fig-m-fixture-external-program" title="Link to this code"',
@@ -147,13 +148,16 @@ def main() -> int:
             'hover:[&amp;_.headerlink]:opacity-100',
             'focus-within:[&amp;_.headerlink]:opacity-100',
             'id="fig-m-fixture"',
-            '<figure class="mpg-content-figure',
+            '<figure class="mpg-content-figure mpg-figure-compact',
             '<figcaption>',
+            '<a class="mpg-object-number" href="#fig-m-fixture"><span class="caption-number">Figure 1.1 </span></a>',
             '<span class="caption-text">Available values</span>',
             'href="#fig-m-fixture" title="Link to this image"',
             'id="fixture-tip"',
+            '<a class="mpg-object-number" href="#fixture-tip"><span>Tip 1.1</span></a>',
             'href="#fixture-tip" title="Link to this tip"',
             'id="fixture-table"',
+            '<a class="mpg-object-number" href="#fixture-table"><span class="caption-number">Table 1.1 </span></a>',
             'href="#fixture-table" title="Link to this table"',
             'id="equation-fixture-equation"',
             'href="#equation-fixture-equation" title="Permalink to this equation"',
@@ -214,6 +218,11 @@ def main() -> int:
 
         css = (output / "_static" / "mpg.css").read_text(encoding="utf-8")
         for expected in ('.mpg-body .math {', 'font-weight: 400;',
+                         'body.mpg-manual { background-image: none;',
+                         '--mpg-compact-gutter: clamp(1rem, 4vw, 3rem);',
+                         '.mpg-figure-compact',
+                         '.mpg-object-number,\n.mpg-code-fragment-link { text-decoration: none; }',
+                         ':is(.mpg-object-number, .mpg-code-fragment-link):is(:hover, :focus-visible)',
                          '.mpg-body .katex { font-size: var(--mpg-math-size); }',
                          '.mpg-body .katex .mathtt {'):
             if expected not in css:
