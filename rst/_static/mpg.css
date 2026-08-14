@@ -12,6 +12,8 @@
   --mpg-green-05: #f3f8f5;
   --mpg-green-10: #e7f1eb;
   --mpg-ink: var(--color-gecode-ink, #17191a);
+  --mpg-math-ink: #34393b;
+  --mpg-math-size: 1.06em;
   --mpg-muted: #596166;
   --mpg-rule: #d9dddf;
   --mpg-surface: var(--color-gecode-surface, #fff);
@@ -364,6 +366,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .mpg-body { min-width: 0; max-width: 64rem; }
 .mpg-body > :first-child { margin-top: 0; }
 .mpg-body p, .mpg-body ul, .mpg-body ol, .mpg-body dl, .mpg-body blockquote { margin-bottom: 1rem; }
+.mpg-body .math {
+  color: var(--mpg-math-ink);
+  font-weight: 400;
+}
+.mpg-body .katex { font-size: var(--mpg-math-size); }
+.mpg-body .katex .mathtt {
+  font-family: var(--mpg-mono);
+  font-size: .92em;
+  font-weight: 400;
+}
 .mpg-body h1, .mpg-body h2, .mpg-body h3, .mpg-body h4 {
   color: var(--mpg-ink);
   font-family: var(--mpg-sans);

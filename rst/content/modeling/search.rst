@@ -597,7 +597,7 @@ Repeat.
 
    .. math::
 
-      \begin{array}{c@{}c@{}c@{}l}
+      \begin{array}{cccl}
       \underbrace{k_0,k_0,\ldots,k_0},&
       \underbrace{k_1,k_1,\ldots,k_1},&
       \underbrace{k_2,k_2,\ldots,k_2},&

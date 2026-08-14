@@ -179,7 +179,7 @@ This section implements ``distinctlinear`` constraints as ``extensional`` constr
 
 .. math::
 
-   \begin{array}{c@{\quad}c@{\quad}c@{\quad}c}
+   \begin{array}{cccc}
    \langle 1,2,5 \rangle &
    \langle 1,3,4 \rangle &
    \langle 1,4,3 \rangle &

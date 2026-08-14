@@ -28,6 +28,8 @@ extensions = [
     "sphinx.ext.imgconverter",
     "sphinx.ext.intersphinx",
     "sphinxcontrib.bibtex",
+    "mpg_katex",
+    "sphinxcontrib.katex",
     "mpg_code",
     "mpg_semantics",
     "mpg_stable_links",
@@ -75,16 +77,23 @@ numfig_format = {
 }
 math_numfig = True
 math_eqref_format = "Equation {number}"
-mathjax3_config = {
-    "tex": {
-        "macros": {
-            "Gecode": r"\\mathsf{Gecode}",
-            "NN": r"\\mathbb{N}",
-            "ZZ": r"\\mathbb{Z}",
-            "RR": r"\\mathbb{R}",
-        }
+katex_options = r"""{
+    throwOnError: true,
+    strict: "error",
+    macros: {
+        "\\Gecode": "\\mathsf{Gecode}",
+        "\\NN": "\\mathbb{N}",
+        "\\ZZ": "\\mathbb{Z}",
+        "\\RR": "\\mathbb{R}",
+        "\\arcsinh": "\\operatorname{arcsinh}",
+        "\\arccosh": "\\operatorname{arccosh}",
+        "\\arctanh": "\\operatorname{arctanh}",
+        "\\mbox": "\\text{#1}",
+        "\\reifyeqv": "#1=\\mathtt{1}\\Leftrightarrow #2",
+        "\\reifyimp": "#1=\\mathtt{1}\\Rightarrow #2",
+        "\\reifypmi": "#1=\\mathtt{1}\\Leftarrow #2",
     }
-}
+}"""
 
 # Sphinx search is generated at release time and works without a server.  The
 # website may index the same pages, but this output remains independently

@@ -10,9 +10,20 @@ A first model
 
 This fixture checks :math:`x \in \mathbb{Z}`, an internal source-label reference
 to :ref:`chap:m:fixture`, a stable reference to :ref:`fixture-first-model`, and
-the publication vocabulary. It also references the arbitrary-content
+the publication vocabulary, including the custom operators
+:math:`\arcsinh(x)`, :math:`\arccosh(x)`, and :math:`\arctanh(x)`. It also
+checks migrated typewriter notation with :math:`\texttt{x[0]}` and references
+the arbitrary-content
 :numref:`fig:m:fixture` and
 the semantic :ref:`fixture-tip`.
+
+The remaining custom notation is exercised by
+:math:`\Gecode, \NN, \ZZ, \RR, \reifyeqv{x}{y}, \reifyimp{x}{y},
+\reifypmi{x}{y}`, including legacy :math:`\mbox{prose}`.
+
+.. math::
+
+   0 < 1
 
 .. mpg-paragraph:: Classical heading.
 

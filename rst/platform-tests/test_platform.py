@@ -81,6 +81,34 @@ def main() -> int:
         ])
 
         chapter = (output / "chapter" / "index.html").read_text(encoding="utf-8")
+        for expected in ("katex.min.js", "auto-render.min.js",
+                         "katex_autorenderer.js"):
+            if expected not in chapter:
+                raise RuntimeError(f"HTML omitted the KaTeX asset {expected}")
+        if "MathJax" in chapter:
+            raise RuntimeError("HTML retained MathJax after the KaTeX switch")
+        katex_config = (output / "_static" / "katex_autorenderer.js").read_text(
+            encoding="utf-8"
+        )
+        for expected in (
+            r'"\\Gecode": "\\mathsf{Gecode}"',
+            r'"\\NN": "\\mathbb{N}"',
+            r'"\\ZZ": "\\mathbb{Z}"',
+            r'"\\RR": "\\mathbb{R}"',
+            r'"\\arcsinh": "\\operatorname{arcsinh}"',
+            r'"\\arccosh": "\\operatorname{arccosh}"',
+            r'"\\arctanh": "\\operatorname{arctanh}"',
+            r'"\\mbox": "\\text{#1}"',
+            r'"\\reifyeqv": "#1=\\mathtt{1}\\Leftrightarrow #2"',
+            r'"\\reifyimp": "#1=\\mathtt{1}\\Rightarrow #2"',
+            r'"\\reifypmi": "#1=\\mathtt{1}\\Leftarrow #2"',
+            "throwOnError: true",
+            'strict: "error"',
+        ):
+            if expected not in katex_config:
+                raise RuntimeError(f"HTML KaTeX configuration omitted {expected}")
+        if r"\[0 &lt; 1\]" not in chapter:
+            raise RuntimeError("display TeX was not safely HTML-escaped")
         for expected in (
             'href="#getting-started"',
             'id="fixture-first-model"',
@@ -136,7 +164,10 @@ def main() -> int:
 
         css = (output / "_static" / "mpg.css").read_text(encoding="utf-8")
         for expected in ('.mpg-body :is(ul, ol) > li + li',
-                         '.mpg-body dt {', '.mpg-body dd {'):
+                         '.mpg-body dt {', '.mpg-body dd {',
+                         '.mpg-body .math {', 'font-weight: 400;',
+                         '.mpg-body .katex { font-size: var(--mpg-math-size); }',
+                         '.mpg-body .katex .mathtt {'):
             if expected not in css:
                 raise RuntimeError(f"web reading rhythm omitted {expected}")
 
