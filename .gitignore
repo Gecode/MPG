@@ -12,6 +12,7 @@
 *.toc
 MPG.pdf
 MPG.zip
+mpg-web.zip
 *.exe
 .mpg/
 dist/
