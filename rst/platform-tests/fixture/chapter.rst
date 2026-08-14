@@ -21,9 +21,27 @@ The remaining custom notation is exercised by
 :math:`\Gecode, \NN, \ZZ, \RR, \reifyeqv{x}{y}, \reifyimp{x}{y},
 \reifypmi{x}{y}`, including legacy :math:`\mbox{prose}`.
 
+The generated reading structures include:
+
+* A first list item.
+* A second list item.
+
+Fixture term
+   A generated definition description.
+
 .. math::
+   :label: fixture-equation
 
    0 < 1
+
+.. list-table:: Small values
+   :name: fixture-table
+   :header-rows: 1
+
+   * - Value
+     - Meaning
+   * - ``0``
+     - false
 
 .. mpg-paragraph:: Classical heading.
 
@@ -54,6 +72,18 @@ This paragraph verifies the classical paragraph structure in both editions.
    #include <gecode/int.hh>
 
    class Model : public Gecode::Space {};
+
+.. _fig:m:fixture:external-program:
+
+.. code-block:: cpp
+   :caption: An externally labelled program
+
+   int external_label = 1;
+
+.. code-block:: cpp
+   :caption: An unnamed program
+
+   int generated_label = 2;
 
 .. _fixture-constraint-overview:
 

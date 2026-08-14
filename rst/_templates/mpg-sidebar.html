@@ -1,14 +1,14 @@
 {% macro manual_navigation(instance) -%}
-  <div class="mpg-search m-0 shrink-0 px-6 pb-5">
-    <span class="mpg-search-label mb-[.4rem] block text-xs font-bold text-mpg-sidebar-strong">Search the manual</span>
+  <div class="mpg-search m-0 shrink-0 pb-5{% if instance == 'mobile' %} px-4{% else %} px-6{% endif %}">
+    <span class="mpg-search-label mb-2 block text-xs font-bold text-mpg-sidebar-strong">Search the manual</span>
     <pagefind-modal-trigger placeholder="Find a topic or API" shortcut="mod+k"></pagefind-modal-trigger>
-    <noscript><a href="{{ pathto('search')|e }}">Open manual search</a></noscript>
+    <noscript><a class="text-xs text-mpg-sidebar-accent" href="{{ pathto('search')|e }}">Open manual search</a></noscript>
   </div>
 
-  <div class="mpg-navigation-scroll">
-    <nav class="mpg-manual-navigation" aria-label="Manual chapters">
+  <div class="mpg-navigation-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain pb-10{% if instance == 'mobile' %} px-4{% else %} px-6{% endif %}">
+    <nav class="mpg-manual-navigation text-[.85rem] leading-[1.45]" aria-label="Manual chapters">
       {% if hasdoc('core/intro') %}
-        <a class="mpg-nav-home{% if pagename == 'core/intro' %} is-current{% endif %}"
+        <a class="mpg-nav-home my-1 block rounded-mpg-sm px-2 py-1 text-mpg-sidebar-text no-underline visited:text-mpg-sidebar-text hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong aria-[current=page]:bg-mpg-brand aria-[current=page]:font-bold aria-[current=page]:text-mpg-sidebar-strong{% if pagename == 'core/intro' %} is-current{% endif %}"
            {% if pagename == 'core/intro' %}aria-current="page"{% endif %}
            href="{{ pathto('core/intro')|e }}">Introduction</a>
         {% if pagename == 'core/intro' and toc %}
@@ -21,14 +21,14 @@
       {% for group in mpg_navigation %}
       {% if hasdoc(group.overview) %}
       {% set active = pagename == group.overview or pagename in group.pages|map(attribute=0)|list %}
-      <details class="mpg-nav-group" data-nav-key="{{ group.letter|lower }}"{% if active %} data-active open{% endif %}>
-        <summary>
-          <span class="mpg-nav-letter">{{ group.letter }}</span>
+      <details class="mpg-nav-group group/nav mt-3" data-nav-key="{{ group.letter|lower }}"{% if active %} data-active open{% endif %}>
+        <summary class="flex cursor-pointer list-none items-center gap-2 rounded-mpg-sm px-2 py-1 font-mpg-display font-semibold tracking-[.04em] text-mpg-sidebar-accent after:ms-auto after:text-mpg-sidebar-text after:content-['+'] hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong hover:after:text-mpg-sidebar-strong group-open/nav:bg-mpg-sidebar-hover group-open/nav:text-mpg-sidebar-strong group-open/nav:after:content-['−'] [&::-webkit-details-marker]:hidden">
+          <span class="mpg-nav-letter inline-grid size-[1.35rem] min-w-[1.35rem] place-items-center border border-mpg-accent bg-[#fdf2e4] font-mpg-classic font-bold text-[#8b4b08]">{{ group.letter }}</span>
           <span>{{ group.title }}</span>
         </summary>
-        <ol>
-          <li>
-            <a{% if pagename == group.overview %} class="is-current" aria-current="page"{% endif %}
+        <ol class="ms-7 mt-1 mb-3 list-none p-0">
+          <li class="m-0">
+            <a class="block rounded-mpg-sm px-2 py-1 text-mpg-sidebar-text no-underline visited:text-mpg-sidebar-text hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong aria-[current=page]:bg-[#f4f8f5] aria-[current=page]:font-bold aria-[current=page]:text-[#153a2a]{% if pagename == group.overview %} is-current{% endif %}"{% if pagename == group.overview %} aria-current="page"{% endif %}
                href="{{ pathto(group.overview)|e }}">Overview</a>
             {% if pagename == group.overview and toc %}
             <div class="mpg-section-navigation">
@@ -38,8 +38,8 @@
           </li>
           {% for page, label in group.pages %}
           {% if hasdoc(page) %}
-          <li>
-            <a{% if pagename == page %} class="is-current" aria-current="page"{% endif %}
+          <li class="m-0">
+            <a class="block rounded-mpg-sm px-2 py-1 text-mpg-sidebar-text no-underline visited:text-mpg-sidebar-text hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong aria-[current=page]:bg-[#f4f8f5] aria-[current=page]:font-bold aria-[current=page]:text-[#153a2a]{% if pagename == page %} is-current{% endif %}"{% if pagename == page %} aria-current="page"{% endif %}
                href="{{ pathto(page)|e }}">{{ label }}</a>
             {% if pagename == page and toc %}
             <div class="mpg-section-navigation">
@@ -57,31 +57,31 @@
   </div>
 {%- endmacro %}
 
-<header class="mpg-mobile-header">
-  <a class="mpg-mobile-brand" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
-  <button class="mpg-mobile-menu-button" type="button" data-mpg-dialog-open="mpg-mobile-navigation"
+<header class="mpg-mobile-header sticky top-0 z-[7] hidden min-h-14 items-center justify-between gap-4 bg-mpg-sidebar px-[max(1rem,calc((100%-58rem)/2))] py-[.65rem] text-mpg-sidebar-strong shadow-mpg-1 max-manual:flex! print:hidden">
+  <a class="mpg-mobile-brand rounded-mpg-sm font-mpg-display text-sm leading-tight font-bold text-mpg-sidebar-strong no-underline visited:text-mpg-sidebar-strong hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
+  <button class="mpg-mobile-menu-button inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-mpg-sm border border-[#71877b] bg-mpg-sidebar-hover px-3 py-2 text-xs font-bold text-mpg-sidebar-strong hover:bg-[#3d594c]" type="button" data-mpg-dialog-open="mpg-mobile-navigation"
           aria-haspopup="dialog" aria-controls="mpg-mobile-navigation">
     <span aria-hidden="true">☰</span>
     <span>Contents</span>
   </button>
 </header>
 
-<aside class="mpg-sidebar fixed inset-y-0 start-0 z-[8] flex h-screen flex-col overflow-hidden bg-mpg-sidebar text-mpg-sidebar-text" aria-label="Manual navigation">
+<aside class="mpg-sidebar fixed inset-y-0 start-0 z-[8] flex h-dvh w-(--mpg-sidebar-width) flex-col overflow-hidden overscroll-contain border-0 bg-mpg-sidebar text-mpg-sidebar-text max-manual:hidden! print:hidden" aria-label="Manual navigation">
   <header class="mpg-sidebar-brand flex shrink-0 flex-col items-start gap-1 px-6 pt-6 pb-4">
-    <a class="mpg-manual-title" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
-    <span class="mpg-current-title">{{ title|striptags }}</span>
+    <a class="mpg-manual-title -mx-1 max-w-[17rem] rounded-mpg-sm px-1 py-1 font-mpg-display text-base leading-[1.3] font-bold text-mpg-sidebar-strong no-underline visited:text-mpg-sidebar-strong hover:bg-mpg-sidebar-hover hover:text-mpg-sidebar-strong max-compact:text-sm" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
+    <span class="mpg-current-title mt-2 max-w-full wrap-anywhere font-mpg-display text-sm leading-[1.35] font-semibold text-mpg-sidebar-accent max-compact:text-xs">{{ title|striptags }}</span>
   </header>
   <div class="mpg-sidebar-panel flex min-h-0 flex-1 flex-col pt-3">
     {{ manual_navigation('desktop') }}
   </div>
 </aside>
 
-<dialog class="mpg-mobile-navigation" id="mpg-mobile-navigation" aria-labelledby="mpg-mobile-navigation-title">
+<dialog class="mpg-mobile-navigation m-auto hidden h-[min(46rem,calc(100dvh-1.5rem))] w-[min(32rem,calc(100%-1.5rem))] max-h-none max-w-none overflow-hidden rounded-mpg-md border border-[#71877b] bg-mpg-sidebar p-0 text-mpg-sidebar-text shadow-mpg-2 backdrop:bg-[rgb(11_25_19/62%)] max-manual:open:block! print:hidden" id="mpg-mobile-navigation" aria-labelledby="mpg-mobile-navigation-title">
   <div class="mpg-mobile-navigation-shell flex h-full flex-col">
-    <header class="mpg-mobile-navigation-header">
-      <h2 id="mpg-mobile-navigation-title">Browse the manual</h2>
-      <form method="dialog">
-        <button class="mpg-mobile-menu-close" type="submit" aria-label="Close manual contents">Close</button>
+    <header class="mpg-mobile-navigation-header flex shrink-0 items-center justify-between gap-4 border-b border-[#50675c] px-4 py-3">
+      <h2 class="m-0 font-mpg-display text-base font-bold text-mpg-sidebar-strong" id="mpg-mobile-navigation-title">Browse the manual</h2>
+      <form class="m-0" method="dialog">
+        <button class="mpg-mobile-menu-close min-h-10 cursor-pointer rounded-mpg-sm border border-[#71877b] bg-mpg-sidebar-hover px-3 py-2 text-xs font-bold text-mpg-sidebar-strong hover:bg-[#3d594c]" type="submit" aria-label="Close manual contents">Close</button>
       </form>
     </header>
     <div class="mpg-mobile-navigation-panel flex min-h-0 flex-1 flex-col pt-4">

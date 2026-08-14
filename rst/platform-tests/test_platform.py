@@ -119,8 +119,8 @@ def main() -> int:
             'class="mpg-page-logo ',
             '<main id="mpg-main" class="mpg-body min-w-0 max-w-[64rem]" role="main" tabindex="-1" data-pagefind-body>',
             '>Modeling &amp; Programming with Gecode</a>',
-            'class="mpg-current-title"',
-            'class="mpg-navigation-scroll"',
+            'class="mpg-current-title ',
+            'class="mpg-navigation-scroll ',
             '<pagefind-modal-trigger placeholder="Find a topic or API" shortcut="mod+k">',
             '<pagefind-modal>',
             '<pagefind-results max-sub-results="1">',
@@ -129,21 +129,46 @@ def main() -> int:
             'new URL(document.documentElement.dataset.content_root, location.href).pathname',
             'data-mpg-dialog-open="mpg-mobile-navigation"',
             'aria-controls="mpg-mobile-navigation"',
-            '<dialog class="mpg-mobile-navigation"',
+            '<dialog class="mpg-mobile-navigation ',
             'method="dialog"',
             'Tip 1.1',
+            'Program 1.1',
+            'Program 1.2',
+            'Program 1.3',
             '>Name constraints after their intent</span></a>',
             'class="mpg-part-opening',
             'class="literal-block-wrapper',
+            'id="fixture-program"',
+            'href="#fixture-program" title="Link to this code"',
+            'id="fig-m-fixture-external-program"',
+            'href="#fig-m-fixture-external-program" title="Link to this code"',
+            'id="program-an-unnamed-program"',
+            'href="#program-an-unnamed-program" title="Link to this code"',
+            'hover:[&amp;_.headerlink]:opacity-100',
+            'focus-within:[&amp;_.headerlink]:opacity-100',
             'id="fig-m-fixture"',
             '<figure class="mpg-content-figure',
             '<figcaption>',
             '<span class="caption-text">Available values</span>',
+            'href="#fig-m-fixture" title="Link to this image"',
+            'id="fixture-tip"',
+            'href="#fixture-tip" title="Link to this tip"',
+            'id="fixture-table"',
+            'href="#fixture-table" title="Link to this table"',
+            'id="equation-fixture-equation"',
+            'href="#equation-fixture-equation" title="Permalink to this equation"',
             '<strong class="mpg-paragraph-heading">Classical heading.</strong> This paragraph',
             'Figure 1.1',
-            '<h2 id="constraint-overview"',
+            'id="constraint-overview"',
+            'font-mpg-sans',
+            'max-compact:pe-20',
+            'class="mb-4 ps-6 max-compact:ps-5',
+            'mt-5 mb-6',
+            'class="mt-3 first:mt-0 font-bold',
+            'class="ms-5 mt-1 max-compact:ms-4',
             '<section class="mpg-search-definition" data-pagefind-weight="10">',
-            '<h3 class="mpg-search-definition" id="fixture-constraints" data-pagefind-weight="10"',
+            '<h3 class="mpg-search-definition mt-8',
+            'id="fixture-constraints" data-pagefind-weight="10"',
         ):
             if expected not in chapter:
                 raise RuntimeError(f"HTML omitted {expected}")
@@ -161,6 +186,12 @@ def main() -> int:
         for expected in ("sessionStorage", "dialog.close()", "input.select()"):
             if expected not in search_script:
                 raise RuntimeError(f"search lifecycle omitted {expected}")
+
+        navigation_script = (output / "_static" / "mpg-navigation.js").read_text(
+            encoding="utf-8"
+        )
+        if "scrollIntoView" in navigation_script:
+            raise RuntimeError("section tracking must not scroll the chapter navigation")
 
         index = (output / "index.html").read_text(encoding="utf-8")
         for expected in ('href="chapter/#fixture-tip"',
@@ -182,9 +213,7 @@ def main() -> int:
                 raise RuntimeError(f"HTML part page omitted {expected}")
 
         css = (output / "_static" / "mpg.css").read_text(encoding="utf-8")
-        for expected in ('.mpg-body :is(ul, ol) > li + li',
-                         '.mpg-body dt {', '.mpg-body dd {',
-                         '.mpg-body .math {', 'font-weight: 400;',
+        for expected in ('.mpg-body .math {', 'font-weight: 400;',
                          '.mpg-body .katex { font-size: var(--mpg-math-size); }',
                          '.mpg-body .katex .mathtt {'):
             if expected not in css:

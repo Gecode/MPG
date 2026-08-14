@@ -28,8 +28,6 @@
     }).filter(({ section }) => section);
     if (!sections.length) return;
 
-    const navigationScroller = root.querySelector(".mpg-navigation-scroll");
-    let currentSection = null;
     let scheduled = false;
     const updateSection = () => {
       scheduled = false;
@@ -41,10 +39,6 @@
         if (candidate === current) candidate.link.setAttribute("aria-current", "location");
         else candidate.link.removeAttribute("aria-current");
       }
-      if (current !== currentSection && navigationScroller) {
-        current.link.scrollIntoView({ block: "nearest" });
-      }
-      currentSection = current;
     };
     const scheduleUpdate = () => {
       if (!scheduled) {

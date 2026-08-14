@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 
 from docutils import nodes
 from docutils.parsers.rst import Directive, directives
@@ -252,7 +253,11 @@ def visit_mpg_tip_html(translator, node: MpgTip) -> None:
     translator.body.append(translator.starttag(node, "aside", CLASS="mpg-tip", role="note"))
     translator.body.append(
         f'<p class="mpg-tip-title"><span>{label}</span>'
-        f' <span class="mpg-tip-subject">({title}).</span></p>'
+        f' <span class="mpg-tip-subject">({title}).</span>'
+    )
+    translator.add_permalink_ref(node, "Link to this tip")
+    translator.body.append(
+        '</p>'
         '<div class="mpg-tip-body"> '
     )
 
@@ -261,6 +266,65 @@ def depart_mpg_tip_html(translator, node: MpgTip) -> None:
     translator.body.append(
         '</div><span class="mpg-tip-end" aria-hidden="true">&#9668;</span></aside>'
     )
+
+
+def _is_generated_id(target_id: str) -> bool:
+    return re.fullmatch(r"id[0-9]+", target_id) is not None
+
+
+def _prepare_object_permalink_ids(app, doctree: nodes.document, docname: str) -> None:
+    """Select readable permalink targets for referenceable document objects."""
+    if app.builder.format != "html":
+        return
+
+    claimed = {
+        target_id
+        for element in doctree.findall(nodes.Element)
+        for target_id in element.get("ids", [])
+    }
+
+    def select(node: nodes.Element, fallback_text: str | None = None) -> None:
+        ids = node.setdefault("ids", [])
+        permalink_id = next(
+            (target_id for target_id in ids if not _is_generated_id(target_id)),
+            None,
+        )
+        if permalink_id is None and fallback_text:
+            base = nodes.make_id(fallback_text)
+            permalink_id = base
+            suffix = 2
+            while permalink_id in claimed:
+                permalink_id = f"{base}-{suffix}"
+                suffix += 1
+            ids.append(permalink_id)
+            claimed.add(permalink_id)
+        if permalink_id is not None:
+            node["mpg_permalink_id"] = permalink_id
+
+    for tip in doctree.findall(MpgTip):
+        select(tip, f"tip-{tip.get('title', '')}")
+
+    for figure in doctree.findall(nodes.figure):
+        caption = next(
+            (child for child in figure.children if isinstance(child, nodes.caption)),
+            None,
+        )
+        if caption is not None:
+            select(figure, f"figure-{caption.astext()}")
+
+    for table in doctree.findall(nodes.table):
+        title = next(
+            (child for child in table.children if isinstance(child, nodes.title)),
+            None,
+        )
+        if title is not None:
+            select(table, f"table-{title.astext()}")
+
+    for equation in doctree.findall(nodes.math_block):
+        if equation.get("number") or equation.get("label"):
+            # Sphinx gives labelled equations a stable ``equation-...`` id.
+            # Do not manufacture targets for ordinary unnumbered display math.
+            select(equation)
 
 
 def visit_mpg_part_latex(translator, node: MpgPart) -> None:
@@ -528,6 +592,7 @@ def setup(app):
     app.connect("doctree-resolved", _remove_duplicate_part_page_title, priority=600)
     app.connect("doctree-resolved", _prepare_run_in_paragraphs, priority=700)
     app.connect("doctree-resolved", _restore_typed_reference_text, priority=800)
+    app.connect("doctree-resolved", _prepare_object_permalink_ids, priority=850)
     app.connect("doctree-resolved", _start_unnumbered_backmatter, priority=900)
     app.add_role("api", ApiRole())
     app.add_directive("mpg-part", MpgPartDirective)

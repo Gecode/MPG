@@ -100,6 +100,45 @@ def _load_manifest(app, config) -> None:
     config.mpg_code_manifest_path = str(path)
 
 
+def _prepare_program_anchors(app, doctree: nodes.document, docname: str) -> None:
+    """Give every numbered Program a readable, primary HTML fragment."""
+    if app.builder.format != "html":
+        return
+
+    claimed = {
+        target_id
+        for element in doctree.findall(nodes.Element)
+        for target_id in element.get("ids", [])
+    }
+    for container in doctree.findall(nodes.container):
+        if not container.get("literal_block"):
+            continue
+        caption = next(
+            (child for child in container.children if isinstance(child, nodes.caption)),
+            None,
+        )
+        if caption is None:
+            continue
+
+        ids = container.setdefault("ids", [])
+        anchor = next(
+            (target_id for target_id in ids
+             if not (target_id.startswith("id") and target_id[2:].isdigit())),
+            None,
+        )
+        if anchor is None:
+            base = nodes.make_id(f"program-{caption.astext()}") or "program"
+            anchor = base
+            suffix = 2
+            while anchor in claimed:
+                anchor = f"{base}-{suffix}"
+                suffix += 1
+            ids.append(anchor)
+            claimed.add(anchor)
+
+        container["mpg_permalink_id"] = anchor
+
+
 class MpgCodeDirective(CodeBlock):
     """Render a named literate projection from a canonical compiled source."""
 
@@ -185,6 +224,7 @@ def setup(app):
     app.add_config_value("mpg_code_manifest_data", {}, "env")
     app.add_config_value("mpg_code_manifest_path", "", "env", types={str})
     app.connect("config-inited", _load_manifest)
+    app.connect("doctree-resolved", _prepare_program_anchors, priority=450)
     app.add_directive("mpg-code", MpgCodeDirective)
     app.add_node(
         MpgCodeTitle,

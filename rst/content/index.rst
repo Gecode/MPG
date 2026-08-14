@@ -9,6 +9,18 @@ Modeling and Programming with Gecode
    `Guido Tack <mailto:tack@gecode.dev>`_,
    `Mikael Z. Lagerkvist <mailto:lagerkvist@gecode.dev>`_
 
+   .. _manual-parts:
+
+   Parts of the manual
+   -------------------
+
+   * :ref:`part:m`
+   * :ref:`part:c`
+   * :ref:`part:p`
+   * :ref:`part:b`
+   * :ref:`part:v`
+   * :ref:`part:s`
+
    .. _publication-information:
 
    .. rubric:: Publication and license information
@@ -32,20 +44,6 @@ Modeling and Programming with Gecode
    Gutierrez, Gabriel Hjort Blindell, Sverker Janson, Andreas Karlsson, Håkan
    Kjellerstrand, Chris Mears, Benjamin Negrevergne, Flutra Osmani, Max
    Ostrowski, David Rijsman, Dan Scott, and Kish Shen.
-
-.. only:: html
-
-   .. _manual-parts:
-
-   Parts of the manual
-   -------------------
-
-   * :ref:`part:m`
-   * :ref:`part:c`
-   * :ref:`part:p`
-   * :ref:`part:b`
-   * :ref:`part:v`
-   * :ref:`part:s`
 
 .. toctree::
    :hidden:

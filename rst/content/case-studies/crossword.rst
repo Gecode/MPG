@@ -264,6 +264,7 @@ The comparison makes only approximate statements for runtime and number of nodes
 
 
 .. list-table:: ``words`` dictionary, :math:`15\times 15`
+   :name: table:c:crossword:baseline:words:15x15
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -325,6 +326,7 @@ The comparison makes only approximate statements for runtime and number of nodes
      -
 
 .. list-table:: ``words`` dictionary, :math:`19\times 19`
+   :name: table:c:crossword:baseline:words:19x19
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -386,6 +388,7 @@ The comparison makes only approximate statements for runtime and number of nodes
      - ≈
 
 .. list-table:: ``words`` dictionary, :math:`21\times 21`
+   :name: table:c:crossword:baseline:words:21x21
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -447,6 +450,7 @@ The comparison makes only approximate statements for runtime and number of nodes
      -
 
 .. list-table:: ``words`` dictionary, :math:`23\times 23`
+   :name: table:c:crossword:baseline:words:23x23
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -508,6 +512,7 @@ The comparison makes only approximate statements for runtime and number of nodes
      -
 
 .. list-table:: ``uk`` dictionary, :math:`15\times 15`
+   :name: table:c:crossword:baseline:uk:15x15
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -569,6 +574,7 @@ The comparison makes only approximate statements for runtime and number of nodes
      - ≈
 
 .. list-table:: ``uk`` dictionary, :math:`19\times 19`
+   :name: table:c:crossword:baseline:uk:19x19
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -630,6 +636,7 @@ The comparison makes only approximate statements for runtime and number of nodes
      - ≈
 
 .. list-table:: ``uk`` dictionary, :math:`21\times 21`
+   :name: table:c:crossword:baseline:uk:21x21
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -691,6 +698,7 @@ The comparison makes only approximate statements for runtime and number of nodes
      - -
 
 .. list-table:: ``uk`` dictionary, :math:`23\times 23`
+   :name: table:c:crossword:baseline:uk:23x23
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -766,6 +774,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
 
 
 .. list-table:: ``words`` dictionary, :math:`15\times 15`
+   :name: table:c:crossword:restart:words:15x15
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -827,6 +836,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
      - --
 
 .. list-table:: ``words`` dictionary, :math:`19\times 19`
+   :name: table:c:crossword:restart:words:19x19
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -888,6 +898,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
      - ≈
 
 .. list-table:: ``words`` dictionary, :math:`21\times 21`
+   :name: table:c:crossword:restart:words:21x21
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -949,6 +960,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
      -
 
 .. list-table:: ``words`` dictionary, :math:`23\times 23`
+   :name: table:c:crossword:restart:words:23x23
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -1010,6 +1022,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
      -
 
 .. list-table:: ``uk`` dictionary, :math:`15\times 15`
+   :name: table:c:crossword:restart:uk:15x15
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -1071,6 +1084,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
      - ≈
 
 .. list-table:: ``uk`` dictionary, :math:`19\times 19`
+   :name: table:c:crossword:restart:uk:19x19
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -1132,6 +1146,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
      - ≈
 
 .. list-table:: ``uk`` dictionary, :math:`21\times 21`
+   :name: table:c:crossword:restart:uk:21x21
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results
@@ -1193,6 +1208,7 @@ Moreover, one needs to consider the modeling and programming effort. The Gecode 
      - -
 
 .. list-table:: ``uk`` dictionary, :math:`23\times 23`
+   :name: table:c:crossword:restart:uk:23x23
    :header-rows: 1
    :widths: 12 20 18 28 18
    :class: mpg-results

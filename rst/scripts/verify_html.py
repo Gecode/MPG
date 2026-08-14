@@ -7,6 +7,7 @@ import argparse
 from html.parser import HTMLParser
 import json
 from pathlib import Path
+import re
 import sys
 from urllib.parse import unquote, urlsplit
 
@@ -16,6 +17,7 @@ class PageParser(HTMLParser):
         super().__init__()
         self.ids: set[str] = set()
         self.links: list[str] = []
+        self.permalinks: list[tuple[str, str]] = []
         self.landmarks: set[str] = set()
 
     def handle_starttag(self, tag: str, attrs) -> None:
@@ -26,6 +28,10 @@ class PageParser(HTMLParser):
             self.ids.add(attributes["id"])
         if tag == "a" and "href" in attributes:
             self.links.append(attributes["href"])
+            if "headerlink" in attributes.get("class", "").split():
+                self.permalinks.append(
+                    (attributes.get("title", ""), attributes["href"])
+                )
         if tag in {"main", "nav", "header", "footer"}:
             self.landmarks.add(tag)
 
@@ -63,6 +69,11 @@ def main() -> int:
             raise SystemExit(f"missing document landmarks: {page}")
 
     for page, parser in parsed.items():
+        for title, uri in parser.permalinks:
+            if title == "Link to this table" and re.fullmatch(r"#id[0-9]+", uri):
+                raise SystemExit(
+                    f"numbered table uses an unstable generated fragment in {page}: {uri}"
+                )
         for uri in parser.links:
             split = urlsplit(uri)
             if split.scheme or split.netloc or uri.startswith(("mailto:", "javascript:")):
@@ -90,7 +101,12 @@ def main() -> int:
         css = (root / "_static" / "mpg.css").read_text(encoding="utf-8")
         if '@import "tailwindcss"' in css:
             raise SystemExit("release CSS was not compiled by Tailwind")
-        for utility in (".fixed{position:fixed}", ".flex{display:flex}"):
+        for utility in (
+            ".fixed{position:fixed!important}",
+            ".flex{display:flex!important}",
+            ".text-pretty{text-wrap:pretty!important}",
+            r".focus-within\:\[\&_\.headerlink\]\:opacity-100",
+        ):
             if utility not in css:
                 raise SystemExit(f"release CSS omitted Tailwind utility {utility}")
     for path in required:

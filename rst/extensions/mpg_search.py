@@ -46,6 +46,19 @@ def _prepare_pagefind_sections(app, doctree: nodes.document, docname: str) -> No
 class MpgSearchHTMLTranslator(HTML5Translator):
     """Add Pagefind weights to semantically authoritative headings."""
 
+    def add_permalink_ref(self, node: nodes.Element, title: str) -> None:
+        """Use a public fragment without disturbing Sphinx's numbering ID."""
+        permalink_id = node.get("mpg_permalink_id")
+        if permalink_id is None:
+            super().add_permalink_ref(node, title)
+            return
+        ids = node["ids"]
+        node["ids"] = [permalink_id]
+        try:
+            super().add_permalink_ref(node, title)
+        finally:
+            node["ids"] = ids
+
     def visit_section(self, node: nodes.Element) -> None:
         if not node.get("mpg_search_heading_anchor"):
             super().visit_section(node)
