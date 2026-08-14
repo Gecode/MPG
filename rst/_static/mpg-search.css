@@ -1,0 +1,113 @@
+/* Pagefind is generated after Sphinx. Keep its component styling in a
+   separate, later stylesheet so the manual can adapt it without !important. */
+body.mpg-manual {
+  --pf-text: var(--mpg-ink);
+  --pf-text-secondary: var(--mpg-muted);
+  --pf-text-muted: #687177;
+  --pf-background: #fff;
+  --pf-border: var(--mpg-rule);
+  --pf-border-focus: #88a798;
+  --pf-hover: var(--mpg-green-05);
+  --pf-skeleton: var(--mpg-green-10);
+  --pf-skeleton-shine: #f8fbf9;
+  --pf-mark: var(--mpg-green);
+  --pf-outline-focus: var(--mpg-orange);
+  --pf-outline-width: .16rem;
+  --pf-font: var(--mpg-sans);
+  --pf-input-height: 2.75rem;
+  --pf-input-font-size: 1rem;
+  --pf-summary-font-size: .76rem;
+  --pf-result-title-font-size: .92rem;
+  --pf-result-excerpt-font-size: .8rem;
+  --pf-modal-backdrop: rgb(13 29 22 / 72%);
+  --pf-modal-max-width: 46rem;
+  --pf-modal-max-height: min(78dvh, 46rem);
+  --pf-modal-top: 8dvh;
+  --pf-border-radius: .24rem;
+  --pf-shadow-lg: 0 1.5rem 4rem rgb(7 19 14 / 34%);
+}
+
+body.mpg-manual .mpg-search pagefind-modal-trigger { width: 100%; }
+
+body.mpg-manual .mpg-sidebar .mpg-search .pf-trigger-btn,
+body.mpg-manual .mpg-mobile-navigation .mpg-search .pf-trigger-btn {
+  height: 2.55rem;
+  padding: 0 .65rem;
+  gap: .55rem;
+  color: #284538;
+  border: 1px solid #789486;
+  border-radius: .22rem;
+  background: #f7faf8;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 75%);
+  font: 600 .78rem var(--mpg-sans);
+}
+
+body.mpg-manual .mpg-sidebar .mpg-search .pf-trigger-btn:hover,
+body.mpg-manual .mpg-mobile-navigation .mpg-search .pf-trigger-btn:hover {
+  color: #153a2a;
+  border-color: var(--mpg-sidebar-accent);
+  background: white;
+}
+
+body.mpg-manual .mpg-sidebar .mpg-search .pf-trigger-btn:focus-visible,
+body.mpg-manual .mpg-mobile-navigation .mpg-search .pf-trigger-btn:focus-visible {
+  outline: .16rem solid var(--mpg-orange);
+  outline-offset: .14rem;
+  border-color: white;
+  box-shadow: none;
+}
+
+body.mpg-manual .mpg-search .pf-trigger-icon { background: #47675a; }
+body.mpg-manual .mpg-search .pf-trigger-text { color: inherit; }
+body.mpg-manual .mpg-search .pf-trigger-shortcut { gap: .16rem; }
+body.mpg-manual .mpg-search .pf-trigger-key {
+  min-width: 1.25rem;
+  height: 1.2rem;
+  padding: 0 .22rem;
+  color: #345447;
+  border: 1px solid #afc0b7;
+  border-bottom-width: 2px;
+  border-radius: .2rem;
+  background: #e7efea;
+  font: 700 .62rem/1 var(--mpg-sans);
+}
+
+body.mpg-manual dialog.pf-modal {
+  border: 1px solid #7f988c;
+  border-top: .24rem solid var(--mpg-green);
+  border-radius: .32rem;
+}
+
+body.mpg-manual .pf-modal-header {
+  padding: .8rem 1rem;
+  border-bottom-color: #cbd7d1;
+  background: #f7faf8;
+}
+
+body.mpg-manual .pf-modal-header .pf-input {
+  height: 2.8rem;
+  color: var(--mpg-ink);
+  font: 500 1rem var(--mpg-sans);
+}
+
+body.mpg-manual .pf-modal-body { padding: .65rem 1rem 1rem; }
+body.mpg-manual .pf-summary { font-family: var(--mpg-display); letter-spacing: .02em; }
+body.mpg-manual .pf-result-card { border-radius: .2rem; }
+body.mpg-manual .pf-result-title { font-family: var(--mpg-display); font-weight: 700; }
+body.mpg-manual .pf-result-excerpt { font-family: var(--mpg-classic); }
+body.mpg-manual .pf-result-excerpt mark,
+body.mpg-manual .pf-heading-excerpt mark {
+  padding: .02em .12em;
+  color: #153a2a;
+  background: #dff0e6;
+}
+
+body.mpg-manual .pf-modal-footer {
+  border-top-color: #cbd7d1;
+  background: #f7faf8;
+  font-family: var(--mpg-display);
+}
+
+@media (max-width: 40rem) {
+  body.mpg-manual dialog.pf-modal { border: 0; border-top: .24rem solid var(--mpg-green); }
+}

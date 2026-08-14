@@ -1,15 +1,24 @@
 {% extends "basic/layout.html" %}
 
-{% block body_tag %}<body class="mpg-manual">{% endblock %}
+{% block body_tag %}<body class="mpg-manual min-h-full m-0 bg-white text-mpg-ink font-mpg-sans text-[.95rem] leading-[1.55]">{% endblock %}
 
 {% block extrahead %}
 {{ super() }}
 <link rel="stylesheet" href="https://www.gecode.dev/assets/css/site.css">
+<link rel="stylesheet" href="{{ pathto('pagefind/pagefind-component-ui.css', 1)|e }}">
+<link rel="stylesheet" href="{{ pathto('_static/mpg-search.css', 1)|e }}">
+<script src="{{ pathto('pagefind/pagefind-component-ui.js', 1)|e }}"></script>
 <script src="{{ pathto('_static/mpg-search.js', 1)|e }}"></script>
 <script src="{{ pathto('_static/mpg-navigation.js', 1)|e }}" defer></script>
 {% endblock %}
 
 {% block header %}
+<script>
+  window.PagefindComponents.configureInstance("default", {
+    baseUrl: new URL(document.documentElement.dataset.content_root, location.href).pathname,
+    ranking: { termFrequency: 0 },
+  });
+</script>
 <a class="mpg-skip" href="#mpg-main">Skip to content</a>
 {% endblock %}
 
@@ -17,17 +26,67 @@
 {% endblock %}
 
 {% block content %}
-<div class="mpg-page-frame">
+<div class="mpg-page-frame w-full">
   {% include "mpg-sidebar.html" %}
-  <div class="mpg-main-column">
-    <a class="mpg-page-logo" href="https://www.gecode.dev/">
+  <div class="mpg-main-column relative min-w-0 max-w-[64rem] py-10 pb-20">
+    <a class="mpg-page-logo absolute end-0 top-7 z-[1] block w-[5.25rem] bg-white p-[.35rem]" href="https://www.gecode.dev/">
       <img src="{{ logo_url|e }}" alt="Gecode">
     </a>
-    <main id="mpg-main" class="mpg-body" tabindex="-1">
+    <main id="mpg-main" class="mpg-body min-w-0 max-w-[64rem]" role="main" tabindex="-1"{% if pagename not in ('search', 'genindex') %} data-pagefind-body{% endif %}{% if pagename.startswith('case-studies/') or pagename == 'parts/case-studies' %} data-pagefind-weight="0.25"{% endif %}>
       {% block body %}{% endblock %}
     </main>
   </div>
 </div>
+<template id="mpg-search-modal-template">
+<pagefind-modal>
+  <pagefind-modal-header>
+    <pagefind-input></pagefind-input>
+  </pagefind-modal-header>
+  <pagefind-modal-body>
+    <pagefind-summary></pagefind-summary>
+    <pagefind-results max-sub-results="1">
+{% raw %}
+      <script type="text/pagefind-template">
+        <li class="pf-result">
+          {{#if sub_results}}
+          {{#each sub_results as sub}}
+          <div class="pf-result-card">
+            <div class="pf-result-content">
+              <p class="pf-result-title">
+                <a class="pf-result-link" href="{{ sub.url | safeUrl }}">{{ sub.title }}</a>
+              </p>
+              {{#if sub.excerpt}}
+              <p class="pf-result-excerpt">{{+ sub.excerpt +}}</p>
+              {{/if}}
+            </div>
+          </div>
+          {{/each}}
+          {{:else}}
+          <div class="pf-result-card">
+            <div class="pf-result-content">
+              <p class="pf-result-title">
+                <a class="pf-result-link" href="{{ meta.url | default(url) | safeUrl }}">{{ meta.title }}</a>
+              </p>
+              {{#if excerpt}}
+              <p class="pf-result-excerpt">{{+ excerpt +}}</p>
+              {{/if}}
+            </div>
+          </div>
+          {{/if}}
+        </li>
+      </script>
+{% endraw %}
+    </pagefind-results>
+  </pagefind-modal-body>
+  <pagefind-modal-footer>
+    <pagefind-keyboard-hints></pagefind-keyboard-hints>
+  </pagefind-modal-footer>
+</pagefind-modal>
+</template>
+<script>
+  const modalTemplate = document.getElementById("mpg-search-modal-template");
+  modalTemplate.replaceWith(modalTemplate.content.cloneNode(true));
+</script>
 {% endblock %}
 
 {% block relbar2 %}

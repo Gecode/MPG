@@ -1,11 +1,9 @@
 {% macro manual_navigation(instance) -%}
-  <form class="mpg-search" action="{{ pathto('search')|e }}" method="get" role="search">
-    <label for="mpg-search-field-{{ instance }}">Search the manual</label>
-    <div>
-      <input id="mpg-search-field-{{ instance }}" type="search" name="q" autocomplete="off" spellcheck="false">
-      <button type="submit" aria-label="Search">Search</button>
-    </div>
-  </form>
+  <div class="mpg-search m-0 shrink-0 px-6 pb-5">
+    <span class="mpg-search-label mb-[.4rem] block text-xs font-bold text-mpg-sidebar-strong">Search the manual</span>
+    <pagefind-modal-trigger placeholder="Find a topic or API" shortcut="mod+k"></pagefind-modal-trigger>
+    <noscript><a href="{{ pathto('search')|e }}">Open manual search</a></noscript>
+  </div>
 
   <div class="mpg-navigation-scroll">
     <nav class="mpg-manual-navigation" aria-label="Manual chapters">
@@ -68,25 +66,25 @@
   </button>
 </header>
 
-<aside class="mpg-sidebar" aria-label="Manual navigation">
-  <header class="mpg-sidebar-brand">
+<aside class="mpg-sidebar fixed inset-y-0 start-0 z-[8] flex h-screen flex-col overflow-hidden bg-mpg-sidebar text-mpg-sidebar-text" aria-label="Manual navigation">
+  <header class="mpg-sidebar-brand flex shrink-0 flex-col items-start gap-1 px-6 pt-6 pb-4">
     <a class="mpg-manual-title" href="{{ pathto(root_doc)|e }}">Modeling &amp; Programming with Gecode</a>
     <span class="mpg-current-title">{{ title|striptags }}</span>
   </header>
-  <div class="mpg-sidebar-panel">
+  <div class="mpg-sidebar-panel flex min-h-0 flex-1 flex-col pt-3">
     {{ manual_navigation('desktop') }}
   </div>
 </aside>
 
 <dialog class="mpg-mobile-navigation" id="mpg-mobile-navigation" aria-labelledby="mpg-mobile-navigation-title">
-  <div class="mpg-mobile-navigation-shell">
+  <div class="mpg-mobile-navigation-shell flex h-full flex-col">
     <header class="mpg-mobile-navigation-header">
       <h2 id="mpg-mobile-navigation-title">Browse the manual</h2>
       <form method="dialog">
         <button class="mpg-mobile-menu-close" type="submit" aria-label="Close manual contents">Close</button>
       </form>
     </header>
-    <div class="mpg-mobile-navigation-panel">
+    <div class="mpg-mobile-navigation-panel flex min-h-0 flex-1 flex-col pt-4">
       {{ manual_navigation('mobile') }}
     </div>
   </div>

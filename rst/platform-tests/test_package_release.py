@@ -19,12 +19,16 @@ def main() -> int:
         build = root / "build"
         html = build / "html"
         (html / "search").mkdir(parents=True)
+        (html / "pagefind").mkdir()
         (html / ".doctrees").mkdir()
         (build / "latex").mkdir()
         for path, text in (
             (html / "index.html", "<title>MPG manual</title><main>MPG</main>"),
             (html / "search" / "index.html", "<title>Search</title><main>Search</main>"),
             (html / "searchindex.js", "Search.setIndex({});"),
+            (html / "pagefind" / "pagefind-entry.json", '{}'),
+            (html / "pagefind" / "pagefind-component-ui.css", "/* Pagefind */"),
+            (html / "pagefind" / "pagefind-component-ui.js", "// Pagefind"),
             (html / "redirects.json", '{"schema":1,"redirects":{}}'),
             (html / ".buildinfo.bak", "stale build metadata"),
             (html / ".doctrees" / "environment.pickle", "private Sphinx cache"),
@@ -41,9 +45,12 @@ def main() -> int:
         manifest = json.loads((release / "release-manifest.json").read_text())
         assert manifest["mount"] == "/doc/9.9.9/modeling/"
         assert manifest["entrypoint"] == "index.html"
+        assert manifest["search"] == "pagefind/pagefind-entry.json"
         assert manifest["pages"] == [{"route": "", "title": "MPG manual"}]
         assert {item["path"] for item in manifest["files"]} == {
-            "MPG.pdf", "index.html", "redirects.json", "search/index.html", "searchindex.js"
+            "MPG.pdf", "index.html", "redirects.json", "search/index.html", "searchindex.js",
+            "pagefind/pagefind-entry.json", "pagefind/pagefind-component-ui.css",
+            "pagefind/pagefind-component-ui.js",
         }
         assert not (release / ".buildinfo.bak").exists()
         assert not (release / ".doctrees").exists()

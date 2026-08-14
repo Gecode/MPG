@@ -14,6 +14,7 @@ import sys
 import tempfile
 
 RST_ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = RST_ROOT.parent
 DEFAULT_SOURCE = RST_ROOT
 DEFAULT_BUILD = RST_ROOT / "_build"
 
@@ -44,6 +45,41 @@ def sphinx(builder: str, source: Path, output: Path, jobs: str, root_doc: str | 
         str(source),
         str(output),
     ], env=environment)
+
+
+def pagefind(output: Path) -> None:
+    executable = REPOSITORY_ROOT / "node_modules" / ".bin" / "pagefind"
+    if not executable.is_file():
+        raise RuntimeError(
+            "Pagefind is required for the HTML build; run `npm install` from the repository root"
+        )
+    run([
+        str(executable),
+        "--site",
+        str(output),
+        "--include-characters",
+        "+_:",
+        "--exclude-selectors",
+        ".headerlink",
+    ], cwd=REPOSITORY_ROOT)
+
+
+def tailwind(output: Path) -> None:
+    """Compile the manual shell locally so release bundles stay self-contained."""
+    executable = REPOSITORY_ROOT / "node_modules" / ".bin" / "tailwindcss"
+    if not executable.is_file():
+        raise RuntimeError(
+            "Tailwind CSS is required for the HTML build; run `npm install` "
+            "from the repository root"
+        )
+    run([
+        str(executable),
+        "--input",
+        str(RST_ROOT / "_static" / "mpg.css"),
+        "--output",
+        str(output / "_static" / "mpg.css"),
+        "--minify",
+    ], cwd=REPOSITORY_ROOT)
 
 
 def adapt_latex_book(path: Path) -> None:
@@ -214,11 +250,14 @@ def main() -> int:
     with publication_source(source, arguments.root_doc) as (publication, root_doc):
         if arguments.target in {"html", "all"}:
             sphinx("dirhtml", publication, build / "html", arguments.jobs, root_doc)
+            tailwind(build / "html")
+            pagefind(build / "html")
             reference_prefix = f"/doc/{os.environ.get('GECODE_VERSION', 'development')}/reference/"
             run([
                 sys.executable,
                 str(RST_ROOT / "scripts" / "verify_html.py"),
                 str(build / "html"),
+                "--require-pagefind",
                 "--site-prefix", reference_prefix,
                 # The PDF is assembled beside the HTML and reference trees by
                 # the release job, not inside Sphinx's HTML output directory.

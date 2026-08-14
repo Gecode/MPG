@@ -116,10 +116,17 @@ def main() -> int:
             'class="mpg-tip',
             'alt="Gecode"',
             'gecode-logo.svg',
-            'class="mpg-page-logo"',
+            'class="mpg-page-logo ',
+            '<main id="mpg-main" class="mpg-body min-w-0 max-w-[64rem]" role="main" tabindex="-1" data-pagefind-body>',
             '>Modeling &amp; Programming with Gecode</a>',
             'class="mpg-current-title"',
             'class="mpg-navigation-scroll"',
+            '<pagefind-modal-trigger placeholder="Find a topic or API" shortcut="mod+k">',
+            '<pagefind-modal>',
+            '<pagefind-results max-sub-results="1">',
+            'href="{{ sub.url | safeUrl }}"',
+            'ranking: { termFrequency: 0 }',
+            'new URL(document.documentElement.dataset.content_root, location.href).pathname',
             'data-mpg-dialog-open="mpg-mobile-navigation"',
             'aria-controls="mpg-mobile-navigation"',
             '<dialog class="mpg-mobile-navigation"',
@@ -134,14 +141,26 @@ def main() -> int:
             '<span class="caption-text">Available values</span>',
             '<strong class="mpg-paragraph-heading">Classical heading.</strong> This paragraph',
             'Figure 1.1',
+            '<h2 id="constraint-overview"',
+            '<section class="mpg-search-definition" data-pagefind-weight="10">',
+            '<h3 class="mpg-search-definition" id="fixture-constraints" data-pagefind-weight="10"',
         ):
             if expected not in chapter:
                 raise RuntimeError(f"HTML omitted {expected}")
         for unexpected in ('>Manual contents</a>', '>Current chapter<'):
             if unexpected in chapter:
                 raise RuntimeError(f"HTML retained obsolete sidebar text {unexpected}")
-        if chapter.count('id="mpg-search-field-desktop"') != 1 or chapter.count('id="mpg-search-field-mobile"') != 1:
-            raise RuntimeError("desktop and mobile navigation need unique search labels")
+        if chapter.count('<pagefind-modal-trigger placeholder="Find a topic or API" shortcut="mod+k">') != 2:
+            raise RuntimeError("desktop and mobile navigation need Pagefind search triggers")
+        if chapter.count('<pagefind-modal>') != 1:
+            raise RuntimeError("each page needs exactly one shared Pagefind search modal")
+
+        search_script = (output / "_static" / "mpg-search.js").read_text(
+            encoding="utf-8"
+        )
+        for expected in ("sessionStorage", "dialog.close()", "input.select()"):
+            if expected not in search_script:
+                raise RuntimeError(f"search lifecycle omitted {expected}")
 
         index = (output / "index.html").read_text(encoding="utf-8")
         for expected in ('href="chapter/#fixture-tip"',
@@ -189,6 +208,9 @@ def main() -> int:
                          r"\def\MPGClassicalListI",
                          r"\let\@listi\MPGClassicalListI",
                          r"\itemsep5\p@  \@plus2.5\p@ \@minus\p@",
+                         r"\newcommand{\MPGLiterateBorderWidth}{.4pt}",
+                         r"\MPGCodeTitleText{\MPGCurrentCodeTitle}",
+                         r"pre_border-radius=0pt",
                          r"includegraphics[width=.18\textwidth]{cc-by-nc-nd.pdf}"):
             if expected not in adapter:
                 raise RuntimeError(f"PDF adapter omitted {expected}")

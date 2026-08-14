@@ -48,6 +48,7 @@ def main() -> int:
     argument_parser = argparse.ArgumentParser(description=__doc__)
     argument_parser.add_argument("root", type=Path)
     argument_parser.add_argument("--site-prefix", action="append", default=[])
+    argument_parser.add_argument("--require-pagefind", action="store_true")
     arguments = argument_parser.parse_args()
     root = arguments.root.resolve()
     pages = sorted(root.rglob("*.html"))
@@ -80,6 +81,18 @@ def main() -> int:
                 raise SystemExit(f"broken fragment from {page}: {uri}")
 
     required = [root / "search" / "index.html", root / "searchindex.js", root / "redirects.json"]
+    if arguments.require_pagefind:
+        required.extend([
+            root / "pagefind" / "pagefind-entry.json",
+            root / "pagefind" / "pagefind-component-ui.css",
+            root / "pagefind" / "pagefind-component-ui.js",
+        ])
+        css = (root / "_static" / "mpg.css").read_text(encoding="utf-8")
+        if '@import "tailwindcss"' in css:
+            raise SystemExit("release CSS was not compiled by Tailwind")
+        for utility in (".fixed{position:fixed}", ".flex{display:flex}"):
+            if utility not in css:
+                raise SystemExit(f"release CSS omitted Tailwind utility {utility}")
     for path in required:
         if not path.exists():
             raise SystemExit(f"missing search/link artifact: {path}")

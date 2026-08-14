@@ -62,6 +62,9 @@ def main() -> int:
         html / "index.html",
         html / "search" / "index.html",
         html / "searchindex.js",
+        html / "pagefind" / "pagefind-entry.json",
+        html / "pagefind" / "pagefind-component-ui.css",
+        html / "pagefind" / "pagefind-component-ui.js",
         html / "redirects.json",
         pdf,
     ]
@@ -103,7 +106,7 @@ def main() -> int:
         "mount": f"/doc/{arguments.version}/modeling/",
         "entrypoint": "index.html",
         "pdf": "MPG.pdf",
-        "search": "searchindex.js",
+        "search": "pagefind/pagefind-entry.json",
         "redirects": "redirects.json",
         "pages": pages,
         "files": files,

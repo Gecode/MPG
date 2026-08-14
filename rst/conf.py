@@ -33,6 +33,7 @@ extensions = [
     "mpg_code",
     "mpg_semantics",
     "mpg_stable_links",
+    "mpg_search",
 ]
 
 root_doc = os.environ.get("MPG_ROOT_DOC", "content/index")

@@ -9,5 +9,10 @@
     "dev": "node rst/scripts/web.mjs dev",
     "build": "node rst/scripts/web.mjs build",
     "preview": "node rst/scripts/web.mjs preview"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "pagefind": "1.5.2",
+    "tailwindcss": "^4.3.3"
   }
 }

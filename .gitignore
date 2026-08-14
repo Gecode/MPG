@@ -16,3 +16,4 @@ MPG.zip
 .mpg/
 dist/
 output/
+node_modules/

@@ -41,13 +41,16 @@ The HTML edition has the same development loop as the Gecode Astro site. No
 separate build and web-server commands are needed:
 
 ```bash
+npm install
 npm run dev
 ```
 
-This builds the manual, serves it at <http://127.0.0.1:8000/>, watches the
-reStructuredText, templates, styles, extensions, manifests, and figures, and
-reloads open browser tabs after a successful rebuild. The commands intended
-for CI and release preview are:
+This compiles the Tailwind CSS v4 shell, builds the manual, serves it at
+<http://127.0.0.1:8000/>, watches the reStructuredText, templates, styles,
+extensions, manifests, and figures, and reloads open browser tabs after a
+successful rebuild. Tailwind runs locally; the versioned release remains a
+self-contained bundle with no browser-side CDN dependency. The commands
+intended for CI and release preview are:
 
 ```bash
 npm run build

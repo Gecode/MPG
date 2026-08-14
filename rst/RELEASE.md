@@ -9,7 +9,8 @@ manual. An ordinary Astro website build does none of this work.
 
 The release job needs the Gecode source tree, its compiled libraries, the
 Doxygen tag file and generated reference HTML, Sphinx, XeLaTeX, Poppler, and
-the SVG conversion tools listed in `figures/README.md`.
+the SVG conversion tools listed in `figures/README.md`. Run `npm install` once
+to install the pinned Pagefind indexer used by the HTML build.
 
 For a release `6.4.0`, run from the MPG repository root:
 
@@ -79,10 +80,12 @@ The Sphinx template owns each complete manual page, including its compact
 manual header, local contents, previous/next links, code downloads, and offline
 search. Astro owns the site-level documentation index and release chooser that
 lead into the versioned manual. Their visual contract is the small set of
-Gecode colour and typography tokens in `_static/mpg.css`; it is not a second
-landing-page design. Changes to that contract should be checked on a dense
-chapter, a part opening, a case study with figures, and a narrow screen before
-a release bundle is accepted.
+Gecode colour and typography tokens declared through Tailwind v4's `@theme` in
+`_static/mpg.css`; it is not a second landing-page design. The release build
+compiles those tokens and the template utilities into self-contained CSS before
+the website imports the bundle. Changes to that contract should be checked on a
+dense chapter, a part opening, a case study with figures, and a narrow screen
+before a release bundle is accepted.
 
 This import runs when a Gecode release is published. The normal website build
 consumes the already imported, versioned files and must not invoke Sphinx,

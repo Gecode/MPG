@@ -12,10 +12,13 @@ each part includes the same blurb inside an `only:: latex` `mpg-part`
 directive, which produces the lettered classical part opening without changing
 chapter numbers.
 
-For web development, run `npm run dev` from the repository root. It performs
-the initial strict build, serves the output with live reload, and watches all
-web publication inputs. Use `npm run build` for a production-shaped HTML build
-and `npm run preview` to inspect the last build without rebuilding it.
+For web development, run `npm install` once and then `npm run dev` from the
+repository root. It performs the initial strict build, serves the output with
+live reload, compiles the Tailwind CSS v4 shell, and watches all web publication
+inputs. Use `npm run build` for a production-shaped HTML build and
+`npm run preview` to inspect the last build without rebuilding it. The authored
+stylesheet is `_static/mpg.css`; the build expands its Tailwind import and
+template utilities into the release copy of that file.
 
 ## Authoring conventions
 

@@ -55,6 +55,18 @@ This paragraph verifies the classical paragraph structure in both editions.
 
    class Model : public Gecode::Space {};
 
+.. _fixture-constraint-overview:
+
+Constraint overview
+-------------------
+
+.. _fixture-constraint-definition:
+
+Fixture constraints
+~~~~~~~~~~~~~~~~~~~
+
+Fixture constraints define the authoritative search result for this fixture.
+
 .. mpg-part:: Modeling
    :letter: M
    :authors: The Gecode Team
