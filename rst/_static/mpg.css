@@ -47,6 +47,7 @@
   --mpg-sidebar-width: clamp(18rem, 22vw, 24rem);
   --mpg-page-gutter: clamp(2rem, 3.5vw, 4rem);
   --mpg-figure-width: 42rem;
+  --mpg-figure-compact-width: 27rem;
   --mpg-sidebar-bg: #20372d;
   --mpg-sidebar-text: #e3ece7;
   --mpg-sidebar-text-strong: #fff;
@@ -238,6 +239,10 @@ code, tt { font-family: var(--mpg-mono); font-size: .88em; }
 .mpg-body p code, .mpg-body li code { padding: .05em .22em; background: #f0f1ef; }
 
 figure { max-width: 100%; margin: 2rem auto; text-align: center; }
+.mpg-content-figure.mpg-figure-compact {
+  width: min(100%, var(--mpg-figure-compact-width));
+  margin-block: 1.5rem;
+}
 figure > img, .mpg-content-figure > img {
   width: min(100%, var(--mpg-figure-width));
   max-width: 100%;
@@ -245,6 +250,8 @@ figure > img, .mpg-content-figure > img {
   margin-inline: auto;
   display: block;
 }
+.mpg-content-figure.mpg-figure-compact > img,
+.mpg-content-figure.mpg-figure-compact > figcaption { width: 100%; }
 .mpg-body img { max-width: 100%; height: auto; }
 figcaption, .caption { width: min(100%, var(--mpg-figure-width)); margin: .55rem auto 0; color: var(--mpg-muted); font-size: .88rem; text-align: left; }
 table { width: 100%; margin: 1.6rem 0; border-collapse: collapse; font-size: .9rem; }

@@ -20,6 +20,7 @@ has the *hint* ``2 3 1``, indicating that there are three separate groups of mar
 
 .. mpg-figure:: Example nonogram puzzle
    :name: fig:c:nonogram:ex
+   :class: mpg-figure-compact
 
    .. only:: html
 
@@ -34,6 +35,7 @@ has the *hint* ``2 3 1``, indicating that there are three separate groups of mar
 
 .. mpg-figure:: Solution to the example puzzle
    :name: fig:c:nonogram:ex-sol
+   :class: mpg-figure-compact
 
    .. only:: html
 

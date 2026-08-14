@@ -50,6 +50,7 @@ This paragraph verifies the classical paragraph structure in both editions.
 .. mpg-figure:: Available values
    :name: fig:m:fixture
    :short-caption: Values
+   :class: mpg-figure-compact
 
    +-------+---------+
    | Value | Meaning |
