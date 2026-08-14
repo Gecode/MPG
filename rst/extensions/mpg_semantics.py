@@ -250,9 +250,16 @@ def visit_mpg_tip_html(translator, node: MpgTip) -> None:
     number = node.get("number", "")
     label = f"Tip {number}" if number else "Tip"
     title = translator.encode(node["title"])
+    permalink_id = node.get("mpg_permalink_id")
+    label_html = f"<span>{label}</span>"
+    if permalink_id is not None:
+        label_html = (
+            f'<a class="mpg-object-number" '
+            f'href="#{translator.encode(permalink_id)}">{label_html}</a>'
+        )
     translator.body.append(translator.starttag(node, "aside", CLASS="mpg-tip", role="note"))
     translator.body.append(
-        f'<p class="mpg-tip-title"><span>{label}</span>'
+        f'<p class="mpg-tip-title">{label_html}'
         f' <span class="mpg-tip-subject">({title}).</span>'
     )
     translator.add_permalink_ref(node, "Link to this tip")

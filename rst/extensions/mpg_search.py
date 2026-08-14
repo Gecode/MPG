@@ -46,6 +46,19 @@ def _prepare_pagefind_sections(app, doctree: nodes.document, docname: str) -> No
 class MpgSearchHTMLTranslator(HTML5Translator):
     """Add Pagefind weights to semantically authoritative headings."""
 
+    def add_fignumber(self, node: nodes.Element) -> None:
+        """Make a numbered object's visible label link to that object."""
+        body_start = len(self.body)
+        super().add_fignumber(node)
+        permalink_id = node.get("mpg_permalink_id")
+        if permalink_id is None or len(self.body) == body_start:
+            return
+        self.body[body_start] = (
+            f'<a class="mpg-object-number" href="#{self.encode(permalink_id)}">'
+            + self.body[body_start]
+        )
+        self.body[-1] += "</a>"
+
     def add_permalink_ref(self, node: nodes.Element, title: str) -> None:
         """Use a public fragment without disturbing Sphinx's numbering ID."""
         permalink_id = node.get("mpg_permalink_id")

@@ -14,12 +14,14 @@ def require(path: Path, fragment: str) -> None:
 
 def main() -> int:
     adapter = ROOT / "_static" / "latex" / "mpg-sphinx.sty"
+    classic = ROOT / "_static" / "latex" / "mpg-classic.sty"
     extension = ROOT / "extensions" / "mpg_code.py"
     require(adapter, r"\newcommand{\MPGLiterateBorderWidth}{.4pt}")
     require(adapter, r"\MPGCodeTitleText{\MPGCurrentCodeTitle}")
     require(adapter, "pre_border-radius=0pt")
     require(extension, r"\\gdef\\MPGCurrentCodeTitle")
     require(extension, r"\\gdef\\sphinxVerbatimTitle{\\relax}")
+    require(classic, r"\enspace$\equiv$")
     print("literate title and code share the classical PDF panel")
     return 0
 

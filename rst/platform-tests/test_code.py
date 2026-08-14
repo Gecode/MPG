@@ -53,17 +53,21 @@ class MpgCodeDirectiveTests(unittest.TestCase):
     def test_literate_insertion_keeps_its_unnumbered_block_title(self) -> None:
         body = ".. mpg-code:: send more money:no leading zeros\n"
         html = (self._build("html", body) / "index.html").read_text(encoding="utf-8")
-        self.assertIn('class="mpg-code-title"', html)
-        self.assertIn("no leading zeros", html)
+        fragment_id = "fragment-send-more-money-no-leading-zeros"
+        self.assertIn(f'class="mpg-code-title" id="{fragment_id}"', html)
+        self.assertIn(
+            f'<a class="mpg-code-fragment-link" href="#{fragment_id}">'
+            'no leading zeros <span class="mpg-code-equivalence" '
+            'aria-hidden="true">&equiv;</span></a>',
+            html,
+        )
         self.assertNotIn("Program ", html)
 
         latex = (self._build("latex", body) / "projectnamenotset.tex").read_text(
             encoding="utf-8"
         )
-        self.assertIn(
-            r"\gdef\sphinxVerbatimTitle{\MPGCodeTitle{no leading zeros}}",
-            latex,
-        )
+        self.assertIn(r"\gdef\MPGCurrentCodeTitle{no leading zeros}", latex)
+        self.assertIn(r"\gdef\sphinxVerbatimTitle{\relax}", latex)
         self.assertIn(r"\global\MPGUnnumberedVerbatimTitletrue", latex)
         self.assertNotIn(r"\caption", latex)
 

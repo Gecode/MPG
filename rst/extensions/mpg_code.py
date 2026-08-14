@@ -19,8 +19,17 @@ class MpgCodeTitle(nodes.General, nodes.Element):
 
 
 def visit_mpg_code_title_html(translator, node: MpgCodeTitle) -> None:
-    translator.body.append('<div class="mpg-code-title">')
-    translator.body.append(translator.encode(node["title"]))
+    translator.body.append(translator.starttag(node, "div", CLASS="mpg-code-title"))
+    title = translator.encode(node["title"])
+    permalink_id = node.get("mpg_permalink_id")
+    if permalink_id is None:
+        translator.body.append(title)
+    else:
+        translator.body.append(
+            f'<a class="mpg-code-fragment-link" '
+            f'href="#{translator.encode(permalink_id)}">{title} '
+            '<span class="mpg-code-equivalence" aria-hidden="true">&equiv;</span></a>'
+        )
 
 
 def depart_mpg_code_title_html(translator, node: MpgCodeTitle) -> None:
@@ -101,7 +110,7 @@ def _load_manifest(app, config) -> None:
 
 
 def _prepare_program_anchors(app, doctree: nodes.document, docname: str) -> None:
-    """Give every numbered Program a readable, primary HTML fragment."""
+    """Give numbered Programs and unnumbered fragments readable HTML targets."""
     if app.builder.format != "html":
         return
 
@@ -137,6 +146,17 @@ def _prepare_program_anchors(app, doctree: nodes.document, docname: str) -> None
             claimed.add(anchor)
 
         container["mpg_permalink_id"] = anchor
+
+    for title in doctree.findall(MpgCodeTitle):
+        base = nodes.make_id(f"fragment-{title['projection_key']}") or "fragment"
+        anchor = base
+        suffix = 2
+        while anchor in claimed:
+            anchor = f"{base}-{suffix}"
+            suffix += 1
+        title["ids"].append(anchor)
+        title["mpg_permalink_id"] = anchor
+        claimed.add(anchor)
 
 
 class MpgCodeDirective(CodeBlock):
@@ -203,6 +223,7 @@ class MpgCodeDirective(CodeBlock):
             title = key.rsplit(":", 1)[-1]
             title_node = MpgCodeTitle()
             title_node["title"] = title
+            title_node["projection_key"] = key
             result.insert(0, title_node)
         if small:
             for node in result:
