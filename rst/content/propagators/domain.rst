@@ -221,6 +221,7 @@ By the very construction of modification event deltas, the modification event de
 
 .. mpg-figure:: Stage transitions for the equality propagator
    :name: fig:p:domain:transitions
+   :class: mpg-figure-medium
 
    .. only:: html
 

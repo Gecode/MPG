@@ -25,6 +25,7 @@ The problem of a knight’s tour is to find a series of knight’s moves (a knig
 
 .. mpg-figure:: :math:`8\times 8`-knight’s tour
    :name: fig:c:knights:example:8
+   :class: mpg-figure-compact
 
    .. only:: html
 

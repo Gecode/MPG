@@ -70,6 +70,7 @@ This document follows the general architecure of Gecode, containing one part for
 
 .. figure:: /figures/fig-intro-gecode_architecture.svg
    :name: fig:intro:gecode_architecture
+   :figclass: mpg-figure-full
    :alt: Gecode architecture: Int, Set, Float, and Search modules bridge the Gecode kernel and Modeling; propagators and branchers overlap the core modules, while variables and search engines extend the stack vertically.
    :width: 97.8%
 
@@ -119,6 +120,7 @@ How to read this document?
 
 .. figure:: /figures/fig-intro-dep.svg
    :name: fig:intro:dep
+   :figclass: mpg-figure-wide
 
    Dependencies among different parts of this document
 

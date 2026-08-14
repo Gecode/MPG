@@ -16,6 +16,7 @@ Problem
 
 .. mpg-figure:: A crossword puzzle grid
    :name: fig:c:crossword:grid
+   :class: mpg-figure-compact
 
    .. only:: html
 
@@ -39,6 +40,7 @@ Words use lowercase letters only and extend as far as they can. That is, the beg
 
 .. mpg-figure:: Solution for crossword puzzle grid from :numref:`fig:c:crossword:grid`
    :name: fig:c:crossword:solution
+   :class: mpg-figure-compact
 
    .. only:: html
 
@@ -1308,6 +1310,7 @@ Even the remaining three ``word`` instances can be solved within one day of runt
 
 .. mpg-figure:: Solution for instance ``words-21`` :math:`\mathtt{\times}` ``21-10``
    :name: fig:c:crossword:sol:21:10
+   :class: mpg-figure-compact
 
    .. only:: html
 
@@ -1322,6 +1325,7 @@ Even the remaining three ``word`` instances can be solved within one day of runt
 
 .. mpg-figure:: Solution for instance ``words-23`` :math:`\mathtt{\times}` ``23-06``
    :name: fig:c:crossword:sol:23:06
+   :class: mpg-figure-compact
 
    .. only:: html
 

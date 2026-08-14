@@ -1501,6 +1501,7 @@ Suppose we want to plan the activities of an evening that follows the Swedish dr
 
 .. figure:: /figures/fig-m-integer-dfa.svg
    :name: fig:m:integer:dfa
+   :figclass: mpg-figure-medium
 
    A DFA for the Swedish drinking protocol
 
@@ -1768,6 +1769,7 @@ Circuit and Hamiltonian path constraints
 
 .. figure:: /figures/fig-m-integer-circuit.svg
    :name: fig:m:integer:circuit
+   :figclass: mpg-figure-compact
 
    Representing edges and propagating ``circuit``
 
@@ -1806,6 +1808,7 @@ Common applications of ``circuit`` also require costs for the edges in the graph
 
 .. figure:: /figures/fig-m-integer-costcircuit.svg
    :name: fig:m:integer:costcircuit
+   :figclass: mpg-figure-compact
 
    Representing edges and propagating ``circuit`` with cost
 

@@ -28,6 +28,7 @@ The problem is to find an optimal *Golomb ruler* (see `CSPLib problem 6 <https:/
 
 .. mpg-figure:: An optimal Golomb ruler with :math:`6` marks
    :name: fig:c:golomb:example
+   :class: mpg-figure-medium
 
    .. only:: html
 
@@ -51,6 +52,7 @@ Assume that the distance between marks :math:`i` and :math:`i+1` is :math:`m_{i+
 
 .. mpg-figure:: A constructed Golomb ruler with :math:`6` marks
    :name: fig:c:golomb:constructed
+   :class: mpg-figure-wide
 
    .. only:: html
 

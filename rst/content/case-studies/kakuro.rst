@@ -14,6 +14,7 @@ Problem
 
 .. mpg-figure:: A Kakuro puzzle
    :name: fig:c:kakuro:board
+   :class: mpg-figure-compact
 
    .. only:: html
 
@@ -37,6 +38,7 @@ The number contained in a hint is called its *value* and the number of fields co
 
 .. mpg-figure:: Solution for Kakuro puzzle from :numref:`fig:c:kakuro:board`
    :name: fig:c:kakuro:solution
+   :class: mpg-figure-compact
 
    .. only:: html
 
@@ -148,6 +150,7 @@ Why the model is poor.
 
 .. mpg-figure:: Propagation for the Kakuro puzzle
    :name: fig:c:kakuro:prop
+   :class: mpg-figure-medium
 
    .. only:: html
 

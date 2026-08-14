@@ -33,6 +33,7 @@ The search tree
 
 .. figure:: /figures/fig-m-gist-smm_full_tree_clean.svg
    :name: fig:m:gist:smm_full_tree_clean
+   :figclass: mpg-figure-narrow
 
    A search tree
 
@@ -59,6 +60,7 @@ Standalone use
 
 .. figure:: /figures/fig-m-gist-gist_smm.svg
    :name: fig:m:gist:gist_smm
+   :figclass: mpg-figure-wide
 
    Gist, solving the Send More Money problem
 
@@ -129,6 +131,7 @@ If you want to start over, the *Search* menu provides an option to reset Gist.
 
 .. figure:: /figures/fig-m-gist-hidden.svg
    :name: fig:m:gist:hidden
+   :figclass: mpg-figure-compact
 
    A hidden subtree in Gist
 
@@ -159,6 +162,7 @@ Inspecting and comparing nodes
 
 .. figure:: /figures/fig-m-gist-node_menu.svg
    :name: fig:m:gist:node_menu
+   :figclass: mpg-figure-medium
 
    The *Node* menu
 
@@ -172,6 +176,7 @@ The *Node* menu (:numref:`fig:m:gist:node_menu`) has two options for displaying 
 
 .. figure:: /figures/fig-m-gist-branches.svg
    :name: fig:m:gist:branches
+   :figclass: mpg-figure-compact
 
    Branch information in Gist
 
@@ -203,6 +208,7 @@ Gist distinguishes between three groups of inspectors, and the group of comparat
 
 .. figure:: /figures/fig-m-gist-tools_menu.svg
    :name: fig:m:gist:tools_menu
+   :figclass: mpg-figure-wide
 
    The *Tools* menu
 
@@ -212,6 +218,7 @@ Gist distinguishes between three groups of inspectors, and the group of comparat
 
 .. figure:: /figures/fig-m-gist-inspect.svg
    :name: fig:m:gist:inspect
+   :figclass: mpg-figure-medium
 
    Inspecting a solution in Gist
 
@@ -248,6 +255,7 @@ The *Node* menu provides an option *Node statistics*, which when clicked opens a
 
 .. figure:: /figures/fig-m-gist-subtreestats.svg
    :name: fig:m:gist:subtreestats
+   :figclass: mpg-figure-compact
 
    Node statistics
 
@@ -292,6 +300,7 @@ During execution, Gist can be configured using the *Preferences* dialog, availab
 
 .. figure:: /figures/fig-m-gist-preferences.svg
    :name: fig:m:gist:preferences
+   :figclass: mpg-figure-medium
 
    Gist preferences
 
@@ -303,6 +312,7 @@ The recomputation parameters are not remembered between sessions.
 
 .. figure:: /figures/fig-m-gist-copies.svg
    :name: fig:m:gist:copies
+   :figclass: mpg-figure-compact
 
    Displaying where Gist stores spaces in the tree
 

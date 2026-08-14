@@ -143,6 +143,7 @@ Choice compatibility
 
 .. mpg-figure:: Example situations during recomputation
    :name: fig:s:re:ex
+   :class: mpg-figure-narrow
 
    .. only:: html
 
@@ -234,6 +235,7 @@ This section presents an important optimization for recomputation that helps to 
 
 .. mpg-figure:: Last alternative optimization (LAO)
    :name: fig:s:re:lao:ex
+   :class: mpg-figure-narrow
 
    .. only:: html
 

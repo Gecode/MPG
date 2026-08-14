@@ -12,6 +12,15 @@ import sys
 from urllib.parse import unquote, urlsplit
 
 
+FIGURE_SIZE_CLASSES = frozenset({
+    "mpg-figure-narrow",
+    "mpg-figure-compact",
+    "mpg-figure-medium",
+    "mpg-figure-wide",
+    "mpg-figure-full",
+})
+
+
 class PageParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
@@ -19,6 +28,8 @@ class PageParser(HTMLParser):
         self.links: list[str] = []
         self.permalinks: list[tuple[str, str]] = []
         self.landmarks: set[str] = set()
+        self.figure_stack: list[tuple[str, set[str]]] = []
+        self.unsized_figures: list[str] = []
 
     def handle_starttag(self, tag: str, attrs) -> None:
         attributes = dict(attrs)
@@ -34,6 +45,18 @@ class PageParser(HTMLParser):
                 )
         if tag in {"main", "nav", "header", "footer"}:
             self.landmarks.add(tag)
+        if tag == "figure":
+            self.figure_stack.append(
+                (attributes.get("id", "<unnamed>"), set(attributes.get("class", "").split()))
+            )
+        elif tag == "img" and self.figure_stack:
+            figure_id, classes = self.figure_stack[-1]
+            if classes.isdisjoint(FIGURE_SIZE_CLASSES):
+                self.unsized_figures.append(figure_id)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "figure" and self.figure_stack:
+            self.figure_stack.pop()
 
 
 def target_file(root: Path, page: Path, uri: str) -> tuple[Path, str]:
@@ -67,6 +90,9 @@ def main() -> int:
         parsed[page.resolve()] = parser
         if page.name != "genindex.html" and not {"main", "nav", "header", "footer"} <= parser.landmarks:
             raise SystemExit(f"missing document landmarks: {page}")
+        if parser.unsized_figures:
+            figures = ", ".join(parser.unsized_figures)
+            raise SystemExit(f"figures lack an intentional width in {page}: {figures}")
 
     for page, parser in parsed.items():
         for title, uri in parser.permalinks:

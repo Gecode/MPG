@@ -21,6 +21,7 @@ The bin packing problem consists of packing :math:`\mathtt{n}` items of sizes :m
 
 .. mpg-figure:: An example optimal bin packing
    :name: fig:c:bpp:optimal
+   :class: mpg-figure-compact
 
    .. only:: html
 
@@ -114,6 +115,7 @@ Note that ``upper()`` has :math:`O(\mathtt{n}^2)` complexity in the worst case b
 
 .. mpg-figure:: A non-optimal bin packing found during upper-bound computation
    :name: fig:c:bpp:greedy
+   :class: mpg-figure-compact
 
    .. only:: html
 

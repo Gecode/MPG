@@ -221,6 +221,7 @@ def main() -> int:
                          'body.mpg-manual { background-image: none;',
                          '--mpg-compact-gutter: clamp(1rem, 4vw, 3rem);',
                          '.mpg-figure-compact',
+                         '.mpg-window-diagram',
                          '.mpg-object-number,\n.mpg-code-fragment-link { text-decoration: none; }',
                          ':is(.mpg-object-number, .mpg-code-fragment-link):is(:hover, :focus-visible)',
                          '.mpg-body .katex { font-size: var(--mpg-math-size); }',

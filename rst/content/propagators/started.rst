@@ -59,6 +59,7 @@ A propagator is implemented in Gecode as a subclass of the class ``Propagator``\
 
 .. mpg-figure:: Scheduling and executing propagators
    :name: fig:p:started:scheduling_propagators
+   :class: mpg-figure-medium
 
    .. only:: html
 
@@ -139,6 +140,7 @@ We call a function implementing a constraint a *constraint post function*. The c
 
 .. mpg-figure:: Propagators, views, and variable implementations
    :name: fig:p:started:propagators_views_varimp
+   :class: mpg-figure-medium
 
    .. only:: html
 

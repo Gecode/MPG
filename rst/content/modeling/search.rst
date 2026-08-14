@@ -63,6 +63,7 @@ Consider the following part of a model, which constrains both the sum and the pr
 
 .. figure:: /figures/fig-m-search-tree.svg
    :name: fig:m:search:tree
+   :figclass: mpg-figure-medium
 
    Example search tree
 
@@ -88,6 +89,7 @@ The hybrid of recomputation and cloning works as follows. For each new choice no
 
 .. figure:: /figures/fig-m-search-hybrid.svg
    :name: fig:m:search:hybrid
+   :figclass: mpg-figure-compact
 
    Hybrid recomputation
 
@@ -949,6 +951,7 @@ As discussed in :ref:`sec:m:search:restart`, the idea of using restarts effectiv
 
 .. figure:: /figures/fig-m-search-nogoods.svg
    :name: fig:m:search:nogoods
+   :figclass: mpg-figure-narrow
 
    Search tree after cutoff :math:`3` has been reached
 

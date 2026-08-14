@@ -458,6 +458,7 @@ Using Gist is absolutely straightforward. :numref:`fig:m:started:gist` shows how
 
 .. figure:: /figures/fig-m-started-gist-shot.svg
    :name: fig:m:started:gist:shot
+   :figclass: mpg-figure-wide
 
    Gist screen shots
 
