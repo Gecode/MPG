@@ -18,3 +18,7 @@ mpg-web.zip
 dist/
 output/
 node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+/tmp/

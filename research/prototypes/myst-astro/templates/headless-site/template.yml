@@ -1,9 +1,0 @@
-jtex: v1
-title: MPG headless site-data template
-description: Local metadata-only template; Astro owns the site.
-version: 1.0.0
-license: MIT
-authors:
-  - name: MPG prototype team
-files:
-  - server.js
