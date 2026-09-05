@@ -2,10 +2,10 @@
 """Check, refresh, and register canonical MPG code excerpts.
 
 Examples (from the repository root):
-  python rst/scripts/code.py check
-  python rst/scripts/code.py refresh
-  python rst/scripts/code.py refresh --no-relocate
-  python rst/scripts/code.py add 'new example' rst/examples/src/new.cpp --validation compiled
+  python rst/scripts/author_code.py check
+  python rst/scripts/author_code.py refresh
+  python rst/scripts/author_code.py refresh --no-relocate
+  python rst/scripts/author_code.py add 'new example' rst/examples/src/new.cpp --validation compiled
 
 Refresh relocates existing excerpts from the committed source and manifest
 (--base HEAD by default), so repeated refreshes before committing are safe.
@@ -66,7 +66,7 @@ def validate(data: dict, root: Path, *, hashes: bool = True) -> None:
             raise ValueError(f"unknown validation kind: {relative}")
         payload = source_path(root, relative).read_bytes()
         if hashes and any(artifact.get(k) != v for k, v in fingerprint(payload).items()):
-            raise ValueError(f"stale artifact {relative}; run code.py refresh")
+            raise ValueError(f"stale artifact {relative}; run author_code.py refresh")
         artifacts[relative] = payload.splitlines(keepends=True)
         ids.add(artifact["id"])
     for key, projection in data["projections"].items():
@@ -77,7 +77,7 @@ def validate(data: dict, root: Path, *, hashes: bool = True) -> None:
         for record in source_records(projection):
             payload = slice_bytes(lines, record)
             if hashes and any(record.get(k) != v for k, v in fingerprint(payload).items()):
-                raise ValueError(f"stale projection {key}; run code.py refresh")
+                raise ValueError(f"stale projection {key}; run author_code.py refresh")
         previous = projection["start_line"] - 1
         for segment in projection.get("segments", []):
             if ("source" in segment) == ("text" in segment):

@@ -70,7 +70,7 @@ def _checked_range(path: Path, record: dict, context: str) -> str:
     if actual != record["sha256"] or len(data) != int(record["bytes"]):
         raise ExtensionError(
             f"stale MPG code projection {context}: {path} no longer matches its source map; "
-            "run `uv run --locked -- python rst/scripts/code.py refresh`, then verify the preview"
+            "run `uv run --locked -- python rst/scripts/author_code.py refresh`, then verify the preview"
         )
     return data.decode("utf-8")
 
@@ -98,7 +98,7 @@ def _load_manifest(app, config) -> None:
         if _digest(payload) != artifact["sha256"] or len(payload) != int(artifact["bytes"]):
             raise ExtensionError(
                 f"canonical MPG code artifact is stale: {source}; "
-                "run `uv run --locked -- python rst/scripts/code.py refresh`, then verify the preview"
+                "run `uv run --locked -- python rst/scripts/author_code.py refresh`, then verify the preview"
             )
     for key, projection in data.get("projections", {}).items():
         if projection["artifact"] not in artifacts:

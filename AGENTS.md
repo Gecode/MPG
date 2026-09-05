@@ -8,7 +8,7 @@ Read `rst/README.md` before authoring. Never recreate TeX book sources, duplicat
 executable examples in prose, or use files in `.mpg/` as source inputs.
 
 - Edit prose directly, preserve explicit labels, and use the semantic directives.
-- After editing an example, run `uv run --locked -- python rst/scripts/code.py refresh`,
+- After editing an example, run `uv run --locked -- python rst/scripts/author_code.py refresh`,
   inspect the projection diff, and verify the affected listings. See the guide
   for deliberate boundary changes and new examples.
 - After editing SVGs, regenerate and commit their PDF companions.

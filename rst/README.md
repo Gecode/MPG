@@ -36,7 +36,7 @@ while downloading the complete program.
 For an existing example:
 
 1. Edit the canonical C++ file.
-2. Run `uv run --locked -- python rst/scripts/code.py refresh` from the repository root.
+2. Run `uv run --locked -- python rst/scripts/author_code.py refresh` from the repository root.
 3. Inspect the code and manifest diff, then the affected HTML listings.
 4. Run `make check GECODE_ROOT=../gecode`, and inspect the PDF if layout changed.
 5. Commit the example and manifest together.
@@ -54,9 +54,9 @@ without Git when the ranges have been reviewed explicitly.
 To register a new whole-file example or a small excerpt:
 
 ```sh
-uv run --locked -- python rst/scripts/code.py add 'my example' \
+uv run --locked -- python rst/scripts/author_code.py add 'my example' \
   rst/examples/src/my-example.cpp --validation compiled
-uv run --locked -- python rst/scripts/code.py add 'my excerpt' \
+uv run --locked -- python rst/scripts/author_code.py add 'my excerpt' \
   rst/examples/fragments/my-excerpt.cpp --lines 2:12
 ```
 
@@ -76,7 +76,7 @@ if needed, and define a meaningful output expectation in
 a test. Use `display-only` only for material that is intentionally not executable.
 
 There are no fixed limits on the number or order of code listings, figures,
-or tips. `code.py check` checks the current source selections and RST keys.
+or tips. `author_code.py check` checks the current source selections and RST keys.
 
 ## Figures and checks
 

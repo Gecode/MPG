@@ -6,12 +6,25 @@ import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 
-SPEC = importlib.util.spec_from_file_location("mpg_code_authoring", Path(__file__).resolve().parents[1] / "scripts/code.py")
+SPEC = importlib.util.spec_from_file_location("mpg_code_authoring", Path(__file__).resolve().parents[1] / "scripts/author_code.py")
 code = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(code)
+
+
+class StandardLibraryImportTests(unittest.TestCase):
+    def test_sphinx_script_path_preserves_debugger_imports(self):
+        scripts = Path(__file__).resolve().parents[1] / "scripts"
+        subprocess.run(
+            [sys.executable, "-c",
+             "import sys; sys.path.insert(0, sys.argv[1]); "
+             "import code, doctest, pdb; assert hasattr(code, 'InteractiveConsole')",
+             str(scripts)],
+            check=True,
+        )
 
 
 class CodeAuthoringTests(unittest.TestCase):

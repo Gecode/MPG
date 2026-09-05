@@ -9,7 +9,7 @@ RST = Path(__file__).resolve().parents[1]
 
 def main() -> int:
     for command in (
-        [sys.executable, str(RST / "scripts/code.py"), "check"],
+        [sys.executable, str(RST / "scripts/author_code.py"), "check"],
         [sys.executable, str(RST / "figures/scripts/verify.py")],
     ):
         subprocess.run(command, check=True)
