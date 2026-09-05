@@ -44,11 +44,11 @@ Using a cost function
    :caption: A Gecode model for Send Most Money using a cost function
 
 
-:numref:`fig:m:comfy:smm-best:minimodel` uses the class `IntMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMaximizeSpace.html>`__ for cost-based optimization for Send Most Money. The class is also included in Gecode’s MiniModel module (see :ref:`sec:m:minimodel:optimize` and `Support for cost-based optimization <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelOptimize.html>`__).
+:numref:`fig:m:comfy:smm-best:minimodel` uses the class :reference:`IntMaximizeSpace <classGecode_1_1IntMaximizeSpace.html>` for cost-based optimization for Send Most Money. The class is also included in Gecode’s MiniModel module (see :ref:`sec:m:minimodel:optimize` and :reference:`Support for cost-based optimization <group__TaskModelMiniModelOptimize.html>`).
 
 .. container:: samepage
 
-   The `IntMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMaximizeSpace.html>`__ class is a sub-class of `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__ that defines a ``constrain()`` member function based on the cost of a space. Our model must implement a virtual ``cost()`` function that returns an integer variable defining the cost (the function must be ``const``). In our example, we extend the model to maintain the cost (the amount of money) in a dedicated variable ``money`` (note that this variable must also be updated during cloning).
+   The :reference:`IntMaximizeSpace <classGecode_1_1IntMaximizeSpace.html>` class is a sub-class of :reference:`Space <classGecode_1_1Space.html>` that defines a ``constrain()`` member function based on the cost of a space. Our model must implement a virtual ``cost()`` function that returns an integer variable defining the cost (the function must be ``const``). In our example, we extend the model to maintain the cost (the amount of money) in a dedicated variable ``money`` (note that this variable must also be updated during cloning).
 
    The cost function then just returns the amount of money as follows:
 
@@ -81,7 +81,7 @@ Suppose that we want to experiment with two different variants of Send Most Mone
    :caption: A Gecode model for Send Most Money using the script commandline driver
 
 
-:numref:`fig:m:comfy:driver` shows a model for Send Most Money that uses the ``IntMaximizeScript`` class as base class (see `Script classes <https://www.gecode.dev/doc/6.4.0/reference/group__TaskDriverScript.html>`__) rather than ``IntMaximizeSpace`` (likewise, the driver module also offers a ``Script`` class to be used instead of ``Space``). There are three main differences between ``IntMaximizeScript`` and ``IntMaximizeSpace`` (``Script`` and ``Space``):
+:numref:`fig:m:comfy:driver` shows a model for Send Most Money that uses the ``IntMaximizeScript`` class as base class (see :reference:`Script classes <group__TaskDriverScript.html>`) rather than ``IntMaximizeSpace`` (likewise, the driver module also offers a ``Script`` class to be used instead of ``Space``). There are three main differences between ``IntMaximizeScript`` and ``IntMaximizeSpace`` (``Script`` and ``Space``):
 
 #. The constructor must accept a constant argument of type ``Options`` (actually, it must accept a constant argument of the type that is specified for the ``run`` member function to be explained below) that is used to pass values computed from options passed on the commandline.
 
@@ -104,7 +104,7 @@ The class ``SendMostMoney`` defines an enumeration type with values ``MODEL_SING
 
 .. mpg-paragraph:: Defining commandline options.
 
-The mapping between strings passed on the commandline and the values ``MODEL_SINGLE`` and ``MODEL_CARRY`` is established by configuring an object of class `Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Options.html>`__ accordingly as follows:
+The mapping between strings passed on the commandline and the values ``MODEL_SINGLE`` and ``MODEL_CARRY`` is established by configuring an object of class :reference:`Options <classGecode_1_1Options.html>` accordingly as follows:
 
 .. mpg-code:: send most money with driver:commandline options
 
@@ -115,7 +115,7 @@ The first call to ``opt.model()`` defines that ``single`` is a legal value for t
 
 As we are performing best solution search, we want to compute all possible solutions. This is done by setting ``opt.solutions`` to ``0`` (the default value is ``1`` for searching for the first solution). Note that this default value can be changed on the commandline by passing an integer as value for the ``-solutions`` commandline option. Parsing the commandline by ``parse`` now takes the configured values for the commandline options ``-model`` and ``-solutions`` into account.
 
-The `Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Options.html>`__ class supports most options that are useful for propagation, search, and so on similar to the ``model`` option. The full details are explained in :ref:`chap:m:driver`.
+The :reference:`Options <classGecode_1_1Options.html>` class supports most options that are useful for propagation, search, and so on similar to the ``model`` option. The full details are explained in :ref:`chap:m:driver`.
 
 The last piece of our model is calling the static ``run`` method of the script class by passing as template arguments our script class type ``SendMostMoney``, ``BAB`` as the search engine we would like to use, and the type of options ``Options`` (as mentioned before, the constructor of the script must accept a single argument of this type).
 
@@ -181,15 +181,3 @@ Another important commandline option is ``-help`` which prints the options suppo
 .. mpg-tip:: Which version of Gecode are we using?
 
    Some programs might have to deal with incompatible changes between different versions of Gecode. The Gecode-defined macro ``GECODE_VERSION_NUMBER`` can be used to find out which version of Gecode is used during compilation. The macro’s value is defined as :math:`100000\times x + 100\times y +z` for Gecode version :math:`x.y.z`.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-comfy.tex.in:22:fig:m:comfy:smm-mm
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-comfy.tex.in:23:send more money de-mystified
-.. mpg-covered: caption:docs/src/chapters/modeling/m-comfy.tex.in:48:fig:m:comfy:smm-best:minimodel
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-comfy.tex.in:49:send most money with cost
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-comfy.tex.in:73:send most money with cost:cost function
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-comfy.tex.in:101:send most money with driver:using carries
-.. mpg-covered: caption:docs/src/chapters/modeling/m-comfy.tex.in:105:fig:m:comfy:driver
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-comfy.tex.in:106:send most money with driver
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-comfy.tex.in:164:send most money with driver:commandline options
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-comfy.tex.in:200:send most money with driver:run script
-.. mpg-covered: tip:docs/src/chapters/modeling/m-comfy.tex.in:265:unlabeled-tip@docs/src/chapters/modeling/m-comfy.tex.in:265

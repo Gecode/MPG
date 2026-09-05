@@ -116,11 +116,3 @@ The magic sequence puzzle is also included as a Gecode example, see :api:`magic-
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-magic-sequence.tex.in:25:fig:c:magic_sequence
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-magic-sequence.tex.in:26:magic sequence
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-magic-sequence.tex.in:38:magic sequence:counting constraints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-magic-sequence.tex.in:73:magic sequence:implied constraints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-magic-sequence.tex.in:84:magic sequence:branching
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-magic-sequence.tex.in:103:fig:c:magic_sequence_gcc
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-magic-sequence.tex.in:104:magic sequence gcc

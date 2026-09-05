@@ -83,7 +83,7 @@ If you want to solve an optimization problem using branch-and-bound search, you 
 Use as a Qt widget
 ~~~~~~~~~~~~~~~~~~
 
-If you are developing an application with a graphical user interface using the Qt toolkit, you can embed Gist as a widget. Either use `Gist::GistMainWindow <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1GistMainWindow.html>`__, which gives you an independent widget that inherits from ``QMainWindow``, or directly embed the `Gist::Gist <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Gist.html>`__ widget into your own widgets. You have to include the files ``gecode/gist/mainwindow.hh`` for the independent widget, or ``gecode/gist/qtgist.hh`` for the widget you can embed.
+If you are developing an application with a graphical user interface using the Qt toolkit, you can embed Gist as a widget. Either use :api:`Gist::GistMainWindow`, which gives you an independent widget that inherits from ``QMainWindow``, or directly embed the :api:`Gist::Gist` widget into your own widgets. You have to include the files ``gecode/gist/mainwindow.hh`` for the independent widget, or ``gecode/gist/qtgist.hh`` for the widget you can embed.
 
 Apart from the integration into your own application, the advantage over the standalone approach is that you get access to Gist’s *signals* and *slots*. For example, you can use more than one inspector, or you can control the search programatically instead of by user input. The details of this are beyond the scope of this document, please refer to the reference documentation of the corresponding classes for more information, and have a look at the directory ``gecode/gist/standalone-example`` in the Gecode source distribution.
 
@@ -222,19 +222,19 @@ Gist distinguishes between three groups of inspectors, and the group of comparat
 
    Inspecting a solution in Gist
 
-The simplest way to add an inspector to your model is to use the `Gist::Print <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Print.html>`__ inspector, as demonstrated in :ref:`sec:m:started:gist`. :numref:`fig:m:gist:inspect` shows the `Gist::Print <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Print.html>`__ inspector after double-clicking the solution of the Send More Money problem.
+The simplest way to add an inspector to your model is to use the :api:`Gist::Print` inspector, as demonstrated in :ref:`sec:m:started:gist`. :numref:`fig:m:gist:inspect` shows the :api:`Gist::Print` inspector after double-clicking the solution of the Send More Money problem.
 
 .. _modeling:m-gist:implementing-inspectors:
 
 .. mpg-paragraph:: Implementing inspectors.
 
-An inspector is an object that inherits from the abstract base class `Gist::Inspector <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Inspector.html>`__. The abstract base class declares a virtual member function, ``inspect(const Space& s)``, which is called when one of the events described above happens. The space that is passed as an argument corresponds to the inspected node in the tree. The inspector is free to perform any ``const`` operation on the space.
+An inspector is an object that inherits from the abstract base class :api:`Gist::Inspector`. The abstract base class declares a virtual member function, ``inspect(const Space& s)``, which is called when one of the events described above happens. The space that is passed as an argument corresponds to the inspected node in the tree. The inspector is free to perform any ``const`` operation on the space.
 
 .. _modeling:m-gist:the-variable-comparator:
 
 .. mpg-paragraph:: The variable comparator.
 
-Similar to the printing inspector, there is a predefined comparator `Gist::VarComparator <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1VarComparator.html>`__ that can be easily added to scripts. It requires the script to implement a member function ``compare()`` in which it outputs the result of comparing itself to another space. :numref:`fig:m:gist:gist-compare` shows how to add comparison to the example from :ref:`sec:m:started:gist`. It uses a convenience member function from the class `Gist::Comparator <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Comparator.html>`__ that produces a string representation of the differences between two variable arrays.
+Similar to the printing inspector, there is a predefined comparator :api:`Gist::VarComparator` that can be easily added to scripts. It requires the script to implement a member function ``compare()`` in which it outputs the result of comparing itself to another space. :numref:`fig:m:gist:gist-compare` shows how to add comparison to the example from :ref:`sec:m:started:gist`. It uses a convenience member function from the class :api:`Gist::Comparator` that produces a string representation of the differences between two variable arrays.
 
 .. mpg-code:: send more money with gist comparison
    :name: fig:m:gist:gist-compare
@@ -245,7 +245,7 @@ Similar to the printing inspector, there is a predefined comparator `Gist::VarCo
 
 .. mpg-paragraph:: Implementing comparators.
 
-A comparator inherits from `Gist::Comparator <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Comparator.html>`__ and implements at least its ``compare(const Space& s0, const Space& s1)`` member function. This function is called when the currently selected node with space ``s0`` is compared to the node with space ``s1``. As for inspectors, a comparator can perform any ``const`` operation on these two spaces.
+A comparator inherits from :api:`Gist::Comparator` and implements at least its ``compare(const Space& s0, const Space& s1)`` member function. This function is called when the currently selected node with space ``s0`` is compared to the node with space ``s1``. As for inspectors, a comparator can perform any ``const`` operation on these two spaces.
 
 .. _modeling:m-gist:subtree-statistics:
 
@@ -292,9 +292,9 @@ The *File* menu provides options for exporting the current search tree as a PDF 
 Options and preferences
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-When invoking Gist, you can pass it an optional argument of type `Gist::Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Options.html>`__. This options class inherits from the standard search options discussed in :ref:`sec:m:search:options`, but adds a ``class`` with two member functions, ``inspect.click()`` and ``inspect.solution()``, that you can use to pass inspectors to Gist.
+When invoking Gist, you can pass it an optional argument of type :api:`Gist::Options`. This options class inherits from the standard search options discussed in :ref:`sec:m:search:options`, but adds a ``class`` with two member functions, ``inspect.click()`` and ``inspect.solution()``, that you can use to pass inspectors to Gist.
 
-The two options for recomputation, ``c_d`` and ``a_d``, as well as the ``clone`` option of `Search::Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Options.html>`__ are honored by Gist; the remaining options are ignored.
+The two options for recomputation, ``c_d`` and ``a_d``, as well as the ``clone`` option of :api:`Search::Options` are honored by Gist; the remaining options are ignored.
 
 During execution, Gist can be configured using the *Preferences* dialog, available from the program menu on Mac OS or the *File* menu on Windows and Linux.
 
@@ -306,7 +306,7 @@ During execution, Gist can be configured using the *Preferences* dialog, availab
 
 The drawing preferences (:numref:`fig:m:gist:preferences`, left) let you specify whether failed subtrees are hidden automatically during search, and whether the auto-zoom and smooth scrolling features are enabled at start-up. Furthermore, you can set the refresh interval – this is the number of nodes that are explored before the tree is redrawn. If you set this to a large number, search will be faster, but you get less visual feedback. You can enable slow search, which will explore only around three nodes per second, useful for demonstrating how search proceeds. Finally, enabling the “Move cursor during search” option means that the move inspectors will be called for every single node during search. Again, this is great for demonstration and debugging purposes, but it slows down the search considerably. Drawing preferences (except for the slow-down and cursor moving options) are remembered between sessions and across different invocations of Gist.
 
-The search preferences are exactly the parameters you can pass using the `Gist::Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Gist_1_1Options.html>`__ class. In addition, you can switch on the display of where Gist actually stores spaces in the tree, as shown in :numref:`fig:m:gist:copies`. A small red circle indicates a clone used for recomputation, while a small yellow circle shows that the node has an active space used for exploration (a so-called *working clone*).
+The search preferences are exactly the parameters you can pass using the :api:`Gist::Options` class. In addition, you can switch on the display of where Gist actually stores spaces in the tree, as shown in :numref:`fig:m:gist:copies`. A small red circle indicates a clone used for recomputation, while a small yellow circle shows that the node has an active space used for exploration (a so-called *working clone*).
 
 The recomputation parameters are not remembered between sessions.
 
@@ -317,16 +317,3 @@ The recomputation parameters are not remembered between sessions.
    Displaying where Gist stores spaces in the tree
 
 .. |image| image:: /figures/screenshots/gist_menu_search.png
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:33:fig:m:gist:smm_full_tree_clean
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:63:fig:m:gist:gist_smm
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:120:fig:m:gist:hidden
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:143:fig:m:gist:node_menu
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:165:fig:m:gist:branches
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:207:fig:m:gist:tools_menu
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:217:fig:m:gist:inspect
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:255:fig:m:gist:gist-compare
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-gist.tex.in:256:send more money with gist comparison
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:275:fig:m:gist:subtreestats
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:313:fig:m:gist:preferences
-.. mpg-covered: caption:docs/src/chapters/modeling/m-gist.tex.in:342:fig:m:gist:copies

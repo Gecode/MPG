@@ -1,3 +1,4 @@
+# Compatibility requirements file. The authoritative lock is pyproject.toml/uv.lock.
 Sphinx==8.2.3
 sphinxcontrib-bibtex==2.6.5
 sphinxcontrib-katex==0.9.11

@@ -144,16 +144,3 @@ Despite its simplicity, the program for solving nonograms works amazingly well. 
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-nonogram.tex.in:27:fig:c:nonogram:ex
-.. mpg-covered: table:docs/src/chapters/case-studies/c-nonogram.tex.in:30:tabular@docs/src/chapters/case-studies/c-nonogram.tex.in:30
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-nonogram.tex.in:47:fig:c:nonogram:ex-sol
-.. mpg-covered: table:docs/src/chapters/case-studies/c-nonogram.tex.in:50:tabular@docs/src/chapters/case-studies/c-nonogram.tex.in:50
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-nonogram.tex.in:86:fig:c:nonogram
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-nonogram.tex.in:87:nonogram
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-nonogram.tex.in:102:nonogram:puzzle
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-nonogram.tex.in:110:nonogram:line function
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-nonogram.tex.in:128:nonogram:intialize hint pointer
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-nonogram.tex.in:134:nonogram:column constraints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-nonogram.tex.in:136:nonogram:row constraints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-nonogram.tex.in:145:nonogram:branching

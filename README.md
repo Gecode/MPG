@@ -1,130 +1,83 @@
-# Modeling and Programming with Gecode (MPG)
+# Modeling and Programming with Gecode
 
-This repository contains the LaTeX source and generated code examples for **Modeling and Programming with Gecode**. This checkout targets Gecode 6.4.0.
+The manual is authored only in reStructuredText. `rst/content/` produces both
+the website HTML and the classical PDF. The former TeX book sources and
+migration tools have been removed; their history remains in Git. XeLaTeX is
+still used to typeset Sphinx's generated PDF input.
 
-## Source Layout
+## Setup and preview
 
-Document inputs live under `docs/src/`:
+Use Python 3.11 or newer (CI uses 3.12), Node 22.12 or newer, and uv:
 
-- `docs/src/template/` main template (`MPG.tex.in.in`)
-- `docs/src/chapters/` chapter sources grouped by domain
-- `docs/src/static/` static TeX includes (`macros.tex`, `license.tex`)
-- `docs/src/bib/` bibliography inputs
-- `docs/src/assets/` non-TeX source assets (for example `.vis`, `.xsd`)
-- `docs/src/notes/` plain-text companion material
-
-The tooling also recognizes the legacy root paths and warns when it uses them.
-
-## Tooling
-
-The project now uses a Python CLI as the primary interface:
-
-```bash
-uv run -- python -m tools.mpg doctor
-uv run -- python -m tools.mpg extract
-uv run -- python -m tools.mpg build --kind all
-uv run -- python -m tools.mpg run --kind all
-uv run -- python -m tools.mpg test --kind all
-uv run -- python -m tools.mpg docs
-uv run -- python -m unittest discover -s tests -p "test_*.py"
-```
-
-A thin `Makefile` is kept with the common targets:
-`make quick`, `make docs`, `make extract`, `make build`, `make build-test`, `make build-notest`, `make test`, `make clean`.
-You can pass Gecode location through make variables, for example:
-`make test GECODE_ROOT=/Users/zayenz/gecode/gecode` or `make build GECODE_PREFIX=/usr/local`.
-If neither is set and `../gecode/test/test.cpp` exists, the Makefile auto-uses `../gecode` for full test coverage.
-
-### Web manual
-
-The HTML edition has the same development loop as the Gecode Astro site. No
-separate build and web-server commands are needed:
-
-```bash
-npm install
+```sh
+uv sync --locked
+npm ci
 npm run dev
 ```
 
-This compiles the Tailwind CSS v4 shell, builds the manual, serves it at
-<http://127.0.0.1:8000/>, watches the reStructuredText, templates, styles,
-extensions, manifests, and figures, and reloads open browser tabs after a
-successful rebuild. Tailwind runs locally; the versioned release remains a
-self-contained bundle with no browser-side CDN dependency. The commands
-intended for CI and release preview are:
+The development server builds and watches the manual at
+<http://127.0.0.1:8000/>. A failed rebuild preserves the last successful output.
+Use `npm run dev -- --port 8765` for another port, `npm run build` for HTML,
+and `npm run preview` to serve the latest build.
 
-```bash
-npm run build
-npm run preview
+PDF and figure checks also require XeLaTeX, latexmk, Poppler (`pdfinfo`,
+`pdftotext`, `pdffonts`), and `rsvg-convert`. The TeX packages installed in
+[the documentation workflow](.github/workflows/docs.yml) define the CI setup.
+
+## Maintained files
+
+- `rst/content/`: prose, bibliography, and page ordering.
+- `rst/examples/src/`: canonical C++ examples; `fragments/` contains display-only material.
+- `rst/examples/int.vis`: the variable implementation specification used by the example build.
+- `rst/manifests/code-projections.json`: code selections and their integrity checks.
+- `rst/figures/`: canonical SVGs and screenshots, with PDF companions in `pdf/`.
+- `rst/extensions/`, `_templates/`, `_static/`: publication behavior and styling.
+- `test/` and `notest/`: harnesses used to compile and exercise examples.
+
+See [the authoring guide](rst/README.md) for editing procedures and
+[release instructions](rst/RELEASE.md) for publication.
+
+## Checks and releases
+
+```sh
+make check-sources
+make docs MPG_VERSION=6.4.0
+make check GECODE_ROOT=../gecode
+make release MPG_VERSION=6.4.0 GECODE_ROOT=../gecode
 ```
 
-Use `npm run dev -- --port 8765` to select another port.
+`make check-sources` checks current code selections and figure assets.
+`make docs` runs those checks and builds strict HTML and PDF output under
+`rst/_build/`. `make check` also runs tooling/platform tests and compiles and
+executes the canonical examples against the selected Gecode checkout.
+Three interactive Gist examples are compiled but require manual execution.
+`make release` runs the checks, builds both formats, and packages them under
+`output/`. Packaging refuses to overwrite a version that already exists.
 
-For release validation, build the current Gecode `main` branch and pass that checkout as `GECODE_ROOT`:
+For a final release, build the matching Gecode tag first, generate its API
+inventory as described in `rst/RELEASE.md`, and use a fresh output location:
 
-```bash
-git clone --depth=1 --branch main https://github.com/Gecode/gecode.git ../gecode
-cmake -S ../gecode -B ../gecode/build -G Ninja -DCMAKE_BUILD_TYPE=Release \
-  -DGECODE_ENABLE_QT=OFF -DGECODE_ENABLE_GIST=OFF \
-  -DGECODE_ENABLE_MPFR=OFF -DGECODE_ENABLE_CPPROFILER=OFF
-cmake --build ../gecode/build --parallel
-make test GECODE_ROOT=../gecode
-make docs
+```sh
+make release MPG_VERSION=6.4.0 GECODE_ROOT=../gecode \
+  RST_BUILD=/tmp/mpg-release-build MPG_OUTPUT=/tmp/mpg-release-output
 ```
 
-Once the Gecode release tag exists, use `--branch release-6.4.0` for the final release check. The 6.3.0 sources remain available as the `release-6.3.0` tag.
+The Gecode checkout must include its test framework sources and compiled
+libraries. `GECODE_PREFIX=/path/to/install` supports an explicit installation,
+but full validation of the variable and test examples requires `GECODE_ROOT`.
+The Makefile automatically selects `../gecode` if its test sources exist.
 
-## Dependency Resolution
+`make build`, `make build-test`, `make build-notest`, `make test`, and
+`uv run -- python -m tools.mpg run --kind all --gecode-root ../gecode`
+remain available for focused example work. Generated C++ build trees, binaries,
+and reports live in `.mpg/`. `make clean` removes those and the known publication
+build outputs. There is no extraction step.
 
-MPG supports three dependency modes:
+The optional `mpg.toml` configures example selection, compiler flags, timeouts,
+and per-example runners. It does not select chapters; book order is authored
+in `rst/content/index.rst`.
 
-1. System install (default): no path flags.
-2. Explicit install prefix: `--gecode-prefix /path/to/prefix`.
-3. Explicit source/build tree: `--gecode-root /path/to/gecode`.
-
-### Important: full test coverage
-
-Some `test` examples require Gecode test framework sources (`test.cpp`, `int.cpp`, `float.cpp`, `set.cpp`).
-If these are unavailable from the current configuration, MPG fails with guidance.
-For full coverage, use:
-
-```bash
-uv run -- python -m tools.mpg test --kind all --gecode-root ../gecode
-```
-
-## Workspace Layout
-
-Generated files are written to `.mpg/`:
-
-- `.mpg/generated/tex/` processed TeX files
-- `.mpg/generated/src/` extracted C++ snippets
-- `.mpg/build/` CMake/Ninja build trees
-- `.mpg/bin/` compiled executables
-- `.mpg/results/` machine-readable run summaries
-- `.mpg/manifests/` per-kind example manifests used by `run`
-- `.mpg/manifest.json` copy of the last manifest, kept for older tooling
-
-## Docs Build
-
-`uv run -- python -m tools.mpg docs` uses the standard document pipeline:
-
-- `latex`
-- `bibtex`
-- `dvips`
-- `ps2pdf`
-
-This keeps the existing chapter, code, and link structure while using the Python CLI to run the build steps.
-
-## Configuration
-
-`mpg.toml` is optional and supports overrides:
-
-- `version`, `year`
-- `chapters`, `models`, `tests`, `notest`
-- `compile_flags`
-- `run_timeout_sec`
-- per-example metadata in `[examples.<id>]`
-
-## CI
-
-- `examples.yml` runs periodic checks for `make test` and `make docs` on Linux. By default, it checks out and builds `Gecode/gecode` at `main`. It can also be run manually against another repository or ref through the `gecode_repository` and `gecode_ref` workflow inputs. For the final release check, set `gecode_ref` to `release-6.4.0` once that tag exists.
-- `docs.yml` builds the PDF on Linux and publishes it as an artifact.
+CI builds and packages an HTML/PDF preview in `docs.yml` and independently
+compiles and tests examples in `examples.yml`. A preview artifact is not an
+announced release. Release-support assembles the website bundle; Cloudflare
+publication is coordinated separately, as described in `rst/RELEASE.md`.

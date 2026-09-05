@@ -152,6 +152,7 @@ def main() -> int:
             '<figcaption>',
             '<a class="mpg-object-number" href="#fig-m-fixture"><span class="caption-number">Figure 1.1 </span></a>',
             '<span class="caption-text">Available values</span>',
+            '<div class="mpg-table-scroll" role="region" tabindex="0" aria-label="Available values">',
             'href="#fig-m-fixture" title="Link to this image"',
             'id="fixture-tip"',
             '<a class="mpg-object-number" href="#fixture-tip"><span>Tip 1.1</span></a>',
@@ -233,7 +234,7 @@ def main() -> int:
         sphinx_latex(FIXTURE, latex_output)
         latex = (latex_output / "MPG.tex").read_text(encoding="utf-8")
         for expected in (r"\begin{figure}[tbp]", r"\caption[Values]{Available values}",
-                         r"\paragraph{Classical heading.}",
+                         r"\paragraph*{Classical heading.}",
                          r"chapter:fig-m-fixture"):
             if expected not in latex:
                 raise RuntimeError(f"LaTeX omitted {expected}")

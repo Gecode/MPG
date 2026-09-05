@@ -10,6 +10,8 @@ import json
 from pathlib import Path
 import shutil
 
+from build_contract import validate_release
+
 
 class TitleParser(HTMLParser):
     def __init__(self) -> None:
@@ -56,6 +58,16 @@ def main() -> int:
     parser.add_argument("--version", required=True)
     arguments = parser.parse_args()
 
+    try:
+        version = validate_release(arguments.version, allow_development=False)
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
+
+    for output in ("html", "latex"):
+        marker = arguments.build / output / ".mpg-version"
+        if not marker.is_file() or marker.read_text(encoding="utf-8").strip() != version:
+            raise SystemExit(f"{output} has no successful build for requested version {version}; rebuild before packaging")
+
     html = arguments.build / "html"
     pdf = arguments.build / "latex" / "MPG.pdf"
     required = [
@@ -72,8 +84,8 @@ def main() -> int:
     if missing:
         raise SystemExit("release build is incomplete: " + ", ".join(missing))
 
-    release = arguments.output / "releases" / arguments.version / "modeling"
-    public_pdf = arguments.output / "pdf" / f"MPG-{arguments.version}.pdf"
+    release = arguments.output / "releases" / version / "modeling"
+    public_pdf = arguments.output / "pdf" / f"MPG-{version}.pdf"
     if release.exists() or public_pdf.exists():
         raise SystemExit(
             "release output already exists; remove the exact versioned output before repackaging"
@@ -83,7 +95,7 @@ def main() -> int:
     shutil.copytree(
         html,
         release,
-        ignore=shutil.ignore_patterns(".doctrees", ".buildinfo.bak"),
+        ignore=shutil.ignore_patterns(".doctrees", ".buildinfo", ".buildinfo.bak", ".mpg-version"),
     )
     shutil.copy2(pdf, release / "MPG.pdf")
     shutil.copy2(pdf, public_pdf)
@@ -102,8 +114,8 @@ def main() -> int:
     ]
     manifest = {
         "schema": "gecode-mpg-release-v1",
-        "version": arguments.version,
-        "mount": f"/doc/{arguments.version}/modeling/",
+        "version": version,
+        "mount": f"/doc/{version}/modeling/",
         "entrypoint": "index.html",
         "pdf": "MPG.pdf",
         "search": "pagefind/pagefind-entry.json",

@@ -1,9 +1,0 @@
-[
-  {
-    "legacy": "images/gecode-logo.eps",
-    "html_asset": "figures/gecode-logo.svg",
-    "pdf_asset": "figures/pdf/gecode-logo.pdf",
-    "kind": "outlined-vector-logo",
-    "alt": "Gecode"
-  }
-]

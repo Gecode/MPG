@@ -18,11 +18,8 @@ We also assume a basic knowledge of propagation for set constraints. To read mor
 A simple example
 ----------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-sets.tex.in:26:fig:p:sets:intersection
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-sets.tex.in:26:fig:p:sets:intersection
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:27:intersection
 
 .. mpg-code:: intersection
    :caption: A constraint and propagator for set intersection
@@ -31,7 +28,7 @@ A simple example
 
 :numref:`fig:p:sets:intersection` shows a propagator for the ternary intersection constraint :math:`\mathtt{x}_0\cap\mathtt{x}_1=\mathtt{x}_2` for three set variables :math:`\mathtt{x}_0`, :math:`\mathtt{x}_1`, and :math:`\mathtt{x}_2`.
 
-As you can see, propagators for set constraints follow exactly the same structure as propagators for integer or Boolean constraints. The same propagator patterns can be used (see :ref:`sec:p:started:patterns`). The appropriate views and propagation conditions are defined in the namespace ``Gecode::Set``.
+As you can see, propagators for set constraints follow exactly the same structure as propagators for integer or Boolean constraints. The same propagator patterns can be used (see :ref:`sec:p:started:patterns`). The appropriate views and propagation conditions are defined in the namespace :api:`Gecode::Set <Set>`.
 
 In order to understand the ``propagate()`` function, we have to look at how set variable domains are represented.
 
@@ -47,7 +44,7 @@ We already saw in :ref:`chap:m:set` that set variable domains are represented as
 
 Set propagators therefore access and modify the interval bounds. Naturally, set-valued domain operations similar to the ones for integer variables (see :ref:`chap:p:domain`) play an important role for set propagators.
 
-For each set view, ``Set::GlbRanges``\ provides a range iterator for its lower bound, and ``Set::LubRanges``\ iterates the upper bound. The main iterator-based modification operations on set views are ``includeI`` (adding a set to the lower bound), ``excludeI`` (removing a set from the upper bound), and ``intersectI`` (intersecting the upper bound with a set).
+For each set view, :api:`Set::GlbRanges` provides a range iterator for its lower bound, and :api:`Set::LubRanges` iterates the upper bound. The main iterator-based modification operations on set views are ``includeI`` (adding a set to the lower bound), ``excludeI`` (removing a set from the upper bound), and ``intersectI`` (intersecting the upper bound with a set).
 
 .. _propagators:sets:filtering-rules:
 
@@ -57,51 +54,42 @@ Coming back to the example propagator for ternary intersection, we have to devis
 
 #. :math:`\underline{\mathtt{x}_0}\cap\underline{\mathtt{x}_1}\subseteq\mathtt{x}_2`
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:81:intersection:rule 1
 
 .. mpg-code:: intersection:rule 1
       :small:
 
 #. :math:`\overline{\mathtt{x}_0}\cap\overline{\mathtt{x}_1}\supseteq\mathtt{x}_2`
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:83:intersection:rule 2
 
 .. mpg-code:: intersection:rule 2
       :small:
 
 #. :math:`\underline{\mathtt{x}_2}\subseteq\mathtt{x}_0`
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:85:intersection:rule 3
 
 .. mpg-code:: intersection:rule 3
       :small:
 
 #. :math:`\underline{\mathtt{x}_2}\subseteq\mathtt{x}_1`
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:87:intersection:rule 4
 
 .. mpg-code:: intersection:rule 4
       :small:
 
 #. :math:`\underline{\mathtt{x}_0}\setminus\overline{\mathtt{x}_2}\not\subseteq\mathtt{x}_1`
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:89:intersection:rule 5
 
 .. mpg-code:: intersection:rule 5
       :small:
 
 #. :math:`\underline{\mathtt{x}_1}\setminus\overline{\mathtt{x}_2}\not\subseteq\mathtt{x}_0`
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:91:intersection:rule 6
 
 .. mpg-code:: intersection:rule 6
       :small:
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-sets.tex.in:94:fig:p:sets:view_operations
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-sets.tex.in:94:fig:p:sets:view_operations
 
-.. mpg-covered: table:docs/src/chapters/programming/p-sets.tex.in:96:tabular@docs/src/chapters/programming/p-sets.tex.in:96
 
 .. mpg-figure:: Set view operations
    :name: fig:p:sets:view_operations
@@ -166,7 +154,6 @@ For example, consider a set variable with a domain represented by the interval :
 
 Using cardinality information, propagation for some set constraints can be strengthened. For the ternary intersection example, we can for instance add the following filtering rules:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-sets.tex.in:159:intersection:cardinality
 
 .. mpg-code:: intersection:cardinality
 
@@ -183,11 +170,8 @@ This section summarizes how these concepts are specialized for set variables and
 
 .. mpg-paragraph:: Modification events and propagation conditions.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-sets.tex.in:180:fig:p:sets:propagation_conditions
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-sets.tex.in:180:fig:p:sets:propagation_conditions
 
-.. mpg-covered: table:docs/src/chapters/programming/p-sets.tex.in:182:tabular@docs/src/chapters/programming/p-sets.tex.in:182
 
 .. mpg-figure:: Set modification events and propagation conditions
    :name: fig:p:sets:propagation_conditions
@@ -244,12 +228,12 @@ One could imagine a richer set, for example distinguishing between lower and upp
 
 .. mpg-paragraph:: Set variable views.
 
-In addition to the basic ``Set::SetView``\ class, there are five other set views: ``Set::ConstSetView``, ``Set::EmptyView``, ``Set::UniverseView``, ``Set::SingletonView``, and ``Set::ComplementView``.
+In addition to the basic :api:`Set::SetView` class, there are five other set views: :api:`Set::ConstSetView`, :api:`Set::EmptyView`, :api:`Set::UniverseView`, :api:`Set::SingletonView`, and :api:`Set::ComplementView`.
 
-The first three are constant views. A ``SingletonView`` wraps an integer view :math:`x` in the interface of a set view, so that it acts like the singleton set :math:`\{x\}`. A ``ComplementView`` is like Boolean negation, it provides the set complement with respect to the global Gecode universe for set variables (defined as :math:`\left[\mathtt{Set::Limits::min}\;..\;\mathtt{Set::Limits::max}\right]`, see ``Set::Limits``).
+The first three are constant views. A ``SingletonView`` wraps an integer view :math:`x` in the interface of a set view, so that it acts like the singleton set :math:`\{x\}`. A ``ComplementView`` is like Boolean negation, it provides the set complement with respect to the global Gecode universe for set variables (defined as :math:`\left[\mathtt{Set::Limits::min}\;..\;\mathtt{Set::Limits::max}\right]`, see :api:`Set::Limits`).
 
 .. _propagators:sets:advisors-for-set-propagators:
 
 .. mpg-paragraph:: Advisors for set propagators.
 
-Advisors for set constraints get informed about the domain modifications using a ``Set::SetDelta``. The set delta provides only information about the minimum and maximum values that were added to the lower bound and/or removed from the upper bound.
+Advisors for set constraints get informed about the domain modifications using a :api:`Set::SetDelta`. The set delta provides only information about the minimum and maximum values that were added to the lower bound and/or removed from the upper bound.

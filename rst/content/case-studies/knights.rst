@@ -162,14 +162,3 @@ The model is also available as a Gecode example, see :api:`knights:KnightsCircui
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-knights.tex.in:28:fig:c:knights:example:8
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-knights.tex.in:72:fig:c:knights:script
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-knights.tex.in:73:knights
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-knights.tex.in:92:knights:knight's moves
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-knights.tex.in:119:knights:fix first move
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-knights.tex.in:130:knights:Hamiltonian circuit
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-knights.tex.in:161:fig:c:knights:branching
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-knights.tex.in:162:knights:brancher
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-knights.tex.in:185:knights:status function
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-knights.tex.in:197:knights:choice function

@@ -1,19 +1,30 @@
-# MPG figure sources
+# Figure authoring
 
-The canonical format for diagrams is SVG. SVG filenames preserve the complete
-legacy label and change only `:` to `-`, so `fig:intro:gecode_architecture`
-becomes `fig-intro-gecode_architecture.svg`. Matching PDF derivatives are used by
-the Sphinx LaTeX builder. Historical Gist screenshots remain PNG because their
-source information is raster; converting them to SVG would only add a wrapper.
+Edit diagrams as SVGs directly in this directory. Each SVG needs a useful
+`title` and `desc`; authored reST images also need meaningful `:alt:` text.
+Keep screenshots as PNG where the information is inherently raster.
 
-Run `python3 rst/figures/scripts/generate.py` from the repository root after the
-legacy extraction step has produced `.mpg/extract/MPG.tex` and the expanded
-chapter files. The checked-in SVGs are the migrated assets. The legacy LaTeX is
-used as a one-time vector conversion source, not as a runtime dependency of the
-new documentation build.
+After editing or adding an SVG, render its PDF companion:
 
-Use `--force` to reconvert the historical vector sources, or `--pdf-force` to
-rebuild all deterministic PDF companions without repeating the PSTricks pass.
+```sh
+uv run --locked -- python rst/figures/scripts/generate.py rst/figures/my-figure.svg
+uv run --locked -- python rst/figures/scripts/verify.py
+```
 
-The script also rebuilds `rst/manifests/figures.json`,
-`rst/manifests/figures.csv`, and `rst/manifests/raster-assets.json`.
+With no paths, `generate.py` processes all maintained SVGs. `--check` compares
+renderer output without changing companions; use it with the same local renderer
+version that created the PDFs. The portable release gate checks SVG accessibility
+text, image references, and PDF presence/page structure, because Cairo and font
+versions can produce different PDF bytes on different platforms. The scripts use `rsvg-convert`
+with a fixed timestamp; no TeX sources, historical inventory, or extraction
+workspace are needed. Commit the SVG and its `pdf/<name>.pdf` together.
+
+Reference `/figures/<name>.svg` in the chapter; Sphinx selects the matching PDF
+for the printed edition. Give each image figure an intentional width class:
+`mpg-figure-narrow`, `mpg-figure-compact`, `mpg-figure-medium`,
+`mpg-figure-wide`, or `mpg-figure-full`.
+
+The optional `scripts/generate_recomputation_windows.py` redraws the two
+recomputation window diagrams from its small node-state tables. Other SVGs
+are edited directly. Verify changes in both HTML and PDF, particularly
+labels, clipping, and the relationship between diagrams and their captions.

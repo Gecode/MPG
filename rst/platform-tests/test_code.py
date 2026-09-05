@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import importlib.util
+import re
 import shutil
 import subprocess
 import sys
@@ -23,6 +24,7 @@ class MpgCodeDirectiveTests(unittest.TestCase):
             f"sys.path.insert(0, {str(ROOT / 'rst' / 'extensions')!r})\n"
             "extensions=['mpg_code']\n"
             "master_doc='index'\n"
+            "release='6.4.0'\n"
             f"mpg_code_manifest={str(ROOT / 'rst' / 'manifests' / 'code-projections.json')!r}\n"
             f"mpg_code_root={str(ROOT)!r}\n",
             encoding="utf-8",
@@ -49,6 +51,23 @@ class MpgCodeDirectiveTests(unittest.TestCase):
         out = self._build("html", ".. mpg-code:: assign min\n   :download: complete example\n")
         html = (out / "index.html").read_text(encoding="utf-8")
         self.assertIn("complete example", html)
+
+    def test_pdf_download_targets_the_published_html_artifact(self) -> None:
+        body = ".. mpg-code:: assign min\n   :download: complete example\n"
+        html_output = self._build("html", body)
+        html = (html_output / "index.html").read_text(encoding="utf-8")
+        download = re.search(r'href="(_downloads/[^\"]+)"', html)
+        self.assertIsNotNone(download)
+        relative = download.group(1)
+        self.assertTrue((html_output / relative).is_file())
+        latex = (self._build("latex", body) / "projectnamenotset.tex").read_text(
+            encoding="utf-8"
+        )
+        escaped = relative.replace("_", r"\_")
+        self.assertIn(
+            rf"\sphinxhref{{https://www.gecode.dev/doc/6.4.0/modeling/{escaped}}}", latex
+        )
+        self.assertIn("complete example", latex)
 
     def test_literate_insertion_keeps_its_unnumbered_block_title(self) -> None:
         body = ".. mpg-code:: send more money:no leading zeros\n"

@@ -1349,32 +1349,3 @@ We are grateful to Peter Van Beek for access to example grids and to Adi Botea f
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:22:fig:c:crossword:grid
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:56:fig:c:crossword:solution
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:123:fig:c:crossword:script
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:124:crossword
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:138:fig:c:crossword:spec
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:139:crossword:grid specification
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:141:crossword:words specification
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:182:crossword:set up
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:186:crossword:initialize black fields
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:207:crossword:process words by length
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:217:crossword:initialize array of words
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:224:crossword:process word on grid
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:235:crossword:process each letter position
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:242:crossword:constrain letters
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:251:crossword:branching
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:256:crossword:print function
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:268:fig:c:crossword:optimized
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:269:crossword optimized
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:285:crossword optimized:initialize word to letter array
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-crossword.tex.in:289:crossword optimized:constrain letters
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:373:fig:c:crossword:compare
-.. mpg-covered: table:docs/src/chapters/case-studies/c-crossword.tex.in:377:tabular@docs/src/chapters/case-studies/c-crossword.tex.in:377
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:457:fig:c:crossword:restart
-.. mpg-covered: table:docs/src/chapters/case-studies/c-crossword.tex.in:461:tabular@docs/src/chapters/case-studies/c-crossword.tex.in:461
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:524:fig:c:crossword:hard
-.. mpg-covered: table:docs/src/chapters/case-studies/c-crossword.tex.in:528:tabular@docs/src/chapters/case-studies/c-crossword.tex.in:528
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:545:fig:c:crossword:sol:21:10
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-crossword.tex.in:608:fig:c:crossword:sol:23:06

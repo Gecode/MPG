@@ -290,24 +290,3 @@ More constraint-based techniques for solving Kakuro puzzles are discussed in  :
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-kakuro.tex.in:36:fig:c:kakuro:board
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-kakuro.tex.in:68:fig:c:kakuro:solution
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-kakuro.tex.in:105:fig:c:kakuro:script:naive
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:106:kakuro naive
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:108:kakuro naive:board specification
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:136:kakuro naive:field initialization
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:141:kakuro naive:init function
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:159:kakuro naive:setup
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:168:kakuro naive:process vertical hints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:188:kakuro naive:posting hint constraints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:204:kakuro naive:branching
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-kakuro.tex.in:209:fig:c:kakuro:prop
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-kakuro.tex.in:295:fig:c:kakuro:script:work
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:296:kakuro
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:316:kakuro:distinct linear script
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:322:kakuro:returning a solution
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:329:kakuro:set up search engine
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:334:kakuro:compute tuple set
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:342:kakuro:post extensional constraint
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-kakuro.tex.in:356:kakuro:posting hint constraints

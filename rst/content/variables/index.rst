@@ -1,55 +1,3 @@
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:196:int.hh:exceptions
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:307:int.hh:limits
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:690:int.hh:varimp:assignment test
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:703:int.hh:varimp:access operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:723:int.hh:varimp:delta for advisors
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:743:int.hh:varimp:modification operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:763:int.hh:varimp:delta information
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:789:int.hh:varimp:subscriptions
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:798:int.hh:varimp:re-scheduling
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:809:int.hh:varimp:copying
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1016:int.hh:var:variable creation
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1027:int.hh:var:access operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1275:int.hh:intview:access operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1279:int.hh:intview:modification operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1283:int.hh:intview:delta information
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1310:int.hh:constintview:delta information
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1318:int.hh:constintview:update during cloning
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1326:int.hh:constintview:view tests
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1359:int.hh:minusview:access operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1384:int.hh:minusview:modification operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1393:int.hh:minusview:delta information
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1403:int.hh:minusview:subscriptions
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1413:int.hh:minusview:re-scheduling
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1417:int.hh:minusview:support operations
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1442:int.hh:offsetview:update during cloning
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1446:int.hh:offsetview:view tests
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1512:int.hh:branch function types
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1520:int.hh:branch traits
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1525:int.hh:variable AFC
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1528:int.hh:variable action
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1531:int.hh:variable CHB
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1555:int.hh:variable selection functions
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1579:int.hh:variable selection function implementation
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1596:int.hh:expand action
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1608:int.hh:value selection functions
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1649:int.hh:view selection with tbl-function
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1707:int.hh:view selection without tbl-function
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1755:int.hh:value selection classes
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1772:int.hh:value commit class
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1786:int.hh:no-good literal creation
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1791:int.hh:no-good literal class
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1813:int.hh:user-defined value selection and commit functions
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1883:int.hh:normalizing tie-breaking
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1926:int.hh:trace view
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1940:int.hh:prune function
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1947:int.hh:slack function
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1959:int.hh:trace delta
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1973:int.hh:trace traits
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1979:int.hh:tracer and trace recorder
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1983:int.hh:standard tracer
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1993:int.hh:trace post function
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1997:int.hh:trace post function convenience
 
 .. only:: latex
 
@@ -135,9 +83,6 @@ It also shows how Gecode must be configured and compiled such that integer inter
 Structure
 ---------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:159:fig:v:started:header
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:159:fig:v:started:header
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:160:int.hh
 
 .. _fig:v:started:header:
 
@@ -164,7 +109,7 @@ The exceptions are defined as follows:
 
 .. mpg-code:: int.hh:exceptions
 
-As discussed above, ``Exception`` is ``Gecode::Exception`` (see ``Exception``) and has been introduced by a ``using`` declaration.
+As discussed above, :api:`Exception` is ``Gecode::Exception`` (see :api:`Exception`) and has been introduced by a ``using`` declaration.
 
 .. _variables:naming-scheme:
 
@@ -228,13 +173,42 @@ The values ``l`` and ``u`` can only be initialized (when creating a new variable
 
 The choice of values for ``Limits::min`` and ``Limits::max`` are motivated by simplicity only. To keep the example propagators used in :ref:`chap:v:all` simple, the limits are chosen such that the addition and subtraction of two integer values within the limits do not lead to numerical overflow. A real-life variable implementation would try to make as many values as possible available for a variable domain, see for example :ref:`sec:m:integer:limits`.
 
-.. mpg-covered: tip:docs/src/chapters/appendix/v.tex.in:321:unlabeled-tip@docs/src/chapters/appendix/v.tex.in:321
 
 .. mpg-tip:: Correctness matters
 
    While the decision to restrict the possible values of a variable implementation is motivated by simplicity, the decision for a real-life variable implementation is absolutely essential.
 
    Being unclear about which values can correctly be maintained by a variable implementation, not ensuring that no numerical overflow occurs, or not checking for the necessary invariants when a new variable is created, renders the very idea of constraint programming obsolete: that whenever a solution is found by Gecode, it *actually happens to be a solution*. Hence correctness does not only matter for implementing propagators and branchers but also for getting the basic design of variables right.
+
+.. _variables:gecode-integer-domains:
+
+.. mpg-paragraph:: Domains of Gecode integer variables.
+
+The integer interval variables developed here need only the two bounds ``l``
+and ``u``. Gecode's predefined integer variables also admit holes in their
+domains. They use two representations for this. A domain without holes stores
+its lower and upper bound directly in the variable implementation and needs no
+additional range buffer. A domain with holes stores a contiguous sequence of
+inclusive ``(min,max)`` range pairs in memory managed by its space. These
+ranges are ordered, disjoint, and non-adjacent, so there is exactly one
+canonical sequence for a domain. This compact representation replaces the
+XOR-linked doubly linked range list used by earlier versions of Gecode.
+
+The representation is private to the variable implementation. Public range
+and value iterators expose the domain, but not the range-pair storage. The
+operations that assign a value, remove a value, restrict a bound, or intersect
+or subtract ranges maintain the canonical sequence and its cached cardinality.
+They also report the same integer modification events as the corresponding
+domain changes require. Operations accepting an iterator take care not to
+overwrite storage on which that iterator still depends.
+
+This distinction also affects copying during search. Copying a variable whose
+domain has no holes copies only its inline state. A sparse domain receives a
+new range buffer sized to the ranges that are live at the time of the copy;
+unused buffer capacity is not copied. Recomputation instead reconstructs a
+space by replaying choices and their domain modifications. Both mechanisms
+therefore preserve the same domains, while the common interval case remains
+cheap to copy.
 
 .. _variables:assigned-variables:
 
@@ -317,8 +291,6 @@ In the following we describe how to turn the parts of the design from the previo
 
 .. mpg-paragraph:: General section.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:500:fig:v:varimp:vis
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:500:fig:v:varimp:vis
 
 .. _fig:v:varimp:vis:
 
@@ -343,8 +315,6 @@ The general section (and also the other sections discussed below) supports addit
 
 .. mpg-paragraph:: Modification event section.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:536:fig:v:varimp:vis:me
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:536:fig:v:varimp:vis:me
 
 .. _fig:v:varimp:vis:me:
 
@@ -385,7 +355,6 @@ The section for modification events also defines how modification events are com
 
 The definition of the combination of modification events can be expressed as a table:
 
-.. mpg-covered: table:docs/src/chapters/appendix/v.tex.in:598:tabular@docs/src/chapters/appendix/v.tex.in:598
 
 .. container:: center
 
@@ -406,8 +375,6 @@ We will not present the full mathematical detail of the properties that must hol
 
 .. mpg-paragraph:: Propagation condition section.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:617:fig:v:varimp:vis:pc
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:617:fig:v:varimp:vis:pc
 
 .. _fig:v:varimp:vis:pc:
 
@@ -447,9 +414,6 @@ For each propagation condition (but for ``=NONE``), it must be defined by a ``Sc
 Variable implementation
 -----------------------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:673:fig:v:varimp:varimp
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:673:fig:v:varimp:varimp
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:674:int.hh:variable implementation
 
 .. _fig:v:varimp:varimp:
 
@@ -492,7 +456,6 @@ The ``notify()`` function is given the ``home`` space, a modification event, and
 
 If a modification operation fails it must return ``ME_INT_FAILED`` as modification event and must call the ``fail()`` function. The ``fail()`` function is similar to ``notify()`` and executes advisors that have registered to be executed on failure. For convenience, the ``fail()`` function itself returns ``ME_INT_FAILED``.
 
-.. mpg-covered: tip:docs/src/chapters/appendix/v.tex.in:752:unlabeled-tip@docs/src/chapters/appendix/v.tex.in:752
 
 .. mpg-tip:: Variable implementations must always be consistent
 
@@ -538,9 +501,6 @@ Copying a variable implementation during cloning is implemented by a constructor
 
 .. mpg-paragraph:: Additional inherited member functions.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:813:fig:v:varimp:inherited
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:813:fig:v:varimp:inherited
-.. mpg-covered: table:docs/src/chapters/appendix/v.tex.in:815:tabular@docs/src/chapters/appendix/v.tex.in:815
 
 .. _fig:v:varimp:inherited:
 
@@ -594,7 +554,7 @@ Copying a variable implementation during cloning is implemented by a constructor
         - ``modevent()``
         - return modification event from delta
 
-In addition to the constructor and the member functions defined and used by our variable implementation, several other member functions are typically just inherited and are defined by the class ``VarImp``. The most important inherited member functions are summarized in :ref:`fig:v:varimp:inherited`. For an explanation of degree and accumulated failure count, see :ref:`sec:m:branch:shared`.
+In addition to the constructor and the member functions defined and used by our variable implementation, several other member functions are typically just inherited and are defined by the class :api:`VarImp`. The most important inherited member functions are summarized in :ref:`fig:v:varimp:inherited`. For an explanation of degree and accumulated failure count, see :ref:`sec:m:branch:shared`.
 
 .. _sec:v:varimp:add:
 
@@ -712,9 +672,6 @@ How integer interval variables are implemented is detailed in :ref:`sec:v:var:va
 Variables
 ---------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:984:fig:v:var:var
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:984:fig:v:var:var
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:985:int.hh:var:variable
 
 .. _fig:v:var:var:
 
@@ -753,9 +710,6 @@ In addition to constructors, variables typically implement the same access opera
 
 .. mpg-paragraph:: Additional inherited member functions.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1032:fig:v:var:inherited
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1032:fig:v:var:inherited
-.. mpg-covered: table:docs/src/chapters/appendix/v.tex.in:1034:tabular@docs/src/chapters/appendix/v.tex.in:1034
 
 .. _fig:v:var:inherited:
 
@@ -788,7 +742,7 @@ In addition to constructors, variables typically implement the same access opera
         - ``update()``
         - updates variable during cloning
 
-In addition to the constructor and member functions defined by our variables, several other member functions are typically just inherited and are defined by the class ``VarImpVar``. The most important inherited member functions are summarized in :ref:`fig:v:var:inherited`. For an explanation of degree and accumulated failure count, see :ref:`sec:m:branch:shared`.
+In addition to the constructor and member functions defined by our variables, several other member functions are typically just inherited and are defined by the class :api:`VarImpVar`. The most important inherited member functions are summarized in :ref:`fig:v:var:inherited`. For an explanation of degree and accumulated failure count, see :ref:`sec:m:branch:shared`.
 
 .. _sec:v:var:array:
 
@@ -801,9 +755,6 @@ Defining variable arrays and variable argument arrays (see also :ref:`sec:m:inte
 
 .. mpg-paragraph:: Array traits.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1070:fig:v:var:traits
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1070:fig:v:var:traits
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1071:int.hh:array traits
 
 .. _fig:v:var:traits:
 
@@ -820,9 +771,6 @@ The second step requires to define traits for these two array types. The trait c
 
 .. mpg-paragraph:: Variable arrays.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1093:fig:v:var:array
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1093:fig:v:var:array
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1094:int.hh:variable arrays
 
 .. _fig:v:var:array:
 
@@ -831,7 +779,7 @@ The second step requires to define traits for these two array types. The trait c
 
    .. mpg-code:: int.hh:variable arrays
 
-The implementation of variable arrays and variable argument arrays typically only require the implementation of various constructors when inheriting from the base classes ``VarArray`` and ``VarArgArray``. The minimal set of constructors such that the arrays are compatible to arrays as used by Gecode is shown in :ref:`fig:v:var:array`.
+The implementation of variable arrays and variable argument arrays typically only require the implementation of various constructors when inheriting from the base classes :api:`VarArray` and :api:`VarArgArray`. The minimal set of constructors such that the arrays are compatible to arrays as used by Gecode is shown in :ref:`fig:v:var:array`.
 
 .. _chap:v:view:
 
@@ -853,19 +801,16 @@ View types
 
 Gecode provides three different types of views:
 
-- *Variable implementation views*: a variable implementation view is nothing but a direct interface to a variable implementation. A variable implementation view must inherit from ``VarImpView``. The class ``VarImpView`` is parametric with respect to a variable and *not a variable implementation* (as one might expect). This is due to the fact that the type of the variable implementation can be obtained automatically from the type of a variable. Making a variable implementation view parametric with respect to a variable type has the advantage that information on both the variable type and variable implementation type become available.
+- *Variable implementation views*: a variable implementation view is nothing but a direct interface to a variable implementation. A variable implementation view must inherit from :api:`VarImpView`. The class :api:`VarImpView` is parametric with respect to a variable and *not a variable implementation* (as one might expect). This is due to the fact that the type of the variable implementation can be obtained automatically from the type of a variable. Making a variable implementation view parametric with respect to a variable type has the advantage that information on both the variable type and variable implementation type become available.
 
-- *Constant views*: a constant view must implement the same interface and must perform the same operations as some assigned variable implementation view. This particular variable implementation view is called the *corresponding* variable implementation view. A constant view must inherit from ``ConstView`` which is parametric with respect to the corresponding variable implementation view.
+- *Constant views*: a constant view must implement the same interface and must perform the same operations as some assigned variable implementation view. This particular variable implementation view is called the *corresponding* variable implementation view. A constant view must inherit from :api:`ConstView` which is parametric with respect to the corresponding variable implementation view.
 
-- *Derived views*: a derived view is a view that is implemented in terms of some other view (all view types are possible: variable implementation, constant, and derived). The view from which the derived view is derived, is called the *base* view. A derived view must inherit from ``DerivedView`` which is parametric with respect to the base view.
+- *Derived views*: a derived view is a view that is implemented in terms of some other view (all view types are possible: variable implementation, constant, and derived). The view from which the derived view is derived, is called the *base* view. A derived view must inherit from :api:`DerivedView` which is parametric with respect to the base view.
 
 .. _variables:predefined-member-functions:
 
 .. mpg-paragraph:: Predefined member functions.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1167:fig:v:view:predefined
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1167:fig:v:view:predefined
-.. mpg-covered: table:docs/src/chapters/appendix/v.tex.in:1169:tabular@docs/src/chapters/appendix/v.tex.in:1169
 
 .. _fig:v:view:predefined:
 
@@ -931,7 +876,7 @@ Gecode provides three different types of views:
         - ``update()``
         - updates view during cloning
 
-The classes ``VarImpView``, ``ConstView``, and ``DerivedView`` define already many member functions that simplify the implementation of new views. The most important predefined member functions are summarized in :ref:`fig:v:view:predefined`.
+The classes :api:`VarImpView`, :api:`ConstView`, and :api:`DerivedView` define already many member functions that simplify the implementation of new views. The most important predefined member functions are summarized in :ref:`fig:v:view:predefined`.
 
 Note that the ``varimp()`` function for a constant view or for a view derived from a constant view returns ``NULL``, as no variable implementation exists.
 
@@ -958,9 +903,6 @@ For every view also an output operator ``<<`` must be defined. We sketch this on
 Variable implementation views: integer view
 -------------------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1244:fig:v:view:int
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1244:fig:v:view:int
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1245:int.hh:integer view
 
 .. _fig:v:view:int:
 
@@ -969,7 +911,7 @@ Variable implementation views: integer view
 
    .. mpg-code:: int.hh:integer view
 
-:ref:`fig:v:view:int` shows the definition of the class ``IntView`` for integer views from the class ``VarImpView`` for variable implementation views. Please remember that a variable implementation view is parametric with respect to a variable type (``IntVar`` in our example, such that ``IntView`` uses the same variable implementation type ``IntVarImp`` as ``IntVar`` does).
+:ref:`fig:v:view:int` shows the definition of the class ``IntView`` for integer views from the class :api:`VarImpView` for variable implementation views. Please remember that a variable implementation view is parametric with respect to a variable type (``IntVar`` in our example, such that ``IntView`` uses the same variable implementation type ``IntVarImp`` as ``IntVar`` does).
 
 Similar to variables obtained from variable implementations, a variable implementation view has a protected member ``x`` that is a pointer to its variable implementation (see :ref:`tip:p:views:using` for information on ``using``). A variable implementation view must implement at least the shown constructors such that it can be initialized both from the corresponding variable type and from the corresponding variable implementation type.
 
@@ -992,9 +934,6 @@ The remaining implementation tasks for variable implementation views are straigh
 Constant views: constant integer view
 -------------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1289:fig:v:view:const
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1289:fig:v:view:const
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1290:int.hh:constant integer view
 
 .. _fig:v:view:const:
 
@@ -1013,7 +952,7 @@ Slightly less obvious is the implementation of operations that access delta info
 
 .. mpg-paragraph:: Update during cloning.
 
-The definition of the ``update()`` member function of ``ConstView`` does not take care of the integer value ``x``. Hence we need to provide a new ``update()`` function that updates the value of ``x`` as follows:
+The definition of the ``update()`` member function of :api:`ConstView` does not take care of the integer value ``x``. Hence we need to provide a new ``update()`` function that updates the value of ``x`` as follows:
 
 .. mpg-code:: int.hh:constintview:update during cloning
 
@@ -1037,9 +976,6 @@ This section exemplifies two different derived views: minus views and offset vie
 Minus views
 ~~~~~~~~~~~
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1341:fig:v:view:minus
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1341:fig:v:view:minus
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1342:int.hh:minus view
 
 .. _fig:v:view:minus:
 
@@ -1062,9 +998,6 @@ The access operations are as to be expected for a minus view. That is, the lower
 
 .. mpg-paragraph:: Modification operations.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1364:fig:v:view:minusmepc
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1364:fig:v:view:minusmepc
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1365:int.hh:minusview:modification events and propagation conditions
 
 .. _fig:v:view:minusmepc:
 
@@ -1112,9 +1045,6 @@ The remaining operations to be implemented are support operations:
 Offset views
 ~~~~~~~~~~~~
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1425:fig:v:view:offset
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1425:fig:v:view:offset
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1426:int.hh:offset view
 
 .. _fig:v:view:offset:
 
@@ -1146,9 +1076,6 @@ This chapter explains how to program common variable-value branchings using the 
 
 :ref:`sec:v:branch:type` explains which simple types must be defined for variable-value branchings. How functions for variable selection and value selection are implemented is demonstrated in :ref:`sec:v:branch:varval`. :ref:`sec:v:branch:viewsel` shows how a function that creates an object for selecting views during branching is implemented. How functions for selecting values and committing to these values are implemented is shown in :ref:`sec:v:branch:valcommit`. This section also explains how to add support for no-goods to a variable-value brancher. How the actual branchings are implemented is then detailed in :ref:`sec:v:branch:branch`.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1469:fig:v:branch:structure
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1469:fig:v:branch:structure
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1470:int.hh:branching
 
 .. _fig:v:branch:structure:
 
@@ -1217,9 +1144,6 @@ The variable selection functions we are considering here are defined as follows 
 
 All but ``INT_VAR_NONE()`` take arguments: unsurprisingly, a random number generator must be passed to ``INT_VAR_RND()`` and a double as decay-factor or an integer action object to ``INT_VAR_ACTION_MAX()``. Both ``INT_VAR_NONE()`` and ``INT_VAR_RND()`` are special in that they are not useful for tie-breaking. All other variable selection functions take an optional argument of type ``BranchTbl`` as a branch tie-breaking limit function (we will abbreviate this here as tbl-function), see :ref:`sec:m:branch:tbl` for a description of tie-breaking and tbl-functions.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1568:fig:v:branch:intvarbranch
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1568:fig:v:branch:intvarbranch
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1569:int.hh:variable selection class
 
 .. _fig:v:branch:intvarbranch:
 
@@ -1232,7 +1156,7 @@ The implementation of the variable selection functions is simple: each function 
 
 .. mpg-code:: int.hh:variable selection function implementation
 
-The implementation of the class ``IntVarBranch`` is shown in :ref:`fig:v:branch:intvarbranch`. It defines an enumeration of all variable selection strategies and a set of constructors for the different types of arguments the variable selection functions take. The ``select()`` function returns a value of the enumeration type that is stored by the object. All other information is handled by the base class ``VarBranch`` that is parametric with respect to the variable type.
+The implementation of the class ``IntVarBranch`` is shown in :ref:`fig:v:branch:intvarbranch`. It defines an enumeration of all variable selection strategies and a set of constructors for the different types of arguments the variable selection functions take. The ``select()`` function returns a value of the enumeration type that is stored by the object. All other information is handled by the base class :api:`VarBranch` that is parametric with respect to the variable type.
 
 The class must also implement an ``expand()`` member function. It checks whether ``INT_VAR_ACTION_MAX()`` had been called just with a decay-factor instead of an integer action object. In this case it creates an integer action object and stores it as follows:
 
@@ -1242,7 +1166,7 @@ The class must also implement an ``expand()`` member function. It checks whether
 
 .. mpg-paragraph:: Value selection.
 
-Value selection functions are implemented similarly to variable selection functions. They return an object of class ``IntValBranch`` (inheriting from the template base class ``ValBranch``) which stores the necessary information for creating the appropriate brancher. We are considering the following value selection functions as examples:
+Value selection functions are implemented similarly to variable selection functions. They return an object of class ``IntValBranch`` (inheriting from the template base class :api:`ValBranch`) which stores the necessary information for creating the appropriate brancher. We are considering the following value selection functions as examples:
 
 .. mpg-code:: int.hh:value selection functions
 
@@ -1253,9 +1177,6 @@ Note that the last argument of the value selection function ``INT_VAL()`` is opt
 View selection creation
 -----------------------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1619:fig:v:branch:viewsel
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1619:fig:v:branch:viewsel
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1620:int.hh:view selection creation function
 
 .. _fig:v:branch:viewsel:
 
@@ -1264,9 +1185,9 @@ View selection creation
 
    .. mpg-code:: int.hh:view selection creation function
 
-The view selection creation function shown in :ref:`fig:v:branch:viewsel` takes an object ``ivb`` of class ``IntVarBranch`` as an argument, creates an object of class ``ViewSel`` and returns a pointer to it. The object ``ivb`` is a specification of which object should be returned. The returned object is used to select views during brancher execution.
+The view selection creation function shown in :ref:`fig:v:branch:viewsel` takes an object ``ivb`` of class ``IntVarBranch`` as an argument, creates an object of class :api:`ViewSel` and returns a pointer to it. The object ``ivb`` is a specification of which object should be returned. The returned object is used to select views during brancher execution.
 
-Selection of the first unassigned view (corresponding to ``SEL_NONE``, that is, the object ``ivb`` has been created by calling the function ``INT_VAR_NONE()``) is implemented by the Gecode-defined class ``ViewSelNone``. Also random view selection is provided by Gecode through the class ``ViewSelRnd``. Both classes are parametric with respect to a view type.
+Selection of the first unassigned view (corresponding to ``SEL_NONE``, that is, the object ``ivb`` has been created by calling the function ``INT_VAR_NONE()``) is implemented by the Gecode-defined class :api:`ViewSelNone`. Also random view selection is provided by Gecode through the class :api:`ViewSelRnd`. Both classes are parametric with respect to a view type.
 
 .. _variables:view-selection-with-tbl-function:
 
@@ -1276,13 +1197,10 @@ The other strategies for view selection exist in two variants: one variant that 
 
 .. mpg-code:: int.hh:view selection with tbl-function
 
-Depending on how the view is to be selected, different objects are created. An object of class ``ViewSelMaxTbl`` selects a variable with maximal merit (for the definition of merit, see :ref:`sec:m:branch:int`), whereas an object of class ``ViewSelMinTbl`` selects a variable with minimal merit. Objects of both classes take a tbl-function during selection into account. Both classes expect a class as template argument that computes the actual merit value for a given view.
+Depending on how the view is to be selected, different objects are created. An object of class :api:`ViewSelMaxTbl` selects a variable with maximal merit (for the definition of merit, see :ref:`sec:m:branch:int`), whereas an object of class :api:`ViewSelMinTbl` selects a variable with minimal merit. Objects of both classes take a tbl-function during selection into account. Both classes expect a class as template argument that computes the actual merit value for a given view.
 
-The classes ``MeritFunction``, ``MeritDegree``, and ``MeritAction`` are defined by Gecode and are parametric with respect to the actual view type.
+The classes :api:`MeritFunction`, :api:`MeritDegree`, and :api:`MeritAction` are defined by Gecode and are parametric with respect to the actual view type.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1665:fig:v:branch:meritsize
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1665:fig:v:branch:meritsize
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1666:int.hh:size merit class
 
 .. _fig:v:branch:meritsize:
 
@@ -1291,9 +1209,9 @@ The classes ``MeritFunction``, ``MeritDegree``, and ``MeritAction`` are defined 
 
    .. mpg-code:: int.hh:size merit class
 
-Selecting a view with minimal size is specific to our integer interval variables and views. The implementation of the class ``MeritSize`` inherits from ``MeritBase`` and is shown in :ref:`fig:v:branch:meritsize`.
+Selecting a view with minimal size is specific to our integer interval variables and views. The implementation of the class ``MeritSize`` inherits from :api:`MeritBase` and is shown in :ref:`fig:v:branch:meritsize`.
 
-The class ``MeritBase`` is parametric with respect to the view type (``IntView`` in our case) and the type of the merit value (``unsigned int`` in our case). The constructors are as to be expected and the call operator must return the merit value of type ``unsigned int`` (the same as the second template argument to ``MeritBase``) of the view ``x`` (``i`` refers to the position of the view ``x`` in the array of views used in the brancher).
+The class :api:`MeritBase` is parametric with respect to the view type (``IntView`` in our case) and the type of the merit value (``unsigned int`` in our case). The constructors are as to be expected and the call operator must return the merit value of type ``unsigned int`` (the same as the second template argument to :api:`MeritBase`) of the view ``x`` (``i`` refers to the position of the view ``x`` in the array of views used in the brancher).
 
 In case the merit class uses members that must be deallocated when the home-space is deleted, the merit class must redefine the member functions ``notice()`` and ``dispose()``, for example by:
 
@@ -1304,7 +1222,7 @@ In case the merit class uses members that must be deallocated when the home-spac
 
 .. mpg-paragraph:: View selection without tbl-function.
 
-Implementing view selection without a tbl-function is analogous, the only difference is that the classes ``ViewSelMax`` (instead of ``ViewSelMaxTbl``) and ``ViewSelMin`` (instead of ``ViewSelMinTbl``) must be used:
+Implementing view selection without a tbl-function is analogous, the only difference is that the classes :api:`ViewSelMax` (instead of :api:`ViewSelMaxTbl`) and :api:`ViewSelMin` (instead of :api:`ViewSelMinTbl`) must be used:
 
 .. mpg-code:: int.hh:view selection without tbl-function
 
@@ -1313,9 +1231,6 @@ Implementing view selection without a tbl-function is analogous, the only differ
 Value selection and commit creation
 -----------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1713:fig:v:branch:valcommit
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1713:fig:v:branch:valcommit
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1714:int.hh:value selection and commit creation function
 
 .. _fig:v:branch:valcommit:
 
@@ -1326,15 +1241,15 @@ Value selection and commit creation
 
 The value selection and commit creation function is very similar to the variable selection creation function from the previous section. It creates and returns an object that performs value selection and value commit during branching depending on a specification object of class ``IntValBranch``.
 
-The function is shown in :ref:`fig:v:branch:valcommit` and returns an object of class ``ValSelCommitBase``. Again, this class is parametric with respect to the view type (``IntView``) and the value type (``int``). Depending on which value selection strategy is defined by the argument ``ivb``, a corresponding object of class ``ValSelCommit`` is created.
+The function is shown in :ref:`fig:v:branch:valcommit` and returns an object of class :api:`ValSelCommitBase`. Again, this class is parametric with respect to the view type (``IntView``) and the value type (``int``). Depending on which value selection strategy is defined by the argument ``ivb``, a corresponding object of class :api:`ValSelCommit` is created.
 
-The class ``ValSelCommit`` is parametric with respect to a value selection class and a value commit class (to be discussed below). The classes ``ValSelMin``, ``ValSelRnd``, and ``ValCommitLq`` are specific to integer interval variables and views and are discussed below.
+The class :api:`ValSelCommit` is parametric with respect to a value selection class and a value commit class (to be discussed below). The classes ``ValSelMin``, ``ValSelRnd``, and ``ValCommitLq`` are specific to integer interval variables and views and are discussed below.
 
 .. _variables:value-selection-classes:
 
 .. mpg-paragraph:: Value selection classes.
 
-A value selection class must inherit from the class ``ValSel`` which again is parametric with respect to the view and value type. The constructors (one for creation and for cloning) are exactly the same as for merit classes discussed in the previous section.
+A value selection class must inherit from the class :api:`ValSel` which again is parametric with respect to the view and value type. The constructors (one for creation and for cloning) are exactly the same as for merit classes discussed in the previous section.
 
 Also, similar to merit classes, a value selection class can redefine the member functions ``notice()`` and ``dispose()`` if explicit disposal is required when the home-space is deleted.
 
@@ -1346,7 +1261,7 @@ In addition, the classes must define a member function ``val()`` that returns a 
 
 .. mpg-paragraph:: Value commit classes.
 
-For our integer interval variables and views we need a single value commit class only (how many classes are needed depends of course on which value selection strategies are provided). A value commit class must inherit from the parametric class ``ValCommit`` and must implement one constructor for creation and one for cloning. In addition, it must define a ``commit()`` function, an ``ngl()`` function (to be discussed later), and a default ``print()`` function. The ``commit()`` function returns a modification event and takes the number of the alternative ``a``, a view ``x``, its position ``i``, and a value ``n`` as arguments. The ``print()`` function takes an output stream ``o`` as additional argument:
+For our integer interval variables and views we need a single value commit class only (how many classes are needed depends of course on which value selection strategies are provided). A value commit class must inherit from the parametric class :api:`ValCommit` and must implement one constructor for creation and one for cloning. In addition, it must define a ``commit()`` function, an ``ngl()`` function (to be discussed later), and a default ``print()`` function. The ``commit()`` function returns a modification event and takes the number of the alternative ``a``, a view ``x``, its position ``i``, and a value ``n`` as arguments. The ``print()`` function takes an output stream ``o`` as additional argument:
 
 .. mpg-code:: int.hh:value commit class
 
@@ -1364,7 +1279,7 @@ The no-good literal class ``LqNGL`` used by the ``ngl()`` function is defined as
 
 .. mpg-code:: int.hh:no-good literal class
 
-It inherits from the template class ``ViewValNGL``, which expects a view type, a value type, and a propagation condition as argument. The definition of the constructors, the ``copy()`` function, the ``status()`` function, and the ``prune()`` function are exactly as discussed in :ref:`sec:b:advanced:nogoods`. The remaining functions for disposal and subscription are pre-defined by ``ViewValNGL``.
+It inherits from the template class :api:`ViewValNGL`, which expects a view type, a value type, and a propagation condition as argument. The definition of the constructors, the ``copy()`` function, the ``status()`` function, and the ``prune()`` function are exactly as discussed in :ref:`sec:b:advanced:nogoods`. The remaining functions for disposal and subscription are pre-defined by :api:`ViewValNGL`.
 
 .. _variables:user-defined-value-selection-and-commit-functions:
 
@@ -1374,7 +1289,7 @@ For the value selection function ``INT_VAL(v,c)`` for a user-defined value selec
 
 .. mpg-code:: int.hh:user-defined value selection and commit functions
 
-The classes ``ValSelFunction`` and ``ValCommitFunction`` are defined by Gecode and are parametric with respect to a view. They use the functions as specified by the object ``ivb``.
+The classes :api:`ValSelFunction` and :api:`ValCommitFunction` are defined by Gecode and are parametric with respect to a view. They use the functions as specified by the object ``ivb``.
 
 .. _sec:v:branch:branch:
 
@@ -1387,9 +1302,6 @@ Implementing the actual ``branch()`` functions with and without tie-breaking is 
 
 .. mpg-paragraph:: Branching without tie-breaking.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1832:fig:v:branch:branch
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1832:fig:v:branch:branch
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1833:int.hh:branch function
 
 .. _fig:v:branch:branch:
 
@@ -1398,7 +1310,7 @@ Implementing the actual ``branch()`` functions with and without tie-breaking is 
 
    .. mpg-code:: int.hh:branch function
 
-The ``branch()`` function is shown in :ref:`fig:v:branch:branch`. It creates an array of integer views ``IntView``, expands a possibly missing integer action object, creates an array with a single view selector object returned by the function ``viewsel()`` as discussed in :ref:`sec:v:branch:viewsel` and posts the view-value brancher of class ``ViewValBrancher`` through the function ``postviewvalbrancher()``. The function is parametric, where the arguments describe the following:
+The ``branch()`` function is shown in :ref:`fig:v:branch:branch`. It creates an array of integer views ``IntView``, expands a possibly missing integer action object, creates an array with a single view selector object returned by the function ``viewsel()`` as discussed in :ref:`sec:v:branch:viewsel` and posts the view-value brancher of class :api:`ViewValBrancher` through the function ``postviewvalbrancher()``. The function is parametric, where the arguments describe the following:
 
 #. The view type which is ``IntView`` in our case.
 
@@ -1412,9 +1324,6 @@ The ``branch()`` function is shown in :ref:`fig:v:branch:branch`. It creates an 
 
 .. mpg-paragraph:: Branching with tie-breaking.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1862:fig:v:branch:branchtb
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1862:fig:v:branch:branchtb
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1863:int.hh:branch function with tie-breaking
 
 .. _fig:v:branch:branchtb:
 
@@ -1423,13 +1332,13 @@ The ``branch()`` function is shown in :ref:`fig:v:branch:branch`. It creates an 
 
    .. mpg-code:: int.hh:branch function with tie-breaking
 
-The ``branch()`` function with tie-breaking is shown in :ref:`fig:v:branch:branchtb`. It takes an object ``vars`` of class ``TieBreak`` as argument, where ``vars.a`` is the first variable selection strategy of class ``IntVarBranch``, ``vars.b`` the second, ``vars.c`` the third, and ``vars.d`` the forth and last to be used during tie-breaking.
+The ``branch()`` function with tie-breaking is shown in :ref:`fig:v:branch:branchtb`. It takes an object ``vars`` of class :api:`TieBreak` as argument, where ``vars.a`` is the first variable selection strategy of class ``IntVarBranch``, ``vars.b`` the second, ``vars.c`` the third, and ``vars.d`` the forth and last to be used during tie-breaking.
 
 Before creating the brancher, the variable selection strategies are normalized. As mentioned earlier, there should be no tie-breaking after the variable selection strategies ``INT_VAR_NONE()`` and ``INT_VAR_RND()`` (corresponding to ``SEL_NONE`` and ``SEL_RND``, respectively). The normalization first tries to normalize ``var.b``, then ``var.c`` and finally ``var.d`` as follows (the ``var.c`` and ``var.d`` case is analogous and hence omitted):
 
 .. mpg-code:: int.hh:normalizing tie-breaking
 
-After normalization, the ``branch()`` function shown in :ref:`fig:v:branch:branchtb` posts a brancher of class ``ViewValBrancher`` with the appropriate number of view selection objects by calling the ``postviewvalbrancher()`` function. In :ref:`fig:v:branch:branchtb`, only the cases for two and three objects is shown, the other cases are analogous.
+After normalization, the ``branch()`` function shown in :ref:`fig:v:branch:branchtb` posts a brancher of class :api:`ViewValBrancher` with the appropriate number of view selection objects by calling the ``postviewvalbrancher()`` function. In :ref:`fig:v:branch:branchtb`, only the cases for two and three objects is shown, the other cases are analogous.
 
 .. _chap:v:trace:
 
@@ -1438,9 +1347,6 @@ Variable tracing support
 
 This chapter shows how to add variable tracing support for a new variable type.
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:1899:fig:v:trace:tracing
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:1899:fig:v:trace:tracing
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:1900:int.hh:tracing
 
 .. _fig:v:trace:tracing:
 
@@ -1550,9 +1456,6 @@ This chapter finally explains how integer interval variables can be used with Ge
 Golomb rulers à la integer interval variables
 ---------------------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/appendix/v.tex.in:2025:fig:v:all:golomb
-.. mpg-covered: figure:docs/src/chapters/appendix/v.tex.in:2025:fig:v:all:golomb
-.. mpg-covered: literal-projection:docs/src/chapters/appendix/v.tex.in:2026:putting everything together
 
 .. _fig:v:all:golomb:
 
@@ -1572,7 +1475,7 @@ Configuring and compiling Gecode
 
 The following steps configure and compile Gecode with integer interval variables:
 
-#. Start a shell.
+#. Start a POSIX shell (for example, Bash or Zsh).
 
 #. Create a new directory, say ``MPG``, and make it the current directory:
 
@@ -1580,42 +1483,47 @@ The following steps configure and compile Gecode with integer interval variables
       :direct:
       :small:
 
-#. Download the Gecode \|release\| source release from the Gecode GitHub releases page. We assume that the Gecode source code is contained in a directory named ``gecode-|release|``.
+#. Download the Gecode |release| source release from the Gecode GitHub releases page. Unpack it in the current directory and rename the extracted source directory to ``gecode``.
 
 #. If you have not yet done so, download and copy all files required for integer interval variables and the example into the current directory:
 
    - The header file ``int.hh`` containing the implementation of integer interval variables.
 
-   - The variable implementation specification file ``int.vis``.
+   - The variable implementation specification file :download:`int.vis </examples/int.vis>`.
 
    - The file ``putting-everything-together.cpp`` from the previous section.
 
-#. Configure Gecode to incorporate integer interval variables:
+#. Configure Gecode to incorporate integer interval variables and install into a local prefix:
 
-   .. code-block:: console
+   .. code-block:: sh
 
-      cd gecode-|release|
-
-      cmake -S . -B build -DGECODE_WITH_VIS=../int.vis
+      cmake -S gecode -B gecode/build \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DGECODE_WITH_VIS="$PWD/int.vis" \
+        -DCMAKE_INSTALL_PREFIX="$PWD/gecode-install"
 
    After this step, Gecode has been configured to incorporate the generated definitions as described by the specification file ``int.vis``. Add any other CMake options required by your build environment.
 
-#. Compile Gecode and leave the directory
+#. Compile and install Gecode:
 
-   .. code-block:: console
+   .. code-block:: sh
 
-      cmake --build build;cd ..
+      cmake --build gecode/build --config Release
+      cmake --install gecode/build --config Release
 
-#. Set the ``PATH`` environment variable to point to the just compiled Gecode installation:
+#. Add the local installation's executables to the search path:
 
-   .. code-block:: console
+   .. code-block:: sh
 
-      export
-      PATH="gecode-|release|:\$PATH"
+      export PATH="$PWD/gecode-install/bin:$PATH"
 
-   Depending on the platform you use, you might also have to set the environment variable ``LD_LIBRARY_PATH`` accordingly.
+   On systems that require it, also add the installation's ``lib`` directory to the library search path; for example, on Linux:
 
-Finally: compile, link, and run the example script ``putting-everything-together.cpp`` as described in :ref:`sec:m:started:run`, where you need to make sure that the directory for include files and library files is ``gecode-|release|``.
+   .. code-block:: sh
+
+      export LD_LIBRARY_PATH="$PWD/gecode-install/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+Finally, compile, link, and run ``putting-everything-together.cpp`` as described in :ref:`sec:m:started:run`, using ``gecode-install`` as the installation prefix. Its ``include`` and ``lib`` directories contain the headers and libraries for the custom variable implementation.
 
 .. [1]
    If you ever exceed this limit, please let us know. Adding more bits is easy, even though we do not expect that to happen anytime soon.

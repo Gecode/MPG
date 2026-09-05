@@ -37,7 +37,7 @@ A first Gecode model
 
 Models in Gecode are implemented using *spaces*. A space is *home* to the *variables*, *propagators* (implementations of constraints), *branchers* (implementations of branchings, describing the search tree’s shape, also known as labelings), and – possibly – an *order* determining a best solution during search.
 
-Not surprisingly in an object-oriented language such as C++, an elegant approach to programming a model is by inheritance: a model inherits from the class `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__ (implementing spaces) and the subclass constructor implements the model. In addition to the constructor, a model must implement a copy constructor and a copy function such that search for that model works (to be discussed later).
+Not surprisingly in an object-oriented language such as C++, an elegant approach to programming a model is by inheritance: a model inherits from the class :api:`Space` (implementing spaces) and the subclass constructor implements the model. In addition to the constructor, a model must implement a copy constructor and a copy function such that search for that model works (to be discussed later).
 
 .. _modeling:m-started:send-more-money:
 
@@ -52,11 +52,11 @@ The model we choose as an example is Send More Money: find distinct digits for t
 
 The program (with some parts yet to be presented) is shown in :numref:`fig:m:started:smm`. Note that clicking a blue line starting with :math:`\blacktriangleright` jumps to the corresponding code. Clicking **[download]** in the upper right corner of the program provides access to the complete program text.
 
-The program starts by including the relevant Gecode headers. To use integer variables and constraints, it includes ``<gecode/int.hh>`` and to access search engines it includes ``<gecode/search.hh>``. All Gecode functionality is in the scope of the namespace `Gecode <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode.html>`__, for convenience the program makes all functionality of the Gecode namespace visible by ``using namespace Gecode``.
+The program starts by including the relevant Gecode headers. To use integer variables and constraints, it includes ``<gecode/int.hh>`` and to access search engines it includes ``<gecode/search.hh>``. All Gecode functionality is in the scope of the namespace :api:`Gecode`, for convenience the program makes all functionality of the Gecode namespace visible by ``using namespace Gecode``.
 
-As discussed, the model is implemented as the class ``SendMoreMoney`` inheriting from the class `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__. It declares an array ``l`` of integer variables and initializes this array to have ``8`` newly created integer variables as elements, where each variable in the array can take values from ``0`` to ``9``. Note that the constructor for the variable array ``l`` takes the current space (that is, ``*this``) as first argument. This is very common: any function that depends on a space takes the current space as argument (called *home space*) Examples are constructors for variables and variable arrays, functions that post constraints, and functions that post branchings.
+As discussed, the model is implemented as the class ``SendMoreMoney`` inheriting from the class :api:`Space`. It declares an array ``l`` of integer variables and initializes this array to have ``8`` newly created integer variables as elements, where each variable in the array can take values from ``0`` to ``9``. Note that the constructor for the variable array ``l`` takes the current space (that is, ``*this``) as first argument. This is very common: any function that depends on a space takes the current space as argument (called *home space*) Examples are constructors for variables and variable arrays, functions that post constraints, and functions that post branchings.
 
-To simplify the posting of constraints, the constructor defines a variable of type `IntVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVar.html>`__ for each letter. Note the difference between creating a new integer variable (as done with creating the array of integer variables together with creating a new integer variable for each array element) and referring to the same integer variable through different C++ variables of type `IntVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVar.html>`__. This difference is discussed in more detail in :ref:`sec:m:integer:var`.
+To simplify the posting of constraints, the constructor defines a variable of type :api:`IntVar` for each letter. Note the difference between creating a new integer variable (as done with creating the array of integer variables together with creating a new integer variable for each array element) and referring to the same integer variable through different C++ variables of type :api:`IntVar`. This difference is discussed in more detail in :ref:`sec:m:integer:var`.
 
 .. _modeling:m-started:posting-constraints:
 
@@ -76,14 +76,14 @@ The first constraints to be posted enforce that the equation is well formed in t
 .. mpg-code:: send more money:no leading zeros
 
 
-The family of ``rel`` post functions (functions with name ``rel`` overloaded with different argument types) implements simple relation constraints such as equality, inequalities, and disequality (see :ref:`sec:m:integer:rel:int` and `Simple relation constraints over integer variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntRelInt.html>`__). The constant ``IRT_NQ`` requests a disequality constraint.
+The family of ``rel`` post functions (functions with name ``rel`` overloaded with different argument types) implements simple relation constraints such as equality, inequalities, and disequality (see :ref:`sec:m:integer:rel:int` and :api:`Simple relation constraints over integer variables <TaskModelIntRelInt>`). The constant ``IRT_NQ`` requests a disequality constraint.
 
 All letters are constrained to take pairwise distinct values by posting a ``distinct`` constraint (also known as ``alldifferent`` constraint):
 
 .. mpg-code:: send more money:all letters distinct
 
 
-See :ref:`sec:m:integer:distinct` and `Distinct constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntDistinct.html>`__ for more information on the ``distinct`` constraint.
+See :ref:`sec:m:integer:distinct` and :api:`Distinct constraints <TaskModelIntDistinct>` for more information on the ``distinct`` constraint.
 
 The constraint that :math:`SEND+MORE=MONEY` is posted as a linear equation where the individual letters are scaled to their appropriate decimal positions:
 
@@ -94,7 +94,7 @@ The ``linear`` constraint (which, again, exists in many overloaded variants) pos
 
 .. math:: \sum_{i=0}^{|\mathtt{c}|-1} \mathtt{c}_i\cdot\mathtt{x}_i = 0
 
-with coefficients ``c``, integer variables ``x``, and right-hand side constant :math:`0` (see :ref:`sec:m:integer:linear` and `Linear constraints over integer variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntLI.html>`__). Here, :math:`|\mathtt c|` denotes the size (the number of elements) of the array ``c`` (which can be computed by ``c.size()``). Post functions are designed to be as general as possible, hence the variant of ``linear`` that takes an array of coefficients and an array of integer variables as arguments. Other variants of ``linear`` exist that do not take coefficients (all coefficients are one) or accept an integer variable as the right-hand side instead of an integer constant.
+with coefficients ``c``, integer variables ``x``, and right-hand side constant :math:`0` (see :ref:`sec:m:integer:linear` and :api:`Linear constraints over integer variables <TaskModelIntLI>`). Here, :math:`|\mathtt c|` denotes the size (the number of elements) of the array ``c`` (which can be computed by ``c.size()``). Post functions are designed to be as general as possible, hence the variant of ``linear`` that takes an array of coefficients and an array of integer variables as arguments. Other variants of ``linear`` exist that do not take coefficients (all coefficients are one) or accept an integer variable as the right-hand side instead of an integer constant.
 
 Note that the linear equation could have been expressed simpler by using standard initializer lists as in:
 
@@ -132,7 +132,7 @@ To avoid confusion, by *cloning* we refer to the entire process of creating a cl
 
 The actual ``copy()`` function is straightforward and uses an additional copy constructor. The ``copy()`` function is virtual such that cloning (used on behalf of a search engine) can create a copy of a space even though the space’s exact subclass is not known to cloning.
 
-The obligation of the copy constructor is to invoke the copy constructor of the parent class, and to copy all data structures that contain variables. For ``SendMoreMoney`` this amounts to invoking ``Space(s)`` and updating the variable array. An exception of type `SpaceNotCloned <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SpaceNotCloned.html>`__ is thrown if the copy constructor of the ``Space`` class is not invoked. Please keep in mind that the copy constructor is run on the copy being created and is passed the space that needs to be copied as argument. Hence, updating the variable array ``l`` in the copy copies the array ``s.l`` from the space ``s`` being cloned (including all variables contained in the array). More on updating variables and variable arrays can be found in :ref:`sec:m:integer:update`.
+The obligation of the copy constructor is to invoke the copy constructor of the parent class, and to copy all data structures that contain variables. For ``SendMoreMoney`` this amounts to invoking ``Space(s)`` and updating the variable array. An exception of type :api:`SpaceNotCloned` is thrown if the copy constructor of the ``Space`` class is not invoked. Please keep in mind that the copy constructor is run on the copy being created and is passed the space that needs to be copied as argument. Hence, updating the variable array ``l`` in the copy copies the array ``s.l`` from the space ``s`` being cloned (including all variables contained in the array). More on updating variables and variable arrays can be found in :ref:`sec:m:integer:update`.
 
 .. _tip:m:started:cloneallowed:
 
@@ -147,7 +147,7 @@ The obligation of the copy constructor is to invoke the copy constructor of the 
 
 .. mpg-tip:: Do not use the copy constructor directly
 
-   The copy constructor for a Space is not enough to create a fully initialized clone, and therefore you should not call it directly. The same goes for the copy member function. If you do need to create a clone, the clone member of `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__ should be used.
+   The copy constructor for a Space is not enough to create a fully initialized clone, and therefore you should not call it directly. The same goes for the copy member function. If you do need to create a clone, the clone member of :api:`Space` should be used.
 
 
 .. _modeling:m-started:printing-solutions:
@@ -180,7 +180,7 @@ Hence, our main function looks as follows:
 .. mpg-code:: send more money:main function
 
 
-Creating a model is almost obvious: create an object of the subclass of `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__ that implements the model. Then, create a search engine (we will be using a search engine `DFS <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1DFS.html>`__ for depth-first search) and initialize it with a model. Search engines are generic with respect to the type of model, implemented as a template in C++. Hence, we use a search engine of type ``DFS<SendMoreMoney>`` for the model ``SendMoreMoney``.
+Creating a model is almost obvious: create an object of the subclass of :api:`Space` that implements the model. Then, create a search engine (we will be using a search engine :api:`DFS` for depth-first search) and initialize it with a model. Search engines are generic with respect to the type of model, implemented as a template in C++. Hence, we use a search engine of type ``DFS<SendMoreMoney>`` for the model ``SendMoreMoney``.
 
 When the engine is initialized, it takes a clone of the model passed to it (``m`` in our example). As the engine takes a clone, several engines can be used without recreating the model. As we are interested in a single engine, we immediately delete the model ``m`` after the search engine has been initialized.
 
@@ -230,7 +230,7 @@ The ``DFS<SendMoreMoney>`` search engine has a simple interface: the engine feat
 
 As you can see, a solution is nothing but a model again. A search engine ensures that constraint propagation is performed and that all variables are assigned as described by the branching(s) of the model passed to the search engine. When a search engine returns a model, the responsibility to delete the solution model is with the client of the search engine.
 
-It is straightforward to see how one would search for a single solution instead: replace ``while`` by ``if``. `DFS <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1DFS.html>`__ is but one search engine and the behavior of a search engine can be configured (for example: how cloning or recomputation is used; how search can be interrupted) and it can be queried for statistical information. Search engines are discussed in more detail in :ref:`chap:m:search`.
+It is straightforward to see how one would search for a single solution instead: replace ``while`` by ``if``. :api:`DFS` is but one search engine and the behavior of a search engine can be configured (for example: how cloning or recomputation is used; how search can be interrupted) and it can be queried for statistical information. Search engines are discussed in more detail in :ref:`chap:m:search`.
 
 .. mpg-tip:: Catching Gecode exceptions
 
@@ -522,7 +522,7 @@ The main function now uses a branch-and-bound search engine rather than a plain 
 
 The loop that iterates over all solutions found by the branch-and-bound search engine is exactly the same as before. That means that solutions are found and printed with an increasing value of :math:`MONEY`. The best solution is printed last.
 
-The branch-and-bound engine `BAB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BAB.html>`__ (see also :ref:`sec:m:search:simple`) calls the ``constrain()`` member function defined by the model. Note that every space defines a default ``constrain()`` member function (to keep the design of models simple). If a model does not re-define the ``constrain()`` member function (either directly or indirectly bu inheriting a ``constrain()`` function), the default function will do nothing.
+The branch-and-bound engine :api:`BAB` (see also :ref:`sec:m:search:simple`) calls the ``constrain()`` member function defined by the model. Note that every space defines a default ``constrain()`` member function (to keep the design of models simple). If a model does not re-define the ``constrain()`` member function (either directly or indirectly bu inheriting a ``constrain()`` function), the default function will do nothing.
 
 Using Gist for best solution search is straightforward. Instead of using ``Gist::dfs``, one uses ``Gist::bab`` to put Gist into branch-and-bound mode.
 
@@ -812,27 +812,3 @@ The CMake build supports the following useful targets:
 - ``install`` installs libraries, headers, tools, and CMake package files into the selected prefix.
 
 - ``clean`` removes files generated by the current build configuration.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-started.tex.in:56:fig:m:started:smm
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:57:send more money
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:125:send more money:no leading zeros
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:137:send more money:all letters distinct
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:145:send more money:linear equation
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:193:send more money:post branching
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:223:send more money:search support
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:268:send more money:print solution
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:293:send more money:main function
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:310:send more money:create model and search engine
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:355:send more money:search and print all solutions
-.. mpg-covered: tip:docs/src/chapters/modeling/m-started.tex.in:372:unlabeled-tip@docs/src/chapters/modeling/m-started.tex.in:372
-.. mpg-covered: tip:docs/src/chapters/modeling/m-started.tex.in:621:unlabeled-tip@docs/src/chapters/modeling/m-started.tex.in:621
-.. mpg-covered: caption:docs/src/chapters/modeling/m-started.tex.in:632:fig:m:started:gist
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:633:send more money with gist
-.. mpg-covered: caption:docs/src/chapters/modeling/m-started.tex.in:658:fig:m:started:gist:shot
-.. mpg-covered: caption:docs/src/chapters/modeling/m-started.tex.in:678:fig:m:started:gist-inspect
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:679:send more money with gist inspection
-.. mpg-covered: tip:docs/src/chapters/modeling/m-started.tex.in:692:unlabeled-tip@docs/src/chapters/modeling/m-started.tex.in:692
-.. mpg-covered: caption:docs/src/chapters/modeling/m-started.tex.in:725:fig:m:started:smm-best
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:726:send most money
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:746:send most money:constrain function
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-started.tex.in:759:send most money:main function

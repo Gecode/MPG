@@ -49,11 +49,8 @@ We will discuss a fully reified less or equal propagator :math:`\mathtt b=\matht
 
 #. If none of the above rules apply, the propagator is at fixpoint.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-reified.tex.in:80:fig:p:reified:leeq
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-reified.tex.in:80:fig:p:reified:leeq
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-reified.tex.in:81:less or equal reified full
 
 .. mpg-code:: less or equal reified full
    :caption: A constraint and propagator for fully reified less or equal
@@ -77,14 +74,14 @@ Another essential part is that after calling ``ES_SUBSUMED()``, a propagator is 
 
 .. _propagators:reified:adding-information-to-home:
 
-.. mpg-paragraph:: Adding information to ``Home``.
+.. mpg-paragraph:: Adding information to :api:`Home`.
 
-As has been discussed in :numref:`tip:m:started:home` and :ref:`sec:p:started:better`, posting uses a value of class ``Home``\ instead of a reference to a ``Space``. In the expansion of ``GECODE_REWRITE`` as shown above, the call operator ``()`` as in
+As has been discussed in :numref:`tip:m:started:home` and :ref:`sec:p:started:better`, posting uses a value of class :api:`Home` instead of a reference to a ``Space``. In the expansion of ``GECODE_REWRITE`` as shown above, the call operator ``()`` as in
 
 .. mpg-code:: snippet:p-reified:fig:p:reified:leeq:code:2
    :direct:
 
-returns a new value of type ``Home`` with the additional information added that the propagator to be posted is in fact a rewrite of the propagator ``*this``. This information is important, for example, for inheriting the AFC (accumulated failure count, see :ref:`sec:m:branch:afc`): the newly created propagator will inherit the number of accumulated failures from the propagator being rewritten. There will be other applications of ``Home`` in future versions of Gecode.
+returns a new value of type :api:`Home` with the additional information added that the propagator to be posted is in fact a rewrite of the propagator ``*this``. This information is important, for example, for inheriting the AFC (accumulated failure count, see :ref:`sec:m:branch:afc`): the newly created propagator will inherit the number of accumulated failures from the propagator being rewritten. There will be other applications of :api:`Home` in future versions of Gecode.
 
 .. _propagators:reified:testing-relations-between-views:
 
@@ -100,7 +97,7 @@ While ``Int::rtest_eq_bnd()`` only uses the bounds for testing the relation (wit
 
 .. mpg-paragraph:: Reified propagator patterns.
 
-The integer module (as these patterns require Boolean views they are part of the integer module) provides reified propagator patterns for unary propagators (``Int::ReUnaryPropagator``) and binary propagators (``Int::ReBinaryPropagator``\ and ``Int::ReMixBinaryPropagator``). In addition to views ``x0`` (and ``x1`` for the binary variants), they define a Boolean control variable ``b``. Please note that in :numref:`fig:p:reified:leeq` a reified propagator pattern requires an additional template argument for the Boolean control view used (the mystery why this is useful is lifted in :ref:`chap:p:views`).
+The integer module (as these patterns require Boolean views they are part of the integer module) provides reified propagator patterns for unary propagators (:api:`Int::ReUnaryPropagator`) and binary propagators (:api:`Int::ReBinaryPropagator` and :api:`Int::ReMixBinaryPropagator`). In addition to views ``x0`` (and ``x1`` for the binary variants), they define a Boolean control variable ``b``. Please note that in :numref:`fig:p:reified:leeq` a reified propagator pattern requires an additional template argument for the Boolean control view used (the mystery why this is useful is lifted in :ref:`chap:p:views`).
 
 .. _sec:p:reified:half:
 
@@ -109,24 +106,18 @@ Supporting both full and half reification
 
 There are two different options for implementing all different reification modes: either implement a single propagator that stores its reification mode, or implement three different propagators, one for each reification mode. Due to performance reasons we choose the latter variant here. That is, one needs one propagator for each reification mode: ``RM_EQV`` for equivalence (:math:`\Leftrightarrow`), ``RM_IMP`` for implication (:math:`\Rightarrow`), and ``RM_PMI`` for reverse implication (:math:`\Leftarrow`). Instead of three different implementations it is better to have a single implementation that is parametric with respect to the reification mode.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-reified.tex.in:209:fig:p:reified:leeq:half
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-reified.tex.in:209:fig:p:reified:leeq:half
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-reified.tex.in:210:less or equal reified half
 
 .. mpg-code:: less or equal reified half
    :caption: A constraint and propagator for full and half reified less or equal
    :name: fig:p:reified:leeq:half
    :download:
 
-:numref:`fig:p:reified:leeq:half` shows the constraint post function ``leeq()`` for the reified less or equal propagator supporting all three reification modes. The class ``ReLeEq`` now is parametric with respect to the reification mode the propagator implements. The constraint post function now posts the propagator that corresponds to the reification mode (available via ``r.mode()``) passed as argument ``r`` of type ``Reify``. The Boolean control variable can be returned by ``r.var()``.
+:numref:`fig:p:reified:leeq:half` shows the constraint post function ``leeq()`` for the reified less or equal propagator supporting all three reification modes. The class ``ReLeEq`` now is parametric with respect to the reification mode the propagator implements. The constraint post function now posts the propagator that corresponds to the reification mode (available via ``r.mode()``) passed as argument ``r`` of type :api:`Reify`. The Boolean control variable can be returned by ``r.var()``.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-reified.tex.in:225:fig:p:reified:leeq:half:propagate
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-reified.tex.in:225:fig:p:reified:leeq:half:propagate
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-reified.tex.in:226:less or equal reified half:propagate function
 
 .. mpg-code:: less or equal reified half:propagate function
    :caption: Propagate function for full and half reified less or equal
@@ -160,11 +151,8 @@ Then, the propagation rules can be turned into the following C++-code to be exec
 .. mpg-code:: snippet:p-reified:sec:p:reified:max:code:1
    :direct:
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-reified.tex.in:279:fig:p:reified:max
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-reified.tex.in:279:fig:p:reified:max
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-reified.tex.in:280:max using rewriting
 
 .. mpg-code:: max using rewriting
    :caption: A maximum propagator using rewriting
@@ -189,15 +177,11 @@ In :ref:`sec:p:avoid:dynamic`, the propagator ``OrTrue`` is simplified during co
 
    The modified ``copy()`` function is as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-reified.tex.in:323:or true using rewriting:copy
 
 .. mpg-code:: or true using rewriting:copy
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-reified.tex.in:326:fig:p:reified:or
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-reified.tex.in:326:fig:p:reified:or
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-reified.tex.in:327:or true using rewriting
 
 .. mpg-code:: or true using rewriting
    :caption: A Boolean disjunction propagator using rewriting

@@ -22,11 +22,8 @@ In this section, we develop a propagator for equality :math:`x=y` that performs 
 
 .. mpg-paragraph:: A naive propagator.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:39:fig:p:avoid:equal:naive
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:39:fig:p:avoid:equal:naive
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:40:equal naive
 
 .. mpg-code:: equal naive
    :caption: A naive equality bounds propagator
@@ -51,11 +48,8 @@ The propagator might actually sometimes compute a fixpoint and sometimes not. Co
 
 .. mpg-paragraph:: Reporting fixpoints.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:79:fig:p:avoid:equal
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:79:fig:p:avoid:equal
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:80:equal
 
 .. mpg-code:: equal
    :caption: An equality bounds propagator with fixpoint reasoning
@@ -68,11 +62,8 @@ The above example shows that the equality propagator computes a fixpoint if and 
 
 .. mpg-paragraph:: An idempotent propagator.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:93:fig:p:avoid:equal:idempotent
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:93:fig:p:avoid:equal:idempotent
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:94:equal idempotent
 
 .. mpg-code:: equal idempotent
    :caption: An idempotent equality bounds propagator
@@ -87,11 +78,8 @@ The idempotent propagator always computes a fixpoint. That means that it does no
 
 .. mpg-paragraph:: An idempotent propagator using modification events.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:122:fig:p:avoid:equal:modevent
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:122:fig:p:avoid:equal:modevent
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:123:equal idempotent using modification events
 
 .. mpg-code:: equal idempotent using modification events
    :caption: An idempotent equality bounds propagator using modification events
@@ -100,7 +88,6 @@ The idempotent propagator always computes a fixpoint. That means that it does no
 
 The idempotent propagator shown above tests a propagator-specific criterion to determine whether a fixpoint has been computed. With the help of modification events there is a generic approach to computing a fixpoint within the ``propagate()`` member function of a propagator. :numref:`fig:p:avoid:equal:modevent` shows the ``propagate()`` member function where the Boolean variable ``nafp`` (for: ``n``\ ot ``a``\ t ``f``\ ix\ ``p``\ oint) tracks whether the propagator has computed a fixpoint. The function ``me_modified(me)`` checks whether the modification event ``me`` does not signal failure or that the view did change (that is, for integer views, ``me`` is different from ``Int::ME_INT_FAILED`` and ``Int::ME_INT_NONE``). Whenever a view is modified, ``nafp`` is accordingly set to ``true``. The remaining modification operations are omitted as they are analogous.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-avoid.tex.in:144:unlabeled-tip@docs/src/chapters/programming/p-avoid.tex.in:144
 
 .. mpg-tip:: Understanding ``ES_NOFIX``
 
@@ -127,20 +114,16 @@ A Boolean disjunction propagator
 
 Before we demonstrate dynamic subscriptions in the next section, we discuss a propagator for Boolean disjunction. The propagator is rather simple, but we use it as an example for Boolean views, arrays of views, and several other aspects.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:210:fig:p:avoid:or:naive
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:210:fig:p:avoid:or:naive
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:211:or true
 
 .. mpg-code:: or true
    :caption: Naive Boolean disjunction
    :name: fig:p:avoid:or:naive
    :download:
 
-:numref:`fig:p:avoid:or:naive` shows the ``OrTrue`` propagator that propagates that an array of Boolean views ``x`` is ``1`` (that is, the Boolean disjunction on ``x`` is true). That is, at least one of the views in ``x`` must be ``1``. The propagator uses an array ``ViewArray``\ of Boolean views (a ``ViewArray``\ is generic with respect to the views it stores). Similar to views, view arrays have ``subscribe()`` and ``cancel()`` functions for subscriptions, where the operations are applied to all views in the view array.
+:numref:`fig:p:avoid:or:naive` shows the ``OrTrue`` propagator that propagates that an array of Boolean views ``x`` is ``1`` (that is, the Boolean disjunction on ``x`` is true). That is, at least one of the views in ``x`` must be ``1``. The propagator uses an array :api:`ViewArray` of Boolean views (a :api:`ViewArray` is generic with respect to the views it stores). Similar to views, view arrays have ``subscribe()`` and ``cancel()`` functions for subscriptions, where the operations are applied to all views in the view array.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-avoid.tex.in:225:unlabeled-tip@docs/src/chapters/programming/p-avoid.tex.in:225
 
 .. mpg-tip:: View arrays also provide STL-style iterators
 
@@ -166,11 +149,8 @@ A more general case of Boolean disjunction, where ``n`` is an integer variable i
 
 .. mpg-paragraph:: Propagation.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:259:fig:p:avoid:ortrue:prop
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:259:fig:p:avoid:ortrue:prop
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:260:or true:propagation
 
 .. mpg-code:: or true:propagation
    :caption: Propagation for naive Boolean disjunction
@@ -178,23 +158,19 @@ A more general case of Boolean disjunction, where ``n`` is an integer variable i
 
 Propagation for Boolean disjunction is straightforward: first, all views are inspected whether they are assigned to ``1`` (in which case the propagator is subsumed) or to ``0`` (in which case the assigned view is eliminated from the view array). If no views remain, the propagator is failed. If a single (by elimination, an unassigned view) remains, it is assigned to ``1``. This can be implemented as shown in :numref:`fig:p:avoid:ortrue:prop`.
 
-The operation ``x.move_lst(i)`` of a view array ``x`` moves the last element of ``x`` to position ``i`` and shrinks the array by one element. Shrinking from the end is in particular simple if the array elements are iterated backwards as in our example. The class ``ViewArray``\ provides several operations to shrink view arrays. Note that ``x.move_lst(i)`` requires that the view at position ``i`` is actually assigned or has no subscription, otherwise the subscription for ``x[i]`` needs to be canceled before ``x[i]`` is overwritten. View arrays also provide operations for simultaneously moving elements and canceling subscriptions.
+The operation ``x.move_lst(i)`` of a view array ``x`` moves the last element of ``x`` to position ``i`` and shrinks the array by one element. Shrinking from the end is in particular simple if the array elements are iterated backwards as in our example. The class :api:`ViewArray` provides several operations to shrink view arrays. Note that ``x.move_lst(i)`` requires that the view at position ``i`` is actually assigned or has no subscription, otherwise the subscription for ``x[i]`` needs to be canceled before ``x[i]`` is overwritten. View arrays also provide operations for simultaneously moving elements and canceling subscriptions.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-avoid.tex.in:287:unlabeled-tip@docs/src/chapters/programming/p-avoid.tex.in:287
 
 .. mpg-tip:: View arrays have non-copying copy constructors
 
-   The constructor for posting in :numref:`fig:p:avoid:or:naive` uses the copy constructor of ``ViewArray``\ to initialize the member ``x``. The copy constructor does *not* copy a view array. Instead, after its execution both original and copy have shared access to the same views.
+   The constructor for posting in :numref:`fig:p:avoid:or:naive` uses the copy constructor of :api:`ViewArray` to initialize the member ``x``. The copy constructor does *not* copy a view array. Instead, after its execution both original and copy have shared access to the same views.
 
 .. _propagators:avoid:using-propagator-patterns:
 
 .. mpg-paragraph:: Using propagator patterns.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:297:fig:p:avoid:or:concise
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:297:fig:p:avoid:or:concise
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:298:or true concise
 
 .. mpg-code:: or true concise
    :caption: Naive Boolean disjunction using a propagator pattern
@@ -207,7 +183,7 @@ How to use a propagator pattern with an array of views is shown in :numref:`fig:
 
 .. mpg-paragraph:: Boolean views.
 
-A Boolean view ``Int::BoolView``\ provides operations for testing whether it is assigned to ``1`` (``one()``) or ``0`` (``zero()``), or whether it is not assigned yet (``none()``). As modification operations Boolean views offer ``one(home)`` and ``zero(home)``. Also, Boolean views only support ``PC_BOOL_NONE`` and ``PC_BOOL_VAL`` as propagation conditions and ``ME_BOOL_NONE``, ``ME_BOOL_FAILED``, and ``ME_BOOL_VAL`` as modification events.
+A Boolean view :api:`Int::BoolView` provides operations for testing whether it is assigned to ``1`` (``one()``) or ``0`` (``zero()``), or whether it is not assigned yet (``none()``). As modification operations Boolean views offer ``one(home)`` and ``zero(home)``. Also, Boolean views only support ``PC_BOOL_NONE`` and ``PC_BOOL_VAL`` as propagation conditions and ``ME_BOOL_NONE``, ``ME_BOOL_FAILED``, and ``ME_BOOL_VAL`` as modification events.
 
 Boolean views (variables and variable implementations likewise) are not related to integer views by design: the very point is that Boolean variable implementations have a specially optimized implementation that is in fact not related to the implementation of integer variables.
 
@@ -230,11 +206,8 @@ One idea would be to only check until two unassigned views have been encountered
 
 The idea to stop scanning after two unassigned views have been encountered can be taken even further. A well-known technique for the efficient implementation of Boolean SAT (satisfiability) solvers are *watched literals* :cite:p:`chaff`: it is sufficient to subscribe to two Boolean views for propagating a Boolean disjunction to be satisfied. Subscribing to a single Boolean view is not enough: if all views but the subscription view are assigned to ``0`` the subscription view must be assigned to ``1`` to perform propagation, however the propagator will not be scheduled as the single subscription view is not assigned. More than two subscriptions are not needed for propagation, as the propagator can only propagate if a single unassigned view remains. It might be the case that a view to which the propagator has not subscribed is assigned to ``1``. That means that the propagator is not subsumed as early as possible but that does not affect propagation.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:375:fig:p:avoid:or:dynamic
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:375:fig:p:avoid:or:dynamic
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:376:or true with dynamic subscriptions
 
 .. mpg-code:: or true with dynamic subscriptions
    :caption: Boolean disjunction with dynamic subscriptions
@@ -247,7 +220,6 @@ The idea to stop scanning after two unassigned views have been encountered can b
 
 The propagator using dynamic subscriptions maintains exactly two subscriptions to its Boolean views. :numref:`fig:p:avoid:or:dynamic` shows the ``OrTrue`` propagator with dynamic subscriptions. It inherits from the ``BinaryPropagator`` pattern and the views ``x0`` and ``x1`` of the pattern are exactly the two views with subscriptions. All remaining views without subscriptions are stored in the view array ``x``. The operation ``drop_fst(n)`` for an integer ``n`` drops the first ``n`` elements of a view array and shortens the array by ``n`` elements accordingly (that is, ``drop_fst()`` is dual to ``drop_lst()`` as used in the previous section). Note that the propagator must define a ``dispose()`` member function: this is needed not because ``dispose()`` must cancel additional subscriptions (the very point is that ``x`` has no subscriptions) but that it must return the correct size of ``OrTrue``.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-avoid.tex.in:399:unlabeled-tip@docs/src/chapters/programming/p-avoid.tex.in:399
 
 .. mpg-tip:: ``drop_fst()`` and ``drop_lst()`` are efficient
 
@@ -260,7 +232,6 @@ The propagator using dynamic subscriptions maintains exactly two subscriptions t
 
 The idea of how to perform propagation is fairly simple: if one of the views with subscriptions is assigned to ``1``, the propagator is subsumed. If one of the subscription views is assigned to ``0``, say ``x0``, a function ``resubscribe()`` tries to find a yet unassigned view to subscribe to it and store it as ``x0``. If there is no such view but there is a view assigned to ``1``, the propagator is subsumed. If there is no such view, then the propagator tries to assign ``1`` to ``x1``, and, if successful, the propagator is also subsumed. The implementation is as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:419:or true with dynamic subscriptions:propagation
 
 .. mpg-code:: or true with dynamic subscriptions:propagation
 
@@ -268,11 +239,8 @@ The idea of how to perform propagation is fairly simple: if one of the views wit
 
 .. mpg-paragraph:: Resubscribing.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-avoid.tex.in:423:fig:p:avoid:ortrue:re
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-avoid.tex.in:423:fig:p:avoid:ortrue:re
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:424:or true with dynamic subscriptions:resubscribe
 
 .. mpg-code:: or true with dynamic subscriptions:resubscribe
    :caption: Resubscribing for Boolean disjunction with dynamic subscriptions
@@ -286,7 +254,6 @@ The function ``resubscribe()`` implements the search for a yet unassigned view f
 
 The assigned views in ``x`` do not really matter much: all views assigned to ``0`` can be discarded. If there is a view assigned to ``1`` all other views can be discarded (of course, a single view assigned to ``1`` must be kept for correctness). Hence a good idea for copying is: copy only those views that still matter. This leads to a smaller view array requiring less memory. We decide to discard assigned views as much as we can in the ``copy()`` function rather than in the constructor used for copying. By this, also the original and not only the copy profits from fewer views. While the copy benefits because there are less views to be stored, the original propagator benefits because ``resubscribe()`` does not have to scan assigned views as they already have been eliminated. Following this discussion, the ``copy()`` function can be implemented as:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-avoid.tex.in:449:or true with dynamic subscriptions:copy
 
 .. mpg-code:: or true with dynamic subscriptions:copy
 

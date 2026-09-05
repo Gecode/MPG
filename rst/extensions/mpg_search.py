@@ -46,6 +46,25 @@ def _prepare_pagefind_sections(app, doctree: nodes.document, docname: str) -> No
 class MpgSearchHTMLTranslator(HTML5Translator):
     """Add Pagefind weights to semantically authoritative headings."""
 
+    def visit_table(self, node: nodes.Element) -> None:
+        caption = next(iter(node.findall(nodes.title)), None)
+        if caption is None:
+            parent = node.parent
+            while parent is not None and not isinstance(parent, nodes.figure):
+                parent = parent.parent
+            if parent is not None:
+                caption = next(iter(parent.findall(nodes.caption)), None)
+        label = caption.astext() if caption is not None else "Scrollable table"
+        self.body.append(
+            '<div class="mpg-table-scroll" role="region" tabindex="0" '
+            f'aria-label="{self.encode(label)}">'
+        )
+        super().visit_table(node)
+
+    def depart_table(self, node: nodes.Element) -> None:
+        super().depart_table(node)
+        self.body.append("</div>")
+
     def add_fignumber(self, node: nodes.Element) -> None:
         """Make a numbered object's visible label link to that object."""
         body_start = len(self.body)

@@ -35,18 +35,15 @@ For example, assume that the domain of :math:`\mathtt{x}` is :math:`\{-1,1,3,4,6
 
 The very point of this exercise is: a minus view is just a different interface to an *existing* variable implementation and does not require a *new* variable implementation. Moreover, the operations performed by the minus view interface are optimized away at compile time.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-views.tex.in:83:fig:p:views:minmax
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-views.tex.in:83:fig:p:views:minmax
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-views.tex.in:84:min and max
 
 .. mpg-code:: min and max
    :caption: Minimum and maximum constraints implemented by a ``Max`` propagator
    :name: fig:p:views:minmax
    :download:
 
-:numref:`fig:p:views:minmax` shows how to obtain both ``min`` and ``max`` constraints from the very same ``Max`` propagator using ``Int::IntView``\ and ``Int::MinusView``\ views. The only change needed compared to the ``Max`` propagator from :ref:`sec:p:reified:max` is that the propagator does not hardwire its view type. Instead, the propagator is generic by being implemented as a template over the view type ``View`` it uses. The constraint post functions then just instantiate the ``Max`` propagator with the appropriate view types.
+:numref:`fig:p:views:minmax` shows how to obtain both ``min`` and ``max`` constraints from the very same ``Max`` propagator using :api:`Int::IntView` and :api:`Int::MinusView` views. The only change needed compared to the ``Max`` propagator from :ref:`sec:p:reified:max` is that the propagator does not hardwire its view type. Instead, the propagator is generic by being implemented as a template over the view type ``View`` it uses. The constraint post functions then just instantiate the ``Max`` propagator with the appropriate view types.
 
 .. mpg-tip:: Using ``using`` clauses
    :name: tip:p:views:using
@@ -58,11 +55,8 @@ The very point of this exercise is: a minus view is just a different interface t
 Offset views
 ~~~~~~~~~~~~
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-views.tex.in:116:fig:p:views:equal
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-views.tex.in:116:fig:p:views:equal
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-views.tex.in:117:domain equal with and without offset
 
 .. mpg-code:: domain equal with and without offset
    :caption: Domain equality with and without offset
@@ -71,7 +65,7 @@ Offset views
 
 An *offset view* ``o`` with offset ``c`` (an integer value) for a variable implementation :math:`v` provides operations such that ``o`` behaves as :math:`v+\mathtt c`.
 
-:numref:`fig:p:views:equal` shows how a domain equality constraint (see :ref:`sec:p:domain:iter`) and a domain equality constraint with offset (see :ref:`sec:p:domain:iterators`) can be obtained from the same domain equality propagator ``Equal``. ``Equal`` has two template arguments ``View0`` and ``View1`` for its views ``x0`` and ``x1`` respectively. With two view template arguments, the propagator can be instantiated with different view types for ``x0`` and ``x1``. Therefore, the propagator uses ``MixBinaryPropagator``\ as base class as it supports different view types as well.
+:numref:`fig:p:views:equal` shows how a domain equality constraint (see :ref:`sec:p:domain:iter`) and a domain equality constraint with offset (see :ref:`sec:p:domain:iterators`) can be obtained from the same domain equality propagator ``Equal``. ``Equal`` has two template arguments ``View0`` and ``View1`` for its views ``x0`` and ``x1`` respectively. With two view template arguments, the propagator can be instantiated with different view types for ``x0`` and ``x1``. Therefore, the propagator uses :api:`MixBinaryPropagator` as base class as it supports different view types as well.
 
 .. _par:p:views:sameshared:
 
@@ -83,7 +77,6 @@ With arbitrary views, the situation becomes a little bit more involved. Assume t
 
 The function ``shared()`` tests whether two views share the same variable implementation. Hence, the use of domain modification operations in ``Equal`` have to be modified as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-views.tex.in:163:domain equal with and without offset:domain propagation
 
 .. mpg-code:: domain equal with and without offset:domain propagation
 
@@ -96,27 +89,24 @@ Constant and scale views
 
 In addition to minus and offset views, Gecode offers *scale views* and *constant views* for integer variable implementations.
 
-A scale view for a variable implementation :math:`v` with an integer scale factor :math:`a` where :math:`a>0` implements operations for :math:`a\cdot v`. Scale views exist in two variants differing in the precision of multiplication: ``IntScaleView`` performs multiplication over integers, whereas ``LLongScaleView`` performs multiplication over long long integers (see ``TaskActorIntView``\ and ``Int::ScaleView``).
+A scale view for a variable implementation :math:`v` with an integer scale factor :math:`a` where :math:`a>0` implements operations for :math:`a\cdot v`. Scale views exist in two variants differing in the precision of multiplication: ``IntScaleView`` performs multiplication over integers, whereas ``LLongScaleView`` performs multiplication over long long integers (see :api:`Integer views <TaskActorIntView>` and :api:`Int::ScaleView`).
 
-An integer constant view ``Int::ConstIntView``\ provides an integer view interface to an integer constant ``c``. With other words, an integer constant view for the integer ``c`` behaves as an integer view assigned to the value ``c``.
+An integer constant view :api:`Int::ConstIntView` provides an integer view interface to an integer constant ``c``. With other words, an integer constant view for the integer ``c`` behaves as an integer view assigned to the value ``c``.
 
 .. _sec:p:views:bool:
 
 Boolean views
 -------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-views.tex.in:193:fig:p:views:orand
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-views.tex.in:193:fig:p:views:orand
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-views.tex.in:194:or and and from or
 
 .. mpg-code:: or and and from or
    :caption: Disjunction and conjunction from same propagator
    :name: fig:p:views:orand
    :download:
 
-For Boolean views, the view resembling a minus view over integers is a view for negation. For example, with Boolean negation views ``Int::NegBoolView``\ both disjunction and conjunction constraints can be obtained from a propagator for disjunction (see :numref:`fig:p:views:orand`).
+For Boolean views, the view resembling a minus view over integers is a view for negation. For example, with Boolean negation views :api:`Int::NegBoolView` both disjunction and conjunction constraints can be obtained from a propagator for disjunction (see :numref:`fig:p:views:orand`).
 
 .. _sec:p:views:inttobool:
 
@@ -125,11 +115,8 @@ Integer propagators on Boolean views
 
 As has been discussed in :ref:`sec:p:avoid:ortrue`, Boolean views feature all operations available on integer views (such as ``lq()`` or ``gr()``) in addition to the dedicated Boolean operations (such as ``one()`` or ``zero()``). Due to the availability of integer operations on Boolean views, integer propagators can be used to implement Boolean constraints.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-views.tex.in:216:fig:p:views:intbool
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-views.tex.in:216:fig:p:views:intbool
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-views.tex.in:217:less for integer and Boolean variables
 
 .. mpg-code:: less for integer and Boolean variables
    :caption: Less constraints for both integer and Boolean variables
@@ -138,7 +125,6 @@ As has been discussed in :ref:`sec:p:avoid:ortrue`, Boolean views feature all op
 
 :numref:`fig:p:views:intbool` shows how the propagator ``Less`` can be used to implement the ``less`` constraint for both integer and Boolean variables.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-views.tex.in:226:unlabeled-tip@docs/src/chapters/programming/p-views.tex.in:226
 
 .. mpg-tip:: Boolean variables are not integer variables
 

@@ -26,6 +26,16 @@ def main() -> int:
     run([sys.executable, str(RST_ROOT / "platform-tests" / "test_reference_inventory.py")])
     run([sys.executable, str(RST_ROOT / "platform-tests" / "test_package_release.py")])
     run([sys.executable, str(RST_ROOT / "platform-tests" / "test_platform.py")])
+    run([
+        sys.executable,
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        str(RST_ROOT / "platform-tests"),
+        "-p",
+        "test_*.py",
+    ])
     with tempfile.TemporaryDirectory(prefix="mpg-release-platform-") as temporary:
         build = Path(temporary)
         run([

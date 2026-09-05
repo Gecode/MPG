@@ -178,9 +178,9 @@ Branching on integer and Boolean variables
 
 .. mpg-paragraph:: Branching on integer variables.
 
-For integer variables, variable selection is defined by a value of class `IntVarBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVarBranch.html>`__ and value selection is defined by a value of type `IntValBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntValBranch.html>`__. Values of these types are obtained by calling functions (possibly taking arguments) that correspond to variable and value selection strategies. For example, a call ``INT_VAR_SIZE_MIN()`` returns an object of class `IntVarBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVarBranch.html>`__.
+For integer variables, variable selection is defined by a value of class :api:`IntVarBranch` and value selection is defined by a value of type :api:`IntValBranch`. Values of these types are obtained by calling functions (possibly taking arguments) that correspond to variable and value selection strategies. For example, a call ``INT_VAR_SIZE_MIN()`` returns an object of class :api:`IntVarBranch`.
 
-For an overview of the available variable selection strategies, see :numref:`fig:m:branch:int:var:int` (see also `Variable selection for integer and Boolean variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchVar.html>`__) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__. Using random number generators for branching is discussed in :ref:`sec:m:branch:rnd`. An argument ``m`` refers to a user-defined merit function of type `IntBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for integer variables and `BoolBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for Boolean variables. User-defined merit functions are discussed in :ref:`sec:m:branch:uservar`. An argument ``afc`` refers to accumulated failure count (AFC) information for integer variables (of class `IntAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntAFC.html>`__). An argument ``act`` refers to action information for integer variables (of class `IntAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntAction.html>`__). An argument ``chb`` refers to CHB information for integer variables (of class `IntCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntCHB.html>`__). For a discussion of AFC, action, and CHB, see :ref:`sec:m:branch:shared`. Both ``afc``\ + and ``act``\ + can also be optional arguments of type ``double`` defining a decay-factor, whereas the argument ``chb``\ + can be omitted. The optional argument ``t`` refers to a tie-breaking limit function of type `BranchTbl <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelBranch.html>`__ and is discussed in :ref:`sec:m:branch:tbl`.
+For an overview of the available variable selection strategies, see :numref:`fig:m:branch:int:var:int` (see also :api:`Variable selection for integer and Boolean variables <TaskModelIntBranchVar>`) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd`. Using random number generators for branching is discussed in :ref:`sec:m:branch:rnd`. An argument ``m`` refers to a user-defined merit function of type :api:`IntBranchMerit <TaskModelIntBranch>` for integer variables and :api:`BoolBranchMerit <TaskModelIntBranch>` for Boolean variables. User-defined merit functions are discussed in :ref:`sec:m:branch:uservar`. An argument ``afc`` refers to accumulated failure count (AFC) information for integer variables (of class :api:`IntAFC`). An argument ``act`` refers to action information for integer variables (of class :api:`IntAction`). An argument ``chb`` refers to CHB information for integer variables (of class :api:`IntCHB`). For a discussion of AFC, action, and CHB, see :ref:`sec:m:branch:shared`. Both ``afc``\ + and ``act``\ + can also be optional arguments of type ``double`` defining a decay-factor, whereas the argument ``chb``\ + can be omitted. The optional argument ``t`` refers to a tie-breaking limit function of type :api:`BranchTbl <TaskModelBranch>` and is discussed in :ref:`sec:m:branch:tbl`.
 
 Omitting the variable selection strategy is equivalent to using ``INT_VAR_NONE()``.
 
@@ -217,7 +217,7 @@ Omitting the variable selection strategy is equivalent to using ``INT_VAR_NONE()
       | ``INT_VALUES_MAX()``             | all values starting from largest                           |
       +----------------------------------+------------------------------------------------------------+
 
-An overview of the available value selection strategies for integer variables can be found in :numref:`fig:m:branch:int:val:int` (see also `Value selection for integer and Boolean variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchVal.html>`__) where :math:`\cdot`\ * denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__ which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type `IntBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__. An optional argument ``c`` refers to a commit function of type `IntBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__. Value and commit functions are discussed in :ref:`sec:m:branch:userval`.
+An overview of the available value selection strategies for integer variables can be found in :numref:`fig:m:branch:int:val:int` (see also :api:`Value selection for integer and Boolean variables <TaskModelIntBranchVal>`) where :math:`\cdot`\ * denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd` which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type :api:`IntBranchVal <TaskModelIntBranch>`. An optional argument ``c`` refers to a commit function of type :api:`IntBranchCommit <TaskModelIntBranch>`. Value and commit functions are discussed in :ref:`sec:m:branch:userval`.
 
 Note that variable-value branchers are just common cases for branching based on the idea of selecting variables and values. In Gecode also arbitrary other branchers can be programmed, see :ref:`part:b`.
 
@@ -293,9 +293,9 @@ Note that variable-value branchers are just common cases for branching based on 
       | ``BOOL_VAR_CHB_MAX(chb+,t*)``                                 | highest CHB Q-score                      |
       +---------------------------------------------------------------+------------------------------------------+
 
-Similar to integer variables, variable selection for Boolean variables is defined by a value of class `BoolVarBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolVarBranch.html>`__ and value selection is defined by a value of type `BoolValBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolValBranch.html>`__. Values of these types are obtained by calling functions (possibly taking arguments) that correspond to variable and value selection strategies.
+Similar to integer variables, variable selection for Boolean variables is defined by a value of class :api:`BoolVarBranch` and value selection is defined by a value of type :api:`BoolValBranch`. Values of these types are obtained by calling functions (possibly taking arguments) that correspond to variable and value selection strategies.
 
-For an overview of the available variable selection strategies, see :numref:`fig:m:branch:int:var:bool` (see also `Variable selection for integer and Boolean variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchVar.html>`__) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__. An argument ``m`` refers to a user-defined merit function of type `BoolBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__. An argument ``afc`` refers to accumulated failure count (AFC) information for Boolean variables (of class `BoolAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolAFC.html>`__). An argument ``act`` refers to action information for Boolean variables (of class `BoolAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolAction.html>`__). An argument ``chb`` refers to CHB information for Boolean variables (of class `BoolCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolCHB.html>`__). The optional argument ``t`` refers to a tie-breaking limit function of type `BranchTbl <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelBranch.html>`__.
+For an overview of the available variable selection strategies, see :numref:`fig:m:branch:int:var:bool` (see also :api:`Variable selection for integer and Boolean variables <TaskModelIntBranchVar>`) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd`. An argument ``m`` refers to a user-defined merit function of type :api:`BoolBranchMerit <TaskModelIntBranch>`. An argument ``afc`` refers to accumulated failure count (AFC) information for Boolean variables (of class :api:`BoolAFC`). An argument ``act`` refers to action information for Boolean variables (of class :api:`BoolAction`). An argument ``chb`` refers to CHB information for Boolean variables (of class :api:`BoolCHB`). The optional argument ``t`` refers to a tie-breaking limit function of type :api:`BranchTbl <TaskModelBranch>`.
 
 Omitting the variable selection strategy is equivalent to using ``BOOL_VAR_NONE()``.
 
@@ -314,7 +314,7 @@ Omitting the variable selection strategy is equivalent to using ``BOOL_VAR_NONE(
       | ``BOOL_VAL_MAX()``                | largest value                                             |
       +-----------------------------------+-----------------------------------------------------------+
 
-An overview of the available value selection strategies for Boolean variables can be found in :numref:`fig:m:branch:int:val:bool` (see also `Value selection for integer and Boolean variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchVal.html>`__) where :math:`\cdot`\ * denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__. An argument ``v`` refers to a value selection function of type `BoolBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__. An optional argument ``c`` refers to a commit function of type `BoolBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__.
+An overview of the available value selection strategies for Boolean variables can be found in :numref:`fig:m:branch:int:val:bool` (see also :api:`Value selection for integer and Boolean variables <TaskModelIntBranchVal>`) where :math:`\cdot`\ * denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd`. An argument ``v`` refers to a value selection function of type :api:`BoolBranchVal <TaskModelIntBranch>`. An optional argument ``c`` refers to a commit function of type :api:`BoolBranchCommit <TaskModelIntBranch>`.
 
 .. _sec:m:branch:set:
 
@@ -392,9 +392,9 @@ Branching on set variables
       | ``SET_VAR_CHB_SIZE_MAX(chb+,t*)``                                 | largest CHB divided by domain size       |
       +-------------------------------------------------------------------+------------------------------------------+
 
-For set variables, variable selection is defined by a value of class `SetVarBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVarBranch.html>`__ (see also `Selecting set variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranchVar.html>`__) and value selection is defined by a value of type `SetValBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetValBranch.html>`__ (see also `Value selection for set variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranchVal.html>`__).
+For set variables, variable selection is defined by a value of class :api:`SetVarBranch` (see also :api:`Selecting set variables <TaskModelSetBranchVar>`) and value selection is defined by a value of type :api:`SetValBranch` (see also :api:`Value selection for set variables <TaskModelSetBranchVal>`).
 
-For an overview of the available variable selection strategies, see :numref:`fig:m:branch:set:var` (see also `Selecting set variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranchVar.html>`__) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__. Using random number generators for branching is discussed in :ref:`sec:m:branch:rnd`. An argument ``m`` refers to a user-defined merit function of type `SetBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__. User-defined merit functions are discussed in :ref:`sec:m:branch:uservar`. An argument ``afc`` refers to accumulated failure count (AFC) information for set variables (of class `SetAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetAFC.html>`__). An argument ``act`` refers to action information for set variables (of class `SetAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetAction.html>`__). An argument ``chb`` refers to CHB information for set variables (of class `SetCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetCHB.html>`__). For a discussion of AFC, action, and CHB, see :ref:`sec:m:branch:shared`. Both ``afc``\ + and ``act``\ + can also be optional arguments of type ``double`` defining a decay-factor. The argument ?chb?+ can be omitted. The optional argument ``t`` refers to a tie-breaking limit function of type `BranchTbl <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelBranch.html>`__ and is discussed in :ref:`sec:m:branch:tbl`.
+For an overview of the available variable selection strategies, see :numref:`fig:m:branch:set:var` (see also :api:`Selecting set variables <TaskModelSetBranchVar>`) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd`. Using random number generators for branching is discussed in :ref:`sec:m:branch:rnd`. An argument ``m`` refers to a user-defined merit function of type :api:`SetBranchMerit <TaskModelSetBranch>`. User-defined merit functions are discussed in :ref:`sec:m:branch:uservar`. An argument ``afc`` refers to accumulated failure count (AFC) information for set variables (of class :api:`SetAFC`). An argument ``act`` refers to action information for set variables (of class :api:`SetAction`). An argument ``chb`` refers to CHB information for set variables (of class :api:`SetCHB`). For a discussion of AFC, action, and CHB, see :ref:`sec:m:branch:shared`. Both ``afc``\ + and ``act``\ + can also be optional arguments of type ``double`` defining a decay-factor. The argument ?chb?+ can be omitted. The optional argument ``t`` refers to a tie-breaking limit function of type :api:`BranchTbl <TaskModelBranch>` and is discussed in :ref:`sec:m:branch:tbl`.
 
 Omitting the variable selection strategy is equivalent to using ``SET_VAR_NONE()``.
 
@@ -423,7 +423,7 @@ Omitting the variable selection strategy is equivalent to using ``SET_VAR_NONE()
       | ``SET_VAL_MAX_EXC()``            | exclude largest element                                   |
       +----------------------------------+-----------------------------------------------------------+
 
-An overview of the available value selection strategies for set variables can be found in :numref:`fig:m:branch:set:val` where :math:`\cdot`\ * denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__ which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type `SetBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__. An optional argument ``c`` refers to a commit function of type `SetBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__. Value and commit function are discussed in :ref:`sec:m:branch:userval`.
+An overview of the available value selection strategies for set variables can be found in :numref:`fig:m:branch:set:val` where :math:`\cdot`\ * denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd` which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type :api:`SetBranchVal <TaskModelSetBranch>`. An optional argument ``c`` refers to a commit function of type :api:`SetBranchCommit <TaskModelSetBranch>`. Value and commit function are discussed in :ref:`sec:m:branch:userval`.
 
 .. _sec:m:branch:float:
 
@@ -501,9 +501,9 @@ Branching on float variables
       | ``FLOAT_VAR_CHB_SIZE_MAX(chb+,t*)``                                 | largest chb divided by domain size       |
       +---------------------------------------------------------------------+------------------------------------------+
 
-For float variables, variable selection is defined by a value of class `FloatVarBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVarBranch.html>`__ (see also `Variable selection for float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranchVar.html>`__) and value selection is defined by a value of type `FloatValBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatValBranch.html>`__ (see also `Value selection for float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranchVal.html>`__).
+For float variables, variable selection is defined by a value of class :api:`FloatVarBranch` (see also :api:`Variable selection for float variables <TaskModelFloatBranchVar>`) and value selection is defined by a value of type :api:`FloatValBranch` (see also :api:`Value selection for float variables <TaskModelFloatBranchVal>`).
 
-For an overview of the available variable selection strategies, see :numref:`fig:m:branch:float:var` (see also `Variable selection for float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranchVar.html>`__) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__. Using random number generators for branching is discussed in :ref:`sec:m:branch:rnd`. An argument ``m`` refers to a user-defined merit function of type `FloatBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__. User-defined merit functions are discussed in :ref:`sec:m:branch:uservar`. An argument ``afc`` refers to accumulated failure count (AFC) information for float variables (of class `FloatAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatAFC.html>`__). An argument ``act`` refers to action information for float variables (of class `FloatAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatAction.html>`__). An argument ``chb`` refers to CHB information for float variables (of class `FloatCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatCHB.html>`__). For a discussion of AFC, action, and CHB, see :ref:`sec:m:branch:shared`. Both ``afc``\ + and ``act``\ + can also be optional arguments of type ``double`` defining a decay-factor. The argument ``chb``\ + can be ommitted. The optional argument ``t`` refers to a tie-breaking limit function of type `BranchTbl <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelBranch.html>`__ and is discussed in :ref:`sec:m:branch:tbl`.
+For an overview of the available variable selection strategies, see :numref:`fig:m:branch:float:var` (see also :api:`Variable selection for float variables <TaskModelFloatBranchVar>`) where :math:`\cdot`\ * denotes an optional argument and :math:`\cdot`\ + is a special argument to be explained below. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd`. Using random number generators for branching is discussed in :ref:`sec:m:branch:rnd`. An argument ``m`` refers to a user-defined merit function of type :api:`FloatBranchMerit <TaskModelFloatBranch>`. User-defined merit functions are discussed in :ref:`sec:m:branch:uservar`. An argument ``afc`` refers to accumulated failure count (AFC) information for float variables (of class :api:`FloatAFC`). An argument ``act`` refers to action information for float variables (of class :api:`FloatAction`). An argument ``chb`` refers to CHB information for float variables (of class :api:`FloatCHB`). For a discussion of AFC, action, and CHB, see :ref:`sec:m:branch:shared`. Both ``afc``\ + and ``act``\ + can also be optional arguments of type ``double`` defining a decay-factor. The argument ``chb``\ + can be ommitted. The optional argument ``t`` refers to a tie-breaking limit function of type :api:`BranchTbl <TaskModelBranch>` and is discussed in :ref:`sec:m:branch:tbl`.
 
 Omitting the variable selection strategy is equivalent to using ``FLOAT_VAR_NONE()``.
 
@@ -524,7 +524,7 @@ Omitting the variable selection strategy is equivalent to using ``FLOAT_VAR_NONE
       | ``FLOAT_VAL_SPLIT_MAX()``          | values not smaller than mean                              |
       +------------------------------------+-----------------------------------------------------------+
 
-An overview of the available value selection strategies for float variables can be found in :numref:`fig:m:branch:float:val` where :math:`\cdot`\ \* denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__ which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type `FloatBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__. An optional argument ``c`` refers to a commit function of type `FloatBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__. Value and commit function are discussed in :ref:`sec:m:branch:userval`.
+An overview of the available value selection strategies for float variables can be found in :numref:`fig:m:branch:float:val` where :math:`\cdot`\ \* denotes an optional argument. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd` which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type :api:`FloatBranchVal <TaskModelFloatBranch>`. An optional argument ``c`` refers to a commit function of type :api:`FloatBranchCommit <TaskModelFloatBranch>`. Value and commit function are discussed in :ref:`sec:m:branch:userval`.
 
 .. _sec:m:branch:shared:
 
@@ -578,7 +578,7 @@ AFC in Gecode supports decay as follows. Each time a propagator fails during con
 
 - The AFC :math:`\mathtt{afc}(\mathtt p)` of a propagator ``p`` is initialized to :math:`1`. That entails that the AFC of a variable ``x`` is initialized to its degree.
 
-In order to use AFC for branching, one must create an object of class `IntAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntAFC.html>`__ for integer variables, an object of class `BoolAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolAFC.html>`__ for Boolean variables, an object of class `SetAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetAFC.html>`__ for set variables, or an object of class `FloatAFC <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatAFC.html>`__ for float variables. The object is responsible for recording AFC information [1]_.
+In order to use AFC for branching, one must create an object of class :api:`IntAFC` for integer variables, an object of class :api:`BoolAFC` for Boolean variables, an object of class :api:`SetAFC` for set variables, or an object of class :api:`FloatAFC` for float variables. The object is responsible for recording AFC information [1]_.
 
 .. container:: samepage
 
@@ -642,7 +642,7 @@ The action of a variable is maintained by constraint propagation as follows. Eac
 
 Note that in :cite:`activity` action is called activity. However, as the activity of a variable during search in SAT is a well-established and different concept (see for example :cite:`minisat`), Gecode uses the term action instead.
 
-In order to use action for branching, one must create an object of class `IntAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntAction.html>`__ for integer variables, an object of class `BoolAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolAction.html>`__ for Boolean variables, an object of class `SetAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetAction.html>`__ for set variables, or an object of class `FloatAction <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatAction.html>`__ for float variables. The object is responsible for recording action information.
+In order to use action for branching, one must create an object of class :api:`IntAction` for integer variables, an object of class :api:`BoolAction` for Boolean variables, an object of class :api:`SetAction` for set variables, or an object of class :api:`FloatAction` for float variables. The object is responsible for recording action information.
 
 .. container:: samepage
 
@@ -757,7 +757,7 @@ In addition to the Q-score for a variable, CHB also maintains the *last failure*
 
 - The Q-score :math:`\mathtt{qs}(\mathtt x)` of a variable ``x`` is by default initialized to be :math:`0.05`.
 
-In order to use CHB Q-scores for branching, one must create an object of class `IntCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntCHB.html>`__ for integer variables, an object of class `BoolCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolCHB.html>`__ for Boolean variables, an object of class `SetCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetCHB.html>`__ for set variables, or an object of class `FloatCHB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatCHB.html>`__ for float variables. The object is responsible for recording CHB Q-score information.
+In order to use CHB Q-scores for branching, one must create an object of class :api:`IntCHB` for integer variables, an object of class :api:`BoolCHB` for Boolean variables, an object of class :api:`SetCHB` for set variables, or an object of class :api:`FloatCHB` for float variables. The object is responsible for recording CHB Q-score information.
 
 .. container:: samepage
 
@@ -796,7 +796,7 @@ CHB for other variable types is analogous.
 Random variable and value selection
 -----------------------------------
 
-One particular strategy for variable and value selection is by random. For integer variables, ``INT_VAR_RND(r)`` selects a random variable and ``INT_VAL_RND(r)`` selects a random value where ``r`` is a random number generator of class `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__. For Boolean variables, ``BOOL_VAR_RND(r)`` selects a random variable and ``BOOL_VAL_RND(r)`` selects a random value. For set variables, ``SET_VAR_RND(r)`` selects a random variable and ``SET_VAL_RND_INC(r)`` and ``SET_VAL_RND_EXC(r)`` include and exclude a random value from a set variable. For float variables, ``FLOAT_VAR_RND(r)`` selects a random variable and ``FLOAT_VAL_SPLIT_RND(r)`` randomly selects the lower or upper half of the domain of a float variable.
+One particular strategy for variable and value selection is by random. For integer variables, ``INT_VAR_RND(r)`` selects a random variable and ``INT_VAL_RND(r)`` selects a random value where ``r`` is a random number generator of class :api:`Rnd`. For Boolean variables, ``BOOL_VAR_RND(r)`` selects a random variable and ``BOOL_VAL_RND(r)`` selects a random value. For set variables, ``SET_VAR_RND(r)`` selects a random variable and ``SET_VAL_RND_INC(r)`` and ``SET_VAL_RND_EXC(r)`` include and exclude a random value from a set variable. For float variables, ``FLOAT_VAR_RND(r)`` selects a random variable and ``FLOAT_VAL_SPLIT_RND(r)`` randomly selects the lower or upper half of the domain of a float variable.
 
 .. container:: samepage
 
@@ -836,7 +836,7 @@ both the variable in ``x`` as well as its value are randomly selected using the 
 User-defined variable selection
 -------------------------------
 
-Variables can be selected according to user-defined criteria implemented as a *merit function*. For integer variables, the type of the merit function is `IntBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__, for Boolean variables `BoolBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__, for set variables `SetBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__, and for float variables `FloatBranchMerit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__. For integer variables, the type ``IntBranchMerit`` is defined as
+Variables can be selected according to user-defined criteria implemented as a *merit function*. For integer variables, the type of the merit function is :api:`IntBranchMerit <TaskModelIntBranch>`, for Boolean variables :api:`BoolBranchMerit <TaskModelIntBranch>`, for set variables :api:`SetBranchMerit <TaskModelSetBranch>`, and for float variables :api:`FloatBranchMerit <TaskModelFloatBranch>`. For integer variables, the type ``IntBranchMerit`` is defined as
 
 .. mpg-code:: snippet:m-branch:sec:m:branch:uservar:code:1
    :direct:
@@ -877,25 +877,25 @@ The value selected for branching and how the selected value is used for branchin
 
    .. container:: center
 
-      +--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
-      | Variable type                                                                              | Value function type                                                                                  | Value type                                                                                             |
-      +============================================================================================+======================================================================================================+========================================================================================================+
-      | `IntVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVar.html>`__         | `IntBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__         | ``int``                                                                                                |
-      +--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
-      | `BoolVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolVar.html>`__       | `BoolBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__        | ``int``                                                                                                |
-      +--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
-      | `SetVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVar.html>`__         | `SetBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__         | ``int``                                                                                                |
-      +--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
-      | `FloatVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVar.html>`__     | `FloatBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__     | `FloatNumBranch <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatNumBranch.html>`__     |
-      +--------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+      +-----------------+----------------------------------------------+-----------------------+
+      | Variable type   | Value function type                          | Value type            |
+      +=================+==============================================+=======================+
+      | :api:`IntVar`   | :api:`IntBranchVal <TaskModelIntBranch>`     | ``int``               |
+      +-----------------+----------------------------------------------+-----------------------+
+      | :api:`BoolVar`  | :api:`BoolBranchVal <TaskModelIntBranch>`    | ``int``               |
+      +-----------------+----------------------------------------------+-----------------------+
+      | :api:`SetVar`   | :api:`SetBranchVal <TaskModelSetBranch>`     | ``int``               |
+      +-----------------+----------------------------------------------+-----------------------+
+      | :api:`FloatVar` | :api:`FloatBranchVal <TaskModelFloatBranch>` | :api:`FloatNumBranch` |
+      +-----------------+----------------------------------------------+-----------------------+
 
-A branch value function takes a constant reference to a space, a variable, and the variable’s position and returns a value, where the type of the value depends on the variable type. :numref:`fig:m:branch:val` lists the branch value function types and the value types for the different variable types. For example, the type `IntBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for value functions for integer variables is defined as:
+A branch value function takes a constant reference to a space, a variable, and the variable’s position and returns a value, where the type of the value depends on the variable type. :numref:`fig:m:branch:val` lists the branch value function types and the value types for the different variable types. For example, the type :api:`IntBranchVal <TaskModelIntBranch>` for value functions for integer variables is defined as:
 
 .. mpg-code:: snippet:m-branch:fig:m:branch:val:code:1
    :direct:
 
 
-A branch commit function takes a reference to a space, the number of the alternative ``a`` (``0`` for the first alternative and ``1`` for the second alternative), a variable, the variable’s position, and a value selected by a branch value function. For example, the type `IntBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for branch commit functions for integer variables is defined as:
+A branch commit function takes a reference to a space, the number of the alternative ``a`` (``0`` for the first alternative and ``1`` for the second alternative), a variable, the variable’s position, and a value selected by a branch value function. For example, the type :api:`IntBranchCommit <TaskModelIntBranch>` for branch commit functions for integer variables is defined as:
 
 .. mpg-code:: snippet:m-branch:fig:m:branch:val:code:2
    :direct:
@@ -930,21 +930,21 @@ The commit function is optional. If the commit function is omitted, a default co
 
    .. container:: center
 
-      +--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-      | Variable type                                                                              | Commit function type                                                                                    | Default behavior                                                   |
-      +============================================================================================+=========================================================================================================+====================================================================+
-      | `IntVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntVar.html>`__         | `IntBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__         | :math:`(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})`      |
-      +--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-      | `BoolVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolVar.html>`__       | `BoolBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__        | :math:`(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})`      |
-      +--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-      | `SetVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVar.html>`__         | `SetBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__         | :math:`(\mathtt{n}\in\mathtt{x})\vee(\mathtt{n}\not\in\mathtt{x})` |
-      +--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
-      | `FloatVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVar.html>`__     | `FloatBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__     | :math:`(\mathtt{x}\leq\mathtt{n})\vee(\mathtt{x}\geq\mathtt{n})`   |
-      +--------------------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------+
+      +-----------------+-------------------------------------------------+--------------------------------------------------------------------+
+      | Variable type   | Commit function type                            | Default behavior                                                   |
+      +=================+=================================================+====================================================================+
+      | :api:`IntVar`   | :api:`IntBranchCommit <TaskModelIntBranch>`     | :math:`(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})`      |
+      +-----------------+-------------------------------------------------+--------------------------------------------------------------------+
+      | :api:`BoolVar`  | :api:`BoolBranchCommit <TaskModelIntBranch>`    | :math:`(\mathtt{x}=\mathtt{n})\vee(\mathtt{x}\neq\mathtt{n})`      |
+      +-----------------+-------------------------------------------------+--------------------------------------------------------------------+
+      | :api:`SetVar`   | :api:`SetBranchCommit <TaskModelSetBranch>`     | :math:`(\mathtt{n}\in\mathtt{x})\vee(\mathtt{n}\not\in\mathtt{x})` |
+      +-----------------+-------------------------------------------------+--------------------------------------------------------------------+
+      | :api:`FloatVar` | :api:`FloatBranchCommit <TaskModelFloatBranch>` | :math:`(\mathtt{x}\leq\mathtt{n})\vee(\mathtt{x}\geq\mathtt{n})`   |
+      +-----------------+-------------------------------------------------+--------------------------------------------------------------------+
 
 :numref:`fig:m:branch:commit` lists the commit function types and the behavior of the default commit function for the different variable types. The variable ``x`` refers to the variable selected by the brancher and ``n`` to the value selected by the branch value function.
 
-For examples which use value functions to implement problem-specific branching, see `Black hole patience <https://www.gecode.dev/doc/6.4.0/reference/black-hole_8cpp.html>`__ and `The balanced academic curriculum problem <https://www.gecode.dev/doc/6.4.0/reference/bacp_8cpp.html>`__.
+For examples which use value functions to implement problem-specific branching, see :api:`Black hole patience <black-hole.cpp>` and :api:`The balanced academic curriculum problem <bacp.cpp>`.
 
 .. _sec:m:branch:tie:
 
@@ -964,7 +964,7 @@ A typical example for integer variables is to select a most constrained variable
    :direct:
 
 
-The overloaded function ``tiebreak()`` (see `Tie-breaking for variable selection <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelBranchTieBreak.html>`__) takes up to four variable selection values.
+The overloaded function ``tiebreak()`` (see :api:`Tie-breaking for variable selection <TaskModelBranchTieBreak>`) takes up to four variable selection values.
 
 .. container:: samepage
 
@@ -981,7 +981,7 @@ Here, ``r`` must be a random number generator as discussed in :ref:`sec:m:branch
 
 In the discussion so far only exact ties have been considered. Often it is necessary to consider several variables as ties even though some of them are not among the best variables. Which variables are considered as ties can be controlled by *tie-breaking limit functions*.
 
-A tie-breaking limit function has the type `BranchTbl <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelBranch.html>`__ which is defined as:
+A tie-breaking limit function has the type :api:`BranchTbl <TaskModelBranch>` which is defined as:
 
 .. mpg-code:: snippet:m-branch:sec:m:branch:tbl:code:3
    :direct:
@@ -1098,28 +1098,28 @@ The model has many solutions that are essentially the same due to symmetry. For 
 
 Gecode supports *dynamic symmetry breaking*, i.e., given a specification of the symmetries, it can avoid visiting symmetric states during the search, which can result in dramatically smaller search trees and greatly improved runtime for some problems.
 
-Symmetries are specified by passing an object of type `Symmetries <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Symmetries.html>`__ to the ``branch()`` function. In the case of Latin Squares, we can easily break the value symmetry (that is, values that are interchangeable) as follows:
+Symmetries are specified by passing an object of type :api:`Symmetries` to the ``branch()`` function. In the case of Latin Squares, we can easily break the value symmetry (that is, values that are interchangeable) as follows:
 
 .. mpg-code:: latin square ldsb:symmetry breaking
 
 
 Here, ``IntArgs::create(n,0)`` creates an array of integers with values :math:`\mathtt 0, \mathtt 1, \ldots, \mathtt{n}-1` which specifies that all these values are symmetric, that is, interchangeable.
 
-For the row and column symmetries, we need to declare a ``VariableSequenceSymmetry`` (see `Symmetry declarations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchSymm.html>`__), which states that certain *sequences* of variables (in this case the rows and columns) are interchangeable:
+For the row and column symmetries, we need to declare a ``VariableSequenceSymmetry`` (see :api:`Symmetry declarations <TaskModelIntBranchSymm>`), which states that certain *sequences* of variables (in this case the rows and columns) are interchangeable:
 
 .. mpg-code:: latin square ldsb:row/column symmetry
 
 
 Now the number of Latin squares found and the search effort required are greatly reduced. The code for the example in :numref:`fig:m:branch:latin:ldsb` has command line options for toggling between no symmetry breaking and LDSB.
 
-For examples, consider `Clique-based graph coloring <https://www.gecode.dev/doc/6.4.0/reference/graph-color_8cpp.html>`__ and `Steel-mill slab design problem <https://www.gecode.dev/doc/6.4.0/reference/steel-mill_8cpp.html>`__.
+For examples, consider :api:`Clique-based graph coloring <graph-color.cpp>` and :api:`Steel-mill slab design problem <steel-mill.cpp>`.
 
 .. _modeling:m-branch:specifying-symmetry:
 
 Specifying Symmetry
 ~~~~~~~~~~~~~~~~~~~
 
-LDSB supports four basic types of symmetry (see `Symmetry declarations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchSymm.html>`__). Collections of symmetries are stored in a ``Symmetries`` object, which is passed to the ``branch()`` function. Any combination of symmetries is allowed.
+LDSB supports four basic types of symmetry (see :api:`Symmetry declarations <TaskModelIntBranchSymm>`). Collections of symmetries are stored in a ``Symmetries`` object, which is passed to the ``branch()`` function. Any combination of symmetries is allowed.
 
 - A ``VariableSymmetry`` represents a set of *variables* that are interchangeable.
 
@@ -1133,15 +1133,15 @@ In addition to constructing these symmetries directly, there are also some conve
 
 - ``values_reflect()``, to map :math:`L` to :math:`U`, :math:`L+1` to :math:`U-1` and so on, where :math:`L` and :math:`U` are the bounds of a variable
 
-- ``rows_interchange()``, to specify that the rows of a matrix are interchangeable (see `Gecode::Matrix <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Matrix.html>`__)
+- ``rows_interchange()``, to specify that the rows of a matrix are interchangeable (see :api:`Gecode::Matrix <Matrix>`)
 
-- ``columns_interchange()``, to specify that the columns of a matrix are interchangeable (see `Gecode::Matrix <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Matrix.html>`__)
+- ``columns_interchange()``, to specify that the columns of a matrix are interchangeable (see :api:`Gecode::Matrix <Matrix>`)
 
-- ``rows_reflect()``, to specify that a matrix’s rows can be reflected (first row to last row, second row to second-last row and so on, see `Gecode::Matrix <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Matrix.html>`__)
+- ``rows_reflect()``, to specify that a matrix’s rows can be reflected (first row to last row, second row to second-last row and so on, see :api:`Gecode::Matrix <Matrix>`)
 
-- ``columns_reflect()``, to specify that a matrix’s columns can be reflected (see `Gecode::Matrix <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Matrix.html>`__)
+- ``columns_reflect()``, to specify that a matrix’s columns can be reflected (see :api:`Gecode::Matrix <Matrix>`)
 
-- ``diagonal_reflect()``, to specify that a matrix can be reflected around its main diagonal (the matrix must be square, see `Gecode::Matrix <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Matrix.html>`__)
+- ``diagonal_reflect()``, to specify that a matrix can be reflected around its main diagonal (the matrix must be square, see :api:`Gecode::Matrix <Matrix>`)
 
 .. _modeling:m-branch:notes:
 
@@ -1170,12 +1170,12 @@ A branch filter function can be passed as the second to last (optional) argument
 
 .. container:: samepage
 
-   The type of a branch filter function depends on the variable type. For integer variables, the type `IntBranchFilter <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ is defined as
+   The type of a branch filter function depends on the variable type. For integer variables, the type :api:`IntBranchFilter <TaskModelIntBranch>` is defined as
 
    .. mpg-code:: snippet:m-branch:sec:m:branch:filter:code:1
       :direct:
 
-That is, a branch filter function takes the ``home`` space and the position ``i`` of the variable ``x`` as argument. The position ``i`` refers to the position of the variable ``x`` in the array of variables used for posting the branching. For Boolean variables, the type is `BoolBranchFilter <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__, for set variables `SetBranchFilter <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__, and for float variables `FloatBranchFilter <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__.
+That is, a branch filter function takes the ``home`` space and the position ``i`` of the variable ``x`` as argument. The position ``i`` refers to the position of the variable ``x`` in the array of variables used for posting the branching. For Boolean variables, the type is :api:`BoolBranchFilter <TaskModelIntBranch>`, for set variables :api:`SetBranchFilter <TaskModelSetBranch>`, and for float variables :api:`FloatBranchFilter <TaskModelFloatBranch>`.
 
 .. mpg-code:: branch filter function sketch
    :name: fig:m:branch:filter:sketch
@@ -1206,13 +1206,13 @@ Search engines such as Gist (see :ref:`sec:m:gist:print`) or others (see :ref:`t
 
 A variable-value print function can be passed as the last (optional) argument when calling the ``branch()`` function.
 
-The type of a variable-value print function depends on the variable type. For integer variables, the type `IntVarValPrint <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode.html>`__ is defined as
+The type of a variable-value print function depends on the variable type. For integer variables, the type :api:`IntVarValPrint <Gecode>` is defined as
 
 .. mpg-code:: snippet:m-branch:sec:m:branch:print:code:1
    :direct:
 
 
-That is, a variable-value print function takes the ``home`` space, a brancher ``b``, the number of the alternative ``a``, the position ``i`` of the variable ``x``, and the integer value ``n`` as argument. The information will be printed on the standard output stream ``o``. The position ``i`` refers to the position of the variable ``x`` in the array of variables used for posting the branching. For Boolean variables, the type is `BoolVarValPrint <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode.html>`__, for set variables `SetVarValPrint <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode.html>`__, and for float variables `FloatVarValPrint <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode.html>`__.
+That is, a variable-value print function takes the ``home`` space, a brancher ``b``, the number of the alternative ``a``, the position ``i`` of the variable ``x``, and the integer value ``n`` as argument. The information will be printed on the standard output stream ``o``. The position ``i`` refers to the position of the variable ``x`` in the array of variables used for posting the branching. For Boolean variables, the type is :api:`BoolVarValPrint <Gecode>`, for set variables :api:`SetVarValPrint <Gecode>`, and for float variables :api:`FloatVarValPrint <Gecode>`.
 
 For an example of how to use variable-value print functions, see :ref:`chap:c:crossword`.
 
@@ -1301,9 +1301,9 @@ with the default variable selection strategy to select the next unassigned varia
    :direct:
 
 
-The strategy to select the value for assignment is defined by a value of class `IntAssign <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntAssign.html>`__ (see also `Value selection for assigning integer variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchAssign.html>`__) for integer variables, by a value of class `BoolAssign <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolAssign.html>`__ (see also `Value selection for assigning integer variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranchAssign.html>`__) for Boolean variables, by a value of class `SetAssign <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetAssign.html>`__ (see also `Assigning set variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranchAssign.html>`__) for set variables, and by a value of class `FloatAssign <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatAssign.html>`__ (see also `Value selection for assigning float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranchAssign.html>`__) for float variables.
+The strategy to select the value for assignment is defined by a value of class :api:`IntAssign` (see also :api:`Value selection for assigning integer variables <TaskModelIntBranchAssign>`) for integer variables, by a value of class :api:`BoolAssign` (see also :api:`Value selection for assigning integer variables <TaskModelIntBranchAssign>`) for Boolean variables, by a value of class :api:`SetAssign` (see also :api:`Assigning set variables <TaskModelSetBranchAssign>`) for set variables, and by a value of class :api:`FloatAssign` (see also :api:`Value selection for assigning float variables <TaskModelFloatBranchAssign>`) for float variables.
 
-:numref:`fig:m:branch:assign` summarizes the value selection strategies for assigning integer, Boolean, set, and float variables. Here, an argument ``r`` refers to a random number generator of type `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__ which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type `IntBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for integer variables, `BoolBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for Boolean variables, `SetBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__ for set variables, and `FloatBranchVal <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__ for float variables. An optional argument ``c`` refers to a commit function of type `IntBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for integer variables, of type `BoolBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelIntBranch.html>`__ for Boolean variables, of type `SetBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetBranch.html>`__ for set variables, and of type `FloatBranchCommit <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatBranch.html>`__ for float variables. Value and commit function can be used in the same way for assigning than for branching as described in :ref:`sec:m:branch:userval`. The only difference is that the number of the alternative passed to the commit function is always zero (as there is only a single alternative).
+:numref:`fig:m:branch:assign` summarizes the value selection strategies for assigning integer, Boolean, set, and float variables. Here, an argument ``r`` refers to a random number generator of type :api:`Rnd` which is discussed in :ref:`sec:m:branch:rnd`. An argument ``v`` refers to a value selection function of type :api:`IntBranchVal <TaskModelIntBranch>` for integer variables, :api:`BoolBranchVal <TaskModelIntBranch>` for Boolean variables, :api:`SetBranchVal <TaskModelSetBranch>` for set variables, and :api:`FloatBranchVal <TaskModelFloatBranch>` for float variables. An optional argument ``c`` refers to a commit function of type :api:`IntBranchCommit <TaskModelIntBranch>` for integer variables, of type :api:`BoolBranchCommit <TaskModelIntBranch>` for Boolean variables, of type :api:`SetBranchCommit <TaskModelSetBranch>` for set variables, and of type :api:`FloatBranchCommit <TaskModelFloatBranch>` for float variables. Value and commit function can be used in the same way for assigning than for branching as described in :ref:`sec:m:branch:userval`. The only difference is that the number of the alternative passed to the commit function is always zero (as there is only a single alternative).
 
 The ``assign()`` function also accepts a branch filter function as described in :ref:`sec:m:branch:filter` as well as a variable-value print function as optional argument, see :ref:`sec:m:branch:print` for details, and can assign a single variable.
 
@@ -1315,7 +1315,7 @@ The ``assign()`` function also accepts a branch filter function as described in 
 Executing code between branchers
 --------------------------------
 
-A common scenario is to post some constraints only after part of the branching has been executed. This is supported in Gecode by a brancher (see `Branch with a function <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelBranchExec.html>`__) that executes a function (any function that is compatible with the type ``std::function``).
+A common scenario is to post some constraints only after part of the branching has been executed. This is supported in Gecode by a brancher (see :api:`Branch with a function <TaskModelBranchExec>`) that executes a function (any function that is compatible with the type ``std::function``).
 
 .. container:: samepage
 
@@ -1346,47 +1346,3 @@ As soon as the first branching is finished, the second branching is executed. Th
 
 .. [1]
    Gecode cheats a little bit with the implementation of AFC: while it is possible (but not common) to have more than a single AFC object, all will use the same decay-factor ``d``. The decay-factor used is the one defined by the AFC object created last. But as using several AFC objects with different decay-factors is not really that useful, Gecode takes a shortcut here.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:119:fig:m:branch:int:var:int
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:121:tabular@docs/src/chapters/modeling/m-branch.tex.in:121
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:205:fig:m:branch:int:val:int
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:207:tabular@docs/src/chapters/modeling/m-branch.tex.in:207
-.. mpg-covered: tip:docs/src/chapters/modeling/m-branch.tex.in:286:unlabeled-tip@docs/src/chapters/modeling/m-branch.tex.in:286
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:299:fig:m:branch:int:var:bool
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:301:tabular@docs/src/chapters/modeling/m-branch.tex.in:301
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:353:fig:m:branch:int:val:bool
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:355:tabular@docs/src/chapters/modeling/m-branch.tex.in:355
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:391:fig:m:branch:set:var
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:393:tabular@docs/src/chapters/modeling/m-branch.tex.in:393
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:464:fig:m:branch:set:val
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:466:tabular@docs/src/chapters/modeling/m-branch.tex.in:466
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:507:fig:m:branch:float:var
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:509:tabular@docs/src/chapters/modeling/m-branch.tex.in:509
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:582:fig:m:branch:float:val
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:584:tabular@docs/src/chapters/modeling/m-branch.tex.in:584
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:1051:fig:m:branch:val
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1053:tabular@docs/src/chapters/modeling/m-branch.tex.in:1053
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:1127:fig:m:branch:commit
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1129:tabular@docs/src/chapters/modeling/m-branch.tex.in:1129
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:1295:fig:m:branch:latin:ldsb
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1296:latin square ldsb
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:1318:fig:m:branch:latin:syms
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1321:tabular@docs/src/chapters/modeling/m-branch.tex.in:1321
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1329:tabular@docs/src/chapters/modeling/m-branch.tex.in:1329
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1339:tabular@docs/src/chapters/modeling/m-branch.tex.in:1339
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1347:tabular@docs/src/chapters/modeling/m-branch.tex.in:1347
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1369:latin square ldsb:symmetry breaking
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1380:latin square ldsb:row/column symmetry
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:1499:fig:m:branch:filter:sketch
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1500:branch filter function sketch
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1512:branch filter function sketch:define filter function
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1516:branch filter function sketch:post branching
-.. mpg-covered: caption:docs/src/chapters/modeling/m-branch.tex.in:1568:fig:m:branch:assign
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1572:tabular@docs/src/chapters/modeling/m-branch.tex.in:1572
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1582:tabular@docs/src/chapters/modeling/m-branch.tex.in:1582
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1591:tabular@docs/src/chapters/modeling/m-branch.tex.in:1591
-.. mpg-covered: table:docs/src/chapters/modeling/m-branch.tex.in:1605:tabular@docs/src/chapters/modeling/m-branch.tex.in:1605
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1705:exec
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1708:exec:post branchings
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-branch.tex.in:1712:exec:define functions
-.. mpg-covered: tip:docs/src/chapters/modeling/m-branch.tex.in:1723:unlabeled-tip@docs/src/chapters/modeling/m-branch.tex.in:1723

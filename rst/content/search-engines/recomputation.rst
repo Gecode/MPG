@@ -26,11 +26,8 @@ This section demonstrates search based on full recomputation. While full recompu
 
 .. mpg-paragraph:: Search engine.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:51:fig:s:re:full
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:51:fig:s:re:full
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:52:dfs using full recomputation
 
 .. mpg-code:: dfs using full recomputation
    :caption: Depth-first search using full recomputation
@@ -47,11 +44,8 @@ Initially, when the user calls the ``dfs()`` function taking a single argument, 
 
 .. mpg-paragraph:: Edges for recomputation.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:84:fig:s:re:full:edge
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:84:fig:s:re:full:edge
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:85:dfs using full recomputation:edge class
 
 .. mpg-code:: dfs using full recomputation:edge class
    :caption: ``Edge`` class for depth-first search using full recomputation
@@ -63,7 +57,6 @@ Initialization by the ``Edge``\ ’s constructor takes the current space of the 
 
 An edge provides a ``next()`` function that redirects the edge to the next alternative:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:107:dfs using full recomputation:next alternative
 
 .. mpg-code:: dfs using full recomputation:next alternative
 
@@ -71,7 +64,6 @@ An edge provides a ``next()`` function that redirects the edge to the next alter
 
    The ``commit()`` function of an edge commits a space ``s`` to the alternative that corresponds to the edge:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:112:dfs using full recomputation:committing a space
 
 .. mpg-code:: dfs using full recomputation:committing a space
 
@@ -79,7 +71,6 @@ The function returns the space just for convenience as can be seen below.
 
 Finally, recomputing a space corresponding to an entire path of edges is implemented by the ``recompute()`` function. The function takes the root space ``r`` as argument and is implemented as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:120:dfs using full recomputation:recomputing a space
 
 .. mpg-code:: dfs using full recomputation:recomputing a space
 
@@ -93,7 +84,6 @@ The central invariant that the current path of edges ``p`` must always correspon
 
 Before exploring the first alternative recursively, a new edge is created for the first alternative, the current space ``s`` is committed to the first alternative, and exploration continues recursively:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:138:dfs using full recomputation:explore first alternative
 
 .. mpg-code:: dfs using full recomputation:explore first alternative
 
@@ -101,7 +91,6 @@ Note that all resource management for handling edges is done automatically: as s
 
 Again, exploration of the second alternative maintains the central invariant: the edge is redirected to the next alternative and then a space corresponding to the path of edges is recomputed:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:148:dfs using full recomputation:explore second alternative
 
 .. mpg-code:: dfs using full recomputation:explore second alternative
 
@@ -137,9 +126,7 @@ Choice compatibility
 
 :ref:`sec:s:started:space` introduced the notion that a space ``s`` is compatible with a choice ``ch`` (that is, ``ch`` can be used for a ``commit()`` operation on ``s``). For recomputation, a more general notion of compatibility is needed: during recomputation, a search engine performs ``commit()`` operations using choices that have been computed earlier on a path in the search tree.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:217:fig:s:re:ex
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:217:fig:s:re:ex
 
 .. mpg-figure:: Example situations during recomputation
    :name: fig:s:re:ex
@@ -195,11 +182,8 @@ The first idea to combine recomputation with best solution search is to take the
 
 A tighter integration of recomputation and best solution search is in fact much better: instead of adding the constraints for a better solution to the space that is recomputed, add it to the space from which recomputation starts (with full recomputation: the root space). The advantage is that if adding the constraints to the space from which recomputation starts already leads to failure, the entire subtree starting from that space can be discarded (with full recomputation: search is done).
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:415:fig:s:re:bab
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:415:fig:s:re:bab
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:416:bab using full recomputation
 
 .. mpg-code:: bab using full recomputation
    :caption: Branch-and-bound search using full recomputation
@@ -210,7 +194,6 @@ A tighter integration of recomputation and best solution search is in fact much 
 
 When the search engine finds a new solution ``s``, it replaces the so-far best solution ``b`` by ``s`` and updates the root space by adding the constraints that ``r`` must yield better solutions than ``b`` as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:432:bab using full recomputation:solved
 
 .. mpg-code:: bab using full recomputation:solved
 
@@ -218,7 +201,6 @@ The root space then must be checked for failure. If the root space is failed, it
 
 Exploring the second alternative of a choice checks whether the root space is already failed:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:442:bab using full recomputation:explore second alternative
 
 .. mpg-code:: bab using full recomputation:explore second alternative
 
@@ -229,9 +211,7 @@ Last alternative optimization
 
 This section presents an important optimization for recomputation that helps to avoid many commit operations during recomputation. Even though the optimization is discussed in the context of full recomputation, it is applicable to all situations in which recomputation is used.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:455:fig:s:re:lao:ex
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:455:fig:s:re:lao:ex
 
 .. mpg-figure:: Last alternative optimization (LAO)
    :name: fig:s:re:lao:ex
@@ -249,11 +229,8 @@ This section presents an important optimization for recomputation that helps to 
 
 Consider a situation during search as shown in the left part of :numref:`fig:s:re:lao:ex`. There, the entire left subtree emanating from the root node (colored in orange) has been explored. When exploration continues for the right subtree, each time a node is recomputed, a clone of the root node is made immediately followed by a commit operation for the second alternative. Hence it is much better to compute a new root node for the entire right subtree and perform the corresponding commit operation just once. This optimization is referred to as *last alternative optimization (LAO)* :cite:p:`Schulte:LNAI:2002`. :numref:`fig:s:re:lao:ex` shows the new root of the search tree after performing LAO. Note that no space needs to be stored for the previous root node as it will never be used again for recomputation.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:577:fig:s:re:lao
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:577:fig:s:re:lao
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:578:dfs using full recomputation and lao
 
 .. mpg-code:: dfs using full recomputation and lao
    :caption: Depth-first search using full recomputation and LAO
@@ -264,13 +241,11 @@ Consider a situation during search as shown in the left part of :numref:`fig:s:r
 
 The ``Edge`` class is extended by a function ``la()`` that tests whether an edge happens to be a last alternative:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:593:dfs using full recomputation and lao:test for last alternative
 
 .. mpg-code:: dfs using full recomputation and lao:test for last alternative
 
 The actual optimization is performed just before exploring the second alternative:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:597:dfs using full recomputation and lao:perform lao
 
 .. mpg-code:: dfs using full recomputation and lao:perform lao
 
@@ -299,11 +274,8 @@ This section describes hybrid recomputation where the amount of recomputation is
       :alt: Hybrid recomputation with commit distance two
       :class: mpg-window-diagram
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:688:fig:s:re:hybrid
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:688:fig:s:re:hybrid
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:689:dfs using hybrid recomputation
 
 .. mpg-code:: dfs using hybrid recomputation
    :caption: Depth-first search using hybrid recomputation
@@ -316,13 +288,11 @@ The additional clones are stored in a field ``c`` in the ``Edge`` class shown in
 
    The function ``clone()`` stores a clone of a space ``s`` in an edge:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:704:dfs using hybrid recomputation:create clone
 
 .. mpg-code:: dfs using hybrid recomputation:create clone
 
 Recomputation as performed by the ``recompute()`` function now continues to search the path of edges until an edge that stores a clone is found:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:710:dfs using hybrid recomputation:perform recomputation
 
 .. mpg-code:: dfs using hybrid recomputation:perform recomputation
 
@@ -330,7 +300,6 @@ It must be guaranteed that there is always at least one edge in a path that stor
 
 The function ``dfs()`` that implements exploration takes the additional argument ``d`` (for distance) which defines how many ``commit()`` operations would be needed to recompute the current space. If ``d`` reaches the limit ``c_d`` (for simplicity, ``c_d`` is a constant as defined in :numref:`fig:s:re:hybrid`), a new clone must be stored in the current edge. Hence, the code for branching starts by checking whether a clone must be stored for the current edge ``e``:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:723:dfs using hybrid recomputation:store clone if needed
 
 .. mpg-code:: dfs using hybrid recomputation:store clone if needed
 
@@ -338,7 +307,6 @@ The initial call to the function ``dfs()`` that implements exploration takes ``c
 
 Exploring the alternatives is as before, the only change is that the incremented distance ``d+1`` is passed as additional argument:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:732:dfs using hybrid recomputation:explore first alternative
 
 .. mpg-code:: dfs using hybrid recomputation:explore first alternative
 
@@ -371,11 +339,8 @@ That means that search now must explore the entire subtree starting from the wro
 
 Adaptive recomputation is controlled by a parameter called *adaptive distance* :math:`a_d`: only if :math:`n\geq a_d` an additional clone is created. This avoids creating an excessive amount of clones.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-recomputation.tex.in:839:fig:s:re:adaptive
 
-.. mpg-covered: figure:docs/src/chapters/search/s-recomputation.tex.in:839:fig:s:re:adaptive
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-recomputation.tex.in:840:dfs using adaptive recomputation
 
 .. mpg-code:: dfs using adaptive recomputation
    :caption: Depth-first search using adaptive recomputation

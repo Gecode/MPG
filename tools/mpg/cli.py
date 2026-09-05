@@ -4,16 +4,12 @@ import argparse
 import os
 import subprocess
 import shutil
-import tarfile
-import zipfile
-from pathlib import Path
+import sys
 
-from .common import GEN_SRC, GEN_TEX, ROOT, WORK, ensure_dirs, which, write_json
-from .config import get_config, write_default_config
-from .examples import build, run_examples, write_manifest
+from .common import ROOT, WORK, which, write_json
+from .config import get_config
+from .examples import build, run_examples
 from .gecode import has_test_framework, resolve_gecode
-from .latex import build_docs
-from .sources import bib_template, chapter_source, main_template, static_tex_files
 
 
 def cmd_doctor(args: argparse.Namespace) -> int:
@@ -22,10 +18,11 @@ def cmd_doctor(args: argparse.Namespace) -> int:
         "python": True,
         "cmake": which("cmake"),
         "ninja": which("ninja"),
-        "latex": which("latex"),
-        "bibtex": which("bibtex"),
-        "dvips": which("dvips"),
-        "ps2pdf": which("ps2pdf"),
+        "node": which("node"),
+        "latexmk": which("latexmk"),
+        "xelatex": which("xelatex"),
+        "pdftotext": which("pdftotext"),
+        "rsvg-convert": which("rsvg-convert"),
         "gecode_mode": gc.mode,
         "gecode_include_dirs": [str(p) for p in gc.include_dirs],
         "gecode_lib_dirs": [str(p) for p in gc.lib_dirs],
@@ -35,104 +32,6 @@ def cmd_doctor(args: argparse.Namespace) -> int:
     for k, v in checks.items():
         print(f"{k}: {v}")
     return 0
-
-
-def cmd_extract(args: argparse.Namespace) -> int:
-    ensure_dirs()
-    cfg = get_config()
-    extract_work = WORK / "extract" / str(os.getpid())
-    if extract_work.exists():
-        shutil.rmtree(extract_work)
-    extract_work.mkdir(parents=True, exist_ok=True)
-    try:
-        try:
-            (extract_work / "bin").symlink_to(ROOT / "bin", target_is_directory=True)
-        except OSError:
-            shutil.copytree(ROOT / "bin", extract_work / "bin", dirs_exist_ok=True)
-
-        # Copy static .tex files for include.perl expansion context.
-        for p in static_tex_files():
-            shutil.copy2(p, extract_work / p.name)
-
-        def run_gl(src: Path, dst: Path) -> None:
-            with src.open("r", encoding="utf-8") as fin, dst.open("w", encoding="utf-8") as fout:
-                subprocess.run(["perl", "bin/gl.perl", cfg["year"]], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
-
-        # Chapter generation.
-        for ch in cfg["chapters"]:
-            out = extract_work / f"{ch}.tex"
-            src = chapter_source(ch)
-            if src.name.endswith(".tex.in"):
-                run_gl(src, out)
-            else:
-                shutil.copy2(src, out)
-
-        # changelog + acknowledgements.
-        try:
-            changelog = chapter_source("changelog")
-        except FileNotFoundError:
-            changelog = None
-        if changelog is not None:
-            out = extract_work / "changelog.tex"
-            if changelog.name.endswith(".tex.in"):
-                run_gl(changelog, out)
-            else:
-                shutil.copy2(changelog, out)
-            with changelog.open("r", encoding="utf-8") as fin, (extract_work / "acks.tex").open("w", encoding="utf-8") as fout:
-                subprocess.run(["perl", "bin/gen-ack.perl"], cwd=extract_work, stdin=fin, stdout=fout, check=True, text=True)
-
-        # titles.
-        title_inputs: list[str] = []
-        for c in cfg["chapters"]:
-            src = chapter_source(c)
-            if src.name.endswith(".tex.in"):
-                title_inputs.append(str(src))
-        with (extract_work / "titles.tex.in").open("w", encoding="utf-8") as fout:
-            subprocess.run(["perl", "bin/gen-titles.perl", *title_inputs], cwd=extract_work, stdout=fout, check=True, text=True)
-        run_gl(extract_work / "titles.tex.in", extract_work / "titles.tex")
-
-        # Main document include+shorten+gl.
-        base = main_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"])
-        p1 = subprocess.run(["perl", "bin/include.perl"], cwd=extract_work, input=base, text=True, stdout=subprocess.PIPE, check=True)
-        p2 = subprocess.run(["perl", "bin/shorten.perl"], cwd=extract_work, input=p1.stdout, text=True, stdout=subprocess.PIPE, check=True)
-        (extract_work / "MPG.tex.in").write_text(p2.stdout, encoding="utf-8")
-        run_gl(extract_work / "MPG.tex.in", extract_work / "MPG.tex")
-
-        # Bibliography template.
-        (extract_work / "MPG.bib").write_text(
-            bib_template().read_text(encoding="utf-8").replace("@VERSION@", cfg["version"]).replace("@YEAR@", cfg["year"]),
-            encoding="utf-8",
-        )
-
-        # Copy extracted outputs into the .mpg workspace.
-        GEN_TEX.mkdir(parents=True, exist_ok=True)
-        for p in extract_work.glob("*.tex"):
-            shutil.copy2(p, GEN_TEX / p.name)
-        for p in ("MPG.tex.in", "MPG.bib"):
-            if (extract_work / p).exists():
-                shutil.copy2(extract_work / p, GEN_TEX / p)
-        generated_cpp = []
-        GEN_SRC.mkdir(parents=True, exist_ok=True)
-        for ext in ("*.cpp", "*.hh", "*.vis"):
-            for p in extract_work.glob(ext):
-                shutil.copy2(p, GEN_SRC / p.name)
-                if p.suffix == ".cpp":
-                    generated_cpp.append(p.name)
-
-        manifest_examples = write_manifest("all")
-        write_json(
-            ROOT / ".mpg" / "extract.json",
-            {
-                "generated_cpp": sorted(set(generated_cpp)),
-                "chapter_count": len(cfg["chapters"]),
-                "example_count": len(manifest_examples),
-            },
-        )
-        print(f"Extracted chapters: {len(cfg['chapters'])}")
-        print(f"Generated C++ files: {len(generated_cpp)}")
-        return 0
-    finally:
-        shutil.rmtree(extract_work, ignore_errors=True)
 
 
 def cmd_build(args: argparse.Namespace) -> int:
@@ -150,38 +49,39 @@ def cmd_run(args: argparse.Namespace) -> int:
 
 
 def cmd_test(args: argparse.Namespace) -> int:
-    cmd_extract(args)
     cmd_build(args)
     return cmd_run(args)
 
 
 def cmd_docs(args: argparse.Namespace) -> int:
-    cmd_extract(args)
-    pdf = build_docs()
-    print(f"Built PDF: {pdf}")
+    subprocess.run([sys.executable, str(ROOT / "rst/scripts/check_sources.py")], cwd=ROOT, check=True)
+    environment = os.environ.copy()
+    environment.setdefault("GECODE_VERSION", get_config()["version"])
+    subprocess.run(
+        [sys.executable, str(ROOT / "rst/scripts/build.py"), "all"],
+        cwd=ROOT, env=environment, check=True,
+    )
     return 0
 
 
 def cmd_dist(args: argparse.Namespace) -> int:
-    ensure_dirs()
-    dist = ROOT / "dist"
-    if dist.exists():
-        shutil.rmtree(dist)
-    dist.mkdir(parents=True, exist_ok=True)
-
-    pdf = ROOT / "MPG.pdf"
-    if not pdf.exists():
-        cmd_docs(args)
-
-    tar_path = dist / "MPG.tar.gz"
-    with tarfile.open(tar_path, "w:gz") as tf:
-        tf.add(ROOT / ".mpg" / "generated" / "src", arcname="MPG")
-
-    zip_path = ROOT / "MPG.zip"
-    with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        zf.write(pdf, arcname="MPG.pdf")
-        zf.write(tar_path, arcname="MPG.tar.gz")
-    print(f"Created {zip_path}")
+    subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"], cwd=ROOT, check=True)
+    for script in ("verify_platform.py", "verify_examples.py"):
+        command = [sys.executable, str(ROOT / "rst/scripts" / script)]
+        if script == "verify_examples.py":
+            if args.gecode_root:
+                command.extend(["--gecode-root", args.gecode_root])
+            if args.gecode_prefix:
+                command.extend(["--gecode-prefix", args.gecode_prefix])
+        subprocess.run(command, cwd=ROOT, check=True)
+    cmd_docs(args)
+    version = os.environ.get("GECODE_VERSION", get_config()["version"])
+    subprocess.run(
+        [sys.executable, str(ROOT / "rst/scripts/package_release.py"),
+         "--build", str(ROOT / "rst/_build"), "--output", str(ROOT / "output"),
+         "--version", version],
+        cwd=ROOT, check=True,
+    )
     return 0
 
 
@@ -193,7 +93,7 @@ def cmd_clean(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="mpg", description="MPG modern tooling")
+    p = argparse.ArgumentParser(prog="mpg", description="Build and test MPG canonical examples and RST publications")
     p.add_argument("--gecode-root", default=None)
     p.add_argument("--gecode-prefix", default=None)
 
@@ -204,8 +104,6 @@ def build_parser() -> argparse.ArgumentParser:
         sp.add_argument("--gecode-prefix", default=None)
 
     s = sub.add_parser("doctor")
-    add_gecode_args(s)
-    s = sub.add_parser("extract")
     add_gecode_args(s)
 
     build_p = sub.add_parser("build")
@@ -232,13 +130,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    write_default_config()
     parser = build_parser()
     args = parser.parse_args(argv)
 
     handlers = {
         "doctor": cmd_doctor,
-        "extract": cmd_extract,
         "build": cmd_build,
         "run": cmd_run,
         "test": cmd_test,

@@ -8,7 +8,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from .common import BIN, BUILD, GEN_SRC, MANIFESTS, RESULTS, ROOT, ensure_dirs, run_cmd, write_json
+from .common import BIN, BUILD, MANIFESTS, RESULTS, ROOT, ensure_dirs, run_cmd, write_json
 from .config import get_config
 from .gecode import GecodeConfig, has_test_framework
 
@@ -62,10 +62,6 @@ def _build_examples(kind: str, cfg: dict) -> list[Example]:
     out: list[Example] = []
     for name, ex_kind in _kind_names(kind, cfg):
         source = ROOT / "rst" / "examples" / "src" / f"{name}.cpp"
-        if not source.exists():
-            source = ROOT / f"{name}.cpp"
-        if not source.exists():
-            source = GEN_SRC / f"{name}.cpp"
         wrapper = None
         if ex_kind == "test":
             wrapper = ROOT / "test" / f"{name}.cpp"
@@ -74,8 +70,7 @@ def _build_examples(kind: str, cfg: dict) -> list[Example]:
 
         md = cfg["examples"].get(name, {})
         if "source" in md:
-            candidate = ROOT / "rst" / "examples" / "src" / md["source"]
-            source = candidate if candidate.exists() else GEN_SRC / md["source"]
+            source = ROOT / "rst" / "examples" / "src" / md["source"]
         if "wrapper" in md:
             wrapper = ROOT / md["wrapper"]
         run_args = list(md.get("run_args", []))
@@ -144,7 +139,7 @@ def _prepare_sources(examples: list[Example], src_dir: Path) -> list[tuple[Examp
     mapped: list[tuple[Example, Path]] = []
     for ex in examples:
         if not ex.source.exists():
-            raise RuntimeError(f"Missing generated source: {ex.source}. Run `mpg extract` first.")
+            raise RuntimeError(f"Missing canonical example source: {ex.source}")
         out = src_dir / f"{ex.name}.cpp"
         if ex.wrapper is None:
             out.write_text(ex.source.read_text(encoding="utf-8"), encoding="utf-8")
@@ -206,6 +201,8 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
         lines.append("set(_MPG_LIB_DIRS)")
 
     for lib in sorted(set(MODEL_LIBS + TEST_LIBS + ["gecodegist"])):
+        # A previous configure may have selected a different Gecode checkout.
+        lines.append(f"unset(MPG_LIB_{lib.upper()} CACHE)")
         lines.append(
             f"find_library(MPG_LIB_{lib.upper()} NAMES {lib} PATHS ${{_MPG_LIB_DIRS}}"
             + (" NO_DEFAULT_PATH" if gc.lib_dirs else "")

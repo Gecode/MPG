@@ -192,16 +192,3 @@ This problem is also available as a Gecode example, see :api:`warehouses` . The 
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: table:docs/src/chapters/case-studies/c-warehouses.tex.in:32:tabular@docs/src/chapters/case-studies/c-warehouses.tex.in:32
-.. mpg-covered: table:docs/src/chapters/case-studies/c-warehouses.tex.in:42:tabular@docs/src/chapters/case-studies/c-warehouses.tex.in:42
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-warehouses.tex.in:62:fig:c:warehouses:script
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:63:warehouses
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:84:warehouses:variables
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:115:warehouses:variable initialization
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:132:warehouses:do not exceed capacity
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:146:warehouses:open warehouses
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:154:warehouses:cost for each warehouse
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:161:warehouses:total cost
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:201:warehouses:branching
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-warehouses.tex.in:207:warehouses:cost function

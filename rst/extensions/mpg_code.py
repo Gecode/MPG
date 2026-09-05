@@ -70,7 +70,7 @@ def _checked_range(path: Path, record: dict, context: str) -> str:
     if actual != record["sha256"] or len(data) != int(record["bytes"]):
         raise ExtensionError(
             f"stale MPG code projection {context}: {path} no longer matches its source map; "
-            "run rst/scripts/migrate_code.py during migration or update the canonical manifest intentionally"
+            "run `uv run --locked -- python rst/scripts/code.py refresh`, then verify the preview"
         )
     return data.decode("utf-8")
 
@@ -96,7 +96,10 @@ def _load_manifest(app, config) -> None:
         except OSError as error:
             raise ExtensionError(f"missing canonical MPG code artifact {source}: {error}") from error
         if _digest(payload) != artifact["sha256"] or len(payload) != int(artifact["bytes"]):
-            raise ExtensionError(f"canonical MPG code artifact is stale: {source}")
+            raise ExtensionError(
+                f"canonical MPG code artifact is stale: {source}; "
+                "run `uv run --locked -- python rst/scripts/code.py refresh`, then verify the preview"
+            )
     for key, projection in data.get("projections", {}).items():
         if projection["artifact"] not in artifacts:
             raise ExtensionError(f"projection {key!r} names unknown artifact {projection['artifact']}")
@@ -107,6 +110,23 @@ def _load_manifest(app, config) -> None:
                 _checked_range(source, segment["source"], f"{key} segment {ordinal}")
     config.mpg_code_manifest_data = data
     config.mpg_code_manifest_path = str(path)
+
+
+def _link_pdf_downloads(app, doctree: nodes.document, docname: str) -> None:
+    """Link to the same collected download filename published by HTML."""
+    if app.builder.format != "latex":
+        return
+    for download in list(doctree.findall(addnodes.download_reference)):
+        filename = download.get("filename")
+        if filename:
+            url = (
+                f"https://www.gecode.dev/doc/{app.config.release}/modeling/"
+                f"_downloads/{filename}"
+            )
+        else:
+            url = download.get("refuri")
+        if url:
+            download.replace_self(nodes.reference("", "", *download.children, refuri=url))
 
 
 def _prepare_program_anchors(app, doctree: nodes.document, docname: str) -> None:
@@ -214,15 +234,9 @@ class MpgCodeDirective(CodeBlock):
         self.options = options
         self.content = StringList(rendered.splitlines(), source=str(source))
         result = super().run()
-        insertion_keys = {
-            site["key"]
-            for site in data.get("display_sites", [])
-            if site.get("site_kind") == "literate-insertion"
-        }
-        if key in insertion_keys and not direct and "caption" not in options:
-            title = key.rsplit(":", 1)[-1]
+        if projection.get("title") and not direct and "caption" not in options:
             title_node = MpgCodeTitle()
-            title_node["title"] = title
+            title_node["title"] = projection["title"]
             title_node["projection_key"] = key
             result.insert(0, title_node)
         if small:
@@ -245,6 +259,7 @@ def setup(app):
     app.add_config_value("mpg_code_manifest_data", {}, "env")
     app.add_config_value("mpg_code_manifest_path", "", "env", types={str})
     app.connect("config-inited", _load_manifest)
+    app.connect("doctree-resolved", _link_pdf_downloads)
     app.connect("doctree-resolved", _prepare_program_anchors, priority=450)
     app.add_directive("mpg-code", MpgCodeDirective)
     app.add_node(

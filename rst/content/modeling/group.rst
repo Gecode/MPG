@@ -22,7 +22,7 @@ Groups are a means to control certain execution aspects of propagators and branc
 Propagator groups
 -----------------
 
-Each propagator belongs to exactly one *propagator group* of type `PropagatorGroup <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1PropagatorGroup.html>`__. When a propagator is created, it is added to a group. Group membership of a propagator remains stable during copying of spaces.
+Each propagator belongs to exactly one *propagator group* of type :api:`PropagatorGroup`. When a propagator is created, it is added to a group. Group membership of a propagator remains stable during copying of spaces.
 
 .. _modeling:m-group:adding-propagators-to-groups:
 
@@ -70,7 +70,7 @@ A propagator ``p`` can also be moved by giving its identity ``p.id()``. For exa
    :direct:
 
 
-If no propagator with a given id exists, an exception of type `UnknownPropagator <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1UnknownPropagator.html>`__ is thrown.
+If no propagator with a given id exists, an exception of type :api:`UnknownPropagator` is thrown.
 
 In order to remove a propagator from its group or all propagators of a group from their group, one can use the default group. For example, if ``pg`` is a propagator group, all of its propagators are removed from ``pg`` by
 
@@ -160,7 +160,7 @@ evaluates to the number of all propagators in the space ``home``.
 Brancher groups
 ---------------
 
-Brancher groups contain branchers and each brancher belongs to exactly one brancher group of type `BrancherGroup <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BrancherGroup.html>`__. Brancher groups are similar to propagator groups as described in the previous section:
+Brancher groups contain branchers and each brancher belongs to exactly one brancher group of type :api:`BrancherGroup`. Brancher groups are similar to propagator groups as described in the previous section:
 
 - A brancher group ``bg`` is created as follows:
 
@@ -182,7 +182,7 @@ Brancher groups contain branchers and each brancher belongs to exactly one branc
 
 - The number of branchers in a group can be computed by the ``size()`` member function. Each group has a unique identifier of type ``unsigned int`` which can be accessed by ``bg.id()``.
 
-- One can iterate over all branchers in a group by using the iterator class `Branchers <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Branchers.html>`__.
+- One can iterate over all branchers in a group by using the iterator class :api:`Branchers`.
 
 - Each brancher provides access to the group it belongs to, assume that ``b`` is of type ``Brancher&``, then
 
@@ -254,7 +254,7 @@ The following paragraphs explain the information printed by the default variable
    :direct:
 
 
-Running the `SEND+MORE=MONEY puzzle <https://www.gecode.dev/doc/6.4.0/reference/money_8cpp.html>`__ (see :ref:`chap:m:started` and :ref:`chap:m:comfy` for the Send More Money problem) with the commandline option ``-trace all`` (trace events to be recorded can be specified on the command line, see :ref:`sec:m:driver:options`), the default variable tracer for integer variables prints information about all trace events to ``std::cerr``. An excerpt of the information printed is shown in :numref:`fig:m:group:varsmm` where the variable trace recorder has been posted with
+Running the :api:`SEND+MORE=MONEY puzzle <money.cpp>` (see :ref:`chap:m:started` and :ref:`chap:m:comfy` for the Send More Money problem) with the commandline option ``-trace all`` (trace events to be recorded can be specified on the command line, see :ref:`sec:m:driver:options`), the default variable tracer for integer variables prints information about all trace events to ``std::cerr``. An excerpt of the information printed is shown in :numref:`fig:m:group:varsmm` where the variable trace recorder has been posted with
 
 .. mpg-code:: snippet:m-group:fig:m:group:varsmm:code:1
    :direct:
@@ -264,7 +264,7 @@ where ``le`` is the array of eight variables used in Send More Money.
 
 .. mpg-tip:: Enabling tracing with a commandline option
 
-   As mentioned above, the Gecode driver offers also support for tracing. If ``opt`` is an object of class `Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Options.html>`__, then adding the following code
+   As mentioned above, the Gecode driver offers also support for tracing. If ``opt`` is an object of class :api:`Options`, then adding the following code
 
 
    .. mpg-code:: snippet:m-group:fig:m:group:varsmm:code:2
@@ -304,7 +304,7 @@ Defining custom variable tracers is straightforward, this is explained in :ref:`
 
 .. mpg-paragraph:: Set variables.
 
-The information printed for init-, fixpoint-, failure-, and done-events for set variables is analogous to the information for integer variables. The slack of a set variable here is defined as the number of values that can be still included in or excluded from the set variable (that is, it corresponds to ``x.unknownSize()`` where ``x`` is a set variable of type `SetVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVar.html>`__).
+The information printed for init-, fixpoint-, failure-, and done-events for set variables is analogous to the information for integer variables. The slack of a set variable here is defined as the number of values that can be still included in or excluded from the set variable (that is, it corresponds to ``x.unknownSize()`` where ``x`` is a set variable of type :api:`SetVar`).
 
 For a prune-event, it is shown which values have been included in the set and which values have been excluded from the set. For example in
 
@@ -318,7 +318,7 @@ the value ``6`` has been included into the variable and no value has been exclud
    :direct:
 
 
-the values ``4``, ``5``, and ``6`` have been excluded. You can try the `Generating Hamming codes <https://www.gecode.dev/doc/6.4.0/reference/hamming_8cpp.html>`__ example that supports tracing.
+the values ``4``, ``5``, and ``6`` have been excluded. You can try the :api:`Generating Hamming codes <hamming.cpp>` example that supports tracing.
 
 .. _modeling:m-group:float-variables:
 
@@ -326,7 +326,7 @@ the values ``4``, ``5``, and ``6`` have been excluded. You can try the `Generati
 
 For float variables, the slack is defined as the width of the variable domain. The information printed for the events is analogous to the information for integer variables, where for a prune-event the interval containing the pruned values is printed.
 
-For an example that supports tracing for float variables, you might want to try the `Folium of Descartes <https://www.gecode.dev/doc/6.4.0/reference/descartes-folium_8cpp.html>`__ example.
+For an example that supports tracing for float variables, you might want to try the :api:`Folium of Descartes <descartes-folium.cpp>` example.
 
 .. _sec:m:group:filters:
 
@@ -336,7 +336,7 @@ For an example that supports tracing for float variables, you might want to try 
 Using trace filters
 ~~~~~~~~~~~~~~~~~~~
 
-The amount of prune-events that are generated during tracing can be prohibitive and often one is only interested in events generated by a subset of the propagators, branchers, or post functions. Therefore, one can pass as an optional argument a *trace filter* of type `TraceFilter <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1TraceFilter.html>`__ defined by a *trace filter expression* (or *TFE*) of type `TFE <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1TFE.html>`__ to a trace recorder.
+The amount of prune-events that are generated during tracing can be prohibitive and often one is only interested in events generated by a subset of the propagators, branchers, or post functions. Therefore, one can pass as an optional argument a *trace filter* of type :api:`TraceFilter` defined by a *trace filter expression* (or *TFE*) of type :api:`TFE` to a trace recorder.
 
 .. container:: samepage
 
@@ -472,7 +472,7 @@ The following paragraphs explain the information printed by the default general 
    :direct:
 
 
-Running the `SEND+MORE=MONEY puzzle <https://www.gecode.dev/doc/6.4.0/reference/money_8cpp.html>`__ (see :ref:`chap:m:started` and :ref:`chap:m:comfy` for the Send More Money problem) with the commandline option ``-trace propagate,commit`` (trace events to be recorded can be specified on the command line, see :ref:`sec:m:driver:options`), the default tracer prints information about all trace events to ``std::cerr``. An excerpt of the information printed is shown in :numref:`fig:m:group:smm` where the trace recorder has been posted with
+Running the :api:`SEND+MORE=MONEY puzzle <money.cpp>` (see :ref:`chap:m:started` and :ref:`chap:m:comfy` for the Send More Money problem) with the commandline option ``-trace propagate,commit`` (trace events to be recorded can be specified on the command line, see :ref:`sec:m:driver:options`), the default tracer prints information about all trace events to ``std::cerr``. An excerpt of the information printed is shown in :numref:`fig:m:group:smm` where the trace recorder has been posted with
 
 .. mpg-code:: snippet:m-group:fig:m:group:smm:code:1
    :direct:
@@ -528,7 +528,7 @@ only records choice-events. All events (the default) are recorded by
 Programming variable tracers
 ----------------------------
 
-Programming variable tracers is straightforward and is done by inheriting from a class that depends on the variable type and implements one virtual member function for each trace event type. These virtual member functions are called when an event of that type is being recorded and the event type has been selected for tracing. For integer variables, the tracer class to inherit from is `IntTracer <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__, for Boolean variables `BoolTracer <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__, for set variables `SetTracer <https://www.gecode.dev/doc/6.4.0/reference/group__TaskSetTrace.html>`__, and for float variables `FloatTracer <https://www.gecode.dev/doc/6.4.0/reference/group__TaskFloatTrace.html>`__.
+Programming variable tracers is straightforward and is done by inheriting from a class that depends on the variable type and implements one virtual member function for each trace event type. These virtual member functions are called when an event of that type is being recorded and the event type has been selected for tracing. For integer variables, the tracer class to inherit from is :api:`IntTracer <TaskIntTrace>`, for Boolean variables :api:`BoolTracer <TaskIntTrace>`, for set variables :api:`SetTracer <TaskSetTrace>`, and for float variables :api:`FloatTracer <TaskFloatTrace>`.
 
 In the following we are discussing variable tracers for integer and Boolean variables in some detail in :ref:`sec:m:group:tracers:int` and summarize variable tracers for set and float variables in :ref:`sec:m:group:tracers:set` and :ref:`sec:m:group:tracers:float` respectively.
 
@@ -562,7 +562,7 @@ The function always prints the identifier ``p.id()`` of the propagator ``p``. If
 
 .. mpg-paragraph:: Printing variable trace information.
 
-The member function ``prune()`` receives as an argument a reference to an object of class `ViewTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1ViewTraceInfo.html>`__ providing information about which entity triggered the corresponding prune-event. The following function illustrates the information provided by an object of class `ViewTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1ViewTraceInfo.html>`__.
+The member function ``prune()`` receives as an argument a reference to an object of class :api:`ViewTraceInfo` providing information about which entity triggered the corresponding prune-event. The following function illustrates the information provided by an object of class :api:`ViewTraceInfo`.
 
 .. mpg-code:: integer variable tracer:print view trace information
 
@@ -571,7 +571,7 @@ The member function ``prune()`` receives as an argument a reference to an object
 
 .. mpg-paragraph:: Printing prune-events.
 
-A ``prune()`` member function takes arguments that provide information about *what* is being pruned (this is given by the integer ``i`` as the position of the variable in the array passed to the ``trace()`` function), *how* the variable has been pruned (this is given by the argument ``d`` of class `IntTraceDelta <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntTraceDelta.html>`__), and by *whom* (this is given by the class `ViewTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1ViewTraceInfo.html>`__, which has been discussed in the previous paragraph). It also gets access to the trace recorder of type `IntTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__.
+A ``prune()`` member function takes arguments that provide information about *what* is being pruned (this is given by the integer ``i`` as the position of the variable in the array passed to the ``trace()`` function), *how* the variable has been pruned (this is given by the argument ``d`` of class :api:`IntTraceDelta`), and by *whom* (this is given by the class :api:`ViewTraceInfo`, which has been discussed in the previous paragraph). It also gets access to the trace recorder of type :api:`IntTraceRecorder <TaskIntTrace>`.
 
 .. container:: samepage
 
@@ -579,13 +579,13 @@ A ``prune()`` member function takes arguments that provide information about *wh
 
    .. mpg-code:: integer variable tracer:prune event
 
-As can be seen, the argument ``d`` of type `IntTraceDelta <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntTraceDelta.html>`__ is a range iterator with the same interface as described in :ref:`sec:m:int:iter` and iterates of the integer ranges that correspond to the values that have been removed. The trace recorder ``t`` provides access to its variables through the array operator ``[]``.
+As can be seen, the argument ``d`` of type :api:`IntTraceDelta` is a range iterator with the same interface as described in :ref:`sec:m:int:iter` and iterates of the integer ranges that correspond to the values that have been removed. The trace recorder ``t`` provides access to its variables through the array operator ``[]``.
 
 .. _modeling:m-group:printing-fixpoint-events:
 
 .. mpg-paragraph:: Printing fixpoint-events.
 
-The ``fix()`` function also receives an argument of type `IntTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__ as shown here:
+The ``fix()`` function also receives an argument of type :api:`IntTraceRecorder <TaskIntTrace>` as shown here:
 
 .. mpg-code:: integer variable tracer:fixpoint event
 
@@ -607,7 +607,7 @@ Note that the slack information is only updated when a fixpoint-, init-, or done
 
 .. mpg-paragraph:: Variable tracers for Boolean variables.
 
-Variable tracers for Boolean variables are exactly like variable tracers for integer variables: a Boolean variable trace recorder is of type `BoolTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskIntTrace.html>`__, the trace delta is also a range iterator of class `BoolTraceDelta <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolTraceDelta.html>`__, and the slack is defined as for integer variables and is also of type ``unsigned long long int``.
+Variable tracers for Boolean variables are exactly like variable tracers for integer variables: a Boolean variable trace recorder is of type :api:`BoolTraceRecorder <TaskIntTrace>`, the trace delta is also a range iterator of class :api:`BoolTraceDelta`, and the slack is defined as for integer variables and is also of type ``unsigned long long int``.
 
 .. _modeling:m-group:memory-and-concurrency-properties-of-tracers:
 
@@ -625,9 +625,9 @@ Variable tracers for set variables
 
 The types and classes for set variable tracers are as follows:
 
-- The variable trace recorder is of type `SetTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskSetTrace.html>`__.
+- The variable trace recorder is of type :api:`SetTraceRecorder <TaskSetTrace>`.
 
-- The trace delta information is of class `SetTraceDelta <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetTraceDelta.html>`__ which implements two member functions ``glb()`` (for greatest lower bound) and ``lub()`` (for least upper bound) which return range iterators. The function ``glb()`` returns a range iterator of class `SetTraceDelta::Glb <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetTraceDelta_1_1Glb.html>`__ which iterates over the values that have been included into a set variable by a prune-event. The function ``lub()`` returns a range iterator of class `SetTraceDelta::Lub <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetTraceDelta_1_1Lub.html>`__ which iterates over the values that have been excluded from a set variable by a prune-event.
+- The trace delta information is of class :api:`SetTraceDelta` which implements two member functions ``glb()`` (for greatest lower bound) and ``lub()`` (for least upper bound) which return range iterators. The function ``glb()`` returns a range iterator of class :api:`SetTraceDelta::Glb` which iterates over the values that have been included into a set variable by a prune-event. The function ``lub()`` returns a range iterator of class :api:`SetTraceDelta::Lub` which iterates over the values that have been excluded from a set variable by a prune-event.
 
 - The slack of a set variable is defined as the number of values where membership has not been decided and is of type ``unsigned long long int``.
 
@@ -641,11 +641,11 @@ Variable tracers for float variables
 
 The types and classes for float variable tracers are as follows:
 
-- The variable trace recorder is of type `FloatTraceRecorder <https://www.gecode.dev/doc/6.4.0/reference/group__TaskFloatTrace.html>`__.
+- The variable trace recorder is of type :api:`FloatTraceRecorder <TaskFloatTrace>`.
 
-- The trace delta information is of class `FloatTraceDelta <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatTraceDelta.html>`__ which implements two member functions ``min()`` and ``max()`` defining the interval of float values that have been pruned.
+- The trace delta information is of class :api:`FloatTraceDelta` which implements two member functions ``min()`` and ``max()`` defining the interval of float values that have been pruned.
 
-- The slack of a float variable is defined as its width and is of type `FloatNum <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatVars.html>`__.
+- The slack of a float variable is defined as its width and is of type :api:`FloatNum <TaskModelFloatVars>`.
 
 .. _sec:m:group:tracers:
 
@@ -655,7 +655,7 @@ The types and classes for float variable tracers are as follows:
 Programming general tracers
 ---------------------------
 
-Programming general tracers is straightforward and is done by inheriting from the class `Tracer <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Tracer.html>`__ that implements one virtual member function for each trace event type. These virtual member functions are called when an event of that type is being recorded and the event type has been selected for tracing.
+Programming general tracers is straightforward and is done by inheriting from the class :api:`Tracer` that implements one virtual member function for each trace event type. These virtual member functions are called when an event of that type is being recorded and the event type has been selected for tracing.
 
 .. mpg-code:: general tracer
    :name: fig:m:group:gtracer
@@ -664,20 +664,8 @@ Programming general tracers is straightforward and is done by inheriting from th
 
 The example tracer we discuss is implemented by a class ``StdCoutTracer``, prints trace information to ``std::cout``, and is shown in :numref:`fig:m:group:gtracer`.
 
-The virtual member function ``commit()`` takes a space and an object ``cti`` of class `CommitTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1CommitTraceInfo.html>`__ as input. Information about the brancher, the choice, and the alternative to commit to can be accessed through the member functions of ``cti``.
+The virtual member function ``commit()`` takes a space and an object ``cti`` of class :api:`CommitTraceInfo` as input. Information about the brancher, the choice, and the alternative to commit to can be accessed through the member functions of ``cti``.
 
-The virtual member function ``post()`` takes a space and an object ``pti`` of class `PostTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1PostTraceInfo.html>`__ as input. Information about propagator group, status, and the number of posted propagators can be accessed through the member functions of ``pti``.
+The virtual member function ``post()`` takes a space and an object ``pti`` of class :api:`PostTraceInfo` as input. Information about propagator group, status, and the number of posted propagators can be accessed through the member functions of ``pti``.
 
-The virtual member function ``propagate()`` takes a space and an object ``pti`` of class `PropagateTraceInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1PropagateTraceInfo.html>`__ as input. Information about the propagator and the status of propagation can be accessed through the member functions of ``pti``.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-group.tex.in:275:fig:m:group:varsmm
-.. mpg-covered: tip:docs/src/chapters/modeling/m-group.tex.in:308:unlabeled-tip@docs/src/chapters/modeling/m-group.tex.in:308
-.. mpg-covered: caption:docs/src/chapters/modeling/m-group.tex.in:556:fig:m:group:smm
-.. mpg-covered: caption:docs/src/chapters/modeling/m-group.tex.in:658:fig:m:group:tracer
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-group.tex.in:659:integer variable tracer
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-group.tex.in:677:integer variable tracer:print propagator information
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-group.tex.in:695:integer variable tracer:print view trace information
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-group.tex.in:713:integer variable tracer:prune event
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-group.tex.in:728:integer variable tracer:fixpoint event
-.. mpg-covered: caption:docs/src/chapters/modeling/m-group.tex.in:822:fig:m:group:gtracer
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-group.tex.in:823:general tracer
+The virtual member function ``propagate()`` takes a space and an object ``pti`` of class :api:`PropagateTraceInfo` as input. Information about the propagator and the status of propagation can be accessed through the member functions of ``pti``.

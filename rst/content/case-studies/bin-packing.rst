@@ -477,39 +477,3 @@ Bin packing featuring all models presented in this chapter is also available as 
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:40:fig:c:bpp:optimal
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:94:fig:c:bpp:data
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:95:bin packing naive:instance data
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:112:fig:c:bpp:lower
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:113:bin packing naive:compute lower bound
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:144:fig:c:bpp:upper
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:145:bin packing naive:compute upper bound
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:159:bin packing naive:pack items into free bins
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:162:bin packing naive:find free bin
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:170:fig:c:bpp:greedy
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:219:fig:c:bpp:naive
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:220:bin packing naive
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:254:bin packing naive:excess bins
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:260:bin packing naive:loads add up to item sizes
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:292:bin packing naive:loads are equal to packed items
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:299:bin packing naive:symmetry breaking
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:310:bin packing naive:pack items that require a bin
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:319:bin packing naive:branching
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:350:fig:c:bpp:prop
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:351:bin packing propagation
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:425:fig:c:bpp:branch
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:426:bin packing branching
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:437:fig:c:bpp:cdbf
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:439:bin packing branching:CDBF
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:486:bin packing branching:status function
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:496:bin packing branching:choice function
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:506:bin packing branching:initialize free space in bins
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:515:bin packing branching:initialize bins with same slack
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:527:bin packing branching:find best fit
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:546:bin packing branching:create choice
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-bin-packing.tex.in:548:fig:c:bpp:choice
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:549:bin packing branching:CDBF choice
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:566:bin packing branching:commit function
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:571:bin packing branching:commit to first alternative
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-bin-packing.tex.in:576:bin packing branching:commit to second alternative

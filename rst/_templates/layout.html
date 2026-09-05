@@ -4,7 +4,6 @@
 
 {% block extrahead %}
 {{ super() }}
-<link rel="stylesheet" href="https://www.gecode.dev/assets/css/site.css">
 <link rel="stylesheet" href="{{ pathto('pagefind/pagefind-component-ui.css', 1)|e }}">
 <link rel="stylesheet" href="{{ pathto('_static/mpg-search.css', 1)|e }}">
 <script src="{{ pathto('pagefind/pagefind-component-ui.js', 1)|e }}"></script>
@@ -16,6 +15,7 @@
 <script>
   window.PagefindComponents.configureInstance("default", {
     baseUrl: new URL(document.documentElement.dataset.content_root, location.href).pathname,
+    bundlePath: new URL("pagefind/", new URL(document.documentElement.dataset.content_root, location.href)).pathname,
     ranking: { termFrequency: 0 },
   });
 </script>

@@ -189,7 +189,7 @@ When using parallel search one needs to take the following facts into account (n
 
    .. container:: samepage
 
-      For example, on my machine with eight cores and using Gecode 4.2.0, running `Finding optimal Golomb rulers <https://www.gecode.dev/doc/6.4.0/reference/golomb-ruler_8cpp.html>`__ for size :math:`12` as follows
+      For example, on my machine with eight cores and using Gecode 4.2.0, running :api:`Finding optimal Golomb rulers <golomb-ruler.cpp>` for size :math:`12` as follows
 
       .. mpg-code:: snippet:m-search:fig:m:search:out:8:cmd:1
          :direct:
@@ -268,7 +268,7 @@ Search engines
       | ``depth``     | ``unsigned long int``                                                          | maximal depth of explored tree |
       +---------------+--------------------------------------------------------------------------------+--------------------------------+
 
-All search engines in Gecode are parametric (are templates) with respect to a subclass ``T`` of `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__ (for example, ``SendMoreMoney`` in :ref:`sec:m:started:first`). Moreover, all search engines share the same interface:
+All search engines in Gecode are parametric (are templates) with respect to a subclass ``T`` of :api:`Space` (for example, ``SendMoreMoney`` in :ref:`sec:m:started:first`). Moreover, all search engines share the same interface:
 
 - The search engine is initialized by a constructor taking a pointer to an instance of the space subclass ``T`` as argument. By default, the search engine takes a clone of the space passed.
 
@@ -276,7 +276,7 @@ All search engines in Gecode are parametric (are templates) with respect to a su
 
 - A next solution can be requested by a ``next()`` member function. If no more solutions exist, ``next()`` returns ``NULL``. Otherwise, the engine returns a solution which again is an instance of ``T``. The client of the search engine is responsible for deleting solutions.
 
-- A search engine can be asked for statistics information by the ``statistics()`` member function. The function returns an object of type `Search::Statistics <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Statistics.html>`__. The statistics information provided is partially summarized in :numref:`fig:m:search:statistics` (see :ref:`sec:m:search:restart` for the meaning of ``restart`` and :ref:`sec:m:search:nogoods` for the meaning of ``nogood``).
+- A search engine can be asked for statistics information by the ``statistics()`` member function. The function returns an object of type :api:`Search::Statistics`. The statistics information provided is partially summarized in :numref:`fig:m:search:statistics` (see :ref:`sec:m:search:restart` for the meaning of ``restart`` and :ref:`sec:m:search:nogoods` for the meaning of ``nogood``).
 
 - A search engine can be queried by ``stopped()`` whether the search engine has been stopped by a *stop object*. Stop objects are discussed in :ref:`sec:m:search:stop`.
 
@@ -289,15 +289,15 @@ Note that search engines use pointers to objects rather than references to objec
 
    .. container:: center
 
-      +----------------------------------------------------------------------------------+----------+-----------------------------------------------------------+---------------+----------+
-      | engine                                                                           | shortcut | exploration                                               | best solution | parallel |
-      +==================================================================================+==========+===========================================================+===============+==========+
-      | `DFS <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1DFS.html>`__     | ``dfs``  | depth-first left-most                                     |               | yes      |
-      +----------------------------------------------------------------------------------+----------+-----------------------------------------------------------+---------------+----------+
-      | `LDS <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1LDS.html>`__     | ``lds``  | limited discrepancy :cite:`HarveyGinsberg:95`             |               |          |
-      +----------------------------------------------------------------------------------+----------+-----------------------------------------------------------+---------------+----------+
-      | `BAB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BAB.html>`__     | ``bab``  | branch-and-bound                                          | yes           | yes      |
-      +----------------------------------------------------------------------------------+----------+-----------------------------------------------------------+---------------+----------+
+      +------------+----------+-----------------------------------------------+---------------+----------+
+      | engine     | shortcut | exploration                                   | best solution | parallel |
+      +============+==========+===============================================+===============+==========+
+      | :api:`DFS` | ``dfs``  | depth-first left-most                         |               | yes      |
+      +------------+----------+-----------------------------------------------+---------------+----------+
+      | :api:`LDS` | ``lds``  | limited discrepancy :cite:`HarveyGinsberg:95` |               |          |
+      +------------+----------+-----------------------------------------------+---------------+----------+
+      | :api:`BAB` | ``bab``  | branch-and-bound                              | yes           | yes      |
+      +------------+----------+-----------------------------------------------+---------------+----------+
 
 For each search engine there also exists a convenient shortcut function (of the same name but entirely in lowercase letters) that returns either the first solution or, in the case of best solution search, the last (and hence best) solution. The available search engines are summarized in :numref:`fig:m:search:engine`.
 
@@ -313,7 +313,7 @@ Note that the version of Gecode (6.4.0) this document corresponds to does not su
 Search options
 ~~~~~~~~~~~~~~
 
-All search engines can take a default option value of type `Search::Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Options.html>`__ when being created. The options are summarized in :numref:`fig:m:search:options`. The default values for the options are defined in the namespace `Search::Config <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode_1_1Search_1_1Config.html>`__.
+All search engines can take a default option value of type :api:`Search::Options` when being created. The options are summarized in :numref:`fig:m:search:options`. The default values for the options are defined in the namespace :api:`Search::Config`.
 
 .. mpg-figure:: Search options
    :name: fig:m:search:options
@@ -368,7 +368,7 @@ Note that all values are of course rounded and that at least one thread will be 
 Stop objects
 ~~~~~~~~~~~~
 
-A stop object (a subclass of `Search::Stop <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Stop.html>`__) implements a single virtual member function ``stop()`` that takes two arguments, the first of type `Search::Statistics <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Statistics.html>`__ and the second of type `Search::Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Options.html>`__, and returns either ``true`` or ``false``. If a stop object is passed to a search engine (by passing it as ``stop`` member of a search option), the search engine calls the ``stop()`` function of the stop object before every exploration step and passes the current statistics as argument. If the ``stop()`` function returns true, the search engine stops its execution.
+A stop object (a subclass of :api:`Search::Stop`) implements a single virtual member function ``stop()`` that takes two arguments, the first of type :api:`Search::Statistics` and the second of type :api:`Search::Options`, and returns either ``true`` or ``false``. If a stop object is passed to a search engine (by passing it as ``stop`` member of a search option), the search engine calls the ``stop()`` function of the stop object before every exploration step and passes the current statistics as argument. If the ``stop()`` function returns true, the search engine stops its execution.
 
 When a search engine is stopped its ``next()`` function returns ``NULL`` as solution. To find out whether a search engine has been stopped or whether there are no more solutions, the ``stopped()`` member function of a search engine can be used. Search can be resumed by calling ``next()`` again after the stop object has been modified (for example, by increasing the node or time limit).
 
@@ -379,27 +379,27 @@ Note that when using several threads for parallel search, each thread checks whe
 
    .. container:: center
 
-      +--------------------------------------------------------------------------------------------------------------+------------------------+
-      | class                                                                                                        | description            |
-      +==============================================================================================================+========================+
-      | `Search::NodeStop <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1NodeStop.html>`__     | node limit exceeded    |
-      +--------------------------------------------------------------------------------------------------------------+------------------------+
-      | `Search::FailStop <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1FailStop.html>`__     | failure limit exceeded |
-      +--------------------------------------------------------------------------------------------------------------+------------------------+
-      | `Search::TimeStop <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1TimeStop.html>`__     | time limit exceeded    |
-      +--------------------------------------------------------------------------------------------------------------+------------------------+
+      +-------------------------+------------------------+
+      | class                   | description            |
+      +=========================+========================+
+      | :api:`Search::NodeStop` | node limit exceeded    |
+      +-------------------------+------------------------+
+      | :api:`Search::FailStop` | failure limit exceeded |
+      +-------------------------+------------------------+
+      | :api:`Search::TimeStop` | time limit exceeded    |
+      +-------------------------+------------------------+
 
-Gecode provides several predefined stop objects, see `Stop-objects for stopping search <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSearchStop.html>`__. For an overview see :numref:`fig:m:search:stop`. Objects of these classes can be created conveniently by, for example:
+Gecode provides several predefined stop objects, see :api:`Stop-objects for stopping search <TaskModelSearchStop>`. For an overview see :numref:`fig:m:search:stop`. Objects of these classes can be created conveniently by, for example:
 
 .. mpg-code:: snippet:m-search:fig:m:search:stop:code:1
    :direct:
 
 
-The class `Search::Stop <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Stop.html>`__ also provides similar static functions ``fail()`` and ``time()``.
+The class :api:`Search::Stop` also provides similar static functions ``fail()`` and ``time()``.
 
 .. mpg-tip:: Number of threads for stop objects
 
-   As mentioned above, each thread in parallel search uses the very same stop object. For example, when using the predefined `Search::NodeStop <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1NodeStop.html>`__ stop object with a node limit of :math:`n`, then each thread can explore up to :math:`n` nodes.
+   As mentioned above, each thread in parallel search uses the very same stop object. For example, when using the predefined :api:`Search::NodeStop` stop object with a node limit of :math:`n`, then each thread can explore up to :math:`n` nodes.
 
 
    If you want to have finer control (say, only allow each thread to explore up to :math:`n/m` nodes where :math:`m` is the number of threads) you can use the search option argument that is passed as the second argument to the ``stop`` member function to scale the node limit according to the number of available threads.
@@ -438,7 +438,7 @@ Restart-based search as a meta search engine
 
 Restart-based search in Gecode is implemented as a *meta search engine*: the meta search engine uses one of the Gecode search engines discussed in :ref:`sec:m:search:simple` to perform search for each individual restart. The meta engine then controls the engine, the cutoff values, and how the problem is configured before each restart. The interface of the meta search engine in Gecode is exactly the same as the interface of a non-meta search engine. In addition to the restart meta search engine, Gecode offers a portfolio meta search engine which is described in :ref:`sec:m:search:portfolio`.
 
-The restart meta search engine `RBS <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1RBS.html>`__ is parametric with respect to both the script to be solved (a subclass of `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__) and the search engine to be used. For example, when we want to use the `DFS <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1DFS.html>`__ engine for the script ``s`` of class type ``Script``, the meta engine ``e`` can be created by (``o`` are mandatory search options, see below):
+The restart meta search engine :api:`RBS` is parametric with respect to both the script to be solved (a subclass of :api:`Space`) and the search engine to be used. For example, when we want to use the :api:`DFS` engine for the script ``s`` of class type ``Script``, the meta engine ``e`` can be created by (``o`` are mandatory search options, see below):
 
 .. mpg-code:: snippet:m-search:sec:m:search:restart:meta:code:1
    :direct:
@@ -446,13 +446,13 @@ The restart meta search engine `RBS <https://www.gecode.dev/doc/6.4.0/reference/
 
 Now ``e`` implements exactly the same interface as the normal engines (that is, ``next()`` to request the next solution, ``statistics()`` to return the meta engine’s statistic, and ``stopped()`` to check whether the meta engine has been stopped).
 
-The meta engine honors all search options as discussed in :ref:`sec:m:search:options`. If parallel search is requested, the engine used by the meta engine will use the specified number of processing units to perform parallel search. The meta engine requires that the search options specify a `Search::Cutoff <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Cutoff.html>`__ object defining the cutoff sequence.
+The meta engine honors all search options as discussed in :ref:`sec:m:search:options`. If parallel search is requested, the engine used by the meta engine will use the specified number of processing units to perform parallel search. The meta engine requires that the search options specify a :api:`Search::Cutoff` object defining the cutoff sequence.
 
 .. _modeling:m-search:best-solution-search:
 
 .. mpg-paragraph:: Best solution search.
 
-Restart-based search can be used for both finding any solution or finding a best solution. For searching for a best solution, the meta engine should be used with the `BAB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BAB.html>`__ engine, for example as:
+Restart-based search can be used for both finding any solution or finding a best solution. For searching for a best solution, the meta engine should be used with the :api:`BAB` engine, for example as:
 
 .. mpg-code:: snippet:m-search:sec:m:search:restart:meta:code:2
    :direct:
@@ -460,7 +460,7 @@ Restart-based search can be used for both finding any solution or finding a best
 
 The behavior whether the engine performs a restart when a better solution is performed or whether the ``BAB`` engine continues to find a better solution with a restart can be controlled as described in :ref:`sec:m:search:restart:configure`.
 
-When using restart-based search for finding a best solution it is essential to use the `BAB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BAB.html>`__ engine when used as part of a portfolio-based search engine, see :ref:`sec:m:search:portfolio:arbitrary`.
+When using restart-based search for finding a best solution it is essential to use the :api:`BAB` engine when used as part of a portfolio-based search engine, see :ref:`sec:m:search:portfolio:arbitrary`.
 
 .. _modeling:m-search:parallel-search-2:
 
@@ -483,9 +483,9 @@ The restart-based search engine supports parallel search in that the engine used
 Cutoff generators
 ~~~~~~~~~~~~~~~~~
 
-The meta engine uses a cutoff generator that generates a sequence of cutoff values. A cutoff generator must be implemented by inheriting from the class `Search::Cutoff <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Cutoff.html>`__. This abstract class requires that two virtual member functions ``operator()()`` and ``operator++()`` are implemented, where the first returns the current cutoff value and the second increments to the next cutoff value and returns it. Cutoff values are of type ``unsigned long long int``.
+The meta engine uses a cutoff generator that generates a sequence of cutoff values. A cutoff generator must be implemented by inheriting from the class :api:`Search::Cutoff`. This abstract class requires that two virtual member functions ``operator()()`` and ``operator++()`` are implemented, where the first returns the current cutoff value and the second increments to the next cutoff value and returns it. Cutoff values are of type ``unsigned long long int``.
 
-When using the restart meta engine, an instance of a subclass of `Search::Cutoff <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1Cutoff.html>`__ must be passed to the engine by using the search options (see :ref:`sec:m:search:options`). For example, when ``s`` is a space to be solved and ``c`` a cutoff generator, then the restart engine can be created by:
+When using the restart meta engine, an instance of a subclass of :api:`Search::Cutoff` must be passed to the engine by using the search options (see :ref:`sec:m:search:options`). For example, when ``s`` is a space to be solved and ``c`` a cutoff generator, then the restart engine can be created by:
 
 .. mpg-code:: snippet:m-search:sec:m:search:restart:cutoff:code:1
    :direct:
@@ -506,7 +506,7 @@ Geometric.
          :direct:
          :small:
 
-   The generator is implemented by the class `Search::CutoffGeometric <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffGeometric.html>`__.
+   The generator is implemented by the class :api:`Search::CutoffGeometric`.
 
 Luby.
    A Luby cutoff sequence is based on the Luby-sequence from :cite:`Luby`. The sequence starts with a ``1``. The next part of the sequence is the entire previous sequence (only ``1``) with the last value of the previous sequence (``1`` again) doubled. This construction is then repeated, leading to the sequence:
@@ -521,7 +521,7 @@ Luby.
       :direct:
       :small:
 
-   The generator is implemented by the class `Search::CutoffLuby <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffLuby.html>`__.
+   The generator is implemented by the class :api:`Search::CutoffLuby`.
 
 Random.
    A random cutoff sequence consists of uniformly randomly chosen values between a lower bound ``min`` and an upper bound ``max``. To focus on rather different values, only values from the set of :math:`\mathtt n+1` values:
@@ -536,14 +536,14 @@ Random.
       :direct:
       :small:
 
-   where ``seed`` (of type ``unsigned int``) defines the seed value for the random number generator used. The generator is implemented by the class `Search::CutoffRandom <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffRandom.html>`__.
+   where ``seed`` (of type ``unsigned int``) defines the seed value for the random number generator used. The generator is implemented by the class :api:`Search::CutoffRandom`.
 
 Constant.
    A constant cutoff sequence is defined by the scale-factor ``s``. Then, the sequence consists of the cutoff values:
 
    .. math:: \mathtt{s},\mathtt{s},\mathtt{s},\ldots
 
-   The generator is implemented by the class `Search::CutoffConstant <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffConstant.html>`__.
+   The generator is implemented by the class :api:`Search::CutoffConstant`.
 
    .. container:: samepage
 
@@ -566,7 +566,7 @@ Linear.
          :direct:
          :small:
 
-   The generator is implemented by the class `Search::CutoffLinear <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffLinear.html>`__.
+   The generator is implemented by the class :api:`Search::CutoffLinear`.
 
 Append.
    An appended cutoff sequence ``c`` for ``n`` values from the cutoff sequence :math:`\mathtt{c}_1` (with values :math:`k_0,k_1,k_2,\ldots`) followed by the values from the cutoff sequence :math:`\mathtt{c}_2` (with values :math:`l_0,l_1,l_2,\ldots`) consists of the following values:
@@ -579,7 +579,7 @@ Append.
       :direct:
       :small:
 
-   The generator is implemented by the class `Search::CutoffAppend <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffAppend.html>`__.
+   The generator is implemented by the class :api:`Search::CutoffAppend`.
 
 Merge.
    A merged cutoff sequence ``c`` for values from the cutoff sequence :math:`\mathtt{c}_1` (with values :math:`k_0,k_1,k_2,\ldots`) merged with the values from the cutoff sequence :math:`\mathtt{c}_2` (with values :math:`l_0,l_1,l_2,\ldots`) consists of the following values:
@@ -592,7 +592,7 @@ Merge.
       :direct:
       :small:
 
-   The generator is implemented by the class `Search::CutoffMerge <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffMerge.html>`__.
+   The generator is implemented by the class :api:`Search::CutoffMerge`.
 
 Repeat.
    A repeated cutoff sequence ``c`` with repeat factor ``n`` (of type ``unsigned long long int``) for the cutoff sequence :math:`\mathtt{c}'` (with values :math:`k_0,k_1,k_2,\ldots`) consists of the following values:
@@ -615,7 +615,7 @@ Repeat.
       :direct:
       :small:
 
-   The generator is implemented by the class `Search::CutoffRepeat <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1CutoffRepeat.html>`__.
+   The generator is implemented by the class :api:`Search::CutoffRepeat`.
 
 .. _sec:m:search:restart:next:
 
@@ -675,7 +675,7 @@ More accurately, it leaves the actual configuration to the user: it calls the vi
       | ``asset()``               | ``unsigned int``                                                               | number of asset (slave)                |
       +---------------------------+--------------------------------------------------------------------------------+----------------------------------------+
 
-By default, every space implements the two member functions ``master()`` and ``slave()``. Both functions take an argument of class `MetaInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1MetaInfo.html>`__ that contains information about the current restart (and also for different assets in a portfolio, see :ref:`sec:m:search:portfolio`). The class ``MetaInfo`` provides the member functions as shown in :numref:`fig:m:search:mi`.
+By default, every space implements the two member functions ``master()`` and ``slave()``. Both functions take an argument of class :api:`MetaInfo` that contains information about the current restart (and also for different assets in a portfolio, see :ref:`sec:m:search:portfolio`). The class ``MetaInfo`` provides the member functions as shown in :numref:`fig:m:search:mi`.
 
 For a meta information object ``mi``, the function ``mi.type()`` returns either ``MetaInfo::RESTART`` or ``MetaInfo::PORTFOLIO``. In this section, we are only interested in the functions that are concerned with restart-based search.
 
@@ -726,7 +726,7 @@ The design of restart-based search in Gecode is general enough to support LNS (L
    :caption: Model sketch for LNS
 
 
-:numref:`fig:m:search:restart:sketch` sketches a model that supports LNS. The constructor ``Model()`` initializes the model with all variables and constraints that are common for finding the first solution as well as for finding further solutions. Note that the model has a random number generator of class `Rnd <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Rnd.html>`__ as member ``r`` to illustrate that typically some form of randomness is needed for restarting. However, in a real life problem additional data structures might be needed.
+:numref:`fig:m:search:restart:sketch` sketches a model that supports LNS. The constructor ``Model()`` initializes the model with all variables and constraints that are common for finding the first solution as well as for finding further solutions. Note that the model has a random number generator of class :api:`Rnd` as member ``r`` to illustrate that typically some form of randomness is needed for restarting. However, in a real life problem additional data structures might be needed.
 
 .. container:: samepage
 
@@ -759,7 +759,7 @@ relaxes each variable in ``x`` with a probability of :math:`0.7` (or, with other
 
 The ``relax()`` function makes sure that at least one of the variables in ``x`` remains unassigned (if needed, the variable to remain unassigned is determined uniformly randomly).
 
-For an example using LNS and the ``relax()`` function please consult `Placing people on a photo <https://www.gecode.dev/doc/6.4.0/reference/examples_2photo_8cpp.html>`__.
+For an example using LNS and the ``relax()`` function please consult :api:`Placing people on a photo <photo.cpp>`.
 
 .. _sec:m:search:portfolio:
 
@@ -818,7 +818,7 @@ The default ``slave()`` function does nothing, in order to be meaningful for por
 
 where the function ``mi.asset()`` returns the number of the asset being created. Creating more than four asset for this particular example seems to be not that useful, but in :ref:`sec:m:search:portfolio:arbitrary` we are going to discuss how different search engines can be run in one portfolio. Here one could imagine a portfolio that includes an engine running sequential search together with an engine that runs exactly the same script, however with parallel search using more than one thread. Note that the return value of the ``slave()`` function has no meaning for portfolio search (but it has for restart-based search).
 
-For an example using several branchers using different random seeds in a portfolio, see `Quasigroup completion <https://www.gecode.dev/doc/6.4.0/reference/qcp_8cpp.html>`__.
+For an example using several branchers using different random seeds in a portfolio, see :api:`Quasigroup completion <qcp.cpp>`.
 
 .. _tip:m:search:kill:
 
@@ -849,7 +849,7 @@ The size of the slice can be controlled by the options passed to the portfolio e
    :direct:
 
 
-creates a portfolio with three assets, where a slice is :math:`50` failures. The default value for a slice is defined in the namespace `Search::Config <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode_1_1Search_1_1Config.html>`__.
+creates a portfolio with three assets, where a slice is :math:`50` failures. The default value for a slice is defined in the namespace :api:`Search::Config`.
 
 .. _modeling:m-search:parallel-portfolios:
 
@@ -927,7 +927,7 @@ Note that the number of assets is defined by the number of SEBs passed as argume
 
 .. mpg-paragraph:: Best solution search.
 
-Whether a portfolio search engine created from SEBs performs best solution search is determined by the SEBs. If the SEBs are created by ``bab<Script>()``, ``rbs<Script,BAB>()``, or ``pbs<Script,BAB>()`` then the engine performs best solution search. Mixing best solution search SEBs with non-best solution search SEBs throws an exception of type `Search::MixedBest <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Search_1_1MixedBest.html>`__.
+Whether a portfolio search engine created from SEBs performs best solution search is determined by the SEBs. If the SEBs are created by ``bab<Script>()``, ``rbs<Script,BAB>()``, or ``pbs<Script,BAB>()`` then the engine performs best solution search. Mixing best solution search SEBs with non-best solution search SEBs throws an exception of type :api:`Search::MixedBest`.
 
 .. mpg-tip:: Mixing parallel and sequential portfolios
 
@@ -955,7 +955,7 @@ As discussed in :ref:`sec:m:search:restart`, the idea of using restarts effectiv
 
    Search tree after cutoff :math:`3` has been reached
 
-Consider the simple example depicted in :numref:`fig:m:search:nogoods`. It shows a search tree that has been explored by the restart-based search engine with a cutoff of :math:`3` failures. The thick edges in the tree depict the path that is stored by a search engine using depth-first search (such as `DFS <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1DFS.html>`__ or `BAB <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BAB.html>`__).
+Consider the simple example depicted in :numref:`fig:m:search:nogoods`. It shows a search tree that has been explored by the restart-based search engine with a cutoff of :math:`3` failures. The thick edges in the tree depict the path that is stored by a search engine using depth-first search (such as :api:`DFS` or :api:`BAB`).
 
 What can be immediately derived from this configuration is that the following two constraints (they correspond to conjunctions of alternatives shown in :numref:`fig:m:search:nogoods`):
 
@@ -999,7 +999,7 @@ No-goods from restarts in Gecode follow the idea from :cite:`NogoodsRestarts`, 
 
 When the restart-based search engine reaches the current cutoff limit or finds a solution it calls the ``master()`` member function as discussed in the previous section.
 
-From the argument of class `MetaInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1MetaInfo.html>`__ that is passed to the ``master()`` function a no-good of class `NoGoods <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1NoGoods.html>`__ can be retrieved by calling the ``nogoods()`` function. A no-good has really only ``post()`` as its single important member function. The following ``master()`` function posts all constraints corresponding to the no-goods that can be derived from a restart (this is also the default ``master()`` function defined by the class `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__, see also :ref:`sec:m:search:restart:configure`):
+From the argument of class :api:`MetaInfo` that is passed to the ``master()`` function a no-good of class :api:`NoGoods` can be retrieved by calling the ``nogoods()`` function. A no-good has really only ``post()`` as its single important member function. The following ``master()`` function posts all constraints corresponding to the no-goods that can be derived from a restart (this is also the default ``master()`` function defined by the class :api:`Space`, see also :ref:`sec:m:search:restart:configure`):
 
 .. mpg-code:: snippet:m-search:fig:m:search:nogoods:code:1
    :direct:
@@ -1066,7 +1066,7 @@ The reason why after a restart no-goods can be extracted is because search compu
 Tracing search
 --------------
 
-The execution of search engines can be traced, where all important events of a search engine can be recorded and processed by a *search tracer*. A search tracer is implemented by a subclass of `SearchTracer <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer.html>`__ where several virtual member functions must be implemented that are called when a corresponding event occurs:
+The execution of search engines can be traced, where all important events of a search engine can be recorded and processed by a *search tracer*. A search tracer is implemented by a subclass of :api:`SearchTracer` where several virtual member functions must be implemented that are called when a corresponding event occurs:
 
 - A single *init-event* occurs when the initialization of a search engine together with all of its components such as sub-engines and workers is complete. See below for more details about sub-engines and workers.
 
@@ -1087,7 +1087,7 @@ The execution of search engines can be traced, where all important events of a s
    :caption: A simple tracer printing to std::cout
 
 
-A simple search tracer printing information to ``std::cout`` is shown in :numref:`fig:m:search:tracer`. A similar search tracer is defined by the class `StdSearchTracer <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1StdSearchTracer.html>`__.
+A simple search tracer printing information to ``std::cout`` is shown in :numref:`fig:m:search:tracer`. A similar search tracer is defined by the class :api:`StdSearchTracer`.
 
 As mentioned above, all events correspond to virtual member functions that are called when an event occurs. The member functions are executed in mutual exclusion as the events might occur in parallel from search engines using multiple workers (threads).
 
@@ -1105,14 +1105,14 @@ A search tracer can be defined as part of the search options (see :ref:`sec:m:se
 
 .. mpg-paragraph:: Init-event.
 
-After the search engine(s) have completed their initialization, the member function ``init()`` is called. The class `SearchTracer <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer.html>`__ provides member functions with which the configuration of the search engine can be inspected. Search engines are identified by engine identifiers of type ``unsigned int``.
+After the search engine(s) have completed their initialization, the member function ``init()`` is called. The class :api:`SearchTracer` provides member functions with which the configuration of the search engine can be inspected. Search engines are identified by engine identifiers of type ``unsigned int``.
 
 The root engine has always the identifier ``0U``. Meta engines such as restart-based search (RBS) and portfolio-based search (PBS) have sub engines whereas non-meta engines have workers that perform the actual exploration of the search tree. The following code:
 
 .. mpg-code:: example search tracer:init
 
 
-lists all engines together with their engine identifiers starting with the root engine (the member function ``engines()`` returns the number of engines). Information about an engine is provided by the member function ``engine()`` which takes an engine identifier and returns a reference to an object of type `SearchTracer::EngineInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer_1_1EngineInfo.html>`__ providing information about an engine.
+lists all engines together with their engine identifiers starting with the root engine (the member function ``engines()`` returns the number of engines). Information about an engine is provided by the member function ``engine()`` which takes an engine identifier and returns a reference to an object of type :api:`SearchTracer::EngineInfo` providing information about an engine.
 
 For simple engines (that is, non-meta engines) such as depth-first (DFS), branch-and-bound (BAB), and limited-discrepancy search (LDS), the following code prints information about their workers:
 
@@ -1161,7 +1161,7 @@ Note that assets can be also restart-based search engines.
    :caption: Member function for node-events
 
 
-The virtual member function called for a node-event takes information about an edge of type `SearchTracer::EdgeInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer_1_1EdgeInfo.html>`__ and a node of type `SearchTracer::NodeInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer_1_1NodeInfo.html>`__ as input. The code shown in :numref:`fig:m:search:tracer:node` prints the type of the node. It then prints information about the worker identifier (``ni.wid()``) and node identifier (``ni.nid()``). Both worker and node identifiers are of type ``unsigned int``. Note that the edge also has information about the parent node of the current node and which worker created it. In case the edge does not exist (that is, the test ``ei`` is false), the node is in fact the root node of the search tree. The string printed is the output printed by the brancher corresponding to the edge (see :ref:`sec:m:branch:print` for more information).
+The virtual member function called for a node-event takes information about an edge of type :api:`SearchTracer::EdgeInfo` and a node of type :api:`SearchTracer::NodeInfo` as input. The code shown in :numref:`fig:m:search:tracer:node` prints the type of the node. It then prints information about the worker identifier (``ni.wid()``) and node identifier (``ni.nid()``). Both worker and node identifiers are of type ``unsigned int``. Note that the edge also has information about the parent node of the current node and which worker created it. In case the edge does not exist (that is, the test ``ei`` is false), the node is in fact the root node of the search tree. The string printed is the output printed by the brancher corresponding to the edge (see :ref:`sec:m:branch:print` for more information).
 
 Note that the node identifiers are unique per worker. As the number of workers is available with the ``workers()`` member function, the numbers can be made easily unique globally.
 
@@ -1180,7 +1180,7 @@ Note that the node identifiers are not reset at a round-event.
 
 .. mpg-paragraph:: Skip-events.
 
-A skip event occurs when a worker decides that a certain node does not need to be explored. This can happen for branch-and-bound search engines where an entire subtree is pruned or for limited discrepancy search where a solution is omitted as it had already been found during a previous probe with a smaller discrepancy limit. The information provided to the ``skip()`` member function is of type `SearchTracer::EdgeInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SearchTracer_1_1EdgeInfo.html>`__:
+A skip event occurs when a worker decides that a certain node does not need to be explored. This can happen for branch-and-bound search engines where an entire subtree is pruned or for limited discrepancy search where a solution is omitted as it had already been found during a previous probe with a smaller discrepancy limit. The information provided to the ``skip()`` member function is of type :api:`SearchTracer::EdgeInfo`:
 
 .. mpg-code:: example search tracer:skip
 
@@ -1208,17 +1208,17 @@ The CPProfiler is a graphical tool for better understanding the search space of 
 
 Gecode can connect to an already running instance of the CPProfiler by means of creating a search tracer. The tracer then sends all search trace information to the respective instance of the CPProfiler, which then can use the trace information for visualization and analysis.
 
-A search tracer to connect to a running CPProfiler instance can be created by creating an object of class `CPProfilerSearchTracer <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1CPProfilerSearchTracer.html>`__ as follows:
+A search tracer to connect to a running CPProfiler instance can be created by creating an object of class :api:`CPProfilerSearchTracer` as follows:
 
 .. mpg-code:: snippet:m-search:sec:m:search:cpprofiler:code:1
    :direct:
 
 
-where ``id`` (an integer) defines the execution identifier to be displayed by the CPProfiler, ``name`` (a string of type ``std::string``) defines the name displayed by the CPProfiler, ``port`` (an unsigned integer) defines the network port used by the CPProfiler, and ``gi`` is a pointer to an object of class `CPProfilerSearchTracer::GetInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1CPProfilerSearchTracer_1_1GetInfo.html>`__ for information about a search tree to be displayed by the CPProfiler. The arguments for ``port`` and ``gi`` are optional, the default for ``port`` is defined by ``Search::Config::cpprofiler_port`` (currently ``6565``) and the default for ``gi`` is ``nullptr``.
+where ``id`` (an integer) defines the execution identifier to be displayed by the CPProfiler, ``name`` (a string of type ``std::string``) defines the name displayed by the CPProfiler, ``port`` (an unsigned integer) defines the network port used by the CPProfiler, and ``gi`` is a pointer to an object of class :api:`CPProfilerSearchTracer::GetInfo` for information about a search tree to be displayed by the CPProfiler. The arguments for ``port`` and ``gi`` are optional, the default for ``port`` is defined by ``Search::Config::cpprofiler_port`` (currently ``6565``) and the default for ``gi`` is ``nullptr``.
 
 Note that commandline support for the CPProfiler is provided, see :ref:`sec:m:driver:options`. There are options to specify the execution identifier, the port, and whether default information about nodes in the search tree should be transferred to the CPProfiler.
 
-An object that determines which information about a search tree node should be displayed when the node is inspected in the CPProfiler, can be defined by inheriting from the class `CPProfilerSearchTracer::GetInfo <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1CPProfilerSearchTracer_1_1GetInfo.html>`__ and defining the virtual member function:
+An object that determines which information about a search tree node should be displayed when the node is inspected in the CPProfiler, can be defined by inheriting from the class :api:`CPProfilerSearchTracer::GetInfo` and defining the virtual member function:
 
 .. mpg-code:: snippet:m-search:sec:m:search:cpprofiler:code:2
    :direct:
@@ -1231,44 +1231,3 @@ that must return an information string of type ``std::string`` for the search tr
 
 .. [2]
    Please note that the engine might restart several times until a first solution has been found.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:97:fig:m:search:tree
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:100:tabular@docs/src/chapters/modeling/m-search.tex.in:100
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:101:tabular@docs/src/chapters/modeling/m-search.tex.in:101
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:140:tabular@docs/src/chapters/modeling/m-search.tex.in:140
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:211:fig:m:search:hybrid
-.. mpg-covered: tip:docs/src/chapters/modeling/m-search.tex.in:359:unlabeled-tip@docs/src/chapters/modeling/m-search.tex.in:359
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:453:fig:m:search:out:8
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:490:fig:m:search:out:1
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:572:fig:m:search:statistics
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:574:tabular@docs/src/chapters/modeling/m-search.tex.in:574
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:632:fig:m:search:engine
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:634:tabular@docs/src/chapters/modeling/m-search.tex.in:634
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:678:fig:m:search:options
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:680:tabular@docs/src/chapters/modeling/m-search.tex.in:680
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:772:fig:m:search:stop
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:774:tabular@docs/src/chapters/modeling/m-search.tex.in:774
-.. mpg-covered: tip:docs/src/chapters/modeling/m-search.tex.in:802:unlabeled-tip@docs/src/chapters/modeling/m-search.tex.in:802
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:1160:fig:m:search:mi
-.. mpg-covered: table:docs/src/chapters/modeling/m-search.tex.in:1162:tabular@docs/src/chapters/modeling/m-search.tex.in:1162
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:1244:fig:m:search:restart:default
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:1245:default master and slave functions
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:1254:default master and slave functions:restart-based search
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:1322:fig:m:search:restart:sketch
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:1323:model sketch for LNS
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:1359:model sketch for LNS:slave function
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:1454:default master and slave functions:portfolio search
-.. mpg-covered: tip:docs/src/chapters/modeling/m-search.tex.in:1572:unlabeled-tip@docs/src/chapters/modeling/m-search.tex.in:1572
-.. mpg-covered: tip:docs/src/chapters/modeling/m-search.tex.in:1580:unlabeled-tip@docs/src/chapters/modeling/m-search.tex.in:1580
-.. mpg-covered: tip:docs/src/chapters/modeling/m-search.tex.in:1660:unlabeled-tip@docs/src/chapters/modeling/m-search.tex.in:1660
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:1699:fig:m:search:nogoods
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:1970:fig:m:search:tracer
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:1971:example search tracer
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:2012:example search tracer:init
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:2025:example search tracer:init for engines
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:2032:example search tracer:init for meta engines
-.. mpg-covered: caption:docs/src/chapters/modeling/m-search.tex.in:2069:fig:m:search:tracer:node
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:2070:example search tracer:node
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:2103:example search tracer:round
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:2117:example search tracer:skip
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-search.tex.in:2123:example search tracer:done

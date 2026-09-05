@@ -3,7 +3,6 @@ year = 2026
 run_timeout_sec = 20
 
 # Optional overrides:
-# chapters = ["intro", "m-started"]
 # models = ["send-more-money"]
 # tests = ["less"]
 # notest = ["none-min"]

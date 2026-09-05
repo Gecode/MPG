@@ -18,11 +18,8 @@ This chapters motivates why special domain operations on variable views are need
 Why domain operations are needed
 --------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:34:fig:p:domain:incorrect
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-domain.tex.in:34:fig:p:domain:incorrect
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-domain.tex.in:35:incorrect domain equal
 
 .. mpg-code:: incorrect domain equal
    :caption: An incorrect propagator for domain equal
@@ -41,11 +38,8 @@ But even then, the approach is flawed from the beginning: a single ``nq()`` oper
 Iterator-based modification operations
 --------------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:79:fig:p:domain:naive
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-domain.tex.in:79:fig:p:domain:naive
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-domain.tex.in:80:naive domain equal
 
 .. mpg-code:: naive domain equal
    :caption: A naive propagator for domain equal
@@ -68,7 +62,6 @@ A third operation available for range iterators is ``minus_r()`` which removes t
 
 Instead of using range iterators for modification operations, one can also use value iterators instead. Similarly, a view provides operations ``inter_v()``, ``narrow_v()``, and ``minus_v()`` for intersecting, replacing, and removing values.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-domain.tex.in:132:unlabeled-tip@docs/src/chapters/programming/p-domain.tex.in:132
 
 .. mpg-tip:: Narrow is dangerous
 
@@ -76,7 +69,6 @@ Instead of using range iterators for modification operations, one can also use v
 
    In the above example, the propagator is contracting: ``r1`` refers to the intersection of ``x0`` and ``x1``, which of course has no more values than ``x0``.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-domain.tex.in:143:unlabeled-tip@docs/src/chapters/programming/p-domain.tex.in:143
 
 .. mpg-tip:: Iterators must be increasing
 
@@ -92,11 +84,8 @@ The problem that made our attempt to implement propagation for equality in :ref:
 
 Iterator-based modification operations automatically take care of potential sharing between the iterator they use and the view domain they update. By default, an iterator-based modification operation assumes that iterator and domain are shared. The operation first constructs a new domain and iterates to the end of the iterator. Only then the old domain is replaced by the newly constructed domain. In many cases, however, there is no sharing between iterator and domain and the operations could be performed more efficiently by in-place update operations on the domain.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:171:fig:p:domain:nonshared
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-domain.tex.in:171:fig:p:domain:nonshared
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-domain.tex.in:172:non-shared domain equal
 
 .. mpg-code:: non-shared domain equal
    :caption: A propagator for domain equal without sharing
@@ -126,7 +115,6 @@ Assume a range sequence :math:`\left\langle \left[m_i\;..\;n_i\right]\right\rang
 
 For this, we define the following class:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-domain.tex.in:219:domain equal with offset:offset map
 
 .. mpg-code:: domain equal with offset:offset map
 
@@ -135,11 +123,8 @@ For this, we define the following class:
 .. mpg-code:: snippet:p-domain:sec:p:domain:iterators:code:1
    :direct:
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:231:fig:p:domain:offset
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-domain.tex.in:231:fig:p:domain:offset
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-domain.tex.in:232:domain equal with offset
 
 .. mpg-code:: domain equal with offset
    :caption: A propagator for domain equal with offset
@@ -154,9 +139,9 @@ While the propagator is reasonably easy to construct using map iterators, :ref:`
 
 .. mpg-paragraph:: Using and defining iterators.
 
-Gecode comes with a multitude of range and value iterators to transform range and value sequences of other iterators. These iterators are defined in the namespace ``Iter``. Range iterators are defined in the namespace ``Iter::Ranges``\ and value iterators in the namespace ``Iter::Values``. Example iterators include: iterators to convert value into range iterators and vice versa, iterators to compute the union and intersection, iterators to iterate over arrays and bitsets, just to name a few.
+Gecode comes with a multitude of range and value iterators to transform range and value sequences of other iterators. These iterators are defined in the namespace :api:`Iter`. Range iterators are defined in the namespace :api:`Iter::Ranges` and value iterators in the namespace :api:`Iter::Values`. Example iterators include: iterators to convert value into range iterators and vice versa, iterators to compute the union and intersection, iterators to iterate over arrays and bitsets, just to name a few.
 
-But even if the predefined iterators are not sufficient, it is straightforward to implement new iterators: the only requirement is that they implement the appropriate interface mentioned above for range or value iterators. The namespace ``Iter``\ contains a multitude of simple and advanced examples.
+But even if the predefined iterators are not sufficient, it is straightforward to implement new iterators: the only requirement is that they implement the appropriate interface mentioned above for range or value iterators. The namespace :api:`Iter` contains a multitude of simple and advanced examples.
 
 .. _propagators:domain:benefits-of-iterators:
 
@@ -175,15 +160,12 @@ There is a rather obvious approach to improving the efficiency of domain operati
 
 For propagating equality, the simplest idea is to first perform bounds propagation for equality as discussed in :ref:`sec:p:avoid:eqbnd`, directly followed by domain propagation. However, we can improve further by exploiting an additional token of information about the views of a propagator that is supplied to both the ``cost()`` and ``propagate()`` function of a propagator.
 
-The ``cost()`` and ``propagate()`` functions of a propagator take an additional *modification event delta* value of type ``ModEventDelta`` (see ``TaskActor``) as argument. Every propagator maintains a modification event delta that describes how its views have changed since the last time the propagator has been executed. For each view type (that is, integer, Boolean, set, :math:`\ldots`) a modification event delta stores a modification event that can be extracted from the modification event delta: If ``med`` is a modification event delta, then ``Int::IntView::me(med)`` returns the modification event for integer views.
+The ``cost()`` and ``propagate()`` functions of a propagator take an additional *modification event delta* value of type ``ModEventDelta`` (see :api:`Programming actors <TaskActor>`) as argument. Every propagator maintains a modification event delta that describes how its views have changed since the last time the propagator has been executed. For each view type (that is, integer, Boolean, set, :math:`\ldots`) a modification event delta stores a modification event that can be extracted from the modification event delta: If ``med`` is a modification event delta, then ``Int::IntView::me(med)`` returns the modification event for integer views.
 
 The extracted modification event describes how all views of a certain view type have changed. For example, for integer views, the modification event ``Int::ME_INT_VAL`` signals that there is at least one integer view that has been assigned since the propagator has been executed last (analogous for ``Int::ME_INT_BND`` and ``Int::ME_INT_DOM``). Even the modification event ``Int::ME_INT_NONE`` carries some information: none of the propagator’s integer views have been modified (which, of course, can only happen if the propagator also uses views of some other type).
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:340:fig:p:domain:bounds
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-domain.tex.in:340:fig:p:domain:bounds
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-domain.tex.in:341:domain equal using bounds propagation
 
 .. mpg-code:: domain equal using bounds propagation
    :caption: A propagator for domain equal using bounds propagation
@@ -213,11 +195,8 @@ Here, we focus on staging for first performing bounds propagation (stage “boun
 
 By the very construction of modification event deltas, the modification event delta for integer views can neither change from ``Int::ME_INT_VAL`` to ``Int::ME_INT_BND`` nor from ``Int::ME_INT_BND`` (or ``Int::ME_INT_VAL``) to ``Int::ME_INT_DOM``. That is, if the equality propagator using staging is in stage “bounds” it stays in that stage until it is executed.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:409:fig:p:domain:transitions
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-domain.tex.in:409:fig:p:domain:transitions
 
-.. mpg-covered: table:docs/src/chapters/programming/p-domain.tex.in:413:tabular@docs/src/chapters/programming/p-domain.tex.in:413
 
 .. mpg-figure:: Stage transitions for the equality propagator
    :name: fig:p:domain:transitions
@@ -249,11 +228,8 @@ Not recomputing cost each time a propagator might be scheduled is done for two r
 
 .. mpg-paragraph:: Controlling staging by modification event deltas.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-domain.tex.in:466:fig:p:domain:staging
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-domain.tex.in:466:fig:p:domain:staging
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-domain.tex.in:467:domain equal using staging
 
 .. mpg-code:: domain equal using staging
    :caption: A propagator for domain equal using staging

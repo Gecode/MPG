@@ -15,17 +15,18 @@ import sys
 RST_ROOT = Path(__file__).resolve().parent
 REPOSITORY_ROOT = RST_ROOT.parent
 sys.path.insert(0, str(RST_ROOT / "extensions"))
+sys.path.insert(0, str(RST_ROOT / "scripts"))
+from build_contract import validate_release
 
 project = "Modeling and Programming with Gecode"
 author = "Christian Schulte, Guido Tack, Mikael Z. Lagerkvist"
 copyright = "2005-2026, The Gecode Team"
-release = os.environ.get("GECODE_VERSION", "development")
+release = validate_release(os.environ.get("GECODE_VERSION", "development"))
 version = release
-if not re.fullmatch(r"[0-9A-Za-z.+-]+", release):
-    raise ValueError(f"GECODE_VERSION is not a safe release identifier: {release!r}")
 
 extensions = [
     "sphinx.ext.imgconverter",
+    "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinxcontrib.bibtex",
     "mpg_katex",
@@ -36,6 +37,8 @@ extensions = [
     "mpg_search",
     "mpg_tailwind",
 ]
+
+extlinks = {"reference": (f"https://www.gecode.dev/doc/{release}/reference/%s", "%s")}
 
 root_doc = os.environ.get("MPG_ROOT_DOC", "content/index")
 source_suffix = {".rst": "restructuredtext"}
@@ -192,11 +195,10 @@ mpg_require_explicit_section_labels = True
 mpg_redirects_file = str(RST_ROOT / "redirects.json")
 
 _new_bibliography = RST_ROOT / "content" / "references.bib"
-_legacy_bibliography = REPOSITORY_ROOT / "docs" / "src" / "bib" / "references.bib"
 bibtex_bibfiles = [
     os.environ.get(
         "MPG_BIBLIOGRAPHY",
-        str(_new_bibliography if _new_bibliography.exists() else _legacy_bibliography),
+        str(_new_bibliography),
     )
 ]
 bibtex_default_style = "plain"
@@ -212,10 +214,9 @@ latex_documents = [
 latex_additional_files = [
     str(RST_ROOT / "_static" / "latex" / "mpg-classic.sty"),
     str(RST_ROOT / "_static" / "latex" / "mpg-sphinx.sty"),
-    # Binary artwork remains the one extracted and checked against the legacy
-    # title page.  The figures workstream will move all publication assets,
-    # including this logo, into the final release asset tree.
-    str(REPOSITORY_ROOT / "research" / "prototypes" / "shared" / "classical-pdf" / "gecode-logo.pdf"),
+    # Keep all PDF publication assets inside the maintained release tree. This
+    # avoids making the production build depend on research prototypes.
+    str(RST_ROOT / "figures" / "pdf" / "gecode-logo.pdf"),
     str(RST_ROOT / "figures" / "pdf" / "cc-by-nc-nd.pdf"),
 ]
 latex_elements = {

@@ -6,7 +6,7 @@
 Script commandline driver
 =========================
 
-The commandline driver (see `Script commandline driver <https://www.gecode.dev/doc/6.4.0/reference/group__TaskDriver.html>`__) provides support for passing common commandline options to programs and a sub-class for spaces called ``Script`` that can take advantage of the options.
+The commandline driver (see :api:`Script commandline driver <TaskDriver>`) provides support for passing common commandline options to programs and a sub-class for spaces called ``Script`` that can take advantage of the options.
 
 .. _modeling:m-driver:overview:
 
@@ -34,92 +34,120 @@ Commandline options
 .. mpg-figure:: Predefined commandline options
    :name: fig:m:driver:options:a
 
-   .. container:: center
+   .. list-table::
+      :header-rows: 1
+      :widths: 25 35 40
 
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | option                                     | type                                                                           | explanation                            |
-      +============================================+================================================================================+========================================+
-      | propagation options                        |                                                                                |                                        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-ipl``                                   | :math:`\{\mathtt{def},\mathtt{val},\mathtt{bnd},\mathtt{dom}\}`                | integer propagation level              |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | branching options                          |                                                                                |                                        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-decay``                                 | ``double``                                                                     | decay-factor                           |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-seed``                                  | ``unsigned int``                                                               | seed for random numbers                |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | search options                             |                                                                                |                                        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-solutions``                             | ``unsigned int``                                                               | how many solutions (:math:`0` for all) |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-threads``                               | ``double``                                                                     | how many threads                       |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-c-d``                                   | ``unsigned int``                                                               | commit recomputation distance          |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-a-d``                                   | ``unsigned int``                                                               | adaptive recomputation distance        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-d-l``                                   | ``unsigned int``                                                               | discrepancy limit for ``LDS``          |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-node``                                  | ``unsigned long long int``                                                     | cutoff for number of nodes             |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-fail``                                  | ``unsigned long long int``                                                     | cutoff for number of failures          |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-time``                                  | ``double``                                                                     | cutoff for time in milliseconds        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-step``                                  | ``double``                                                                     | improvement step for floats            |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | restart-based and portfolio search options |                                                                                |                                        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-restart``                               | :math:`\{\mathtt{none},\mathtt{constant},\mathtt{linear},`                     | enable restarts, define cutoff         |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      |                                            | :math:`\;\mathtt{geometric},\mathtt{luby}\}`                                   |                                        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-restart-scale``                         | ``unsigned int``                                                               | scale-factor for cutoff values         |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-restart-base``                          | ``double``                                                                     | base for geometric cutoff values       |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-nogoods``                               | :math:`\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}`                 | whether to post no-goods               |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-nogoods-limit``                         | ``unsigned int``                                                               | depth limit for no-good recording      |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
-      | ``-assets``                                | ``unsigned int``                                                               | number of assets in a portfolio        |
-      +--------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------+
+      * - option
+        - type
+        - explanation
+      * - propagation options
+        -
+        -
+      * - ``-ipl``
+        - ``def``, ``val``, ``bnd``, ``dom``
+        - integer propagation level
+      * - branching options
+        -
+        -
+      * - ``-decay``
+        - ``double``
+        - decay-factor
+      * - ``-seed``
+        - ``unsigned int``
+        - seed for random numbers
+      * - search options
+        -
+        -
+      * - ``-solutions``
+        - ``unsigned int``
+        - how many solutions (``0`` for all)
+      * - ``-threads``
+        - ``double``
+        - how many threads
+      * - ``-c-d``
+        - ``unsigned int``
+        - commit recomputation distance
+      * - ``-a-d``
+        - ``unsigned int``
+        - adaptive recomputation distance
+      * - ``-d-l``
+        - ``unsigned int``
+        - discrepancy limit for ``LDS``
+      * - ``-node``
+        - ``unsigned long long int``
+        - cutoff for number of nodes
+      * - ``-fail``
+        - ``unsigned long long int``
+        - cutoff for number of failures
+      * - ``-time``
+        - ``double``
+        - cutoff for time in milliseconds
+      * - ``-step``
+        - ``double``
+        - improvement step for floats
+      * - restart-based and portfolio search options
+        -
+        -
+      * - ``-restart``
+        - ``none``, ``constant``, ``linear``, ``geometric``, ``luby``
+        - enable restarts, define cutoff
+      * - ``-restart-scale``
+        - ``unsigned int``
+        - scale-factor for cutoff values
+      * - ``-restart-base``
+        - ``double``
+        - base for geometric cutoff values
+      * - ``-nogoods``
+        - ``false``, ``true``, ``0``, ``1``
+        - whether to post no-goods
+      * - ``-nogoods-limit``
+        - ``unsigned int``
+        - depth limit for no-good recording
+      * - ``-assets``
+        - ``unsigned int``
+        - number of assets in a portfolio
 
 .. mpg-figure:: Predefined commandline options, continued
    :name: fig:m:driver:options:b
 
-   .. container:: center
+   .. list-table::
+      :header-rows: 1
+      :widths: 25 35 40
 
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | option            | type                                                                             | explanation                               |
-      +===================+==================================================================================+===========================================+
-      | execution options |                                                                                  |                                           |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-mode``         | :math:`\{\mathtt{solution},\mathtt{time},\mathtt{stat},`                         | script mode to run                        |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      |                   | :math:`\;\mathtt{gist}\}`                                                        |                                           |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-samples``      | ``unsigned int``                                                                 | how many samples                          |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-iterations``   | ``unsigned int``                                                                 | how many iterations per sample            |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-print-last``   | :math:`\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}`                   | whether to only print last solution       |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-file-sol``     | :math:`\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}`                      | where to print solutions                  |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-file-stat``    | :math:`\{\mathtt{stdout},\mathtt{stdlog},\mathtt{stderr}\}`                      | where to print statistics                 |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-interrupt``    | :math:`\{\mathtt{false},\mathtt{true},\mathtt{0},\mathtt{1}\}`                   | whether driver catches Ctrl-C             |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-trace``        | :math:`\{\mathtt{init},\mathtt{prune},\mathtt{fix},\mathtt{fail},\mathtt{done},` | which events to trace                     |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      |                   | :math:`\;\mathtt{propagate},\mathtt{commit},\mathtt{none},\mathtt{all}\}`        |                                           |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      | ``-cp-profiler``  | ``int,int``                                                                      | Comma separated pair of execution id      |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
-      |                   |                                                                                  | and port number to connect to CPProfiler. |
-      +-------------------+----------------------------------------------------------------------------------+-------------------------------------------+
+      * - option
+        - type
+        - explanation
+      * - execution options
+        -
+        -
+      * - ``-mode``
+        - ``solution``, ``time``, ``stat``, ``gist``
+        - script mode to run
+      * - ``-samples``
+        - ``unsigned int``
+        - how many samples
+      * - ``-iterations``
+        - ``unsigned int``
+        - how many iterations per sample
+      * - ``-print-last``
+        - ``false``, ``true``, ``0``, ``1``
+        - whether to only print last solution
+      * - ``-file-sol``
+        - ``stdout``, ``stdlog``, ``stderr``
+        - where to print solutions
+      * - ``-file-stat``
+        - ``stdout``, ``stdlog``, ``stderr``
+        - where to print statistics
+      * - ``-interrupt``
+        - ``false``, ``true``, ``0``, ``1``
+        - whether driver catches Ctrl-C
+      * - ``-trace``
+        - ``init``, ``prune``, ``fix``, ``fail``, ``done``, ``propagate``, ``commit``, ``none``, ``all``
+        - which events to trace
+      * - ``-cp-profiler``
+        - ``int,int``
+        - Comma separated pair of execution id and port number to connect to CPProfiler.
 
 .. mpg-figure:: User-definable commandline options
    :name: fig:m:driver:options:user
@@ -136,7 +164,7 @@ Commandline options
       ``-search``      string search options
       ================ ====== =========================
 
-The commandline driver provides classes `Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Options.html>`__, `SizeOptions <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SizeOptions.html>`__, and `InstanceOptions <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1InstanceOptions.html>`__ that support parsing commandline options. All classes support the options as summarized in :numref:`fig:m:driver:options:a`, :numref:`fig:m:driver:options:b`, and :numref:`fig:m:driver:options:user`. Here, for a commandline option with name ``-name``, the option classes provide two functions with name ``name()``: one that takes no argument and returns the current value of the option, and one that takes an argument of the listed type and sets the option to that value. If the commandline options contains a hyphen ``-``, then the member function contain an underscore ``_`` instead. For example, for the options ``-c-d``, ``-a-d``, and ``-d-l`` the member functions are named ``c_d()``, ``a_d()``, ``d_l()``.
+The commandline driver provides classes :api:`Options`, :api:`SizeOptions`, and :api:`InstanceOptions` that support parsing commandline options. All classes support the options as summarized in :numref:`fig:m:driver:options:a`, :numref:`fig:m:driver:options:b`, and :numref:`fig:m:driver:options:user`. Here, for a commandline option with name ``-name``, the option classes provide two functions with name ``name()``: one that takes no argument and returns the current value of the option, and one that takes an argument of the listed type and sets the option to that value. If the commandline options contains a hyphen ``-``, then the member function contain an underscore ``_`` instead. For example, for the options ``-c-d``, ``-a-d``, and ``-d-l`` the member functions are named ``c_d()``, ``a_d()``, ``d_l()``.
 
 The values for ``-threads`` are interpreted as described in :ref:`sec:m:search:options`.
 
@@ -152,9 +180,9 @@ The only option for which no value exists is ``-help``: it prints some configura
 
 .. mpg-paragraph:: Size and instance options.
 
-The class `SizeOptions <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SizeOptions.html>`__ accepts an unsigned integer as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``size()``.
+The class :api:`SizeOptions` accepts an unsigned integer as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``size()``.
 
-The class `InstanceOptions <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1InstanceOptions.html>`__ accepts a string as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``instance()``.
+The class :api:`InstanceOptions` accepts a string as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``instance()``.
 
 .. _modeling:m-driver:integer-propagation-level-options:
 
@@ -184,7 +212,7 @@ The different modes passed as argument for the option ``-mode`` have the followi
 
 Which events to trace (see also :ref:`chap:m:group`) can be specified by the ``-trace`` commandline option. It accepts a comma-separated list of the event types to trace, that is ``init``, ``prune``, ``fix`` for fixpoint, ``fail`` for failure, and ``done`` as well as ``none`` to trace no events and ``all`` to trace events of all types.
 
-Examples with tracing include `SEND+MORE=MONEY puzzle <https://www.gecode.dev/doc/6.4.0/reference/money_8cpp.html>`__, `Generating Hamming codes <https://www.gecode.dev/doc/6.4.0/reference/hamming_8cpp.html>`__, and `Folium of Descartes <https://www.gecode.dev/doc/6.4.0/reference/descartes-folium_8cpp.html>`__.
+Examples with tracing include :api:`SEND+MORE=MONEY puzzle <money.cpp>`, :api:`Generating Hamming codes <hamming.cpp>`, and :api:`Folium of Descartes <descartes-folium.cpp>`.
 
 .. _modeling:m-driver:cpprofiler-options:
 
@@ -196,7 +224,7 @@ For more details on the CPProfiler, please consult :ref:`sec:m:search:cpprofiler
 
 .. mpg-paragraph:: Examples.
 
-For an example, in particular, how to use the user-defined options, see :ref:`sec:m:comfy:driver`. As all examples that come with Gecode use the script commandline driver, a plethora of examples is available (see `Example scripts (models) <https://www.gecode.dev/doc/6.4.0/reference/group__Example.html>`__). Also adding additional options is straightforward, for an example see `Golf tournament <https://www.gecode.dev/doc/6.4.0/reference/golf_8cpp.html>`__.
+For an example, in particular, how to use the user-defined options, see :ref:`sec:m:comfy:driver`. As all examples that come with Gecode use the script commandline driver, a plethora of examples is available (see :api:`Example scripts (models) <Example>`). Also adding additional options is straightforward, for an example see :api:`Golf tournament <golf.cpp>`.
 
 .. _modeling:m-driver:gist-inspectors-and-comparators:
 
@@ -212,17 +240,10 @@ The driver options can pass inspectors and comparators (see :ref:`sec:m:gist:ins
 Scripts
 -------
 
-Scripts (see `Script classes <https://www.gecode.dev/doc/6.4.0/reference/group__TaskDriverScript.html>`__) are subclasses of ``Space`` that are designed to work together with option objects of class `Options <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Options.html>`__ and `SizeOptions <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SizeOptions.html>`__.
+Scripts (see :api:`Script classes <TaskDriverScript>`) are subclasses of ``Space`` that are designed to work together with option objects of class :api:`Options` and :api:`SizeOptions`.
 
 In particular, the driver module defines scripts ``IntMinimizeScript``, ``IntMaximizeScript``, ``IntLexMinimizeScript``, ``IntLexMaximizeScript``, ``FloatMinimizeScript``, and ``FloatMaximizeScript`` that can be used for finding best solutions based on a virtual ``cost()`` function, see also :ref:`sec:m:comfy:cost` and :ref:`sec:m:minimodel:optimize`.
 
-Subclasses of ``FloatMinimizeScript`` and ``FloatMaximizeScript`` use the value passed on the command line option ``-step`` as value for the improvement step (see :ref:`sec:m:minimodel:optimize:float`). For an example, see `Golden spiral <https://www.gecode.dev/doc/6.4.0/reference/golden-spiral_8cpp.html>`__.
+Subclasses of ``FloatMinimizeScript`` and ``FloatMaximizeScript`` use the value passed on the command line option ``-step`` as value for the improvement step (see :ref:`sec:m:minimodel:optimize:float`). For an example, see :api:`Golden spiral <golden-spiral.cpp>`.
 
-As scripts are absolutely straightforward, all can be understood by following some examples. For an example see :ref:`sec:m:comfy:driver` or all examples that come with Gecode, see `Example scripts (models) <https://www.gecode.dev/doc/6.4.0/reference/group__Example.html>`__.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-driver.tex.in:29:fig:m:driver:options:a
-.. mpg-covered: table:docs/src/chapters/modeling/m-driver.tex.in:31:tabular@docs/src/chapters/modeling/m-driver.tex.in:31
-.. mpg-covered: caption:docs/src/chapters/modeling/m-driver.tex.in:86:fig:m:driver:options:b
-.. mpg-covered: table:docs/src/chapters/modeling/m-driver.tex.in:89:tabular@docs/src/chapters/modeling/m-driver.tex.in:89
-.. mpg-covered: caption:docs/src/chapters/modeling/m-driver.tex.in:122:fig:m:driver:options:user
-.. mpg-covered: table:docs/src/chapters/modeling/m-driver.tex.in:124:tabular@docs/src/chapters/modeling/m-driver.tex.in:124
+As scripts are absolutely straightforward, all can be understood by following some examples. For an example see :ref:`sec:m:comfy:driver` or all examples that come with Gecode, see :api:`Example scripts (models) <Example>`.

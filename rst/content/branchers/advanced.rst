@@ -26,11 +26,8 @@ assigns all variables in ``x`` to their smallest possible value. That is, ``assi
 .. mpg-code:: snippet:b-advanced:sec:b:advanced:assign:code:2
    :direct:
 
-.. mpg-covered: caption:docs/src/chapters/search/b-advanced.tex.in:32:fig:b:advanced:assignmin
 
-.. mpg-covered: figure:docs/src/chapters/search/b-advanced.tex.in:32:fig:b:advanced:assignmin
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:33:assign min
 
 .. mpg-code:: assign min
    :caption: A brancher for ``assignmin``
@@ -48,11 +45,8 @@ Supporting no-goods
 
 Supporting no-goods by a brancher is straightforward: every brancher has a virtual member function ``ngl()`` (for no-good literal) that takes the same arguments as the ``commit()`` member function: a space, a choice, and the number of the alternative and returns a pointer to a no-good literal of class :api:`NGL`. The ``ngl()`` function is called during no-good generation (see :ref:`sec:m:search:nogoods`) and the returned no-good literal is then used by a no-good propagator that propagates the no-goods (if you are curious, the propagator is implemented by :api:`Search::NoGoodsProp`).
 
-.. mpg-covered: caption:docs/src/chapters/search/b-advanced.tex.in:67:fig:b:advanced:nogoods
 
-.. mpg-covered: figure:docs/src/chapters/search/b-advanced.tex.in:67:fig:b:advanced:nogoods
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:68:none min with no-good support
 
 .. mpg-code:: none min with no-good support
    :caption: Branching for ``nonemin`` with no-good support
@@ -95,7 +89,6 @@ The ``ngl()`` function of a brancher has the following options:
 
    In our example, the second alternative is indeed the negation of the first alternative. Hence the following ``ngl()`` function implements no-good literal creation and only requires a single class ``EqNGL`` for no-good literals implementing equality:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:127:none min with no-good support:no-good literal creation
 
 .. mpg-code:: none min with no-good support:no-good literal creation
 
@@ -116,7 +109,6 @@ A no-good literal inherits from the class :api:`NGL` and must implement the foll
 
   Testing subsumption for our ``EqNGL`` no-good literal is straightforward:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:162:none min with no-good support:status
 
 .. mpg-code:: none min with no-good support:status
 
@@ -126,7 +118,6 @@ A no-good literal inherits from the class :api:`NGL` and must implement the foll
 
   Again, the ``prune()`` function for ``NoneMin`` is straightforward:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:169:none min with no-good support:prune
 
 .. mpg-code:: none min with no-good support:prune
 
@@ -138,7 +129,6 @@ A no-good literal inherits from the class :api:`NGL` and must implement the foll
 
   For the ``EqNGL`` no-good literal, we choose the propagation condition for subscriptions to be ``Int::PC_INT_VAL`` (see :ref:`sec:p:started:propcond` for a discussion of propagation conditions). This choice reflects the fact that subsumption can only be decided after the view ``x`` has been assigned:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:188:none min with no-good support:subscribe and cancel
 
 .. mpg-code:: none min with no-good support:subscribe and cancel
 
@@ -146,7 +136,6 @@ A no-good literal inherits from the class :api:`NGL` and must implement the foll
 
 - A no-good literal must also implement a ``reschedule()`` function that re-schedules the no-goods propagator when it is re-enabled. The ``reschedule()`` function is straightforward, following the patterns of the ``subscribe()`` and ``cancel()`` functions:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:193:none min with no-good support:re-scheduling
 
 .. mpg-code:: none min with no-good support:re-scheduling
 
@@ -168,11 +157,8 @@ Variable views can also be used for reusing branchers to obtain several branchin
 
 While in principle all different variable views introduced in :ref:`chap:p:views` can be used for branchers, the only meaningful variable view for branchers is the minus integer view (see :ref:`sec:p:views:int:minus`).
 
-.. mpg-covered: caption:docs/src/chapters/search/b-advanced.tex.in:227:fig:b:advanced:views
 
-.. mpg-covered: figure:docs/src/chapters/search/b-advanced.tex.in:227:fig:b:advanced:views
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-advanced.tex.in:228:none min and none max
 
 .. mpg-code:: none min and none max
    :caption: Branchings for ``nonemin`` and ``nonemax``

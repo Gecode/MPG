@@ -6,7 +6,7 @@
 Set variables and constraints
 =============================
 
-This chapter gives an overview over set variables and set constraints in Gecode and serves as a starting point for using set variables. For the reference documentation, see `Using integer set variables and constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSet.html>`__.
+This chapter gives an overview over set variables and set constraints in Gecode and serves as a starting point for using set variables. For the reference documentation, see :api:`Using integer set variables and constraints <TaskModelSet>`.
 
 .. _modeling:m-set:overview:
 
@@ -31,7 +31,7 @@ This chapter gives an overview over set variables and set constraints in Gecode 
 Set variables
 -------------
 
-Set variables in Gecode model sets of integers and are instances of the class `SetVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVar.html>`__.
+Set variables in Gecode model sets of integers and are instances of the class :api:`SetVar`.
 
 .. mpg-tip:: Still do not use views for modeling
 
@@ -66,7 +66,7 @@ New set variables are created using a constructor. A new set variable ``x`` is c
 
 This declares a variable ``x`` of type ``SetVar`` in the space ``home``, creates a new set variable implementation with domain :math:`\left[\{\}..\{1,2,3\}\right],\#\left[1..2\right]`, and makes ``x`` refer to the newly created set variable implementation.
 
-There are several overloaded versions of the constructor, you can for example omit the cardinality bounds if you do not want to restrict the cardinality. You find the full interface in the reference documentation of the class `SetVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVar.html>`__. An attempt to create a set variable with an empty domain throws an exception of type `Set::VariableEmptyDomain <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Set_1_1VariableEmptyDomain.html>`__.
+There are several overloaded versions of the constructor, you can for example omit the cardinality bounds if you do not want to restrict the cardinality. You find the full interface in the reference documentation of the class :api:`SetVar`. An attempt to create a set variable with an empty domain throws an exception of type :api:`Set::VariableEmptyDomain`.
 
 As for integer and Boolean variables, the default and copy constructors do not create new variable implementations. Instead, the variable does not refer to any variable implementation (default constructor) or to the same variable implementation (copy constructor). For example in
 
@@ -88,9 +88,9 @@ The universe is symmetric: :math:`-\mbox{\texttt{Set::Limits::min}}=\mbox{\textt
 
 .. math:: \#\left[0..\mathtt{Set::Limits::card}\right]
 
-The limits have been chosen such that an integer variable can hold the cardinality. This means that the maximal element of a set variable is :math:`\mathtt{Int::Limits::max} / 2 - 1`. The limits are defined in the namespace `Set::Limits <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode_1_1Set_1_1Limits.html>`__.
+The limits have been chosen such that an integer variable can hold the cardinality. This means that the maximal element of a set variable is :math:`\mathtt{Int::Limits::max} / 2 - 1`. The limits are defined in the namespace :api:`Set::Limits`.
 
-Any attempt to create a set variable with values outside the defined limits throws an exception of type `Set::OutOfLimits <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Set_1_1OutOfLimits.html>`__.
+Any attempt to create a set variable with values outside the defined limits throws an exception of type :api:`Set::OutOfLimits`.
 
 .. mpg-tip:: Small variable domains are still beautiful
 
@@ -119,7 +119,7 @@ uses the value iterator ``i`` to print all values of the greatest lower bound of
    :direct:
 
 
-uses the range iterator ``i`` to print all ranges of the least upper bound of the domain of ``x``. The third kind of iterator, `SetVarUnknownValues <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVarUnknownValues.html>`__ or `SetVarUnknownRanges <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVarUnknownRanges.html>`__, iterate the values resp. ranges that are still unknown to be part or not part of the set, that is :math:`u\setminus l` for the domain :math:`\left[l..u\right]`.
+uses the range iterator ``i`` to print all ranges of the least upper bound of the domain of ``x``. The third kind of iterator, :api:`SetVarUnknownValues` or :api:`SetVarUnknownRanges`, iterate the values resp. ranges that are still unknown to be part or not part of the set, that is :math:`u\setminus l` for the domain :math:`\left[l..u\right]`.
 
 .. _modeling:m-set:when-to-inspect-a-variable:
 
@@ -143,7 +143,7 @@ where ``y`` is the variable from which ``x`` is to be updated. While ``home`` is
 
 .. mpg-paragraph:: Variable and argument arrays.
 
-Set variable arrays can be allocated using the class `SetVarArray <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1SetVarArray.html>`__. The constructors of this class take the same arguments as the set variable constructors, preceded by the size of the array. For example,
+Set variable arrays can be allocated using the class :api:`SetVarArray`. The constructors of this class take the same arguments as the set variable constructors, preceded by the size of the array. For example,
 
 .. mpg-code:: snippet:m-set:sec:m:set:var:code:6
    :direct:
@@ -151,7 +151,7 @@ Set variable arrays can be allocated using the class `SetVarArray <https://www.g
 
 creates an array of four set variables, each with domain :math:`\left[\{\}..\{1,2,3\}\right]`.
 
-To pass temporary data structures as arguments, you can use the ``SetVarArgs`` class (see `Argument arrays <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetArgs.html>`__). Some set constraints are defined in terms of arrays of sets of integers. These can be passed using ``IntSetArgs`` (see `Argument arrays <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetArgs.html>`__). Set variable argument arrays support the same operations introduced in :ref:`sec:m:integer:args`.
+To pass temporary data structures as arguments, you can use the ``SetVarArgs`` class (see :api:`Argument arrays <TaskModelSetArgs>`). Some set constraints are defined in terms of arrays of sets of integers. These can be passed using ``IntSetArgs`` (see :api:`Argument arrays <TaskModelSetArgs>`). Set variable argument arrays support the same operations introduced in :ref:`sec:m:integer:args`.
 
 .. _sec:m:set:post:
 
@@ -201,7 +201,7 @@ Domain constraints
       | ``SRT_DISJ`` | disjointness (:math:`\parallel`) | ``SRT_CMPL`` | complement (:math:`\;\overline{\cdot}\;`) |
       +--------------+----------------------------------+--------------+-------------------------------------------+
 
-`Domain constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetDom.html>`__ restrict the domain of a set variable using a set constant (given as a single integer, an interval of two integers or an ``IntSet``), depending on set relation types of type ``SetRelType`` (see `Using integer set variables and constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSet.html>`__). :numref:`fig:m:set:srt` lists the available set relation types and their meaning. The relations ``SRT_LQ``, ``SRT_LE``, ``SRT_GQ``, and ``SRT_GR`` establish a total order based on the lexicographic order of the characteristic functions of the two sets.
+:api:`Domain constraints <TaskModelSetDom>` restrict the domain of a set variable using a set constant (given as a single integer, an interval of two integers or an ``IntSet``), depending on set relation types of type ``SetRelType`` (see :api:`Using integer set variables and constraints <TaskModelSet>`). :numref:`fig:m:set:srt` lists the available set relation types and their meaning. The relations ``SRT_LQ``, ``SRT_LE``, ``SRT_GQ``, and ``SRT_GR`` establish a total order based on the lexicographic order of the characteristic functions of the two sets.
 
 .. container:: samepage
 
@@ -228,14 +228,14 @@ The domain of a set variable ``x`` can be constrained according to the domain of
 
 Here, ``x`` and ``d`` can also be arrays of set variables.
 
-For examples using domain constraints, see `Airline crew allocation <https://www.gecode.dev/doc/6.4.0/reference/crew_8cpp.html>`__, as well as the redundant constraints in `Golf tournament <https://www.gecode.dev/doc/6.4.0/reference/golf_8cpp.html>`__.
+For examples using domain constraints, see :api:`Airline crew allocation <crew.cpp>`, as well as the redundant constraints in :api:`Golf tournament <golf.cpp>`.
 
 .. _modeling:m-set:relation-constraints:
 
 Relation constraints
 ~~~~~~~~~~~~~~~~~~~~
 
-`Relation constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetRel.html>`__ enforce relations between set variables and between set and integer variables, depending on the set relation types introduced above.
+:api:`Relation constraints <TaskModelSetRel>` enforce relations between set variables and between set and integer variables, depending on the set relation types introduced above.
 
 For set variables ``x`` and ``y``, the following constrains ``x`` to be a subset of ``y``:
 
@@ -260,7 +260,7 @@ constrains ``x`` to be a superset of the singleton set :math:`\{\mathtt{y}\}`, w
 
 constrains all elements of the set variable ``x`` to be strictly greater than the value of the integer variable ``y`` (see also GCCat: `eq_set <http://www.emn.fr/z-info/sdemasse/gccat/Ceq_set.html>`__, `in <http://www.emn.fr/z-info/sdemasse/gccat/Cin.html>`__, `in_set <http://www.emn.fr/z-info/sdemasse/gccat/Cin_set.html>`__, `not_in <http://www.emn.fr/z-info/sdemasse/gccat/Cnot_in.html>`__).
 
-Gecode provides reified versions of all set relation constraints. For an example, see `Golf tournament <https://www.gecode.dev/doc/6.4.0/reference/golf_8cpp.html>`__ and :ref:`chap:c:golf`.
+Gecode provides reified versions of all set relation constraints. For an example, see :api:`Golf tournament <golf.cpp>` and :ref:`chap:c:golf`.
 
 .. _modeling:m-set:if-then-else-constraint:
 
@@ -293,7 +293,7 @@ Set operations
       | ``SOT_DUNION`` | disjoint union (:math:`\uplus`) | ``SOT_MINUS`` | set minus (:math:`\setminus`) |
       +----------------+---------------------------------+---------------+-------------------------------+
 
-`Set operation/relation constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetRelOp.html>`__ perform set operations according to the type shown in :numref:`fig:m:set:sot` and relate the result to a set variable. For example,
+:api:`Set operation/relation constraints <TaskModelSetRelOp>` perform set operations according to the type shown in :numref:`fig:m:set:sot` and relate the result to a set variable. For example,
 
 .. mpg-code:: snippet:m-set:fig:m:set:sot:code:1
    :direct:
@@ -311,7 +311,7 @@ enforces the relation
 
 Instead of set variables, the relation constraints also accept ``IntSet`` arguments as set constants. There are no reified versions of the set operation constraints (you can decompose using reified relation constraints on the result, see :ref:`tip:m:set:rbd`).
 
-Set operation constraints are used in most examples that contain set variables, such as `Airline crew allocation <https://www.gecode.dev/doc/6.4.0/reference/crew_8cpp.html>`__ or `Generating Hamming codes <https://www.gecode.dev/doc/6.4.0/reference/hamming_8cpp.html>`__.
+Set operation constraints are used in most examples that contain set variables, such as :api:`Airline crew allocation <crew.cpp>` or :api:`Generating Hamming codes <hamming.cpp>`.
 
 .. _m:set:element:
 
@@ -321,7 +321,7 @@ Set operation constraints are used in most examples that contain set variables, 
 Element constraints
 ~~~~~~~~~~~~~~~~~~~
 
-`Element constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetElement.html>`__ generalize array access to set variables. The simplest version of ``element`` for set variables is stated as
+:reference:`Element constraints (element()) <namespaceGecode.html#a844feb95b37b987163a550d214d976d7>` generalize array access to set variables. The simplest version of ``element`` for set variables is stated as
 
 .. mpg-code:: snippet:m-set:m:set:element:code:1
    :direct:
@@ -339,7 +339,7 @@ for set variables ``y`` and ``z`` and an array of set variables ``x`` enforces t
 
 .. math:: \mathtt{z}=\bigcup_{i\in\mathtt{y}}\mathtt{x}_i
 
-Note that generalized element constraints follow the usual semantics of set operations if the index variable is the empty set: an empty union is the empty set, whereas an empty intersection is the full universe. Because of this semantics, the ``element`` constraint has an optional set constant argument so that you can specify the universe (i.e., usually the full set of elements your problem deals with) explicitly. For an example of a set element constraint, see `Golf tournament <https://www.gecode.dev/doc/6.4.0/reference/golf_8cpp.html>`__ and :ref:`chap:c:golf`.
+Note that generalized element constraints follow the usual semantics of set operations if the index variable is the empty set: an empty union is the empty set, whereas an empty intersection is the full universe. Because of this semantics, the ``element`` constraint has an optional set constant argument so that you can specify the universe (i.e., usually the full set of elements your problem deals with) explicitly. For an example of a set element constraint, see :api:`Golf tournament <golf.cpp>` and :ref:`chap:c:golf`.
 
 .. _m:set:set_int:
 
@@ -349,7 +349,7 @@ Note that generalized element constraints follow the usual semantics of set oper
 Constraints connecting set and integer variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Most models that involve set variables also involve integer variables. In addition to the set relation constraints that accept integer variables (interpreting them as singleton sets), `Connection constraints to integer variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetConnect.html>`__ provide the necessary interface for models that use both set variables and integer or Boolean variables.
+Most models that involve set variables also involve integer variables. In addition to the set relation constraints that accept integer variables (interpreting them as singleton sets), :reference:`Cardinality constraints (cardinality()) <group__TaskModelSetConnect.html#ga2275ba756168623853b2682347e36cc2>` and the operations below provide the necessary interface for models that use both set variables and integer or Boolean variables.
 
 The most obvious constraint connecting integer and set variables is the cardinality constraint:
 
@@ -367,7 +367,7 @@ Gecode provides constraints for the minimal and maximal elements of a set. The f
 
 constrains the integer variable ``y`` to be the minimum of the set ``x``.
 
-For an example of constraints connecting integer and set variables, see `Steiner triples <https://www.gecode.dev/doc/6.4.0/reference/steiner_8cpp.html>`__.
+For an example of constraints connecting integer and set variables, see :api:`Steiner triples <steiner.cpp>`.
 
 .. _modeling:m-set:weighted-sets:
 
@@ -389,7 +389,7 @@ enforces that ``x`` is a subset of :math:`\{1,3,4,5,7,9\}` (the set of elements)
 Set channeling constraints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Channel constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetChannel.html>`__ link arrays of set variables, as well as set variables with integer and Boolean variables.
+:reference:`Channel constraints (channel()) <namespaceGecode.html#a9a722c5a14e6503556315d4257061c1a>` link arrays of set variables, as well as set variables with integer and Boolean variables.
 
 For an two arrays of set variables ``x`` and ``y``,
 
@@ -452,7 +452,7 @@ which constrains ``y`` to be the set :math:`\{\mathtt{x}_0,\dots,\mathtt{x}_{|\m
 Convexity constraints
 ~~~~~~~~~~~~~~~~~~~~~
 
-`Convexity constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetConvex.html>`__ enforce that set variables are convex, which means that the elements form an integer interval. For example, the set :math:`\{1,2,3,4,5\}` is convex, while :math:`\{1,3,4,5\}` is not, as it contains a hole. The *convex hull* of a set :math:`s` is the smallest convex set containing :math:`s` (:math:`\{1,2,3,4,5\}` is the convex hull of :math:`\{1,3,4,5\}`).
+:api:`Convexity constraints <TaskModelSetConvex>` enforce that set variables are convex, which means that the elements form an integer interval. For example, the set :math:`\{1,2,3,4,5\}` is convex, while :math:`\{1,3,4,5\}` is not, as it contains a hole. The *convex hull* of a set :math:`s` is the smallest convex set containing :math:`s` (:math:`\{1,2,3,4,5\}` is the convex hull of :math:`\{1,3,4,5\}`).
 
 The constraint
 
@@ -473,7 +473,7 @@ enforces that the set variable ``y`` is the convex hull of the set variable ``x`
 Sequence constraints
 ~~~~~~~~~~~~~~~~~~~~
 
-`Sequence constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetSequence.html>`__ enforce an order among an array of set variables ``x``. Posting the constraint
+:api:`Sequence constraints <TaskModelSetSequence>` enforce an order among an array of set variables ``x``. Posting the constraint
 
 .. mpg-code:: snippet:m-set:m:set:set_channel:code:8
    :direct:
@@ -487,7 +487,7 @@ results in the sets ``x`` being pairwise disjoint, and furthermore :math:`\max(\
 
 additionally constrains the set variable ``y`` to be the union of the ``x``.
 
-For an example of sequence constraints, see `Steiner triples <https://www.gecode.dev/doc/6.4.0/reference/steiner_8cpp.html>`__.
+For an example of sequence constraints, see :api:`Steiner triples <steiner.cpp>`.
 
 .. _sec:m:set:precede:
 
@@ -497,7 +497,7 @@ For an example of sequence constraints, see `Steiner triples <https://www.gecode
 Value precedence constraints
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Value precedence constraints over set variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetPrecede.html>`__ enforce that a value precedes another value in an array of set variables. By
+:reference:`Value precedence constraints (precede()) <group__TaskModelSetPrecede.html#gacbffe24f32e7e393f27c3da7df0f5f3f>` enforce that a value precedes another value in an array of set variables. By
 
 .. mpg-code:: snippet:m-set:sec:m:set:precede:code:1
    :direct:
@@ -513,7 +513,7 @@ A generalization is available for precedences between several integer values. By
 
 where ``x`` is an array of set variables and ``c`` is an array of integers, it is enforced that :math:`\mathtt{c}_k` precedes :math:`\mathtt{c}_{k+1}` in ``x`` for :math:`0\leq k<|\mathtt c|-1`.
 
-The constraint is implemented by the propagator introduced in :cite:`Precede` (see also GCCat: `set_value_precede <http://www.emn.fr/z-info/sdemasse/gccat/Cset_value_precede.html>`__), the paper also explains how to use the ``precede`` constraint for breaking value symmetries. For an example, see `Golf tournament <https://www.gecode.dev/doc/6.4.0/reference/golf_8cpp.html>`__ and :ref:`chap:c:golf`.
+The constraint is implemented by the propagator introduced in :cite:`Precede` (see also GCCat: `set_value_precede <http://www.emn.fr/z-info/sdemasse/gccat/Cset_value_precede.html>`__), the paper also explains how to use the ``precede`` constraint for breaking value symmetries. For an example, see :api:`Golf tournament <golf.cpp>` and :ref:`chap:c:golf`.
 
 .. _sec:m:set:exec:
 
@@ -523,7 +523,7 @@ The constraint is implemented by the propagator introduced in :cite:`Precede` (
 Synchronized execution
 ----------------------
 
-Gecode offers support in `Synchronized execution <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelSetExec.html>`__ for executing a function when set variables become assigned.
+Gecode offers support in :reference:`Synchronized execution (wait()) <namespaceGecode.html#ad614b55b27244916514b394a3478273a>` for executing a function when set variables become assigned.
 
 The code
 
@@ -535,11 +535,3 @@ posts a propagator that waits until the set variable ``x`` (or, if ``x`` is an a
 
 .. mpg-code:: snippet:m-set:sec:m:set:exec:code:2
    :direct:
-
-
-.. mpg-covered: tip:docs/src/chapters/modeling/m-set.tex.in:32:unlabeled-tip@docs/src/chapters/modeling/m-set.tex.in:32
-.. mpg-covered: tip:docs/src/chapters/modeling/m-set.tex.in:122:unlabeled-tip@docs/src/chapters/modeling/m-set.tex.in:122
-.. mpg-covered: caption:docs/src/chapters/modeling/m-set.tex.in:217:fig:m:set:srt
-.. mpg-covered: table:docs/src/chapters/modeling/m-set.tex.in:219:tabular@docs/src/chapters/modeling/m-set.tex.in:219
-.. mpg-covered: caption:docs/src/chapters/modeling/m-set.tex.in:327:fig:m:set:sot
-.. mpg-covered: table:docs/src/chapters/modeling/m-set.tex.in:329:tabular@docs/src/chapters/modeling/m-set.tex.in:329

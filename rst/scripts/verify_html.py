@@ -77,6 +77,7 @@ def main() -> int:
     argument_parser = argparse.ArgumentParser(description=__doc__)
     argument_parser.add_argument("root", type=Path)
     argument_parser.add_argument("--site-prefix", action="append", default=[])
+    argument_parser.add_argument("--release", help="required Gecode version for reference links")
     argument_parser.add_argument("--require-pagefind", action="store_true")
     arguments = argument_parser.parse_args()
     root = arguments.root.resolve()
@@ -102,6 +103,16 @@ def main() -> int:
                 )
         for uri in parser.links:
             split = urlsplit(uri)
+            if arguments.release and (
+                not split.scheme and not split.netloc
+                or split.hostname in {"www.gecode.dev", "gecode.dev"}
+            ):
+                reference = re.match(r"/doc/([^/]+)/reference(?:/|$)", unquote(split.path))
+                if reference and reference[1] != arguments.release:
+                    raise SystemExit(
+                        f"reference link targets release {reference[1]} instead of "
+                        f"{arguments.release} in {page}: {uri}"
+                    )
             if split.scheme or split.netloc or uri.startswith(("mailto:", "javascript:")):
                 continue
             if split.path.startswith(tuple(arguments.site_prefix)):

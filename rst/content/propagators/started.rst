@@ -51,11 +51,9 @@ By the *domain* of a variable (or a view, or a variable implementation) we refer
 
 .. mpg-paragraph:: Executing propagators.
 
-A propagator is implemented in Gecode as a subclass of the class ``Propagator``\ where the different tasks a propagator must be able to perform are implemented as virtual member functions. Before we describe these functions and their purpose, we sketch how a propagator actually performs constraint propagation.
+A propagator is implemented in Gecode as a subclass of the class :api:`Propagator` where the different tasks a propagator must be able to perform are implemented as virtual member functions. Before we describe these functions and their purpose, we sketch how a propagator actually performs constraint propagation.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:111:fig:p:started:scheduling_propagators
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:111:fig:p:started:scheduling_propagators
 
 .. mpg-figure:: Scheduling and executing propagators
    :name: fig:p:started:scheduling_propagators
@@ -124,7 +122,6 @@ Before discussing what a propagator must do in detail, we need to discuss how to
 
 We call a function implementing a constraint a *constraint post function*. The constraint post function ``less()`` takes a space ``home`` where to post the constraint (actually, where to post the propagator implementing the constraint) and variables ``x0`` and ``x1``. [1]_ The responsibilities of a constraint post function are straightforward: it checks whether its arguments are valid (and throws an exception otherwise), checks whether the home space is failed, sets some execution information, creates variable views for the variables passed to it, and then posts an appropriate propagator. This is detailed below.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-started.tex.in:299:unlabeled-tip@docs/src/chapters/programming/p-started.tex.in:299
 
 .. mpg-tip:: Variables and views are passed by value
 
@@ -134,9 +131,7 @@ We call a function implementing a constraint a *constraint post function*. The c
 
 .. mpg-paragraph:: What a propagator must do.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:311:fig:p:started:propagators_views_varimp
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:311:fig:p:started:propagators_views_varimp
 
 .. mpg-figure:: Propagators, views, and variable implementations
    :name: fig:p:started:propagators_views_varimp
@@ -223,20 +218,17 @@ What becomes quite clear is that a propagator has to meet certain obligations (d
 Implementing the ``less`` constraint
 ------------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:596:fig:p:started:less
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:596:fig:p:started:less
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:597:less
 
 .. mpg-code:: less
    :caption: A constraint and propagator for ``less``
    :name: fig:p:started:less
    :download:
 
-:numref:`fig:p:started:less` shows the class definition ``Less`` for our less propagator and the definition of the constraint post function. Unsurprisingly, the propagator ``Less`` uses two views for integer variables of type ``Int::IntView``\ and propagates that the values for ``x0`` must be less than the values for ``x1``.
+:numref:`fig:p:started:less` shows the class definition ``Less`` for our less propagator and the definition of the constraint post function. Unsurprisingly, the propagator ``Less`` uses two views for integer variables of type :api:`Int::IntView` and propagates that the values for ``x0`` must be less than the values for ``x1``.
 
-The ``Less`` propagator inherits from the class ``Propagator``\ defined by the Gecode kernel (as any propagator must do) and stores two integer views which are defined by Gecode’s integer module. Hence, we need to include ``<gecode/int.hh>``. Note that only the constraint post functions of the integer module are available in the ``Gecode``\ namespace. All other functionality, including ``Int::IntView``, is defined in the namespace ``Gecode::Int``.
+The ``Less`` propagator inherits from the class :api:`Propagator` defined by the Gecode kernel (as any propagator must do) and stores two integer views which are defined by Gecode’s integer module. Hence, we need to include ``<gecode/int.hh>``. Note that only the constraint post functions of the integer module are available in the :api:`Gecode` namespace. All other functionality, including :api:`Int::IntView`, is defined in the namespace :api:`Gecode::Int <Int>`.
 
 .. _par:p:started:post:
 
@@ -244,11 +236,10 @@ The ``Less`` propagator inherits from the class ``Propagator``\ defined by the G
 
 The constraint post function is implemented as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:623:less:constraint post function
 
 .. mpg-code:: less:constraint post function
 
-The constraint post function creates two integer variable views ``y0`` and ``y1`` for its integer variable arguments and calls the static propagator post function as defined by the ``Less`` class. A propagator post function also returns an execution status of type ``ExecStatus`` (see ``TaskActorStatus``) where the only two values that can be returned by a propagator post function are ``ES_OK`` (posting was successful) and ``ES_FAILED`` (the post function determined even without actually posting the propagator that the constraint ``Less`` is unsatisfiable). In case ``ES_FAILED`` is returned, the constraint post function *must* mark the current space ``home`` as failed (by using ``home.fail()``).
+The constraint post function creates two integer variable views ``y0`` and ``y1`` for its integer variable arguments and calls the static propagator post function as defined by the ``Less`` class. A propagator post function also returns an execution status of type ``ExecStatus`` (see :api:`Status of constraint propagation and branching commit <TaskActorStatus>`) where the only two values that can be returned by a propagator post function are ``ES_OK`` (posting was successful) and ``ES_FAILED`` (the post function determined even without actually posting the propagator that the constraint ``Less`` is unsatisfiable). In case ``ES_FAILED`` is returned, the constraint post function *must* mark the current space ``home`` as failed (by using ``home.fail()``).
 
 .. _propagators:started:propagator-posting:
 
@@ -256,11 +247,10 @@ The constraint post function creates two integer variable views ``y0`` and ``y1`
 
 The posting of the ``Less`` propagator is defined by a constructor designed for initialization and a static post function returning an execution status as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:644:less:posting
 
 .. mpg-code:: less:posting
 
-The constructor initializes its integer views and creates subscriptions to both ``x0`` and ``x1``. Subscribing to an integer view takes the home space, the propagator as subscriber (as a reference), and a propagation condition of type ``PropCond``. We do not look any further into propagation conditions right here (:ref:`sec:p:started:propcond` does this in detail) but give two hints. First, the values for propagation conditions depend on the variable view as witnessed by the fact that the value ``Int::PC_INT_DOM`` is declared in the namespace ``Gecode::Int``. Second, ``Int::PC_INT_DOM`` creates a subscription such that the propagator is executed whenever the domain of ``x0`` (respectively ``x1``) changes.
+The constructor initializes its integer views and creates subscriptions to both ``x0`` and ``x1``. Subscribing to an integer view takes the home space, the propagator as subscriber (as a reference), and a propagation condition of type ``PropCond``. We do not look any further into propagation conditions right here (:ref:`sec:p:started:propcond` does this in detail) but give two hints. First, the values for propagation conditions depend on the variable view as witnessed by the fact that the value ``Int::PC_INT_DOM`` is declared in the namespace :api:`Gecode::Int <Int>`. Second, ``Int::PC_INT_DOM`` creates a subscription such that the propagator is executed whenever the domain of ``x0`` (respectively ``x1``) changes.
 
 The propagator post function is entirely naive in that it always creates a ``Less`` propagator and always succeeds (and hence returns ``ES_OK``). Note that propagators can only be created in a space. Hence, the ``new`` operator is used in a placement version with placement argument ``(home)`` which allocates memory for the ``Less`` propagator from ``home``.
 
@@ -270,7 +260,6 @@ The propagator post function is entirely naive in that it always creates a ``Les
 
 The virtual ``dispose()`` function for the ``Less`` propagator takes a home space as argument and returns the size of the just disposed propagator (as type ``size_t``). [3]_ Otherwise, the ``dispose()`` function does exactly what has been described above: it cancels the subscriptions created by the constructor used for posting:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:677:less:disposal
 
 .. mpg-code:: less:disposal
 
@@ -282,7 +271,6 @@ Note that the arguments for canceling a subscription are (and must be) exactly t
 
 The virtual ``copy()`` function and the corresponding copy constructor are unsurprising in that they follow exactly the same structure as the corresponding function and constructor for spaces used for modeling:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:689:less:copying
 
 .. mpg-code:: less:copying
 
@@ -292,19 +280,15 @@ The only aspect that deserves some attention is that a propagator must be create
 
 .. mpg-paragraph:: Cost computation.
 
-Cost values for propagators are defined by the class ``PropCost``. The class ``PropCost``\ defines several static member functions with which cost values can be created. For ``Less``, the ``cost()`` function returns a cost value for a binary propagator with low cost (as we will see below, the ``propagate()`` function is really cheap to execute):
+Cost values for propagators are defined by the class :api:`PropCost`. The class :api:`PropCost` defines several static member functions with which cost values can be created. For ``Less``, the ``cost()`` function returns a cost value for a binary propagator with low cost (as we will see below, the ``propagate()`` function is really cheap to execute):
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:704:less:cost computation
 
 .. mpg-code:: less:cost computation
 
 Please ignore the additional argument of type ``ModEventDelta`` to ``cost()`` for now, see :ref:`sec:p:domain:med`.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:709:fig:p:started:propcost
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:709:fig:p:started:propcost
 
-.. mpg-covered: table:docs/src/chapters/programming/p-started.tex.in:711:tabular@docs/src/chapters/programming/p-started.tex.in:711
 
 .. mpg-figure:: Summary of propagation cost functions
    :name: fig:p:started:propcost
@@ -333,7 +317,7 @@ Please ignore the additional argument of type ``ModEventDelta`` to ``cost()`` fo
       | ``crazy``                  | propagator with :math:`\approx` exponential (or large polynomial) complexity |
       +----------------------------+------------------------------------------------------------------------------+
 
-The static member functions provided by ``PropCost``\ are summarized in :numref:`fig:p:started:propcost`. Each function takes either the value ``PropCost::LO`` (for low cost) or ``PropCost::HI`` (for high cost). The dynamic cost functions take an additional integer (or unsigned integer) value defining how many views the propagator is computing with.
+The static member functions provided by :api:`PropCost` are summarized in :numref:`fig:p:started:propcost`. Each function takes either the value ``PropCost::LO`` (for low cost) or ``PropCost::HI`` (for high cost). The dynamic cost functions take an additional integer (or unsigned integer) value defining how many views the propagator is computing with.
 
 For example, a propagator with ``n`` variables and complexity :math:`O(\mathtt n \log \mathtt n)` might return a cost value constructed by
 
@@ -348,7 +332,6 @@ As mentioned before, propagation cost is nothing but an approximation of the rea
 
 Re-scheduling the propagator after it has been enabled again, is done by the virtual ``reschedule()`` member function as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:756:less:re-scheduling
 
 .. mpg-code:: less:re-scheduling
 
@@ -366,19 +349,15 @@ Before starting with the code for propagation, we have to work out how the propa
 
 These two rules can be directly implemented as follows (again, please ignore the additional argument of type ``ModEventDelta`` to ``propagate()`` for now):
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:780:less:propagation
 
 .. mpg-code:: less:propagation
 
-The ``le()`` (for less) modification operation applied to an integer view ``x`` takes a ``home`` space and an integer value ``n`` and keeps only those values from the domain of ``x`` that are smaller than ``n`` (``gr()`` for greater is analogous). A view modification operation returns a modification event of type ``ModEvent`` (see ``TaskVarMEPC``\ and ``TaskActorIntMEPC``). A modification event describes how the domain of a view has changed, in particular the value ``Int::ME_INT_FAILED`` is returned if a domain wipe-out has occurred. In that case, the propagator has found out (just by attempting to perform a view modification operation) that the constraint it implements is unsatisfiable. In this case, a propagator immediately returns with the execution status ``ES_FAILED``. Naturally, the member functions ``min()`` and ``max()`` of an integer view ``x`` just return the smallest and largest possible value of the domain of ``x``.
+The ``le()`` (for less) modification operation applied to an integer view ``x`` takes a ``home`` space and an integer value ``n`` and keeps only those values from the domain of ``x`` that are smaller than ``n`` (``gr()`` for greater is analogous). A view modification operation returns a modification event of type ``ModEvent`` (see :api:`Generic modification events and propagation conditions <TaskVarMEPC>` and :api:`Integer modification events and propagation conditions <TaskActorIntMEPC>`). A modification event describes how the domain of a view has changed, in particular the value ``Int::ME_INT_FAILED`` is returned if a domain wipe-out has occurred. In that case, the propagator has found out (just by attempting to perform a view modification operation) that the constraint it implements is unsatisfiable. In this case, a propagator immediately returns with the execution status ``ES_FAILED``. Naturally, the member functions ``min()`` and ``max()`` of an integer view ``x`` just return the smallest and largest possible value of the domain of ``x``.
 
 If the propagator had not reported failure by returning ``ES_FAILED`` it would be faulty: it would incorrectly claim that values for the views are solutions of the constraint it implements. Being correct with respect to the constraint a propagator implements is one of the obligations of a propagator we will discuss in :ref:`sec:p:started:obligations`.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:806:fig:p:started:modify
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:806:fig:p:started:modify
 
-.. mpg-covered: table:docs/src/chapters/programming/p-started.tex.in:808:tabular@docs/src/chapters/programming/p-started.tex.in:808
 
 .. mpg-figure:: Value-based modification functions for integer variable views
    :name: fig:p:started:modify
@@ -407,7 +386,6 @@ The second part of the propagator is concerned with deciding subsumption: if bot
 
 In case the propagator is neither failed nor subsumed, it reports an execution status ``ES_NOFIX``. Returning the value ``ES_NOFIX`` means that the propagator will be scheduled if one of its views (``x0`` and ``x1`` in our example) have been modified. If none of its views have been modified, the propagator is not scheduled. This rather naive statement of what the propagator has computed is improved in :ref:`sec:p:started:better`.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-started.tex.in:849:unlabeled-tip@docs/src/chapters/programming/p-started.tex.in:849
 
 .. mpg-tip:: Immediately return after subsumption
 
@@ -418,11 +396,8 @@ In case the propagator is neither failed nor subsumed, it reports an execution s
 Improving the ``Less`` propagator
 ---------------------------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:860:fig:p:started:less:better
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:860:fig:p:started:less:better
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:861:less better
 
 .. mpg-code:: less better
    :caption: A better constraint and propagator for ``less``
@@ -437,11 +412,10 @@ A recurring theme in improving propagators in this and in the next section is no
 
 .. mpg-paragraph:: Improving posting.
 
-As mentioned above, all functions related to posting (constructor, propagator post function, and constraint post function) should take a value of type ``Home``\ rather than ``Space&``. The improved propagator honors this without any further changes (a ``Space`` is automatically casted to a ``Home`` if needed, and vice-versa). An example of how passing a ``Home`` value is actually useful can be found in :ref:`sec:p:reified:leeq`.
+As mentioned above, all functions related to posting (constructor, propagator post function, and constraint post function) should take a value of type :api:`Home` rather than ``Space&``. The improved propagator honors this without any further changes (a ``Space`` is automatically casted to a :api:`Home` if needed, and vice-versa). An example of how passing a :api:`Home` value is actually useful can be found in :ref:`sec:p:reified:leeq`.
 
 The improved constraint post function is as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:891:less better:constraint post function
 
 .. mpg-code:: less better:constraint post function
 
@@ -449,15 +423,14 @@ The constraint post function features three improvements:
 
 - The most obvious improvement: if the ``home`` space is already failed, no propagator is posted.
 
-- The post function creates an object of class ``PostInfo``. When the object is created, it provides information that a post function is currently being executed and to which propagator group the post function is associated (this information is available from ``home``, another reason why one should always use the type ``Home``\ rather than ``Space&``). This information is useful for tracing, see :ref:`chap:m:group`. When the object goes out of scope, it is also recorded that the post function is done.
+- The post function creates an object of class :api:`PostInfo`. When the object is created, it provides information that a post function is currently being executed and to which propagator group the post function is associated (this information is available from ``home``, another reason why one should always use the type :api:`Home` rather than ``Space&``). This information is useful for tracing, see :ref:`chap:m:group`. When the object goes out of scope, it is also recorded that the post function is done.
 
-- The variable views are initialized implicitly. Note that the propagator post function ``Less::post()`` is called with integer variables ``x0`` and ``x1`` which are automatically coerced to integer views (as ``Int::IntView``\ has a non-explicit constructor with argument type ``IntVar``).
+- The variable views are initialized implicitly. Note that the propagator post function ``Less::post()`` is called with integer variables ``x0`` and ``x1`` which are automatically coerced to integer views (as :api:`Int::IntView` has a non-explicit constructor with argument type :api:`IntVar`).
 
 - Instead of testing whether ``Less::post()`` returns ``ES_FAILED``, the constraint post function uses the macro ``GECODE_ES_FAIL`` for convenience (doing exactly the same as shown before). Macros for checking and failing are summarized below.
 
 The improved post function is a little bit more sophisticated:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:920:less better:posting
 
 .. mpg-code:: less better:posting
 
@@ -477,7 +450,6 @@ It includes the following improvements:
 
    The ``propagate()`` function is improved as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:942:less better:propagation
 
 .. mpg-code:: less better:propagation
 
@@ -495,11 +467,8 @@ with the following improvements:
 
   The situation where returning ``ES_FIX`` instead of ``ES_NOFIX`` differs, is when the propagator actually prunes the values for ``x0`` or ``x1``. If the propagator returns ``ES_NOFIX`` it will be scheduled in this situation. If it returns ``ES_FIX`` it will not be scheduled. The difference between ``ES_FIX`` and ``ES_NOFIX`` is sketched in :numref:`fig:p:started:scheduling_propagators`. Again, not scheduling a propagator means fewer propagator executions. :ref:`chap:p:avoid` takes a second look at fixpoint reasoning for propagators.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:986:fig:p:started:macros
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:986:fig:p:started:macros
 
-.. mpg-covered: table:docs/src/chapters/programming/p-started.tex.in:988:tabular@docs/src/chapters/programming/p-started.tex.in:988
 
 .. mpg-figure:: Check and fail macros
    :name: fig:p:started:macros
@@ -564,11 +533,8 @@ Modification operations on integer views might return the following values for `
 
 - ``Int::ME_INT_VAL``: the view has been assigned to a single value. For example, both ``x.le(home,2)`` (:math:`\mathtt x =\mathtt 0`) and ``x.gq(home,3)`` (:math:`\mathtt x =\mathtt 3`) return ``Int::ME_INT_VAL``.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:1081:fig:p:started:less:best
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:1081:fig:p:started:less:best
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:1082:less even better
 
 .. mpg-code:: less even better
    :caption: An even better constraint and propagator for ``less``
@@ -599,11 +565,8 @@ The ``Less`` propagator subscribes to both of its views (that is, ``x0`` and ``x
 
 As mentioned earlier, a propagator also needs to be scheduled when it is created to get the process of constraint propagation started. More precisely, a propagator ``p`` might be scheduled when it subscribes to a view ``x``. If ``x`` is assigned, ``p`` is always scheduled regardless of the propagation condition used for subscribing. If ``x`` is not assigned, ``p`` is only scheduled if the propagation condition is different from ``Int::PC_INT_VAL``. The same holds for the ``schedule()`` function discussed in the previous section.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:1142:fig:p:started:nq
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:1142:fig:p:started:nq
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:1143:disequality
 
 .. mpg-code:: disequality
    :caption: A propagator for disequality
@@ -621,65 +584,59 @@ Scheduling when creating subscriptions can be avoided by giving ``false`` as an 
 Using propagator patterns
 -------------------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:1171:fig:p:started:patterns
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:1171:fig:p:started:patterns
 
-.. mpg-covered: table:docs/src/chapters/programming/p-started.tex.in:1173:tabular@docs/src/chapters/programming/p-started.tex.in:1173
 
 .. mpg-figure:: Propagator patterns
    :name: fig:p:started:patterns
 
    .. container:: center
 
-      +--------------------------+---------------------------------------------------------------+
-      | **single view patterns** |                                                               |
-      +--------------------------+---------------------------------------------------------------+
-      | ``UnaryPropagator``      | unary propagator with view ``x0``                             |
-      +--------------------------+---------------------------------------------------------------+
-      | ``BinaryPropagator``     | binary propagator with views ``x0`` and ``x1``                |
-      +--------------------------+---------------------------------------------------------------+
-      | ``TernaryPropagator``    | ternary propagator with views ``x0``, ``x1``, and ``x2``      |
-      +--------------------------+---------------------------------------------------------------+
-      | ``NaryPropagator``       | :math:`n`-ary propagator with view array ``x``                |
-      +--------------------------+---------------------------------------------------------------+
-      | ``NaryOnePropagator``    | :math:`n`-ary propagator with view array ``x`` and view ``y`` |
-      +--------------------------+---------------------------------------------------------------+
-      |                          |                                                               |
-      +--------------------------+---------------------------------------------------------------+
-      | **mixed view patterns**  |                                                               |
-      +--------------------------+---------------------------------------------------------------+
-      | ``MixBinaryPropagator``  | binary propagator with views ``x0`` and ``x1``                |
-      +--------------------------+---------------------------------------------------------------+
-      | ``MixTernaryPropagator`` | ternary propagator with views ``x0``, ``x1``, and ``x2``      |
-      +--------------------------+---------------------------------------------------------------+
-      | ``MixNaryOnePropagator`` | :math:`n`-ary propagator with view array ``x`` and view ``y`` |
-      +--------------------------+---------------------------------------------------------------+
+      +-----------------------------+---------------------------------------------------------------+
+      | **single view patterns**    |                                                               |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`UnaryPropagator`      | unary propagator with view ``x0``                             |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`BinaryPropagator`     | binary propagator with views ``x0`` and ``x1``                |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`TernaryPropagator`    | ternary propagator with views ``x0``, ``x1``, and ``x2``      |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`NaryPropagator`       | :math:`n`-ary propagator with view array ``x``                |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`NaryOnePropagator`    | :math:`n`-ary propagator with view array ``x`` and view ``y`` |
+      +-----------------------------+---------------------------------------------------------------+
+      |                             |                                                               |
+      +-----------------------------+---------------------------------------------------------------+
+      | **mixed view patterns**     |                                                               |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`MixBinaryPropagator`  | binary propagator with views ``x0`` and ``x1``                |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`MixTernaryPropagator` | ternary propagator with views ``x0``, ``x1``, and ``x2``      |
+      +-----------------------------+---------------------------------------------------------------+
+      | :api:`MixNaryOnePropagator` | :math:`n`-ary propagator with view array ``x`` and view ``y`` |
+      +-----------------------------+---------------------------------------------------------------+
 
-Gecode’s kernel defines common propagator patterns (see ``TaskPropPat``) which are summarized in :numref:`fig:p:started:patterns`. The single view patterns are templates that require a view as first argument and a propagation condition as second argument. The mixed view patterns require for each view or view array a view argument and a propagation condition. The mixed view patterns are useful when different types of views and/or different propagation conditions for the views are needed (see :ref:`sec:p:views:int:offset` for an example).
+Gecode’s kernel defines common propagator patterns (see :api:`Propagator patterns <TaskPropPat>`) which are summarized in :numref:`fig:p:started:patterns`. The single view patterns are templates that require a view as first argument and a propagation condition as second argument. The mixed view patterns require for each view or view array a view argument and a propagation condition. The mixed view patterns are useful when different types of views and/or different propagation conditions for the views are needed (see :ref:`sec:p:views:int:offset` for an example).
 
 The propagator patterns accept also a value ``Int::PC_INT_NONE`` for the propagation conditions that avoid creating subscriptions at all. This comes in handy when the propagator patterns are used in situations where no subscriptions are needed, see for example :ref:`sec:p:advisors:or`.
 
-The patterns define a constructor for creation (that also creates subscriptions to their views with the defined propagation conditions), a constructor for cloning, a ``dispose()`` member function, a ``cost()`` member function where the cost value is always the ``PropCost::LO`` variant of the corresponding cost function (that is, ``PropCost::unary()`` for ``UnaryPropagator``, ``PropCost::linear()`` for ``NaryPropagator`` and ``NaryOnePropagator``, and so on), and a ``reschedule()`` function. The integer module additionally defines patterns for reified propagators which are discussed in :ref:`sec:p:reified:leeq`. [4]_
+The patterns define a constructor for creation (that also creates subscriptions to their views with the defined propagation conditions), a constructor for cloning, a ``dispose()`` member function, a ``cost()`` member function where the cost value is always the ``PropCost::LO`` variant of the corresponding cost function (that is, ``PropCost::unary()`` for :api:`UnaryPropagator`, ``PropCost::linear()`` for :api:`NaryPropagator` and :api:`NaryOnePropagator`, and so on), and a ``reschedule()`` function. The integer module additionally defines patterns for reified propagators which are discussed in :ref:`sec:p:reified:leeq`. [4]_
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-started.tex.in:1231:fig:p:started:less:concise
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-started.tex.in:1231:fig:p:started:less:concise
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-started.tex.in:1232:less concise
 
 .. mpg-code:: less concise
    :caption: A concise constraint and propagator for ``less``
    :name: fig:p:started:less:concise
    :download:
 
-:numref:`fig:p:started:less:concise` shows how to use the ``BinaryPropagator`` pattern for the ``less`` constraint. To give an impression of what needs to be implemented, the code for implementing the ``less`` constraint is shown in full. Note that one must define a propagator post function and the virtual member functions ``copy()`` and ``propagate()``. Of course, one could also choose to overwrite the virtual member functions ``dispose()`` and ``cost()`` if needed.
+:numref:`fig:p:started:less:concise` shows how to use the :api:`BinaryPropagator` pattern for the ``less`` constraint. To give an impression of what needs to be implemented, the code for implementing the ``less`` constraint is shown in full. Note that one must define a propagator post function and the virtual member functions ``copy()`` and ``propagate()``. Of course, one could also choose to overwrite the virtual member functions ``dispose()`` and ``cost()`` if needed.
 
 .. _propagators:started:post-macro:
 
 .. mpg-paragraph:: Post macro.
 
-Please note that the constraint post function in :numref:`fig:p:started:less:concise` use the macro ``GECODE_POST`` to replace the check whether ``home`` is failed and the creation of an object of type ``PostInfo`` as discussed in :ref:`par:p:started:home`.
+Please note that the constraint post function in :numref:`fig:p:started:less:concise` use the macro ``GECODE_POST`` to replace the check whether ``home`` is failed and the creation of an object of type :api:`PostInfo` as discussed in :ref:`par:p:started:home`.
 
 .. _sec:p:started:obligations:
 
@@ -748,7 +705,7 @@ subscription correct
 Waiving obligations
 -------------------
 
-A propagator can notify its home space about some of its properties (as defined by ``ActorProperty``, see ``TaskActor``) that relate to some of the obligations mentioned in the previous section.
+A propagator can notify its home space about some of its properties (as defined by ``ActorProperty``, see :api:`Programming actors <TaskActor>`) that relate to some of the obligations mentioned in the previous section.
 
 .. _par:p:started:wmp:
 
@@ -787,7 +744,7 @@ In its dispose function the propagator ``p`` must revoke this notice by
 For examples, see :ref:`sec:p:advisors:samedom` and :ref:`sec:c:bpp:branch`. In :ref:`chap:p:memory`, memory management is discussed in detail.
 
 .. [1]
-   As we will discuss later (and as you might have noticed when modeling with Gecode, see :numref:`tip:m:started:home`), a constraint post function takes a value of class ``Home`` instead of ``Space&``. A value of type ``Home`` includes a reference to a space together with potentially additional information useful for posting. This aspect is discussed in :ref:`sec:p:started:better` in more detail.
+   As we will discuss later (and as you might have noticed when modeling with Gecode, see :numref:`tip:m:started:home`), a constraint post function takes a value of class :api:`Home` instead of ``Space&``. A value of type :api:`Home` includes a reference to a space together with potentially additional information useful for posting. This aspect is discussed in :ref:`sec:p:started:better` in more detail.
 
 .. [2]
    One of the key design principles of Gecode is: *no magic!* Whatever needs to be done must be done explicitly.

@@ -9,7 +9,7 @@ described as accessible merely because its metadata and text extraction pass.
 
 `rst/scripts/build.py pdf` fails unless the PDF has populated title, author,
 subject, and keyword metadata; exact `gecode.dev` release URLs; clean text
-extraction; 213 Figure entries; and 78 Tip entries. The LaTeX adapter sets the
+extraction; and resolved references. The LaTeX adapter sets the
 catalog language to British English and enables `DisplayDocTitle`. It avoids
 Font Awesome, Dingbats, and CC icon glyphs in published page content so that
 admonitions, bullets, and license information do not extract as garbage.

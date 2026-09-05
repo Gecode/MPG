@@ -7,6 +7,12 @@
     if (!dialog.open) dialog.showModal();
   });
 
+  dialog.addEventListener("click", (event) => {
+    if (event.target instanceof Element && event.target.closest("a[href]")) {
+      dialog.close();
+    }
+  });
+
   const storagePrefix = "mpg-navigation-open:";
   document.querySelectorAll(".mpg-nav-group[data-nav-key]").forEach((group) => {
     const key = storagePrefix + group.dataset.navKey;

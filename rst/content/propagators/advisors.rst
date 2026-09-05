@@ -29,7 +29,7 @@ Consider the following, rather simple, example constraint. The constraint ``same
 Obviously, there are two different approaches to realize ``samedom``:
 
 decomposition
-   We decompose the ``samedom`` constraint as follows. We create a Boolean variable :math:`\mathtt{b}` and post reified ``dom`` constraints (see ``TaskModelIntDomain``) such that :math:`\mathtt{b}=\mathtt{1}\Leftrightarrow \mathtt{x}_i\in\mathtt{d}` (for :math:`0\leq i<|\mathtt{x}|`). As the single Boolean variable ``b`` is the same for all reified ``dom`` constraints, ``samedom`` is automatically enforced.
+   We decompose the ``samedom`` constraint as follows. We create a Boolean variable :math:`\mathtt{b}` and post reified ``dom`` constraints (see :api:`Domain constraints <TaskModelIntDomain>`) such that :math:`\mathtt{b}=\mathtt{1}\Leftrightarrow \mathtt{x}_i\in\mathtt{d}` (for :math:`0\leq i<|\mathtt{x}|`). As the single Boolean variable ``b`` is the same for all reified ``dom`` constraints, ``samedom`` is automatically enforced.
 
 implementation
    A different approach is to implement a dedicated propagator for ``samedom``. Propagation is quite simple: whenever the propagator is executed, try to find a view among the :math:`\mathtt{x}_i` such that either :math:`\mathtt{x}_i\in\mathtt d` or :math:`\mathtt{x}_i\not\in\mathtt d`. If there is no such :math:`\mathtt{x}_i`, the propagator is at fixpoint. Otherwise, the propagator constrains all :math:`\mathtt{x}_i` accordingly.
@@ -46,11 +46,11 @@ For a simple constraint such as ``samedom``, the linear overhead is prohibitive.
 
 .. mpg-paragraph:: Advisors.
 
-Gecode provides *advisors* to inform propagators about view changes. An advisor belongs to a propagator and can be defined (by inheriting from ``Advisor``) to store information as needed by its propagator. The sole purpose of an advisor is to subscribe to a view of its propagator: each time the view changes, an ``advise()`` function of the advisor’s propagator is executed with the advisor as argument (sometimes we will be a little sloppy by saying that the advisor is executed itself).
+Gecode provides *advisors* to inform propagators about view changes. An advisor belongs to a propagator and can be defined (by inheriting from :api:`Advisor`) to store information as needed by its propagator. The sole purpose of an advisor is to subscribe to a view of its propagator: each time the view changes, an ``advise()`` function of the advisor’s propagator is executed with the advisor as argument (sometimes we will be a little sloppy by saying that the advisor is executed itself).
 
 In more detail:
 
-- An advisor must inherit from the class ``Advisor``.
+- An advisor must inherit from the class :api:`Advisor`.
 
 - When an advisor is created, it is created with respect to its propagator and a *council* of advisors. Each advisor belongs to a council and a propagator can have at most one council. The sole purpose of a council is to manage its advisors for cloning and disposal. In particular, when the propagator is disposed, the council must be disposed as well.
 
@@ -60,7 +60,7 @@ In more detail:
 
   Also, an advisor is never executed when the subscription is created, only when the subscription view changes. This also means that when using advisors, one also needs to think about how the ``reschedule()`` member function of the propagator should look like, after all, this function has the responsibility to re-schedule a propagator when needed.
 
-- An advisor is executed as follows: the ``advise()`` function of its propagator is executed. The function takes the advisor as argument and an additional argument of type ``Delta``. The *delta* describes how the domain of the view has changed. Clearly, which kind of information a delta provides depends on the type of the view. Deltas, in particular, provide access to the modification event of the operation that triggered the advisor’s execution.
+- An advisor is executed as follows: the ``advise()`` function of its propagator is executed. The function takes the advisor as argument and an additional argument of type :api:`Delta`. The *delta* describes how the domain of the view has changed. Clearly, which kind of information a delta provides depends on the type of the view. Deltas, in particular, provide access to the modification event of the operation that triggered the advisor’s execution.
 
   For integer and Boolean views, deltas provide some approximate information about which values have been removed. For an example, see :ref:`sec:p:advisors:or`.
 
@@ -102,7 +102,6 @@ The idea how the ``SameDom`` propagator implements the ``samedom`` constraint is
 
    A ``SameDom`` propagator stores in ``todo`` what it has to do when it is executed:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:212:samedom:todo information
 
 .. mpg-code:: samedom:todo information
 
@@ -114,7 +113,6 @@ Initially, ``todo`` is ``NOTHING``. When the propagator is scheduled on behalf o
 
 Each advisor used by the ``SameDom`` propagator stores the view it is subscribed to. By this, the ``advise()`` function can use the view stored with an advisor to decide what the propagator needs to do. A view advisor is defined as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:229:samedom:advisor
 
 .. mpg-code:: samedom:advisor
 
@@ -124,7 +122,6 @@ An advisor does neither have an ``update()`` nor a ``copy()`` function, a constr
 
 The propagator maintains a council of view advisors ``c``. A council controls disposal and copying during cloning. Moreover, a council provides access to all advisors in the council (where already disposed advisors are excluded). The ``SameDom`` propagator does not store its views explicitly in a view array. As the council provides access to its advisors, all views can be accessed from the council’s advisors.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-advisors.tex.in:250:unlabeled-tip@docs/src/chapters/programming/p-advisors.tex.in:250
 
 .. mpg-tip:: Different types of advisors for the same propagator
 
@@ -136,11 +133,8 @@ The propagator maintains a council of view advisors ``c``. A council controls di
 
 .. mpg-paragraph:: The propagator proper.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-advisors.tex.in:262:fig:p:advisors:samedom
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-advisors.tex.in:262:fig:p:advisors:samedom
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:263:samedom
 
 .. mpg-code:: samedom
    :caption: A ``samedom`` propagator using advisors
@@ -157,7 +151,6 @@ The propagator post function (not shown) makes sure that the propagator is only 
 
 The constructor for posting creates the required advisors as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:293:samedom:constructor for posting
 
 .. mpg-code:: samedom:constructor for posting
 
@@ -188,7 +181,6 @@ The constructor for posting creates the required advisors as follows:
 
 The ``reschedule()`` member function just checks whether the propagator needs to be scheduled and uses the ``reschedule()`` member functions of integer views as discussed above:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:331:samedom:re-scheduling
 
 .. mpg-code:: samedom:re-scheduling
 
@@ -196,11 +188,10 @@ The ``reschedule()`` member function just checks whether the propagator needs to
 
 .. mpg-paragraph:: Mandatory propagator disposal.
 
-The constructor also puts a notice on the propagator that it must always be disposed, even if the home space is deleted (as discussed in :ref:`sec:p:started:obligations`). Putting a notice is required because the integer set ``d`` of type ``IntSet``\ is a proper data structure and must hence be deleted when a ``SameDom`` propagator is disposed.
+The constructor also puts a notice on the propagator that it must always be disposed, even if the home space is deleted (as discussed in :ref:`sec:p:started:obligations`). Putting a notice is required because the integer set ``d`` of type :api:`IntSet` is a proper data structure and must hence be deleted when a ``SameDom`` propagator is disposed.
 
 Accordingly, the ``dispose()`` function deletes the integer set ``d`` as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:344:samedom:disposal
 
 .. mpg-code:: samedom:disposal
 
@@ -214,23 +205,20 @@ It is essential to ignore the notice in ``dispose()`` by calling ``home.notice()
 
 The ``advise()`` function is straightforward:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:357:samedom:advise function
 
 .. mpg-code:: samedom:advise function
 
 If ``todo`` is already different from ``NOTHING``, the propagator has already been scheduled, and the ``advise()`` function returns ``ES_FIX`` to signal that the propagator does not need to be scheduled again. [1]_ Otherwise, depending on the result of ``dom()``, the ``advise()`` function updates the ``todo`` value of the propagator and returns ``ES_NOFIX`` if the propagator needs scheduling (as ``todo`` is different from ``NOTHING``).
 
-Note that the ``advise()`` function of ``SameDom`` ignores its ``Delta`` argument. In the next section we will see a complementary design: the advisor does not carry any information, but only uses the information provided by the ``Delta``.
+Note that the ``advise()`` function of ``SameDom`` ignores its :api:`Delta` argument. In the next section we will see a complementary design: the advisor does not carry any information, but only uses the information provided by the :api:`Delta`.
 
 The ``propagate()`` member function is exactly as to be expected:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:375:samedom:propagation
 
 .. mpg-code:: samedom:propagation
 
 The ``Advisors`` class provides an iterator over all advisors in the council ``c``. As mentioned earlier, the iterator (and hence the council) provides sufficient information to retrieve all views of interest for propagation.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-advisors.tex.in:382:unlabeled-tip@docs/src/chapters/programming/p-advisors.tex.in:382
 
 .. mpg-tip:: Advisors and propagator obligations
 
@@ -257,11 +245,8 @@ With this design, all advisors would be disposed on behalf of the ``advise()`` f
 
 .. mpg-paragraph:: Using predefined view advisors.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-advisors.tex.in:421:fig:p:advisors:samedomview
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-advisors.tex.in:421:fig:p:advisors:samedomview
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:422:samedom using predefined view advisors
 
 .. mpg-code:: samedom using predefined view advisors
    :caption: A ``samedom`` propagator using predefined view advisors
@@ -283,7 +268,6 @@ where all :math:`\mathtt{x}_i` and :math:`\mathtt y` are Boolean views. When ``y
 
 As it comes to the :math:`\mathtt{x}_i`, the ``Or`` propagator uses a similar technique to the ``SameDom`` propagator. It can use advisors to find out which view has been assigned instead of inspecting all :math:`\mathtt{x}_i`. However, the propagator requires very little information: it does not need to know which view has changed, it only needs to know whether a view among the :math:`\mathtt{x}_i` has been assigned to ``0`` or ``1``. Our ``Or`` propagator uses the delta information passed to the ``advise()`` function to determine the value to which a view has been assigned. The advantage is that the propagator only needs a single advisor instead of one advisor per view.
 
-.. mpg-covered: tip:docs/src/chapters/programming/p-advisors.tex.in:459:unlabeled-tip@docs/src/chapters/programming/p-advisors.tex.in:459
 
 .. mpg-tip:: Advisor space requirements
 
@@ -293,22 +277,18 @@ As it comes to the :math:`\mathtt{x}_i`, the ``Or`` propagator uses a similar te
 
 .. mpg-paragraph:: The ``Or`` propagator.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-advisors.tex.in:467:fig:p:advisors:or
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-advisors.tex.in:467:fig:p:advisors:or
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:468:or
 
 .. mpg-code:: or
    :caption: A Boolean disjunction propagator using advisors
    :name: fig:p:advisors:or
    :download:
 
-The ``Or`` propagator inherits from the ``MixNaryOnePropagator``\ template (to increase readability, a base class ``OrBase`` is defined as a type) and uses ``PC_BOOL_NONE`` as propagation condition for the views in the view array ``x``. That actually means that no subscriptions are created for the views in ``x``. A subscription with propagation condition ``PC_BOOL_VAL`` is created for the single Boolean view ``y``. The constructor for posting creates a single advisor which subscribes to all views in ``x``. In fact, the ``Or`` propagator mixes advisors with normal subscriptions.
+The ``Or`` propagator inherits from the :api:`MixNaryOnePropagator` template (to increase readability, a base class ``OrBase`` is defined as a type) and uses ``PC_BOOL_NONE`` as propagation condition for the views in the view array ``x``. That actually means that no subscriptions are created for the views in ``x``. A subscription with propagation condition ``PC_BOOL_VAL`` is created for the single Boolean view ``y``. The constructor for posting creates a single advisor which subscribes to all views in ``x``. In fact, the ``Or`` propagator mixes advisors with normal subscriptions.
 
 The ``advise()`` function uses the delta information to decide whether one of the views the advisor has subscribed to is assigned to ``0`` (then ``Int::BoolView::zero()`` returns true):
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:488:or:advise
 
 .. mpg-code:: or:advise
 
@@ -316,13 +296,11 @@ The ``advise()`` function counts the number of views assigned to zero in ``n_zer
 
 The ``reschedule()`` function checks whether the propagator needs to be re-scheduled. This is the case when ``y`` has been assigned, or a view in ``x`` has been assigned to one, or if all views in ``x`` have been assigned zero.
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:502:or:re-scheduling
 
 .. mpg-code:: or:re-scheduling
 
 The ``propagate()`` function is straightforward:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-advisors.tex.in:506:or:propagation
 
 .. mpg-code:: or:propagation
 
@@ -360,7 +338,7 @@ Forced propagator re-scheduling
 
 An advisor can force its propagator to be re-scheduled even though the propagator’s modification event delta has not changed. As discussed in :ref:`sec:p:domain:staging`, the ``cost()`` function of a propagator is only recomputed when its modification event delta changes.
 
-When the ``advise()`` of a propagator returns ``ES_NOFIX_FORCE`` (or, the ``advise()`` function calls ``ES_NOFIX_DISPOSE_FORCE()``), the propagator is rescheduled regardless of its current modification event delta. See also ``TaskActorStatus``.
+When the ``advise()`` of a propagator returns ``ES_NOFIX_FORCE`` (or, the ``advise()`` function calls ``ES_NOFIX_DISPOSE_FORCE()``), the propagator is rescheduled regardless of its current modification event delta. See also :api:`Status of constraint propagation and branching commit <TaskActorStatus>`.
 
 .. [1]
    Actually, it would also be okay to return ``ES_NOFIX``. Scheduling an already scheduled propagator is okay.

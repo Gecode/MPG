@@ -16,11 +16,8 @@ This chapter shows how to implement propagators for constraints over float varia
 A simple example
 ----------------
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-floats.tex.in:22:fig:p:floats:linear
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-floats.tex.in:22:fig:p:floats:linear
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-floats.tex.in:23:linear
 
 .. mpg-code:: linear
    :caption: A constraint and propagator for ternary linear
@@ -29,17 +26,14 @@ A simple example
 
 :numref:`fig:p:floats:linear` shows a propagator for the ternary linear constraint :math:`\mathtt{x}_0+\mathtt{x}_1+\mathtt{x}_2=0` for three float variables :math:`\mathtt{x}_0`, :math:`\mathtt{x}_1`, and :math:`\mathtt{x}_2`.
 
-As you can see, propagators for float constraints follow exactly the same structure as propagators for integer or Boolean constraints. The same propagator patterns can be used (see :ref:`sec:p:started:patterns`). The appropriate views and propagation conditions are defined in the namespace ``Gecode::Float``.
+As you can see, propagators for float constraints follow exactly the same structure as propagators for integer or Boolean constraints. The same propagator patterns can be used (see :ref:`sec:p:started:patterns`). The appropriate views and propagation conditions are defined in the namespace :api:`Gecode::Float <Float>`.
 
 .. _propagators:floats:operations-on-float-views:
 
 .. mpg-paragraph:: Operations on float views.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-floats.tex.in:42:fig:p:float:view
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-floats.tex.in:42:fig:p:float:view
 
-.. mpg-covered: table:docs/src/chapters/programming/p-floats.tex.in:44:tabular@docs/src/chapters/programming/p-floats.tex.in:44
 
 .. mpg-figure:: Most important float view operations
    :name: fig:p:float:view
@@ -72,17 +66,14 @@ As you can see, propagators for float constraints follow exactly the same struct
       | ``gq(home,n)``              | restrict values to be greater or equal than ``n`` |
       +-----------------------------+---------------------------------------------------+
 
-The most important operations on float views for programming propagators are summarized in :numref:`fig:p:float:view`, the full information can be found in ``Float::FloatView``. The lack of operations such as ``gr()`` (for greater), ``le()`` (for less), and ``nq()`` (for disequality) is due to the fact that domains are closed intervals, see :ref:`sec:m:float:val` and :numref:`tip:m:float:weak`.
+The most important operations on float views for programming propagators are summarized in :numref:`fig:p:float:view`, the full information can be found in :api:`Float::FloatView`. The lack of operations such as ``gr()`` (for greater), ``le()`` (for less), and ``nq()`` (for disequality) is due to the fact that domains are closed intervals, see :ref:`sec:m:float:val` and :numref:`tip:m:float:weak`.
 
 .. _propagators:floats:creating-a-rounding-object:
 
 .. mpg-paragraph:: Creating a rounding object.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-floats.tex.in:74:fig:p:floats:rounding
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-floats.tex.in:74:fig:p:floats:rounding
 
-.. mpg-covered: table:docs/src/chapters/programming/p-floats.tex.in:76:tabular@docs/src/chapters/programming/p-floats.tex.in:76
 
 .. mpg-figure:: Rounding operations on float numbers (``x`` and ``y`` are float numbers)
    :name: fig:p:floats:rounding
@@ -136,13 +127,12 @@ The most important operations on float views for programming propagators are sum
       | ``atanh_down(x)``, ``atanh_up(x)`` | l/u bound of :math:`\operatorname{arctanh}(\mathtt{x})` |         |
       +------------------------------------+---------------------------------------------------------+---------+
 
-The propagation rules of the ``Linear`` propagator will require that it can be controlled whether to round downwards or upwards in a floating point operation on a float number. Access to operations with explicit rounding control is provided by an object of class ``Float::Rounding``. The creation of an object of this class initializes the underlying floating point unit such that it performs exact rounding in the required direction. Note, that explicit rounding is only required if rounding provided by operations on float values is not sufficient.
+The propagation rules of the ``Linear`` propagator will require that it can be controlled whether to round downwards or upwards in a floating point operation on a float number. Access to operations with explicit rounding control is provided by an object of class :api:`Float::Rounding`. The creation of an object of this class initializes the underlying floating point unit such that it performs exact rounding in the required direction. Note, that explicit rounding is only required if rounding provided by operations on float values is not sufficient.
 
 :numref:`fig:p:floats:rounding` lists the supported operations with explicit rounding, where the ``_down()`` variants round downwards and the ``_up()`` variants round upwards. The functions marked as default are always supported, the others are only supported if Gecode has been built accordingly, see :ref:`m:float:mpfr`.
 
 Hence, the first thing that the ``propagate()`` function of the ``Linear`` propagator does is to create a rounding object ``r`` as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-floats.tex.in:172:linear:create rounding object
 
 .. mpg-code:: linear:create rounding object
 
@@ -176,13 +166,11 @@ and, accordingly, the lower bound of :math:`\mathtt{x}_0` can be constrained fol
 
 The equations can be translated directly into update operations, where :math:`\min` corresponds to rounding downwards:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-floats.tex.in:200:linear:prune upper bounds
 
 .. mpg-code:: linear:prune upper bounds
 
 and :math:`\max` corresponds to rounding upwards:
 
-.. mpg-covered: literal-projection:docs/src/chapters/programming/p-floats.tex.in:202:linear:prune lower bounds
 
 .. mpg-code:: linear:prune lower bounds
 
@@ -197,11 +185,8 @@ This section summarizes how these concepts are specialized for float variables a
 
 .. mpg-paragraph:: Modification events and propagation conditions.
 
-.. mpg-covered: caption:docs/src/chapters/programming/p-floats.tex.in:215:fig:p:floats:propagation_conditions
 
-.. mpg-covered: figure:docs/src/chapters/programming/p-floats.tex.in:215:fig:p:floats:propagation_conditions
 
-.. mpg-covered: table:docs/src/chapters/programming/p-floats.tex.in:217:tabular@docs/src/chapters/programming/p-floats.tex.in:217
 
 .. mpg-figure:: Float modification events and propagation conditions
    :name: fig:p:floats:propagation_conditions
@@ -236,13 +221,13 @@ The modification events and propagation conditions for float propagators (see :n
 
 .. mpg-paragraph:: Float variable views.
 
-In addition to the basic ``Float::FloatView``\ class, there are two other float views: ``Float::MinusView``, and ``Float::ScaleView``. The two latter views are defined similarly to minus view for integers (see :ref:`sec:p:views:int:minus`) and scale views for integers (see :ref:`sec:p:views:int:constantscale`).
+In addition to the basic :api:`Float::FloatView` class, there are two other float views: :api:`Float::MinusView`, and :api:`Float::ScaleView`. The two latter views are defined similarly to minus view for integers (see :ref:`sec:p:views:int:minus`) and scale views for integers (see :ref:`sec:p:views:int:constantscale`).
 
 .. _propagators:floats:advisors-for-float-propagators:
 
 .. mpg-paragraph:: Advisors for float propagators.
 
-Advisors for float constraints get informed about the domain modifications using a float delta of class ``Float::FloatDelta``.
+Advisors for float constraints get informed about the domain modifications using a float delta of class :api:`Float::FloatDelta`.
 
 Float deltas are also represented by a minimum and maximum float number and hence also constitute a closed interval (like float values and float variables). That means that a float delta cannot describe exactly which values have been removed. For example, assume that ``x`` is a float view and that the domain of ``x`` is :math:`\left[-1.0\;..\;1.0\right]`. Then, executing
 

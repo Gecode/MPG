@@ -241,15 +241,3 @@ This case study is also available as an example, see :api:`golomb-ruler` . For a
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-golomb.tex.in:27:fig:c:golomb:example
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-golomb.tex.in:57:fig:c:golomb:constructed
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-golomb.tex.in:86:fig:c:golomb:script
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:87:golomb
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:133:golomb:constraining marks
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:139:golomb:number of marks and distances
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:145:golomb:posting distance constraints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:163:golomb:distances must be distinct
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:221:golomb:implied constraints
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:238:golomb:symmetry breaking
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golomb.tex.in:244:golomb:branching

@@ -6,7 +6,7 @@
 Modeling convenience: MiniModel
 ===============================
 
-This chapter provides an overview of modeling convenience implemented by MiniModel. MiniModel (see `Direct modeling support <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModel.html>`__) provides some little helpers to the constraint modeler. However, it does not offer any new constraints or branchers.
+This chapter provides an overview of modeling convenience implemented by MiniModel. MiniModel (see :api:`Direct modeling support <TaskModelMiniModel>`) provides some little helpers to the constraint modeler. However, it does not offer any new constraints or branchers.
 
 .. _modeling:m-minimodel:overview:
 
@@ -155,7 +155,7 @@ Integer expressions and relations
       | :math:`\langle r\rangle`              | :math:`::=` | ``==`` :math:`\;|\;` ``!=`` :math:`\;|\;` ``<`` :math:`\;|\;` ``<=`` :math:`\;|\;` ``>`` :math:`\;|\;` ``>=`` | integer relation symbol |
       +---------------------------------------+-------------+---------------------------------------------------------------------------------------------------------------+-------------------------+
 
-Integer expressions (that is, expressions that evaluate to an integer) are constructed according to the structure sketched in :numref:`fig:m:minimodel:integer:expr`, whereas integer relations are constructed according to the structure sketched in :numref:`fig:m:minimodel:integer:rel`. We use the standard C++ operators (for an example, see :ref:`sec:m:comfy:expr`), as well as several functions with intuitive names such as ``min`` or ``max``. Integer expressions and relations can be constructed over integer, Boolean, and set variables. In Gecode, integer expressions are of type `LinIntExpr <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1LinIntExpr.html>`__, which are constructed using `Linear expressions and relations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelLin.html>`__, `Arithmetic functions <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelArith.html>`__, and some `Set expressions and relations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelSet.html>`__.
+Integer expressions (that is, expressions that evaluate to an integer) are constructed according to the structure sketched in :numref:`fig:m:minimodel:integer:expr`, whereas integer relations are constructed according to the structure sketched in :numref:`fig:m:minimodel:integer:rel`. We use the standard C++ operators (for an example, see :ref:`sec:m:comfy:expr`), as well as several functions with intuitive names such as ``min`` or ``max``. Integer expressions and relations can be constructed over integer, Boolean, and set variables. In Gecode, integer expressions are of type :api:`LinIntExpr`, which are constructed using :api:`Linear expressions and relations <TaskModelMiniModelLin>`, :api:`Arithmetic functions <TaskModelMiniModelArith>`, and some :api:`Set expressions and relations <TaskModelMiniModelSet>`.
 
 Even arrays of variables (possibly with integer argument arrays as coefficients) can be used for posting some expressions and relations. For example, if ``x`` and ``y`` are integer variables and ``z`` is an array of integer variables, then
 
@@ -179,7 +179,7 @@ for integer variables ``a``, ``b``, ``c``, and ``d`` is equivalent to the decomp
    :direct:
 
 
-Like the post functions for integer and Boolean constraints presented in :ref:`sec:m:integer:post`, posting integer expressions and relations supports an optional argument of type ``IntPropLevel`` to select the propagation level. For more information, see `Posting of expressions and relations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelPost.html>`__ and :ref:`sec:m:integer:generic`.
+Like the post functions for integer and Boolean constraints presented in :ref:`sec:m:integer:post`, posting integer expressions and relations supports an optional argument of type ``IntPropLevel`` to select the propagation level. For more information, see :api:`Posting of expressions and relations <TaskModelMiniModelPost>` and :ref:`sec:m:integer:generic`.
 
 Using the ``expr()`` function, you can enforce a particular decomposition, and you can specify the propagation level for each subexpression. For example,
 
@@ -193,15 +193,15 @@ An ``element`` expression such as ``element(x,e)``, where ``x`` is an array of i
 
 MiniModel provides three integer expressions whose arguments are set expressions: the minimum of a set, the maximum of a set, and a set’s cardinality. We will see later how set expressions are constructed.
 
-For examples of integer expressions, see `Alpha puzzle <https://www.gecode.dev/doc/6.4.0/reference/examples_2alpha_8cpp.html>`__, `SEND+MORE=MONEY puzzle <https://www.gecode.dev/doc/6.4.0/reference/money_8cpp.html>`__, `Grocery puzzle <https://www.gecode.dev/doc/6.4.0/reference/grocery_8cpp.html>`__, :ref:`chap:c:golomb`, :ref:`chap:c:warehouses`, and :ref:`sec:m:comfy:expr`.
+For examples of integer expressions, see :api:`Alpha puzzle <alpha.cpp>`, :api:`SEND+MORE=MONEY puzzle <money.cpp>`, :api:`Grocery puzzle <grocery.cpp>`, :ref:`chap:c:golomb`, :ref:`chap:c:warehouses`, and :ref:`sec:m:comfy:expr`.
 
 .. _modeling:m-minimodel:integer-propagation-levels:
 
 .. mpg-paragraph:: Integer propagation levels.
 
-When posting integer expressions and relations it can be controlled which integer propagation level is used for each constraint. The integer propagation levels for all relevant constraints are specified by an object of class `IntPropLevels <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntPropLevels.html>`__. The ``expr()`` and ``rel()`` functions for posting expressions take an object of this class as last argument.
+When posting integer expressions and relations it can be controlled which integer propagation level is used for each constraint. The integer propagation levels for all relevant constraints are specified by an object of class :api:`IntPropLevels`. The ``expr()`` and ``rel()`` functions for posting expressions take an object of this class as last argument.
 
-Declaring an object of class `IntPropLevels <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntPropLevels.html>`__ by default initializes all propagation levels to the default integer propagation level ``IPL_DEF``. All integer propagation levels can be initialized to, for example, ``IPL_DOM`` by
+Declaring an object of class :api:`IntPropLevels` by default initializes all propagation levels to the default integer propagation level ``IPL_DEF``. All integer propagation levels can be initialized to, for example, ``IPL_DOM`` by
 
 .. mpg-code:: snippet:m-minimodel:fig:m:minimodel:integer:rel:code:5
    :direct:
@@ -215,7 +215,7 @@ However, this also uses domain propagation for linear constraints as well as min
    :direct:
 
 
-The list of constraints for which the propagation level can be specified can be seen from the class definition `IntPropLevels <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntPropLevels.html>`__.
+The list of constraints for which the propagation level can be specified can be seen from the class definition :api:`IntPropLevels`.
 
 .. _sec:m:minimodel:bool:
 
@@ -258,9 +258,9 @@ Boolean expressions and relations
       |                                         | :math:`|`   | :math:`\langle\mathit{FloatRel}\rangle`                                                           | reified float relation             |
       +-----------------------------------------+-------------+---------------------------------------------------------------------------------------------------+------------------------------------+
 
-`Boolean expressions <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelBool.html>`__ are constructed using standard C++ operators according to the structure sketched in :numref:`fig:m:minimodel:bool`.
+:api:`Boolean expressions <TaskModelMiniModelBool>` are constructed using standard C++ operators according to the structure sketched in :numref:`fig:m:minimodel:bool`.
 
-Again, the purpose of a Boolean expression or relation is to post a corresponding constraint for it (see `Posting of expressions and relations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelPost.html>`__). Posting a Boolean expression returns a new Boolean variable that is constrained to the value of the expression. Several constraints might be posted for a single expression, however as few constraints as possible are posted. For example, all negation constraints are eliminated by rewriting the Boolean expression into NNF (negation normal form) and conjunction and disjunction constraints are combined whenever possible.
+Again, the purpose of a Boolean expression or relation is to post a corresponding constraint for it (see :api:`Posting of expressions and relations <TaskModelMiniModelPost>`). Posting a Boolean expression returns a new Boolean variable that is constrained to the value of the expression. Several constraints might be posted for a single expression, however as few constraints as possible are posted. For example, all negation constraints are eliminated by rewriting the Boolean expression into NNF (negation normal form) and conjunction and disjunction constraints are combined whenever possible.
 
 For example, the Boolean expression ``x && (y >> z)`` (to be read as :math:`\mathtt{x}\wedge(\mathtt{y}\to\mathtt{z})`) for Boolean variables ``x``, ``y``, and ``z`` is posted by
 
@@ -400,7 +400,7 @@ Set expressions and relations
       | :math:`\langle r_s\rangle`             | :math:`::=` | ``==`` :math:`\;|\;` ``!=`` :math:`\;|\;` ``<=`` :math:`\;|\;` ``>=`` :math:`\;|\;` ``||``                    | set relation symbol                    |
       +----------------------------------------+-------------+---------------------------------------------------------------------------------------------------------------+----------------------------------------+
 
-`Set expressions and relations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelSet.html>`__ are constructed using the standard C++ operators and the functions listed in :numref:`fig:m:minimodel:set`. Just like for integer and Boolean expressions, posting of a set expression returns a new set variable that is constrained to the value of the expression.
+:api:`Set expressions and relations <TaskModelMiniModelSet>` are constructed using the standard C++ operators and the functions listed in :numref:`fig:m:minimodel:set`. Just like for integer and Boolean expressions, posting of a set expression returns a new set variable that is constrained to the value of the expression.
 
 For example, the set expression ``x & (y | z)`` (to be read as :math:`\mathtt{x}\cap(\mathtt{y}\cup\mathtt{z})`) for set variables ``x``, ``y``, and ``z`` is posted by
 
@@ -505,7 +505,7 @@ Float expressions and relations
       | :math:`\langle\overline f\rangle`        | :math:`::=` | array of float values                                                                                  |                                |
       +------------------------------------------+-------------+--------------------------------------------------------------------------------------------------------+--------------------------------+
 
-`Linear float expressions and relations <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelFloat.html>`__ are constructed using the standard C++ operators and the functions listed in :numref:`fig:m:minimodel:float:expr` and :numref:`fig:m:minimodel:float:rel` (see also `Arithmetic functions <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelArith.html>`__, `Transcendental functions <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelTrans.html>`__, and `Trigonometric functions <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelTrigo.html>`__). Posting a float expression returns a new float variable that is constrained to the value of the expression.
+:api:`Linear float expressions and relations <TaskModelMiniModelFloat>` are constructed using the standard C++ operators and the functions listed in :numref:`fig:m:minimodel:float:expr` and :numref:`fig:m:minimodel:float:rel` (see also :api:`Arithmetic functions <TaskModelMiniModelArith>`, :api:`Transcendental functions <TaskModelMiniModelTrans>`, and :api:`Trigonometric functions <TaskModelMiniModelTrigo>`). Posting a float expression returns a new float variable that is constrained to the value of the expression.
 
 .. mpg-figure:: Float relations
    :name: fig:m:minimodel:float:rel
@@ -530,7 +530,7 @@ Float expressions and relations
       | :math:`\langle z\rangle`                | :math:`::=` | float variable                                                                                                |                       |
       +-----------------------------------------+-------------+---------------------------------------------------------------------------------------------------------------+-----------------------+
 
-Instead of a float variable, you can always use a constant of type `FloatVal <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVal.html>`__.
+Instead of a float variable, you can always use a constant of type :api:`FloatVal`.
 
 .. _sec:m:minimodel:boolmisc:
 
@@ -569,7 +569,7 @@ In order to extend Boolean expressions one must implement the following:
 
 - A function ``dom(IntVar x, int l, int u)`` that creates a Boolean expression where ``x`` is the variable and ``l`` and ``u`` are the lower and upper bound for the domain.
 
-- A class ``BoolDomExpr`` that inherits from the class `BoolExpr::Misc <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1BoolExpr_1_1Misc.html>`__. An object of the class is created by our ``dom()`` function and the modeling layer uses a virtual member function ``post()`` to post a constraint when the ``rel()`` or ``expr()`` functions require this.
+- A class ``BoolDomExpr`` that inherits from the class :api:`BoolExpr::Misc`. An object of the class is created by our ``dom()`` function and the modeling layer uses a virtual member function ``post()`` to post a constraint when the ``rel()`` or ``expr()`` functions require this.
 
 .. _modeling:m-minimodel:the-dom-function:
 
@@ -603,7 +603,7 @@ where the posted expression must constrain the Boolean variable ``b`` with inte
 Matrix interface for arrays
 ---------------------------
 
-MiniModel provides a `Matrix <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Matrix.html>`__ support class for accessing an array as a two dimensional matrix. The following
+MiniModel provides a :api:`Matrix` support class for accessing an array as a two dimensional matrix. The following
 
 .. mpg-code:: snippet:m-minimodel:sec:m:minimodel:matrix:code:1
    :direct:
@@ -622,13 +622,13 @@ Furthermore, the rows and columns of the matrix can be accessed using ``mat.row(
 
 A matrix interface can be declared for any standard array or argument array used in Gecode, such as ``IntVarArray`` or ``IntSetArgs``.
 
-As an example of how the ``Matrix`` class can be used, consider the Sudoku problem (see `Solving Sudoku puzzles using integer constraints <https://www.gecode.dev/doc/6.4.0/reference/examples_2sudoku_8cpp.html>`__). Given that there is a member ``IntVarArray x`` that contains :math:`9\cdot 9` integer variables with domain :math:`\{1,\ldots,9\}`, the following code posts constraints that implement the basic rules for a Sudoku.
+As an example of how the ``Matrix`` class can be used, consider the Sudoku problem (see :api:`Solving Sudoku puzzles using integer constraints <sudoku.cpp>`). Given that there is a member ``IntVarArray x`` that contains :math:`9\cdot 9` integer variables with domain :math:`\{1,\ldots,9\}`, the following code posts constraints that implement the basic rules for a Sudoku.
 
 .. mpg-code:: snippet:m-minimodel:sec:m:minimodel:matrix:code:3
    :direct:
 
 
-For more examples that use the ``Matrix`` class, see :ref:`chap:c:crossword`, :ref:`chap:c:golf`, :ref:`chap:c:kakuro`, :ref:`chap:c:nonogram`, `Magic squares <https://www.gecode.dev/doc/6.4.0/reference/magic-square_8cpp.html>`__, and `Nonogram <https://www.gecode.dev/doc/6.4.0/reference/nonogram_8cpp.html>`__.
+For more examples that use the ``Matrix`` class, see :ref:`chap:c:crossword`, :ref:`chap:c:golf`, :ref:`chap:c:kakuro`, :ref:`chap:c:nonogram`, :api:`Magic squares <magic-square.cpp>`, and :api:`Nonogram <nonogram.cpp>`.
 
 .. _par:m:minimodel:matrix:element:
 
@@ -691,17 +691,17 @@ A matrix can also be used with an element constraint that propagates information
 Support for cost-based optimization
 -----------------------------------
 
-`Support for cost-based optimization <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelOptimize.html>`__ provides several subclasses of `Space <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Space.html>`__ for cost-based optimization. `IntMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMinimizeSpace.html>`__ and `IntMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMaximizeSpace.html>`__ support search for a solution of minimal and maximal, respectively, integer cost. `FloatMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatMinimizeSpace.html>`__ and `FloatMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatMaximizeSpace.html>`__ support search for a solution of minimal and maximal, respectively, float cost, possibly with an improvement step (see below). `IntLexMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMinimizeSpace.html>`__ and `IntLexMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMaximizeSpace.html>`__ support search for the lexicographically smallest and largest solution where the cost is defined as an array of integer variables.
+:api:`Support for cost-based optimization <TaskModelMiniModelOptimize>` provides several subclasses of :api:`Space` for cost-based optimization. :api:`IntMinimizeSpace` and :api:`IntMaximizeSpace` support search for a solution of minimal and maximal, respectively, integer cost. :api:`FloatMinimizeSpace` and :api:`FloatMaximizeSpace` support search for a solution of minimal and maximal, respectively, float cost, possibly with an improvement step (see below). :api:`IntLexMinimizeSpace` and :api:`IntLexMaximizeSpace` support search for the lexicographically smallest and largest solution where the cost is defined as an array of integer variables.
 
 .. _modeling:m-minimodel:optimizing-integer-cost:
 
 .. mpg-paragraph:: Optimizing integer cost.
 
-The classes `IntMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMinimizeSpace.html>`__ and `IntMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMaximizeSpace.html>`__ support searching a solution of minimal and maximal, respectively, integer cost.
+The classes :api:`IntMinimizeSpace` and :api:`IntMaximizeSpace` support searching a solution of minimal and maximal, respectively, integer cost.
 
 .. container:: samepage
 
-   In order to use these abstract classes, a class inheriting from `IntMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMinimizeSpace.html>`__ and `IntMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntMaximizeSpace.html>`__ must implement a virtual cost function of type
+   In order to use these abstract classes, a class inheriting from :api:`IntMinimizeSpace` and :api:`IntMaximizeSpace` must implement a virtual cost function of type
 
    .. mpg-code:: snippet:m-minimodel:sec:m:minimodel:optimize:code:1
       :direct:
@@ -710,7 +710,7 @@ The function must return an integer variable for the cost. For an example, see :
 
 .. mpg-tip:: Cost must be assigned for solutions
 
-   In case the ``cost()`` function is called on a *solution*, the variable returned by ``cost()`` *must* be assigned. If the variable is unassigned for a solution, an exception of type `Int::ValOfUnassignedVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Int_1_1ValOfUnassignedVar.html>`__ is thrown.
+   In case the ``cost()`` function is called on a *solution*, the variable returned by ``cost()`` *must* be assigned. If the variable is unassigned for a solution, an exception of type :api:`Int::ValOfUnassignedVar` is thrown.
 
 
 .. _sec:m:minimodel:optimize:float:
@@ -720,7 +720,7 @@ The function must return an integer variable for the cost. For an example, see :
 
 .. mpg-paragraph:: Optimizing float cost with improvement step.
 
-The classes `FloatMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatMinimizeSpace.html>`__ and `FloatMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatMaximizeSpace.html>`__ support searching a solution of minimal and maximal, respectively, float cost.
+The classes :api:`FloatMinimizeSpace` and :api:`FloatMaximizeSpace` support searching a solution of minimal and maximal, respectively, float cost.
 
 Note that the constructor of these classes take an optional argument of type ``FloatNum`` that defines the improvement step: a better solution is found only if it is better than the previous solution and the improvement step. For example, suppose
 
@@ -728,21 +728,21 @@ Note that the constructor of these classes take an optional argument of type ``F
    :direct:
 
 
-that searching for a best solution of ``WithStep`` finds a solution ``s`` with cost value ``c=s.cost().val()``. Then, the next solution must have a cost that is strictly smaller than :math:`\mathtt{c}-\mathtt{s}`. For `FloatMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatMaximizeSpace.html>`__, the next solution must have a cost that is strictly larger than :math:`\mathtt{c}+\mathtt{s}`.
+that searching for a best solution of ``WithStep`` finds a solution ``s`` with cost value ``c=s.cost().val()``. Then, the next solution must have a cost that is strictly smaller than :math:`\mathtt{c}-\mathtt{s}`. For :api:`FloatMaximizeSpace`, the next solution must have a cost that is strictly larger than :math:`\mathtt{c}+\mathtt{s}`.
 
 .. _modeling:m-minimodel:lexicographically-optimizing-for-integer-costs:
 
 .. mpg-paragraph:: Lexicographically optimizing for integer costs.
 
-The classes `IntLexMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMinimizeSpace.html>`__ and `IntLexMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMaximizeSpace.html>`__ support searching for a solution with lexicographically smallest and largest cost. The cost is defined by an array of integer variables.
+The classes :api:`IntLexMinimizeSpace` and :api:`IntLexMaximizeSpace` support searching for a solution with lexicographically smallest and largest cost. The cost is defined by an array of integer variables.
 
-In order to use these abstract classes, a class inheriting from `IntLexMinimizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMinimizeSpace.html>`__ and `IntLexMaximizeSpace <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1IntLexMaximizeSpace.html>`__ must implement a virtual cost function of type
+In order to use these abstract classes, a class inheriting from :api:`IntLexMinimizeSpace` and :api:`IntLexMaximizeSpace` must implement a virtual cost function of type
 
 .. mpg-code:: snippet:m-minimodel:sec:m:minimodel:optimize:float:code:2
    :direct:
 
 
-The function must return an array of integer variable as cost. For an example, see `Locating warehouses <https://www.gecode.dev/doc/6.4.0/reference/examples_2warehouses_8cpp.html>`__.
+The function must return an array of integer variable as cost. For an example, see :api:`Locating warehouses <warehouses.cpp>`.
 
 .. _sec:m:minimodel:reg:
 
@@ -784,7 +784,7 @@ Regular expressions for extensional constraints
       | ``r(n,m)``                  | repeat ``r`` at least ``n`` times, at most ``m`` times                                |
       +-----------------------------+---------------------------------------------------------------------------------------+
 
-Regular expressions are implemented as instances of the class `REG <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1REG.html>`__ and provide an alternative, typically more convenient, interface for the specification of extensional constraints than DFAs do. The construction of regular expressions is summarized in :numref:`fig:m:minimodel:reg`.
+Regular expressions are implemented as instances of the class :api:`REG` and provide an alternative, typically more convenient, interface for the specification of extensional constraints than DFAs do. The construction of regular expressions is summarized in :numref:`fig:m:minimodel:reg`.
 
 .. container:: samepage
 
@@ -812,7 +812,7 @@ Regular expressions are implemented as instances of the class `REG <https://www.
 
    Both variants work, however the implicit variant disguises the fact that each time the code fragment is executed, a new DFA for the regular expression ``r`` is computed (think about the code fragment being executed inside a loop and your C++ compiler being not too smart about it)! [2]_
 
-For examples on using regular expressions for extensional constraints, see the nonogram case study in :ref:`chap:c:nonogram` or the examples `Solitaire domino <https://www.gecode.dev/doc/6.4.0/reference/domino_8cpp.html>`__, `Nonogram <https://www.gecode.dev/doc/6.4.0/reference/nonogram_8cpp.html>`__, and `Pentominoes <https://www.gecode.dev/doc/6.4.0/reference/pentominoes_8cpp.html>`__. The models are based on ideas described in :cite:`LagerkvistPesant:BPPC:2008`, where regular expressions for extensional constraints nicely demonstrate their usefulness.
+For examples on using regular expressions for extensional constraints, see the nonogram case study in :ref:`chap:c:nonogram` or the examples :api:`Solitaire domino <domino.cpp>`, :api:`Nonogram <nonogram.cpp>`, and :api:`Pentominoes <pentominoes.cpp>`. The models are based on ideas described in :cite:`LagerkvistPesant:BPPC:2008`, where regular expressions for extensional constraints nicely demonstrate their usefulness.
 
 .. _sec:m:minimodel:channel:
 
@@ -822,7 +822,7 @@ For examples on using regular expressions for extensional constraints, see the n
 Channeling functions
 --------------------
 
-`Channel functions <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelChannel.html>`__ are functions to channel a Boolean variable to an integer variable and vice versa, to channel a float variable to an integer variable, and to channel between integer variables and a set variable.
+:api:`Channel functions <TaskModelMiniModelChannel>` are functions to channel a Boolean variable to an integer variable and vice versa, to channel a float variable to an integer variable, and to channel between integer variables and a set variable.
 
 For an integer variable ``x``,
 
@@ -866,7 +866,7 @@ Aliases for integer constraints
       |                             | ``nvalues(home, x, IRT_EQ, s.size());`` |                                                                         |
       +-----------------------------+-----------------------------------------+-------------------------------------------------------------------------+
 
-`Aliases for integer constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelIntAlias.html>`__ provide some popular aliases. :numref:`fig:m:minimodel:alias` lists the aliases and their corresponding definitions.
+:api:`Aliases for integer constraints <TaskModelMiniModelIntAlias>` provide some popular aliases. :numref:`fig:m:minimodel:alias` lists the aliases and their corresponding definitions.
 
 .. _sec:m:minimodel:setalias:
 
@@ -876,7 +876,7 @@ Aliases for integer constraints
 Aliases for set constraints
 ---------------------------
 
-`Aliases for set constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelMiniModelSetAlias.html>`__ provide aliases and convenience post functions for useful set constraints.
+:api:`Aliases for set constraints <TaskModelMiniModelSetAlias>` provide aliases and convenience post functions for useful set constraints.
 
 ``channel(home, x, y)`` is an alias for ``rel(home, SOT_UNION, x, y)``, posting the constraint that ``y`` is exactly the set of integers :math:`\{\mathtt{x}_0,\dots,\mathtt{x}_{|\mathtt{x}|-1}\}`. In addition to the union constraint, it posts an ``nvalues`` constraint for stronger propagation (see :ref:`sec:m:integer:nvalues`).
 
@@ -895,29 +895,3 @@ Conversely, ``roots(home, x, y, z)`` constrains ``y`` to be the roots of the 
 
 .. [2]
    The integer module cannot know anything about regular expressions. Hence, it is impossible in C++ to avoid the implicit conversion. This is due to the fact that the conversion is controlled by a type operator (that must reside in the MiniModel module) and not by a constructor that could be made ``explicit``.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:77:fig:m:minimodel:integer:expr
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:79:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:79
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:116:fig:m:minimodel:integer:rel
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:118:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:118
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:250:fig:m:minimodel:bool
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:252:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:252
-.. mpg-covered: tip:docs/src/chapters/modeling/m-minimodel.tex.in:294:unlabeled-tip@docs/src/chapters/modeling/m-minimodel.tex.in:294
-.. mpg-covered: tip:docs/src/chapters/modeling/m-minimodel.tex.in:374:unlabeled-tip@docs/src/chapters/modeling/m-minimodel.tex.in:374
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:394:fig:m:minimodel:set
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:396:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:396
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:487:fig:m:minimodel:float:expr
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:490:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:490
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:538:fig:m:minimodel:float:rel
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:540:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:540
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:595:fig:m:minimodel:domexpr
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-minimodel.tex.in:596:Boolean domain expression
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-minimodel.tex.in:620:Boolean domain expression:create Boolean domain expression
-.. mpg-covered: literal-projection:docs/src/chapters/modeling/m-minimodel.tex.in:636:Boolean domain expression:post member function
-.. mpg-covered: tip:docs/src/chapters/modeling/m-minimodel.tex.in:717:unlabeled-tip@docs/src/chapters/modeling/m-minimodel.tex.in:717
-.. mpg-covered: tip:docs/src/chapters/modeling/m-minimodel.tex.in:794:unlabeled-tip@docs/src/chapters/modeling/m-minimodel.tex.in:794
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:848:fig:m:minimodel:reg
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:850:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:850
-.. mpg-covered: tip:docs/src/chapters/modeling/m-minimodel.tex.in:904:unlabeled-tip@docs/src/chapters/modeling/m-minimodel.tex.in:904
-.. mpg-covered: caption:docs/src/chapters/modeling/m-minimodel.tex.in:955:fig:m:minimodel:alias
-.. mpg-covered: table:docs/src/chapters/modeling/m-minimodel.tex.in:957:tabular@docs/src/chapters/modeling/m-minimodel.tex.in:957

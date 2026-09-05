@@ -16,24 +16,31 @@ on:
   schedule:
     - cron: "0 6 * * 1"
 
+permissions:
+  contents: read
+
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Install Ninja
         uses: seanmiddleditch/gha-setup-ninja@v5
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-pstricks texlive-science ghostscript
+      - name: Install locked project dependencies
+        run: uv sync --locked --python 3.12
       - name: Checkout Gecode sources
         uses: actions/checkout@v4
         with:
           repository: ${{ github.event.inputs.gecode_repository || 'Gecode/gecode' }}
           ref: ${{ github.event.inputs.gecode_ref || 'main' }}
           path: gecode-source
+          persist-credentials: false
       - name: Build selected Gecode ref
         run: |
           cmake -S "$GITHUB_WORKSPACE/gecode-source" -B "$GITHUB_WORKSPACE/gecode-source/build" -G Ninja \
@@ -44,10 +51,6 @@ jobs:
             -DGECODE_ENABLE_CPPROFILER=OFF
           cmake --build "$GITHUB_WORKSPACE/gecode-source/build" --parallel
       - name: Python unit tests
-        run: uv run -- python -m unittest discover -s tests -p "test_*.py"
-      - name: Guard root chapter files
-        run: test -z "$(find . -maxdepth 1 -type f -name '*.tex.in' -print -quit)"
-      - name: make test
-        run: make test GECODE_ROOT="$GITHUB_WORKSPACE/gecode-source"
-      - name: make docs
-        run: make docs
+        run: uv run --locked --python 3.12 -- python -m unittest discover -s tests -p "test_*.py"
+      - name: Validate published examples
+        run: uv run --locked --python 3.12 -- python rst/scripts/verify_examples.py --gecode-root "$GITHUB_WORKSPACE/gecode-source"

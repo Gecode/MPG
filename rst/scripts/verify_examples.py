@@ -19,7 +19,7 @@ MANIFEST = ROOT / "rst" / "manifests" / "code-projections.json"
 REPORT = ROOT / "rst" / "_build" / "reports" / "examples.json"
 
 from tools.mpg.config import get_config
-from tools.mpg.examples import MODEL_LIBS, build
+from tools.mpg.examples import build
 from tools.mpg.gecode import resolve_gecode
 
 
@@ -67,7 +67,7 @@ NOTEST_EXPECTED = {
 }
 
 
-def run(exe: Path, args: list[str], timeout: int) -> tuple[subprocess.CompletedProcess[str], float]:
+def run(exe: Path, args: list[str], timeout: int, env: dict[str, str]) -> tuple[subprocess.CompletedProcess[str], float]:
     started = time.monotonic()
     try:
         result = subprocess.run(
@@ -76,6 +76,7 @@ def run(exe: Path, args: list[str], timeout: int) -> tuple[subprocess.CompletedP
             stderr=subprocess.PIPE,
             text=True,
             timeout=timeout,
+            env=env,
         )
     except subprocess.TimeoutExpired as error:
         stdout = error.stdout.decode() if isinstance(error.stdout, bytes) else (error.stdout or "")
@@ -124,7 +125,7 @@ def compile_standalone(gc) -> list[dict]:
     vis_build = ROOT / "rst" / "_build" / "gecode-vis"
     configure = [
         "cmake", "-S", str(gc.root), "-B", str(vis_build), "-G", "Ninja",
-        f"-DGECODE_WITH_VIS={ROOT / 'docs/src/assets/int.vis'}",
+        f"-DGECODE_WITH_VIS={ROOT / 'rst/examples/int.vis'}",
         "-DGECODE_ENABLE_EXAMPLES=OFF", "-DGECODE_ENABLE_GIST=OFF",
         "-DGECODE_ENABLE_FLATZINC=OFF", "-DGECODE_ENABLE_MPFR=OFF", "-DGECODE_INSTALL=OFF",
     ]
@@ -146,7 +147,7 @@ def compile_standalone(gc) -> list[dict]:
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     row = {"id": putting.stem, "profile": "model-run", "status": "fail", "stderr": result.stderr[-3000:]}
     if result.returncode == 0:
-        env = dict(os.environ)
+        env = dict(gc.env)
         library_variable = "DYLD_LIBRARY_PATH" if os.uname().sysname == "Darwin" else "LD_LIBRARY_PATH"
         env[library_variable] = str(vis_build) + (os.pathsep + env[library_variable] if env.get(library_variable) else "")
         started = time.monotonic()
@@ -163,7 +164,7 @@ def compile_standalone(gc) -> list[dict]:
     return rows
 
 
-def validate_binaries(timeout: int) -> list[dict]:
+def validate_binaries(timeout: int, env: dict[str, str]) -> list[dict]:
     config = get_config()
     binary_root = ROOT / ".mpg" / "bin" / "all"
     rows = []
@@ -172,7 +173,7 @@ def validate_binaries(timeout: int) -> list[dict]:
             rows.append({"id": name, "kind": "model", "profile": "gist-interactive", "status": "skipped", "reason": "requires interactive Gist UI"})
             continue
         args = ["-solutions", "1", "-time", "1000"] if name.startswith("bin-packing-") else []
-        result, duration = run(binary_root / name, args, timeout)
+        result, duration = run(binary_root / name, args, timeout, env)
         text = result.stdout + result.stderr
         pattern = MODEL_EXPECTED[name]
         ok = result.returncode == 0 and re.search(pattern, text, re.MULTILINE) is not None
@@ -180,16 +181,16 @@ def validate_binaries(timeout: int) -> list[dict]:
 
     for name in config["tests"]:
         executable = binary_root / name
-        listed, _ = run(executable, ["-list"], timeout)
+        listed, _ = run(executable, ["-list"], timeout, env)
         registered = len([line for line in listed.stdout.splitlines() if line.strip()])
-        executed, duration = run(executable, ["-iter", "1"], timeout)
+        executed, duration = run(executable, ["-iter", "1"], timeout, env)
         ok = listed.returncode == 0 and registered >= 1 and executed.returncode == 0 and "+" in executed.stdout
         rows.append({"id": name, "kind": "test", "profile": "registered-gecode-test", "args": ["-iter", "1"], "registered_tests": registered, "registered_tests_min": 1, "status": "pass" if ok else "fail", "exit_code": executed.returncode, "duration_sec": round(duration, 3), "stdout": executed.stdout[-3000:], "stderr": executed.stderr[-3000:]})
 
     for name in config["notest"]:
         source = (ROOT / "rst" / "examples" / "src" / f"{name}.cpp").read_text(encoding="utf-8")
         args = ["-solutions", "1"] if "Options opt(" in source else []
-        result, duration = run(binary_root / name, args, timeout)
+        result, duration = run(binary_root / name, args, timeout, env)
         text = result.stdout + result.stderr
         if name in NOTEST_EXPECTED:
             pattern = NOTEST_EXPECTED[name]
@@ -211,20 +212,27 @@ def main() -> int:
     parser.add_argument("--timeout", type=int, default=20)
     parser.add_argument("--no-build", action="store_true")
     args = parser.parse_args()
+    config = get_config()
+    manifest = json.loads(MANIFEST.read_text())
+    compiled = {row["id"] for row in manifest["artifacts"] if row["validation"] == "compiled"}
+    runners = set(config["models"] + config["tests"] + config["notest"])
+    expected = runners | {"Boolean-domain-expression", "int", "putting-everything-together"}
+    if compiled != expected:
+        raise SystemExit(f"compiled examples and runners differ: missing runners={sorted(compiled - expected)}, missing artifacts={sorted(expected - compiled)}")
     gc = resolve_gecode(args.gecode_root, args.gecode_prefix)
     if not args.no_build:
         build("all", gc)
     integrity = artifact_integrity()
     compile_rows = compile_standalone(gc)
-    validation = validate_binaries(args.timeout)
+    validation = validate_binaries(args.timeout, gc.env)
     all_rows = integrity + compile_rows + validation
     failures = [row for row in all_rows if row["status"] == "fail"]
     report = {
         "schema": "mpg-example-validation-v1",
         "gecode_mode": gc.mode,
         "canonical_artifacts": len(integrity),
-        "compiled_programs": 78,
-        "compiled_headers": 1,
+        "compiled_programs": len(compiled - {"int"}),
+        "compiled_headers": len(compiled & {"int"}),
         "validation_profiles": len(compile_rows) + len(validation),
         "passed": sum(row["status"] == "pass" for row in all_rows),
         "skipped": sum(row["status"] == "skipped" for row in all_rows),

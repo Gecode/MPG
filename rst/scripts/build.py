@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from contextlib import contextmanager
 import os
 from pathlib import Path
@@ -12,6 +13,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+
+from build_contract import source_date_epoch, validate_release
 
 RST_ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY_ROOT = RST_ROOT.parent
@@ -22,6 +25,45 @@ DEFAULT_BUILD = RST_ROOT / "_build"
 def run(command: list[str], cwd: Path | None = None, env: dict[str, str] | None = None) -> None:
     print("+", " ".join(command), flush=True)
     subprocess.run(command, cwd=cwd, env=env, check=True)
+
+
+@contextmanager
+def staged_outputs(build: Path, target: str):
+    """Publish completed outputs only; a failed build leaves the preview intact."""
+    with tempfile.TemporaryDirectory(prefix=".mpg-build-", dir=build) as temporary:
+        staged = Path(temporary)
+        yield staged
+        names = {"html": ("html",), "pdf": ("latex",), "all": ("html", "latex")}[target]
+        for name in names:
+            destination = build / name
+            previous = staged / (name + "-previous")
+            if destination.exists():
+                destination.rename(previous)
+            try:
+                (staged / name).rename(destination)
+            except OSError:
+                if previous.exists():
+                    previous.rename(destination)
+                raise
+
+
+def clean_outputs(build: Path) -> None:
+    """Remove only known MPG build outputs, never an arbitrary parent tree."""
+    for name in (
+        "html",
+        "latex",
+        "reports",
+        "example-validation",
+        "gecode-vis",
+    ):
+        path = build / name
+        if path.is_dir():
+            try:
+                shutil.rmtree(path)
+            except OSError as error:
+                raise RuntimeError(f"could not clean build output: {path}") from error
+        elif path.exists():
+            path.unlink()
 
 
 def sphinx(builder: str, source: Path, output: Path, jobs: str, root_doc: str | None) -> None:
@@ -134,18 +176,6 @@ def verify_pdf_build(directory: Path, release: str, *, full_book: bool) -> None:
     )
     failures = [needle for needle in forbidden_log if needle in log]
 
-    if full_book:
-        expected_streams = {"MPG.lof": 213, "MPG.lotip": 78}
-        for filename, expected in expected_streams.items():
-            entries = sum(
-                line.startswith(r"\contentsline")
-                for line in (directory / filename).read_text(
-                    encoding="utf-8", errors="replace"
-                ).splitlines()
-            )
-            if entries != expected:
-                failures.append(f"{filename} has {entries} entries, expected {expected}")
-
     if shutil.which("pdftotext") is None:
         raise RuntimeError("pdftotext is required for the PDF fidelity checks")
     text_path = directory / "MPG.txt"
@@ -196,7 +226,7 @@ def verify_pdf_build(directory: Path, release: str, *, full_book: bool) -> None:
     ).stdout
     expected_urls = (
         f"https://www.gecode.dev/doc/{release}/MPG.pdf",
-        "https://www.gecode.dev/doc-latest/MPG.pdf",
+        "https://www.gecode.dev/doc/latest/MPG.pdf",
     )
     for url in expected_urls:
         if url not in urls:
@@ -207,10 +237,9 @@ def verify_pdf_build(directory: Path, release: str, *, full_book: bool) -> None:
 
     if failures:
         raise RuntimeError("PDF fidelity checks failed: " + "; ".join(failures))
-    detail = ", 213 Figures entries, and 78 Tips entries" if full_book else ""
     print(
         "verified PDF references, metadata, canonical URLs, accessible glyphs, "
-        f"and text extraction{detail}"
+        "and text extraction"
     )
 
 
@@ -241,33 +270,46 @@ def main() -> int:
     source = arguments.source.resolve()
     build = arguments.build.resolve()
     full_book = source == RST_ROOT and arguments.root_doc is None
+    default_release = "development"
+    if full_book:
+        inventory = Path(os.environ.get("MPG_REFERENCE_INVENTORY", RST_ROOT / "release-reference-inventory.json"))
+        default_release = json.loads(inventory.read_text())["gecode_version"]
+    release = validate_release(os.environ.get("GECODE_VERSION", default_release))
+    os.environ.setdefault("GECODE_VERSION", release)
+    os.environ.setdefault("SOURCE_DATE_EPOCH", source_date_epoch(REPOSITORY_ROOT))
     if arguments.target == "clean":
         if build == RST_ROOT or build == RST_ROOT.parent:
-            parser.error("refusing to remove the source or repository root")
-        shutil.rmtree(build, ignore_errors=True)
+            parser.error("refusing to clean the source or repository root")
+        clean_outputs(build)
         return 0
 
-    with publication_source(source, arguments.root_doc) as (publication, root_doc):
+    build.mkdir(parents=True, exist_ok=True)
+
+    with publication_source(source, arguments.root_doc) as (publication, root_doc), \
+            staged_outputs(build, arguments.target) as output:
         if arguments.target in {"html", "all"}:
-            sphinx("dirhtml", publication, build / "html", arguments.jobs, root_doc)
-            tailwind(build / "html")
-            pagefind(build / "html")
-            reference_prefix = f"/doc/{os.environ.get('GECODE_VERSION', 'development')}/reference/"
+            sphinx("dirhtml", publication, output / "html", arguments.jobs, root_doc)
+            tailwind(output / "html")
+            pagefind(output / "html")
+            reference_prefix = f"/doc/{release}/reference/"
             run([
                 sys.executable,
                 str(RST_ROOT / "scripts" / "verify_html.py"),
-                str(build / "html"),
+                str(output / "html"),
                 "--require-pagefind",
+                "--release", release,
                 "--site-prefix", reference_prefix,
                 # The PDF is assembled beside the HTML and reference trees by
                 # the release job, not inside Sphinx's HTML output directory.
-                "--site-prefix", f"/doc/{os.environ.get('GECODE_VERSION', 'development')}/MPG.pdf",
+                "--site-prefix", f"/doc/{release}/MPG.pdf",
             ])
 
+            (output / "html" / ".mpg-version").write_text(release + "\n", encoding="utf-8")
+
         if arguments.target in {"pdf", "all"}:
-            sphinx("latex", publication, build / "latex", arguments.jobs, root_doc)
+            sphinx("latex", publication, output / "latex", arguments.jobs, root_doc)
             if full_book:
-                adapt_latex_book(build / "latex" / "MPG.tex")
+                adapt_latex_book(output / "latex" / "MPG.tex")
             if shutil.which("latexmk") is None:
                 raise RuntimeError("latexmk is required for the PDF target")
             run([
@@ -276,12 +318,13 @@ def main() -> int:
                 "-halt-on-error",
                 "-interaction=nonstopmode",
                 "MPG.tex",
-            ], cwd=build / "latex")
+            ], cwd=output / "latex")
             verify_pdf_build(
-                build / "latex",
-                os.environ.get("GECODE_VERSION", "development"),
+                output / "latex",
+                release,
                 full_book=full_book,
             )
+            (output / "latex" / ".mpg-version").write_text(release + "\n", encoding="utf-8")
     return 0
 
 

@@ -9,9 +9,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 WORK = ROOT / ".mpg"
-GEN = WORK / "generated"
-GEN_TEX = GEN / "tex"
-GEN_SRC = GEN / "src"
 BUILD = WORK / "build"
 BIN = WORK / "bin"
 RESULTS = WORK / "results"
@@ -19,7 +16,7 @@ MANIFESTS = WORK / "manifests"
 
 
 def ensure_dirs() -> None:
-    for p in (WORK, GEN, GEN_TEX, GEN_SRC, BUILD, BIN, RESULTS, MANIFESTS):
+    for p in (WORK, BUILD, BIN, RESULTS, MANIFESTS):
         p.mkdir(parents=True, exist_ok=True)
 
 
@@ -34,10 +31,6 @@ def write_json(path: Path, data: object) -> None:
 
 def which(name: str) -> bool:
     return shutil.which(name) is not None
-
-
-def normalize_name(name: str) -> str:
-    return "-".join(name.strip().split())
 
 
 def platform_lib_path_var() -> str:

@@ -6,7 +6,7 @@
 Float variables and constraints
 ===============================
 
-This chapter gives an overview over float variables and float constraints in Gecode. Just like :ref:`chap:m:int` does for integer and Boolean variables, this chapter serves as a starting point for using float variables. For the reference documentation, please consult `Using float variables and constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloat.html>`__.
+This chapter gives an overview over float variables and float constraints in Gecode. Just like :ref:`chap:m:int` does for integer and Boolean variables, this chapter serves as a starting point for using float variables. For the reference documentation, please consult :api:`Using float variables and constraints <TaskModelFloat>`.
 
 .. _modeling:m-float:overview:
 
@@ -42,11 +42,11 @@ This chapter gives an overview over float variables and float constraints in Gec
 Float values and numbers
 ------------------------
 
-A *floating point value* (short, *float value*, see `FloatVal <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVal.html>`__) is represented as a closed interval of two *floating point numbers* (short, *float number*, see `Float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatVars.html>`__). That is, a float value is a closed interval :math:`\left[a..b\right]` which includes all real numbers :math:`n\in\RR` such that :math:`a\leq n` and :math:`n\leq b`. The float number type ``FloatNum`` is defined as ``double``.
+A *floating point value* (short, *float value*, see :api:`FloatVal`) is represented as a closed interval of two *floating point numbers* (short, *float number*, see :api:`Float variables <TaskModelFloatVars>`). That is, a float value is a closed interval :math:`\left[a..b\right]` which includes all real numbers :math:`n\in\RR` such that :math:`a\leq n` and :math:`n\leq b`. The float number type ``FloatNum`` is defined as ``double``.
 
 The reason why a float value is not represented by a single floating point number is that real numbers cannot be represented exactly and that operations on floating point numbers perform rounding. All operations (see below) on float values try to be as *accurate* as possible (so the interval :math:`\left[a..b\right]` for a float value is as small as possible) while being *correct* (no possible real number is ever excluded due to rounding). The classical reference on interval arithmetic is :cite:`Moore:1966`, for more information see also the Wikipedia article on `interval arithmetic <http://en.wikipedia.org/wiki/Interval_arithmetic>`__.
 
-A float value ``x`` represented by the interval :math:`\left[a..b\right]` provides many member functions such as ``min()`` (returning :math:`a`) and ``max()`` (returning :math:`b`), see `FloatVal <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVal.html>`__. The float value ``x`` is called *tight* if :math:`a` equals :math:`b` or if :math:`b` is the smallest representable float number larger than :math:`a`. If ``x`` is tight, ``x.tight()`` returns ``true``.
+A float value ``x`` represented by the interval :math:`\left[a..b\right]` provides many member functions such as ``min()`` (returning :math:`a`) and ``max()`` (returning :math:`b`), see :api:`FloatVal`. The float value ``x`` is called *tight* if :math:`a` equals :math:`b` or if :math:`b` is the smallest representable float number larger than :math:`a`. If ``x`` is tight, ``x.tight()`` returns ``true``.
 
 A float value can be initialized from a single float number such as in
 
@@ -76,7 +76,7 @@ or
 
 .. mpg-paragraph:: Predefined float values.
 
-The static member functions ``pi_half()``, ``pi()``, and ``pi_twice()`` of `FloatVal <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVal.html>`__ return float values for :math:`\frac{\pi}{2}`, :math:`\pi`, and :math:`2\pi` respectively.
+The static member functions ``pi_half()``, ``pi()``, and ``pi_twice()`` of :api:`FloatVal` return float values for :math:`\frac{\pi}{2}`, :math:`\pi`, and :math:`2\pi` respectively.
 
 .. _modeling:m-float:arithmetic-operators:
 
@@ -166,7 +166,7 @@ returns ``true`` if and only if ``x.max()<y.min()`` returns ``true``. That means
 Float variables
 ---------------
 
-Float variables in Gecode model sets of real numbers and are instances of the class `FloatVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVar.html>`__.
+Float variables in Gecode model sets of real numbers and are instances of the class :api:`FloatVar`.
 
 .. mpg-tip:: Still do not use views for modeling
 
@@ -189,9 +189,9 @@ New float variables are created using a constructor. A new float variable ``x`` 
    :direct:
 
 
-This declares a variable ``x`` of type `FloatVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVar.html>`__ in the space ``home``, creates a new float variable implementation with domain :math:`\left[-1.0..1.0\right]`, and makes ``x`` refer to the newly created float variable implementation.
+This declares a variable ``x`` of type :api:`FloatVar` in the space ``home``, creates a new float variable implementation with domain :math:`\left[-1.0..1.0\right]`, and makes ``x`` refer to the newly created float variable implementation.
 
-You find the full interface in the reference documentation of the class `FloatVar <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVar.html>`__. An attempt to create a float variable with an empty domain throws an exception of type `Float::VariableEmptyDomain <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1Float_1_1VariableEmptyDomain.html>`__.
+You find the full interface in the reference documentation of the class :api:`FloatVar`. An attempt to create a float variable with an empty domain throws an exception of type :api:`Float::VariableEmptyDomain`.
 
 As for integer variables, the default and copy constructors do not create new variable implementations. Instead, the variable does not refer to any variable implementation (default constructor) or to the same variable implementation (copy constructor). For example in
 
@@ -205,7 +205,7 @@ the variables ``x``, ``y``, and ``z`` all refer to the same float variable imple
 
 .. mpg-paragraph:: Limits.
 
-Float numbers range from :math:`\mathtt{Float::Limits::min}` to :math:`\mathtt{Float::Limits::max}` which also define the numbers that can represent float values and float variables. The limits are defined in the namespace `Float::Limits <https://www.gecode.dev/doc/6.4.0/reference/namespaceGecode_1_1Float_1_1Limits.html>`__.
+Float numbers range from :math:`\mathtt{Float::Limits::min}` to :math:`\mathtt{Float::Limits::max}` which also define the numbers that can represent float values and float variables. The limits are defined in the namespace :api:`Float::Limits`.
 
 .. mpg-tip:: Small variable domains are still beautiful
 
@@ -234,7 +234,7 @@ where ``y`` is the variable from which ``x`` is to be updated. While ``home`` is
 
 .. mpg-paragraph:: Variable and argument arrays.
 
-Float variable arrays can be allocated using the class `FloatVarArray <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVarArray.html>`__. The constructors of this class take the same arguments as the float variable constructors, preceded by the size of the array. For example,
+Float variable arrays can be allocated using the class :api:`FloatVarArray`. The constructors of this class take the same arguments as the float variable constructors, preceded by the size of the array. For example,
 
 .. mpg-code:: snippet:m-float:sec:m:float:var:code:4
    :direct:
@@ -242,7 +242,7 @@ Float variable arrays can be allocated using the class `FloatVarArray <https://w
 
 creates an array of four float variables, each with domain :math:`\left[-1.0..1.2\right]`.
 
-To pass temporary data structures as arguments, you can use the `FloatVarArgs <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatVarArgs.html>`__ class. Some float constraints are defined in terms of arrays of float values. These can be passed using the `FloatValArgs <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatValArgs.html>`__ class. Float variable and value argument arrays support the same operations introduced in :ref:`sec:m:integer:args` but `FloatValArgs <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatValArgs.html>`__ do not support the initialization with a variable number of float values.
+To pass temporary data structures as arguments, you can use the :api:`FloatVarArgs` class. Some float constraints are defined in terms of arrays of float values. These can be passed using the :api:`FloatValArgs` class. Float variable and value argument arrays support the same operations introduced in :ref:`sec:m:integer:args` but :api:`FloatValArgs` do not support the initialization with a variable number of float values.
 
 .. _sec:m:float:post:
 
@@ -268,7 +268,7 @@ Some float constraints (relation constraints, see :ref:`sec:m:float:rel`, and li
 Domain constraints
 ~~~~~~~~~~~~~~~~~~
 
-`Domain constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatDomain.html>`__ constrain float variables and variable arrays to values from a given domain. For example, by
+:api:`Domain constraints <TaskModelFloatDomain>` constrain float variables and variable arrays to values from a given domain. For example, by
 
 .. mpg-code:: snippet:m-float:sec:m:float:dom:code:1
    :direct:
@@ -307,7 +307,7 @@ Simple relation constraints
       | ``FRT_GR`` | strictly greater inequality (:math:`>`) | ``FRT_GQ`` | greater or equal inequality (:math:`\geq`) |
       +------------+-----------------------------------------+------------+--------------------------------------------+
 
-`Simple relation constraints over float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatRelFloat.html>`__ enforce relations between float variables and between float variables and float values. The relation depends on a float relation type ``FloatRelType`` (see `Simple relation constraints over float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatRelFloat.html>`__). :numref:`fig:m:float:frt` lists the available float relation types and their meaning.
+:api:`Simple relation constraints over float variables <TaskModelFloatRelFloat>` enforce relations between float variables and between float variables and float values. The relation depends on a float relation type ``FloatRelType`` (see :api:`Simple relation constraints over float variables <TaskModelFloatRelFloat>`). :numref:`fig:m:float:frt` lists the available float relation types and their meaning.
 
 .. _modeling:m-float:binary-relation-constraints:
 
@@ -424,7 +424,7 @@ Arithmetic constraints
       | ``atan(home, x, y)``      | :math:`\arctan(\mathtt{x})=\mathtt y`           |         |
       +---------------------------+-------------------------------------------------+---------+
 
-In addition to the constraints summarized in :numref:`fig:m:float:arithmetic` (see also `Arithmetic constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatArith.html>`__), the minimum and maximum constraints are also available for float variable arrays. That is, for a float variable array ``x`` and a float variable ``y``
+In addition to the constraints summarized in :numref:`fig:m:float:arithmetic` (see also :api:`Arithmetic constraints <TaskModelFloatArith>`), the minimum and maximum constraints are also available for float variable arrays. That is, for a float variable array ``x`` and a float variable ``y``
 
 .. mpg-code:: snippet:m-float:fig:m:float:arithmetic:code:1
    :direct:
@@ -442,7 +442,7 @@ The constraints marked as default in :numref:`fig:m:float:arithmetic` are always
 Linear constraints
 ~~~~~~~~~~~~~~~~~~
 
-`Linear constraints over float variables <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatLI.html>`__ provide constraint post functions for linear constraints over float variables. The most general variant
+:api:`Linear constraints over float variables <TaskModelFloatLI>` provide constraint post functions for linear constraints over float variables. The most general variant
 
 .. mpg-code:: snippet:m-float:sec:m:float:linear:code:1
    :direct:
@@ -455,7 +455,7 @@ posts the linear constraint
    \sum_{i=0}^{|\mathtt x|-1} \mathtt{a}_i \cdot \mathtt{x}_i =
    \mathtt c
 
-with float value coefficients ``a`` (of type `FloatValArgs <https://www.gecode.dev/doc/6.4.0/reference/classGecode_1_1FloatValArgs.html>`__), float variables ``x``, and a float value ``c``. Note that ``a`` and ``x`` must have the same size. Of course, all other float relation types are supported, see :numref:`fig:m:float:frt` for a table of float relation types (note that, linear constraints also show poor propagation for strict inequalities and disequality as discussed in :ref:`tip:m:float:weak`). Multiple occurrences of the same variable in ``x`` are explicitly allowed and common terms :math:`a\cdot y` and :math:`b\cdot y` for the same variable :math:`y` are rewritten to :math:`(a+b)\cdot y` to increase propagation.
+with float value coefficients ``a`` (of type :api:`FloatValArgs`), float variables ``x``, and a float value ``c``. Note that ``a`` and ``x`` must have the same size. Of course, all other float relation types are supported, see :numref:`fig:m:float:frt` for a table of float relation types (note that, linear constraints also show poor propagation for strict inequalities and disequality as discussed in :ref:`tip:m:float:weak`). Multiple occurrences of the same variable in ``x`` are explicitly allowed and common terms :math:`a\cdot y` and :math:`b\cdot y` for the same variable :math:`y` are rewritten to :math:`(a+b)\cdot y` to increase propagation.
 
 .. container:: samepage
 
@@ -480,7 +480,7 @@ Instead of a float value ``c`` as the right-hand side of the linear constraint, 
 Channel constraints
 ~~~~~~~~~~~~~~~~~~~
 
-`Channel constraints <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatChannel.html>`__ channel float variables to integer variables. To express that a float variable ``x`` is equal to an integer variable ``y`` is by posting either
+:api:`Channel constraints <TaskModelFloatChannel>` channel float variables to integer variables. To express that a float variable ``x`` is equal to an integer variable ``y`` is by posting either
 
 .. mpg-code:: snippet:m-float:sec:m:float:channel:code:1
    :direct:
@@ -501,7 +501,7 @@ Channel constraints
 Synchronized execution
 ----------------------
 
-Gecode offers support in `Synchronized execution <https://www.gecode.dev/doc/6.4.0/reference/group__TaskModelFloatExec.html>`__ for executing a function when float variables become assigned.
+Gecode offers support in :api:`Synchronized execution <TaskModelFloatExec>` for executing a function when float variables become assigned.
 
 The following code
 
@@ -517,12 +517,3 @@ posts a propagator that waits until the float variable ``x`` (or, if ``x`` is an
 
 .. [1]
    Note that this means that a float variable is assigned even though its domain might still denote a set with more than one element. But this cannot be avoided as real numbers cannot be represented exactly.
-
-.. mpg-covered: caption:docs/src/chapters/modeling/m-float.tex.in:123:fig:m:float:val:fun
-.. mpg-covered: table:docs/src/chapters/modeling/m-float.tex.in:125:tabular@docs/src/chapters/modeling/m-float.tex.in:125
-.. mpg-covered: tip:docs/src/chapters/modeling/m-float.tex.in:172:unlabeled-tip@docs/src/chapters/modeling/m-float.tex.in:172
-.. mpg-covered: tip:docs/src/chapters/modeling/m-float.tex.in:228:unlabeled-tip@docs/src/chapters/modeling/m-float.tex.in:228
-.. mpg-covered: caption:docs/src/chapters/modeling/m-float.tex.in:323:fig:m:float:frt
-.. mpg-covered: table:docs/src/chapters/modeling/m-float.tex.in:325:tabular@docs/src/chapters/modeling/m-float.tex.in:325
-.. mpg-covered: caption:docs/src/chapters/modeling/m-float.tex.in:411:fig:m:float:arithmetic
-.. mpg-covered: table:docs/src/chapters/modeling/m-float.tex.in:413:tabular@docs/src/chapters/modeling/m-float.tex.in:413

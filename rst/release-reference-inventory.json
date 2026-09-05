@@ -1,19 +1,87 @@
 {
   "base_url": "/doc/6.4.0/reference/",
   "gecode_version": "6.4.0",
-  "generated_by": "Gecode release Doxygen tag",
+  "generated_by": "Gecode release Doxygen tag, reconciled with retained published 6.4.0 reference HTML",
   "objects": {
     "Actor": {
       "title": "Gecode::Actor",
       "url": "classGecode_1_1Actor.html"
     },
+    "Advisor": {
+      "title": "Gecode::Advisor",
+      "url": "classGecode_1_1Advisor.html"
+    },
     "Archive": {
       "title": "Gecode::Archive",
       "url": "classGecode_1_1Archive.html"
     },
+    "BAB": {
+      "title": "Gecode::BAB",
+      "url": "classGecode_1_1BAB.html"
+    },
+    "BinaryPropagator": {
+      "title": "Gecode::BinaryPropagator",
+      "url": "classGecode_1_1BinaryPropagator.html"
+    },
+    "BoolAFC": {
+      "title": "Gecode::BoolAFC",
+      "url": "classGecode_1_1BoolAFC.html"
+    },
+    "BoolAction": {
+      "title": "Gecode::BoolAction",
+      "url": "classGecode_1_1BoolAction.html"
+    },
+    "BoolAssign": {
+      "title": "Gecode::BoolAssign",
+      "url": "classGecode_1_1BoolAssign.html"
+    },
+    "BoolCHB": {
+      "title": "Gecode::BoolCHB",
+      "url": "classGecode_1_1BoolCHB.html"
+    },
+    "BoolExpr::Misc": {
+      "title": "Gecode::BoolExpr::Misc",
+      "url": "classGecode_1_1BoolExpr_1_1Misc.html"
+    },
+    "BoolTraceDelta": {
+      "title": "Gecode::BoolTraceDelta",
+      "url": "classGecode_1_1BoolTraceDelta.html"
+    },
+    "BoolValBranch": {
+      "title": "Gecode::BoolValBranch",
+      "url": "classGecode_1_1BoolValBranch.html"
+    },
+    "BoolVar": {
+      "title": "Gecode::BoolVar",
+      "url": "classGecode_1_1BoolVar.html"
+    },
+    "BoolVarArray": {
+      "title": "Gecode::BoolVarArray",
+      "url": "classGecode_1_1BoolVarArray.html"
+    },
+    "BoolVarBranch": {
+      "title": "Gecode::BoolVarBranch",
+      "url": "classGecode_1_1BoolVarBranch.html"
+    },
     "Brancher": {
       "title": "Gecode::Brancher",
       "url": "classGecode_1_1Brancher.html"
+    },
+    "BrancherGroup": {
+      "title": "Gecode::BrancherGroup",
+      "url": "classGecode_1_1BrancherGroup.html"
+    },
+    "Branchers": {
+      "title": "Gecode::Branchers",
+      "url": "classGecode_1_1Branchers.html"
+    },
+    "CPProfilerSearchTracer": {
+      "title": "Gecode::CPProfilerSearchTracer",
+      "url": "classGecode_1_1CPProfilerSearchTracer.html"
+    },
+    "CPProfilerSearchTracer::GetInfo": {
+      "title": "Gecode::CPProfilerSearchTracer::GetInfo",
+      "url": "classGecode_1_1CPProfilerSearchTracer_1_1GetInfo.html"
     },
     "Choice": {
       "title": "Gecode::Choice",
@@ -27,21 +95,677 @@
       "title": "Gecode::CommitStatistics",
       "url": "classGecode_1_1CommitStatistics.html"
     },
+    "CommitTraceInfo": {
+      "title": "Gecode::CommitTraceInfo",
+      "url": "classGecode_1_1CommitTraceInfo.html"
+    },
+    "ConstView": {
+      "title": "Gecode::ConstView",
+      "url": "classGecode_1_1ConstView.html"
+    },
+    "DFA": {
+      "title": "Gecode::DFA",
+      "url": "classGecode_1_1DFA.html"
+    },
+    "DFA::Transition": {
+      "title": "Gecode::DFA::Transition",
+      "url": "classGecode_1_1DFA_1_1Transition.html"
+    },
+    "DFS": {
+      "title": "Gecode::DFS",
+      "url": "classGecode_1_1DFS.html"
+    },
+    "Delta": {
+      "title": "Gecode::Delta",
+      "url": "classGecode_1_1Delta.html"
+    },
+    "DerivedView": {
+      "title": "Gecode::DerivedView",
+      "url": "classGecode_1_1DerivedView.html"
+    },
+    "Example": {
+      "title": "Example scripts (models)",
+      "url": "group__Example.html"
+    },
+    "Exception": {
+      "title": "Gecode::Exception",
+      "url": "classGecode_1_1Exception.html"
+    },
+    "Float": {
+      "title": "Gecode::Float",
+      "url": "namespaceGecode_1_1Float.html"
+    },
+    "Float::FloatDelta": {
+      "title": "Gecode::Float::FloatDelta",
+      "url": "classGecode_1_1Float_1_1FloatDelta.html"
+    },
+    "Float::FloatView": {
+      "title": "Gecode::Float::FloatView",
+      "url": "classGecode_1_1Float_1_1FloatView.html"
+    },
+    "Float::Limits": {
+      "title": "Gecode::Float::Limits",
+      "url": "namespaceGecode_1_1Float_1_1Limits.html"
+    },
+    "Float::MinusView": {
+      "title": "Gecode::Float::MinusView",
+      "url": "classGecode_1_1Float_1_1MinusView.html"
+    },
+    "Float::Rounding": {
+      "title": "Gecode::Float::Rounding",
+      "url": "classGecode_1_1Float_1_1Rounding.html"
+    },
+    "Float::ScaleView": {
+      "title": "Gecode::Float::ScaleView",
+      "url": "classGecode_1_1Float_1_1ScaleView.html"
+    },
+    "Float::VariableEmptyDomain": {
+      "title": "Gecode::Float::VariableEmptyDomain",
+      "url": "classGecode_1_1Float_1_1VariableEmptyDomain.html"
+    },
+    "FloatAFC": {
+      "title": "Gecode::FloatAFC",
+      "url": "classGecode_1_1FloatAFC.html"
+    },
+    "FloatAction": {
+      "title": "Gecode::FloatAction",
+      "url": "classGecode_1_1FloatAction.html"
+    },
+    "FloatAssign": {
+      "title": "Gecode::FloatAssign",
+      "url": "classGecode_1_1FloatAssign.html"
+    },
+    "FloatCHB": {
+      "title": "Gecode::FloatCHB",
+      "url": "classGecode_1_1FloatCHB.html"
+    },
+    "FloatMaximizeSpace": {
+      "title": "Gecode::FloatMaximizeSpace",
+      "url": "classGecode_1_1FloatMaximizeSpace.html"
+    },
+    "FloatMinimizeSpace": {
+      "title": "Gecode::FloatMinimizeSpace",
+      "url": "classGecode_1_1FloatMinimizeSpace.html"
+    },
+    "FloatNumBranch": {
+      "title": "Gecode::FloatNumBranch",
+      "url": "classGecode_1_1FloatNumBranch.html"
+    },
+    "FloatTraceDelta": {
+      "title": "Gecode::FloatTraceDelta",
+      "url": "classGecode_1_1FloatTraceDelta.html"
+    },
+    "FloatVal": {
+      "title": "Gecode::FloatVal",
+      "url": "classGecode_1_1FloatVal.html"
+    },
+    "FloatValArgs": {
+      "title": "Gecode::FloatValArgs",
+      "url": "classGecode_1_1FloatValArgs.html"
+    },
+    "FloatValBranch": {
+      "title": "Gecode::FloatValBranch",
+      "url": "classGecode_1_1FloatValBranch.html"
+    },
+    "FloatVar": {
+      "title": "Gecode::FloatVar",
+      "url": "classGecode_1_1FloatVar.html"
+    },
+    "FloatVarArgs": {
+      "title": "Gecode::FloatVarArgs",
+      "url": "classGecode_1_1FloatVarArgs.html"
+    },
+    "FloatVarArray": {
+      "title": "Gecode::FloatVarArray",
+      "url": "classGecode_1_1FloatVarArray.html"
+    },
+    "FloatVarBranch": {
+      "title": "Gecode::FloatVarBranch",
+      "url": "classGecode_1_1FloatVarBranch.html"
+    },
+    "FreeList": {
+      "title": "Gecode::FreeList",
+      "url": "classGecode_1_1FreeList.html"
+    },
+    "FuncMem": {
+      "title": "Memory management",
+      "url": "group__FuncMem.html"
+    },
+    "FuncMemAllocator": {
+      "title": "Using allocators with Gecode",
+      "url": "group__FuncMemAllocator.html"
+    },
+    "FuncMemHeap": {
+      "title": "%Heap memory management",
+      "url": "group__FuncMemHeap.html"
+    },
+    "FuncMemRegion": {
+      "title": "Region memory management",
+      "url": "group__FuncMemRegion.html"
+    },
+    "FuncMemSpace": {
+      "title": "Space-memory management",
+      "url": "group__FuncMemSpace.html"
+    },
+    "Gecode": {
+      "title": "Gecode",
+      "url": "namespaceGecode.html"
+    },
+    "Gist::Comparator": {
+      "title": "Gecode::Gist::Comparator",
+      "url": "classGecode_1_1Gist_1_1Comparator.html"
+    },
+    "Gist::Gist": {
+      "title": "Gecode::Gist::Gist",
+      "url": "classGecode_1_1Gist_1_1Gist.html"
+    },
+    "Gist::GistMainWindow": {
+      "title": "Gecode::Gist::GistMainWindow",
+      "url": "classGecode_1_1Gist_1_1GistMainWindow.html"
+    },
+    "Gist::Inspector": {
+      "title": "Gecode::Gist::Inspector",
+      "url": "classGecode_1_1Gist_1_1Inspector.html"
+    },
+    "Gist::Options": {
+      "title": "Gecode::Gist::Options",
+      "url": "classGecode_1_1Gist_1_1Options.html"
+    },
+    "Gist::Print": {
+      "title": "Gecode::Gist::Print",
+      "url": "classGecode_1_1Gist_1_1Print.html"
+    },
+    "Gist::VarComparator": {
+      "title": "Gecode::Gist::VarComparator",
+      "url": "classGecode_1_1Gist_1_1VarComparator.html"
+    },
+    "Home": {
+      "title": "Gecode::Home",
+      "url": "classGecode_1_1Home.html"
+    },
+    "InstanceOptions": {
+      "title": "Gecode::InstanceOptions",
+      "url": "classGecode_1_1InstanceOptions.html"
+    },
+    "Int": {
+      "title": "Gecode::Int",
+      "url": "namespaceGecode_1_1Int.html"
+    },
+    "Int::ArgumentSame": {
+      "title": "Gecode::Int::ArgumentSame",
+      "url": "classGecode_1_1Int_1_1ArgumentSame.html"
+    },
+    "Int::BoolView": {
+      "title": "Gecode::Int::BoolView",
+      "url": "classGecode_1_1Int_1_1BoolView.html"
+    },
+    "Int::ConstIntView": {
+      "title": "Gecode::Int::ConstIntView",
+      "url": "classGecode_1_1Int_1_1ConstIntView.html"
+    },
+    "Int::Distinct::Dom": {
+      "title": "Gecode::Int::Distinct::Dom",
+      "url": "classGecode_1_1Int_1_1Distinct_1_1Dom.html"
+    },
+    "Int::Extensional::LayeredGraph": {
+      "title": "Gecode::Int::Extensional::LayeredGraph",
+      "url": "classGecode_1_1Int_1_1Extensional_1_1LayeredGraph.html"
+    },
+    "Int::IllegalOperation": {
+      "title": "Gecode::Int::IllegalOperation",
+      "url": "classGecode_1_1Int_1_1IllegalOperation.html"
+    },
+    "Int::IntView": {
+      "title": "Gecode::Int::IntView",
+      "url": "classGecode_1_1Int_1_1IntView.html"
+    },
     "Int::Limits": {
       "title": "Gecode::Int::Limits",
       "url": "namespaceGecode_1_1Int_1_1Limits.html"
+    },
+    "Int::MinusView": {
+      "title": "Gecode::Int::MinusView",
+      "url": "classGecode_1_1Int_1_1MinusView.html"
+    },
+    "Int::NegBoolView": {
+      "title": "Gecode::Int::NegBoolView",
+      "url": "classGecode_1_1Int_1_1NegBoolView.html"
+    },
+    "Int::NotYetFinalized": {
+      "title": "Gecode::Int::NotYetFinalized",
+      "url": "classGecode_1_1Int_1_1NotYetFinalized.html"
+    },
+    "Int::NotZeroOne": {
+      "title": "Gecode::Int::NotZeroOne",
+      "url": "classGecode_1_1Int_1_1NotZeroOne.html"
+    },
+    "Int::OutOfLimits": {
+      "title": "Gecode::Int::OutOfLimits",
+      "url": "classGecode_1_1Int_1_1OutOfLimits.html"
+    },
+    "Int::ReBinaryPropagator": {
+      "title": "Gecode::Int::ReBinaryPropagator",
+      "url": "classGecode_1_1Int_1_1ReBinaryPropagator.html"
+    },
+    "Int::ReMixBinaryPropagator": {
+      "title": "Gecode::Int::ReMixBinaryPropagator",
+      "url": "classGecode_1_1Int_1_1ReMixBinaryPropagator.html"
+    },
+    "Int::ReUnaryPropagator": {
+      "title": "Gecode::Int::ReUnaryPropagator",
+      "url": "classGecode_1_1Int_1_1ReUnaryPropagator.html"
+    },
+    "Int::ScaleView": {
+      "title": "Gecode::Int::ScaleView",
+      "url": "classGecode_1_1Int_1_1ScaleView.html"
+    },
+    "Int::ValOfUnassignedVar": {
+      "title": "Gecode::Int::ValOfUnassignedVar",
+      "url": "classGecode_1_1Int_1_1ValOfUnassignedVar.html"
+    },
+    "Int::VariableEmptyDomain": {
+      "title": "Gecode::Int::VariableEmptyDomain",
+      "url": "classGecode_1_1Int_1_1VariableEmptyDomain.html"
+    },
+    "IntAFC": {
+      "title": "Gecode::IntAFC",
+      "url": "classGecode_1_1IntAFC.html"
+    },
+    "IntAction": {
+      "title": "Gecode::IntAction",
+      "url": "classGecode_1_1IntAction.html"
+    },
+    "IntAssign": {
+      "title": "Gecode::IntAssign",
+      "url": "classGecode_1_1IntAssign.html"
+    },
+    "IntCHB": {
+      "title": "Gecode::IntCHB",
+      "url": "classGecode_1_1IntCHB.html"
+    },
+    "IntLexMaximizeSpace": {
+      "title": "Gecode::IntLexMaximizeSpace",
+      "url": "classGecode_1_1IntLexMaximizeSpace.html"
+    },
+    "IntLexMinimizeSpace": {
+      "title": "Gecode::IntLexMinimizeSpace",
+      "url": "classGecode_1_1IntLexMinimizeSpace.html"
+    },
+    "IntMaximizeSpace": {
+      "title": "Gecode::IntMaximizeSpace",
+      "url": "classGecode_1_1IntMaximizeSpace.html"
+    },
+    "IntMinimizeSpace": {
+      "title": "Gecode::IntMinimizeSpace",
+      "url": "classGecode_1_1IntMinimizeSpace.html"
+    },
+    "IntPropLevels": {
+      "title": "Gecode::IntPropLevels",
+      "url": "classGecode_1_1IntPropLevels.html"
+    },
+    "IntSet": {
+      "title": "Gecode::IntSet",
+      "url": "classGecode_1_1IntSet.html"
+    },
+    "IntTraceDelta": {
+      "title": "Gecode::IntTraceDelta",
+      "url": "classGecode_1_1IntTraceDelta.html"
+    },
+    "IntValBranch": {
+      "title": "Gecode::IntValBranch",
+      "url": "classGecode_1_1IntValBranch.html"
+    },
+    "IntVar": {
+      "title": "Gecode::IntVar",
+      "url": "classGecode_1_1IntVar.html"
+    },
+    "IntVarArray": {
+      "title": "Gecode::IntVarArray",
+      "url": "classGecode_1_1IntVarArray.html"
+    },
+    "IntVarBranch": {
+      "title": "Gecode::IntVarBranch",
+      "url": "classGecode_1_1IntVarBranch.html"
+    },
+    "IntVarRanges": {
+      "title": "Gecode::IntVarRanges",
+      "url": "classGecode_1_1IntVarRanges.html"
+    },
+    "IntVarValues": {
+      "title": "Gecode::IntVarValues",
+      "url": "classGecode_1_1IntVarValues.html"
+    },
+    "Iter": {
+      "title": "Gecode::Iter",
+      "url": "namespaceGecode_1_1Iter.html"
+    },
+    "Iter::Ranges": {
+      "title": "Gecode::Iter::Ranges",
+      "url": "namespaceGecode_1_1Iter_1_1Ranges.html"
+    },
+    "Iter::Values": {
+      "title": "Gecode::Iter::Values",
+      "url": "namespaceGecode_1_1Iter_1_1Values.html"
     },
     "Iter::Values::Array": {
       "title": "Gecode::Iter::Values::Array",
       "url": "classGecode_1_1Iter_1_1Values_1_1Array.html"
     },
+    "Kernel::MemoryConfig": {
+      "title": "Gecode::Kernel::MemoryConfig",
+      "url": "namespaceGecode_1_1Kernel_1_1MemoryConfig.html"
+    },
+    "LDS": {
+      "title": "Gecode::LDS",
+      "url": "classGecode_1_1LDS.html"
+    },
+    "LinIntExpr": {
+      "title": "Gecode::LinIntExpr",
+      "url": "classGecode_1_1LinIntExpr.html"
+    },
+    "Matrix": {
+      "title": "Gecode::Matrix",
+      "url": "classGecode_1_1Matrix.html"
+    },
+    "MemoryExhausted": {
+      "title": "Gecode::MemoryExhausted",
+      "url": "classGecode_1_1MemoryExhausted.html"
+    },
+    "MeritAction": {
+      "title": "Gecode::MeritAction",
+      "url": "classGecode_1_1MeritAction.html"
+    },
+    "MeritBase": {
+      "title": "Gecode::MeritBase",
+      "url": "classGecode_1_1MeritBase.html"
+    },
+    "MeritDegree": {
+      "title": "Gecode::MeritDegree",
+      "url": "classGecode_1_1MeritDegree.html"
+    },
+    "MeritFunction": {
+      "title": "Gecode::MeritFunction",
+      "url": "classGecode_1_1MeritFunction.html"
+    },
+    "MetaInfo": {
+      "title": "Gecode::MetaInfo",
+      "url": "classGecode_1_1MetaInfo.html"
+    },
+    "MixBinaryPropagator": {
+      "title": "Gecode::MixBinaryPropagator",
+      "url": "classGecode_1_1MixBinaryPropagator.html"
+    },
+    "MixNaryOnePropagator": {
+      "title": "Gecode::MixNaryOnePropagator",
+      "url": "classGecode_1_1MixNaryOnePropagator.html"
+    },
+    "MixTernaryPropagator": {
+      "title": "Gecode::MixTernaryPropagator",
+      "url": "classGecode_1_1MixTernaryPropagator.html"
+    },
     "NGL": {
       "title": "Gecode::NGL",
       "url": "classGecode_1_1NGL.html"
     },
+    "NaryOnePropagator": {
+      "title": "Gecode::NaryOnePropagator",
+      "url": "classGecode_1_1NaryOnePropagator.html"
+    },
+    "NaryPropagator": {
+      "title": "Gecode::NaryPropagator",
+      "url": "classGecode_1_1NaryPropagator.html"
+    },
+    "NoGoods": {
+      "title": "Gecode::NoGoods",
+      "url": "classGecode_1_1NoGoods.html"
+    },
+    "Options": {
+      "title": "Gecode::Options",
+      "url": "classGecode_1_1Options.html"
+    },
+    "PostInfo": {
+      "title": "Gecode::PostInfo",
+      "url": "classGecode_1_1PostInfo.html"
+    },
+    "PostTraceInfo": {
+      "title": "Gecode::PostTraceInfo",
+      "url": "classGecode_1_1PostTraceInfo.html"
+    },
+    "PropCost": {
+      "title": "Gecode::PropCost",
+      "url": "classGecode_1_1PropCost.html"
+    },
+    "PropagateTraceInfo": {
+      "title": "Gecode::PropagateTraceInfo",
+      "url": "classGecode_1_1PropagateTraceInfo.html"
+    },
+    "Propagator": {
+      "title": "Gecode::Propagator",
+      "url": "classGecode_1_1Propagator.html"
+    },
+    "PropagatorGroup": {
+      "title": "Gecode::PropagatorGroup",
+      "url": "classGecode_1_1PropagatorGroup.html"
+    },
+    "RBS": {
+      "title": "Gecode::RBS",
+      "url": "classGecode_1_1RBS.html"
+    },
+    "REG": {
+      "title": "Gecode::REG",
+      "url": "classGecode_1_1REG.html"
+    },
+    "Reify": {
+      "title": "Gecode::Reify",
+      "url": "classGecode_1_1Reify.html"
+    },
+    "Rnd": {
+      "title": "Gecode::Rnd",
+      "url": "classGecode_1_1Rnd.html"
+    },
+    "Search::Config": {
+      "title": "Gecode::Search::Config",
+      "url": "namespaceGecode_1_1Search_1_1Config.html"
+    },
+    "Search::Cutoff": {
+      "title": "Gecode::Search::Cutoff",
+      "url": "classGecode_1_1Search_1_1Cutoff.html"
+    },
+    "Search::CutoffAppend": {
+      "title": "Gecode::Search::CutoffAppend",
+      "url": "classGecode_1_1Search_1_1CutoffAppend.html"
+    },
+    "Search::CutoffConstant": {
+      "title": "Gecode::Search::CutoffConstant",
+      "url": "classGecode_1_1Search_1_1CutoffConstant.html"
+    },
+    "Search::CutoffGeometric": {
+      "title": "Gecode::Search::CutoffGeometric",
+      "url": "classGecode_1_1Search_1_1CutoffGeometric.html"
+    },
+    "Search::CutoffLinear": {
+      "title": "Gecode::Search::CutoffLinear",
+      "url": "classGecode_1_1Search_1_1CutoffLinear.html"
+    },
+    "Search::CutoffLuby": {
+      "title": "Gecode::Search::CutoffLuby",
+      "url": "classGecode_1_1Search_1_1CutoffLuby.html"
+    },
+    "Search::CutoffMerge": {
+      "title": "Gecode::Search::CutoffMerge",
+      "url": "classGecode_1_1Search_1_1CutoffMerge.html"
+    },
+    "Search::CutoffRandom": {
+      "title": "Gecode::Search::CutoffRandom",
+      "url": "classGecode_1_1Search_1_1CutoffRandom.html"
+    },
+    "Search::CutoffRepeat": {
+      "title": "Gecode::Search::CutoffRepeat",
+      "url": "classGecode_1_1Search_1_1CutoffRepeat.html"
+    },
+    "Search::FailStop": {
+      "title": "Gecode::Search::FailStop",
+      "url": "classGecode_1_1Search_1_1FailStop.html"
+    },
+    "Search::MixedBest": {
+      "title": "Gecode::Search::MixedBest",
+      "url": "classGecode_1_1Search_1_1MixedBest.html"
+    },
     "Search::NoGoodsProp": {
       "title": "Gecode::Search::NoGoodsProp",
       "url": "classGecode_1_1Search_1_1NoGoodsProp.html"
+    },
+    "Search::NodeStop": {
+      "title": "Gecode::Search::NodeStop",
+      "url": "classGecode_1_1Search_1_1NodeStop.html"
+    },
+    "Search::Options": {
+      "title": "Gecode::Search::Options",
+      "url": "classGecode_1_1Search_1_1Options.html"
+    },
+    "Search::Statistics": {
+      "title": "Gecode::Search::Statistics",
+      "url": "classGecode_1_1Search_1_1Statistics.html"
+    },
+    "Search::Stop": {
+      "title": "Gecode::Search::Stop",
+      "url": "classGecode_1_1Search_1_1Stop.html"
+    },
+    "Search::TimeStop": {
+      "title": "Gecode::Search::TimeStop",
+      "url": "classGecode_1_1Search_1_1TimeStop.html"
+    },
+    "SearchTracer": {
+      "title": "Gecode::SearchTracer",
+      "url": "classGecode_1_1SearchTracer.html"
+    },
+    "SearchTracer::EdgeInfo": {
+      "title": "Gecode::SearchTracer::EdgeInfo",
+      "url": "classGecode_1_1SearchTracer_1_1EdgeInfo.html"
+    },
+    "SearchTracer::EngineInfo": {
+      "title": "Gecode::SearchTracer::EngineInfo",
+      "url": "classGecode_1_1SearchTracer_1_1EngineInfo.html"
+    },
+    "SearchTracer::NodeInfo": {
+      "title": "Gecode::SearchTracer::NodeInfo",
+      "url": "classGecode_1_1SearchTracer_1_1NodeInfo.html"
+    },
+    "Set": {
+      "title": "Gecode::Set",
+      "url": "namespaceGecode_1_1Set.html"
+    },
+    "Set::ComplementView": {
+      "title": "Gecode::Set::ComplementView",
+      "url": "classGecode_1_1Set_1_1ComplementView.html"
+    },
+    "Set::ConstSetView": {
+      "title": "Gecode::Set::ConstSetView",
+      "url": "classGecode_1_1Set_1_1ConstSetView.html"
+    },
+    "Set::EmptyView": {
+      "title": "Gecode::Set::EmptyView",
+      "url": "classGecode_1_1Set_1_1EmptyView.html"
+    },
+    "Set::GlbRanges": {
+      "title": "Gecode::Set::GlbRanges",
+      "url": "classGecode_1_1Set_1_1GlbRanges.html"
+    },
+    "Set::Limits": {
+      "title": "Gecode::Set::Limits",
+      "url": "namespaceGecode_1_1Set_1_1Limits.html"
+    },
+    "Set::LubRanges": {
+      "title": "Gecode::Set::LubRanges",
+      "url": "classGecode_1_1Set_1_1LubRanges.html"
+    },
+    "Set::OutOfLimits": {
+      "title": "Gecode::Set::OutOfLimits",
+      "url": "classGecode_1_1Set_1_1OutOfLimits.html"
+    },
+    "Set::SetDelta": {
+      "title": "Gecode::Set::SetDelta",
+      "url": "classGecode_1_1Set_1_1SetDelta.html"
+    },
+    "Set::SetView": {
+      "title": "Gecode::Set::SetView",
+      "url": "classGecode_1_1Set_1_1SetView.html"
+    },
+    "Set::SingletonView": {
+      "title": "Gecode::Set::SingletonView",
+      "url": "classGecode_1_1Set_1_1SingletonView.html"
+    },
+    "Set::UniverseView": {
+      "title": "Gecode::Set::UniverseView",
+      "url": "classGecode_1_1Set_1_1UniverseView.html"
+    },
+    "Set::VariableEmptyDomain": {
+      "title": "Gecode::Set::VariableEmptyDomain",
+      "url": "classGecode_1_1Set_1_1VariableEmptyDomain.html"
+    },
+    "SetAFC": {
+      "title": "Gecode::SetAFC",
+      "url": "classGecode_1_1SetAFC.html"
+    },
+    "SetAction": {
+      "title": "Gecode::SetAction",
+      "url": "classGecode_1_1SetAction.html"
+    },
+    "SetAssign": {
+      "title": "Gecode::SetAssign",
+      "url": "classGecode_1_1SetAssign.html"
+    },
+    "SetCHB": {
+      "title": "Gecode::SetCHB",
+      "url": "classGecode_1_1SetCHB.html"
+    },
+    "SetTraceDelta": {
+      "title": "Gecode::SetTraceDelta",
+      "url": "classGecode_1_1SetTraceDelta.html"
+    },
+    "SetTraceDelta::Glb": {
+      "title": "Gecode::SetTraceDelta::Glb",
+      "url": "classGecode_1_1SetTraceDelta_1_1Glb.html"
+    },
+    "SetTraceDelta::Lub": {
+      "title": "Gecode::SetTraceDelta::Lub",
+      "url": "classGecode_1_1SetTraceDelta_1_1Lub.html"
+    },
+    "SetValBranch": {
+      "title": "Gecode::SetValBranch",
+      "url": "classGecode_1_1SetValBranch.html"
+    },
+    "SetVar": {
+      "title": "Gecode::SetVar",
+      "url": "classGecode_1_1SetVar.html"
+    },
+    "SetVarArray": {
+      "title": "Gecode::SetVarArray",
+      "url": "classGecode_1_1SetVarArray.html"
+    },
+    "SetVarBranch": {
+      "title": "Gecode::SetVarBranch",
+      "url": "classGecode_1_1SetVarBranch.html"
+    },
+    "SetVarUnknownRanges": {
+      "title": "Gecode::SetVarUnknownRanges",
+      "url": "classGecode_1_1SetVarUnknownRanges.html"
+    },
+    "SetVarUnknownValues": {
+      "title": "Gecode::SetVarUnknownValues",
+      "url": "classGecode_1_1SetVarUnknownValues.html"
+    },
+    "SharedHandle": {
+      "title": "Gecode::SharedHandle",
+      "url": "classGecode_1_1SharedHandle.html"
+    },
+    "SharedHandle::Object": {
+      "title": "Gecode::SharedHandle::Object",
+      "url": "classGecode_1_1SharedHandle_1_1Object.html"
+    },
+    "SizeOptions": {
+      "title": "Gecode::SizeOptions",
+      "url": "classGecode_1_1SizeOptions.html"
     },
     "Space": {
       "title": "Gecode::Space",
@@ -55,6 +779,10 @@
       "title": "Gecode::SpaceNoBrancher",
       "url": "classGecode_1_1SpaceNoBrancher.html"
     },
+    "SpaceNotCloned": {
+      "title": "Gecode::SpaceNotCloned",
+      "url": "classGecode_1_1SpaceNotCloned.html"
+    },
     "SpaceNotStable": {
       "title": "Gecode::SpaceNotStable",
       "url": "classGecode_1_1SpaceNotStable.html"
@@ -63,29 +791,569 @@
       "title": "Gecode::StatusStatistics",
       "url": "classGecode_1_1StatusStatistics.html"
     },
+    "StdSearchTracer": {
+      "title": "Gecode::StdSearchTracer",
+      "url": "classGecode_1_1StdSearchTracer.html"
+    },
+    "Support::Allocator": {
+      "title": "Gecode::Support::Allocator",
+      "url": "classGecode_1_1Support_1_1Allocator.html"
+    },
+    "Symmetries": {
+      "title": "Gecode::Symmetries",
+      "url": "classGecode_1_1Symmetries.html"
+    },
+    "TFE": {
+      "title": "Gecode::TFE",
+      "url": "classGecode_1_1TFE.html"
+    },
+    "TaskActor": {
+      "title": "Programming actors",
+      "url": "group__TaskActor.html"
+    },
+    "TaskActorIntMEPC": {
+      "title": "Integer modification events and propagation conditions",
+      "url": "group__TaskActorIntMEPC.html"
+    },
+    "TaskActorIntView": {
+      "title": "Integer views",
+      "url": "group__TaskActorIntView.html"
+    },
+    "TaskActorStatus": {
+      "title": "Status of constraint propagation and branching commit",
+      "url": "group__TaskActorStatus.html"
+    },
+    "TaskDriver": {
+      "title": "Script commandline driver",
+      "url": "group__TaskDriver.html"
+    },
+    "TaskDriverScript": {
+      "title": "Script classes",
+      "url": "group__TaskDriverScript.html"
+    },
+    "TaskFloatTrace": {
+      "title": "Tracing for float variables",
+      "url": "group__TaskFloatTrace.html"
+    },
+    "TaskIntTrace": {
+      "title": "Tracing for integer and Boolean variables",
+      "url": "group__TaskIntTrace.html"
+    },
+    "TaskModelBranch": {
+      "title": "Generic branching support",
+      "url": "group__TaskModelBranch.html"
+    },
+    "TaskModelBranchExec": {
+      "title": "Branch with a function",
+      "url": "group__TaskModelBranchExec.html"
+    },
+    "TaskModelBranchTieBreak": {
+      "title": "Tie-breaking for variable selection",
+      "url": "group__TaskModelBranchTieBreak.html"
+    },
+    "TaskModelFloat": {
+      "title": "Using float variables and constraints",
+      "url": "group__TaskModelFloat.html"
+    },
+    "TaskModelFloatArith": {
+      "title": "Arithmetic constraints",
+      "url": "group__TaskModelFloatArith.html"
+    },
+    "TaskModelFloatBranch": {
+      "title": "Branching on float variables",
+      "url": "group__TaskModelFloatBranch.html"
+    },
+    "TaskModelFloatBranchAssign": {
+      "title": "Value selection for assigning float variables",
+      "url": "group__TaskModelFloatBranchAssign.html"
+    },
+    "TaskModelFloatBranchVal": {
+      "title": "Value selection for float variables",
+      "url": "group__TaskModelFloatBranchVal.html"
+    },
+    "TaskModelFloatBranchVar": {
+      "title": "Variable selection for float variables",
+      "url": "group__TaskModelFloatBranchVar.html"
+    },
+    "TaskModelFloatChannel": {
+      "title": "Channel constraints",
+      "url": "group__TaskModelFloatChannel.html"
+    },
+    "TaskModelFloatDomain": {
+      "title": "Domain constraints",
+      "url": "group__TaskModelFloatDomain.html"
+    },
+    "TaskModelFloatExec": {
+      "title": "Synchronized execution",
+      "url": "group__TaskModelFloatExec.html"
+    },
+    "TaskModelFloatLI": {
+      "title": "Linear constraints over float variables",
+      "url": "group__TaskModelFloatLI.html"
+    },
+    "TaskModelFloatRelFloat": {
+      "title": "Simple relation constraints over float variables",
+      "url": "group__TaskModelFloatRelFloat.html"
+    },
+    "TaskModelFloatVars": {
+      "title": "Float variables",
+      "url": "group__TaskModelFloatVars.html"
+    },
+    "TaskModelInt": {
+      "title": "Using integer variables and constraints",
+      "url": "group__TaskModelInt.html"
+    },
+    "TaskModelIntArgs": {
+      "title": "Argument arrays",
+      "url": "group__TaskModelIntArgs.html"
+    },
+    "TaskModelIntArith": {
+      "title": "Arithmetic constraints",
+      "url": "group__TaskModelIntArith.html"
+    },
+    "TaskModelIntBinPacking": {
+      "title": "Bin packing constraints",
+      "url": "group__TaskModelIntBinPacking.html"
+    },
+    "TaskModelIntBranch": {
+      "title": "Branching",
+      "url": "group__TaskModelIntBranch.html"
+    },
+    "TaskModelIntBranchAssign": {
+      "title": "Value selection for assigning integer variables",
+      "url": "group__TaskModelIntBranchAssign.html"
+    },
+    "TaskModelIntBranchSymm": {
+      "title": "Symmetry declarations",
+      "url": "group__TaskModelIntBranchSymm.html"
+    },
+    "TaskModelIntBranchVal": {
+      "title": "Value selection for integer and Boolean variables",
+      "url": "group__TaskModelIntBranchVal.html"
+    },
+    "TaskModelIntBranchVar": {
+      "title": "Variable selection for integer and Boolean variables",
+      "url": "group__TaskModelIntBranchVar.html"
+    },
+    "TaskModelIntChannel": {
+      "title": "Channel constraints",
+      "url": "group__TaskModelIntChannel.html"
+    },
+    "TaskModelIntCount": {
+      "title": "Counting constraints",
+      "url": "group__TaskModelIntCount.html"
+    },
+    "TaskModelIntDistinct": {
+      "title": "Distinct constraints",
+      "url": "group__TaskModelIntDistinct.html"
+    },
+    "TaskModelIntDomain": {
+      "title": "Domain constraints",
+      "url": "group__TaskModelIntDomain.html"
+    },
+    "TaskModelIntElement": {
+      "title": "Element constraints",
+      "url": "group__TaskModelIntElement.html"
+    },
+    "TaskModelIntExec": {
+      "title": "Synchronized execution",
+      "url": "group__TaskModelIntExec.html"
+    },
+    "TaskModelIntExt": {
+      "title": "Extensional constraints",
+      "url": "group__TaskModelIntExt.html"
+    },
+    "TaskModelIntGeoPacking": {
+      "title": "Geometrical packing constraints",
+      "url": "group__TaskModelIntGeoPacking.html"
+    },
+    "TaskModelIntGraph": {
+      "title": "Graph constraints",
+      "url": "group__TaskModelIntGraph.html"
+    },
+    "TaskModelIntLB": {
+      "title": "Linear constraints over Boolean variables",
+      "url": "group__TaskModelIntLB.html"
+    },
+    "TaskModelIntLI": {
+      "title": "Linear constraints over integer variables",
+      "url": "group__TaskModelIntLI.html"
+    },
+    "TaskModelIntMember": {
+      "title": "Membership constraints",
+      "url": "group__TaskModelIntMember.html"
+    },
+    "TaskModelIntNValues": {
+      "title": "Number of values constraints",
+      "url": "group__TaskModelIntNValues.html"
+    },
+    "TaskModelIntPrecede": {
+      "title": "Value precedence constraints over integer variables",
+      "url": "group__TaskModelIntPrecede.html"
+    },
+    "TaskModelIntRelBool": {
+      "title": "Simple relation constraints over Boolean variables",
+      "url": "group__TaskModelIntRelBool.html"
+    },
+    "TaskModelIntRelInt": {
+      "title": "Simple relation constraints over integer variables",
+      "url": "group__TaskModelIntRelInt.html"
+    },
+    "TaskModelIntScheduling": {
+      "title": "Scheduling constraints",
+      "url": "group__TaskModelIntScheduling.html"
+    },
+    "TaskModelIntSequence": {
+      "title": "Sequence constraints",
+      "url": "group__TaskModelIntSequence.html"
+    },
+    "TaskModelIntSorted": {
+      "title": "Sorted constraints",
+      "url": "group__TaskModelIntSorted.html"
+    },
+    "TaskModelIntUnshare": {
+      "title": "Unsharing variables",
+      "url": "group__TaskModelIntUnshare.html"
+    },
+    "TaskModelMiniModel": {
+      "title": "Direct modeling support",
+      "url": "group__TaskModelMiniModel.html"
+    },
+    "TaskModelMiniModelArith": {
+      "title": "Arithmetic functions",
+      "url": "group__TaskModelMiniModelArith.html"
+    },
+    "TaskModelMiniModelBool": {
+      "title": "Boolean expressions",
+      "url": "group__TaskModelMiniModelBool.html"
+    },
+    "TaskModelMiniModelChannel": {
+      "title": "Channel functions",
+      "url": "group__TaskModelMiniModelChannel.html"
+    },
+    "TaskModelMiniModelFloat": {
+      "title": "Linear float expressions and relations",
+      "url": "group__TaskModelMiniModelFloat.html"
+    },
+    "TaskModelMiniModelIntAlias": {
+      "title": "Aliases for integer constraints",
+      "url": "group__TaskModelMiniModelIntAlias.html"
+    },
+    "TaskModelMiniModelLin": {
+      "title": "Linear expressions and relations",
+      "url": "group__TaskModelMiniModelLin.html"
+    },
+    "TaskModelMiniModelOptimize": {
+      "title": "Support for cost-based optimization",
+      "url": "group__TaskModelMiniModelOptimize.html"
+    },
+    "TaskModelMiniModelPost": {
+      "title": "Posting of expressions and relations",
+      "url": "group__TaskModelMiniModelPost.html"
+    },
+    "TaskModelMiniModelSet": {
+      "title": "Set expressions and relations",
+      "url": "group__TaskModelMiniModelSet.html"
+    },
+    "TaskModelMiniModelSetAlias": {
+      "title": "Aliases for set constraints",
+      "url": "group__TaskModelMiniModelSetAlias.html"
+    },
+    "TaskModelMiniModelTrans": {
+      "title": "Transcendental functions",
+      "url": "group__TaskModelMiniModelTrans.html"
+    },
+    "TaskModelMiniModelTrigo": {
+      "title": "Trigonometric functions",
+      "url": "group__TaskModelMiniModelTrigo.html"
+    },
+    "TaskModelSearchStop": {
+      "title": "Stop-objects for stopping search",
+      "url": "group__TaskModelSearchStop.html"
+    },
+    "TaskModelSet": {
+      "title": "Using integer set variables and constraints",
+      "url": "group__TaskModelSet.html"
+    },
+    "TaskModelSetArgs": {
+      "title": "Argument arrays",
+      "url": "group__TaskModelSetArgs.html"
+    },
+    "TaskModelSetBranch": {
+      "title": "Branching",
+      "url": "group__TaskModelSetBranch.html"
+    },
+    "TaskModelSetBranchAssign": {
+      "title": "Assigning set variables",
+      "url": "group__TaskModelSetBranchAssign.html"
+    },
+    "TaskModelSetBranchVal": {
+      "title": "Value selection for set variables",
+      "url": "group__TaskModelSetBranchVal.html"
+    },
+    "TaskModelSetBranchVar": {
+      "title": "Selecting set variables",
+      "url": "group__TaskModelSetBranchVar.html"
+    },
+    "TaskModelSetConvex": {
+      "title": "Convexity constraints",
+      "url": "group__TaskModelSetConvex.html"
+    },
+    "TaskModelSetDom": {
+      "title": "Domain constraints",
+      "url": "group__TaskModelSetDom.html"
+    },
+    "TaskModelSetRel": {
+      "title": "Relation constraints",
+      "url": "group__TaskModelSetRel.html"
+    },
+    "TaskModelSetRelOp": {
+      "title": "Set operation/relation constraints",
+      "url": "group__TaskModelSetRelOp.html"
+    },
+    "TaskModelSetSequence": {
+      "title": "Sequence constraints",
+      "url": "group__TaskModelSetSequence.html"
+    },
+    "TaskPropPat": {
+      "title": "Propagator patterns",
+      "url": "group__TaskPropPat.html"
+    },
     "TaskSearch": {
       "title": "TaskSearch",
       "url": "group__TaskSearch.html"
+    },
+    "TaskSetTrace": {
+      "title": "Tracing for set variables",
+      "url": "group__TaskSetTrace.html"
+    },
+    "TaskVarMEPC": {
+      "title": "Generic modification events and propagation conditions",
+      "url": "group__TaskVarMEPC.html"
+    },
+    "TernaryPropagator": {
+      "title": "Gecode::TernaryPropagator",
+      "url": "classGecode_1_1TernaryPropagator.html"
+    },
+    "TieBreak": {
+      "title": "Gecode::TieBreak",
+      "url": "classGecode_1_1TieBreak.html"
+    },
+    "TraceFilter": {
+      "title": "Gecode::TraceFilter",
+      "url": "classGecode_1_1TraceFilter.html"
+    },
+    "Tracer": {
+      "title": "Gecode::Tracer",
+      "url": "classGecode_1_1Tracer.html"
+    },
+    "TupleSet": {
+      "title": "Gecode::TupleSet",
+      "url": "classGecode_1_1TupleSet.html"
+    },
+    "UnaryPropagator": {
+      "title": "Gecode::UnaryPropagator",
+      "url": "classGecode_1_1UnaryPropagator.html"
+    },
+    "UnknownPropagator": {
+      "title": "Gecode::UnknownPropagator",
+      "url": "classGecode_1_1UnknownPropagator.html"
+    },
+    "ValBranch": {
+      "title": "Gecode::ValBranch",
+      "url": "classGecode_1_1ValBranch.html"
+    },
+    "ValCommit": {
+      "title": "Gecode::ValCommit",
+      "url": "classGecode_1_1ValCommit.html"
+    },
+    "ValCommitFunction": {
+      "title": "Gecode::ValCommitFunction",
+      "url": "classGecode_1_1ValCommitFunction.html"
+    },
+    "ValSel": {
+      "title": "Gecode::ValSel",
+      "url": "classGecode_1_1ValSel.html"
+    },
+    "ValSelCommit": {
+      "title": "Gecode::ValSelCommit",
+      "url": "classGecode_1_1ValSelCommit.html"
+    },
+    "ValSelCommitBase": {
+      "title": "Gecode::ValSelCommitBase",
+      "url": "classGecode_1_1ValSelCommitBase.html"
+    },
+    "ValSelFunction": {
+      "title": "Gecode::ValSelFunction",
+      "url": "classGecode_1_1ValSelFunction.html"
+    },
+    "VarArgArray": {
+      "title": "Gecode::VarArgArray",
+      "url": "classGecode_1_1VarArgArray.html"
+    },
+    "VarArray": {
+      "title": "Gecode::VarArray",
+      "url": "classGecode_1_1VarArray.html"
+    },
+    "VarBranch": {
+      "title": "Gecode::VarBranch",
+      "url": "classGecode_1_1VarBranch.html"
+    },
+    "VarImp": {
+      "title": "Gecode::VarImp",
+      "url": "classGecode_1_1VarImp.html"
+    },
+    "VarImpVar": {
+      "title": "Gecode::VarImpVar",
+      "url": "classGecode_1_1VarImpVar.html"
+    },
+    "VarImpView": {
+      "title": "Gecode::VarImpView",
+      "url": "classGecode_1_1VarImpView.html"
+    },
+    "ViewArray": {
+      "title": "Gecode::ViewArray",
+      "url": "classGecode_1_1ViewArray.html"
+    },
+    "ViewSel": {
+      "title": "Gecode::ViewSel",
+      "url": "classGecode_1_1ViewSel.html"
+    },
+    "ViewSelMax": {
+      "title": "Gecode::ViewSelMax",
+      "url": "classGecode_1_1ViewSelMax.html"
+    },
+    "ViewSelMaxTbl": {
+      "title": "Gecode::ViewSelMaxTbl",
+      "url": "classGecode_1_1ViewSelMaxTbl.html"
+    },
+    "ViewSelMin": {
+      "title": "Gecode::ViewSelMin",
+      "url": "classGecode_1_1ViewSelMin.html"
+    },
+    "ViewSelMinTbl": {
+      "title": "Gecode::ViewSelMinTbl",
+      "url": "classGecode_1_1ViewSelMinTbl.html"
+    },
+    "ViewSelNone": {
+      "title": "Gecode::ViewSelNone",
+      "url": "classGecode_1_1ViewSelNone.html"
+    },
+    "ViewSelRnd": {
+      "title": "Gecode::ViewSelRnd",
+      "url": "classGecode_1_1ViewSelRnd.html"
+    },
+    "ViewTraceInfo": {
+      "title": "Gecode::ViewTraceInfo",
+      "url": "classGecode_1_1ViewTraceInfo.html"
+    },
+    "ViewValBrancher": {
+      "title": "Gecode::ViewValBrancher",
+      "url": "classGecode_1_1ViewValBrancher.html"
+    },
+    "ViewValNGL": {
+      "title": "Gecode::ViewValNGL",
+      "url": "classGecode_1_1ViewValNGL.html"
+    },
+    "alpha.cpp": {
+      "title": "alpha.cpp",
+      "url": "alpha_8cpp.html"
+    },
+    "bacp.cpp": {
+      "title": "bacp.cpp",
+      "url": "bacp_8cpp.html"
+    },
+    "bibd.cpp": {
+      "title": "bibd.cpp",
+      "url": "bibd_8cpp.html"
     },
     "bin-packing": {
       "title": "BinPacking",
       "url": "classBinPacking.html"
     },
+    "bin-packing.cpp": {
+      "title": "bin-packing.cpp",
+      "url": "bin-packing_8cpp.html"
+    },
+    "black-hole.cpp": {
+      "title": "black-hole.cpp",
+      "url": "black-hole_8cpp.html"
+    },
+    "car-sequencing.cpp": {
+      "title": "car-sequencing.cpp",
+      "url": "car-sequencing_8cpp.html"
+    },
+    "crew.cpp": {
+      "title": "crew.cpp",
+      "url": "crew_8cpp.html"
+    },
     "crossword": {
       "title": "Crossword",
       "url": "classCrossword.html"
+    },
+    "crossword.cpp": {
+      "title": "crossword.cpp",
+      "url": "crossword_8cpp.html"
+    },
+    "crowded-chess.cpp": {
+      "title": "crowded-chess.cpp",
+      "url": "crowded-chess_8cpp.html"
+    },
+    "descartes-folium.cpp": {
+      "title": "descartes-folium.cpp",
+      "url": "descartes-folium_8cpp.html"
+    },
+    "dominating-queens.cpp": {
+      "title": "dominating-queens.cpp",
+      "url": "dominating-queens_8cpp.html"
+    },
+    "domino.cpp": {
+      "title": "domino.cpp",
+      "url": "domino_8cpp.html"
+    },
+    "golden-spiral.cpp": {
+      "title": "golden-spiral.cpp",
+      "url": "golden-spiral_8cpp.html"
     },
     "golf": {
       "title": "Golf",
       "url": "classGolf.html"
     },
+    "golf.cpp": {
+      "title": "golf.cpp",
+      "url": "golf_8cpp.html"
+    },
     "golomb-ruler": {
       "title": "GolombRuler",
       "url": "classGolombRuler.html"
     },
+    "golomb-ruler.cpp": {
+      "title": "golomb-ruler.cpp",
+      "url": "golomb-ruler_8cpp.html"
+    },
+    "graph-color.cpp": {
+      "title": "graph-color.cpp",
+      "url": "graph-color_8cpp.html"
+    },
+    "grocery.cpp": {
+      "title": "grocery.cpp",
+      "url": "grocery_8cpp.html"
+    },
+    "hamming.cpp": {
+      "title": "hamming.cpp",
+      "url": "hamming_8cpp.html"
+    },
     "kakuro": {
       "title": "Kakuro",
       "url": "classKakuro.html"
+    },
+    "kakuro.cpp": {
+      "title": "kakuro.cpp",
+      "url": "kakuro_8cpp.html"
+    },
+    "knights.cpp": {
+      "title": "knights.cpp",
+      "url": "knights_8cpp.html"
     },
     "knights:KnightsCircuit": {
       "title": "KnightsCircuit",
@@ -99,17 +1367,85 @@
       "title": "MagicSequence",
       "url": "classMagicSequence.html"
     },
+    "magic-sequence.cpp": {
+      "title": "magic-sequence.cpp",
+      "url": "magic-sequence_8cpp.html"
+    },
+    "magic-square.cpp": {
+      "title": "magic-square.cpp",
+      "url": "magic-square_8cpp.html"
+    },
+    "money.cpp": {
+      "title": "money.cpp",
+      "url": "money_8cpp.html"
+    },
+    "multi-bin-packing.cpp": {
+      "title": "multi-bin-packing.cpp",
+      "url": "multi-bin-packing_8cpp.html"
+    },
     "nonogram": {
       "title": "Nonogram",
       "url": "classNonogram.html"
+    },
+    "nonogram.cpp": {
+      "title": "nonogram.cpp",
+      "url": "nonogram_8cpp.html"
+    },
+    "pentominoes.cpp": {
+      "title": "pentominoes.cpp",
+      "url": "pentominoes_8cpp.html"
+    },
+    "perfect-square.cpp": {
+      "title": "perfect-square.cpp",
+      "url": "perfect-square_8cpp.html"
     },
     "photo": {
       "title": "Photo",
       "url": "classPhoto.html"
     },
+    "photo.cpp": {
+      "title": "photo.cpp",
+      "url": "photo_8cpp.html"
+    },
+    "qcp.cpp": {
+      "title": "qcp.cpp",
+      "url": "qcp_8cpp.html"
+    },
+    "queens.cpp": {
+      "title": "queens.cpp",
+      "url": "queens_8cpp.html"
+    },
+    "sat.cpp": {
+      "title": "sat.cpp",
+      "url": "sat_8cpp.html"
+    },
+    "schurs-lemma.cpp": {
+      "title": "schurs-lemma.cpp",
+      "url": "schurs-lemma_8cpp.html"
+    },
+    "steel-mill.cpp": {
+      "title": "steel-mill.cpp",
+      "url": "steel-mill_8cpp.html"
+    },
+    "steiner.cpp": {
+      "title": "steiner.cpp",
+      "url": "steiner_8cpp.html"
+    },
+    "sudoku.cpp": {
+      "title": "sudoku.cpp",
+      "url": "sudoku_8cpp.html"
+    },
+    "tsp.cpp": {
+      "title": "tsp.cpp",
+      "url": "tsp_8cpp.html"
+    },
     "warehouses": {
       "title": "Warehouses",
       "url": "classWarehouses.html"
+    },
+    "warehouses.cpp": {
+      "title": "warehouses.cpp",
+      "url": "warehouses_8cpp.html"
     }
   },
   "schema_version": 1

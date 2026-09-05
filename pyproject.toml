@@ -2,4 +2,9 @@
 name = "mpg"
 version = "0.1.0"
 description = "Modern tooling for Modeling and Programming with Gecode"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
+dependencies = [
+  "Sphinx==8.2.3",
+  "sphinxcontrib-bibtex==2.6.5",
+  "sphinxcontrib-katex==0.9.11",
+]

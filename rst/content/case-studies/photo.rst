@@ -88,10 +88,3 @@ This case study is also available as a Gecode example, see :api:`photo` .
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-photo.tex.in:44:fig:c:photo:script
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-photo.tex.in:45:photo
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-photo.tex.in:57:photo:constrain positions
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-photo.tex.in:70:photo without modeling support
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-photo.tex.in:75:photo:compute violations
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-photo.tex.in:80:photo:symmetry breaking

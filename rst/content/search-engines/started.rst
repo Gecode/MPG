@@ -143,7 +143,6 @@ The three main space operations (``status()``, ``clone()``, and ``commit()``) pr
 
 The classes for the statistics correspond to the space operations:
 
-.. mpg-covered: table:docs/src/chapters/search/s-started.tex.in:243:tabular@docs/src/chapters/search/s-started.tex.in:243
 
 .. container:: center
 
@@ -179,11 +178,8 @@ Binary depth-first search
 
 This section shows a simple search engine that performs left-most depth-first search. It makes the additional simplification that all choices are binary, the general case is discussed in :ref:`sec:s:started:dfs`.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-started.tex.in:293:fig:s:started:dfsbin
 
-.. mpg-covered: figure:docs/src/chapters/search/s-started.tex.in:293:fig:s:started:dfsbin
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:294:dfs binary
 
 .. mpg-code:: dfs binary
    :caption: Depth-first search for binary choices
@@ -200,7 +196,6 @@ In this chapter and in :ref:`chap:s:re` we use recursive functions to implement 
 
 In case the space ``s`` is failed, the search engine deletes the space and returns ``NULL`` as specified:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:322:dfs binary:failed
 
 .. mpg-code:: dfs binary:failed
 
@@ -208,7 +203,6 @@ In case the space ``s`` is failed, the search engine deletes the space and retur
 
    If the space ``s`` is solved, the search engine triggers garbage collection of remaining branchers as mentioned in :ref:`sec:s:started:space` and returns the solution:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:328:dfs binary:solved
 
 .. mpg-code:: dfs binary:solved
 
@@ -218,13 +212,11 @@ In case the space ``s`` is failed, the search engine deletes the space and retur
 
 Following the discussion in :ref:`sec:s:started:space`, before the search engine can start committing to alternatives and perform recursive search, it needs to compute a choice for committing and a clone for backtracking:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:337:dfs binary:prepare for branching
 
 .. mpg-code:: dfs binary:prepare for branching
 
 The search engine tries the first alternative by committing the space ``s`` to it and continues search recursively:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:341:dfs binary:first alternative
 
 .. mpg-code:: dfs binary:first alternative
 
@@ -243,7 +235,6 @@ would also find the same solution. However, this search engine would most likely
 
 If the first alternative did not lead to a solution, search commits the clone ``c`` to the second alternative, deletes the now unneeded choice, and recursively continues search:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:372:dfs binary:second alternative
 
 .. mpg-code:: dfs binary:second alternative
 
@@ -254,11 +245,8 @@ Depth-first search
 
 This section demonstrates how left-most depth-first search with choices having an arbitrary number of alternatives can be implemented. By this, the section presents the general version of the search engine from :ref:`sec:s:started:dfsbin`.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-started.tex.in:383:fig:s:started:dfs
 
-.. mpg-covered: figure:docs/src/chapters/search/s-started.tex.in:383:fig:s:started:dfs
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:384:dfs
 
 .. mpg-code:: dfs
    :caption: Depth-first search
@@ -269,7 +257,6 @@ This section demonstrates how left-most depth-first search with choices having a
 
 Choices can actually have a single alternative, for example for assigning variables (see :ref:`sec:m:branch:assign`). This special case should be optimized as in fact no clone needs to be stored for backtracking. Hence:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:401:dfs:single alternative
 
 .. mpg-code:: dfs:single alternative
 
@@ -277,7 +264,6 @@ Choices can actually have a single alternative, for example for assigning variab
 
    If the choice has more than a single alternative, a clone ``c`` is created and a loop iterates over all alternatives:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:406:dfs:several alternatives
 
 .. mpg-code:: dfs:several alternatives
 
@@ -285,7 +271,6 @@ If the loop terminates, no solution has been found and hence ``NULL`` is returne
 
 When trying the ``a``-th alternative, the search engine determines which space ``e`` to choose to continue exploration:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:414:dfs:space to explore
 
 .. mpg-code:: dfs:space to explore
 
@@ -293,7 +278,6 @@ The choice of ``e`` avoids the creation of an unnecessary clone for the last alt
 
 After committing the space to explore the ``a``-th alternative, search continues recursively. If a solution ``t`` has been found, it is returned after the search engine deletes the clone (unless it has already been used for the last alternative) and the choice:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:422:dfs:recursive search
 
 .. mpg-code:: dfs:recursive search
 
@@ -323,11 +307,8 @@ The :api:`Space` class actually already implements a ``constrain()`` function wh
 
 .. mpg-paragraph:: Search engine.
 
-.. mpg-covered: caption:docs/src/chapters/search/s-started.tex.in:459:fig:s:started:bab
 
-.. mpg-covered: figure:docs/src/chapters/search/s-started.tex.in:459:fig:s:started:bab
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:460:bab
 
 .. mpg-code:: bab
    :caption: Branch-and-bound search
@@ -346,7 +327,6 @@ The single argument ``bab()`` function initializes ``n`` and ``b`` to capture th
 
 The search engine is constructed such that every solution found is better than the previous. Hence, when a solution is found, the previous so-far best solution is deleted [2]_ and is updated to the newly found solution. As a new solution is found also the number of solutions ``n`` is incremented:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:496:bab:solved
 
 .. mpg-code:: bab:solved
 
@@ -359,19 +339,16 @@ The search engine first garbage collects branchers (by calling ``choice()``) and
 
 Exploring the first alternative differs considerably from exploring the second alternative of a choice. When exploring the first alternative, it is guaranteed that the current space ``s`` can only lead to better solutions. If a solution is found by exploring the first alternative (or if several solutions are found), then a constraint must be added to the clone ``c`` such that only better solutions can be found when continuing exploration with ``c`` for the second alternative. To detect whether a solution has been found when exploring the first alternative, the search engine remembers the number of solutions ``m`` before starting to explore the first alternative as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:514:bab:remember number of solutions
 
 .. mpg-code:: bab:remember number of solutions
 
 Exploring the first alternative is as to be expected:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:517:bab:explore first alternative
 
 .. mpg-code:: bab:explore first alternative
 
 Before exploring the second alternative, the engine checks whether new solutions have been found during the exploration of the first alternative. If new solutions have been found, the clone ``c`` is constrained to yield better solutions:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:523:bab:constrain clone
 
 .. mpg-code:: bab:constrain clone
 
@@ -379,7 +356,6 @@ Before exploring the second alternative, the engine checks whether new solutions
 
    The second alternative is explored as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/s-started.tex.in:527:bab:explore second alternative
 
 .. mpg-code:: bab:explore second alternative
 

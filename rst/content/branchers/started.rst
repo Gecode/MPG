@@ -177,11 +177,8 @@ For examples of problem-specific branchers see :ref:`chap:c:knights` and :ref:`c
 A naive brancher
 ~~~~~~~~~~~~~~~~
 
-.. mpg-covered: caption:docs/src/chapters/search/b-started.tex.in:334:fig:b:started:nonemin
 
-.. mpg-covered: figure:docs/src/chapters/search/b-started.tex.in:334:fig:b:started:nonemin
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:335:none min
 
 .. mpg-code:: none min
    :caption: A branching and brancher for ``nonemin``
@@ -197,7 +194,6 @@ A naive brancher
 
 The status computation of a ``NoneMin`` brancher is straightforward. The ``status()`` function scans all views in the view array ``x`` and returns ``true`` if there is an unassigned view left:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:358:none min:status
 
 .. mpg-code:: none min:status
 
@@ -209,7 +205,6 @@ Computing the choice for a brancher involves two aspects: the definition of the 
 
 The choice object ``PosVal`` inherits from the class :api:`Choice`. The information that is required for committing is which view and which value should be used. As discussed above, the ``PosVal`` choice does not store the view directly, but the position ``pos`` of the view in the view array ``x``. A ``PosVal`` choice stores both position and value as integers as follows:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:373:none min:choice definition
 
 .. mpg-code:: none min:choice definition
 
@@ -217,7 +212,6 @@ The constructor of ``PosVal`` uses the constructor of ``Choice`` for initializat
 
 The ``choice(Space& home)`` member function of the brancher is called directly (by the ``choice(Space& home)`` function of a space) after the ``status()`` function of the brancher in case the ``status()`` of the brancher has returned ``true``. That is, the brancher is the current brancher of the space and still needs to create choices for branching. For a ``NoneMin`` brancher that means that there is definitely a not yet assigned view in the view array ``x``, and that the brancher must choose the first unassigned view:
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:388:none min:choice
 
 .. mpg-code:: none min:choice
 
@@ -235,7 +229,6 @@ The ``choice(Space& home)`` function returns a new ``PosVal`` object for positio
 
 The ``commit()`` function of ``NoneMin`` can safely assume that the choice ``c`` passed as argument is in fact an object ``pv`` of class ``PosVal``. This is due to the fact that the space ``commit()`` function uses the identity stored in a choice object to find the corresponding brancher.
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:411:none min:commit
 
 .. mpg-code:: none min:commit
 
@@ -247,7 +240,6 @@ From the ``PosVal`` object the position of the view ``pos`` and the value ``val`
 
 The ``print()`` function of ``NoneMin`` is straightforward, it prints on the standard output stream ``o`` information about an alternative (it prints what ``commit()`` does):
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:430:none min:print
 
 .. mpg-code:: none min:print
 
@@ -260,11 +252,8 @@ Improving status and choice
 
 The ``status()`` and ``choice()`` functions of ``NoneMin`` as defined in :numref:`fig:b:started:nonemin` are inefficient as they always inspect the entire view array for finding the first unassigned view.
 
-.. mpg-covered: caption:docs/src/chapters/search/b-started.tex.in:446:fig:b:started:improved
 
-.. mpg-covered: figure:docs/src/chapters/search/b-started.tex.in:446:fig:b:started:improved
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:447:none min improved
 
 .. mpg-code:: none min improved
    :caption: An improved brancher for ``nonemin``
@@ -290,11 +279,8 @@ branches by selecting the variable in ``x`` with smallest domain size first and 
 .. mpg-code:: snippet:b-started:sec:b:started:sizemin:code:2
    :direct:
 
-.. mpg-covered: caption:docs/src/chapters/search/b-started.tex.in:484:fig:b:started:sizemin
 
-.. mpg-covered: figure:docs/src/chapters/search/b-started.tex.in:484:fig:b:started:sizemin
 
-.. mpg-covered: literal-projection:docs/src/chapters/search/b-started.tex.in:485:size min
 
 .. mpg-code:: size min
    :caption: A brancher for ``sizemin``

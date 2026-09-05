@@ -31,7 +31,7 @@ function build() {
   return new Promise((complete) => {
     const child = spawn(
       "uv",
-      ["run", "python", "rst/scripts/build.py", "html"],
+      ["run", "--locked", "--", "python", "rst/scripts/build.py", "html"],
       {
         cwd: repository,
         env: { ...process.env, GECODE_VERSION: releaseVersion() },
@@ -160,7 +160,8 @@ if (command === "build") {
     if (command === "dev") {
       for (const source of [
         "rst/content", "rst/extensions", "rst/_templates", "rst/_static",
-        "rst/figures", "rst/manifests", "rst/conf.py",
+        "rst/figures", "rst/manifests", "rst/examples", "rst/conf.py",
+        "rst/release-reference-inventory.json", "rst/redirects.json",
       ]) {
         const path = join(repository, source);
         watchers.push(watch(path, { recursive: statSync(path).isDirectory() }, scheduleRebuild));

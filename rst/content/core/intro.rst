@@ -5,7 +5,7 @@ Introduction
 
 This document provides an introduction to modeling and programming with Gecode, an open, free, portable, accessible, and efficient environment for developing constraint-based systems and applications.
 
-The hands-on, tutorial-style approach will get you started very quickly. The focus is on giving an overview of the key concepts and ideas required to model and program with Gecode. Each concept is introduced using concrete C++ code examples that are developed and explained step by step. This document is complemented by the complete `Gecode reference documentation <https://www.gecode.dev/doc/6.4.0/reference/index.html>`__, as well as pointers to introductory and more advanced material throughout the text.
+The hands-on, tutorial-style approach will get you started very quickly. The focus is on giving an overview of the key concepts and ideas required to model and program with Gecode. Each concept is introduced using concrete C++ code examples that are developed and explained step by step. This document is complemented by the complete :reference:`Gecode reference documentation <index.html>`, as well as pointers to introductory and more advanced material throughout the text.
 
 The first part of this document (:ref:`part:m`) is about *modeling* with Gecode. It explains modeling and solving constraint problems, and how to program, compile, link, and execute these models. This is complemented by a collection of interesting case studies of how to model with Gecode (:ref:`part:c`). The remaining, more advanced parts are about *programming* with Gecode: they explain how to use Gecode for implementing constraints (:ref:`part:p`), branchings (:ref:`part:b`), new variable types (:ref:`part:v`), and search engines (:ref:`part:s`).
 
@@ -136,12 +136,6 @@ All example program code used in this document is available for download, just c
 
 Note that the code available for download is licensed under the `same license as Gecode <https://www.gecode.dev/license.html>`__ and not under the same license as this document. By this, you can use an example program as a starting point for your own programs.
 
-If you prefer to download all example programs at once, you can do so here:
-
-- `example programs as gzipped tar archive <https://www.gecode.dev/doc/6.4.0/MPG.tar.gz>`__
-
-- `example programs as 7z archive <https://www.gecode.dev/doc/6.4.0/MPG.7z>`__
-
 .. _core:intro:do-i-need-to-be-a-c-wizard:
 
 Do I need to be a C++ wizard?
@@ -170,7 +164,7 @@ Can you help me?
 
 Gecode has a lively and sizeable user community that can be tapped for help. You can ask questions about Gecode on the `discussion forum <https://www.gecode.dev/community.html>`__. But, please make sure to not waste your time and the time of others:
 
-- Please check this document and the `Gecode reference documentation <https://www.gecode.dev/doc/6.4.0/reference/index.html>`__ before asking a question.
+- Please check this document and the :reference:`Gecode reference documentation <index.html>` before asking a question.
 
 - Please check whether a similar question has been asked before.
 
@@ -198,7 +192,7 @@ And, yes. Please take our apologies in advance if that somewhat bold claim does 
 How to refer to this document?
 ------------------------------
 
-We kindly ask you to refer to the individual parts of this document with their respective authors (each part has a dedicated set of authors). Bib\ TeX entries for the individual parts are `available here <https://www.gecode.dev/doc/6.4.0/MPG.bib>`__.
+We kindly ask you to refer to the individual parts of this document with their respective authors (each part has a dedicated set of authors).
 
 If you refer to concepts introduced in Gecode, we kindly ask you to refer to the relevant academic publications.
 
@@ -208,6 +202,3 @@ Do you have comments?
 ---------------------
 
 If you have comments, suggestions, bug reports, wishes, or any other feedback for this document, please send a mail with your feedback to `mpg@gecode.dev <mailto:mpg@gecode.dev>`__.
-
-.. mpg-covered: caption:docs/src/chapters/core/intro.tex.in:121:fig:intro:gecode_architecture
-.. mpg-covered: caption:docs/src/chapters/core/intro.tex.in:232:fig:intro:dep

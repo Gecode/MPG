@@ -4,22 +4,44 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   docs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: npm
       - name: Install TeX tooling
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-pstricks texlive-science ghostscript
-      - name: Guard root chapter files
-        run: test -z "$(find . -maxdepth 1 -type f -name '*.tex.in' -print -quit)"
-      - name: Build docs
-        run: make docs
-      - name: Upload PDF
+          sudo apt-get install -y latexmk poppler-utils librsvg2-bin texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-xetex texlive-fonts-recommended texlive-fonts-extra texlive-pstricks texlive-science ghostscript
+      - name: Install locked project dependencies
+        run: |
+          npm ci
+          uv sync --locked --python 3.12
+      - name: Validate maintained publication sources
+        run: uv run --locked --python 3.12 -- python rst/scripts/check_sources.py
+      - name: Validate publication platform
+        run: uv run --locked --python 3.12 -- python rst/scripts/verify_platform.py
+      - name: Build and package maintained RST publication preview
+        run: |
+          make docs MPG_VERSION=6.4.0 PYTHON_VERSION=3.12 RST_BUILD="$RUNNER_TEMP/mpg-build"
+          uv run --locked --python 3.12 -- python rst/scripts/package_release.py --build "$RUNNER_TEMP/mpg-build" --output "$RUNNER_TEMP/mpg-output" --version 6.4.0
+      - name: Upload versioned publication preview
         uses: actions/upload-artifact@v4
         with:
-          name: MPG.pdf
-          path: MPG.pdf
+          name: mpg-preview-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/mpg-output
+          retention-days: 14

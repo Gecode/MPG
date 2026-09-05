@@ -116,13 +116,3 @@ The case study is also available as a Gecode example, see :api:`golf` . You can 
 
 ..
    Migration traceability for the migrated semantic constructs above.
-
-.. mpg-covered: table:docs/src/chapters/case-studies/c-golf.tex.in:18:tabular@docs/src/chapters/case-studies/c-golf.tex.in:18
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golf.tex.in:48:golf:groups in a week
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golf.tex.in:53:golf:overlap between groups
-.. mpg-covered: caption:docs/src/chapters/case-studies/c-golf.tex.in:55:fig:c:golf:script
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golf.tex.in:56:golf
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golf.tex.in:73:golf:break group symmetry
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golf.tex.in:81:golf:break week symmetry
-.. mpg-covered: table:docs/src/chapters/case-studies/c-golf.tex.in:85:tabular@docs/src/chapters/case-studies/c-golf.tex.in:85
-.. mpg-covered: literal-projection:docs/src/chapters/case-studies/c-golf.tex.in:97:golf:break player symmetry

@@ -1,7 +1,12 @@
-.PHONY: all quick docs web extract build build-test build-notest test dist doctor clean
+.PHONY: all quick docs release web check check-sources build build-test build-notest test dist doctor clean
 
+MPG_VERSION ?= 6.4.0
+RST_BUILD ?= rst/_build
+MPG_OUTPUT ?= output
+PYTHON_VERSION ?=
 UV ?= uv
-MPG = $(UV) run -- python -m tools.mpg
+UV_RUN = $(UV) run --locked $(if $(PYTHON_VERSION),--python $(PYTHON_VERSION),) -- python
+MPG = $(UV_RUN) -m tools.mpg
 AUTO_GECODE_ROOT := $(abspath ../gecode)
 ifeq ($(strip $(GECODE_ROOT)$(GECODE_PREFIX)),)
 ifneq ($(wildcard $(AUTO_GECODE_ROOT)/test/test.cpp),)
@@ -17,14 +22,22 @@ all: quick
 
 quick: docs
 
-docs:
-	$(MPG) docs $(GC_ARGS)
+docs: check-sources
+	GECODE_VERSION=$(MPG_VERSION) $(UV_RUN) rst/scripts/build.py all --build $(RST_BUILD)
+
+release: check docs
+	$(UV_RUN) rst/scripts/package_release.py --build $(RST_BUILD) --output $(MPG_OUTPUT) --version $(MPG_VERSION)
 
 web:
 	npm run dev
 
-extract:
-	$(MPG) extract $(GC_ARGS)
+check-sources:
+	$(UV_RUN) rst/scripts/check_sources.py
+
+check: check-sources
+	$(UV_RUN) -m unittest discover -s tests -p 'test_*.py'
+	$(UV_RUN) rst/scripts/verify_platform.py
+	$(UV_RUN) rst/scripts/verify_examples.py $(GC_ARGS)
 
 build:
 	$(MPG) build --kind all $(GC_ARGS)
@@ -38,11 +51,11 @@ build-notest:
 test:
 	$(MPG) test --kind all $(GC_ARGS)
 
-dist:
-	$(MPG) dist $(GC_ARGS)
+dist: release
 
 doctor:
 	$(MPG) doctor $(GC_ARGS)
 
 clean:
 	$(MPG) clean $(GC_ARGS)
+	$(UV_RUN) rst/scripts/build.py clean --build $(RST_BUILD)

@@ -298,7 +298,9 @@ figure:is(
 }
 .mpg-body img { max-width: 100%; height: auto; }
 figcaption, .caption { width: min(100%, var(--mpg-figure-width)); margin: .55rem auto 0; color: var(--mpg-muted); font-size: .88rem; text-align: left; }
-table { width: 100%; margin: 1.6rem 0; border-collapse: collapse; font-size: .9rem; }
+.mpg-table-scroll { max-width: 100%; overflow-x: auto; margin: 1.6rem 0; }
+.mpg-table-scroll:focus-visible { outline: 2px solid var(--mpg-blue); outline-offset: 2px; }
+table { width: 100%; margin: 0; border-collapse: collapse; font-size: .9rem; }
 th, td { padding: .5rem .65rem; border-bottom: 1px solid var(--mpg-rule); text-align: left; vertical-align: top; }
 thead th { color: var(--mpg-blue-dark); border-bottom: 2px solid var(--mpg-blue); }
 .admonition:not(.mpg-tip) { margin: 1.6rem 0; padding: .8rem 1rem; border-left: .2rem solid var(--mpg-blue); background: var(--mpg-blue-10); }
