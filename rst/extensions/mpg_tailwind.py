@@ -67,7 +67,9 @@ def _inside_special_structure(node: nodes.Node) -> bool:
     while parent is not None:
         if isinstance(parent, (nodes.Admonition, nodes.figure, nodes.table)):
             return True
-        if type(parent).__name__ in {"MpgPart", "MpgTip", "MpgFigure"}:
+        # Part openings contain ordinary prose and lists. Only their title
+        # banner has bespoke styling; the blurb needs the usual reading rhythm.
+        if type(parent).__name__ in {"MpgTip", "MpgFigure"}:
             return True
         parent = parent.parent
     return False
@@ -108,6 +110,8 @@ def _style_html_doctree(app, doctree: nodes.document, docname: str) -> None:
             _add_classes(item_list, ("my-2", "ps-6", "max-compact:ps-5"))
         else:
             _add_classes(item_list, ("mb-4", "ps-6", "max-compact:ps-5"))
+        if isinstance(item_list, nodes.bullet_list):
+            _add_classes(item_list, ("list-disc",))
 
     for item in doctree.findall(nodes.list_item):
         if not _inside_special_structure(item):
