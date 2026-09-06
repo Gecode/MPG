@@ -1,9 +1,9 @@
 /*
  *  Authors:
- *    Christian Schulte <schulte@gecode.dev>
+ *    Mikael Z. Lagerkvist <lagerkvist@gecode.dev>
  *
  *  Copyright:
- *    Christian Schulte, 2008-2026
+ *    Mikael Z. Lagerkvist, 2026
  *
  *  Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software, to deal in the software without restriction,

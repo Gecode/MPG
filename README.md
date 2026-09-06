@@ -65,8 +65,8 @@ make release MPG_VERSION=6.4.0 GECODE_ROOT=../gecode \
 The Gecode checkout must include its test framework sources and compiled
 libraries. The `less-test` example also needs a Gecode installation
 built with `BUILD_TESTING=ON`; pass it as
-`GECODE_PREFIX=/path/to/install`. Validation of the set, float, and
-other examples that use internal test support requires `GECODE_ROOT`.
+`GECODE_PREFIX=/path/to/install`. The example validation tooling also uses
+test sources from `GECODE_ROOT` and rebuilds Gecode for the custom variable examples.
 The Makefile automatically selects `../gecode` if its test sources exist.
 
 `make build`, `make build-test`, `make build-notest`, `make test`, and

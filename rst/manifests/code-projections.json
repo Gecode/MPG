@@ -4791,11 +4791,11 @@
       "validation": "display-only"
     },
     {
-      "bytes": 1745,
+      "bytes": 1749,
       "id": "less-test",
       "language": "cpp",
       "path": "rst/examples/src/less-test.cpp",
-      "sha256": "072a6bf5ed6a6aefcdf0de3e510660ea2037ec8fcc02d0aafbb313bf079bc8ea",
+      "sha256": "c5a086ca6e7877af105d7bb3ff11e067e31eb5da9eaeb6870947bdc32c02be01",
       "validation": "display-only"
     },
     {
@@ -4804,6 +4804,22 @@
       "language": "cmake",
       "path": "rst/examples/fragments/less-test/CMakeLists.txt",
       "sha256": "0d1f1e195931919ffa40a3f5503a2a9fa0a403c72a9bdc4b32cc8168fba30e9a",
+      "validation": "display-only"
+    },
+    {
+      "bytes": 2929,
+      "id": "int-test",
+      "language": "cpp",
+      "path": "rst/examples/src/int-test.cpp",
+      "sha256": "99f656356aed1b688c1fc1528156b07bd1e90ac910af5177923f8612c5f0a24e",
+      "validation": "compiled"
+    },
+    {
+      "bytes": 274,
+      "id": "int-test-project",
+      "language": "cmake",
+      "path": "rst/examples/fragments/int-test-project.cmake",
+      "sha256": "5f39db1b07db97b96d37dc2a7972689a3307c43c07d462cbaf0d488508677497",
       "validation": "display-only"
     }
   ],
@@ -14672,6 +14688,24 @@
       "sha256": "c88ac93cb1897e494b53d0226fad7f60332e1cf46195d58a14e045ba8008953d",
       "start_line": 876,
       "title": "view selection without tbl-function"
+    },
+    "integer interval test CMake project": {
+      "artifact": "rst/examples/fragments/int-test-project.cmake",
+      "bytes": 274,
+      "end_line": 8,
+      "kind": "snippet",
+      "language": "cmake",
+      "sha256": "5f39db1b07db97b96d37dc2a7972689a3307c43c07d462cbaf0d488508677497",
+      "start_line": 1
+    },
+    "integer interval variable test": {
+      "artifact": "rst/examples/src/int-test.cpp",
+      "bytes": 1765,
+      "end_line": 96,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "0cc8c30c96f0901c8e8cb287ce18d0b834c639b564b2440a3bf3c901737b8e7d",
+      "start_line": 28
     },
     "integer variable tracer": {
       "artifact": "rst/examples/src/integer-variable-tracer.cpp",

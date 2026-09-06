@@ -11,9 +11,7 @@ checks exercise the obligations discussed in
 from :ref:`chap:p:started` to show how to write and run such a test.
 
 The installed test library provides a test runner and support for testing
-integer constraints. Gecode's internal tests for set and float constraints,
-branchers, assignments, and FlatZinc use additional support that is not part
-of the installed library.
+integer, set, and float constraints. This chapter uses the integer test class.
 
 .. _sec:p:testing:establish:
 

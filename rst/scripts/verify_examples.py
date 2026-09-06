@@ -120,6 +120,7 @@ def compile_standalone(gc) -> list[dict]:
         rows.extend([
             {"id": "int", "profile": "vis-header-compile", "status": "fail", "reason": "requires --gecode-root to build Gecode with int.vis"},
             {"id": "putting-everything-together", "profile": "vis-model-run", "status": "fail", "reason": "requires --gecode-root to build Gecode with int.vis"},
+            {"id": "int-test", "profile": "vis-test-run", "status": "fail", "reason": "requires --gecode-root to build Gecode with int.vis"},
         ])
         return rows
 
@@ -127,6 +128,7 @@ def compile_standalone(gc) -> list[dict]:
     configure = [
         "cmake", "-S", str(gc.root), "-B", str(vis_build), "-G", "Ninja",
         f"-DGECODE_WITH_VIS={ROOT / 'rst/examples/int.vis'}",
+        "-DBUILD_TESTING=ON",
         "-DGECODE_ENABLE_EXAMPLES=OFF", "-DGECODE_ENABLE_GIST=OFF",
         "-DGECODE_ENABLE_FLATZINC=OFF", "-DGECODE_ENABLE_MPFR=OFF", "-DGECODE_INSTALL=OFF",
     ]
@@ -161,6 +163,22 @@ def compile_standalone(gc) -> list[dict]:
         duration = time.monotonic() - started
         output_text = executed.stdout + executed.stderr
         row.update({"status": "pass" if executed.returncode == 0 and "m[8]" in output_text else "fail", "duration_sec": round(duration, 3), "stdout": executed.stdout[-3000:], "stderr": executed.stderr[-3000:]})
+    rows.append(row)
+
+    source = ROOT / "rst/examples/src/int-test.cpp"
+    executable = output / "int-test"
+    command = [compiler, "-std=c++17", *vis_includes, str(source), *libraries,
+               "-lgecodetest", *(f"-l{name}" for name in vis_libs), "-o", str(executable)]
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    row = {"id": "int-test", "profile": "vis-test-run", "status": "fail", "stderr": result.stderr[-3000:]}
+    if result.returncode == 0:
+        env = dict(gc.env)
+        library_variable = "DYLD_LIBRARY_PATH" if os.uname().sysname == "Darwin" else "LD_LIBRARY_PATH"
+        env[library_variable] = str(vis_build)
+        executed, duration = run(executable, ["-iter", "1", "-threads", "1", "-log"], 20, env)
+        ok = executed.returncode == 0 and "MPG::Int::Bounds" in executed.stdout and "+" in executed.stdout
+        row.update({"status": "pass" if ok else "fail", "duration_sec": round(duration, 3),
+                    "stdout": executed.stdout[-3000:], "stderr": executed.stderr[-3000:]})
     rows.append(row)
     return rows
 
@@ -294,7 +312,7 @@ def main() -> int:
     manifest = json.loads(MANIFEST.read_text())
     compiled = {row["id"] for row in manifest["artifacts"] if row["validation"] == "compiled"}
     runners = set(config["models"] + config["tests"] + config["notest"])
-    expected = runners | {"Boolean-domain-expression", "int", "putting-everything-together"}
+    expected = runners | {"Boolean-domain-expression", "int", "int-test", "putting-everything-together"}
     if compiled != expected:
         raise SystemExit(f"compiled examples and runners differ: missing runners={sorted(compiled - expected)}, missing artifacts={sorted(expected - compiled)}")
     gc = resolve_gecode(args.gecode_root, args.gecode_prefix)
