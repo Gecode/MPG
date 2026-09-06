@@ -631,10 +631,17 @@ With single-configuration generators, the ``--config Release`` argument is harm
 
 .. mpg-paragraph:: Running the test suite.
 
-The CMake build defines a ``check`` target when tests are enabled:
+When tests are enabled, the CMake build provides three selections. ``check``
+runs the basic integrity tests, ``check-normal`` runs the ordinary suite, and
+``check-sweep`` runs the deliberately expensive sweep tests:
 
 .. mpg-code:: snippet:m-started:sec:m:started:compile:cmd:4
    :direct:
+
+Tests declare their ``check``, ``normal``, and ``sweep`` tags when they are
+registered. Names do not determine membership, and the tags do not imply one
+another. :ref:`chap:p:testing` explains tag selection for tests that use the
+installed Gecode test library.
 
 
 .. _modeling:m-started:installation:
@@ -807,7 +814,11 @@ The CMake build supports the following useful targets:
 
 - ``all`` compiles the enabled parts of the library and the examples if examples are enabled.
 
-- ``check`` builds and runs the test suite when tests are enabled.
+- ``check`` builds and runs the basic integrity tests when tests are enabled.
+
+- ``check-normal`` builds and runs the ordinary test suite.
+
+- ``check-sweep`` builds and runs the deliberately expensive sweep tests.
 
 - ``install`` installs libraries, headers, tools, and CMake package files into the selected prefix.
 

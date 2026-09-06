@@ -4224,12 +4224,12 @@
       "validation": "display-only"
     },
     {
-      "bytes": 52,
+      "bytes": 169,
       "id": "snippet-snippets-m-started-cmd-018",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-018.sh",
       "reason": "command transcript",
-      "sha256": "0be7ed0c3ff51271daf73bf940c56818e3f016f2f33739b4b2f4c04d02be2f68",
+      "sha256": "f38d2d92452052142b8b1205a590c20387c6d549ade9c65bfc6bcde0ba94443d",
       "validation": "display-only"
     },
     {
@@ -4788,6 +4788,22 @@
       "path": "rst/examples/fragments/snippets/v/code-004.cpp",
       "reason": "illustrative source fragment",
       "sha256": "2d53c6555711f902473db8035ad37119c55057b27f9c80d65d00d5c06731de06",
+      "validation": "display-only"
+    },
+    {
+      "bytes": 1745,
+      "id": "less-test",
+      "language": "cpp",
+      "path": "rst/examples/src/less-test.cpp",
+      "sha256": "072a6bf5ed6a6aefcdf0de3e510660ea2037ec8fcc02d0aafbb313bf079bc8ea",
+      "validation": "display-only"
+    },
+    {
+      "bytes": 282,
+      "id": "CMakeLists",
+      "language": "cmake",
+      "path": "rst/examples/fragments/less-test/CMakeLists.txt",
+      "sha256": "0d1f1e195931919ffa40a3f5503a2a9fa0a403c72a9bdc4b32cc8168fba30e9a",
       "validation": "display-only"
     }
   ],
@@ -17402,6 +17418,26 @@
       "sha256": "26617a3d43fcb530e3eac84bbcbe1356b2a86b2f93adf5226fa1edb49736075a",
       "start_line": 133,
       "title": "propagate function"
+    },
+    "less propagator test": {
+      "artifact": "rst/examples/src/less-test.cpp",
+      "bytes": 585,
+      "end_line": 54,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "271295ebab7e931d03ebeda0f5527a62415c63eaa54a5790aa27f3211dc024e2",
+      "start_line": 28,
+      "title": "Testing less"
+    },
+    "less test CMake project": {
+      "artifact": "rst/examples/fragments/less-test/CMakeLists.txt",
+      "bytes": 282,
+      "end_line": 8,
+      "kind": "snippet",
+      "language": "cmake",
+      "sha256": "0d1f1e195931919ffa40a3f5503a2a9fa0a403c72a9bdc4b32cc8168fba30e9a",
+      "start_line": 1,
+      "title": "CMake project"
     },
     "less:constraint post function": {
       "artifact": "rst/examples/src/less.cpp",
@@ -30826,21 +30862,21 @@
     },
     "snippet:m-started:sec:m:started:compile:cmd:4": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-018.sh",
-      "bytes": 52,
-      "end_line": 1,
+      "bytes": 169,
+      "end_line": 3,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 52,
-            "end_line": 1,
-            "sha256": "0be7ed0c3ff51271daf73bf940c56818e3f016f2f33739b4b2f4c04d02be2f68",
+            "bytes": 169,
+            "end_line": 3,
+            "sha256": "f38d2d92452052142b8b1205a590c20387c6d549ade9c65bfc6bcde0ba94443d",
             "start_line": 1
           }
         }
       ],
-      "sha256": "0be7ed0c3ff51271daf73bf940c56818e3f016f2f33739b4b2f4c04d02be2f68",
+      "sha256": "f38d2d92452052142b8b1205a590c20387c6d549ade9c65bfc6bcde0ba94443d",
       "small": false,
       "start_line": 1
     },

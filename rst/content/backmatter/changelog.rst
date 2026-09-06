@@ -5,6 +5,14 @@
 Changelog
 =========
 
+.. _changelog:2026-09-06:
+
+2026-09-06
+----------
+
+Documented the public Gecode test library, test tags, and a complete test for
+the ``less`` propagator (see :ref:`chap:p:testing`).
+
 .. _changelog:2026-05-25:
 
 2026-05-25

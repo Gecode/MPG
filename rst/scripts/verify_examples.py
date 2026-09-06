@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -164,6 +165,83 @@ def compile_standalone(gc) -> list[dict]:
     return rows
 
 
+def validate_public_test_consumer(gc, timeout: int) -> list[dict]:
+    """Build the published test example through Gecode's public CMake API."""
+    config_candidates = [directory / "GecodeConfig.cmake" for directory in gc.lib_dirs]
+    if gc.prefix:
+        config_candidates.extend(gc.prefix.glob("lib*/cmake/Gecode/GecodeConfig.cmake"))
+    config = next((path for path in config_candidates if path.exists()), None)
+    if config is None:
+        return [{
+            "id": "less-test",
+            "profile": "installed-test-component",
+            "status": "fail",
+            "reason": "Gecode test component package metadata was not found",
+        }]
+
+    source_dir = ROOT / "rst" / "_build" / "less-test-consumer"
+    build_dir = source_dir / "build"
+    source_dir.mkdir(parents=True, exist_ok=True)
+    for source, destination in (
+        (ROOT / "rst/examples/src/less.cpp", source_dir / "less.cpp"),
+        (ROOT / "rst/examples/src/less-test.cpp", source_dir / "less-test.cpp"),
+        (ROOT / "rst/examples/fragments/less-test/CMakeLists.txt", source_dir / "CMakeLists.txt"),
+    ):
+        shutil.copy2(source, destination)
+
+    configured = subprocess.run(
+        ["cmake", "-S", str(source_dir), "-B", str(build_dir), "-G", "Ninja", f"-DGecode_DIR={config.parent}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    row = {
+        "id": "less-test",
+        "profile": "installed-test-component",
+        "status": "fail",
+        "configure_output": configured.stdout[-3000:],
+    }
+    if configured.returncode != 0:
+        return [row]
+
+    compiled = subprocess.run(
+        ["cmake", "--build", str(build_dir), "--parallel"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    row["build_output"] = compiled.stdout[-3000:]
+    if compiled.returncode != 0:
+        return [row]
+
+    executable = build_dir / "less-test"
+    listed, _ = run(executable, ["-list-with-tags"], timeout, gc.env)
+    executed, duration = run(
+        executable,
+        ["-tag", "check", "-test", "Int::Less", "-iter", "1", "-threads", "1"],
+        timeout,
+        gc.env,
+    )
+    listing = listed.stdout + listed.stderr
+    ok = (
+        listed.returncode == 0
+        and "Int::Less" in listing
+        and "check" in listing
+        and "normal" in listing
+        and executed.returncode == 0
+        and "+" in executed.stdout
+    )
+    row.update({
+        "status": "pass" if ok else "fail",
+        "args": ["-tag", "check", "-test", "Int::Less", "-iter", "1", "-threads", "1"],
+        "duration_sec": round(duration, 3),
+        "list_stdout": listed.stdout[-3000:],
+        "stdout": executed.stdout[-3000:],
+        "stderr": executed.stderr[-3000:],
+    })
+    return [row]
+
+
 def validate_binaries(timeout: int, env: dict[str, str]) -> list[dict]:
     config = get_config()
     binary_root = ROOT / ".mpg" / "bin" / "all"
@@ -223,7 +301,7 @@ def main() -> int:
     if not args.no_build:
         build("all", gc)
     integrity = artifact_integrity()
-    compile_rows = compile_standalone(gc)
+    compile_rows = compile_standalone(gc) + validate_public_test_consumer(gc, args.timeout)
     validation = validate_binaries(args.timeout, gc.env)
     all_rows = integrity + compile_rows + validation
     failures = [row for row in all_rows if row["status"] == "fail"]
