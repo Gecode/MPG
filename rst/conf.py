@@ -157,6 +157,7 @@ html_context = {
             "letter": "P", "title": "Propagators", "overview": "parts/propagators",
             "pages": [
                 ("propagators/started", "Getting started"),
+                ("propagators/testing", "Testing propagators"),
                 ("propagators/avoid", "What to avoid"),
                 ("propagators/reified", "Reification and rewriting"),
                 ("propagators/domain", "Domain constraints"),

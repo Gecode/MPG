@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -119,6 +120,7 @@ def compile_standalone(gc) -> list[dict]:
         rows.extend([
             {"id": "int", "profile": "vis-header-compile", "status": "fail", "reason": "requires --gecode-root to build Gecode with int.vis"},
             {"id": "putting-everything-together", "profile": "vis-model-run", "status": "fail", "reason": "requires --gecode-root to build Gecode with int.vis"},
+            {"id": "int-test", "profile": "vis-test-run", "status": "fail", "reason": "requires --gecode-root to build Gecode with int.vis"},
         ])
         return rows
 
@@ -126,6 +128,7 @@ def compile_standalone(gc) -> list[dict]:
     configure = [
         "cmake", "-S", str(gc.root), "-B", str(vis_build), "-G", "Ninja",
         f"-DGECODE_WITH_VIS={ROOT / 'rst/examples/int.vis'}",
+        "-DBUILD_TESTING=ON",
         "-DGECODE_ENABLE_EXAMPLES=OFF", "-DGECODE_ENABLE_GIST=OFF",
         "-DGECODE_ENABLE_FLATZINC=OFF", "-DGECODE_ENABLE_MPFR=OFF", "-DGECODE_INSTALL=OFF",
     ]
@@ -161,7 +164,100 @@ def compile_standalone(gc) -> list[dict]:
         output_text = executed.stdout + executed.stderr
         row.update({"status": "pass" if executed.returncode == 0 and "m[8]" in output_text else "fail", "duration_sec": round(duration, 3), "stdout": executed.stdout[-3000:], "stderr": executed.stderr[-3000:]})
     rows.append(row)
+
+    source = ROOT / "rst/examples/src/int-test.cpp"
+    executable = output / "int-test"
+    command = [compiler, "-std=c++17", *vis_includes, str(source), *libraries,
+               "-lgecodetest", *(f"-l{name}" for name in vis_libs), "-o", str(executable)]
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    row = {"id": "int-test", "profile": "vis-test-run", "status": "fail", "stderr": result.stderr[-3000:]}
+    if result.returncode == 0:
+        env = dict(gc.env)
+        library_variable = "DYLD_LIBRARY_PATH" if os.uname().sysname == "Darwin" else "LD_LIBRARY_PATH"
+        env[library_variable] = str(vis_build)
+        executed, duration = run(executable, ["-iter", "1", "-threads", "1", "-log"], 20, env)
+        ok = executed.returncode == 0 and "MPG::Int::Bounds" in executed.stdout and "+" in executed.stdout
+        row.update({"status": "pass" if ok else "fail", "duration_sec": round(duration, 3),
+                    "stdout": executed.stdout[-3000:], "stderr": executed.stderr[-3000:]})
+    rows.append(row)
     return rows
+
+
+def validate_public_test_consumer(gc, timeout: int) -> list[dict]:
+    """Build the published test example through Gecode's public CMake API."""
+    config_candidates = [directory / "GecodeConfig.cmake" for directory in gc.lib_dirs]
+    if gc.prefix:
+        config_candidates.extend(gc.prefix.glob("lib*/cmake/Gecode/GecodeConfig.cmake"))
+    config = next((path for path in config_candidates if path.exists()), None)
+    if config is None:
+        return [{
+            "id": "less-test",
+            "profile": "installed-test-component",
+            "status": "fail",
+            "reason": "Gecode test component package metadata was not found",
+        }]
+
+    source_dir = ROOT / "rst" / "_build" / "less-test-consumer"
+    build_dir = source_dir / "build"
+    source_dir.mkdir(parents=True, exist_ok=True)
+    for source, destination in (
+        (ROOT / "rst/examples/src/less.cpp", source_dir / "less.cpp"),
+        (ROOT / "rst/examples/src/less-test.cpp", source_dir / "less-test.cpp"),
+        (ROOT / "rst/examples/fragments/less-test/CMakeLists.txt", source_dir / "CMakeLists.txt"),
+    ):
+        shutil.copy2(source, destination)
+
+    configured = subprocess.run(
+        ["cmake", "-S", str(source_dir), "-B", str(build_dir), "-G", "Ninja", f"-DGecode_DIR={config.parent}"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    row = {
+        "id": "less-test",
+        "profile": "installed-test-component",
+        "status": "fail",
+        "configure_output": configured.stdout[-3000:],
+    }
+    if configured.returncode != 0:
+        return [row]
+
+    compiled = subprocess.run(
+        ["cmake", "--build", str(build_dir), "--parallel"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+    )
+    row["build_output"] = compiled.stdout[-3000:]
+    if compiled.returncode != 0:
+        return [row]
+
+    executable = build_dir / "less-test"
+    listed, _ = run(executable, ["-list-with-tags"], timeout, gc.env)
+    executed, duration = run(
+        executable,
+        ["-tag", "check", "-test", "Int::Less", "-iter", "1", "-threads", "1"],
+        timeout,
+        gc.env,
+    )
+    listing = listed.stdout + listed.stderr
+    ok = (
+        listed.returncode == 0
+        and "Int::Less" in listing
+        and "check" in listing
+        and "normal" in listing
+        and executed.returncode == 0
+        and "+" in executed.stdout
+    )
+    row.update({
+        "status": "pass" if ok else "fail",
+        "args": ["-tag", "check", "-test", "Int::Less", "-iter", "1", "-threads", "1"],
+        "duration_sec": round(duration, 3),
+        "list_stdout": listed.stdout[-3000:],
+        "stdout": executed.stdout[-3000:],
+        "stderr": executed.stderr[-3000:],
+    })
+    return [row]
 
 
 def validate_binaries(timeout: int, env: dict[str, str]) -> list[dict]:
@@ -216,14 +312,14 @@ def main() -> int:
     manifest = json.loads(MANIFEST.read_text())
     compiled = {row["id"] for row in manifest["artifacts"] if row["validation"] == "compiled"}
     runners = set(config["models"] + config["tests"] + config["notest"])
-    expected = runners | {"Boolean-domain-expression", "int", "putting-everything-together"}
+    expected = runners | {"Boolean-domain-expression", "int", "int-test", "putting-everything-together"}
     if compiled != expected:
         raise SystemExit(f"compiled examples and runners differ: missing runners={sorted(compiled - expected)}, missing artifacts={sorted(expected - compiled)}")
     gc = resolve_gecode(args.gecode_root, args.gecode_prefix)
     if not args.no_build:
         build("all", gc)
     integrity = artifact_integrity()
-    compile_rows = compile_standalone(gc)
+    compile_rows = compile_standalone(gc) + validate_public_test_consumer(gc, args.timeout)
     validation = validate_binaries(args.timeout, gc.env)
     all_rows = integrity + compile_rows + validation
     failures = [row for row in all_rows if row["status"] == "fail"]

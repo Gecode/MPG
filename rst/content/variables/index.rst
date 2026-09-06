@@ -1439,13 +1439,14 @@ For convenience, the following post function allows to post a trace recorder wit
 Putting everything together
 ===========================
 
-This chapter finally explains how integer interval variables can be used with Gecode.
+This chapter explains how to build Gecode with integer interval variables,
+use them in a model, and test their implementation.
 
 .. _variables:overview-7:
 
 .. mpg-paragraph:: Overview.
 
-:ref:`sec:v:all:golomb` sketches an example script together with implementations of constraints and branchings using integer interval variables. The following section, :ref:`sec:v:all:conf`, shows how Gecode can be configured to use integer interval variables and how to compile and run the example script.
+:ref:`sec:v:all:golomb` sketches an example script together with implementations of constraints and branchings using integer interval variables. The following section, :ref:`sec:v:all:conf`, shows how Gecode can be configured to use integer interval variables and how to compile and run the example script. :ref:`sec:v:all:testing` tests domain updates and cloning with Gecode's test runner.
 
 .. important::
 
@@ -1524,6 +1525,81 @@ The following steps configure and compile Gecode with integer interval variables
       export LD_LIBRARY_PATH="$PWD/gecode-install/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 Finally, compile, link, and run ``putting-everything-together.cpp`` as described in :ref:`sec:m:started:run`, using ``gecode-install`` as the installation prefix. Its ``include`` and ``lib`` directories contain the headers and libraries for the custom variable implementation.
+
+.. _sec:v:all:testing:
+
+Testing integer interval variables
+----------------------------------
+
+A variable implementation must update its domain, report the appropriate
+modification events, and copy its state when its space is cloned. The test in
+:numref:`program:v:all:int-test` checks these operations for our integer
+interval variables. It uses the core test class ``Test::Base``. The integer
+propagator test class from :ref:`chap:p:testing` operates on Gecode's
+predefined integer variables and cannot be used directly with ``MPG::IntVar``.
+
+The class ``IntTestSpace`` contains one variable with initial domain
+:math:`[-3,3]`. Its copy constructor updates the variable to refer to its
+copied implementation. The class ``IntTest`` implements ``run()``, which returns
+``true`` if all checks succeed and ``false`` otherwise. Constructing the global
+object ``int_test`` registers the test under the name ``MPG::Int::Bounds``.
+
+.. raw:: latex
+
+   \Needspace{12\baselineskip}
+
+.. mpg-code:: integer interval variable test
+   :caption: Testing domain updates and cloning of an integer interval variable
+   :name: program:v:all:int-test
+   :download: int-test.cpp
+
+The test modifies the variable through an ``IntView``. An upper bound of
+``3`` leaves the domain unchanged and must return ``ME_INT_NONE``. Raising
+the lower bound to ``-1`` must return ``ME_INT_MIN``; lowering the upper bound
+to ``1`` must return ``ME_INT_MAX``. Each check also inspects the resulting
+domain, since a correct modification event alone does not establish that the
+domain was updated correctly.
+
+Before cloning, the test calls ``status()`` to make the space stable. There
+are no branchers, so this call reports ``SS_SOLVED`` even though the variable
+is unassigned. The clone must contain the same domain, :math:`[-1,1]`.
+Assigning its variable to ``1`` must return ``ME_INT_VAL`` and leave the
+original variable unchanged. Finally, restricting the clone's upper bound to
+``0`` must return ``ME_INT_FAILED``. The caller then fails the cloned space
+explicitly, just as a propagator must report failure after a failed domain
+operation. The original space must remain usable.
+
+The messages written to ``Test::olog`` identify the stage that failed. They
+are displayed with the runner's ``-log`` option. This test covers domain
+updates and clone independence; testing subscriptions also requires
+propagators that subscribe to the different propagation conditions.
+
+.. _sec:v:all:testing-build:
+
+.. mpg-paragraph:: Building and running the test.
+
+Use the Gecode installation built with ``int.vis`` in
+:ref:`sec:v:all:conf`, with ``BUILD_TESTING=ON``. The test library and the test
+program must use the same generated kernel definitions. Linking against a
+Gecode installation built without ``int.vis`` is not sufficient.
+
+Place :download:`int.hh <../../examples/src/int.hh>`, ``int-test.cpp``, and
+the CMake project in :numref:`program:v:all:int-test-cmake` in one directory.
+The target ``Gecode::gecodetest`` supplies the core runner; no helper for a
+predefined variable type is needed.
+
+.. mpg-code:: integer interval test CMake project
+   :caption: CMake project for the integer interval variable test
+   :name: program:v:all:int-test-cmake
+   :download: CMakeLists.txt
+
+Configure and run the test with the custom Gecode installation:
+
+.. code-block:: console
+
+   cmake -S . -B build -DCMAKE_PREFIX_PATH=/path/to/gecode-install
+   cmake --build build
+   ./build/int-test -iter 1 -threads 1 -log
 
 .. [1]
    If you ever exceed this limit, please let us know. Adding more bits is easy, even though we do not expect that to happen anytime soon.
