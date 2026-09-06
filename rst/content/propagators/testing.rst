@@ -3,37 +3,39 @@
 Testing propagators
 ===================
 
-A propagator is small enough that its code can look convincing even when one
-boundary case is wrong. The test library compares the propagator with a direct
-description of its constraint, then changes how and when propagation happens.
-This gives us a practical way to exercise the obligations from
-:ref:`sec:p:started:obligations`.
+Gecode's test library checks a propagator against a specification of its
+constraint. It tests propagation on complete assignments and partially
+assigned variables, as well as cloning, scheduling, and subsumption. These
+checks exercise the obligations discussed in
+:ref:`sec:p:started:obligations`. This chapter uses the ``less`` propagator
+from :ref:`chap:p:started` to show how to write and run such a test.
 
-The installed test API covers the core runner and helpers for integer
-constraints. The set, float, brancher, assignment, and FlatZinc test helpers
-used inside Gecode are not part of this API.
+The installed test library provides a test runner and support for testing
+integer constraints. Gecode's internal tests for set and float constraints,
+branchers, assignments, and FlatZinc use additional support that is not part
+of the installed library.
 
 .. _sec:p:testing:establish:
 
-What a propagator test must establish
--------------------------------------
+Correctness and consistency
+---------------------------
 
 The test needs a specification independent of the propagator. For a constraint
-over integer variables, the simplest specification is often a predicate over
-a complete assignment. It says whether that assignment is a solution without
-calling the propagator or another implementation of the same algorithm.
+over integer variables, this is often a predicate that decides whether a
+complete assignment satisfies the constraint. Computing the predicate directly
+from the constraint avoids reproducing errors in the propagation algorithm.
 
-This separates two questions. The first is whether propagation is correct and
-checking: a valid assignment must not fail, and an invalid complete assignment
-must fail. The second is how much propagation the implementation promises. A
-correct propagator may be weaker than another correct propagator, but it must
-meet the consistency level claimed by its test.
+As discussed in :ref:`sec:p:started:obligations`, a propagator must be correct
+and checking: it must preserve all solutions and detect failure for every
+complete assignment that violates the constraint. A test can also check
+whether the propagator achieves a particular consistency level. Correctness
+alone does not require the propagator to remove every unsupported value.
 
 Testing a small finite domain can cover every complete assignment in that
 domain. It does not prove correctness for arbitrary integers, nor does it cover
-every possible partial domain or execution order. The randomized parts of the
-harness broaden the exercised cases, and a reported seed makes a failure
-repeatable.
+every possible partial domain or execution order. The test library also uses
+random domain changes to exercise propagation and reports a seed for
+reproducing failures.
 
 .. _sec:p:testing:build:
 
@@ -41,8 +43,9 @@ Building a standalone test
 --------------------------
 
 Gecode must be built and installed with ``BUILD_TESTING=ON``. The test
-component also requires the integer and search modules. A consumer requests
-the component and links the integer helper target as follows.
+component also requires the integer and search modules.
+:numref:`program:p:testing:cmake` shows how to request the test component and
+link the libraries needed for an integer propagator test.
 
 .. mpg-code:: less test CMake project
    :caption: CMake project for the ``less`` propagator test
@@ -60,45 +63,51 @@ configure and run it with:
    ./build/less-test -iter 1
 
 ``Gecode_ROOT`` or ``Gecode_DIR`` can be used instead of
-``CMAKE_PREFIX_PATH`` when that better matches the installation. The imported
-target ``Gecode::gecodetestint`` brings in the core runner and the required
-Gecode libraries. The test executable supplies its own ``main()``; the Gecode
-installation does not provide a runner executable for consumer tests.
+``CMAKE_PREFIX_PATH`` to locate the installation. The imported target
+``Gecode::gecodetestint`` links the test runner and the required Gecode
+libraries. The test program defines ``main()`` and calls
+``Test::run_registered_tests()`` to run its registered tests.
 
 .. _sec:p:testing:less:
 
 Testing the less propagator
 ---------------------------
 
-The test in :numref:`program:p:testing:less` uses the ``less`` propagator from
-:ref:`chap:p:started`. It has two variables with domains from ``-3`` through
-``3``. Of the 49 complete assignments, 21 satisfy strict less-than and 28 do
-not. Equal values, reversed values, negative values, and both domain boundaries
-are all present.
+The class ``LessTest`` in :numref:`program:p:testing:less` derives from
+``Test::Int::Test``. Its constructor specifies the test's tags and name,
+followed by the number of variables and their common domain bounds. Here,
+the two variables range from ``-3`` to ``3``. Of the 49 complete assignments,
+21 satisfy the constraint and 28 violate it. The argument ``false`` disables
+reification tests, and ``IPL_DOM`` selects a domain consistency check.
+
+.. raw:: latex
+
+   \Needspace{12\baselineskip}
 
 .. mpg-code:: less propagator test
    :caption: A test for the ``less`` propagator
    :name: program:p:testing:less
    :download: less-test.cpp
 
-The ``solution()`` method is the specification. Its comparison is deliberately
-plain. The ``post()`` method calls the same ``less()`` posting function used by
-a model. If the posting function did nothing, the invalid assignments would
-not fail and the test would catch the error.
+The member function ``solution()`` specifies the constraint by comparing the
+two assigned values. The member function ``post()`` posts the constraint on
+the variables supplied by the test library, using the constraint post function
+``less()``. The test library compares the results of propagation with
+``solution()``.
 
-Constructing ``less_test`` registers the test. It has static lifetime so it
-remains alive while ``run_registered_tests()`` runs. Runner calls use a
-process-wide registry and must not overlap. The registered name printed by
-``-list`` is ``Int::Less``.
+The global object ``less_test`` registers the test during initialization and
+remains alive throughout the call to ``run_registered_tests()``. The integer
+test class prefixes the name with ``Int::``, so the runner lists this test as
+``Int::Less``. Calls to ``run_registered_tests()`` share the registry and must
+not overlap.
 
 .. _sec:p:testing:coverage:
 
 What the test library exercises
 -------------------------------
 
-The two methods in :numref:`program:p:testing:less` stay fixed while the test
-library varies the state of the variables and the point at which the
-propagator is posted.
+Using ``solution()`` and ``post()``, the test library performs the following
+checks with different variable domains and posting orders.
 
 .. list-table:: Checks performed by an integer propagator test
    :header-rows: 1
@@ -115,47 +124,53 @@ propagator is posted.
    * - The selected consistency check
      - Detects pruning weaker than the propagator promises.
    * - Cloning and fixpoint checks
-     - Exercises copied actor state and detects missed propagation in the
-       sampled cases.
+     - Checks propagation in cloned spaces and looks for further pruning
+       after a reported fixpoint.
    * - Disabling and re-enabling propagation
      - Exercises ``reschedule()`` and compares the resulting domains or
        failure.
    * - Subsumption on successful complete assignments
-     - Checks that an entailed completed case retires the propagator.
+     - Checks that the propagator is subsumed when all variables are assigned
+       and the constraint is satisfied.
    * - Search compared with the assignment predicate
      - Detects a disagreement between the solutions reached by search and the
        independent specification.
 
-Complete assignments in the declared domain are enumerated. Domain pruning
-and some fixpoint checks are randomized, so the number of iterations still
-matters even for this small example.
+By default, the test library enumerates complete assignments in the declared
+domain. Domain pruning and some fixpoint checks are randomized. Increasing
+the number of iterations therefore exercises additional cases even when all
+complete assignments are enumerated.
 
 .. _sec:p:testing:consistency:
 
-Choosing the promised consistency
-----------------------------------
+Checking consistency
+--------------------
 
-The last constructor argument records the propagation level passed to the
-constraint. ``IPL_DOM`` also asks the harness to check domain consistency. The
-``less`` propagator meets that promise: every remaining value of ``x0`` has
-support at ``x1.max()``, and every remaining value of ``x1`` has support at
+The last constructor argument initializes the propagation level ``ipl`` stored
+by the test class. A test can pass this value to its constraint post function
+when that function accepts a propagation level. The ``less()`` function has
+no such argument. Here, ``IPL_DOM`` selects the test library's domain
+consistency check. The ``less`` propagator is domain consistent: every
+remaining value of ``x0`` has support at ``x1.max()``, and every remaining
+value of ``x1`` has support at
 ``x0.min()``. Its two bound updates therefore remove every unsupported value,
-including values inside a domain with holes.
+even when the domains contain holes.
 
 The propagation level and the checked consistency are separate fields in the
-test class. A specialized test can set ``contest`` to ``CTL_NONE``,
-``CTL_BOUNDS_D``, or ``CTL_BOUNDS_Z`` when that is the propagator's actual
-contract. A consistency check should describe the implementation's promise.
-Turning it off merely because it finds a failure hides useful evidence.
+test class. The field ``contest`` selects the check: ``CTL_DOMAIN`` for domain
+consistency, ``CTL_BOUNDS_D`` for bounds(D) consistency, ``CTL_BOUNDS_Z`` for
+bounds(Z) consistency, or ``CTL_NONE`` for no consistency check. A test can
+set this field in its constructor to match the consistency level of the
+propagator.
 
 .. _sec:p:testing:selection:
 
 Selecting tests and reproducing failures
 ----------------------------------------
 
-The test declares both ``check`` and ``normal`` membership. Tags are explicit
-sets rather than levels: membership in ``normal`` does not imply membership in
-``check``. A constructor without a tag argument assigns only ``normal``.
+The test belongs to both ``check`` and ``normal``. Tags select groups of tests;
+membership in one group does not imply membership in another. A constructor
+without a tag argument assigns only ``normal``.
 
 The runner accepts one or more tag selections:
 
@@ -168,21 +183,22 @@ The runner accepts one or more tag selections:
 
 Repeated ``-tag`` options form a union. A ``-test`` name filter and a tag
 filter must both match. With no ``-tag`` option, the runner applies no tag
-filter. This is different from the default ``normal`` membership assigned to a
-test whose constructor omits tags. ``-list-tags`` prints the known tags, while
-``-list-with-tags`` prints every registration and its tags. Listing commands
+filter, so tests with any tags can run. ``-list-tags`` prints the known tags,
+while ``-list-with-tags`` prints every registration and its tags. Listing commands
 ignore name, tag, and starting-point filters.
 
-Failures report the test name and random seed. Reproduce one case in a single
-thread and request its buffered log with:
+Failures report the test name and random seed. To reproduce a failure, select
+the test and supply the reported seed. For example, for ``Int::Less`` with
+seed ``12345``, run:
 
 .. code-block:: console
 
    ./build/less-test -test Int::Less -seed 12345 -iter 1 \
      -threads 1 -log -stop true
 
-``-log`` cannot be combined with a multithreaded run. For example, replacing
-``x[0] < x[1]`` in the specification with ``x[0] <= x[1]`` makes equal
+The option ``-log`` prints the test's buffered log and requires a single
+thread. The log includes the assignment that caused the failure. For example,
+replacing ``x[0] < x[1]`` in the specification with ``x[0] <= x[1]`` makes equal
 assignments valid according to the specification, while the propagator rejects
 them. The reported assignment shows the boundary error directly.
 
@@ -191,19 +207,19 @@ them. The reported assignment shows the boundary error directly.
 Extending the test
 ------------------
 
-Exhaustive assignment grows exponentially with the arity, so a larger
-propagator normally needs smaller representative domains, a random assignment
-generator, or a custom ``assignment()`` method. Sparse domains deserve explicit
-attention when the propagator inspects holes. Once a random failure has been
-found, keep its seed or turn the case into a small fixed regression test.
+The number of complete assignments grows exponentially with the number of
+variables. For constraints with many arguments, use small representative
+domains or override ``assignment()`` to supply a suitable assignment
+generator. Include domains with holes when these affect the propagation
+algorithm. A failing random case can be retained by recording its seed or
+writing a separate test for that case.
 
-A reified propagator passes ``true`` to the test constructor and implements the
-``post()`` overload that receives a ``Reify`` object. The ``rms`` mask limits
+A test for a reified constraint passes ``true`` to the base class constructor
+and implements the ``post()`` overload that receives a ``Reify`` object.
+The ``rms`` mask limits
 the test to supported modes. See :ref:`chap:p:reified` for the propagator side
-of reification. The ``less`` interface used here is not reified, so adding that
-machinery would obscure the basic test.
+of reification.
 
-The generic integer harness does not replace tests for every special case.
-Aliased arguments, exceptional inputs, arithmetic near integer limits, memory
-safety, and performance need their own checks when the propagator depends on
-them.
+Further tests may be needed for shared variables, invalid arguments, and
+arithmetic near the integer limits. Memory safety and performance also require
+checks beyond those provided by the integer test class.

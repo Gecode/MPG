@@ -63,11 +63,11 @@ make release MPG_VERSION=6.4.0 GECODE_ROOT=../gecode \
 ```
 
 The Gecode checkout must include its test framework sources and compiled
-libraries. The installed-propagator-test example also needs a Gecode prefix
+libraries. The `less-test` example also needs a Gecode installation
 built with `BUILD_TESTING=ON`; pass it as
-`GECODE_PREFIX=/path/to/install`. Full validation of the older set, float, and
-other test examples still requires `GECODE_ROOT`. The Makefile automatically
-selects `../gecode` if its test sources exist.
+`GECODE_PREFIX=/path/to/install`. Validation of the set, float, and
+other examples that use internal test support requires `GECODE_ROOT`.
+The Makefile automatically selects `../gecode` if its test sources exist.
 
 `make build`, `make build-test`, `make build-notest`, `make test`, and
 `uv run -- python -m tools.mpg run --kind all --gecode-root ../gecode`
