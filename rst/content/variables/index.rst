@@ -1565,14 +1565,16 @@ are no branchers, so this call reports ``SS_SOLVED`` even though the variable
 is unassigned. The clone must contain the same domain, :math:`[-1,1]`.
 Assigning its variable to ``1`` must return ``ME_INT_VAL`` and leave the
 original variable unchanged. Finally, restricting the clone's upper bound to
-``0`` must return ``ME_INT_FAILED``. The caller then fails the cloned space
-explicitly, just as a propagator must report failure after a failed domain
-operation. The original space must remain usable.
+``0`` must return ``ME_INT_FAILED``. A failed view operation does not itself
+mark the space as failed, so the test calls ``fail()`` explicitly and checks
+the resulting space status. In a propagator, the failed operation must instead
+lead to a failure return status. The test also checks that the original space
+retains its domain and has not failed.
 
-The messages written to ``Test::olog`` identify the stage that failed. They
-are displayed with the runner's ``-log`` option. This test covers domain
-updates and clone independence; testing subscriptions also requires
-propagators that subscribe to the different propagation conditions.
+The messages written to ``Test::olog`` identify the last stage reached before
+a failure. They are displayed with the runner's ``-log`` option. This test
+covers domain updates and clone independence; testing subscriptions also
+requires propagators that subscribe to the different propagation conditions.
 
 .. _sec:v:all:testing-build:
 
@@ -1585,8 +1587,7 @@ Gecode installation built without ``int.vis`` is not sufficient.
 
 Place :download:`int.hh <../../examples/src/int.hh>`, ``int-test.cpp``, and
 the CMake project in :numref:`program:v:all:int-test-cmake` in one directory.
-The target ``Gecode::gecodetest`` supplies the core runner; no helper for a
-predefined variable type is needed.
+The target ``Gecode::gecodetest`` supplies the core test class and runner.
 
 .. mpg-code:: integer interval test CMake project
    :caption: CMake project for the integer interval variable test
