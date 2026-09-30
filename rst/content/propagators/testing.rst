@@ -36,37 +36,6 @@ every possible partial domain or execution order. The test library also uses
 random domain changes to exercise propagation and reports a seed for
 reproducing failures.
 
-.. _sec:p:testing:build:
-
-Building a standalone test
---------------------------
-
-Gecode must be built and installed with ``BUILD_TESTING=ON``. The test
-component also requires the integer and search modules.
-:numref:`program:p:testing:cmake` shows how to request the test component and
-link the libraries needed for an integer propagator test.
-
-.. mpg-code:: less test CMake project
-   :caption: CMake project for the ``less`` propagator test
-   :name: program:p:testing:cmake
-   :download: CMakeLists.txt
-
-Place :download:`less.cpp <../../examples/src/less.cpp>`, the test from
-:numref:`program:p:testing:less`, and ``CMakeLists.txt`` in one directory. Then
-configure, build, and run the test:
-
-.. code-block:: console
-
-   cmake -S . -B build -DCMAKE_PREFIX_PATH=/path/to/gecode
-   cmake --build build
-   ./build/less-test -iter 1
-
-``Gecode_ROOT`` or ``Gecode_DIR`` can be used instead of ``CMAKE_PREFIX_PATH``
-to locate the installation. Linking against the imported target
-``Gecode::gecodetestint`` also links the test runner and the required Gecode
-libraries. The test program defines ``main()`` and calls
-``Test::run_registered_tests()`` to run its registered tests.
-
 .. _sec:p:testing:less:
 
 Testing the less propagator
@@ -94,6 +63,8 @@ the variables supplied by the test library, using the constraint post function
 ``less()``. The test library compares the results of propagation with
 ``solution()``.
 
+The test program defines ``main()`` and calls
+``Test::run_registered_tests()`` to run its registered tests.
 The global object ``less_test`` registers the test during initialization and
 remains alive throughout the call to ``run_registered_tests()``. The integer
 test class prefixes the name with ``Int::``, so the runner lists this test as
@@ -164,6 +135,36 @@ consistency, ``CTL_BOUNDS_D`` for bounds(D) consistency, ``CTL_BOUNDS_Z`` for
 bounds(Z) consistency, or ``CTL_NONE`` for no consistency check. A test can
 set this field in its constructor to match the consistency level of the
 propagator.
+
+.. _sec:p:testing:build:
+
+Building a standalone test
+--------------------------
+
+Gecode must be built and installed with ``BUILD_TESTING=ON``. The test
+component also requires the integer and search modules.
+:numref:`program:p:testing:cmake` shows how to request the test component and
+link the libraries needed for an integer propagator test.
+
+.. mpg-code:: less test CMake project
+   :caption: CMake project for the ``less`` propagator test
+   :name: program:p:testing:cmake
+   :download: CMakeLists.txt
+
+Place :download:`less.cpp <../../examples/src/less.cpp>`, the test from
+:numref:`program:p:testing:less`, and ``CMakeLists.txt`` in one directory. Then
+configure, build, and run the test:
+
+.. code-block:: console
+
+   cmake -S . -B build -DCMAKE_PREFIX_PATH=/path/to/gecode
+   cmake --build build
+   ./build/less-test -iter 1
+
+``Gecode_ROOT`` or ``Gecode_DIR`` can be used instead of ``CMAKE_PREFIX_PATH``
+to locate the installation. Linking against the imported target
+``Gecode::gecodetestint`` also links the test runner and the required Gecode
+libraries.
 
 .. _sec:p:testing:selection:
 

@@ -125,6 +125,11 @@ There are two different options for implementing all different reification modes
 
 The idea for the reified propagator is straightforward, its ``propagate()`` function is shown in :numref:`fig:p:reified:leeq:half:propagate`: the four different parts of the propagator are employed depending on the reification mode ``rm``. Note that this is entirely schematic and any reified propagator can be programmed supporting all reification modes in that way.
 
+Test each reification mode supported by the propagator.
+:ref:`sec:p:testing:extending` explains how to extend an integer propagator
+test with the ``post()`` overload that accepts a ``Reify`` object and how to
+select the supported modes with ``rms``.
+
 .. _sec:p:reified:max:
 
 Rewriting during propagation
