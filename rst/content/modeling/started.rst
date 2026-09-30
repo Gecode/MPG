@@ -638,10 +638,11 @@ runs the basic integrity tests, ``check-normal`` runs the ordinary suite, and
 .. mpg-code:: snippet:m-started:sec:m:started:compile:cmd:4
    :direct:
 
-Tests declare their ``check``, ``normal``, and ``sweep`` tags when they are
-registered. A test can belong to several groups; membership in one does not
-imply membership in another. :ref:`chap:p:testing` explains tag selection for
-tests that use the installed Gecode test library.
+Each target selects tests with the corresponding tag: ``check``, ``normal``,
+or ``sweep``. Tests declare their tags when they are registered. A test can
+belong to several groups; membership in one does not imply membership in
+another. :ref:`chap:p:testing` explains tag selection for tests that use the
+installed Gecode test library.
 
 
 .. _modeling:m-started:installation:
