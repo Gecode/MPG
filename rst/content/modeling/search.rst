@@ -325,6 +325,8 @@ All search engines can take a default option value of type :api:`Search::Options
       +===================+======================================+==========================================+
       | ``threads``       | ``double``                           | number of parallel threads to use        |
       +-------------------+--------------------------------------+------------------------------------------+
+      | ``worker_control``| ``Search::WorkerControl``            | control of active search workers         |
+      +-------------------+--------------------------------------+------------------------------------------+
       | ``c_d``           | ``unsigned int``                     | commit recomputation distance            |
       +-------------------+--------------------------------------+------------------------------------------+
       | ``a_d``           | ``unsigned int``                     | adaptive recomputation distance          |
@@ -359,6 +361,21 @@ Assume that your computer has :math:`m` processing units [1]_ and that the value
 - If :math:`-1<n<0`, then :math:`(1+n)\cdot m` threads are used (relative number of processing units not to be used). For example, when :math:`n=-0.25` and :math:`m=8`, then :math:`6` threads are used.
 
 Note that all values are of course rounded and that at least one thread will be used.
+
+.. _sec:m:search:workers:
+
+.. mpg-paragraph:: Adjusting the number of workers.
+
+The ``worker_control`` option allows an external scheduler to adjust how many workers a ``DFS`` or ``BAB`` engine may use. The resolved ``threads`` value fixes the capacity when the engine is created. For example, the following engine has capacity for four workers, initially uses two, and then receives a request to use one:
+
+.. mpg-code:: worker control
+   :direct:
+
+``control.request(n)`` requests between zero and ``control.capacity()`` workers. Requests are thread-safe and can be made while another thread calls ``next()``. They take effect at search boundaries: reducing the count lets workers finish their current search action before parking, and increasing it wakes parked workers. The call does not wait for the requested count to take effect, so the engine may briefly use more workers than requested. Parked workers retain their search state and resources.
+
+Requesting zero pauses search; a positive request resumes it. This also works for capacity one. While paused, ``next()`` can remain blocked until another thread resumes the engine. A :api:`Search::TimeStop` has no timer thread to wake a paused engine when its limit expires. Builds without thread support reject pausing and require controls to be used from one thread.
+
+A default-constructed ``Search::WorkerControl`` leaves worker counts fixed. Copies of an initialized control share its request state. A control belongs to one engine lifetime and cannot be reused for another engine after destruction. For ``RBS`` with a ``DFS`` or ``BAB`` engine, the control applies to that engine across restarts. Controls for portfolio assets are discussed in :ref:`sec:m:search:portfolio:arbitrary`.
 
 .. _sec:m:search:stop:
 
@@ -920,6 +937,12 @@ The respective portfolio engine can be created as follows:
 
 
 Note that the number of assets is defined by the number of SEBs passed as argument and not by ``s.assets`` as with the simpler interface. Executing a function such as ``dfs()`` in fact creates a new SEB ``seb`` that eventually must be deleted by ``delete seb``. When creating a portfolio engine from a SEB, the engine takes care of deleting the SEB.
+
+.. _sec:m:search:portfolio:workers:
+
+.. mpg-paragraph:: Worker control.
+
+For assets using ``DFS`` or ``BAB``, including through ``RBS``, give each builder its own ``worker_control`` and capacity through its search options. The outer portfolio must run in parallel and its options must leave ``worker_control`` empty. The caller chooses the allocations and enforces any shared worker budget; ``PBS`` does not distribute it. A paused asset allows solutions from other assets to be returned. If all active assets are paused, ``next()`` waits until one resumes.
 
 .. _best-solution-search.-1:
 
