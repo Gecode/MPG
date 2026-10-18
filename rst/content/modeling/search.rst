@@ -553,6 +553,25 @@ nonnegative arc costs make it optimistic. ``min-arcs`` adds a relaxation of the
 remaining incoming and outgoing arcs. Both are exact on a completed tour.
 Waiting contributes to arrival times but not to travel cost.
 
+Several paths can reach the same residual problem. Set the optional
+``dominates`` callback in ``Search::CABSOptions`` to tell CABS when keeping
+one candidate makes another redundant. The callback reads two stable spaces
+and returns true when the first preserves every improving completion of the
+second at no worse total objective. It must account for accumulated cost,
+residual constraints, and branching progress. Equivalent states can use the
+same predicate.
+
+CABS compares only the live candidates for the next layer. A dominating
+replacement inherits an existing candidate's beam slot even when its rank is
+worse. Once a candidate leaves the beam, it cannot justify further pruning.
+The engine keeps no visited-state table across layers or widening passes.
+
+The TSPTW transition model enables this comparison for CABS. Two states must
+have the same current location and unvisited customers; the retained state
+must arrive no later and have paid no more travel cost. An earlier but more
+expensive state and a later but cheaper state remain separate candidates.
+Use ``--dominance off`` to compare with this pruning disabled.
+
 Use the same instance and transition formulation when comparing A*, CABS, and
 BAB. Time-window inference is a separate choice: ``--residual-propagation cheap``
 checks necessary customer and depot deadlines, while ``unary`` uses a scheduling
