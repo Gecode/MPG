@@ -589,10 +589,14 @@ candidates, so exploration differs from the sequential order. Parallel CABS
 expands parents concurrently and applies dominance pruning within one global
 next-layer beam. Its beam width applies to the whole engine.
 
+Workers retain a parent while expanding its alternatives. A worker can handle
+up to 32 failed or incumbent-pruned alternatives locally before checking an
+ordinary stop. It checks the requested worker count after every alternative.
+
 Guidance and dominance-key callbacks can run concurrently on different spaces.
 Captured shared state must support concurrent access, and model preparation
-must respect each worker's ownership of its space. Parallel solution order and work counts can
-vary between runs. Search tracers are unsupported.
+must respect each worker's ownership of its space. Parallel solution order and
+work counts can vary between runs. Search tracers are unsupported.
 
 These experimental engines use cloned frontier spaces. The recomputation
 distances ``c_d`` and ``a_d`` do not reduce their frontier storage. Compare
