@@ -561,15 +561,20 @@ second at no worse total objective. It must account for accumulated cost,
 residual constraints, and branching progress. Equivalent states can use the
 same predicate.
 
+The optional ``dominance_key`` callback groups candidates before comparison.
+Potential dominators must have equal keys. Equal keys still require the
+predicate to succeed, so hash collisions are safe.
+
 CABS compares only the live candidates for the next layer. A dominating
 replacement inherits an existing candidate's beam slot even when its rank is
 worse. Once a candidate leaves the beam, it cannot justify further pruning.
 The engine keeps no visited-state table across layers or widening passes.
 
-The TSPTW transition model enables this comparison for CABS. Two states must
-have the same current location and unvisited customers; the retained state
-must arrive no later and have paid no more travel cost. An earlier but more
-expensive state and a later but cheaper state remain separate candidates.
+The TSPTW transition model enables both callbacks for CABS. Its key groups
+states by current location and unvisited customers. The dominance predicate
+checks those are equal, then requires the retained state to arrive no later
+and have paid no more travel cost. An earlier but more expensive state and a
+later but cheaper state remain separate candidates.
 Use ``--dominance off`` to compare with this pruning disabled.
 
 Use the same instance and transition formulation when comparing A*, CABS, and
@@ -584,9 +589,9 @@ candidates, so exploration differs from the sequential order. Parallel CABS
 expands parents concurrently and applies dominance pruning within one global
 next-layer beam. Its beam width applies to the whole engine.
 
-Guidance callbacks can run concurrently on different spaces. Captured shared
-state must support concurrent access, and model preparation must respect each
-worker's ownership of its space. Parallel solution order and work counts can
+Guidance and dominance-key callbacks can run concurrently on different spaces.
+Captured shared state must support concurrent access, and model preparation
+must respect each worker's ownership of its space. Parallel solution order and work counts can
 vary between runs. Search tracers are unsupported.
 
 These experimental engines use cloned frontier spaces. The recomputation
