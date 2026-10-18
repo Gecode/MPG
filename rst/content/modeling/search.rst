@@ -578,10 +578,21 @@ checks necessary customer and depot deadlines, while ``unary`` uses a scheduling
 relaxation; ``off`` is the default. Stronger inference or a stronger bound costs
 work per node, so fewer explored nodes alone do not establish a faster search.
 
-These experimental engines use cloned frontier spaces, with one worker and no
-search tracer. The recomputation distances ``c_d`` and ``a_d`` do not reduce
-their frontier storage. Compare memory use as well as time to a first solution,
-time to improvements, and time to a proof.
+Set ``Search::Options::threads`` to use several workers. Parallel A* selects
+from one shared priority queue; expansions already running can produce better
+candidates, so exploration differs from the sequential order. Parallel CABS
+expands parents concurrently and applies dominance pruning within one global
+next-layer beam. Its beam width applies to the whole engine.
+
+Guidance callbacks can run concurrently on different spaces. Captured shared
+state must support concurrent access, and model preparation must respect each
+worker's ownership of its space. Parallel solution order and work counts can
+vary between runs. Search tracers are unsupported.
+
+These experimental engines use cloned frontier spaces. The recomputation
+distances ``c_d`` and ``a_d`` do not reduce their frontier storage. Compare
+memory use as well as time to a first solution, time to improvements, and time
+to a proof.
 
 .. _sec:m:search:restart:
 
