@@ -4789,6 +4789,22 @@
       "reason": "illustrative source fragment",
       "sha256": "2d53c6555711f902473db8035ad37119c55057b27f9c80d65d00d5c06731de06",
       "validation": "display-only"
+    },
+    {
+      "bytes": 508,
+      "id": "string-modeling",
+      "language": "cpp",
+      "path": "rst/examples/fragments/string-modeling.cpp",
+      "sha256": "170c5a48f4866c6e3add20e1bba5d7d6df71e15b29bef5d226a33d5efd48e4ea",
+      "validation": "display-only"
+    },
+    {
+      "bytes": 3864,
+      "id": "inglenook",
+      "language": "text",
+      "path": "rst/examples/src/inglenook.mzn",
+      "sha256": "87f1443c4d31af2a9f570bfc914c55881b21ca5347764b6bbde06dd37e1b8bc6",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -11357,6 +11373,42 @@
       ],
       "sha256": "ba57f0c2e577fe6889dd655d2dbc0a703d12e7f2538a5f3db1b01801e66b0bfe",
       "start_line": 41
+    },
+    "inglenook": {
+      "artifact": "rst/examples/src/inglenook.mzn",
+      "bytes": 3864,
+      "end_line": 111,
+      "kind": "snippet",
+      "language": "text",
+      "sha256": "87f1443c4d31af2a9f570bfc914c55881b21ca5347764b6bbde06dd37e1b8bc6",
+      "start_line": 1
+    },
+    "inglenook:move transitions": {
+      "artifact": "rst/examples/src/inglenook.mzn",
+      "bytes": 1317,
+      "end_line": 91,
+      "kind": "snippet",
+      "language": "text",
+      "sha256": "c52869e8091ff34b4a636e68382c3244fd03212dd164b300834125846f7f091d",
+      "start_line": 60
+    },
+    "inglenook:objective": {
+      "artifact": "rst/examples/src/inglenook.mzn",
+      "bytes": 227,
+      "end_line": 111,
+      "kind": "snippet",
+      "language": "text",
+      "sha256": "9c2c6158997b56304575fcdd96ceaf3ea498f409cf5174ed8832846d41533271",
+      "start_line": 106
+    },
+    "inglenook:state variables": {
+      "artifact": "rst/examples/src/inglenook.mzn",
+      "bytes": 990,
+      "end_line": 58,
+      "kind": "snippet",
+      "language": "text",
+      "sha256": "c61b1efee46b7d0268ca42f73bba9a243f7faaaa50d0e6f06b9b0568fb2728cc",
+      "start_line": 31
     },
     "int.hh": {
       "artifact": "rst/examples/src/int.hh",
@@ -32223,6 +32275,42 @@
       "sha256": "c880a3d68a180ef3163b7e1d31730882de3c46fe53fc9899ce8c9660105e52be",
       "small": false,
       "start_line": 1
+    },
+    "string modeling:branching": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 109,
+      "end_line": 17,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "07876422c76f7f7b95a52f0f4acf59e3e50041d8106040f5989fe8b7b32bf34d",
+      "start_line": 15
+    },
+    "string modeling:constraints": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 147,
+      "end_line": 13,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "55db10e13d79e5baa97ff552df772ce5645afbf8a4c02a6858c8181e5c065292",
+      "start_line": 10
+    },
+    "string modeling:include": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 28,
+      "end_line": 1,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "a55a994997d95dfb311571a36082edea72af81176f779012ad6e790f604fbb71",
+      "start_line": 1
+    },
+    "string modeling:values and variables": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 196,
+      "end_line": 8,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "8f26c36c258bb7b9da565c7107d522eaa747b94b00b25d7e0c4769a847079170",
+      "start_line": 5
     },
     "warehouses": {
       "artifact": "rst/examples/src/warehouses.cpp",

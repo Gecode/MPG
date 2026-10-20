@@ -40,6 +40,9 @@ Case studies
    - :ref:`chap:c:golf` presents a case study on modeling problems using set
      variables and constraints.
 
+   - :ref:`chap:c:inglenook` models a shunting puzzle with bounded string
+     variables, concatenation, length, and regular-language constraints.
+
    .. mpg-paragraph:: Advanced models.
 
    The following models are slightly more advanced:
