@@ -615,6 +615,23 @@ For a multi-configuration generator such as Visual Studio or Xcode, omit ``CMAKE
    :direct:
 
 
+.. _sec:m:started:mimalloc:
+
+.. mpg-paragraph:: Optional allocator.
+
+Gecode uses the system allocator by default. When configuring a source
+build, ``-DGECODE_ENABLE_MIMALLOC=ON`` downloads and embeds mimalloc for
+Gecode's heap and space storage. The option supports both shared and static
+libraries; it does not replace the application's ``malloc`` or ``new``.
+It requires ``GECODE_ENABLE_ALLOCATOR=ON`` and cannot be combined with
+``GECODE_SANITIZER`` or ``GECODE_PEAKHEAP``. Rebuild applications using
+Gecode when changing allocator backends.
+
+The effect on parallel-search performance depends on the workload. Compare
+the allocators on the models and thread counts you intend to use. Further
+configuration details are in Gecode's `CMake build guide
+<https://github.com/Gecode/gecode/blob/main/docs/cmake-build.md>`__.
+
 .. _modeling:m-started:compiling-the-sources:
 
 .. mpg-paragraph:: Compiling the sources.
