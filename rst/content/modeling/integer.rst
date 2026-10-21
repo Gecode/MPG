@@ -1036,6 +1036,67 @@ constrains ``y`` to be :math:`\argmin(\mathtt{x})`, that is, the element in ``x`
 
 no tie-breaking is used. Of course, ``argmax`` is analogous. ``argmin`` and ``argmax`` without tie-breaking are domain consistent (see also GCCat: `max_index <http://www.emn.fr/z-info/sdemasse/gccat/Cmax_index.html>`__).
 
+.. _sec:m:integer:gcd:
+
+.. mpg-paragraph:: Greatest common divisor and divisibility.
+
+For integer variables ``x``, ``y``, and ``g``,
+
+.. mpg-code:: integer gcd
+   :direct:
+
+constrains ``g`` to the greatest common divisor of ``x`` and ``y``. The
+result is nonnegative. Negative operands are interpreted by their absolute
+values, and :math:`\gcd(0,0)=0`.
+
+Divisibility is available as a reified constraint. For a Boolean variable
+``b``,
+
+.. mpg-code:: integer divisibility
+   :direct:
+
+constrains ``b`` to be one if and only if ``x`` divides ``y``, that is,
+:math:`\mathtt{y}=\mathtt{x}\cdot k` for some integer :math:`k`. Zero divides
+zero but does not divide a nonzero integer. To require divisibility, fix
+``b`` to one.
+
+.. _sec:m:integer:product:
+
+.. mpg-paragraph:: Products of several variables.
+
+For an integer variable array ``a`` and an integer variable ``p``,
+
+.. mpg-code:: integer product
+   :direct:
+
+constrains ``p`` to the exact product of the variables in ``a``. The product
+of an empty array is one. Repeated variables are allowed, and each
+occurrence contributes a factor.
+
+To compute a product modulo a positive integer ``m``, post
+
+.. mpg-code:: integer modular product
+   :direct:
+
+The modulus can be an integer constant or an integer variable. The result
+is the Euclidean residue, so :math:`0\leq\mathtt{p}<\mathtt{m}` even for a
+negative product. For example, a product of :math:`-8` modulo three gives
+one, whereas ``mod`` gives :math:`-2`. For an empty array, the result is one
+modulo ``m``, hence zero when ``m`` is one.
+
+The ``gcd``, ``product``, and ``product_mod`` post functions also accept a
+``Reify`` argument after the result variable. All four constraints discussed
+here support full and half reification (see
+:ref:`sec:m:integer:halfreify`). With a variable modulus, positivity of the
+modulus and the residue range belong to the reified proposition. An inactive
+implication does not restrict the modulus or result. Passing a constant
+modulus outside ``1..Int::Limits::max`` throws ``Int::OutOfLimits``, even
+for an inactive implication.
+
+These constraints propagate using domain bounds and algebraic reasoning,
+without guaranteeing bounds or domain consistency. Their optional
+``IntPropLevel`` argument is ignored.
+
 .. _sec:m:integer:linear:
 
 

@@ -4837,6 +4837,14 @@
       "path": "rst/examples/src/open-route.cpp",
       "sha256": "42b0c495781b17857037e8b4a8c76f9bfef69f3ca6f9d400793f461c55a4dfe1",
       "validation": "compiled"
+    },
+    {
+      "bytes": 100,
+      "id": "integer-arithmetic-65",
+      "language": "cpp",
+      "path": "rst/examples/fragments/integer-arithmetic-65.cpp",
+      "sha256": "487e654adf1aa9487786eb8a63d1a4fea73a4cb497aee195d1b84d08bd48115c",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -14705,6 +14713,24 @@
       "start_line": 876,
       "title": "view selection without tbl-function"
     },
+    "integer divisibility": {
+      "artifact": "rst/examples/fragments/integer-arithmetic-65.cpp",
+      "bytes": 31,
+      "end_line": 2,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "b51df0b23dfb8eafcd449ef97cde3f72486ab81eb5106ff27ce0fe0f5df1f836",
+      "start_line": 2
+    },
+    "integer gcd": {
+      "artifact": "rst/examples/fragments/integer-arithmetic-65.cpp",
+      "bytes": 20,
+      "end_line": 1,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "b21b55a6858774154d92959772e1b363c39a75680e7e72681fc592590000f086",
+      "start_line": 1
+    },
     "integer interval test CMake project": {
       "artifact": "rst/examples/fragments/int-test-project.cmake",
       "bytes": 274,
@@ -14722,6 +14748,24 @@
       "language": "cpp",
       "sha256": "0cc8c30c96f0901c8e8cb287ce18d0b834c639b564b2440a3bf3c901737b8e7d",
       "start_line": 28
+    },
+    "integer modular product": {
+      "artifact": "rst/examples/fragments/integer-arithmetic-65.cpp",
+      "bytes": 28,
+      "end_line": 4,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "f3fb0ba3e1a8032348ad9fe5176aa2e26e21f1039e8bc7c0984dda3893ab99d3",
+      "start_line": 4
+    },
+    "integer product": {
+      "artifact": "rst/examples/fragments/integer-arithmetic-65.cpp",
+      "bytes": 21,
+      "end_line": 3,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "587816b5b5ae68fdba244eddfc806de1be07aa9e7500a71fde34ae9e6cfb4073",
+      "start_line": 3
     },
     "integer variable tracer": {
       "artifact": "rst/examples/src/integer-variable-tracer.cpp",
