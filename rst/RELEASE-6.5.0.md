@@ -25,7 +25,7 @@ final merges.
 
 ## Documentation topics
 
-| Change | Where it belongs | Required coverage |
+| Change | Location | Coverage and review |
 | --- | --- | --- |
 | Open variable lists (`open-cp`, carried by `open-search`) | `content/modeling/open-list.rst` | Added a route walkthrough, prefix and length semantics, growing constraints, branching orders, cloning, factories, and transitions. Both branching orders enumerate the five expected routes. Reviewed and copy-edited by a fresh Astra medium agent against the combined Gecode source. |
 | GCD, divisibility, and n-ary products (`6e68e4dce7`) | `content/modeling/integer.rst`, arithmetic constraints | Added posting examples and the sign, zero, empty-product, modulus, reification, and propagation semantics. Adapted the historical material to maintained RST and checked the calls in a compiled harness. Reviewed and copy-edited by a fresh Astra medium agent against the current implementation. |
@@ -34,11 +34,11 @@ final merges.
 | Inter-distance (`456e96dec2`, #247) | `content/modeling/integer.rst`, distinctness or scheduling | Added fixed and variable pairwise separation, edge cases, alias restrictions, and the basic and advanced propagation costs and guarantees. The compiled example agrees with a complete brute-force solution set. A fresh Astra medium agent verified and copy-edited the section. |
 | Scoped GPI control (`58298e3dcb`, #257) | `content/modeling/branch.rst`, AFC, and `content/modeling/group.rst` | Added a scoped posting example, local AFC and group semantics, lifetime and restoration rules, cloning and rewriting, and open-list callback links. Corrected the AFC sum explanation. A compiled check confirms the example's local/global AFC values; a fresh Astra medium agent verified and copy-edited the prose. |
 | Cumulative overload checking (`b94715d155`, #246) | `content/modeling/integer.rst`, cumulative scheduling | Updated advanced propagation for knapsack-augmented overload checking on fixed-processing tasks and mandatory optional-task subsets, with the CP 2026 citation. Scoped the complexity claim to edge-finding. A compiled source fixture confirms the added overload detection; a fresh Astra medium agent verified and copy-edited the section. |
-| Optional mimalloc (`e2b91053db`, `c54eec1264`, #258/#260) | `content/modeling/started.rst`, build options | Add a short CMake option note and a pointer to Gecode's build guide. Cover shared and static builds, the unchanged system-allocator default, consumer rebuilds, and workload-dependent parallel-search performance. The detailed allocator configuration belongs in Gecode's build documentation. |
+| Optional mimalloc (`e2b91053db`, `c54eec1264`, #258/#260) | `content/modeling/started.rst`, build options | Added the CMake option, allocator scope and compatibility, shared/static support, consumer rebuilds, and a build-guide link. Performance advice remains workload-dependent. A fresh Astra medium agent verified the note against CMake and allocator implementations; no copy edits were needed. |
 
-The open-list walkthrough and the new integer constraints are the largest gaps.
-After those, update AFC/GPI and the cumulative propagation account. The
-mimalloc note is small and does not need a new chapter.
+All eight topics have been added and independently reviewed. Each topic used
+a fresh Astra medium agent for copyediting and factual verification, with
+authoring and review recorded in separate commits.
 
 ## Changes covered elsewhere
 
