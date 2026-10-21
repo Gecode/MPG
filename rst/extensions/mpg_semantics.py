@@ -150,6 +150,7 @@ def _prepare_run_in_paragraphs(app, doctree: nodes.document, docname: str) -> No
         heading.extend(marker.children)
         if index + 1 < len(parent) and isinstance(parent[index + 1], nodes.paragraph):
             paragraph = parent[index + 1]
+            paragraph["ids"][:0] = marker["ids"]
             paragraph.insert(0, nodes.Text(" "))
             paragraph.insert(0, heading)
             parent.remove(marker)
@@ -157,7 +158,9 @@ def _prepare_run_in_paragraphs(app, doctree: nodes.document, docname: str) -> No
             # LaTeX's paragraph command is still meaningful before a figure,
             # list, or table.  HTML cannot run into a non-paragraph child, so
             # retain a compact standalone heading with the same semantic class.
-            wrapper = nodes.paragraph(classes=["mpg-paragraph-standalone"])
+            wrapper = nodes.paragraph(
+                ids=marker["ids"], classes=["mpg-paragraph-standalone"]
+            )
             wrapper += heading
             parent.replace(marker, wrapper)
 
@@ -186,6 +189,7 @@ def _remove_duplicate_part_page_title(app, doctree: nodes.document, docname: str
 
 
 def visit_mpg_paragraph_latex(translator, node: MpgParagraph) -> None:
+    translator.body.append(translator.hypertarget_to(node))
     translator.body.append(r"\paragraph*{")
 
 

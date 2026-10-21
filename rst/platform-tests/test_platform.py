@@ -112,6 +112,7 @@ def main() -> int:
         for expected in (
             'href="#getting-started"',
             'id="fixture-first-model"',
+            'id="fixture-classical"',
             'id="fixture-tip"',
             'class="mpg-tip',
             'alt="Gecode"',
@@ -235,7 +236,8 @@ def main() -> int:
         latex = (latex_output / "MPG.tex").read_text(encoding="utf-8")
         for expected in (r"\begin{figure}[tbp]", r"\caption[Values]{Available values}",
                          r"\paragraph*{Classical heading.}",
-                         r"chapter:fig-m-fixture"):
+                         r"chapter:fig-m-fixture",
+                         r"chapter:fixture-classical"):
             if expected not in latex:
                 raise RuntimeError(f"LaTeX omitted {expected}")
         adapter = (latex_output / "mpg-sphinx.sty").read_text(encoding="utf-8")

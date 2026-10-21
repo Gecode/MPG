@@ -43,6 +43,8 @@ Fixture term
    * - ``0``
      - false
 
+.. _fixture-classical:
+
 .. mpg-paragraph:: Classical heading.
 
 This paragraph verifies the classical paragraph structure in both editions.
