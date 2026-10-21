@@ -1552,7 +1552,7 @@ Even if bounds propagation is requested for the ``element`` constraint, the prop
 Extensional constraints
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-:api:`Extensional constraints <TaskModelIntExt>` (also known as user-defined or ad-hoc constraints) provide constraints that are specified in *extension*. The extension can be either defined by a :api:`DFA` (deterministic finite automaton) or a tuple set :api:`TupleSet`. DFAs can also be specified conveniently by regular expressions, see :ref:`sec:m:minimodel:reg`.
+:api:`Extensional constraints <TaskModelIntExt>` (also known as user-defined or ad-hoc constraints) provide constraints that are specified in *extension*. The extension can be defined by a finite automaton (of type :api:`DFA`) or a tuple set :api:`TupleSet`. The ordinary automaton constructors require deterministic transitions; ``DFA::nfa`` constructs a nondeterministic automaton. Deterministic automata can also be specified conveniently by regular expressions, see :ref:`sec:m:minimodel:reg`.
 
 .. _modeling:m-integer:deterministic-finite-automata:
 
@@ -1588,6 +1588,40 @@ Note that the same DFA would also work with an array of integer variables.
 The propagator for the ``extensional`` constraint is domain consistent and is based on :cite:`Pesant:CP:2004`.
 
 Examples that use regular expressions for defining DFAs can be found in :ref:`sec:m:minimodel:reg`.
+
+.. _sec:m:integer:nfa:
+
+.. mpg-paragraph:: Nondeterministic finite automata.
+
+In a nondeterministic finite automaton, more than one transition can leave
+a state with the same symbol. A sequence is accepted if at least one path
+with that sequence of symbols reaches a final state. For example, the
+following automaton accepts binary sequences containing two consecutive
+ones:
+
+.. mpg-code:: nondeterministic regular
+   :direct:
+
+Here ``x`` is an array of integer or Boolean variables. In state zero, a one
+can either keep the automaton in state zero or move it to state one. The
+latter choice guesses the start of two consecutive ones. A second one
+reaches the accepting state two, whose loops allow any binary suffix.
+For an array of three variables, the accepted sequences are ``011``,
+``110``, and ``111``.
+
+Although the returned object has type ``DFA``, ``DFA::nfa`` retains the
+nondeterministic transitions. It removes unreachable states without
+determinizing or minimizing the automaton. Every transition consumes one
+symbol; epsilon transitions are not supported. Use ``DFA::nfa`` when the
+specification is nondeterministic, rather than passing those transitions
+to an ordinary ``DFA`` constructor.
+
+The array form ``DFA::nfa(s,t,f)`` uses the same transition and final-state
+sentinels as the deterministic constructor: an input state of :math:`-1`
+ends ``t``, and :math:`-1` ends ``f``. The initializer-list form shown above
+needs no sentinels. Both forms can be used with the same ``extensional``
+post functions as deterministic automata, including the open regular
+constraints in :ref:`sec:m:open:constraints`.
 
 .. _modeling:m-integer:tuple-sets-tables:
 

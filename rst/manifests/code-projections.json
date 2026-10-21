@@ -4845,6 +4845,14 @@
       "path": "rst/examples/fragments/integer-arithmetic-65.cpp",
       "sha256": "487e654adf1aa9487786eb8a63d1a4fea73a4cb497aee195d1b84d08bd48115c",
       "validation": "display-only"
+    },
+    {
+      "bytes": 115,
+      "id": "nondeterministic-regular",
+      "language": "cpp",
+      "path": "rst/examples/fragments/nondeterministic-regular.cpp",
+      "sha256": "71b04a673ae6f53eb4fdac4237bf0dd42e30c5db832a14a1cb8cb6b792f5ac1f",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -18815,6 +18823,15 @@
       ],
       "sha256": "ba57f0c2e577fe6889dd655d2dbc0a703d12e7f2538a5f3db1b01801e66b0bfe",
       "start_line": 61
+    },
+    "nondeterministic regular": {
+      "artifact": "rst/examples/fragments/nondeterministic-regular.cpp",
+      "bytes": 115,
+      "end_line": 6,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "71b04a673ae6f53eb4fdac4237bf0dd42e30c5db832a14a1cb8cb6b792f5ac1f",
+      "start_line": 1
     },
     "none min": {
       "artifact": "rst/examples/src/none-min.cpp",
