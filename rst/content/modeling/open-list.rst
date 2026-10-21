@@ -170,3 +170,6 @@ space-local information and zero AFC; identifiers and groups remain
 available. A callback can use a local ``Space::UseGPI`` scope for postings
 that should accumulate ordinary AFC. Nested list construction starts its
 own ``NoGPI`` scope. Each scope restores the previous setting when it exits.
+
+For the lifetime, cloning, and rewriting rules of these contexts, see
+:ref:`sec:m:branch:gpi`.

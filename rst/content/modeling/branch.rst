@@ -555,9 +555,9 @@ The *minimum-regret* for integer and Boolean variables is the difference between
 Selection using accumulated failure count
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The accumulated failure count (AFC) of a variable is a shared selection criterion. It is defined as the sum of the AFCs of all propagators depending on the variable plus its degree (to give a good initial value if the AFCs of all propagators are still zero). The AFC of a propagator counts how often the propagator has failed during search. The AFC of a variable is also known as the weighted degree of a variable :cite:`AFC`.
+The accumulated failure count (AFC) of a variable is a shared selection criterion. It is defined as the sum of the AFCs of all propagators depending on the variable. With ordinary global propagator information, each propagator starts with AFC one, giving a variable an initial AFC equal to its degree. The AFC of a propagator counts how often the propagator has failed during search. The AFC of a variable is also known as the weighted degree of a variable :cite:`AFC`.
 
-AFC in Gecode supports decay as follows. Each time a propagator fails during constraint propagation (by executing the ``status()`` function of a space, see also :ref:`tip:m:started:status`), the AFC of all propagators is updated:
+For propagators with global information, AFC in Gecode supports decay as follows. Each time a propagator fails during constraint propagation (by executing the ``status()`` function of a space, see also :ref:`tip:m:started:status`), the AFC of all propagators is updated:
 
 - If the propagator ``p`` failed, the AFC :math:`\mathtt{afc}(\mathtt p)` of ``p`` is incremented by :math:`1`:
 
@@ -576,7 +576,7 @@ AFC in Gecode supports decay as follows. Each time a propagator fails during con
 
   where the propagators :math:`\mathtt{p}_i` depend on ``x``.
 
-- The AFC :math:`\mathtt{afc}(\mathtt p)` of a propagator ``p`` is initialized to :math:`1`. That entails that the AFC of a variable ``x`` is initialized to its degree.
+- The AFC :math:`\mathtt{afc}(\mathtt p)` of a propagator ``p`` with global information is initialized to :math:`1`. Propagators with local information have AFC zero, as explained in :ref:`sec:m:branch:gpi`.
 
 In order to use AFC for branching, one must create an object of class :api:`IntAFC` for integer variables, an object of class :api:`BoolAFC` for Boolean variables, an object of class :api:`SetAFC` for set variables, or an object of class :api:`FloatAFC` for float variables. The object is responsible for recording AFC information [1]_.
 
@@ -617,6 +617,44 @@ uses AFC information with a decay-factor of ``0.99``. Even the decay-factor can 
 AFC for other variable types is analogous.
 
 For an example using a decay-factor with AFC, see :ref:`sec:c:crossword:info`.
+
+.. _sec:m:branch:gpi:
+
+Scoped control of propagator information
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When a model creates constraints during search, their failures need not
+always contribute to shared AFC information. The :api:`Space::NoGPI`
+context gives newly posted propagators space-local information instead.
+They retain identifiers and groups, but their AFC remains zero, including
+when they fail. Existing propagators are unaffected.
+
+For example, assuming that ``home`` refers to a space and ``x``, ``y``, and
+``z`` are integer variables:
+
+.. mpg-code:: scoped propagator information
+   :direct:
+
+The first and third relations have local information. The nested
+:api:`Space::UseGPI` context enables ordinary global information for the
+second relation. These settings apply to new propagators; if a posting
+simplifies a constraint without creating a propagator, it creates no
+propagator information either.
+
+Each context restores the previous setting when it is destroyed, including
+during exception unwinding. Contexts for the same space must be destroyed
+in reverse order, and the space must outlive them.
+
+Cloning copies local propagator information into the clone. Group changes
+for such a propagator affect only its own space; a clone starts with the
+current group membership. New postings in the clone use ordinary global
+information unless a context there changes that setting. Rewriting a
+propagator preserves its original information, so ``UseGPI`` does not turn
+a rewritten local propagator into a global one.
+
+Open-list factories and transitions run in ``NoGPI`` contexts by default
+(see :ref:`sec:m:open:copy`). A callback can use ``UseGPI`` for selected
+postings. Nested list construction establishes its own ``NoGPI`` context.
 
 .. _sec:m:branch:action:
 

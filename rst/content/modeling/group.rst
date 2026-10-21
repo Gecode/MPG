@@ -22,7 +22,7 @@ Groups are a means to control certain execution aspects of propagators and branc
 Propagator groups
 -----------------
 
-Each propagator belongs to exactly one *propagator group* of type :api:`PropagatorGroup`. When a propagator is created, it is added to a group. Group membership of a propagator remains stable during copying of spaces.
+Each propagator belongs to exactly one *propagator group* of type :api:`PropagatorGroup`. When a propagator is created, it is added to a group. Group membership of a propagator remains stable during copying of spaces. For propagators posted with local information under ``Space::NoGPI``, later group changes affect only that space. See :ref:`sec:m:branch:gpi` for scoped control of propagator information.
 
 .. _modeling:m-group:adding-propagators-to-groups:
 

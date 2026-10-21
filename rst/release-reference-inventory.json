@@ -787,6 +787,14 @@
       "title": "Gecode::Space",
       "url": "classGecode_1_1Space.html"
     },
+    "Space::NoGPI": {
+      "title": "Gecode::Space::NoGPI",
+      "url": "classGecode_1_1Space_1_1NoGPI.html"
+    },
+    "Space::UseGPI": {
+      "title": "Gecode::Space::UseGPI",
+      "url": "classGecode_1_1Space_1_1UseGPI.html"
+    },
     "SpaceFailed": {
       "title": "Gecode::SpaceFailed",
       "url": "classGecode_1_1SpaceFailed.html"

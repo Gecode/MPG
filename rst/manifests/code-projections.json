@@ -4869,6 +4869,14 @@
       "path": "rst/examples/fragments/inter-distance.cpp",
       "sha256": "f6a24cb1e13f1b7f683ab8bd9ba2a40da17f00891769d641cbf3315b94e1432b",
       "validation": "display-only"
+    },
+    {
+      "bytes": 155,
+      "id": "scoped-propagator-information",
+      "language": "cpp",
+      "path": "rst/examples/fragments/scoped-propagator-information.cpp",
+      "sha256": "57a8334a0f74c3a3f9a6db3732435b7c6bc116d0dadc3d18939a0274b2d700cb",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -21890,6 +21898,15 @@
       "sha256": "c5a83c79a511238900ff43b6a3608ca2243ae18358c460f904b1cd3ce75637d3",
       "start_line": 35,
       "title": "todo information"
+    },
+    "scoped propagator information": {
+      "artifact": "rst/examples/fragments/scoped-propagator-information.cpp",
+      "bytes": 155,
+      "end_line": 9,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "57a8334a0f74c3a3f9a6db3732435b7c6bc116d0dadc3d18939a0274b2d700cb",
+      "start_line": 1
     },
     "send more money": {
       "artifact": "rst/examples/src/send-more-money.cpp",
