@@ -1595,9 +1595,9 @@ Examples that use regular expressions for defining DFAs can be found in :ref:`se
 
 In a nondeterministic finite automaton, more than one transition can leave
 a state with the same symbol. A sequence is accepted if at least one path
-with that sequence of symbols reaches a final state. For example, the
-following automaton accepts binary sequences containing two consecutive
-ones:
+from the start state follows the whole sequence and ends in a final state.
+For example, the following automaton accepts binary sequences containing
+two consecutive ones:
 
 .. mpg-code:: nondeterministic regular
    :direct:
