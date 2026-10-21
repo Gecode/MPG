@@ -7,6 +7,7 @@ Programming propagators
    :maxdepth: 2
 
    started
+   testing
    avoid
    reified
    domain

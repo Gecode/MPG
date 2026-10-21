@@ -17,7 +17,9 @@ Programming propagators
    **Basic material.** :doc:`../propagators/started` shows how to implement
    simple propagators for simple constraints over integer variables. It
    introduces the basic concepts and techniques that are necessary for any
-   propagator.
+   propagator. :doc:`../propagators/testing` uses one of these propagators to
+   explain how to test correctness, propagation strength, cloning, and
+   scheduling with Gecode's test library.
 
    **Programming techniques.** The bulk of this part describes a wide range of
    techniques for programming efficient propagators:

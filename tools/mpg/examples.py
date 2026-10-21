@@ -220,13 +220,13 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
                 "Provide --gecode-root pointing to a Gecode source/build tree."
             )
         t = gc.root / "test"
-        lines.append(
-            "add_library(mpg_gecode_test_objs OBJECT "
-            f'\"{(t / "test.cpp").as_posix()}\" '
-            f'\"{(t / "int.cpp").as_posix()}\" '
-            f'\"{(t / "float.cpp").as_posix()}\" '
-            f'\"{(t / "set.cpp").as_posix()}\")'
-        )
+        test_sources = [t / "test.cpp", t / "int.cpp", t / "float.cpp", t / "set.cpp"]
+        # Since Gecode 6.5, the test runner entry point is a separate source.
+        # Older source trees still define main in test.cpp.
+        if (t / "test-main.cpp").exists():
+            test_sources.append(t / "test-main.cpp")
+        quoted_sources = " ".join(f'\"{source.as_posix()}\"' for source in test_sources)
+        lines.append(f"add_library(mpg_gecode_test_objs OBJECT {quoted_sources})")
 
     for ex, src in mapped:
         lines.append(f'add_executable({ex.name} "{src.as_posix()}")')

@@ -73,6 +73,7 @@ Modeling and Programming with Gecode
    case-studies/kakuro
    case-studies/crossword
    propagators/started
+   propagators/testing
    propagators/avoid
    propagators/reified
    propagators/domain
