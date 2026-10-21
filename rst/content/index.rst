@@ -57,6 +57,7 @@ Modeling and Programming with Gecode
    modeling/set
    modeling/float
    modeling/minimodel
+   modeling/open-list
    modeling/branch
    modeling/search
    modeling/gist

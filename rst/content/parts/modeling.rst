@@ -69,6 +69,8 @@ Modeling
      :ref:`chap:m:float` summarize constraints on float variables.
    * :ref:`chap:m:minimodel` provides an overview of modeling convenience
      implemented by MiniModel.
+   * :ref:`chap:m:open` explains lists whose length is decided during search,
+     using simple routes as an example.
    * The remaining sections of :ref:`chap:m:branch` discuss more advanced
      topics for branchings: local versus shared variable selection
      (:ref:`sec:m:branch:shared`), random selection

@@ -21,6 +21,7 @@ Gecode's constraints, branchings, variables, and search engines are built.
       * :doc:`modeling/set`
       * :doc:`modeling/float`
       * :doc:`modeling/minimodel`
+      * :doc:`modeling/open-list`
       * :doc:`modeling/branch`
       * :doc:`modeling/search`
       * :doc:`modeling/gist`

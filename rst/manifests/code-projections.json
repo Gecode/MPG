@@ -4829,6 +4829,14 @@
       "path": "rst/examples/fragments/worker-control.cpp",
       "sha256": "e5d027bf1c555a74ac5f0fb695f31bd344e62ebba24aa47cb37e2c4705abc1aa",
       "validation": "display-only"
+    },
+    {
+      "bytes": 4148,
+      "id": "open-route",
+      "language": "cpp",
+      "path": "rst/examples/src/open-route.cpp",
+      "sha256": "42b0c495781b17857037e8b4a8c76f9bfef69f3ca6f9d400793f461c55a4dfe1",
+      "validation": "compiled"
     }
   ],
   "projections": {
@@ -19781,6 +19789,24 @@
       "sha256": "7becd377f01ec8206ee3a6019663cb07a2d84d96f577689b6ee36291c129d70e",
       "start_line": 86,
       "title": "row constraints"
+    },
+    "open route copy and output": {
+      "artifact": "rst/examples/src/open-route.cpp",
+      "bytes": 566,
+      "end_line": 110,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "a1bba38a9a87f61336c00a9e4a454fcb9106ef4f8857d3b542befd317f4970ac",
+      "start_line": 88
+    },
+    "open route model": {
+      "artifact": "rst/examples/src/open-route.cpp",
+      "bytes": 1113,
+      "end_line": 86,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "710e83c7d51cc80f64c98e99937cd049695dea222fb0a90db178170a1cfd825c",
+      "start_line": 54
     },
     "or": {
       "artifact": "rst/examples/src/or.cpp",

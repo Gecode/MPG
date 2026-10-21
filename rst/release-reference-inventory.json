@@ -519,6 +519,18 @@
       "title": "Gecode::NoGoods",
       "url": "classGecode_1_1NoGoods.html"
     },
+    "OpenBoolVarList": {
+      "title": "Gecode::OpenBoolVarList",
+      "url": "classGecode_1_1OpenBoolVarList.html"
+    },
+    "OpenIntVarList": {
+      "title": "Gecode::OpenIntVarList",
+      "url": "classGecode_1_1OpenIntVarList.html"
+    },
+    "OpenVarList": {
+      "title": "Gecode::OpenVarList",
+      "url": "classGecode_1_1OpenVarList.html"
+    },
     "Options": {
       "title": "Gecode::Options",
       "url": "classGecode_1_1Options.html"

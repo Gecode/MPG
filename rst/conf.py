@@ -131,6 +131,7 @@ html_context = {
                 ("modeling/set", "Set constraints"),
                 ("modeling/float", "Floating-point constraints"),
                 ("modeling/minimodel", "MiniModel"),
+                ("modeling/open-list", "Open variable lists"),
                 ("modeling/branch", "Branching"),
                 ("modeling/search", "Search"),
                 ("modeling/gist", "Gist"),

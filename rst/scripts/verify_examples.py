@@ -286,11 +286,23 @@ def validate_binaries(timeout: int, env: dict[str, str]) -> list[dict]:
             rows.append({"id": name, "kind": "model", "profile": "gist-interactive", "status": "skipped", "reason": "requires interactive Gist UI"})
             continue
         args = ["-solutions", "1", "-time", "1000"] if name.startswith("bin-packing-") else []
-        result, duration = run(binary_root / name, args, timeout, env)
-        text = result.stdout + result.stderr
-        pattern = MODEL_EXPECTED[name]
-        ok = result.returncode == 0 and re.search(pattern, text, re.MULTILINE) is not None
-        rows.append({"id": name, "kind": "model", "profile": "bounded-model-run", "args": args, "expected_regex": pattern, "status": "pass" if ok else "fail", "exit_code": result.returncode, "duration_sec": round(duration, 3), "stdout": result.stdout[-3000:], "stderr": result.stderr[-3000:]})
+        profiles = [args, ["-branching", "length"]] if name == "open-route" else [args]
+        for args in profiles:
+            result, duration = run(binary_root / name, args, timeout, env)
+            text = result.stdout + result.stderr
+            pattern = MODEL_EXPECTED.get(name)
+            if name == "open-route":
+                routes = re.findall(r"^\t([0-9 >-]+) \(length ([0-9]+)\)$", text, re.MULTILINE)
+                expected = [(0, 4), (0, 1, 4), (0, 2, 1, 4),
+                            (0, 2, 3, 4), (0, 1, 2, 3, 4)]
+                actual = [tuple(map(int, route.split(" -> "))) for route, _ in routes]
+                matches = (sorted(actual) == sorted(expected)
+                           and all(len(route) == int(length)
+                                   for route, (_, length) in zip(actual, routes)))
+            else:
+                matches = re.search(pattern, text, re.MULTILINE) is not None
+            ok = result.returncode == 0 and matches
+            rows.append({"id": name, "kind": "model", "profile": "exact-route-set" if name == "open-route" else "bounded-model-run", "args": args, "expected_regex": pattern, "status": "pass" if ok else "fail", "exit_code": result.returncode, "duration_sec": round(duration, 3), "stdout": result.stdout[-3000:], "stderr": result.stderr[-3000:]})
 
     for name in config["tests"]:
         executable = binary_root / name
