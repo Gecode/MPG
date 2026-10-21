@@ -14,7 +14,7 @@ This chapter discusses how *exploration* for search is used for solving Gecode m
 
 :ref:`sec:m:search:re` explains how search in Gecode makes use of hybrid recomputation and why it is efficient. Even though this section does not belong to the basic reading material, you are highly encouraged to read it.
 
-:ref:`sec:m:search:parallel` explains how parallel search can be used in Gecode and what can be expected of parallel search in principle. How search engines can be used is explained in :ref:`sec:m:search:simple`. Restart-based search is discussed in :ref:`sec:m:search:restart` and portfolio-based search is discussed in :ref:`sec:m:search:portfolio`. This is followed by a discussion in :ref:`sec:m:search:nogoods` how no-goods from restarts can be used. :ref:`sec:m:search:trace` describes how the execution of search engines can be traced and :ref:`sec:m:search:cpprofiler` how the CPProfiler can be used for tracing during search.
+:ref:`sec:m:search:parallel` explains how parallel search can be used in Gecode and what can be expected of parallel search in principle. How search engines can be used is explained in :ref:`sec:m:search:simple`. :ref:`sec:m:search:heuristic` discusses experimental search engines guided by objective bounds and heuristic ranks. Restart-based search is discussed in :ref:`sec:m:search:restart` and portfolio-based search is discussed in :ref:`sec:m:search:portfolio`. This is followed by a discussion in :ref:`sec:m:search:nogoods` how no-goods from restarts can be used. :ref:`sec:m:search:trace` describes how the execution of search engines can be traced and :ref:`sec:m:search:cpprofiler` how the CPProfiler can be used for tracing during search.
 
 .. container:: convention
 
@@ -420,6 +420,205 @@ The class :api:`Search::Stop` also provides similar static functions ``fail()`` 
 
 
    If you want to have finer control (say, only allow each thread to explore up to :math:`n/m` nodes where :math:`m` is the number of threads) you can use the search option argument that is passed as the second argument to the ``stop`` member function to scale the node limit according to the number of available threads.
+
+.. _sec:m:search:heuristic:
+
+Heuristic search
+----------------
+
+Branch-and-bound follows the model's branching order while searching for better
+solutions. A model with a useful estimate of solution cost can also use that
+estimate to choose among pending spaces. ``AStar`` and ``CABS``
+provide this form of exploration for scalar integer optimization. They use the
+model's existing branchers and strict-improvement ``constrain()`` function
+(see :ref:`sec:m:started:search-best`).
+
+.. note::
+
+   These engines belong to the experimental Gecode 6.5 preview. Enable them
+   when building Gecode with the CMake option
+   ``GECODE_ENABLE_EXPERIMENTAL=ON`` or the Autoconf option
+   ``--enable-experimental``. Availability is reported by
+   ``GECODE_HAS_EXPERIMENTAL``. The preview interfaces may change.
+
+.. _sec:m:search:heuristic:guidance:
+
+Bounds and ranks
+~~~~~~~~~~~~~~~~
+
+Guidance has two distinct jobs. An optimistic *bound* rules out spaces that
+cannot improve the best solution. A *rank* expresses which space looks promising
+to explore next. An incorrect bound can lose the optimum. A poor rank can waste
+time, but does not by itself justify pruning.
+
+Construct ``Search::HeuristicGuidance`` with an objective sense and a bound
+callback. The sense is ``MINIMIZE`` or ``MAXIMIZE`` from that class. The callback reads
+the propagated space passed to it and returns a signed 64-bit integer. For
+minimization, this must be a lower bound on the total objective of every solution
+below that space; for maximization it must be an upper bound. On a solution it
+must be the exact objective. The bound and ``constrain()`` must describe the
+same objective. For a conventional integer objective variable ``cost``, its
+propagated minimum is a simple minimization bound, provided it is assigned on
+every solution.
+
+In a transition model, distinguish cost already incurred, :math:`g`, from a
+lower bound on remaining cost, :math:`h`. The callback supplies the total
+:math:`g+h`; the engine adds nothing to it. For example, in the fifteen-puzzle,
+:math:`g` counts slides already made and :math:`h` is the sum of Manhattan
+distances of the numbered tiles from their goal positions. Each slide moves
+one tile by one square, so at least :math:`h` further slides are needed. The
+supplied fifteen-puzzle example also takes the maximum with the model's
+propagated lower bound on the number of moves. At a solved board the remaining
+distance is zero and the bound equals the move count.
+
+An optional third guidance argument is a rank callback, also returning a signed
+64-bit integer. Lower ranks are preferred for either objective sense. For the
+puzzle, rank :math:`h` favors boards close to the goal. Rank :math:`g+2h` puts
+more weight on remaining distance than on moves already made. Either can guide
+exploration while the admissible total bound :math:`g+h` still controls pruning.
+Keep callback arithmetic in range. Callbacks read the supplied space without
+posting constraints, and captured data must outlive the search.
+
+.. _sec:m:search:heuristic:ordering:
+
+Choosing an exploration order
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Construct ``AStar<T>`` with the root space, guidance, and optional search options.
+It explores the pending branching space with the best bound first. Rank breaks
+equal-bound ties, followed by insertion order. To use rank as the main priority,
+pass ``Search::RANK_FIRST`` after guidance and before the search options.
+This ordering compares rank first, then bound, then insertion order.
+``Search::BOUND_FIRST`` explicitly selects the default A* order. These values
+have type ``Search::AStarOrder``. Without a rank callback all ranks are zero,
+so rank-first also follows the bound.
+
+These orders select among pending branching spaces. Generated solutions are
+returned immediately, so even A* can return a solution while another pending
+space can still lead to a better one. Continue requesting improvements rather
+than treating the first result as optimal. A weighted rank such as
+:math:`g+2h` gives no approximation-ratio guarantee for the first result.
+
+Branching and exploration are separate choices. In ``fifteen-puzzle.cpp``,
+``-branching manhattan`` tries slides in order of the resulting Manhattan
+distance, whereas ``-search astar`` selects exploration by the total bound.
+The example accepts ``-search bab`` and ``-search cabs`` too, with both
+``-model open`` and ``-model fixed``. Keep the scramble, seed, and move limit
+fixed when comparing these choices. Exhaustion proves a result only for paths
+within the chosen move limit.
+
+.. _sec:m:search:heuristic:results:
+
+Using improving solutions
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use the ordinary search interface from :ref:`sec:m:search:simple`: call
+``next()`` repeatedly, inspect or save each returned solution, and delete it
+when it is no longer needed. Each returned solution strictly improves the
+accepted best objective value. As with BAB, the model must implement a
+compatible strict-improvement constraint. The default search options leave
+ownership of the supplied root with the caller by cloning it.
+
+When ``next()`` returns ``NULL``, inspect ``stopped()``. Natural exhaustion with
+``stopped()`` false proves the best accepted solution optimal, or infeasibility
+if none was accepted, assuming sound bounds and a finite search tree. A stop
+leaves the best result unproved. Ordinary stop objects can be raised or reset to
+continue search as described in :ref:`sec:m:search:stop`.
+
+A checked feasible solution can seed search through the engine's
+``constrain()`` member function. Only a strict improvement replaces the accepted
+best solution. If no new solution is returned after seeding, exhaustion proves
+the seed optimal; it does not mean the model is infeasible.
+
+The one-shot functions ``astar`` and ``cabs`` take the root, guidance, and
+optional search options. ``astar`` also accepts an ordering after guidance.
+They exhaust the improving solution stream and return the last solution found,
+as ``bab`` does. They provide no stop or proof status. Use the engine objects
+when reporting whether a result is proved, preserving intermediate improvements,
+or adopting an external solution. Overloads without a root create builders for
+portfolio assets (see :ref:`sec:m:search:portfolio:arbitrary`).
+
+.. _sec:m:search:heuristic:beam:
+
+Widening beam search
+~~~~~~~~~~~~~~~~~~~~
+
+Best-first exploration can retain many cloned spaces. ``CABS<T>`` (complete
+anytime beam search) limits the number of unresolved candidates kept in each
+next layer. Each committed choice alternative advances one layer. CABS starts
+with beam width one, preferring lower rank when supplied, or the best objective
+bound otherwise. All generated solutions are considered, even if they would
+fall outside the beam.
+
+A narrow pass can discard a route to the optimum. CABS remembers an optimistic
+bound over discarded spaces. If that bound still permits an improvement, CABS
+doubles the width and restarts from the root, retaining the best solution. If
+every discarded bound excludes improvement, the pass can prove optimality
+without widening. A finite tree and unrestricted widening give completeness.
+
+Pass ``Search::CABSOptions`` after the ordinary search options to limit the
+maximum width or the number of pending frontier nodes; zero means unlimited.
+Widths grow as 1, 2, 4, and so on, so a maximum of three permits widths one and
+two. Reaching a limit needed to continue reports ``stopped()``. These intrinsic
+limits cannot be lifted by calling ``next()`` again. The frontier limit counts
+nodes rather than bytes and excludes, for example, the saved restart root.
+
+The ``tsptw.cpp`` example offers a concrete comparison. Its transition model
+minimizes travel cost for a tour visiting customers within their time windows
+and returning to the depot. The ``prefix`` bound uses travel cost already paid;
+nonnegative arc costs make it optimistic. ``min-arcs`` adds a relaxation of the
+remaining incoming and outgoing arcs. Both are exact on a completed tour.
+Waiting contributes to arrival times but not to travel cost.
+
+Several paths can reach the same residual problem. Set the optional
+``dominates`` callback in ``Search::CABSOptions`` to tell CABS when keeping
+one candidate makes another redundant. The callback reads two stable spaces
+and returns true when the first preserves every improving completion of the
+second at no worse total objective. It must account for accumulated cost,
+residual constraints, and branching progress. Equivalent states can use the
+same predicate.
+
+The optional ``dominance_key`` callback groups candidates before comparison.
+Potential dominators must have equal keys. Equal keys still require the
+predicate to succeed, so hash collisions are safe.
+
+CABS compares only the live candidates for the next layer. A dominating
+replacement inherits an existing candidate's beam slot even when its rank is
+worse. Once a candidate leaves the beam, it cannot justify further pruning.
+The engine keeps no visited-state table across layers or widening passes.
+
+The TSPTW transition model enables both callbacks for CABS. Its key groups
+states by current location and unvisited customers. The dominance predicate
+checks those are equal, then requires the retained state to arrive no later
+and have paid no more travel cost. An earlier but more expensive state and a
+later but cheaper state remain separate candidates.
+Use ``--dominance off`` to compare with this pruning disabled.
+
+Use the same instance and transition formulation when comparing A*, CABS, and
+BAB. Time-window inference is a separate choice: ``--residual-propagation cheap``
+checks necessary customer and depot deadlines, while ``unary`` uses a scheduling
+relaxation; ``off`` is the default. Stronger inference or a stronger bound costs
+work per node, so fewer explored nodes alone do not establish a faster search.
+
+Set ``Search::Options::threads`` to use several workers. Parallel A* selects
+from one shared priority queue; expansions already running can produce better
+candidates, so exploration differs from the sequential order. Parallel CABS
+expands parents concurrently and applies dominance pruning within one global
+next-layer beam. Its beam width applies to the whole engine.
+
+Workers retain a parent while expanding its alternatives. A worker can handle
+up to 32 failed or incumbent-pruned alternatives locally before checking an
+ordinary stop. It checks the requested worker count after every alternative.
+
+Guidance and dominance-key callbacks can run concurrently on different spaces.
+Captured shared state must support concurrent access, and model preparation
+must respect each worker's ownership of its space. Parallel solution order and
+work counts can vary between runs. Search tracers are unsupported.
+
+These experimental engines use cloned frontier spaces. The recomputation
+distances ``c_d`` and ``a_d`` do not reduce their frontier storage. Compare
+memory use as well as time to a first solution, time to improvements, and time
+to a proof.
 
 .. _sec:m:search:restart:
 
