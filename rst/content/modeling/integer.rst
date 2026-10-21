@@ -2211,9 +2211,11 @@ a knapsack-augmented overload check
 cannot be filled by combinations of the tasks' integer resource usages.
 For example, with capacity three and usage two for each task, at most one
 task can run at a time, leaving one unit unused. A check based only on total
-resource-time capacity can miss such an overload.
+resource-time capacity can miss an overload because it counts this unused
+capacity as available.
 
-This additional check is restricted to bounded task sets and capacities.
+This additional check only runs when the number of tasks and the capacity
+fall within fixed limits.
 For optional tasks it considers the mandatory subset. It runs on relevant
 bounds changes and reports failure when it detects an overload; it does
 not directly prune task bounds. The edge-finding cost above therefore does
