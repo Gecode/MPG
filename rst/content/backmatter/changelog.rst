@@ -15,6 +15,15 @@ Prepared the Gecode 6.5.0 edition with adjustable search workers
 (:ref:`sec:m:search:heuristic`). Updated the test-library examples and build
 instructions to use the ``standard`` test tag and ``check-standard`` target.
 
+Added :ref:`open variable lists <chap:m:open>`, :ref:`GCD and divisibility
+<sec:m:integer:gcd>`, :ref:`n-ary products <sec:m:integer:product>`,
+:ref:`nondeterministic automata <sec:m:integer:nfa>`,
+:ref:`inter-distance <sec:m:integer:inter-distance>`, and
+:ref:`minimum distance over selected sites <sec:m:integer:minimum-distance>`.
+Updated :ref:`scoped propagator information <sec:m:branch:gpi>`,
+:ref:`cumulative overload checking <sec:m:integer:cumulatives>`, and the
+:ref:`optional allocator <sec:m:started:mimalloc>`.
+
 .. _changelog:2026-09-06:
 
 2026-09-06

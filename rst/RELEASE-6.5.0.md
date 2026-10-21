@@ -63,6 +63,10 @@ authoring and review recorded in separate commits.
   `test/package/allocator/boundary.hh` has no `STATISTICS` annotation. The
   missing annotation is fixed on Gecode's
   `feature/6.5.0-documentation-fixes` branch, ready for a later merge.
+  The combined open-search reference build also needs statistics annotations
+  on its four new example files. Those are collected on
+  `feature/6.5.0-open-documentation-fixes`, together with the current-main
+  merge and the shared test annotation.
 - Use 6.5.0 consistently for the manual, example defaults, CI preview, and
   release package. Historical changelog entries remain unchanged.
 - Generate the API inventory from current Gecode sources and their matching
@@ -77,12 +81,23 @@ authoring and review recorded in separate commits.
 
 ## Current validation
 
-The combined manual passes source checks, tooling/platform tests, and example
-validation against Gecode `c54eec1264`: 624 checks passed, none failed, and the
-three interactive Gist runs were skipped. The strict HTML and PDF builds and
-preview packaging also pass. The changed HTML was reviewed at desktop and
-narrow widths, and the affected PDF pages were inspected.
+The completed manual passes source checks, tooling/platform tests, and
+example validation against a temporary combination of Gecode `main`
+(`c54eec1264`) and `feature/open-search` (`72e9dafe35`, including
+`feature/open-cp`), with the statistics annotations above applied. The
+example report covers 552 artifacts: 632 checks passed, none failed, and
+three interactive Gist runs were skipped. Separate compiled checks cover
+the new arithmetic, NFA, site-distance, inter-distance, and GPI examples.
 
-The Gecode reference build passes with the statistics annotation from
-`feature/6.5.0-documentation-fixes` applied. The open-list and heuristic-search
-APIs still need validation against the final combined Gecode release branch.
+The API inventory contains 369 references generated from that combined
+source and its Doxygen output. Strict HTML and PDF builds pass, including
+local links, search, reference URLs, and PDF metadata/text checks. The
+changed HTML was reviewed at desktop and narrow widths, and the affected
+PDF pages were inspected. Run-in heading anchors are retained, mobile
+links land below the header, and source-build commands use `6.5.0` instead
+of an unresolved version placeholder.
+
+Preview packaging passes: 317 files and a 633-page PDF. The package remains
+a local preparation artifact. Repeat validation against the final combined
+Gecode release branch and tag, and complete attended Gist review before
+publication.
