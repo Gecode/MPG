@@ -1232,7 +1232,8 @@ at positions zero, two, five, and seven on a line:
 The two variables in ``x`` select sites by their indices, not by their
 coordinates. Since ``z`` has minimum three, the selected sites must be at
 least three units apart. For example, indices zero and two give distance
-five. The post function restricts the site variables to valid indices.
+five and require ``z`` to equal five. The post function restricts the site
+variables to indices from zero to ``d.size()-1``.
 At least two selected positions are required.
 
 The matrix constructor copies and validates the row-major array of
@@ -1245,24 +1246,25 @@ must not depend on a space. Range and diagonal values are checked when
 evaluated; symmetry is the caller's responsibility.
 
 Repeated sites and repeated variables are allowed. If the choices must be
-different, post ``distinct`` as well. An overload also accepts a symmetric
-row-major requirement matrix ``r`` after ``d``. It requires
+different, post ``distinct`` as well. An overload also accepts a symmetric,
+nonnegative row-major requirement matrix ``r`` after ``d``. It requires
 :math:`d(\mathtt{x}_i,\mathtt{x}_j)\geq\mathtt{r}_{ij}` in addition to the
 minimum-distance relation. These inclusive requirements are indexed by
 positions in ``x``, so ``r`` has ``x.size()`` squared entries and zero on its
 diagonal. Sorting the chosen site indices is only a valid symmetry break
 when permuting their positions preserves the requirements.
 
-The default ``MDP_SINGLE`` organization uses one propagator with advisors
-and cached pair witnesses. ``MDP_DECOMPOSED``, passed after the propagation
+The default ``MDP_SINGLE`` organization uses one forward-bound propagator
+with advisors and cached pair witnesses. ``MDP_DECOMPOSED``, passed after the propagation
 level, uses a propagator for each pair, with separate failure counts. Both
 use forward pruning from assigned endpoints and pairwise upper bounds on
 ``z``. Neither guarantees bounds or domain consistency.
 
 A greedy conflict-matching upper bound on ``z`` is enabled by default.
 ``IPL_BASIC`` disables that additional bound; ``IPL_ADVANCED`` and
-``IPL_BASIC_ADVANCED`` enable it together with forward propagation. These
-algorithms are described in :cite:`Lagerkvist:ModRef:2026`.
+``IPL_BASIC_ADVANCED`` enable it together with forward propagation. The
+greedy matching can miss pruning. These algorithms are described in
+:cite:`Lagerkvist:ModRef:2026`.
 
 .. _sec:m:integer:count:
 
