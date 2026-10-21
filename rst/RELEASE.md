@@ -7,7 +7,9 @@ Astro website build does not run Sphinx, XeLaTeX, or the C++ example tests.
 ## Prepare and validate
 
 Use a checkout and compiled libraries of the matching Gecode release, including
-its test framework, generated Doxygen tag file, and reference HTML. Install the
+its test framework, generated Doxygen tag file, and reference HTML. The example
+below assumes a CMake build under `../gecode/build/mpg-validation`; use the
+actual build directory for the tag and HTML paths. Install the
 locked Python/Node dependencies and the PDF/figure tools listed in the root
 README. From the MPG repository root:
 
@@ -17,12 +19,12 @@ npm ci
 
 uv run --locked -- python rst/scripts/generate_reference_inventory.py \
   --source rst/content \
-  --tag ../gecode/doc/gecode-doc.tag \
-  --html-root ../gecode/doc/html \
-  --version 6.4.0 \
+  --tag ../gecode/build/mpg-validation/doc/gecode-doc.tag \
+  --html-root ../gecode/build/mpg-validation/doc/html \
+  --version 6.5.0 \
   --output rst/release-reference-inventory.json
 
-make release MPG_VERSION=6.4.0 GECODE_ROOT=../gecode \
+make release MPG_VERSION=6.5.0 GECODE_ROOT=../gecode \
   RST_BUILD=/tmp/mpg-release-build MPG_OUTPUT=/tmp/mpg-release-output
 ```
 
@@ -36,8 +38,9 @@ If examples or figures changed, refresh their code selections or PDF companions
 as described in `README.md` before running the gate. Do not regenerate a release
 inventory from a different Gecode version to make a missing API reference pass.
 
-For the historical 6.4.0 Cloudflare seed, the checked-in inventory is reconciled
-with the published reference HTML retained in `gecode.github.io/doc/6.4.0/reference`.
+For corrections to the historical 6.4.0 Cloudflare seed, use the inventory
+from the 6.4.0 MPG history and reconcile it with the published reference HTML
+retained in `gecode.github.io/doc/6.4.0/reference`.
 That seed keeps the existing reference edition; regenerating its inventory from
 a new local Doxygen build can introduce filenames and anchors absent from the
 published edition. Validate the completed MPG links against that retained tree.
@@ -46,10 +49,10 @@ published edition. Validate the completed MPG links against that retained tree.
 
 The example above writes:
 
-- `/tmp/mpg-release-output/releases/6.4.0/modeling/`: complete modeling-manual bundle.
-- `/tmp/mpg-release-output/pdf/MPG-6.4.0.pdf`: standalone PDF.
+- `/tmp/mpg-release-output/releases/6.5.0/modeling/`: complete modeling-manual bundle.
+- `/tmp/mpg-release-output/pdf/MPG-6.5.0.pdf`: standalone PDF.
 
-`release-manifest.json` specifies the mount `/doc/6.4.0/modeling/`, entry page,
+`release-manifest.json` specifies the mount `/doc/6.5.0/modeling/`, entry page,
 search index, redirects, and file sizes/hashes. The package contains complete
 HTML pages, local styles/scripts/fonts, exact source downloads, and the PDF.
 Internal build files are excluded. Packaging rejects unsupported versions,

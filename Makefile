@@ -1,6 +1,6 @@
 .PHONY: all quick docs release web check check-sources build build-test build-notest test dist doctor clean
 
-MPG_VERSION ?= 6.4.0
+MPG_VERSION ?= 6.5.0
 RST_BUILD ?= rst/_build
 MPG_OUTPUT ?= output
 PYTHON_VERSION ?=

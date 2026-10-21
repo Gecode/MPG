@@ -185,9 +185,26 @@ def compile_standalone(gc) -> list[dict]:
 
 def validate_public_test_consumer(gc, timeout: int) -> list[dict]:
     """Build the published test example through Gecode's public CMake API."""
-    config_candidates = [directory / "GecodeConfig.cmake" for directory in gc.lib_dirs]
+    config_candidates = []
     if gc.prefix:
         config_candidates.extend(gc.prefix.glob("lib*/cmake/Gecode/GecodeConfig.cmake"))
+    else:
+        # Gecode generates an install-tree config in its build directory.
+        # Stage an installation before consuming that package.
+        gecode_build = next((directory for directory in gc.lib_dirs
+                             if (directory / "GecodeConfig.cmake").is_file()), None)
+        if gecode_build is not None:
+            prefix = ROOT / "rst" / "_build" / "gecode-test-install"
+            installed = subprocess.run(
+                ["cmake", "--install", str(gecode_build), "--prefix", str(prefix)],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+            )
+            if installed.returncode != 0:
+                return [{
+                    "id": "less-test", "profile": "installed-test-component",
+                    "status": "fail", "install_output": installed.stdout[-3000:],
+                }]
+            config_candidates.extend(prefix.glob("lib*/cmake/Gecode/GecodeConfig.cmake"))
     config = next((path for path in config_candidates if path.exists()), None)
     if config is None:
         return [{
@@ -245,7 +262,7 @@ def validate_public_test_consumer(gc, timeout: int) -> list[dict]:
         listed.returncode == 0
         and "Int::Less" in listing
         and "check" in listing
-        and "normal" in listing
+        and "standard" in listing
         and executed.returncode == 0
         and "+" in executed.stdout
     )

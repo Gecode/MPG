@@ -4,7 +4,7 @@ import tomllib
 from .common import ROOT
 
 
-DEFAULT_VERSION = "6.4.0"
+DEFAULT_VERSION = "6.5.0"
 DEFAULT_YEAR = "2026"
 DEFAULT_MODELS = [
     "send-more-money-de-mystified",

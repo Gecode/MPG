@@ -35,15 +35,17 @@ PDF and figure checks also require XeLaTeX, latexmk, Poppler (`pdfinfo`,
 - `test/` and `notest/`: harnesses used to compile and exercise examples.
 
 See [the authoring guide](rst/README.md) for editing procedures and
-[release instructions](rst/RELEASE.md) for publication.
+[release instructions](rst/RELEASE.md) for publication. The
+[6.5.0 preparation notes](rst/RELEASE-6.5.0.md) track the release scope and
+remaining documentation.
 
 ## Checks and releases
 
 ```sh
 make check-sources
-make docs MPG_VERSION=6.4.0
+make docs MPG_VERSION=6.5.0
 make check GECODE_ROOT=../gecode
-make release MPG_VERSION=6.4.0 GECODE_ROOT=../gecode
+make release MPG_VERSION=6.5.0 GECODE_ROOT=../gecode
 ```
 
 `make check-sources` checks current code selections and figure assets.
@@ -58,13 +60,14 @@ For a final release, build the matching Gecode tag first, generate its API
 inventory as described in `rst/RELEASE.md`, and use a fresh output location:
 
 ```sh
-make release MPG_VERSION=6.4.0 GECODE_ROOT=../gecode \
+make release MPG_VERSION=6.5.0 GECODE_ROOT=../gecode \
   RST_BUILD=/tmp/mpg-release-build MPG_OUTPUT=/tmp/mpg-release-output
 ```
 
 The Gecode checkout must include its test framework sources and compiled
-libraries. The `less-test` example also needs a Gecode installation
-built with `BUILD_TESTING=ON`; pass it as
+libraries. The `less-test` example needs the public test libraries built with
+`BUILD_TESTING=ON`. The check stages a local installation from the selected
+CMake build under `rst/_build/gecode-test-install`, or uses an explicit
 `GECODE_PREFIX=/path/to/install`. The example validation tooling also uses
 test sources from `GECODE_ROOT` and rebuilds Gecode for the custom variable examples.
 The Makefile automatically selects `../gecode` if its test sources exist.

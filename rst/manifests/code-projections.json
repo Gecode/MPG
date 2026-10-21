@@ -4224,12 +4224,12 @@
       "validation": "display-only"
     },
     {
-      "bytes": 169,
+      "bytes": 171,
       "id": "snippet-snippets-m-started-cmd-018",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-018.sh",
       "reason": "command transcript",
-      "sha256": "f38d2d92452052142b8b1205a590c20387c6d549ade9c65bfc6bcde0ba94443d",
+      "sha256": "0db4bd79d8a6922a02d24e1c822a2ec2e13baf3d29b371ab9ffb8e6d57323a15",
       "validation": "display-only"
     },
     {
@@ -4791,11 +4791,11 @@
       "validation": "display-only"
     },
     {
-      "bytes": 1749,
+      "bytes": 1751,
       "id": "less-test",
       "language": "cpp",
       "path": "rst/examples/src/less-test.cpp",
-      "sha256": "c5a086ca6e7877af105d7bb3ff11e067e31eb5da9eaeb6870947bdc32c02be01",
+      "sha256": "e2de311d421febffa55dc239c80a568cc9b8bd15519754342fb48155d193bf53",
       "validation": "display-only"
     },
     {
@@ -17463,11 +17463,11 @@
     },
     "less propagator test": {
       "artifact": "rst/examples/src/less-test.cpp",
-      "bytes": 585,
+      "bytes": 587,
       "end_line": 54,
       "kind": "snippet",
       "language": "cpp",
-      "sha256": "271295ebab7e931d03ebeda0f5527a62415c63eaa54a5790aa27f3211dc024e2",
+      "sha256": "00387ff7f9f2825a0c655ffc7bafeec8977e21e28334306563cb4b20d10ed37b",
       "start_line": 28,
       "title": "Testing less"
     },
@@ -30904,21 +30904,21 @@
     },
     "snippet:m-started:sec:m:started:compile:cmd:4": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-018.sh",
-      "bytes": 169,
+      "bytes": 171,
       "end_line": 3,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 169,
+            "bytes": 171,
             "end_line": 3,
-            "sha256": "f38d2d92452052142b8b1205a590c20387c6d549ade9c65bfc6bcde0ba94443d",
+            "sha256": "0db4bd79d8a6922a02d24e1c822a2ec2e13baf3d29b371ab9ffb8e6d57323a15",
             "start_line": 1
           }
         }
       ],
-      "sha256": "f38d2d92452052142b8b1205a590c20387c6d549ade9c65bfc6bcde0ba94443d",
+      "sha256": "0db4bd79d8a6922a02d24e1c822a2ec2e13baf3d29b371ab9ffb8e6d57323a15",
       "small": false,
       "start_line": 1
     },

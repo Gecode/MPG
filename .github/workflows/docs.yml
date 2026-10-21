@@ -36,8 +36,8 @@ jobs:
         run: uv run --locked --python 3.12 -- python rst/scripts/verify_platform.py
       - name: Build and package maintained RST publication preview
         run: |
-          make docs MPG_VERSION=6.4.0 PYTHON_VERSION=3.12 RST_BUILD="$RUNNER_TEMP/mpg-build"
-          uv run --locked --python 3.12 -- python rst/scripts/package_release.py --build "$RUNNER_TEMP/mpg-build" --output "$RUNNER_TEMP/mpg-output" --version 6.4.0
+          make docs MPG_VERSION=6.5.0 PYTHON_VERSION=3.12 RST_BUILD="$RUNNER_TEMP/mpg-build"
+          uv run --locked --python 3.12 -- python rst/scripts/package_release.py --build "$RUNNER_TEMP/mpg-build" --output "$RUNNER_TEMP/mpg-output" --version 6.5.0
       - name: Upload versioned publication preview
         uses: actions/upload-artifact@v4
         with:

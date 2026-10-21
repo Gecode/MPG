@@ -252,7 +252,7 @@ It is straightforward to see how one would search for a single solution instead:
 Compiling, linking, and executing
 ---------------------------------
 
-This section assumes that you have built or installed the Gecode version used by this document, namely Gecode 6.4.0. It is a source release, so the usual path is to build Gecode locally and either use it directly from its build tree or install it into a prefix. If you have not done that yet, read :ref:`sec:m:started:obtain` first.
+This section assumes that you have built or installed the Gecode version used by this document, namely Gecode |release|. The usual path is to build Gecode locally and either use it directly from its build tree or install it into a prefix. If you have not done that yet, read :ref:`sec:m:started:obtain` first.
 
 The most convenient way to use an installed Gecode from a new project is through CMake. A minimal ``CMakeLists.txt`` for the ``send-more-money.cpp`` example is:
 
@@ -536,7 +536,7 @@ In :ref:`sec:m:comfy:cost` it is discussed how a simple ``cost()`` function can 
 Obtaining Gecode
 ----------------
 
-This section explains how to obtain Gecode. Gecode 6.4.0 is distributed as a source release. Some operating systems also provide Gecode packages, but those packages are maintained by the corresponding distribution and may not match the version used by this document. To get the version described here, download the source release and build it locally.
+This section explains how to obtain Gecode. Released editions are distributed as source archives. Some operating systems also provide Gecode packages, but those packages are maintained by the corresponding distribution and may not match the version used by this document. For a released edition, download the matching source archive and build it locally. During release preparation, use a development checkout containing the features described in this manual.
 
 .. _sec:m:started:install:
 
@@ -546,7 +546,7 @@ This section explains how to obtain Gecode. Gecode 6.4.0 is distributed as a so
 Installing Gecode
 ~~~~~~~~~~~~~~~~~
 
-The source archive is available from the `Gecode GitHub releases <https://github.com/Gecode/gecode/releases>`__. Download the archive for Gecode 6.4.0 and unpack it into a working directory. The commands in the next section assume that the source directory is called ``gecode-6.4.0``.
+The source archive is available from the `Gecode GitHub releases <https://github.com/Gecode/gecode/releases>`__. Download the archive matching Gecode |release| and unpack it into a working directory. The commands in the next section assume that the source directory name is ``gecode-`` followed by the version number. Rename a development checkout to that name, or substitute its actual path.
 
 .. _sec:m:started:install:windows:
 
@@ -573,7 +573,7 @@ Install Xcode or the Xcode command line tools. CMake can then use the Apple comp
 Installing Gecode on Linux and relatives
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Debian and Ubuntu Linux distributions come with pre-compiled packages for Gecode. These packages (and all the packages they depend on) can be installed with the usual package management tools. These packages can be useful for quick experiments. They are not the Gecode 6.4.0 release, and they should not be used when exact version matching matters.
+The Debian and Ubuntu Linux distributions come with pre-compiled packages for Gecode. These packages (and all the packages they depend on) can be installed with the usual package management tools. These packages can be useful for quick experiments. Check their version before using them with examples that require the Gecode edition described here.
 
 .. _sec:m:started:compile:
 
@@ -632,13 +632,13 @@ With single-configuration generators, the ``--config Release`` argument is harm
 .. mpg-paragraph:: Running the test suite.
 
 When tests are enabled, the CMake build provides three test targets. ``check``
-runs the basic integrity tests, ``check-normal`` runs the ordinary suite, and
+runs the basic integrity tests, ``check-standard`` runs the standard suite, and
 ``check-sweep`` runs the more expensive sweep tests:
 
 .. mpg-code:: snippet:m-started:sec:m:started:compile:cmd:4
    :direct:
 
-Each target selects tests with the corresponding tag: ``check``, ``normal``,
+Each target selects tests with the corresponding tag: ``check``, ``standard``,
 or ``sweep``. Tests declare their tags when they are registered. A test can
 belong to several groups; membership in one does not imply membership in
 another. :ref:`chap:p:testing` explains tag selection for tests that use the
@@ -817,7 +817,7 @@ The CMake build supports the following useful targets:
 
 - ``check`` builds and runs the basic integrity tests when tests are enabled.
 
-- ``check-normal`` builds and runs the ordinary test suite.
+- ``check-standard`` builds and runs the standard test suite.
 
 - ``check-sweep`` builds and runs the more expensive sweep tests.
 

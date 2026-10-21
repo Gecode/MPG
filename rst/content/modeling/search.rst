@@ -303,7 +303,7 @@ For each search engine there also exists a convenient shortcut function (of the 
 
 ``BAB`` continues search when a solution is found by adding a constraint (through the ``constrain()`` function as discussed in :ref:`sec:m:started:search-best`) to search for a better solution to all remaining nodes of the search tree.
 
-Note that the version of Gecode (6.4.0) this document corresponds to does not support parallel search for ``LDS``.
+Gecode does not support parallel search for ``LDS``.
 
 .. _sec:m:search:options:
 
@@ -376,6 +376,9 @@ The ``worker_control`` option lets a caller adjust how many workers a ``DFS`` or
 A zero request pauses search, even when the capacity is one. A positive request resumes it. While the engine is paused, ``next()`` may remain blocked until another thread resumes search. A :api:`Search::TimeStop` cannot wake a paused engine when its limit expires. Builds without thread support reject pausing and require controls to be used from a single thread.
 
 A default-constructed ``Search::WorkerControl`` is empty and leaves the worker count fixed. Copies of an initialized control share its request state. Each control can be attached to only one engine and cannot be reused after that engine is destroyed. For ``RBS`` with a ``DFS`` or ``BAB`` engine, the control applies to that engine across restarts. For portfolio assets, see :ref:`sec:m:search:portfolio:arbitrary`.
+
+The experimental ``AStar`` and ``CABS`` engines also accept ``worker_control``;
+see :ref:`sec:m:search:heuristic` for their parallel exploration behavior.
 
 .. _sec:m:search:stop:
 

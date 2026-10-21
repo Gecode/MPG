@@ -171,17 +171,17 @@ libraries.
 Selecting tests and reproducing failures
 ----------------------------------------
 
-The test belongs to both ``check`` and ``normal``. Tags select groups of tests;
+The test belongs to both ``check`` and ``standard``. Tags select groups of tests;
 membership in one group does not imply membership in another. A constructor
-without a tag argument assigns only ``normal``.
+without a tag argument assigns only ``standard``.
 
 The runner accepts one or more tag selections:
 
 .. code-block:: console
 
    ./build/less-test -tag check
-   ./build/less-test -tag normal
-   ./build/less-test -tag check -tag normal
+   ./build/less-test -tag standard
+   ./build/less-test -tag check -tag standard
    ./build/less-test -tag all
 
 Repeated ``-tag`` options form a union. A ``-test`` name filter and a tag

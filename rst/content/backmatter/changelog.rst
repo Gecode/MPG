@@ -5,6 +5,16 @@
 Changelog
 =========
 
+.. _changelog:2026-10-21:
+
+2026-10-21
+----------
+
+Prepared the Gecode 6.5.0 edition with adjustable search workers
+(:ref:`sec:m:search:workers`) and experimental heuristic search
+(:ref:`sec:m:search:heuristic`). Updated the test-library examples and build
+instructions to use the ``standard`` test tag and ``check-standard`` target.
+
 .. _changelog:2026-09-06:
 
 2026-09-06

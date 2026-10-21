@@ -34,7 +34,7 @@ class LessTest final : public ::Test::Int::Test {
 public:
   LessTest(void)
     : ::Test::Int::Test(
-        ::Test::TestTags(::Test::TestTag::check, ::Test::TestTag::normal),
+        ::Test::TestTags(::Test::TestTag::check, ::Test::TestTag::standard),
         "Less", 2, -3, 3, false, Gecode::IPL_DOM) {}
 
   bool solution(const ::Test::Int::Assignment& x) const override {

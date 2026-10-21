@@ -55,6 +55,7 @@ def clean_outputs(build: Path) -> None:
         "reports",
         "example-validation",
         "gecode-vis",
+        "gecode-test-install",
     ):
         path = build / name
         if path.is_dir():

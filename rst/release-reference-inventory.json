@@ -1,7 +1,7 @@
 {
-  "base_url": "/doc/6.4.0/reference/",
-  "gecode_version": "6.4.0",
-  "generated_by": "Gecode release Doxygen tag, reconciled with retained published 6.4.0 reference HTML",
+  "base_url": "/doc/6.5.0/reference/",
+  "gecode_version": "6.5.0",
+  "generated_by": "Gecode release Doxygen tag",
   "objects": {
     "Actor": {
       "title": "Gecode::Actor",
@@ -124,7 +124,7 @@
       "url": "classGecode_1_1DerivedView.html"
     },
     "Example": {
-      "title": "Example scripts (models)",
+      "title": "Example",
       "url": "group__Example.html"
     },
     "Exception": {
@@ -228,23 +228,23 @@
       "url": "classGecode_1_1FreeList.html"
     },
     "FuncMem": {
-      "title": "Memory management",
+      "title": "FuncMem",
       "url": "group__FuncMem.html"
     },
     "FuncMemAllocator": {
-      "title": "Using allocators with Gecode",
+      "title": "FuncMemAllocator",
       "url": "group__FuncMemAllocator.html"
     },
     "FuncMemHeap": {
-      "title": "%Heap memory management",
+      "title": "FuncMemHeap",
       "url": "group__FuncMemHeap.html"
     },
     "FuncMemRegion": {
-      "title": "Region memory management",
+      "title": "FuncMemRegion",
       "url": "group__FuncMemRegion.html"
     },
     "FuncMemSpace": {
-      "title": "Space-memory management",
+      "title": "FuncMemSpace",
       "url": "group__FuncMemSpace.html"
     },
     "Gecode": {
@@ -808,315 +808,315 @@
       "url": "classGecode_1_1TFE.html"
     },
     "TaskActor": {
-      "title": "Programming actors",
+      "title": "TaskActor",
       "url": "group__TaskActor.html"
     },
     "TaskActorIntMEPC": {
-      "title": "Integer modification events and propagation conditions",
+      "title": "TaskActorIntMEPC",
       "url": "group__TaskActorIntMEPC.html"
     },
     "TaskActorIntView": {
-      "title": "Integer views",
+      "title": "TaskActorIntView",
       "url": "group__TaskActorIntView.html"
     },
     "TaskActorStatus": {
-      "title": "Status of constraint propagation and branching commit",
+      "title": "TaskActorStatus",
       "url": "group__TaskActorStatus.html"
     },
     "TaskDriver": {
-      "title": "Script commandline driver",
+      "title": "TaskDriver",
       "url": "group__TaskDriver.html"
     },
     "TaskDriverScript": {
-      "title": "Script classes",
+      "title": "TaskDriverScript",
       "url": "group__TaskDriverScript.html"
     },
     "TaskFloatTrace": {
-      "title": "Tracing for float variables",
+      "title": "TaskFloatTrace",
       "url": "group__TaskFloatTrace.html"
     },
     "TaskIntTrace": {
-      "title": "Tracing for integer and Boolean variables",
+      "title": "TaskIntTrace",
       "url": "group__TaskIntTrace.html"
     },
     "TaskModelBranch": {
-      "title": "Generic branching support",
+      "title": "TaskModelBranch",
       "url": "group__TaskModelBranch.html"
     },
     "TaskModelBranchExec": {
-      "title": "Branch with a function",
+      "title": "TaskModelBranchExec",
       "url": "group__TaskModelBranchExec.html"
     },
     "TaskModelBranchTieBreak": {
-      "title": "Tie-breaking for variable selection",
+      "title": "TaskModelBranchTieBreak",
       "url": "group__TaskModelBranchTieBreak.html"
     },
     "TaskModelFloat": {
-      "title": "Using float variables and constraints",
+      "title": "TaskModelFloat",
       "url": "group__TaskModelFloat.html"
     },
     "TaskModelFloatArith": {
-      "title": "Arithmetic constraints",
+      "title": "TaskModelFloatArith",
       "url": "group__TaskModelFloatArith.html"
     },
     "TaskModelFloatBranch": {
-      "title": "Branching on float variables",
+      "title": "TaskModelFloatBranch",
       "url": "group__TaskModelFloatBranch.html"
     },
     "TaskModelFloatBranchAssign": {
-      "title": "Value selection for assigning float variables",
+      "title": "TaskModelFloatBranchAssign",
       "url": "group__TaskModelFloatBranchAssign.html"
     },
     "TaskModelFloatBranchVal": {
-      "title": "Value selection for float variables",
+      "title": "TaskModelFloatBranchVal",
       "url": "group__TaskModelFloatBranchVal.html"
     },
     "TaskModelFloatBranchVar": {
-      "title": "Variable selection for float variables",
+      "title": "TaskModelFloatBranchVar",
       "url": "group__TaskModelFloatBranchVar.html"
     },
     "TaskModelFloatChannel": {
-      "title": "Channel constraints",
+      "title": "TaskModelFloatChannel",
       "url": "group__TaskModelFloatChannel.html"
     },
     "TaskModelFloatDomain": {
-      "title": "Domain constraints",
+      "title": "TaskModelFloatDomain",
       "url": "group__TaskModelFloatDomain.html"
     },
     "TaskModelFloatExec": {
-      "title": "Synchronized execution",
+      "title": "TaskModelFloatExec",
       "url": "group__TaskModelFloatExec.html"
     },
     "TaskModelFloatLI": {
-      "title": "Linear constraints over float variables",
+      "title": "TaskModelFloatLI",
       "url": "group__TaskModelFloatLI.html"
     },
     "TaskModelFloatRelFloat": {
-      "title": "Simple relation constraints over float variables",
+      "title": "TaskModelFloatRelFloat",
       "url": "group__TaskModelFloatRelFloat.html"
     },
     "TaskModelFloatVars": {
-      "title": "Float variables",
+      "title": "TaskModelFloatVars",
       "url": "group__TaskModelFloatVars.html"
     },
     "TaskModelInt": {
-      "title": "Using integer variables and constraints",
+      "title": "TaskModelInt",
       "url": "group__TaskModelInt.html"
     },
     "TaskModelIntArgs": {
-      "title": "Argument arrays",
+      "title": "TaskModelIntArgs",
       "url": "group__TaskModelIntArgs.html"
     },
     "TaskModelIntArith": {
-      "title": "Arithmetic constraints",
+      "title": "TaskModelIntArith",
       "url": "group__TaskModelIntArith.html"
     },
     "TaskModelIntBinPacking": {
-      "title": "Bin packing constraints",
+      "title": "TaskModelIntBinPacking",
       "url": "group__TaskModelIntBinPacking.html"
     },
     "TaskModelIntBranch": {
-      "title": "Branching",
+      "title": "TaskModelIntBranch",
       "url": "group__TaskModelIntBranch.html"
     },
     "TaskModelIntBranchAssign": {
-      "title": "Value selection for assigning integer variables",
+      "title": "TaskModelIntBranchAssign",
       "url": "group__TaskModelIntBranchAssign.html"
     },
     "TaskModelIntBranchSymm": {
-      "title": "Symmetry declarations",
+      "title": "TaskModelIntBranchSymm",
       "url": "group__TaskModelIntBranchSymm.html"
     },
     "TaskModelIntBranchVal": {
-      "title": "Value selection for integer and Boolean variables",
+      "title": "TaskModelIntBranchVal",
       "url": "group__TaskModelIntBranchVal.html"
     },
     "TaskModelIntBranchVar": {
-      "title": "Variable selection for integer and Boolean variables",
+      "title": "TaskModelIntBranchVar",
       "url": "group__TaskModelIntBranchVar.html"
     },
     "TaskModelIntChannel": {
-      "title": "Channel constraints",
+      "title": "TaskModelIntChannel",
       "url": "group__TaskModelIntChannel.html"
     },
     "TaskModelIntCount": {
-      "title": "Counting constraints",
+      "title": "TaskModelIntCount",
       "url": "group__TaskModelIntCount.html"
     },
     "TaskModelIntDistinct": {
-      "title": "Distinct constraints",
+      "title": "TaskModelIntDistinct",
       "url": "group__TaskModelIntDistinct.html"
     },
     "TaskModelIntDomain": {
-      "title": "Domain constraints",
+      "title": "TaskModelIntDomain",
       "url": "group__TaskModelIntDomain.html"
     },
     "TaskModelIntElement": {
-      "title": "Element constraints",
+      "title": "TaskModelIntElement",
       "url": "group__TaskModelIntElement.html"
     },
     "TaskModelIntExec": {
-      "title": "Synchronized execution",
+      "title": "TaskModelIntExec",
       "url": "group__TaskModelIntExec.html"
     },
     "TaskModelIntExt": {
-      "title": "Extensional constraints",
+      "title": "TaskModelIntExt",
       "url": "group__TaskModelIntExt.html"
     },
     "TaskModelIntGeoPacking": {
-      "title": "Geometrical packing constraints",
+      "title": "TaskModelIntGeoPacking",
       "url": "group__TaskModelIntGeoPacking.html"
     },
     "TaskModelIntGraph": {
-      "title": "Graph constraints",
+      "title": "TaskModelIntGraph",
       "url": "group__TaskModelIntGraph.html"
     },
     "TaskModelIntLB": {
-      "title": "Linear constraints over Boolean variables",
+      "title": "TaskModelIntLB",
       "url": "group__TaskModelIntLB.html"
     },
     "TaskModelIntLI": {
-      "title": "Linear constraints over integer variables",
+      "title": "TaskModelIntLI",
       "url": "group__TaskModelIntLI.html"
     },
     "TaskModelIntMember": {
-      "title": "Membership constraints",
+      "title": "TaskModelIntMember",
       "url": "group__TaskModelIntMember.html"
     },
     "TaskModelIntNValues": {
-      "title": "Number of values constraints",
+      "title": "TaskModelIntNValues",
       "url": "group__TaskModelIntNValues.html"
     },
     "TaskModelIntPrecede": {
-      "title": "Value precedence constraints over integer variables",
+      "title": "TaskModelIntPrecede",
       "url": "group__TaskModelIntPrecede.html"
     },
     "TaskModelIntRelBool": {
-      "title": "Simple relation constraints over Boolean variables",
+      "title": "TaskModelIntRelBool",
       "url": "group__TaskModelIntRelBool.html"
     },
     "TaskModelIntRelInt": {
-      "title": "Simple relation constraints over integer variables",
+      "title": "TaskModelIntRelInt",
       "url": "group__TaskModelIntRelInt.html"
     },
     "TaskModelIntScheduling": {
-      "title": "Scheduling constraints",
+      "title": "TaskModelIntScheduling",
       "url": "group__TaskModelIntScheduling.html"
     },
     "TaskModelIntSequence": {
-      "title": "Sequence constraints",
+      "title": "TaskModelIntSequence",
       "url": "group__TaskModelIntSequence.html"
     },
     "TaskModelIntSorted": {
-      "title": "Sorted constraints",
+      "title": "TaskModelIntSorted",
       "url": "group__TaskModelIntSorted.html"
     },
     "TaskModelIntUnshare": {
-      "title": "Unsharing variables",
+      "title": "TaskModelIntUnshare",
       "url": "group__TaskModelIntUnshare.html"
     },
     "TaskModelMiniModel": {
-      "title": "Direct modeling support",
+      "title": "TaskModelMiniModel",
       "url": "group__TaskModelMiniModel.html"
     },
     "TaskModelMiniModelArith": {
-      "title": "Arithmetic functions",
+      "title": "TaskModelMiniModelArith",
       "url": "group__TaskModelMiniModelArith.html"
     },
     "TaskModelMiniModelBool": {
-      "title": "Boolean expressions",
+      "title": "TaskModelMiniModelBool",
       "url": "group__TaskModelMiniModelBool.html"
     },
     "TaskModelMiniModelChannel": {
-      "title": "Channel functions",
+      "title": "TaskModelMiniModelChannel",
       "url": "group__TaskModelMiniModelChannel.html"
     },
     "TaskModelMiniModelFloat": {
-      "title": "Linear float expressions and relations",
+      "title": "TaskModelMiniModelFloat",
       "url": "group__TaskModelMiniModelFloat.html"
     },
     "TaskModelMiniModelIntAlias": {
-      "title": "Aliases for integer constraints",
+      "title": "TaskModelMiniModelIntAlias",
       "url": "group__TaskModelMiniModelIntAlias.html"
     },
     "TaskModelMiniModelLin": {
-      "title": "Linear expressions and relations",
+      "title": "TaskModelMiniModelLin",
       "url": "group__TaskModelMiniModelLin.html"
     },
     "TaskModelMiniModelOptimize": {
-      "title": "Support for cost-based optimization",
+      "title": "TaskModelMiniModelOptimize",
       "url": "group__TaskModelMiniModelOptimize.html"
     },
     "TaskModelMiniModelPost": {
-      "title": "Posting of expressions and relations",
+      "title": "TaskModelMiniModelPost",
       "url": "group__TaskModelMiniModelPost.html"
     },
     "TaskModelMiniModelSet": {
-      "title": "Set expressions and relations",
+      "title": "TaskModelMiniModelSet",
       "url": "group__TaskModelMiniModelSet.html"
     },
     "TaskModelMiniModelSetAlias": {
-      "title": "Aliases for set constraints",
+      "title": "TaskModelMiniModelSetAlias",
       "url": "group__TaskModelMiniModelSetAlias.html"
     },
     "TaskModelMiniModelTrans": {
-      "title": "Transcendental functions",
+      "title": "TaskModelMiniModelTrans",
       "url": "group__TaskModelMiniModelTrans.html"
     },
     "TaskModelMiniModelTrigo": {
-      "title": "Trigonometric functions",
+      "title": "TaskModelMiniModelTrigo",
       "url": "group__TaskModelMiniModelTrigo.html"
     },
     "TaskModelSearchStop": {
-      "title": "Stop-objects for stopping search",
+      "title": "TaskModelSearchStop",
       "url": "group__TaskModelSearchStop.html"
     },
     "TaskModelSet": {
-      "title": "Using integer set variables and constraints",
+      "title": "TaskModelSet",
       "url": "group__TaskModelSet.html"
     },
     "TaskModelSetArgs": {
-      "title": "Argument arrays",
+      "title": "TaskModelSetArgs",
       "url": "group__TaskModelSetArgs.html"
     },
     "TaskModelSetBranch": {
-      "title": "Branching",
+      "title": "TaskModelSetBranch",
       "url": "group__TaskModelSetBranch.html"
     },
     "TaskModelSetBranchAssign": {
-      "title": "Assigning set variables",
+      "title": "TaskModelSetBranchAssign",
       "url": "group__TaskModelSetBranchAssign.html"
     },
     "TaskModelSetBranchVal": {
-      "title": "Value selection for set variables",
+      "title": "TaskModelSetBranchVal",
       "url": "group__TaskModelSetBranchVal.html"
     },
     "TaskModelSetBranchVar": {
-      "title": "Selecting set variables",
+      "title": "TaskModelSetBranchVar",
       "url": "group__TaskModelSetBranchVar.html"
     },
     "TaskModelSetConvex": {
-      "title": "Convexity constraints",
+      "title": "TaskModelSetConvex",
       "url": "group__TaskModelSetConvex.html"
     },
     "TaskModelSetDom": {
-      "title": "Domain constraints",
+      "title": "TaskModelSetDom",
       "url": "group__TaskModelSetDom.html"
     },
     "TaskModelSetRel": {
-      "title": "Relation constraints",
+      "title": "TaskModelSetRel",
       "url": "group__TaskModelSetRel.html"
     },
     "TaskModelSetRelOp": {
-      "title": "Set operation/relation constraints",
+      "title": "TaskModelSetRelOp",
       "url": "group__TaskModelSetRelOp.html"
     },
     "TaskModelSetSequence": {
-      "title": "Sequence constraints",
+      "title": "TaskModelSetSequence",
       "url": "group__TaskModelSetSequence.html"
     },
     "TaskPropPat": {
-      "title": "Propagator patterns",
+      "title": "TaskPropPat",
       "url": "group__TaskPropPat.html"
     },
     "TaskSearch": {
@@ -1124,11 +1124,11 @@
       "url": "group__TaskSearch.html"
     },
     "TaskSetTrace": {
-      "title": "Tracing for set variables",
+      "title": "TaskSetTrace",
       "url": "group__TaskSetTrace.html"
     },
     "TaskVarMEPC": {
-      "title": "Generic modification events and propagation conditions",
+      "title": "TaskVarMEPC",
       "url": "group__TaskVarMEPC.html"
     },
     "TernaryPropagator": {

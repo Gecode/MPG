@@ -47,6 +47,7 @@ Gecode's constraints, branchings, variables, and search engines are built.
       :ref:`P — Programming propagators <part:p>`
 
       * :doc:`propagators/started`
+      * :doc:`propagators/testing`
       * :doc:`propagators/avoid`
       * :doc:`propagators/reified`
       * :doc:`propagators/domain`
