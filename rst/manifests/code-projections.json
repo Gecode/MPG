@@ -4861,6 +4861,14 @@
       "path": "rst/examples/fragments/minimum-distance.cpp",
       "sha256": "fcabf056d59e3ce0b1cf07f5fdfff3d26d37694d85a3a99b9003e53ce362a433",
       "validation": "display-only"
+    },
+    {
+      "bytes": 80,
+      "id": "inter-distance",
+      "language": "cpp",
+      "path": "rst/examples/fragments/inter-distance.cpp",
+      "sha256": "f6a24cb1e13f1b7f683ab8bd9ba2a40da17f00891769d641cbf3315b94e1432b",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -15131,6 +15139,15 @@
       "sha256": "2afaf0f2a62c138206a06ad4048d3b4a4b0efb1d1a849d5089be0dd5bb4dafef",
       "start_line": 75,
       "title": "prune event"
+    },
+    "inter distance separation": {
+      "artifact": "rst/examples/fragments/inter-distance.cpp",
+      "bytes": 80,
+      "end_line": 3,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "f6a24cb1e13f1b7f683ab8bd9ba2a40da17f00891769d641cbf3315b94e1432b",
+      "start_line": 1
     },
     "intersection": {
       "artifact": "rst/examples/src/intersection.cpp",

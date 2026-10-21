@@ -1206,6 +1206,55 @@ Gecode offers value (the default), bounds (based on :cite:`distinctbnd`), and d
 
 For examples, see in particular :ref:`chap:c:golomb`, :api:`n-Queens puzzle <queens.cpp>`, and :api:`Crowded chessboard <crowded-chess.cpp>`.
 
+.. _sec:m:integer:inter-distance:
+
+Separation between integer values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The :api:`inter-distance constraint <TaskModelIntInterDistance>` requires
+integer variables to be separated by at least a given distance. Posting
+``inter_distance(home, x, p)`` constrains
+
+.. math::
+
+   |\mathtt{x}_i-\mathtt{x}_j|\geq\mathtt{p}
+   \qquad\mbox{for }0\leq i<j<|\mathtt{x}|.
+
+The separation ``p`` can be an integer value or an integer variable. For
+example:
+
+.. mpg-code:: inter distance separation
+   :direct:
+
+Here, the three values must fit between zero and eight, so the largest
+possible separation is four. The constraint permits any smaller
+nonnegative separation as well: ``p`` is a lower bound on every pairwise
+distance, rather than their exact minimum. The distances are between the
+integer values themselves. For choices of sites with a supplied distance
+function, see :ref:`sec:m:integer:minimum-distance`.
+
+A fixed separation must be nonnegative. Zero imposes no restriction; one
+uses a bounds-consistent ``distinct`` propagator. With fewer than two
+variables, a fixed separation imposes no restriction, while a variable
+separation is only constrained to be nonnegative. For positive separation,
+repeated occurrences of the same unassigned variable raise
+``Int::ArgumentSame``. For the variable overload, this restriction applies
+when ``p`` can be positive; ``p`` must also be different from every
+unassigned variable in ``x`` when there are at least two positions.
+
+Propagation treats domains with holes as intervals between their bounds.
+``IPL_BASIC`` checks interval feasibility in :math:`O(n\log n)` time and
+linear temporary space, where :math:`n=|\mathtt{x}|`. For variable
+separation it also tightens the upper bound of ``p`` by binary search, in
+:math:`O(n\log n\log(1+\max(\mathtt{p})))` time.
+``IPL_ADVANCED`` and ``IPL_BASIC_ADVANCED`` run the basic check followed by
+quadratic bounds(Z) filtering, using quadratic temporary space. For a
+variable separation, this filtering uses the minimum of ``p``; together
+with the upper-bound filtering it provides bounds(Z) consistency for the
+whole constraint. The default ``IPL_DEF`` uses both stages. The
+value/bounds/domain part of the propagation level does not change these
+algorithms.
+
 .. _sec:m:integer:minimum-distance:
 
 Minimum distance between selected sites
