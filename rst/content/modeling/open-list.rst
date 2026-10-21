@@ -43,9 +43,10 @@ of a graph arc, and only state four is accepting. The open-list overload of
 graph arcs, and end at four. The ``distinct`` constraint excludes revisits.
 Both constraints follow the list as it grows.
 
-The regular constraint can rule out a prefix that cannot reach an accepting
-state within the remaining length bound. It can also restrict the eventual
-length. It does not wait until a complete route has been constructed.
+The regular constraint prunes the node variables as the prefix grows.
+When the list closes, it requires the route to end in an accepting state.
+It does not prune the eventual-length variable or check whether an open
+prefix can reach an accepting state within the remaining length bound.
 
 .. _sec:m:open:prefix:
 
@@ -78,15 +79,15 @@ their variables.
 .. _sec:m:open:branch:
 
 Choosing values and length
--------------------------
+--------------------------
 
 The open-list brancher selects among the constructed variables using ordinary
 variable and value selectors. In the route example, ``INT_VAR_NONE()`` and
 ``INT_VAL_MIN()`` assign positions from left to right, trying smaller node
 numbers first. Once these variables are assigned, the brancher first tries
 closing the list. Its other alternative requires one more position and
-continues selecting values. Propagation may require further positions in
-either alternative.
+continues selecting values. Propagation can require more than one new
+position when the list grows.
 
 To choose the complete length first, post a brancher on ``route.length()``
 before the list brancher. Branchers run in posting order, so the length is
@@ -103,20 +104,19 @@ supports this comparison. Build the downloaded source as described in
 Both searches find the same five routes. They use different search trees and
 can return the routes in different orders. The default search constructs a
 route incrementally; the second search tries the shorter lengths first.
-Neither order is generally best for every problem.
+The better order depends on the problem.
 
 Selectors and filters operate on the constructed prefix. Filter and print
 callbacks receive the position in the list. Action and CHB selectors require
 the whole list to have been constructed when the brancher is posted;
 otherwise posting throws ``Int::UnknownBranching``. Give the list a finite
-application bound whenever possible. An unbounded family of longer routes
-can prevent search from finishing even if a few short solutions are easy
-to find.
+application bound whenever possible. Exploring longer routes can be very
+expensive even if a few short solutions are easy to find.
 
 .. _sec:m:open:constraints:
 
 Constraints that follow growth
------------------------------
+------------------------------
 
 An open list has its own constraint overloads. Passing the current prefix
 to a constraint on a fixed array would constrain only the variables already
@@ -129,10 +129,9 @@ eventual nonempty sequence, and value precedence through ``precede``. The
 open ``distinct`` constraint is value consistent; its propagation-level
 argument does not select stronger filtering.
 
-Regular constraints are available for integer and Boolean lists. A prefix
-must still admit an accepting completion within the length bounds. When the
-list closes, the complete sequence must be accepted by the automaton. This
-differs from requiring every intermediate prefix to be an accepted word.
+Regular constraints are available for integer and Boolean lists. The
+complete sequence must be accepted by the automaton when the list closes;
+intermediate prefixes need not be accepted words.
 
 .. _sec:m:open:copy:
 

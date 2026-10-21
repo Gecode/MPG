@@ -23,11 +23,11 @@ final merges.
   proof status, widening, keyed candidate dominance, and parallel search.
   These engines remain an opt-in experimental preview.
 
-## Documentation still needed
+## Documentation topics
 
 | Change | Where it belongs | Required coverage |
 | --- | --- | --- |
-| Open variable lists (`open-cp`, carried by `open-search`) | Integer variables, extensional constraints, and branching; a connected walkthrough may warrant a separate chapter | Explain `OpenVarList`, integer and Boolean factories, known prefix versus variable length, materialization and closure, constraints following growth, cloning and callback lifetimes. Show value-first versus length-first branching, open regular constraints, and a small complete example based on `open-route`. Explain the default NoGPI scopes in factories and transitions. |
+| Open variable lists (`open-cp`, carried by `open-search`) | `content/modeling/open-list.rst` | Added a route walkthrough, prefix and length semantics, growing constraints, branching orders, cloning, factories, and transitions. Both branching orders enumerate the five expected routes. Reviewed and copy-edited by a fresh Astra medium agent against the combined Gecode source. |
 | GCD, divisibility, and n-ary products (`6e68e4dce7`) | `content/modeling/integer.rst`, arithmetic constraints | Cover `gcd`, reified `divides`, `product`, and `product_mod`; negative operands, zero, empty products, positive moduli, Euclidean residues versus `mod`, full and half reification, and the absence of a consistency guarantee. A historical TeX-only patch exists at MPG `0b4f2eb`; adapt its content to maintained RST and check it against the current API rather than merging the old source tree. |
 | Nondeterministic automata (`540dab13a6`) | `content/modeling/integer.rst`, extensional constraints | Extend the current DFA-only account with `DFA::nfa`, array and initializer-list forms, multiple transitions for a state and symbol, no epsilon transitions, and no determinization or minimization. Show a small regular constraint using an NFA. |
 | Minimum distance (`bec9ea9465`, #249) | `content/modeling/integer.rst`, constraint overview | Define the minimum pair distance, indexed sites and `IntDistance`, matrix versus callable distances and callback ownership/thread safety, optional pair requirements, repeated sites versus explicit distinctness, single versus decomposed propagation, and the optional matching bound. Distinguish incomplete propagation from bounds or domain consistency. |
