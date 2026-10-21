@@ -1233,14 +1233,17 @@ distance, rather than their exact minimum. The distances are between the
 integer values themselves. For choices of sites with a supplied distance
 function, see :ref:`sec:m:integer:minimum-distance`.
 
-A fixed separation must be nonnegative. Zero imposes no restriction; one
+A fixed separation must be nonnegative; a variable separation is
+constrained to be nonnegative. Zero imposes no restriction on ``x``; one
 uses a bounds-consistent ``distinct`` propagator. With fewer than two
 variables, a fixed separation imposes no restriction, while a variable
 separation is only constrained to be nonnegative. For positive separation,
 repeated occurrences of the same unassigned variable raise
 ``Int::ArgumentSame``. For the variable overload, this restriction applies
-when ``p`` can be positive; ``p`` must also be different from every
-unassigned variable in ``x`` when there are at least two positions.
+when ``p`` can be positive; ``p`` must also be a different variable from
+every unassigned variable in ``x`` when there are at least two positions.
+Equal assigned values do not raise this exception, but violate the
+constraint when the separation is positive.
 
 Propagation treats domains with holes as intervals between their bounds.
 ``IPL_BASIC`` checks interval feasibility in :math:`O(n\log n)` time and
