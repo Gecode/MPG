@@ -311,7 +311,7 @@ thead th { color: var(--mpg-blue-dark); border-bottom: 2px solid var(--mpg-blue)
 .mpg-page-nav a { color: var(--mpg-ink); font-size: .84rem; text-decoration: none; }
 
 @media (max-width: 64rem) {
-  html { background: white; }
+  html { background: white; scroll-padding-top: 6rem; }
 }
 
 @media (max-width: 40rem) {

@@ -240,6 +240,8 @@ def main() -> int:
                          r"chapter:fixture-classical"):
             if expected not in latex:
                 raise RuntimeError(f"LaTeX omitted {expected}")
+        if latex.count(r"\label{\detokenize{chapter:fixture-classical}}") != 1:
+            raise RuntimeError("run-in heading must have exactly one PDF target")
         adapter = (latex_output / "mpg-sphinx.sty").read_text(encoding="utf-8")
         for expected in (r"pdflang={en-GB}", r"pdfdisplaydoctitle=true",
                          r"https://www.gecode.dev/doc/\MPGGecodeVersion/MPG.pdf",

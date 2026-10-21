@@ -189,7 +189,6 @@ def _remove_duplicate_part_page_title(app, doctree: nodes.document, docname: str
 
 
 def visit_mpg_paragraph_latex(translator, node: MpgParagraph) -> None:
-    translator.body.append(translator.hypertarget_to(node))
     translator.body.append(r"\paragraph*{")
 
 

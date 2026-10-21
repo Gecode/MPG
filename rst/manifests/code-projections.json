@@ -4197,21 +4197,21 @@
       "validation": "display-only"
     },
     {
-      "bytes": 71,
+      "bytes": 62,
       "id": "snippet-snippets-m-started-cmd-015",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-015.sh",
       "reason": "command transcript",
-      "sha256": "4f6f8b6b2ac575aee6a77ffa6a61f2977aaa123627dadb57854cdc95e985e434",
+      "sha256": "6fa3d1ea25c4daff2b2914678115e5dd297c18ea5eef0f994baa98d906afd25e",
       "validation": "display-only"
     },
     {
-      "bytes": 40,
+      "bytes": 31,
       "id": "snippet-snippets-m-started-cmd-016",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-016.sh",
       "reason": "command transcript",
-      "sha256": "a24918476252b3d54cd4240530de749f11165013a294f01470a69c876d7ec85f",
+      "sha256": "a161164b70f13879d6306a9908ee800b83157c0832ff208485f33fe1fb14983b",
       "validation": "display-only"
     },
     {
@@ -4260,75 +4260,75 @@
       "validation": "display-only"
     },
     {
-      "bytes": 64,
+      "bytes": 55,
       "id": "snippet-snippets-m-started-cmd-022",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-022.sh",
       "reason": "command transcript",
-      "sha256": "2fe5221ad250f4044115761657e53aa389c5938905f79b02a8d61bd68469ef53",
+      "sha256": "ad9e2349bdafb74ca8cd5be3fd52260f54ebe4c96043e6d20655bcd4828ecf8a",
       "validation": "display-only"
     },
     {
-      "bytes": 73,
+      "bytes": 64,
       "id": "snippet-snippets-m-started-cmd-023",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-023.sh",
       "reason": "command transcript",
-      "sha256": "7c49b370a203f6f84b2e199660edce643f0a8eb2a3da72488d1a30da1ba46a63",
+      "sha256": "227a36166092097e16fe00a9aef44b05202a253d91efb2178c866f9df15536d5",
       "validation": "display-only"
     },
     {
-      "bytes": 186,
+      "bytes": 177,
       "id": "snippet-snippets-m-started-cmd-024",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-024.sh",
       "reason": "command transcript",
-      "sha256": "d1e2f38fed59e4f1b16fc36117949a9bc196bfed15a08ce28b6932e83f2858e4",
+      "sha256": "ed641d9d87b2a784470c33c3f2e6750ee7476d36d20af7d49572ee538f13a918",
       "validation": "display-only"
     },
     {
-      "bytes": 65,
+      "bytes": 56,
       "id": "snippet-snippets-m-started-cmd-025",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-025.sh",
       "reason": "command transcript",
-      "sha256": "b34ac2a3e502058f6e22d17d95e8fb74d3fdc5d682730b3262877776e79e3b5f",
+      "sha256": "0034b7190cbe049c26c8f55dc709c277f7e314dc46cbe3b523a703925fdf3b03",
       "validation": "display-only"
     },
     {
-      "bytes": 65,
+      "bytes": 56,
       "id": "snippet-snippets-m-started-cmd-026",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-026.sh",
       "reason": "command transcript",
-      "sha256": "5d328a6da0a2f4a2c989b094f25048bf8577151b5ed3916f712a115f88e906fe",
+      "sha256": "192f8d4c428000ac05f363293d47f078328a95c71de28671329ec7e995d065ef",
       "validation": "display-only"
     },
     {
-      "bytes": 85,
+      "bytes": 76,
       "id": "snippet-snippets-m-started-cmd-027",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-027.sh",
       "reason": "command transcript",
-      "sha256": "06df041be7b302abcdd3546672c5f3a3529ba7866e300481871418ca0f90f740",
+      "sha256": "8ada02d8fe04c1f7ac801159aee88c18185c414238db5e988dd9c3663fce08c2",
       "validation": "display-only"
     },
     {
-      "bytes": 74,
+      "bytes": 65,
       "id": "snippet-snippets-m-started-cmd-028",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-028.sh",
       "reason": "command transcript",
-      "sha256": "95099432f521cf621afb80396188f817a7a2e641a9267ee29fe514ff2c688eff",
+      "sha256": "25a036ea92fe7ae6044c0b9cd01dc65e5d899304664482adcc21a0cb93bc80b7",
       "validation": "display-only"
     },
     {
-      "bytes": 78,
+      "bytes": 69,
       "id": "snippet-snippets-m-started-cmd-029",
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-029.sh",
       "reason": "command transcript",
-      "sha256": "fd1f9ffd003a1ea91aa97d64b84222a161c9c83bca8df4c98bb0fa4e20061989",
+      "sha256": "79a77b00adc4e2b23017fabd33684fccbeefa71e6f96e571f2432e93a0c29db5",
       "validation": "display-only"
     },
     {
@@ -30922,41 +30922,41 @@
     },
     "snippet:m-started:par:s:started:allocator:cmd:1": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-028.sh",
-      "bytes": 74,
+      "bytes": 65,
       "end_line": 2,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 74,
+            "bytes": 65,
             "end_line": 2,
-            "sha256": "95099432f521cf621afb80396188f817a7a2e641a9267ee29fe514ff2c688eff",
+            "sha256": "25a036ea92fe7ae6044c0b9cd01dc65e5d899304664482adcc21a0cb93bc80b7",
             "start_line": 1
           }
         }
       ],
-      "sha256": "95099432f521cf621afb80396188f817a7a2e641a9267ee29fe514ff2c688eff",
+      "sha256": "25a036ea92fe7ae6044c0b9cd01dc65e5d899304664482adcc21a0cb93bc80b7",
       "small": false,
       "start_line": 1
     },
     "snippet:m-started:par:s:started:allocator:cmd:2": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-029.sh",
-      "bytes": 78,
+      "bytes": 69,
       "end_line": 2,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 78,
+            "bytes": 69,
             "end_line": 2,
-            "sha256": "fd1f9ffd003a1ea91aa97d64b84222a161c9c83bca8df4c98bb0fa4e20061989",
+            "sha256": "79a77b00adc4e2b23017fabd33684fccbeefa71e6f96e571f2432e93a0c29db5",
             "start_line": 1
           }
         }
       ],
-      "sha256": "fd1f9ffd003a1ea91aa97d64b84222a161c9c83bca8df4c98bb0fa4e20061989",
+      "sha256": "79a77b00adc4e2b23017fabd33684fccbeefa71e6f96e571f2432e93a0c29db5",
       "small": false,
       "start_line": 1
     },
@@ -30982,41 +30982,41 @@
     },
     "snippet:m-started:sec:m:started:compile:cmd:1": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-015.sh",
-      "bytes": 71,
+      "bytes": 62,
       "end_line": 2,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 71,
+            "bytes": 62,
             "end_line": 2,
-            "sha256": "4f6f8b6b2ac575aee6a77ffa6a61f2977aaa123627dadb57854cdc95e985e434",
+            "sha256": "6fa3d1ea25c4daff2b2914678115e5dd297c18ea5eef0f994baa98d906afd25e",
             "start_line": 1
           }
         }
       ],
-      "sha256": "4f6f8b6b2ac575aee6a77ffa6a61f2977aaa123627dadb57854cdc95e985e434",
+      "sha256": "6fa3d1ea25c4daff2b2914678115e5dd297c18ea5eef0f994baa98d906afd25e",
       "small": false,
       "start_line": 1
     },
     "snippet:m-started:sec:m:started:compile:cmd:2": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-016.sh",
-      "bytes": 40,
+      "bytes": 31,
       "end_line": 1,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 40,
+            "bytes": 31,
             "end_line": 1,
-            "sha256": "a24918476252b3d54cd4240530de749f11165013a294f01470a69c876d7ec85f",
+            "sha256": "a161164b70f13879d6306a9908ee800b83157c0832ff208485f33fe1fb14983b",
             "start_line": 1
           }
         }
       ],
-      "sha256": "a24918476252b3d54cd4240530de749f11165013a294f01470a69c876d7ec85f",
+      "sha256": "a161164b70f13879d6306a9908ee800b83157c0832ff208485f33fe1fb14983b",
       "small": false,
       "start_line": 1
     },
@@ -31082,101 +31082,101 @@
     },
     "snippet:m-started:sec:m:started:compileadvanced:cmd:1": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-023.sh",
-      "bytes": 73,
+      "bytes": 64,
       "end_line": 2,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 73,
+            "bytes": 64,
             "end_line": 2,
-            "sha256": "7c49b370a203f6f84b2e199660edce643f0a8eb2a3da72488d1a30da1ba46a63",
+            "sha256": "227a36166092097e16fe00a9aef44b05202a253d91efb2178c866f9df15536d5",
             "start_line": 1
           }
         }
       ],
-      "sha256": "7c49b370a203f6f84b2e199660edce643f0a8eb2a3da72488d1a30da1ba46a63",
+      "sha256": "227a36166092097e16fe00a9aef44b05202a253d91efb2178c866f9df15536d5",
       "small": false,
       "start_line": 1
     },
     "snippet:m-started:sec:m:started:compileadvanced:cmd:2": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-024.sh",
-      "bytes": 186,
+      "bytes": 177,
       "end_line": 5,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 186,
+            "bytes": 177,
             "end_line": 5,
-            "sha256": "d1e2f38fed59e4f1b16fc36117949a9bc196bfed15a08ce28b6932e83f2858e4",
+            "sha256": "ed641d9d87b2a784470c33c3f2e6750ee7476d36d20af7d49572ee538f13a918",
             "start_line": 1
           }
         }
       ],
-      "sha256": "d1e2f38fed59e4f1b16fc36117949a9bc196bfed15a08ce28b6932e83f2858e4",
+      "sha256": "ed641d9d87b2a784470c33c3f2e6750ee7476d36d20af7d49572ee538f13a918",
       "small": false,
       "start_line": 1
     },
     "snippet:m-started:sec:m:started:compileadvanced:cmd:3": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-025.sh",
-      "bytes": 65,
+      "bytes": 56,
       "end_line": 1,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 65,
+            "bytes": 56,
             "end_line": 1,
-            "sha256": "b34ac2a3e502058f6e22d17d95e8fb74d3fdc5d682730b3262877776e79e3b5f",
+            "sha256": "0034b7190cbe049c26c8f55dc709c277f7e314dc46cbe3b523a703925fdf3b03",
             "start_line": 1
           }
         }
       ],
-      "sha256": "b34ac2a3e502058f6e22d17d95e8fb74d3fdc5d682730b3262877776e79e3b5f",
+      "sha256": "0034b7190cbe049c26c8f55dc709c277f7e314dc46cbe3b523a703925fdf3b03",
       "small": false,
       "start_line": 1
     },
     "snippet:m-started:sec:m:started:compileadvanced:cmd:4": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-026.sh",
-      "bytes": 65,
+      "bytes": 56,
       "end_line": 1,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 65,
+            "bytes": 56,
             "end_line": 1,
-            "sha256": "5d328a6da0a2f4a2c989b094f25048bf8577151b5ed3916f712a115f88e906fe",
+            "sha256": "192f8d4c428000ac05f363293d47f078328a95c71de28671329ec7e995d065ef",
             "start_line": 1
           }
         }
       ],
-      "sha256": "5d328a6da0a2f4a2c989b094f25048bf8577151b5ed3916f712a115f88e906fe",
+      "sha256": "192f8d4c428000ac05f363293d47f078328a95c71de28671329ec7e995d065ef",
       "small": false,
       "start_line": 1
     },
     "snippet:m-started:sec:m:started:compileadvanced:cmd:5": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-027.sh",
-      "bytes": 85,
+      "bytes": 76,
       "end_line": 2,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 85,
+            "bytes": 76,
             "end_line": 2,
-            "sha256": "06df041be7b302abcdd3546672c5f3a3529ba7866e300481871418ca0f90f740",
+            "sha256": "8ada02d8fe04c1f7ac801159aee88c18185c414238db5e988dd9c3663fce08c2",
             "start_line": 1
           }
         }
       ],
-      "sha256": "06df041be7b302abcdd3546672c5f3a3529ba7866e300481871418ca0f90f740",
+      "sha256": "8ada02d8fe04c1f7ac801159aee88c18185c414238db5e988dd9c3663fce08c2",
       "small": false,
       "start_line": 1
     },
@@ -31402,21 +31402,21 @@
     },
     "snippet:m-started:tip:m:started:install:ld:cmd:3": {
       "artifact": "rst/examples/fragments/snippets/m-started/cmd-022.sh",
-      "bytes": 64,
+      "bytes": 55,
       "end_line": 1,
       "kind": "command",
       "language": "console",
       "segments": [
         {
           "source": {
-            "bytes": 64,
+            "bytes": 55,
             "end_line": 1,
-            "sha256": "2fe5221ad250f4044115761657e53aa389c5938905f79b02a8d61bd68469ef53",
+            "sha256": "ad9e2349bdafb74ca8cd5be3fd52260f54ebe4c96043e6d20655bcd4828ecf8a",
             "start_line": 1
           }
         }
       ],
-      "sha256": "2fe5221ad250f4044115761657e53aa389c5938905f79b02a8d61bd68469ef53",
+      "sha256": "ad9e2349bdafb74ca8cd5be3fd52260f54ebe4c96043e6d20655bcd4828ecf8a",
       "small": false,
       "start_line": 1
     },

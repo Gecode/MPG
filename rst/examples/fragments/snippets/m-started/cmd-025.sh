@@ -1,1 +1,1 @@
-cmake -S gecode-\GecodeVersion -B build -DCMAKE_BUILD_TYPE=Debug
+cmake -S gecode-6.5.0 -B build -DCMAKE_BUILD_TYPE=Debug
