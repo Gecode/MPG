@@ -2192,7 +2192,32 @@ The single-resource constraint ``cumulative`` has nearly the same interface as `
 
 The capacity can be an integer variable or a nonnegative integer. The resource usage must be strictly positive. As for unary, there exist versions with optional, flexible, and flexible and optional tasks.
 
-The propagators implementing the ``cumulative`` constraint always perform overload checking :cite:`Vilim:CPAIOR:2009`. Basic propagation performs time-tabling, see for example :cite:`CBS`, and can be selected by giving ``IPL_BASIC`` as additional integer propagation level argument. The cost of basic propagation is :math:`O(n\log n)` for :math:`n` tasks. Advanced propagation (selected by ``IPL_ADVANCED``) performs edge-finding :cite:`Vilim:CP:2009` (see also GCCat: `cumulative <http://www.emn.fr/z-info/sdemasse/gccat/Ccumulative.html>`__). The cost of advanced propagation is :math:`O(kn\log n)` for :math:`n` tasks where :math:`k` is the number of different resource usage values. Basic and advanced propagation can be combined as described in :ref:`sec:m:integer:unary`.
+The propagators implementing the ``cumulative`` constraint always perform
+overload checking :cite:`Vilim:CPAIOR:2009`. Basic propagation performs
+time-tabling, see for example :cite:`CBS`, and can be selected by giving
+``IPL_BASIC`` as an additional integer propagation level argument. Its
+cost is :math:`O(n\log n)` for :math:`n` tasks.
+
+Advanced propagation (selected by ``IPL_ADVANCED``) performs edge-finding
+:cite:`Vilim:CP:2009` (see also GCCat: `cumulative
+<http://www.emn.fr/z-info/sdemasse/gccat/Ccumulative.html>`__). The
+edge-finding part costs :math:`O(kn\log n)`, where :math:`k` is the number
+of different resource usage values. Basic and advanced propagation can be
+combined as described in :ref:`sec:m:integer:unary`.
+
+For tasks with fixed processing times, advanced propagation also includes
+a knapsack-augmented overload check
+:cite:`Cloutier:Quimper:CP:2026`. It accounts for resource capacity that
+cannot be filled by combinations of the tasks' integer resource usages.
+For example, with capacity three and usage two for each task, at most one
+task can run at a time, leaving one unit unused. A check based only on total
+resource-time capacity can miss such an overload.
+
+This additional check is restricted to bounded task sets and capacities.
+For optional tasks it considers the mandatory subset. It runs on relevant
+bounds changes and reports failure when it detects an overload; it does
+not directly prune task bounds. The edge-finding cost above therefore does
+not describe the whole advanced propagation stage.
 
 .. _modeling:m-integer:cumulative-multi-resource-constraint:
 
