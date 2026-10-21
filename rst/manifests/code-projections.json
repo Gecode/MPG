@@ -4821,6 +4821,14 @@
       "path": "rst/examples/fragments/int-test-project.cmake",
       "sha256": "5f39db1b07db97b96d37dc2a7972689a3307c43c07d462cbaf0d488508677497",
       "validation": "display-only"
+    },
+    {
+      "bytes": 136,
+      "id": "worker-control",
+      "language": "cpp",
+      "path": "rst/examples/fragments/worker-control.cpp",
+      "sha256": "e5d027bf1c555a74ac5f0fb695f31bd344e62ebba24aa47cb37e2c4705abc1aa",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -32645,6 +32653,15 @@
       "sha256": "249bb9360a4ac1e88f20216f73e25ab1e592e70cae845a6f88d7f81aa24f6d49",
       "start_line": 56,
       "title": "variables"
+    },
+    "worker control": {
+      "artifact": "rst/examples/fragments/worker-control.cpp",
+      "bytes": 136,
+      "end_line": 6,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "e5d027bf1c555a74ac5f0fb695f31bd344e62ebba24aa47cb37e2c4705abc1aa",
+      "start_line": 1
     }
   },
   "schema": "mpg-code-v1"

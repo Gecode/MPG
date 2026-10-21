@@ -325,6 +325,8 @@ All search engines can take a default option value of type :api:`Search::Options
       +===================+======================================+==========================================+
       | ``threads``       | ``double``                           | number of parallel threads to use        |
       +-------------------+--------------------------------------+------------------------------------------+
+      | ``worker_control``| ``Search::WorkerControl``            | control of active search workers         |
+      +-------------------+--------------------------------------+------------------------------------------+
       | ``c_d``           | ``unsigned int``                     | commit recomputation distance            |
       +-------------------+--------------------------------------+------------------------------------------+
       | ``a_d``           | ``unsigned int``                     | adaptive recomputation distance          |
@@ -359,6 +361,21 @@ Assume that your computer has :math:`m` processing units [1]_ and that the value
 - If :math:`-1<n<0`, then :math:`(1+n)\cdot m` threads are used (relative number of processing units not to be used). For example, when :math:`n=-0.25` and :math:`m=8`, then :math:`6` threads are used.
 
 Note that all values are of course rounded and that at least one thread will be used.
+
+.. _sec:m:search:workers:
+
+.. mpg-paragraph:: Adjusting the number of workers.
+
+The ``worker_control`` option lets a caller adjust how many workers a ``DFS`` or ``BAB`` engine may use. The resolved ``threads`` value sets the engine's fixed worker capacity. This example sets a capacity of four workers, initially requests two, then requests one:
+
+.. mpg-code:: worker control
+   :direct:
+
+``control.request(n)`` requests ``n`` workers, from zero to ``control.capacity()`` inclusive. Requests are thread-safe and can be made while another thread calls ``next()``. Changes take effect at search boundaries. When the count decreases, excess workers finish their current search action before parking. Increasing the count wakes parked workers. The call returns without waiting for the adjustment, so the engine may briefly use more workers than requested. Parked workers retain their search state and resources.
+
+A zero request pauses search, even when the capacity is one. A positive request resumes it. While the engine is paused, ``next()`` may remain blocked until another thread resumes search. A :api:`Search::TimeStop` cannot wake a paused engine when its limit expires. Builds without thread support reject pausing and require controls to be used from a single thread.
+
+A default-constructed ``Search::WorkerControl`` is empty and leaves the worker count fixed. Copies of an initialized control share its request state. Each control can be attached to only one engine and cannot be reused after that engine is destroyed. For ``RBS`` with a ``DFS`` or ``BAB`` engine, the control applies to that engine across restarts. For portfolio assets, see :ref:`sec:m:search:portfolio:arbitrary`.
 
 .. _sec:m:search:stop:
 
@@ -920,6 +937,12 @@ The respective portfolio engine can be created as follows:
 
 
 Note that the number of assets is defined by the number of SEBs passed as argument and not by ``s.assets`` as with the simpler interface. Executing a function such as ``dfs()`` in fact creates a new SEB ``seb`` that eventually must be deleted by ``delete seb``. When creating a portfolio engine from a SEB, the engine takes care of deleting the SEB.
+
+.. _sec:m:search:portfolio:workers:
+
+.. mpg-paragraph:: Worker control.
+
+For assets using ``DFS`` or ``BAB``, including through ``RBS``, give each builder a separate ``worker_control`` and set its capacity with ``threads``. The outer portfolio must run in parallel, with an empty ``worker_control`` in its options. The caller chooses each asset's worker count and manages any shared budget. Other assets can still return solutions while an asset is paused. If all active assets are paused, ``next()`` waits until one resumes.
 
 .. _best-solution-search.-1:
 
