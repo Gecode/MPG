@@ -1056,9 +1056,9 @@ Divisibility is available as a reified constraint. For a Boolean variable
    :direct:
 
 constrains ``b`` to be one if and only if ``x`` divides ``y``, that is,
-:math:`\mathtt{y}=\mathtt{x}\cdot k` for some integer :math:`k`. Zero divides
-zero but does not divide a nonzero integer. To require divisibility, fix
-``b`` to one.
+:math:`\mathtt{y}=\mathtt{x}\cdot k` for some integer :math:`k`. The signs
+of ``x`` and ``y`` do not affect divisibility. Zero divides zero but does
+not divide a nonzero integer. To require divisibility, fix ``b`` to one.
 
 .. _sec:m:integer:product:
 
@@ -1085,8 +1085,8 @@ one, whereas ``mod`` gives :math:`-2`. For an empty array, the result is one
 modulo ``m``, hence zero when ``m`` is one.
 
 The ``gcd``, ``product``, and ``product_mod`` post functions also accept a
-``Reify`` argument after the result variable. All four constraints discussed
-here support full and half reification (see
+``Reify`` argument after the result variable. All four constraints support
+full and half reification (see
 :ref:`sec:m:integer:halfreify`). With a variable modulus, positivity of the
 modulus and the residue range belong to the reified proposition. An inactive
 implication does not restrict the modulus or result. Passing a constant
