@@ -383,6 +383,10 @@
       "title": "Gecode::IntCHB",
       "url": "classGecode_1_1IntCHB.html"
     },
+    "IntDistance": {
+      "title": "Gecode::IntDistance",
+      "url": "classGecode_1_1IntDistance.html"
+    },
     "IntLexMaximizeSpace": {
       "title": "Gecode::IntLexMaximizeSpace",
       "url": "classGecode_1_1IntLexMaximizeSpace.html"
@@ -994,6 +998,10 @@
     "TaskModelIntMember": {
       "title": "TaskModelIntMember",
       "url": "group__TaskModelIntMember.html"
+    },
+    "TaskModelIntMinDistance": {
+      "title": "TaskModelIntMinDistance",
+      "url": "group__TaskModelIntMinDistance.html"
     },
     "TaskModelIntNValues": {
       "title": "TaskModelIntNValues",

@@ -4853,6 +4853,14 @@
       "path": "rst/examples/fragments/nondeterministic-regular.cpp",
       "sha256": "71b04a673ae6f53eb4fdac4237bf0dd42e30c5db832a14a1cb8cb6b792f5ac1f",
       "validation": "display-only"
+    },
+    {
+      "bytes": 191,
+      "id": "minimum-distance",
+      "language": "cpp",
+      "path": "rst/examples/fragments/minimum-distance.cpp",
+      "sha256": "fcabf056d59e3ce0b1cf07f5fdfff3d26d37694d85a3a99b9003e53ce362a433",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -18404,6 +18412,15 @@
       ],
       "sha256": "be637859089b1537013800cfe2dad5f8c4573b197e8cade8183365f11c320340",
       "start_line": 67
+    },
+    "minimum distance sites": {
+      "artifact": "rst/examples/fragments/minimum-distance.cpp",
+      "bytes": 191,
+      "end_line": 10,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "fcabf056d59e3ce0b1cf07f5fdfff3d26d37694d85a3a99b9003e53ce362a433",
+      "start_line": 1
     },
     "model sketch for LNS": {
       "artifact": "rst/examples/fragments/model-sketch-for-LNS.cpp",

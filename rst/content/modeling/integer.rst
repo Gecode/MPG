@@ -1206,6 +1206,64 @@ Gecode offers value (the default), bounds (based on :cite:`distinctbnd`), and d
 
 For examples, see in particular :ref:`chap:c:golomb`, :api:`n-Queens puzzle <queens.cpp>`, and :api:`Crowded chessboard <crowded-chess.cpp>`.
 
+.. _sec:m:integer:minimum-distance:
+
+Minimum distance between selected sites
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Suppose we want to choose several sites from a fixed collection, keeping
+them far apart. An integer variable for each choice denotes a site index.
+The :api:`minimum-distance constraint <TaskModelIntMinDistance>` relates
+these choices to their smallest pairwise distance:
+
+.. math::
+
+   \mathtt{z}=\min_{0\leq i<j<|\mathtt{x}|}
+               d(\mathtt{x}_i,\mathtt{x}_j).
+
+The distances are supplied by an :api:`IntDistance` object. They must be
+nonnegative, symmetric, and zero on the diagonal, but need not satisfy the
+triangle inequality. For example, the following matrix describes four sites
+at positions zero, two, five, and seven on a line:
+
+.. mpg-code:: minimum distance sites
+   :direct:
+
+The two variables in ``x`` select sites by their indices, not by their
+coordinates. Since ``z`` has minimum three, the selected sites must be at
+least three units apart. For example, indices zero and two give distance
+five. The post function restricts the site variables to valid indices.
+At least two selected positions are required.
+
+The matrix constructor copies and validates the row-major array of
+distances. The resulting data is shared across propagators, clones, and
+search threads. For a large collection, ``IntDistance`` can instead take
+the number of sites and a callable that computes a distance for two indices.
+This avoids storing the whole matrix. The callable must return stable
+results, own or share its captured data, and support concurrent calls. It
+must not depend on a space. Range and diagonal values are checked when
+evaluated; symmetry is the caller's responsibility.
+
+Repeated sites and repeated variables are allowed. If the choices must be
+different, post ``distinct`` as well. An overload also accepts a symmetric
+row-major requirement matrix ``r`` after ``d``. It requires
+:math:`d(\mathtt{x}_i,\mathtt{x}_j)\geq\mathtt{r}_{ij}` in addition to the
+minimum-distance relation. These inclusive requirements are indexed by
+positions in ``x``, so ``r`` has ``x.size()`` squared entries and zero on its
+diagonal. Sorting the chosen site indices is only a valid symmetry break
+when permuting their positions preserves the requirements.
+
+The default ``MDP_SINGLE`` organization uses one propagator with advisors
+and cached pair witnesses. ``MDP_DECOMPOSED``, passed after the propagation
+level, uses a propagator for each pair, with separate failure counts. Both
+use forward pruning from assigned endpoints and pairwise upper bounds on
+``z``. Neither guarantees bounds or domain consistency.
+
+A greedy conflict-matching upper bound on ``z`` is enabled by default.
+``IPL_BASIC`` disables that additional bound; ``IPL_ADVANCED`` and
+``IPL_BASIC_ADVANCED`` enable it together with forward propagation. These
+algorithms are described in :cite:`Lagerkvist:ModRef:2026`.
+
 .. _sec:m:integer:count:
 
 
