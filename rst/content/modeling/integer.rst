@@ -1234,9 +1234,9 @@ integer values themselves. For choices of sites with a supplied distance
 function, see :ref:`sec:m:integer:minimum-distance`.
 
 A fixed separation must be nonnegative; a variable separation is
-constrained to be nonnegative. Zero imposes no restriction on ``x``; one
-uses a bounds-consistent ``distinct`` propagator. With fewer than two
-variables, a fixed separation imposes no restriction, while a variable
+constrained to be nonnegative. Zero imposes no restriction on ``x``. A
+separation fixed to one uses a bounds-consistent ``distinct`` propagator.
+With fewer than two variables, a fixed separation imposes no restriction, while a variable
 separation is only constrained to be nonnegative. For positive separation,
 repeated occurrences of the same unassigned variable raise
 ``Int::ArgumentSame``. For the variable overload, this restriction applies
@@ -1306,8 +1306,8 @@ positions in ``x``, so ``r`` has ``x.size()`` squared entries and zero on its
 diagonal. Sorting the chosen site indices is only a valid symmetry break
 when permuting their positions preserves the requirements.
 
-The default ``MDP_SINGLE`` organization uses one forward-bound propagator
-with advisors and cached pair witnesses. ``MDP_DECOMPOSED``, passed after the propagation
+The default ``MDP_SINGLE`` uses one forward-bound propagator with advisors
+and cached pair witnesses. ``MDP_DECOMPOSED``, passed after the propagation
 level, uses a propagator for each pair, with separate failure counts. Both
 use forward pruning from assigned endpoints and pairwise upper bounds on
 ``z``. Neither guarantees bounds or domain consistency.

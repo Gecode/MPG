@@ -1571,10 +1571,11 @@ the resulting space status. In a propagator, the failed operation must instead
 lead to a failure return status. The test also checks that the original space
 retains its domain and has not failed.
 
-The messages written to ``Test::olog`` identify the last stage reached before
-a failure. They are displayed with the runner's ``-log`` option. This test
-covers domain updates and clone independence; testing subscriptions also
-requires propagators that subscribe to the different propagation conditions.
+The messages written to ``Test::olog`` identify the stage in progress when
+a failure occurs. The runner displays them on failure when ``-log`` is
+enabled. This test covers domain updates and clone independence; testing
+subscriptions also requires propagators that subscribe to the different
+propagation conditions.
 
 .. _sec:v:all:testing-build:
 

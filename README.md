@@ -37,7 +37,7 @@ PDF and figure checks also require XeLaTeX, latexmk, Poppler (`pdfinfo`,
 See [the authoring guide](rst/README.md) for editing procedures and
 [release instructions](rst/RELEASE.md) for publication. The
 [6.5.0 preparation notes](rst/RELEASE-6.5.0.md) track the release scope and
-remaining documentation.
+remaining validation and publication work.
 
 ## Checks and releases
 

@@ -555,7 +555,7 @@ The *minimum-regret* for integer and Boolean variables is the difference between
 Selection using accumulated failure count
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The accumulated failure count (AFC) of a variable is a shared selection criterion. It is defined as the sum of the AFCs of all propagators depending on the variable. With ordinary global propagator information, each propagator starts with AFC one, giving a variable an initial AFC equal to its degree. Its AFC increases when it fails during search and can decay as described below. The AFC of a variable is also known as the weighted degree of a variable :cite:`AFC`.
+The accumulated failure count (AFC) of a variable is a shared selection criterion. It is defined as the sum of the AFCs of all propagators depending on the variable. With global propagator information, each propagator starts with AFC one, giving a variable an initial AFC equal to its degree. A propagator's AFC increases when it fails during search and can decay as described below. The AFC of a variable is also known as the weighted degree of a variable :cite:`AFC`.
 
 For propagators with global information, AFC in Gecode supports decay as follows. Each time a propagator fails during constraint propagation (by executing the ``status()`` function of a space, see also :ref:`tip:m:started:status`), the AFC of all propagators is updated:
 

@@ -375,7 +375,7 @@ The ``worker_control`` option lets a caller adjust how many workers a ``DFS`` or
 
 A zero request pauses search, even when the capacity is one. A positive request resumes it. While the engine is paused, ``next()`` may remain blocked until another thread resumes search. A :api:`Search::TimeStop` cannot wake a paused engine when its limit expires. Builds without thread support reject pausing and require controls to be used from a single thread.
 
-A default-constructed ``Search::WorkerControl`` is empty and leaves the worker count fixed. Copies of an initialized control share its request state. Each control can be attached to only one engine and cannot be reused after that engine is destroyed. For ``RBS`` with a ``DFS`` or ``BAB`` engine, the control applies to that engine across restarts. For portfolio assets, see :ref:`sec:m:search:portfolio:arbitrary`.
+A default-constructed ``Search::WorkerControl`` is empty and leaves the worker count fixed. Copies of an initialized control share its request state. That shared state can be attached to only one engine and cannot be reused after that engine is destroyed. For ``RBS`` with a ``DFS`` or ``BAB`` engine, the control applies to that engine across restarts. For portfolio assets, see :ref:`sec:m:search:portfolio:arbitrary`.
 
 The experimental ``AStar`` and ``CABS`` engines also accept ``worker_control``;
 see :ref:`sec:m:search:heuristic` for their parallel exploration behavior.
@@ -438,7 +438,7 @@ model's existing branchers and strict-improvement ``constrain()`` function
 
 .. note::
 
-   These engines belong to the experimental Gecode 6.5 preview. Enable them
+   These engines belong to the experimental Gecode 6.5.0 preview. Enable them
    when building Gecode with the CMake option
    ``GECODE_ENABLE_EXPERIMENTAL=ON`` or the Autoconf option
    ``--enable-experimental``. Availability is reported by
@@ -480,7 +480,8 @@ puzzle, rank :math:`h` favors boards close to the goal. Rank :math:`g+2h` puts
 more weight on remaining distance than on moves already made. Either can guide
 exploration while the admissible total bound :math:`g+h` still controls pruning.
 Keep callback arithmetic in range. Callbacks read the supplied space without
-posting constraints, and captured data must outlive the search.
+posting constraints. They must not capture another space's local state, and
+captured dependencies must outlive every engine and builder using them.
 
 .. _sec:m:search:heuristic:ordering:
 
@@ -524,11 +525,12 @@ ownership of the supplied root with the caller by cloning it.
 
 When ``next()`` returns ``NULL``, inspect ``stopped()``. Natural exhaustion with
 ``stopped()`` false proves the best accepted solution optimal, or infeasibility
-if none was accepted, assuming sound bounds and a finite search tree. A stop
-leaves the best result unproved. Ordinary stop objects can be raised or reset to
+if none was accepted, assuming sound bounds and a finite search tree. For CABS,
+any dominance pruning must also be sound, as discussed below. A stop leaves
+the best result unproved. Ordinary stop objects can be raised or reset to
 continue search as described in :ref:`sec:m:search:stop`.
 
-A checked feasible solution can seed search through the engine's
+A checked feasible solution for the same problem can seed search through the engine's
 ``constrain()`` member function. Only a strict improvement replaces the accepted
 best solution. If no new solution is returned after seeding, exhaustion proves
 the seed optimal; it does not mean the model is infeasible.
@@ -564,7 +566,8 @@ maximum width or the number of pending frontier nodes; zero means unlimited.
 Widths grow as 1, 2, 4, and so on, so a maximum of three permits widths one and
 two. Reaching a limit needed to continue reports ``stopped()``. These intrinsic
 limits cannot be lifted by calling ``next()`` again. The frontier limit counts
-nodes rather than bytes and excludes, for example, the saved restart root.
+pending nodes, including selected parents, rather than bytes. It excludes
+the saved restart root, copies of the best solution, and returned solutions.
 
 The ``tsptw.cpp`` example offers a concrete comparison. Its transition model
 minimizes travel cost for a tour visiting customers within their time windows
@@ -578,7 +581,8 @@ Several paths can reach the same residual problem. Set the optional
 one candidate makes another redundant. The callback reads two stable spaces
 and returns true when the first preserves every improving completion of the
 second at no worse total objective. It must account for accumulated cost,
-residual constraints, and branching progress. Equivalent states can use the
+residual constraints, and branching progress. The relation must be transitive
+so that repeated replacements remain safe. Equivalent states can use the
 same predicate.
 
 The optional ``dominance_key`` callback groups candidates before comparison.
@@ -610,8 +614,9 @@ expands parents concurrently and applies dominance pruning within one global
 next-layer beam. Its beam width applies to the whole engine.
 
 Workers retain a parent while expanding its alternatives. A worker can handle
-up to 32 failed or incumbent-pruned alternatives locally before checking an
-ordinary stop. It checks the requested worker count after every alternative.
+up to 32 alternatives that fail or cannot improve the best solution before
+checking an ordinary stop. It checks the requested worker count after every
+alternative.
 
 Guidance and dominance-key callbacks can run concurrently on different spaces.
 Captured shared state must support concurrent access, and model preparation

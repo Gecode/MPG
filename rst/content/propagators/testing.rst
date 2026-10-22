@@ -186,8 +186,9 @@ The runner accepts one or more tag selections:
 
 Repeated ``-tag`` options form a union. A ``-test`` name filter and a tag
 filter must both match. With no ``-tag`` option, the runner applies no tag
-filter, so tests with any tags can run. ``-list-tags`` prints the known tags,
-while ``-list-with-tags`` prints every registered test and its tags. These
+filter, so even tests without tags can run. ``-tag all`` selects tests with
+at least one known tag. ``-list-tags`` prints the known tags, while
+``-list-with-tags`` prints every registered test and its tags. These
 listing commands ignore name, tag, and starting-point filters.
 
 On failure, the runner prints the test name and a ``-replay`` command with
@@ -201,7 +202,7 @@ For example, for ``Int::Less`` with seed ``12345``, enable logging with:
 The option ``-replay`` runs the named test once on a single thread. Unlike
 ``-seed``, it uses the supplied seed directly for that test. Preserve any
 ``-fixprob`` option in the reported command as well. The option ``-log``
-prints the test's buffered log and requires a single thread. The log includes
+prints the test's buffered log on failure and requires a single thread. The log includes
 the assignment that caused the failure. For example,
 replacing ``x[0] < x[1]`` in the specification with ``x[0] <= x[1]`` makes equal
 assignments valid according to the specification, while the propagator rejects

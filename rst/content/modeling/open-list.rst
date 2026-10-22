@@ -162,7 +162,8 @@ An optional transition callback can post constraints after a position is
 added. The function objects are shared between clones. They must be
 deterministic and safe for concurrent calls, and must own or share any
 captured data. They must not capture a space or its variable handles.
-Use the space and list passed to the callback to access the current model.
+Use the supplied space and, in a transition callback, the supplied list to
+access the current model.
 
 Factories and transitions run inside ``Space::NoGPI`` scopes, including
 transitions called by direct ``append``. Propagators posted there have
