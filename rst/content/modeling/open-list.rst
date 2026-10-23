@@ -43,10 +43,12 @@ of a graph arc, and only state four is accepting. The open-list overload of
 graph arcs, and end at four. The ``distinct`` constraint excludes revisits.
 Both constraints follow the list as it grows.
 
-The regular constraint prunes the node variables as the prefix grows.
-When the list closes, it requires the route to end in an accepting state.
-It does not prune the eventual-length variable or check whether an open
-prefix can reach an accepting state within the remaining length bound.
+The regular constraint prunes the node variables as the prefix grows. It
+also checks whether an accepting continuation fits within the maximum list
+length. Values that require too many further positions are removed. When
+the list closes, the route must end in an accepting state. This filtering
+does not use the domains of positions not yet constructed or holes in the
+length domain, and it does not directly prune the length variable.
 
 .. _sec:m:open:prefix:
 
@@ -67,7 +69,8 @@ There are also explicit operations for growing a list. ``materialize(home,n)``
 requires at least ``n`` positions, and ``get(home,i)`` requires and returns
 the variable at position ``i``. Both restrict the eventual length. After
 ``get``, check whether the space has failed before using the returned
-variable; on failure the handle can be uninitialized. ``append(home,x)``
+variable; on failure the handle can be uninitialized. An index at or beyond
+the maximum eventual length raises ``Int::OutOfLimits``. ``append(home,x)``
 adds an existing variable belonging to the current space and requires the
 length to include it.
 
@@ -107,8 +110,9 @@ route incrementally; the second search tries the shorter lengths first.
 The better order depends on the problem.
 
 Selectors and filters operate on the constructed prefix. Filter and print
-callbacks receive the position in the list. Action and CHB selectors require
-the whole list to have been constructed when the brancher is posted;
+callbacks receive the position in the list. Variables rejected by the filter
+can remain unassigned when the list brancher finishes. Action and CHB selectors
+require the whole list to have been constructed when the brancher is posted;
 otherwise posting throws ``Int::UnknownBranching``. Give the list a finite
 application bound whenever possible. Exploring longer routes can be very
 expensive even if a few short solutions are easy to find.

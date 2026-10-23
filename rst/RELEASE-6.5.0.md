@@ -1,15 +1,18 @@
 # Preparing MPG for Gecode 6.5.0
 
-The planned release includes Gecode `main` plus the `feature/open-cp` and
-`feature/open-search` merges. Model, Word variables, and the HTML redesign
-are outside this release. The existing Space-based introduction and HTML
-theme remain the basis of the manual.
+The manual now follows the local Gecode branch `feature/6.5.0-cleanups` at
+`3c9d4221ce`. This combines current main, open variable lists, experimental
+heuristic search, and the release's scheduling and FlatZinc follow-ups.
+Model, Word variables, and the HTML redesign remain outside this release.
+The existing Space-based introduction and HTML theme remain the basis of
+the manual.
 
-The review on 2026-10-21 compared `release-6.4.0` with Gecode `main` at
-`c54eec1264` (25 commits), including the 6.5.0 changelog and public header
-changes. The planned features were checked at `feature/open-cp` (`0d80c51e0b`)
-and `feature/open-search` (`72e9dafe35`). Recheck those branches after their
-final merges.
+The initial review on 2026-10-21 compared `release-6.4.0` with Gecode `main`
+at `c54eec1264`, plus the planned open-list/search branches. The follow-up
+on 2026-10-23 checked the cleanup branch against that combined source.
+Gecode's build metadata still says 6.4.0; its changelog and this manual
+prepare the unreleased 6.5.0 edition. Repeat validation against the final
+tag before publication.
 
 ## Integrated documentation
 
@@ -45,6 +48,20 @@ including the integrated testing, worker-control, and heuristic-search
 material. Source checks, publication builds, and visual review were repeated
 after its copyedits.
 
+## Cleanup-branch follow-up
+
+- Open regular constraints now prune the constructed prefix using the
+  maximum eventual length and shortest accepting continuations. The chapter
+  states the remaining limitations: future variable domains and holes in the
+  length domain are not used, and the length variable is not directly pruned.
+- The Boolean-expression overview includes C++ Boolean constants and the
+  distinction between posting a `BoolExpr` and a raw C++ `bool`.
+- The float-propagator chapter explains restoration of the caller's rounding
+  mode by `Float::Rounding`, including nested scopes.
+- The CABS explanation makes the progress condition on dominance replacements
+  explicit. The simplified TSPTW example still supports all options described
+  in the manual.
+
 ## Changes covered elsewhere
 
 - The MiniZinc/FlatZinc native registry expansion (#253) needs complete solver
@@ -54,9 +71,11 @@ after its copyedits.
 - Sparse DFA state compaction (#259) and sparse regular-graph construction
   improve implementation memory use without changing model semantics. No
   additional modeling instructions are required beyond the NFA update.
-- Float power/logarithm correctness fixes and the CBS cache-removal fix need
-  release notes and regression coverage in Gecode; they introduce no new
-  modeling API or changed modeling recipe.
+- Float power/logarithm fixes, signed `cumulatives` profile corrections, and
+  scheduling bounds, shared-start, and overflow fixes retain their C++ posting
+  interfaces. Their correctness cases belong in Gecode's regression suite.
+  MiniZinc scheduling dispatch and explicit-end bindings belong in the solver
+  reference rather than a separate MPG section.
 - Test-suite reorganizations (#255), CMake configuration/test summaries
   (#252), the restart-float test adjustment, vcpkg pin, attribution updates,
   reference light theme, and release-changelog setup require no separate MPG
@@ -64,19 +83,15 @@ after its copyedits.
 
 ## Publication work
 
-- Gecode's `doc` target at `c54eec1264` fails while generating `stat.hh`:
-  `test/package/allocator/boundary.hh` has no `STATISTICS` annotation. The
-  missing annotation is fixed on Gecode's
-  `feature/6.5.0-documentation-fixes` branch, ready for a later merge.
-  The combined open-search reference build also needs statistics annotations
-  on its four new example files. Those are collected on
-  `feature/6.5.0-open-documentation-fixes`, together with the current-main
-  merge and the shared test annotation.
+- The cleanup branch includes the statistics annotations previously collected
+  on `feature/6.5.0-documentation-fixes` and
+  `feature/6.5.0-open-documentation-fixes`. Its Doxygen build passes without
+  additional source patches.
 - Use 6.5.0 consistently for the manual, example defaults, CI preview, and
   release package. Historical changelog entries remain unchanged.
 - Generate the API inventory from current Gecode sources and their matching
-  Doxygen output. Regenerate it after the final open-list/search merges or
-  changes to the manual's API links.
+  Doxygen output. Regenerate it after changes to the release source or the
+  manual's API links.
 - Run source checks, the complete example/tooling checks, and both publication
   builds. Review the changed HTML at desktop and narrow widths, and the
   affected PDF pages. Gist execution still requires attended review.
@@ -86,23 +101,22 @@ after its copyedits.
 
 ## Current validation
 
-The completed manual passes source checks, tooling/platform tests, and
-example validation against a temporary combination of Gecode `main`
-(`c54eec1264`) and `feature/open-search` (`72e9dafe35`, including
-`feature/open-cp`), with the statistics annotations above applied. The
-example report covers 552 artifacts: 632 checks passed, none failed, and
-three interactive Gist runs were skipped. Separate compiled checks cover
-the new arithmetic, NFA, site-distance, inter-distance, and GPI examples.
+The updated manual passes source checks, tooling/platform tests, and example
+validation against an exact export of `feature/6.5.0-cleanups` at
+`3c9d4221ce`. The example report covers 552 artifacts: 632 checks passed,
+none failed, and three interactive Gist runs were skipped. A focused compiled
+check confirms maximum-length pruning of an open regular prefix, Boolean
+constant posting, and scoped rounding-mode restoration.
 
-The API inventory contains 369 references generated from that combined
-source and its Doxygen output. Strict HTML and PDF builds pass, including
-local links, search, reference URLs, and PDF metadata/text checks. The
-changed HTML was reviewed at desktop and narrow widths, and the affected
-PDF pages were inspected. Run-in heading anchors are retained, mobile
-links land below the header, and source-build commands use `6.5.0` instead
-of an unresolved version placeholder.
+A fresh Astra high review checked the cleanup additions against the source
+and clarified the wording about scalar constants.
 
-Preview packaging passes: 317 files and a 633-page PDF. The package remains
-a local preparation artifact. Repeat validation against the final combined
-Gecode release branch and tag, and complete attended Gist review before
-publication.
+The API inventory contains 370 references generated from that source and its
+Doxygen output. Strict HTML and PDF builds pass, including local links,
+search, reference URLs, and PDF metadata/text checks. The affected HTML was
+reviewed at desktop and narrow widths, and the changed PDF pages were
+inspected.
+
+Preview packaging passes with 317 files and a 633-page PDF. The preview remains
+a local preparation artifact. Repeat validation against the final Gecode tag
+and complete attended Gist review before publication.

@@ -5,6 +5,15 @@
 Changelog
 =========
 
+.. _changelog:2026-10-23:
+
+2026-10-23
+----------
+
+Aligned the 6.5.0 edition with Gecode's release-cleanup branch. Updated
+open regular filtering in :ref:`chap:m:open`, Boolean constants in
+:ref:`sec:m:minimodel:bool`, and scoped rounding in :ref:`chap:p:floats`.
+
 .. _changelog:2026-10-21:
 
 2026-10-21

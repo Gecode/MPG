@@ -581,9 +581,10 @@ Several paths can reach the same residual problem. Set the optional
 one candidate makes another redundant. The callback reads two stable spaces
 and returns true when the first preserves every improving completion of the
 second at no worse total objective. It must account for accumulated cost,
-residual constraints, and branching progress. The relation must be transitive
-so that repeated replacements remain safe. Equivalent states can use the
-same predicate.
+residual constraints, and branching progress. A sufficient progress condition
+is that each completion can be replaced by one using no more choice commits.
+The relation must be transitive so that repeated replacements remain safe.
+Equivalent states can use the same predicate.
 
 The optional ``dominance_key`` callback groups candidates before comparison.
 Potential dominators must have equal keys. Equal keys still require the

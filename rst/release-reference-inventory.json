@@ -39,6 +39,10 @@
       "title": "Gecode::BoolCHB",
       "url": "classGecode_1_1BoolCHB.html"
     },
+    "BoolExpr": {
+      "title": "Gecode::BoolExpr",
+      "url": "classGecode_1_1BoolExpr.html"
+    },
     "BoolExpr::Misc": {
       "title": "Gecode::BoolExpr::Misc",
       "url": "classGecode_1_1BoolExpr_1_1Misc.html"
