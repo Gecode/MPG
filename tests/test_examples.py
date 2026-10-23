@@ -4,8 +4,10 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import tools.mpg.examples as examples
+from rst.scripts import verify_examples
 from tools.mpg.gecode import GecodeConfig
 
 
@@ -64,6 +66,38 @@ class ExampleManifestTests(unittest.TestCase):
 
     def test_needs_gist_detects_gist_header(self) -> None:
         self.assertTrue(examples._needs_gist("#include <gecode/gist.hh>\n"))
+
+    def test_string_example_links_string_library(self) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            examples.BIN = root / "bin"
+            source = root / "string.cpp"
+            source.write_text("#include <gecode/string.hh>\n", encoding="utf-8")
+            example = examples.Example(
+                "shortest-matching-superstring", "model", source, None, False, [], 20, True)
+            gc = GecodeConfig("test", None, None, [], [], {})
+            cmake = examples._emit_cmake(
+                root / "build", [(example, source)], gc, {"compile_flags": []}, "models")
+            text = (cmake / "CMakeLists.txt").read_text(encoding="utf-8")
+            self.assertIn(
+                "target_link_libraries(shortest-matching-superstring PRIVATE ${MPG_LIB_GECODESTRING}",
+                text)
+
+    def test_shortest_superstring_validation_requires_an_optimum(self) -> None:
+        config = {"models": ["shortest-matching-superstring"], "tests": [], "notest": []}
+        for output, valid in (
+            ("cefabc length=6\n", True),
+            ("defabd length=6\n", True),
+            ("abcdefefab length=10\n", False),
+            ("abcdef length=6\n", False),
+            ("cefabc length=6\ncefabc length=6\n", False),
+        ):
+            with self.subTest(output=output), \
+                    patch.object(verify_examples, "get_config", return_value=config), \
+                    patch.object(verify_examples, "run", return_value=(
+                        subprocess.CompletedProcess([], 0, output, ""), 0.0)):
+                rows = verify_examples.validate_binaries(20, {})
+                self.assertEqual(rows[0]["status"], "pass" if valid else "fail")
 
     def test_missing_canonical_source_does_not_use_legacy_copy(self) -> None:
         with tempfile.TemporaryDirectory() as td:

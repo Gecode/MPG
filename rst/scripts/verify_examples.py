@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import itertools
 import json
 import os
 from pathlib import Path
@@ -24,6 +25,7 @@ from tools.mpg.gecode import resolve_gecode
 
 
 MODEL_EXPECTED = {
+    "shortest-matching-superstring": r"^[cd]efab[cd] length=6$",
     "send-more-money-de-mystified": r"\{9, 5, 6, 7",
     "send-more-money": r"\{9, 5, 6, 7",
     "send-most-money-with-cost": r"\{9, 3, 4, 2",
@@ -115,6 +117,41 @@ def compile_standalone(gc) -> list[dict]:
     result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     rows.append({"id": boolean.stem, "profile": "compile-only-fragment", "status": "pass" if result.returncode == 0 else "fail", "stderr": result.stderr[-3000:]})
 
+    string_fragment = ROOT / "rst/examples/fragments/string-modeling.cpp"
+    string_tu = output / "string-modeling-context.cpp"
+    string_tu.write_text(
+        '#include <gecode/string.hh>\n#include <cassert>\n'
+        'using namespace Gecode;\n'
+        'class StringModeling : public Space {\npublic:\n'
+        'StringModeling() {\nSpace& home = *this;\n'
+        + string_fragment.read_text(encoding="utf-8").replace(
+            "#include <gecode/string.hh>", "")
+        + '\nassert(status() != SS_FAILED);\n'
+        'assert(first_match.assigned() && first_match.val() == 3);\n'
+        'assert(slice.assigned() && slice.val() == "bcd");\n'
+        'assert(code.min_length() == 3 && code.max_length() == 3);\n'
+        'assert(word.min_length() >= 1);\n'
+        'assert(member.assigned() && member.val() == 0);\n'
+        '}\nStringModeling(StringModeling& s) : Space(s) {}\n'
+        'Space* copy() { return new StringModeling(*this); }\n'
+        '};\nint main() { StringModeling model; }\n',
+        encoding="utf-8",
+    )
+    string_executable = output / "string-modeling"
+    string_libs = ["gecodestring", "gecodeint", "gecodekernel", "gecodesupport"]
+    command = [
+        compiler, "-std=c++17", *includes, str(string_tu),
+        *(argument for path in gc.lib_dirs for argument in ("-L", str(path))),
+        *(f"-l{name}" for name in string_libs), "-o", str(string_executable),
+    ]
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    row = {"id": "string-modeling", "profile": "model-fragment-run", "status": "fail", "stderr": result.stderr[-3000:]}
+    if result.returncode == 0:
+        executed, duration = run(string_executable, [], 20, gc.env)
+        row.update(status="pass" if executed.returncode == 0 else "fail",
+                   duration_sec=round(duration, 3), stderr=executed.stderr[-3000:])
+    rows.append(row)
+
     if gc.root is None:
         rows.extend([
             {"id": "int", "profile": "vis-header-compile", "status": "fail", "reason": "requires --gecode-root to build Gecode with int.vis"},
@@ -177,6 +214,19 @@ def validate_binaries(timeout: int, env: dict[str, str]) -> list[dict]:
         text = result.stdout + result.stderr
         pattern = MODEL_EXPECTED[name]
         ok = result.returncode == 0 and re.search(pattern, text, re.MULTILINE) is not None
+        if name == "shortest-matching-superstring":
+            patterns = [re.compile(r) for r in ("ab(c|d)", "(c|d)ef", "efab")]
+            expected = set()
+            for size in range(7):
+                words = ("".join(symbols) for symbols in itertools.product("abcdef", repeat=size))
+                expected = {
+                    f"{word} length={size}" for word in words
+                    if all(pattern.search(word) for pattern in patterns)
+                }
+                if expected:
+                    break
+            lines = result.stdout.splitlines()
+            ok = result.returncode == 0 and len(lines) == 1 and lines[0] in expected
         rows.append({"id": name, "kind": "model", "profile": "bounded-model-run", "args": args, "expected_regex": pattern, "status": "pass" if ok else "fail", "exit_code": result.returncode, "duration_sec": round(duration, 3), "stdout": result.stdout[-3000:], "stderr": result.stderr[-3000:]})
 
     for name in config["tests"]:

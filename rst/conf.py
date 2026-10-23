@@ -148,7 +148,7 @@ html_context = {
                 ("case-studies/warehouses", "Warehouses"),
                 ("case-studies/nonogram", "Nonograms"),
                 ("case-studies/golf", "Golf tournament"),
-                ("case-studies/inglenook", "Inglenook"),
+                ("case-studies/shortest-matching-superstring", "Shortest matching superstring"),
                 ("case-studies/knights", "Knights"),
                 ("case-studies/bin-packing", "Bin packing"),
                 ("case-studies/kakuro", "Kakuro"),

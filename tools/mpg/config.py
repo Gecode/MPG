@@ -7,6 +7,7 @@ from .common import ROOT
 DEFAULT_VERSION = "6.4.0"
 DEFAULT_YEAR = "2026"
 DEFAULT_MODELS = [
+    "shortest-matching-superstring",
     "send-more-money-de-mystified",
     "send-more-money-with-gist",
     "send-more-money-with-gist-inspection",

@@ -69,7 +69,7 @@ Modeling and Programming with Gecode
    case-studies/warehouses
    case-studies/nonogram
    case-studies/golf
-   case-studies/inglenook
+   case-studies/shortest-matching-superstring
    case-studies/knights
    case-studies/bin-packing
    case-studies/kakuro
