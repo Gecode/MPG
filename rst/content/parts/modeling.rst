@@ -37,6 +37,8 @@ Modeling
      (:ref:`sec:m:set:var`).
    * The first section of :ref:`chap:m:float` gives an overview of float
      variables (:ref:`sec:m:float:var`).
+   * :ref:`chap:m:string` introduces bounded string variables, concrete
+     Unicode scalar values, and the available String constraints.
    * The first sections of :ref:`chap:m:branch` explain branching: basics
      (:ref:`sec:m:branch:basics`), branchings for integer and Boolean variables
      (:ref:`sec:m:branch:int`), branchings for set variables
@@ -67,6 +69,8 @@ Modeling
      summarize constraints on set variables.
    * :ref:`sec:m:float:post` and :ref:`sec:m:float:exec` of
      :ref:`chap:m:float` summarize constraints on float variables.
+   * :ref:`sec:m:string:constraints` of :ref:`chap:m:string` summarizes
+     constraints on bounded string variables.
    * :ref:`chap:m:minimodel` provides an overview of modeling convenience
      implemented by MiniModel.
    * The remaining sections of :ref:`chap:m:branch` discuss more advanced

@@ -200,7 +200,7 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
     else:
         lines.append("set(_MPG_LIB_DIRS)")
 
-    for lib in sorted(set(MODEL_LIBS + TEST_LIBS + ["gecodegist"])):
+    for lib in sorted(set(MODEL_LIBS + TEST_LIBS + ["gecodegist", "gecodestring"])):
         # A previous configure may have selected a different Gecode checkout.
         lines.append(f"unset(MPG_LIB_{lib.upper()} CACHE)")
         lines.append(
@@ -231,6 +231,8 @@ def _emit_cmake(build_dir: Path, mapped: list[tuple[Example, Path]], gc: GecodeC
     for ex, src in mapped:
         lines.append(f'add_executable({ex.name} "{src.as_posix()}")')
         libs = list(TEST_LIBS if ex.kind == "test" else MODEL_LIBS)
+        if "#include <gecode/string.hh>" in src.read_text(encoding="utf-8"):
+            libs.insert(0, "gecodestring")
         if ex.kind != "test" and gist_available:
             libs.insert(1, "gecodegist")
         elif ex.requires_gist:

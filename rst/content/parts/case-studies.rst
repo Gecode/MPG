@@ -40,6 +40,9 @@ Case studies
    - :ref:`chap:c:golf` presents a case study on modeling problems using set
      variables and constraints.
 
+   - :ref:`chap:c:shortest-matching-superstring` combines regex occurrence
+     constraints and length minimization to construct a shortest string.
+
    .. mpg-paragraph:: Advanced models.
 
    The following models are slightly more advanced:

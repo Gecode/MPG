@@ -4789,6 +4789,22 @@
       "reason": "illustrative source fragment",
       "sha256": "2d53c6555711f902473db8035ad37119c55057b27f9c80d65d00d5c06731de06",
       "validation": "display-only"
+    },
+    {
+      "bytes": 1238,
+      "id": "string-modeling",
+      "language": "cpp",
+      "path": "rst/examples/fragments/string-modeling.cpp",
+      "sha256": "cb999d125e07d1b31f75c5baac2cd06b66d6f2dc91358c73a067b29ff535de18",
+      "validation": "display-only"
+    },
+    {
+      "bytes": 1733,
+      "id": "shortest-matching-superstring",
+      "language": "cpp",
+      "path": "rst/examples/src/shortest-matching-superstring.cpp",
+      "sha256": "c749c1906b622a15cc7a203df2ebdce597a25b697a37c13258a9e407ba4f0316",
+      "validation": "compiled"
     }
   ],
   "projections": {
@@ -22976,6 +22992,15 @@
       "sha256": "565a7cd4741523aa087c0687380c54a4efaef3c91f1dfcb5c489b2ea3aaa1462",
       "start_line": 28
     },
+    "shortest matching superstring": {
+      "artifact": "rst/examples/src/shortest-matching-superstring.cpp",
+      "bytes": 1733,
+      "end_line": 63,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "c749c1906b622a15cc7a203df2ebdce597a25b697a37c13258a9e407ba4f0316",
+      "start_line": 1
+    },
     "size min": {
       "artifact": "rst/examples/src/size-min.cpp",
       "bytes": 2345,
@@ -32223,6 +32248,87 @@
       "sha256": "c880a3d68a180ef3163b7e1d31730882de3c46fe53fc9899ce8c9660105e52be",
       "small": false,
       "start_line": 1
+    },
+    "string modeling:arrays": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 139,
+      "end_line": 37,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "f1c931b2eead3289d1a66c8413fb5e35b20399a2a38453fe857c8b58b76220d7",
+      "start_line": 35
+    },
+    "string modeling:branching": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 109,
+      "end_line": 17,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "da24e6baadceb6676761241e9923752c12a5058ad6a47fb802c267967088966e",
+      "start_line": 15
+    },
+    "string modeling:constraints": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 179,
+      "end_line": 13,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "e9386d5cf35b96bbced635ad5d7b843d9d6d621856346b9ca3e997f6f3a4d3d4",
+      "start_line": 10
+    },
+    "string modeling:dashed domain": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 199,
+      "end_line": 26,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "3fd3678e3a773a5d2ac943e87f124a1ad838f360f227aa5a4f8cba315d7cab17",
+      "start_line": 23
+    },
+    "string modeling:include": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 28,
+      "end_line": 1,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "a55a994997d95dfb311571a36082edea72af81176f779012ad6e790f604fbb71",
+      "start_line": 1
+    },
+    "string modeling:match": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 147,
+      "end_line": 22,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "5a6307c3ada5dfc2f1d08a2a39f37de369ccab1723a6c10a31dfa0b0d09f2a40",
+      "start_line": 19
+    },
+    "string modeling:reification": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 78,
+      "end_line": 33,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "5fb25c180c2cc50275b2fecce806f45b6eca6a2d40de4fedac7d54c9b1a4bd4e",
+      "start_line": 32
+    },
+    "string modeling:substring": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 131,
+      "end_line": 30,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "7157c086898759faba24ddaa86ce4a22f37ec70acf3ac8cdeb84162aaa2c28df",
+      "start_line": 28
+    },
+    "string modeling:values and variables": {
+      "artifact": "rst/examples/fragments/string-modeling.cpp",
+      "bytes": 196,
+      "end_line": 8,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "8f26c36c258bb7b9da565c7107d522eaa747b94b00b25d7e0c4769a847079170",
+      "start_line": 5
     },
     "warehouses": {
       "artifact": "rst/examples/src/warehouses.cpp",
