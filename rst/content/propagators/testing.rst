@@ -113,6 +113,27 @@ domain. Domain pruning and some fixpoint checks are randomized. Increasing
 the number of iterations therefore exercises additional cases even when all
 complete assignments are enumerated.
 
+.. _sec:p:testing:open:
+
+Testing open-list constraints
+-----------------------------
+
+:api:`Test::Int::OpenTest` extends the integer test class for constraints
+that follow an :ref:`open variable list <chap:m:open>`. Implement
+``solution()`` for the complete relation and the ``post()`` overload taking
+an ``OpenIntVarList`` and an ``IntVarArray``. The constructor specifies the
+number of list items and auxiliary variables. The first entries in the
+assignment and variable array are the list items; the remaining entries are
+the auxiliary variables. All use the supplied common domain. Any additional
+restrictions posted by the test must also appear in ``solution()``.
+
+The harness runs the ordinary closed-list tests and bounded randomized
+histories that post, grow, prune, clone, and close the list. One additional
+position remains possible during these histories until closure. This
+exercises propagation while the list can still grow, including independence
+of cloned spaces. It supplements the closed-list checks without exhaustively
+covering all growth histories.
+
 .. _sec:p:testing:consistency:
 
 Checking consistency

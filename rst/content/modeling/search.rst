@@ -454,8 +454,9 @@ cannot improve the best solution. A *rank* expresses which space looks promising
 to explore next. An incorrect bound can lose the optimum. A poor rank can waste
 time, but does not by itself justify pruning.
 
-Construct ``Search::HeuristicGuidance`` with an objective sense and a bound
-callback. The sense is ``MINIMIZE`` or ``MAXIMIZE`` from that class. The callback reads
+Construct :api:`Search::HeuristicGuidance` with an objective sense and a bound
+callback. The sense is ``Search::HeuristicGuidance::Sense::MINIMIZE`` or
+``Search::HeuristicGuidance::Sense::MAXIMIZE``. The callback reads
 the propagated space passed to it and returns a signed 64-bit integer. For
 minimization, this must be a lower bound on the total objective of every solution
 below that space; for maximization it must be an upper bound. On a solution it
@@ -491,9 +492,9 @@ Choosing an exploration order
 Construct ``AStar<T>`` with the root space, guidance, and optional search options.
 It explores the pending branching space with the best bound first. Rank breaks
 equal-bound ties, followed by insertion order. To use rank as the main priority,
-pass ``Search::RANK_FIRST`` after guidance and before the search options.
+pass ``Search::AStarOrder::RANK_FIRST`` after guidance and before the search options.
 This ordering compares rank first, then bound, then insertion order.
-``Search::BOUND_FIRST`` explicitly selects the default A* order. These values
+``Search::AStarOrder::BOUND_FIRST`` explicitly selects the default A* order. These values
 have type ``Search::AStarOrder``. Without a rank callback all ranks are zero,
 so rank-first also follows the bound.
 
@@ -561,13 +562,16 @@ doubles the width and restarts from the root, retaining the best solution. If
 every discarded bound excludes improvement, the pass can prove optimality
 without widening. A finite tree and unrestricted widening give completeness.
 
-Pass ``Search::CABSOptions`` after the ordinary search options to limit the
+Pass :api:`Search::CABSOptions` after the ordinary search options to limit the
 maximum width or the number of pending frontier nodes; zero means unlimited.
 Widths grow as 1, 2, 4, and so on, so a maximum of three permits widths one and
 two. Reaching a limit needed to continue reports ``stopped()``. These intrinsic
 limits cannot be lifted by calling ``next()`` again. The frontier limit counts
-pending nodes, including selected parents, rather than bytes. It excludes
-the saved restart root, copies of the best solution, and returned solutions.
+pending nodes in both layers, including selected parents, rather than bytes.
+In parallel search, an unfinished expansion reserves room for its parent and
+one unsubmitted successor when adding a candidate to the beam. The limit
+excludes the saved restart root, copies of the best solution, and returned
+solutions.
 
 The ``tsptw.cpp`` example offers a concrete comparison. Its transition model
 minimizes travel cost for a tour visiting customers within their time windows

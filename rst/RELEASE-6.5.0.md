@@ -1,15 +1,18 @@
 # Preparing MPG for Gecode 6.5.0
 
 The manual now follows the local Gecode branch `feature/6.5.0-cleanups` at
-`3c9d4221ce`. This combines current main, open variable lists, experimental
+`e681aed2267645e16826246f9cea7bfbd3147a4d` (checked on 2026-10-26).
+This combines current main, open variable lists, experimental
 heuristic search, and the release's scheduling and FlatZinc follow-ups.
-Model, Word variables, and the HTML redesign remain outside this release.
+Model, Word/String variables, and the HTML redesign remain outside this release.
 The existing Space-based introduction and HTML theme remain the basis of
 the manual.
 
 The initial review on 2026-10-21 compared `release-6.4.0` with Gecode `main`
 at `c54eec1264`, plus the planned open-list/search branches. The follow-up
 on 2026-10-23 checked the cleanup branch against that combined source.
+The 2026-10-26 follow-up uses OpenCP `6ac85d496a`, OpenSearch `11e7c256be`,
+dependency updates through `f0baafb2cf`, and the 24 subsequent cleanup commits.
 Gecode's build metadata still says 6.4.0; its changelog and this manual
 prepare the unreleased 6.5.0 edition. Repeat validation against the final
 tag before publication.
@@ -61,6 +64,24 @@ after its copyedits.
 - The CABS explanation makes the progress condition on dominance replacements
   explicit. The simplified TSPTW example still supports all options described
   in the manual.
+- Search guidance uses the scoped `Search::HeuristicGuidance::Sense` and
+  `Search::AStarOrder` enumerations. The existing dominance, stop, and worker
+  descriptions agree with the current headers; the frontier-limit explanation
+  includes parallel reservations. The beam and worker refactor needs no
+  additional modeling tutorial.
+- The open-list chapter clarifies window filtering, empty-list closure for
+  extrema, result aliases, and the rejection of repeated unassigned elements.
+  Its factory, callback, and regular-language explanations still apply to the
+  native incremental propagators. The route example remains unchanged.
+- The views chapter introduces `OpenViewList<View>` for propagator authors,
+  including shared growth, independent cloning, and separate growth, value,
+  and length subscriptions. The testing chapter introduces
+  `Test::Int::OpenTest` and its bounded randomized growth histories alongside
+  ordinary closed-list tests.
+- The CMake build-guide link still resolves within the consolidated source
+  documentation at `docs/cmake-build.md`. Build and release instructions now
+  state the Doxygen 1.18.0 minimum for reference generation. Existing
+  `standard` tag and `check-standard` instructions remain current.
 
 ## Changes covered elsewhere
 
@@ -90,8 +111,8 @@ after its copyedits.
 - Use 6.5.0 consistently for the manual, example defaults, CI preview, and
   release package. Historical changelog entries remain unchanged.
 - Generate the API inventory from current Gecode sources and their matching
-  Doxygen output. Regenerate it after changes to the release source or the
-  manual's API links.
+  Doxygen 1.18.0 or newer output. Regenerate it after changes to the release
+  source or the manual's API links.
 - Run source checks, the complete example/tooling checks, and both publication
   builds. Review the changed HTML at desktop and narrow widths, and the
   affected PDF pages. Gist execution still requires attended review.
@@ -101,22 +122,39 @@ after its copyedits.
 
 ## Current validation
 
-The updated manual passes source checks, tooling/platform tests, and example
-validation against an exact export of `feature/6.5.0-cleanups` at
-`3c9d4221ce`. The example report covers 552 artifacts: 632 checks passed,
-none failed, and three interactive Gist runs were skipped. A focused compiled
-check confirms maximum-length pruning of an open regular prefix, Boolean
-constant posting, and scoped rounding-mode restoration.
+Validation on 2026-10-26 used a fresh Git archive of
+`e681aed2267645e16826246f9cea7bfbd3147a4d`, with new Release libraries,
+experimental search, Gist, and the public test libraries enabled. The source
+checkout remained at that revision through the final check. This replaces
+the earlier result for `3c9d4221ce`; that result was not reused to validate
+the new input. Gecode's compiled version remains 6.4.0 and the manual edition
+is 6.5.0.
 
-A fresh Astra high review checked the cleanup additions against the source
-and clarified the wording about scalar constants.
+- `make check-sources` passed for 552 artifacts, 1179 code projections,
+  and 42 SVG/PDF pairs. No executable examples or projections changed.
+- `make check GECODE_ROOT=/private/tmp/mpg-650-e681aed/gecode` passed the
+  tooling/platform and example gates: 632 checks passed, none failed, and
+  three interactive Gist runs were skipped. Both open-route branching orders
+  still enumerate exactly the expected five routes.
+- Focused Gecode runs passed all 59 `Int::OpenList::` tests, including the
+  incremental `OpenTest` histories and view/clone checks, plus the four
+  heuristic-search tests. Each used one iteration on one test-runner thread;
+  no exhaustive Gecode sweep was run.
+- The verified temporary executable
+  `/private/tmp/gecode-doxygen-1.18.0/doxygen-1.18.0/doxygen` reports 1.18.0
+  (`8e760943e5d9581a444cf327f43a0b4d20d29482`). Its reference build passed
+  without Doxygen warnings. The regenerated inventory has 374 references,
+  including `OpenViewList`, `Test::Int::OpenTest`,
+  `Search::HeuristicGuidance`, and `Search::CABSOptions`.
+- `make docs MPG_VERSION=6.5.0` passed strict HTML/PDF builds, local-link and
+  search checks, reference URL checks, and PDF metadata/text checks. All six
+  changed HTML pages were reviewed at 1440- and 390-pixel widths; none
+  overflowed the viewport. The affected PDF pages and nearby code/table
+  layouts were inspected.
+- `rst/scripts/package_release.py` passed against that build, producing a
+  local preview with 317 files and a 633-page PDF under
+  `/private/tmp/mpg-650-e681aed/preview-output`. Build and check logs are in
+  `/private/tmp/mpg-650-e681aed/`.
 
-The API inventory contains 370 references generated from that source and its
-Doxygen output. Strict HTML and PDF builds pass, including local links,
-search, reference URLs, and PDF metadata/text checks. The affected HTML was
-reviewed at desktop and narrow widths, and the changed PDF pages were
-inspected.
-
-Preview packaging passes with 317 files and a 633-page PDF. The preview remains
-a local preparation artifact. Repeat validation against the final Gecode tag
-and complete attended Gist review before publication.
+The preview remains a local preparation artifact. Repeat validation against
+the final Gecode tag and complete attended Gist review before publication.

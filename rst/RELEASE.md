@@ -7,7 +7,9 @@ Astro website build does not run Sphinx, XeLaTeX, or the C++ example tests.
 ## Prepare and validate
 
 Use a checkout and compiled libraries of the matching Gecode release, including
-its test framework, generated Doxygen tag file, and reference HTML. The example
+its test framework, generated Doxygen tag file, and reference HTML. Gecode
+requires Doxygen 1.18.0 or newer; generate the tag and HTML together with a
+supported version. The example
 below assumes a CMake build under `../gecode/build/mpg-validation`; use the
 actual build directory for the tag and HTML paths. Install the
 locked Python/Node dependencies and the PDF/figure tools listed in the root

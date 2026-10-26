@@ -72,7 +72,10 @@ the variable at position ``i``. Both restrict the eventual length. After
 variable; on failure the handle can be uninitialized. An index at or beyond
 the maximum eventual length raises ``Int::OutOfLimits``. ``append(home,x)``
 adds an existing variable belonging to the current space and requires the
-length to include it.
+length to include it. Appending the same unassigned variable twice throws
+``Int::ArgumentSame``; this also applies to variables returned by a factory.
+Equal assigned values can occur at different positions, subject to the
+constraints on the list.
 
 ``close(home)`` first constructs any positions required by the minimum
 length, then assigns the eventual length to the number of constructed
@@ -133,9 +136,27 @@ eventual nonempty sequence, and value precedence through ``precede``. The
 open ``distinct`` constraint is value consistent; its propagation-level
 argument does not select stronger filtering.
 
+``sequence`` filters each complete window separately; it does not provide
+domain consistency across overlapping windows. Its propagation-level argument
+is ignored. ``slidingsum`` uses bounds propagation when its lower and upper
+sum bounds differ. For equality, it supports bounds or domain propagation;
+the default is domain propagation for windows of size at most two and bounds
+propagation for larger windows. A list shorter than the window size has no
+complete windows and satisfies either constraint.
+
+For ``min`` and ``max``, bounds are enforced as positions appear. Once the
+list closes, at least one position must equal the result. Closing an empty
+list therefore fails. The result variable can also occur as a list element.
+For ``precede``, every occurrence of the later value requires an earlier
+occurrence of its predecessor; neither value is required to occur. Its
+propagation-level argument is ignored.
+
 Regular constraints are available for integer and Boolean lists. The
 complete sequence must be accepted by the automaton when the list closes;
 intermediate prefixes need not be accepted words.
+
+Propagator authors can follow growth through :api:`OpenViewList`, described
+in :ref:`sec:p:views:open`.
 
 .. _sec:m:open:copy:
 

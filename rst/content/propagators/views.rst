@@ -93,6 +93,29 @@ A scale view for a variable implementation :math:`v` with an integer scale facto
 
 An integer constant view :api:`Int::ConstIntView` provides an integer view interface to an integer constant ``c``. With other words, an integer constant view for the integer ``c`` behaves as an integer view assigned to the value ``c``.
 
+.. _sec:p:views:open:
+
+Views of open variable lists
+----------------------------
+
+For a propagator over an :ref:`open variable list <chap:m:open>`,
+:api:`OpenViewList` provides views of the constructed positions. Construct
+``OpenViewList<View>`` from the model's ``OpenVarList`` handle. All handles
+share the source list and see positions added later. Indexed access returns
+a view by value, which remains valid when the list grows. Call ``update()``
+in the propagator's copy constructor: sharing is preserved within the clone,
+with separate source state from the original space.
+
+The element view must be constructible from its variable type.
+``Int::MinusView`` is also supported. The eventual-length view returned by
+``length()`` is always an ``Int::IntView``, independent of the element view.
+
+``subscribe(home,p)`` subscribes a propagator to construction of positions.
+It does not report changes to their values or to the eventual length.
+Subscribe separately to the element views and the length view using the
+appropriate propagation conditions. Likewise, cancel and reschedule growth
+subscriptions separately from variable subscriptions.
+
 .. _sec:p:views:bool:
 
 Boolean views

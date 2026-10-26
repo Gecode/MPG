@@ -539,6 +539,10 @@
       "title": "Gecode::OpenVarList",
       "url": "classGecode_1_1OpenVarList.html"
     },
+    "OpenViewList": {
+      "title": "Gecode::OpenViewList",
+      "url": "classGecode_1_1OpenViewList.html"
+    },
     "Options": {
       "title": "Gecode::Options",
       "url": "classGecode_1_1Options.html"
@@ -583,6 +587,10 @@
       "title": "Gecode::Rnd",
       "url": "classGecode_1_1Rnd.html"
     },
+    "Search::CABSOptions": {
+      "title": "Gecode::Search::CABSOptions",
+      "url": "classGecode_1_1Search_1_1CABSOptions.html"
+    },
     "Search::Config": {
       "title": "Gecode::Search::Config",
       "url": "namespaceGecode_1_1Search_1_1Config.html"
@@ -626,6 +634,10 @@
     "Search::FailStop": {
       "title": "Gecode::Search::FailStop",
       "url": "classGecode_1_1Search_1_1FailStop.html"
+    },
+    "Search::HeuristicGuidance": {
+      "title": "Gecode::Search::HeuristicGuidance",
+      "url": "classGecode_1_1Search_1_1HeuristicGuidance.html"
     },
     "Search::MixedBest": {
       "title": "Gecode::Search::MixedBest",
@@ -1170,6 +1182,10 @@
     "TernaryPropagator": {
       "title": "Gecode::TernaryPropagator",
       "url": "classGecode_1_1TernaryPropagator.html"
+    },
+    "Test::Int::OpenTest": {
+      "title": "Test::Int::OpenTest",
+      "url": "classTest_1_1Int_1_1OpenTest.html"
     },
     "TieBreak": {
       "title": "Gecode::TieBreak",

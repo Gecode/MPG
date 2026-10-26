@@ -5,6 +5,19 @@
 Changelog
 =========
 
+.. _changelog:2026-10-26:
+
+2026-10-26
+----------
+
+Updated the experimental search guidance in :ref:`sec:m:search:heuristic`
+for scoped enumerations and clarified the parallel CABS frontier limit.
+Clarified open-list window filtering, closure, and alias restrictions in
+:ref:`chap:m:open`. Added the propagator-facing :api:`OpenViewList` interface
+in :ref:`sec:p:views:open` and incremental open-list testing with
+:api:`Test::Int::OpenTest` in :ref:`sec:p:testing:open`. Regenerated the API
+links using Doxygen 1.18.0.
+
 .. _changelog:2026-10-23:
 
 2026-10-23
