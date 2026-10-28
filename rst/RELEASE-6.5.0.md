@@ -1,7 +1,7 @@
 # Preparing MPG for Gecode 6.5.0
 
 The manual now follows the local Gecode branch `feature/6.5.0-cleanups` at
-`e681aed2267645e16826246f9cea7bfbd3147a4d` (checked on 2026-10-26).
+`49e69e12c6da692faafe111092f2c0dcb26854f4` (checked on 2026-10-28).
 This combines current main, open variable lists, experimental
 heuristic search, and the release's scheduling and FlatZinc follow-ups.
 Model, Word/String variables, and the HTML redesign remain outside this release.
@@ -11,11 +11,12 @@ the manual.
 The initial review on 2026-10-21 compared `release-6.4.0` with Gecode `main`
 at `c54eec1264`, plus the planned open-list/search branches. The follow-up
 on 2026-10-23 checked the cleanup branch against that combined source.
-The 2026-10-26 follow-up uses OpenCP `6ac85d496a`, OpenSearch `11e7c256be`,
+The 2026-10-26 follow-up used OpenCP `6ac85d496a`, OpenSearch `11e7c256be`,
 dependency updates through `f0baafb2cf`, and the 24 subsequent cleanup commits.
-Gecode's build metadata still says 6.4.0; its changelog and this manual
-prepare the unreleased 6.5.0 edition. Repeat validation against the final
-tag before publication.
+The 2026-10-28 follow-up uses the reorganized cleanup branch, including its
+revised experimental search API. Gecode's build version is now 6.5.0 and its
+library ABI is 52. The manual remains the unreleased 6.5.0 edition. Repeat
+validation against the final tag before publication.
 
 ## Integrated documentation
 
@@ -61,18 +62,23 @@ after its copyedits.
   distinction between posting a `BoolExpr` and a raw C++ `bool`.
 - The float-propagator chapter explains restoration of the caller's rounding
   mode by `Float::Rounding`, including nested scopes.
-- The CABS explanation makes the progress condition on dominance replacements
-  explicit. The simplified TSPTW example still supports all options described
-  in the manual.
-- Search guidance uses the scoped `Search::HeuristicGuidance::Sense` and
-  `Search::AStarOrder` enumerations. The existing dominance, stop, and worker
-  descriptions agree with the current headers; the frontier-limit explanation
-  includes parallel reservations. The beam and worker refactor needs no
-  additional modeling tutorial.
+- Experimental search takes guidance through `Search::Options::guidance`.
+  The guidance also holds CABS dominance callbacks; `max_width` and
+  `frontier_limit` are ordinary search options. A* orders by bound and uses
+  rank only to break ties. The manual removes the previous rank-first ordering
+  and public engine-seeding instructions, and explains guidance lifetime and
+  commandline-driver setup.
+- The TSPTW description follows the current fixed-array model and its
+  propagated travel-time bound. The previous transition formulation, bound
+  selectors, and residual-propagation switches are no longer taught. The
+  CABS dominance progress condition and parallel frontier reservations remain
+  documented. The worker-count description explains when requests take effect
+  between and within batches.
 - The open-list chapter clarifies window filtering, empty-list closure for
   extrema, result aliases, and the rejection of repeated unassigned elements.
   Its factory, callback, and regular-language explanations still apply to the
   native incremental propagators. The route example remains unchanged.
+  The open-list sum constraint uses its current name, `sliding_sum`.
 - The views chapter introduces `OpenViewList<View>` for propagator authors,
   including shared growth, independent cloning, and separate growth, value,
   and length subscriptions. The testing chapter introduces
@@ -122,39 +128,44 @@ after its copyedits.
 
 ## Current validation
 
-Validation on 2026-10-26 used a fresh Git archive of
-`e681aed2267645e16826246f9cea7bfbd3147a4d`, with new Release libraries,
-experimental search, Gist, and the public test libraries enabled. The source
-checkout remained at that revision through the final check. This replaces
-the earlier result for `3c9d4221ce`; that result was not reused to validate
-the new input. Gecode's compiled version remains 6.4.0 and the manual edition
-is 6.5.0.
+Validation on 2026-10-28 used a fresh Git archive of
+`49e69e12c6da692faafe111092f2c0dcb26854f4`, with Release libraries,
+experimental search, Gist, and the public test libraries enabled. The build
+reports Gecode 6.5.0 with library ABI 52. The earlier validation of
+`e681aed226` was not reused for this input.
+
+An Astra medium agent copyedited the updated prose using `unslop` and
+`zayenz-writing-style`. The API descriptions were checked against the current
+headers and implementations.
 
 - `make check-sources` passed for 552 artifacts, 1179 code projections,
   and 42 SVG/PDF pairs. No executable examples or projections changed.
-- `make check GECODE_ROOT=/private/tmp/mpg-650-e681aed/gecode` passed the
-  tooling/platform and example gates: 632 checks passed, none failed, and
+- `make check GECODE_ROOT=/private/tmp/mpg-650-49e69e1/gecode` passed the
+  tooling/platform and example checks: 632 passed, none failed, and
   three interactive Gist runs were skipped. Both open-route branching orders
   still enumerate exactly the expected five routes.
-- Focused Gecode runs passed all 59 `Int::OpenList::` tests, including the
-  incremental `OpenTest` histories and view/clone checks, plus the four
-  heuristic-search tests. Each used one iteration on one test-runner thread;
-  no exhaustive Gecode sweep was run.
-- The verified temporary executable
-  `/private/tmp/gecode-doxygen-1.18.0/doxygen-1.18.0/doxygen` reports 1.18.0
-  (`8e760943e5d9581a444cf327f43a0b4d20d29482`). Its reference build passed
-  without Doxygen warnings. The regenerated inventory has 374 references,
-  including `OpenViewList`, `Test::Int::OpenTest`,
-  `Search::HeuristicGuidance`, and `Search::CABSOptions`.
+- Focused Gecode runs passed all 59 `Int::OpenList::` tests and the three
+  heuristic-search tests, including their parallel and mixed-engine cases.
+  Each used one iteration on one test-runner thread. No exhaustive Gecode
+  sweep was run.
+- Twelve example smoke checks passed. BAB, A*, and CABS reached travel time
+  671 on TSPTW instance zero with one and two workers. Both fifteen-puzzle
+  models reached four moves with each engine using scramble four, seed one,
+  move limit six, and Manhattan branching.
+- Doxygen 1.18.0 generated the matching reference without warnings. The
+  executable remains `/private/tmp/gecode-doxygen-1.18.0/doxygen-1.18.0/doxygen`.
+  The regenerated inventory has 376 references, including `AStar`, `CABS`,
+  and `Search::UninitializedGuidance`. It no longer includes
+  `Search::CABSOptions`.
 - `make docs MPG_VERSION=6.5.0` passed strict HTML/PDF builds, local-link and
-  search checks, reference URL checks, and PDF metadata/text checks. All six
-  changed HTML pages were reviewed at 1440- and 390-pixel widths; none
-  overflowed the viewport. The affected PDF pages and nearby code/table
-  layouts were inspected.
+  search checks, reference URL checks, and PDF metadata/text checks. The three
+  changed HTML pages, a dense code page, and a table page were reviewed at
+  1440- and 390-pixel widths. The affected PDF pages and nearby page breaks
+  were inspected.
 - `rst/scripts/package_release.py` passed against that build, producing a
   local preview with 317 files and a 633-page PDF under
-  `/private/tmp/mpg-650-e681aed/preview-output`. Build and check logs are in
-  `/private/tmp/mpg-650-e681aed/`.
+  `/private/tmp/mpg-650-49e69e1/preview-output`. Build and check logs are in
+  `/private/tmp/mpg-650-49e69e1/`.
 
 The preview remains a local preparation artifact. Repeat validation against
 the final Gecode tag and complete attended Gist review before publication.

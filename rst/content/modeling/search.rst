@@ -455,8 +455,8 @@ to explore next. An incorrect bound can lose the optimum. A poor rank can waste
 time, but does not by itself justify pruning.
 
 Construct :api:`Search::HeuristicGuidance` with an objective sense and a bound
-callback. The sense is ``Search::HeuristicGuidance::Sense::MINIMIZE`` or
-``Search::HeuristicGuidance::Sense::MAXIMIZE``. The callback reads
+callback. The sense is ``Search::HeuristicGuidance::MINIMIZE`` or
+``Search::HeuristicGuidance::MAXIMIZE``. The callback reads
 the propagated space passed to it and returns a signed 64-bit integer. For
 minimization, this must be a lower bound on the total objective of every solution
 below that space; for maximization it must be an upper bound. On a solution it
@@ -481,28 +481,34 @@ puzzle, rank :math:`h` favors boards close to the goal. Rank :math:`g+2h` puts
 more weight on remaining distance than on moves already made. Either can guide
 exploration while the admissible total bound :math:`g+h` still controls pruning.
 Keep callback arithmetic in range. Callbacks read the supplied space without
-posting constraints. They must not capture another space's local state, and
-captured dependencies must outlive every engine and builder using them.
+posting constraints. They must not capture another space's local state.
+
+Set ``options.guidance = &guidance`` on a ``Search::Options`` object before
+constructing an engine. A missing guidance object or bound callback throws
+:api:`Search::UninitializedGuidance`. Engines copy the guidance when they are
+built; options and search builders retain its address. Keep the guidance alive
+until all engines using those options have been built, and keep captured
+dependencies alive for the engines' lifetimes.
+
+For the commandline driver, call ``options.guidance(&guidance)`` on the
+driver's options before invoking ``Script::run`` with ``AStar`` or ``CABS``.
+The guidance must remain alive throughout that call.
 
 .. _sec:m:search:heuristic:ordering:
 
 Choosing an exploration order
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Construct ``AStar<T>`` with the root space, guidance, and optional search options.
+Construct :api:`AStar` with the root space and search options containing
+the guidance, as in ``AStar<T> engine(root,options)``.
 It explores the pending branching space with the best bound first. Rank breaks
-equal-bound ties, followed by insertion order. To use rank as the main priority,
-pass ``Search::AStarOrder::RANK_FIRST`` after guidance and before the search options.
-This ordering compares rank first, then bound, then insertion order.
-``Search::AStarOrder::BOUND_FIRST`` explicitly selects the default A* order. These values
-have type ``Search::AStarOrder``. Without a rank callback all ranks are zero,
-so rank-first also follows the bound.
+equal-bound ties, followed by insertion order. Without a rank callback,
+equal-bound spaces follow insertion order.
 
-These orders select among pending branching spaces. Generated solutions are
+This order selects among pending branching spaces. Generated solutions are
 returned immediately, so even A* can return a solution while another pending
 space can still lead to a better one. Continue requesting improvements rather
-than treating the first result as optimal. A weighted rank such as
-:math:`g+2h` gives no approximation-ratio guarantee for the first result.
+than treating the first result as optimal.
 
 Branching and exploration are separate choices. In ``fifteen-puzzle.cpp``,
 ``-branching manhattan`` tries slides in order of the resulting Manhattan
@@ -531,25 +537,20 @@ any dominance pruning must also be sound, as discussed below. A stop leaves
 the best result unproved. Ordinary stop objects can be raised or reset to
 continue search as described in :ref:`sec:m:search:stop`.
 
-A checked feasible solution for the same problem can seed search through the engine's
-``constrain()`` member function. Only a strict improvement replaces the accepted
-best solution. If no new solution is returned after seeding, exhaustion proves
-the seed optimal; it does not mean the model is infeasible.
-
-The one-shot functions ``astar`` and ``cabs`` take the root, guidance, and
-optional search options. ``astar`` also accepts an ordering after guidance.
-They exhaust the improving solution stream and return the last solution found,
-as ``bab`` does. They provide no stop or proof status. Use the engine objects
-when reporting whether a result is proved, preserving intermediate improvements,
-or adopting an external solution. Overloads without a root create builders for
-portfolio assets (see :ref:`sec:m:search:portfolio:arbitrary`).
+The one-shot functions ``astar`` and ``cabs`` take the root and search options
+containing the guidance. They exhaust the improving solution stream and return
+the last solution found, as ``bab`` does. They provide no stop or proof status.
+Use the engine objects when reporting whether a result is proved, preserving
+intermediate improvements, or resuming after an ordinary stop. Overloads without
+a root create builders for portfolio assets
+(see :ref:`sec:m:search:portfolio:arbitrary`).
 
 .. _sec:m:search:heuristic:beam:
 
 Widening beam search
 ~~~~~~~~~~~~~~~~~~~~
 
-Best-first exploration can retain many cloned spaces. ``CABS<T>`` (complete
+Best-first exploration can retain many cloned spaces. :api:`CABS` (complete
 anytime beam search) limits the number of unresolved candidates kept in each
 next layer. Each committed choice alternative advances one layer. CABS starts
 with beam width one, preferring lower rank when supplied, or the best objective
@@ -562,8 +563,10 @@ doubles the width and restarts from the root, retaining the best solution. If
 every discarded bound excludes improvement, the pass can prove optimality
 without widening. A finite tree and unrestricted widening give completeness.
 
-Pass :api:`Search::CABSOptions` after the ordinary search options to limit the
-maximum width or the number of pending frontier nodes; zero means unlimited.
+Set ``Search::Options::max_width`` and ``Search::Options::frontier_limit`` to
+limit the maximum width and the number of pending frontier nodes; zero means
+unlimited for either option. Construct the engine as
+``CABS<T> engine(root,options)``.
 Widths grow as 1, 2, 4, and so on, so a maximum of three permits widths one and
 two. Reaching a limit needed to continue reports ``stopped()``. These intrinsic
 limits cannot be lifted by calling ``next()`` again. The frontier limit counts
@@ -573,15 +576,14 @@ one unsubmitted successor when adding a candidate to the beam. The limit
 excludes the saved restart root, copies of the best solution, and returned
 solutions.
 
-The ``tsptw.cpp`` example offers a concrete comparison. Its transition model
-minimizes travel cost for a tour visiting customers within their time windows
-and returning to the depot. The ``prefix`` bound uses travel cost already paid;
-nonnegative arc costs make it optimistic. ``min-arcs`` adds a relaxation of the
-remaining incoming and outgoing arcs. Both are exact on a completed tour.
-Waiting contributes to arrival times but not to travel cost.
+The ``tsptw.cpp`` example offers a concrete comparison. Its model minimizes
+total travel time for a tour visiting customers within their time windows
+and returning to the depot. The guidance uses the propagated minimum of the
+total travel-time variable as its bound. Waiting contributes to service times
+but not to the objective.
 
 Several paths can reach the same residual problem. Set the optional
-``dominates`` callback in ``Search::CABSOptions`` to tell CABS when keeping
+``dominates`` callback in ``Search::HeuristicGuidance`` to tell CABS when keeping
 one candidate makes another redundant. The callback reads two stable spaces
 and returns true when the first preserves every improving completion of the
 second at no worse total objective. It must account for accumulated cost,
@@ -599,18 +601,13 @@ replacement inherits an existing candidate's beam slot even when its rank is
 worse. Once a candidate leaves the beam, it cannot justify further pruning.
 The engine keeps no visited-state table across layers or widening passes.
 
-The TSPTW transition model enables both callbacks for CABS. Its key groups
-states by current location and unvisited customers. The dominance predicate
-checks those are equal, then requires the retained state to arrive no later
-and have paid no more travel cost. An earlier but more expensive state and a
-later but cheaper state remain separate candidates.
-Use ``--dominance off`` to compare with this pruning disabled.
-
-Use the same instance and transition formulation when comparing A*, CABS, and
-BAB. Time-window inference is a separate choice: ``--residual-propagation cheap``
-checks necessary customer and depot deadlines, while ``unary`` uses a scheduling
-relaxation; ``off`` is the default. Stronger inference or a stronger bound costs
-work per node, so fewer explored nodes alone do not establish a faster search.
+The TSPTW example supplies both callbacks. Its key groups prefixes by last
+customer and the set of visited customers. The dominance predicate requires
+equal nonempty prefix lengths and the same last customer and visited set.
+The retained prefix must have no later service time and no greater travel cost.
+An earlier but more expensive prefix and a later but cheaper prefix remain
+separate candidates. Use the same instance when comparing A*, CABS, and BAB.
+Fewer explored nodes alone do not establish a faster search.
 
 Set ``Search::Options::threads`` to use several workers. Parallel A* selects
 from one shared priority queue; expansions already running can produce better
@@ -618,10 +615,10 @@ candidates, so exploration differs from the sequential order. Parallel CABS
 expands parents concurrently and applies dominance pruning within one global
 next-layer beam. Its beam width applies to the whole engine.
 
-Workers retain a parent while expanding its alternatives. A worker can handle
-up to 32 alternatives that fail or cannot improve the best solution before
-checking an ordinary stop. It checks the requested worker count after every
-alternative.
+Workers retain a parent while expanding its alternatives. They check ordinary
+stops between batches of at most 32 alternatives. Worker-count requests take
+effect between these batches and can also interrupt a batch after a failed or
+non-improving alternative.
 
 Guidance and dominance-key callbacks can run concurrently on different spaces.
 Captured shared state must support concurrent access, and model preparation

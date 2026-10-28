@@ -5,6 +5,16 @@
 Changelog
 =========
 
+.. _changelog:2026-10-28:
+
+2026-10-28
+----------
+
+Aligned :ref:`sec:m:search:heuristic` with the experimental options-based
+search API and the simplified TSPTW example. Updated the open-list sum
+constraint name to ``sliding_sum`` in :ref:`chap:m:open`. Revalidated the
+manual against Gecode's 6.5.0 build and regenerated the API inventory.
+
 .. _changelog:2026-10-26:
 
 2026-10-26

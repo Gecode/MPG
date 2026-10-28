@@ -131,14 +131,14 @@ present. It would not arrange for later positions to join that constraint.
 
 Besides ``distinct`` and the regular ``extensional`` constraint used above,
 integer lists support relations between consecutive variables, ``sequence``
-and ``slidingsum`` over each complete window, ``min`` and ``max`` of the
+and ``sliding_sum`` over each complete window, ``min`` and ``max`` of the
 eventual nonempty sequence, and value precedence through ``precede``. The
 open ``distinct`` constraint is value consistent; its propagation-level
 argument does not select stronger filtering.
 
 ``sequence`` filters each complete window separately; it does not provide
 domain consistency across overlapping windows. Its propagation-level argument
-is ignored. ``slidingsum`` uses bounds propagation when its lower and upper
+is ignored. ``sliding_sum`` uses bounds propagation when its lower and upper
 sum bounds differ. For equality, it supports bounds or domain propagation;
 the default is domain propagation for windows of size at most two and bounds
 propagation for larger windows. A list shorter than the window size has no

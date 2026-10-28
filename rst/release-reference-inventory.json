@@ -3,6 +3,10 @@
   "gecode_version": "6.5.0",
   "generated_by": "Gecode release Doxygen tag",
   "objects": {
+    "AStar": {
+      "title": "Gecode::AStar",
+      "url": "classGecode_1_1AStar.html"
+    },
     "Actor": {
       "title": "Gecode::Actor",
       "url": "classGecode_1_1Actor.html"
@@ -78,6 +82,10 @@
     "Branchers": {
       "title": "Gecode::Branchers",
       "url": "classGecode_1_1Branchers.html"
+    },
+    "CABS": {
+      "title": "Gecode::CABS",
+      "url": "classGecode_1_1CABS.html"
     },
     "CPProfilerSearchTracer": {
       "title": "Gecode::CPProfilerSearchTracer",
@@ -587,10 +595,6 @@
       "title": "Gecode::Rnd",
       "url": "classGecode_1_1Rnd.html"
     },
-    "Search::CABSOptions": {
-      "title": "Gecode::Search::CABSOptions",
-      "url": "classGecode_1_1Search_1_1CABSOptions.html"
-    },
     "Search::Config": {
       "title": "Gecode::Search::Config",
       "url": "namespaceGecode_1_1Search_1_1Config.html"
@@ -666,6 +670,10 @@
     "Search::TimeStop": {
       "title": "Gecode::Search::TimeStop",
       "url": "classGecode_1_1Search_1_1TimeStop.html"
+    },
+    "Search::UninitializedGuidance": {
+      "title": "Gecode::Search::UninitializedGuidance",
+      "url": "classGecode_1_1Search_1_1UninitializedGuidance.html"
     },
     "SearchTracer": {
       "title": "Gecode::SearchTracer",
