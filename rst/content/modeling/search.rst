@@ -366,7 +366,7 @@ Note that all values are of course rounded and that at least one thread will be 
 
 .. mpg-paragraph:: Adjusting the number of workers.
 
-The ``worker_control`` option lets a caller adjust how many workers a ``DFS`` or ``BAB`` engine may use. The resolved ``threads`` value sets the engine's fixed worker capacity. This example sets a capacity of four workers, initially requests two, then requests one:
+The ``worker_control`` option lets a caller adjust how many workers a ``DFS`` or ``BAB`` engine may use. The resolved ``threads`` value sets the engine's fixed worker capacity. This example sets a capacity of four workers, initially requests two, and then requests one:
 
 .. mpg-code:: worker control
    :direct:
@@ -439,7 +439,7 @@ model's existing branchers and strict-improvement ``constrain()`` function
 .. note::
 
    These engines belong to the experimental Gecode 6.5.0 preview. Enable them
-   when building Gecode with the CMake option
+   when configuring Gecode, using the CMake option
    ``GECODE_ENABLE_EXPERIMENTAL=ON`` or the Autoconf option
    ``--enable-experimental``. Availability is reported by
    ``GECODE_HAS_EXPERIMENTAL``. The preview interfaces may change.
@@ -480,8 +480,8 @@ An optional third guidance argument is a rank callback, also returning a signed
 puzzle, rank :math:`h` favors boards close to the goal. Rank :math:`g+2h` puts
 more weight on remaining distance than on moves already made. Either can guide
 exploration while the admissible total bound :math:`g+h` still controls pruning.
-Keep callback arithmetic in range. Callbacks read the supplied space without
-posting constraints. They must not capture another space's local state.
+Keep callback arithmetic in range. Callbacks only read the supplied space;
+they must not post constraints or capture another space's local state.
 
 Set ``options.guidance = &guidance`` on a ``Search::Options`` object before
 constructing an engine. A missing guidance object or bound callback throws
@@ -566,10 +566,10 @@ without widening. A finite tree and unrestricted widening give completeness.
 Set ``Search::Options::max_width`` and ``Search::Options::frontier_limit`` to
 limit the maximum width and the number of pending frontier nodes; zero means
 unlimited for either option. Construct the engine as
-``CABS<T> engine(root,options)``.
-Widths grow as 1, 2, 4, and so on, so a maximum of three permits widths one and
-two. Reaching a limit needed to continue reports ``stopped()``. These intrinsic
-limits cannot be lifted by calling ``next()`` again. The frontier limit counts
+``CABS<T> engine(root,options)``. Widths grow as 1, 2, 4, and so on, so a
+maximum of three permits widths one and two. If search must exceed a limit
+to continue, the engine reports ``stopped()``. Calling ``next()`` again does
+not lift these intrinsic limits. The frontier limit counts
 pending nodes in both layers, including selected parents, rather than bytes.
 In parallel search, an unfinished expansion reserves room for its parent and
 one unsubmitted successor when adding a candidate to the beam. The limit
@@ -623,7 +623,8 @@ non-improving alternative.
 Guidance and dominance-key callbacks can run concurrently on different spaces.
 Captured shared state must support concurrent access, and model preparation
 must respect each worker's ownership of its space. Parallel solution order and
-work counts can vary between runs. Search tracers are unsupported.
+work counts can vary between runs. These engines do not support search
+tracers.
 
 These experimental engines use cloned frontier spaces. The recomputation
 distances ``c_d`` and ``a_d`` do not reduce their frontier storage. Compare
