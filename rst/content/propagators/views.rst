@@ -103,8 +103,8 @@ For a propagator over an :ref:`open variable list <chap:m:open>`,
 ``OpenViewList<View>`` from the model's ``OpenVarList`` handle. All handles
 share the source list and see positions added later. Indexed access returns
 a view by value, which remains valid when the list grows. Call ``update()``
-in the propagator's copy constructor: sharing is preserved within the clone,
-with separate source state from the original space.
+in the propagator's copy constructor. Sharing is then preserved within the
+clone, while the clone's source state stays separate from the original space.
 
 The element view must be constructible from its variable type.
 ``Int::MinusView`` is also supported. The eventual-length view returned by

@@ -192,8 +192,8 @@ libraries.
 Selecting tests and reproducing failures
 ----------------------------------------
 
-The test belongs to both ``check`` and ``standard``. Tags select groups of tests;
-membership in one group does not imply membership in another. A constructor
+The test has both the ``check`` and ``standard`` tags. Tags select groups of
+tests; membership in one group does not imply membership in another. A constructor
 without a tag argument assigns only ``standard``.
 
 The runner accepts one or more tag selections:
@@ -223,11 +223,12 @@ For example, for ``Int::Less`` with seed ``12345``, enable logging with:
 The option ``-replay`` runs the named test once on a single thread. Unlike
 ``-seed``, it uses the supplied seed directly for that test. Preserve any
 ``-fixprob`` option in the reported command as well. The option ``-log``
-prints the test's buffered log on failure and requires a single thread. The log includes
-the assignment that caused the failure. For example,
-replacing ``x[0] < x[1]`` in the specification with ``x[0] <= x[1]`` makes equal
-assignments valid according to the specification, while the propagator rejects
-them. An assignment such as ``{-3,-3}`` exposes this disagreement at the boundary.
+prints the test's buffered log on failure and requires a single thread. The
+log includes the assignment that caused the failure. For example, replacing
+``x[0] < x[1]`` in the specification with ``x[0] <= x[1]`` makes equal
+assignments valid according to the specification, while the propagator
+rejects them. An assignment such as ``{-3,-3}`` exposes this disagreement at
+the boundary.
 
 .. _sec:p:testing:extending:
 
