@@ -4789,6 +4789,14 @@
       "reason": "illustrative source fragment",
       "sha256": "2d53c6555711f902473db8035ad37119c55057b27f9c80d65d00d5c06731de06",
       "validation": "display-only"
+    },
+    {
+      "bytes": 828,
+      "id": "instance-file-script",
+      "language": "cpp",
+      "path": "rst/examples/fragments/instance-file-script.cpp",
+      "sha256": "68e6836fd22afde7fc8281c7616237974ebcad23fda247436b89b1aaee8ba003",
+      "validation": "display-only"
     }
   ],
   "projections": {
@@ -11357,6 +11365,15 @@
       ],
       "sha256": "ba57f0c2e577fe6889dd655d2dbc0a703d12e7f2538a5f3db1b01801e66b0bfe",
       "start_line": 41
+    },
+    "instance file script": {
+      "artifact": "rst/examples/fragments/instance-file-script.cpp",
+      "bytes": 828,
+      "end_line": 33,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "68e6836fd22afde7fc8281c7616237974ebcad23fda247436b89b1aaee8ba003",
+      "start_line": 1
     },
     "int.hh": {
       "artifact": "rst/examples/src/int.hh",

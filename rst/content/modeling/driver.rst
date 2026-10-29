@@ -182,7 +182,7 @@ The only option for which no value exists is ``-help``: it prints some configura
 
 The class :api:`SizeOptions` accepts an unsigned integer as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``size()``.
 
-The class :api:`InstanceOptions` accepts a string as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``instance()``.
+The class :api:`InstanceOptions` accepts a string as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``instance()``. The value can also name an instance file, see :ref:`sec:m:driver:instance-files`.
 
 .. _modeling:m-driver:integer-propagation-level-options:
 
@@ -231,6 +231,50 @@ For an example, in particular, how to use the user-defined options, see :ref:`se
 .. mpg-paragraph:: Gist inspectors and comparators.
 
 The driver options can pass inspectors and comparators (see :ref:`sec:m:gist:inspecting_nodes`) to Gist. To register an inspector ``i``, use the ``inspect.click(&i)``, ``inspect.solution(&i)``, or ``inspect.move(&i)`` methods of the option object, for a comparator ``c``, use ``inspect.compare(&c)``.
+
+.. _sec:m:driver:instance-files:
+
+Reading instance files
+----------------------
+
+Scripts that solve benchmark instances can read them from files. The commandline driver uses Gecode's instance reader for this: a short *reader spec* describes the layout of a textual format, and reading a file yields named values. A script supplies the spec for its format, typically as a string literal. The SAT, TSP, TSPTW, job shop, sudoku, and nonogram examples that come with Gecode contain specs for their formats.
+
+.. _modeling:m-driver:instance-file-options:
+
+.. mpg-paragraph:: Instance file options.
+
+An :api:`InstanceOptions` object created with a reader spec as second argument reads instance files. The last value on the commandline then names a file, and the member function ``data()`` reads it and returns the values as an object of class ``Instance::Data``. The file is read only once, so ``data()`` can be called both in ``main()``, to report errors before solving starts, and in the script's constructor. Errors in the file are reported by an exception of class ``Instance::Error``. The option ``-spec`` reads files with the spec in another file instead, and ``-param`` gives values to the parameters of a spec as ``name=value`` pairs separated by commas. :numref:`program:m:driver:instance-file-script` sketches a SAT solver reading DIMACS CNF files. The driver library requires the instance library (``gecodeinstance``), so scripts that link the driver also link the instance library.
+
+.. mpg-code:: instance file script
+   :caption: Reading an instance file in a script
+   :name: program:m:driver:instance-file-script
+
+.. _modeling:m-driver:instance-data:
+
+.. mpg-paragraph:: Instance data.
+
+Every value read has a name, a type (integer, float, or string), and a depth: scalars have depth 0, arrays depth 1, arrays of rows depth 2, and so on. Rows can have different lengths. The fields of repeated records are stored column-wise: for a job shop instance, ``machine`` and ``duration`` are arrays with one row per job. The member functions ``integer()``, ``number()``, and ``text()`` return single values, ``ints()`` and ``numbers()`` return arrays (or a row, when given row indices such as ``{3}``), and ``size()`` returns lengths. If a file does not match its format, the message of the ``Instance::Error`` gives the file, line, and column, together with the place in the spec.
+
+Some files contain several instances, such as the job shop collection ``jobshop1.txt`` from the OR-Library. A spec reads them with an ``instances`` block, and the parameter ``instance`` selects one by number or name: for example, ``job-shop -param instance=la01 jobshop1.txt``. A file with a single instance needs no selection.
+
+.. _modeling:m-driver:reader-specs:
+
+.. mpg-paragraph:: Reader specs.
+
+A spec is a sequence of statements that read the input from top to bottom. The spec for DIMACS CNF in the SAT example is:
+
+.. code-block:: text
+
+   format dimacs-cnf
+
+   comment "c"
+   stop "%"
+   line "p cnf {vars:int} {clauses:int}"
+   repeat clauses {
+     list int clause until 0
+   }
+
+The tool ``gecode-instance`` reads a file with a spec file (``-spec``) and prints a summary of the values or the values as MiniZinc data (``-dzn``), which helps when writing a spec. With ``-list`` it lists the instances in a file. The spec language is documented with the instance reader in the reference documentation.
 
 .. _sec:m:driver:script:
 
