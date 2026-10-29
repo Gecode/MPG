@@ -1086,9 +1086,9 @@ modulo ``m``, hence zero when ``m`` is one.
 
 The ``gcd``, ``product``, and ``product_mod`` post functions also accept a
 ``Reify`` argument after the result variable. All four constraints support
-full and half reification (see
-:ref:`sec:m:integer:halfreify`). With a variable modulus, positivity of the
-modulus and the residue range belong to the reified proposition. An inactive
+full and half reification (see :ref:`sec:m:integer:halfreify`). With a
+variable modulus, positivity of the modulus and the residue range belong to
+the reified proposition. An inactive
 implication does not restrict the modulus or result. Passing a constant
 modulus outside ``1..Int::Limits::max`` throws ``Int::OutOfLimits``, even
 for an inactive implication.
@@ -1236,8 +1236,8 @@ function, see :ref:`sec:m:integer:minimum-distance`.
 A fixed separation must be nonnegative; a variable separation is
 constrained to be nonnegative. Zero imposes no restriction on ``x``. A
 separation fixed to one uses a bounds-consistent ``distinct`` propagator.
-With fewer than two variables, a fixed separation imposes no restriction, while a variable
-separation is only constrained to be nonnegative. For positive separation,
+With fewer than two variables, a fixed separation imposes no restriction,
+and a variable separation is only constrained to be nonnegative. For positive separation,
 repeated occurrences of the same unassigned variable raise
 ``Int::ArgumentSame``. For the variable overload, this restriction applies
 when ``p`` can be positive; ``p`` must also be a different variable from
@@ -1285,14 +1285,14 @@ The two variables in ``x`` select sites by their indices, not by their
 coordinates. Since ``z`` has minimum three, the selected sites must be at
 least three units apart. For example, indices zero and two give distance
 five and require ``z`` to equal five. The post function restricts the site
-variables to indices from zero to ``d.size()-1``.
-At least two selected positions are required.
+variables to indices from zero to ``d.size()-1``. At least two selected
+positions are required.
 
 The matrix constructor copies and validates the row-major array of
 distances. The resulting data is shared across propagators, clones, and
 search threads. For a large collection, ``IntDistance`` can instead take
-the number of sites and a callable that computes a distance for two indices.
-This avoids storing the whole matrix. The callable must return stable
+the number of sites and a callable that computes the distance between two
+indices, which avoids storing the whole matrix. The callable must return stable
 results, own or share its captured data, and support concurrent calls. It
 must not depend on a space. Range and diagonal values are checked when
 evaluated; symmetry is the caller's responsibility.
@@ -2215,11 +2215,11 @@ resource-time capacity can miss an overload because it counts this unused
 capacity as available.
 
 This additional check only runs when the number of tasks and the capacity
-fall within fixed limits.
-For optional tasks it considers the mandatory subset. It runs on relevant
-bounds changes and reports failure when it detects an overload; it does
-not directly prune task bounds. The edge-finding cost above therefore does
-not describe the whole advanced propagation stage.
+fall within fixed limits. For optional tasks, it considers the mandatory
+subset. It runs on relevant bounds changes and reports failure when it
+detects an overload, but it does not directly prune task bounds. The
+edge-finding cost above therefore does not describe the whole advanced
+propagation stage.
 
 .. _modeling:m-integer:cumulative-multi-resource-constraint:
 

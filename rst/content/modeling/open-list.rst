@@ -116,9 +116,9 @@ Selectors and filters operate on the constructed prefix. Filter and print
 callbacks receive the position in the list. Variables rejected by the filter
 can remain unassigned when the list brancher finishes. Action and CHB selectors
 require the whole list to have been constructed when the brancher is posted;
-otherwise posting throws ``Int::UnknownBranching``. Give the list a finite
-application bound whenever possible. Exploring longer routes can be very
-expensive even if a few short solutions are easy to find.
+otherwise posting throws ``Int::UnknownBranching``. Whenever the application
+permits it, give the list a finite maximum length. Exploring longer routes can
+be very expensive even if a few short solutions are easy to find.
 
 .. _sec:m:open:constraints:
 
@@ -178,9 +178,9 @@ the complete route.
 
 :api:`OpenBoolVarList` supplies the corresponding factory for Boolean
 variables. The generic :api:`OpenVarList` template also accepts a factory
-for another variable type, such as ``SetVar`` or ``FloatVar``. This shares
-the storage and cloning machinery; it does not supply all integer-list
-constraints or branching overloads for that variable type.
+for another variable type, such as ``SetVar`` or ``FloatVar``. Such a list
+shares the storage and cloning machinery, but not all integer-list
+constraints and branching overloads exist for that variable type.
 
 A factory creates the variable at a position in the space passed to it.
 An optional transition callback can post constraints after a position is
@@ -190,12 +190,13 @@ captured data. They must not capture a space or its variable handles.
 Use the supplied space and, in a transition callback, the supplied list to
 access the current model.
 
-Factories and transitions run inside ``Space::NoGPI`` scopes, including
-transitions called by direct ``append``. Propagators posted there have
+Factories and transitions run inside ``Space::NoGPI`` contexts, including
+transitions called by a direct ``append``. Propagators posted there have
 space-local information and zero AFC; identifiers and groups remain
-available. A callback can use a local ``Space::UseGPI`` scope for postings
+available. A callback can use a local ``Space::UseGPI`` context for postings
 that should accumulate ordinary AFC. Nested list construction starts its
-own ``NoGPI`` scope. Each scope restores the previous setting when it exits.
+own ``NoGPI`` context. Each context restores the previous setting when it is
+destroyed.
 
 For the lifetime, cloning, and rewriting rules of these contexts, see
 :ref:`sec:m:branch:gpi`.

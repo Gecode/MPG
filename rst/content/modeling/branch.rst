@@ -623,8 +623,8 @@ For an example using a decay-factor with AFC, see :ref:`sec:c:crossword:info`.
 Scoped control of propagator information
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-When a model creates constraints during search, their failures need not
-always contribute to shared AFC information. The :api:`Space::NoGPI`
+Constraints that a model posts during search need not always contribute
+their failures to the shared AFC information. The :api:`Space::NoGPI`
 context gives newly posted propagators space-local information instead.
 They retain identifiers and groups, but their AFC remains zero, including
 when they fail. Existing propagators are unaffected.
@@ -636,9 +636,9 @@ For example, assuming that ``home`` refers to a space and ``x``, ``y``, and
    :direct:
 
 Propagators created by the first and third relations have local information.
-The nested :api:`Space::UseGPI` context enables ordinary global information for the
-second relation. These settings apply to new propagators; if a posting
-simplifies a constraint without creating a propagator, it creates no
+The nested :api:`Space::UseGPI` context enables ordinary global information
+for the second relation. These settings only apply to new propagators. A
+posting that simplifies a constraint without creating a propagator creates no
 propagator information either.
 
 Each context restores the previous setting when it is destroyed, including

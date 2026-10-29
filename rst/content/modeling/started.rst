@@ -536,7 +536,7 @@ In :ref:`sec:m:comfy:cost` it is discussed how a simple ``cost()`` function can 
 Obtaining Gecode
 ----------------
 
-This section explains how to obtain Gecode. Released editions are distributed as source archives. Some operating systems also provide Gecode packages, but those packages are maintained by the corresponding distribution and may not match the version used by this document. For a released edition, download the matching source archive and build it locally. During release preparation, use a development checkout containing the features described in this manual.
+This section explains how to obtain Gecode. Gecode releases are distributed as source archives. Some operating systems also provide Gecode packages, but those packages are maintained by the corresponding distribution and may not match the version used by this document. For a release, download the matching source archive and build it locally. During release preparation, use a development checkout containing the features described in this manual.
 
 .. _sec:m:started:install:
 
@@ -573,7 +573,7 @@ Install Xcode or the Xcode command line tools. CMake can then use the Apple comp
 Installing Gecode on Linux and relatives
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Debian and Ubuntu Linux distributions come with pre-compiled packages for Gecode. These packages (and all the packages they depend on) can be installed with the usual package management tools. These packages can be useful for quick experiments. Check their version before using them with examples that require the Gecode edition described here.
+The Debian and Ubuntu Linux distributions come with pre-compiled packages for Gecode. These packages (and all the packages they depend on) can be installed with the usual package management tools. These packages can be useful for quick experiments. Check their version before using them with examples that require the Gecode version described here.
 
 .. _sec:m:started:compile:
 
@@ -657,8 +657,7 @@ runs the basic integrity tests, ``check-standard`` runs the standard suite, and
 
 Each target selects tests with the corresponding tag: ``check``, ``standard``,
 or ``sweep``. Tests declare their tags when they are registered. A test can
-belong to several groups; membership in one does not imply membership in
-another. :ref:`chap:p:testing` explains tag selection for tests that use the
+have several tags, and having one tag does not imply having another. :ref:`chap:p:testing` explains tag selection for tests that use the
 installed Gecode test library.
 
 

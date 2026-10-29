@@ -264,16 +264,16 @@ Boolean expressions and relations
 
 C++ Boolean constants can initialize a :api:`BoolExpr` or occur in an
 expression with Boolean variables and relations. For example,
-``BoolExpr e = true`` starts with a true expression; combining ``e`` with
-``x`` using ``e && x`` gives the same condition as ``x``. Of C++ scalar
-constants, only ``bool`` values convert to Boolean expressions; integer
-constants retain their integer meaning. A default-constructed ``BoolExpr`` is an empty accumulator
-for conjunctions or disjunctions, rather than a Boolean constant.
+``BoolExpr e = true`` starts with a true expression, and ``e && x`` then
+gives the same condition as ``x``. Among C++ scalar constants, only ``bool``
+values convert to Boolean expressions; integer constants keep their integer
+meaning. A default-constructed ``BoolExpr`` is not a Boolean constant. It is
+an empty accumulator for conjunctions or disjunctions.
 
-When posting a constant Boolean expression, use ``expr(home, BoolExpr(true))``
-to obtain a Boolean variable fixed to one. The call ``expr(home, true)``
-retains its integer-expression overload and returns an integer variable
-fixed to one.
+To post a constant Boolean expression, use ``expr(home, BoolExpr(true))``.
+This returns a Boolean variable fixed to one. The call ``expr(home, true)``
+still selects the integer-expression overload and returns an integer
+variable fixed to one.
 
 Again, the purpose of a Boolean expression or relation is to post a corresponding constraint for it (see :api:`Posting of expressions and relations <TaskModelMiniModelPost>`). Posting a Boolean expression returns a new Boolean variable that is constrained to the value of the expression. Several constraints might be posted for a single expression, however as few constraints as possible are posted. For example, all negation constraints are eliminated by rewriting the Boolean expression into NNF (negation normal form) and conjunction and disjunction constraints are combined whenever possible.
 
