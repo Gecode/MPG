@@ -536,7 +536,7 @@ In :ref:`sec:m:comfy:cost` it is discussed how a simple ``cost()`` function can 
 Obtaining Gecode
 ----------------
 
-This section explains how to obtain Gecode. Gecode releases are distributed as source archives. Some operating systems also provide Gecode packages, but those packages are maintained by the corresponding distribution and may not match the version used by this document. For a release, download the matching source archive and build it locally. During release preparation, use a development checkout containing the features described in this manual.
+This section explains how to obtain Gecode. Gecode releases are distributed as source archives. Some operating systems also provide Gecode packages, but those packages are maintained by the corresponding distribution and may not match the version used by this document. Download the source archive matching this manual and build it locally.
 
 .. _sec:m:started:install:
 
@@ -546,7 +546,7 @@ This section explains how to obtain Gecode. Gecode releases are distributed as s
 Installing Gecode
 ~~~~~~~~~~~~~~~~~
 
-The source archive is available from the `Gecode GitHub releases <https://github.com/Gecode/gecode/releases>`__. Download the archive matching Gecode |release| and unpack it into a working directory. The commands in the next section assume that the source directory name is ``gecode-`` followed by the version number. Rename a development checkout to that name, or substitute its actual path.
+The source archive is available from the `Gecode GitHub releases <https://github.com/Gecode/gecode/releases>`__. Download the archive matching Gecode |release| and unpack it into a working directory. The commands in the next section assume that the source directory name is ``gecode-`` followed by the version number. If you build from a Git checkout instead, substitute its path.
 
 .. _sec:m:started:install:windows:
 

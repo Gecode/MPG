@@ -1085,8 +1085,9 @@ one, whereas ``mod`` gives :math:`-2`. For an empty array, the result is one
 modulo ``m``, hence zero when ``m`` is one.
 
 The ``gcd``, ``product``, and ``product_mod`` post functions also accept a
-``Reify`` argument after the result variable. All four constraints support
-full and half reification (see :ref:`sec:m:integer:halfreify`). With a
+``Reify`` argument after the result variable. Together with divisibility,
+which always takes a ``Reify``, these constraints support full and half
+reification (see :ref:`sec:m:integer:halfreify`). With a
 variable modulus, positivity of the modulus and the residue range belong to
 the reified proposition. An inactive
 implication does not restrict the modulus or result. Passing a constant
