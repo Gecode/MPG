@@ -65,7 +65,7 @@ after its copyedits.
 - Experimental search takes guidance through `Search::Options::guidance`.
   The guidance also holds CABS dominance callbacks; `max_width` and
   `frontier_limit` are ordinary search options. A* orders by bound and uses
-  rank only to break ties. The manual removes the previous rank-first ordering
+  rank only to break ties. The manual drops the previous rank-first ordering
   and public engine-seeding instructions, and explains guidance lifetime and
   commandline-driver setup.
 - The TSPTW description follows the current fixed-array model and its
@@ -153,7 +153,7 @@ headers and implementations.
   models reached four moves with each engine using scramble four, seed one,
   move limit six, and Manhattan branching.
 - Doxygen 1.18.0 generated the matching reference without warnings. The
-  executable remains `/private/tmp/gecode-doxygen-1.18.0/doxygen-1.18.0/doxygen`.
+  executable is at `/private/tmp/gecode-doxygen-1.18.0/doxygen-1.18.0/doxygen`.
   The regenerated inventory has 376 references, including `AStar`, `CABS`,
   and `Search::UninitializedGuidance`. It no longer includes
   `Search::CABSOptions`.
