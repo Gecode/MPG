@@ -1,7 +1,8 @@
 # Preparing MPG for Gecode 6.5.0
 
 The manual now follows the local Gecode branch `feature/6.5.0-cleanups` at
-`49e69e12c6da692faafe111092f2c0dcb26854f4` (checked on 2026-10-28).
+`01fc89ac9f33c722b5e515c9e5eb491c26d06aae` (checked on 2026-10-29), which
+rebases the cleanups onto the final open-search PR stack.
 This combines current main, open variable lists, experimental
 heuristic search, and the release's scheduling and FlatZinc follow-ups.
 Model, Word/String variables, and the HTML redesign remain outside this release.
