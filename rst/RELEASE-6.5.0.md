@@ -128,44 +128,33 @@ after its copyedits.
 
 ## Current validation
 
-Validation on 2026-10-28 used a fresh Git archive of
-`49e69e12c6da692faafe111092f2c0dcb26854f4`, with Release libraries,
-experimental search, Gist, and the public test libraries enabled. The build
-reports Gecode 6.5.0 with library ABI 52. The earlier validation of
-`e681aed226` was not reused for this input.
-
-An Astra medium agent copyedited the updated prose using `unslop` and
-`zayenz-writing-style`. The API descriptions were checked against the current
-headers and implementations.
+Validation on 2026-10-29 used a fresh Git archive of
+`01fc89ac9f33c722b5e515c9e5eb491c26d06aae`, the final local source on
+`feature/6.5.0-cleanups`, with Release libraries, experimental search, Gist,
+and the public test libraries enabled. The build reports Gecode 6.5.0 with
+library ABI 52. The 2026-10-28 validation of `49e69e12c6` was not reused for
+this input; its focused Gecode runs, example smoke checks, and visual review
+were not repeated.
 
 - `make check-sources` passed for 552 artifacts, 1179 code projections,
-  and 42 SVG/PDF pairs. No executable examples or projections changed.
-- `make check GECODE_ROOT=/private/tmp/mpg-650-49e69e1/gecode` passed the
+  and 42 SVG/PDF pairs.
+- `make check GECODE_ROOT=/tmp/mpg-650-final/gecode` passed the
   tooling/platform and example checks: 632 passed, none failed, and
   three interactive Gist runs were skipped. Both open-route branching orders
   still enumerate exactly the expected five routes.
-- Focused Gecode runs passed all 59 `Int::OpenList::` tests and the three
-  heuristic-search tests, including their parallel and mixed-engine cases.
-  Each used one iteration on one test-runner thread. No exhaustive Gecode
-  sweep was run.
-- Twelve example smoke checks passed. BAB, A*, and CABS reached travel time
-  671 on TSPTW instance zero with one and two workers. Both fifteen-puzzle
-  models reached four moves with each engine using scramble four, seed one,
-  move limit six, and Manhattan branching.
 - Doxygen 1.18.0 generated the matching reference without warnings. The
-  executable is at `/private/tmp/gecode-doxygen-1.18.0/doxygen-1.18.0/doxygen`.
-  The regenerated inventory has 376 references, including `AStar`, `CABS`,
-  and `Search::UninitializedGuidance`. It no longer includes
-  `Search::CABSOptions`.
-- `make docs MPG_VERSION=6.5.0` passed strict HTML/PDF builds, local-link and
-  search checks, reference URL checks, and PDF metadata/text checks. The three
-  changed HTML pages, a dense code page, and a table page were reviewed at
-  1440- and 390-pixel widths. The affected PDF pages and nearby page breaks
-  were inspected.
-- `rst/scripts/package_release.py` passed against that build, producing a
-  local preview with 317 files and a 633-page PDF under
-  `/private/tmp/mpg-650-49e69e1/preview-output`. Build and check logs are in
-  `/private/tmp/mpg-650-49e69e1/`.
+  executable is at `~/.local/opt/doxygen-1.18.0/doxygen`. The regenerated
+  inventory is identical to the committed one, with 376 references.
+- `make release MPG_VERSION=6.5.0` with fresh `RST_BUILD` and `MPG_OUTPUT`
+  repeated those checks and passed the strict HTML/PDF builds, local-link,
+  search, and reference URL checks, and PDF metadata/text checks. Packaging
+  produced a local preview with 317 files and a 633-page PDF under
+  `/tmp/mpg-650-final/preview-output`. Build and check logs are in
+  `/tmp/mpg-650-final/`.
+- The three Gist examples build against this Gist-enabled build and start
+  their event loops on Qt's offscreen platform.
 
-The preview remains a local preparation artifact. Repeat validation against
-the final Gecode tag and complete attended Gist review before publication.
+The preview remains a local preparation artifact. Repeat this validation if
+the 6.5.0 tag points elsewhere. The attended Gist review remains for the
+owner: `/tmp/mpg-650-final/run-gist-review.sh` opens the three examples in
+turn and says what each should show.
