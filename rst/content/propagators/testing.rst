@@ -227,8 +227,7 @@ prints the test's buffered log on failure and requires a single thread. The
 log includes the assignment that caused the failure. For example, replacing
 ``x[0] < x[1]`` in the specification with ``x[0] <= x[1]`` makes equal
 assignments valid according to the specification, while the propagator
-rejects them. An assignment such as ``{-3,-3}`` exposes this disagreement at
-the boundary.
+rejects them. An assignment such as ``{-3,-3}`` exposes this disagreement.
 
 .. _sec:p:testing:extending:
 

@@ -44,8 +44,7 @@ links using Doxygen 1.18.0.
 2026-10-23
 ----------
 
-Aligned the 6.5.0 edition with Gecode's release-cleanup branch. Updated
-open regular filtering in :ref:`chap:m:open`, Boolean constants in
+Updated open regular filtering in :ref:`chap:m:open`, Boolean constants in
 :ref:`sec:m:minimodel:bool`, and scoped rounding in :ref:`chap:p:floats`.
 
 .. _changelog:2026-10-21:
@@ -53,9 +52,9 @@ open regular filtering in :ref:`chap:m:open`, Boolean constants in
 2026-10-21
 ----------
 
-Prepared the Gecode 6.5.0 edition with adjustable search workers
-(:ref:`sec:m:search:workers`) and experimental heuristic search
-(:ref:`sec:m:search:heuristic`). Updated the test-library examples and build
+Documented adjustable search workers (:ref:`sec:m:search:workers`) and
+experimental heuristic search (:ref:`sec:m:search:heuristic`) for Gecode
+6.5.0. Updated the test-library examples and build
 instructions to use the ``standard`` test tag and ``check-standard`` target.
 
 Added :ref:`open variable lists <chap:m:open>`, :ref:`GCD and divisibility
@@ -63,9 +62,9 @@ Added :ref:`open variable lists <chap:m:open>`, :ref:`GCD and divisibility
 :ref:`nondeterministic automata <sec:m:integer:nfa>`,
 :ref:`inter-distance <sec:m:integer:inter-distance>`, and
 :ref:`minimum distance over selected sites <sec:m:integer:minimum-distance>`.
-Updated :ref:`scoped propagator information <sec:m:branch:gpi>`,
-:ref:`cumulative overload checking <sec:m:integer:cumulatives>`, and the
-:ref:`optional allocator <sec:m:started:mimalloc>`.
+Documented :ref:`scoped propagator information <sec:m:branch:gpi>` and the
+:ref:`optional allocator <sec:m:started:mimalloc>`, and updated
+:ref:`cumulative overload checking <sec:m:integer:cumulatives>`.
 
 .. _changelog:2026-09-06:
 

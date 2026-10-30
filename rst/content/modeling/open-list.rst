@@ -116,7 +116,9 @@ Selectors and filters operate on the constructed prefix. Filter and print
 callbacks receive the position in the list. Variables rejected by the filter
 can remain unassigned when the list brancher finishes. Action and CHB selectors
 require the whole list to have been constructed when the brancher is posted;
-otherwise posting throws ``Int::UnknownBranching``. Whenever the application
+otherwise posting throws ``Int::UnknownBranching``.
+
+Whenever the application
 permits it, give the list a finite maximum length. Exploring longer routes can
 be very expensive even if a few short solutions are easy to find.
 

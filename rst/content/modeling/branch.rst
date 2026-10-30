@@ -637,7 +637,7 @@ For example, assuming that ``home`` refers to a space and ``x``, ``y``, and
 
 Propagators created by the first and third relations have local information.
 The nested :api:`Space::UseGPI` context enables ordinary global information
-for the second relation. These settings only apply to new propagators. A
+for the second relation. A
 posting that simplifies a constraint without creating a propagator creates no
 propagator information either.
 

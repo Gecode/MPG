@@ -272,7 +272,7 @@ an empty accumulator for conjunctions or disjunctions.
 
 To post a constant Boolean expression, use ``expr(home, BoolExpr(true))``.
 This returns a Boolean variable fixed to one. The call ``expr(home, true)``
-still selects the integer-expression overload and returns an integer
+instead selects the integer-expression overload and returns an integer
 variable fixed to one.
 
 Again, the purpose of a Boolean expression or relation is to post a corresponding constraint for it (see :api:`Posting of expressions and relations <TaskModelMiniModelPost>`). Posting a Boolean expression returns a new Boolean variable that is constrained to the value of the expression. Several constraints might be posted for a single expression, however as few constraints as possible are posted. For example, all negation constraints are eliminated by rewriting the Boolean expression into NNF (negation normal form) and conjunction and disjunction constraints are combined whenever possible.

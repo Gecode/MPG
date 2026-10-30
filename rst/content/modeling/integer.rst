@@ -1665,7 +1665,7 @@ Even if bounds propagation is requested for the ``element`` constraint, the prop
 Extensional constraints
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-:api:`Extensional constraints <TaskModelIntExt>` (also known as user-defined or ad-hoc constraints) provide constraints that are specified in *extension*. The extension can be defined by a finite automaton (of type :api:`DFA`) or a tuple set :api:`TupleSet`. The ordinary automaton constructors require deterministic transitions; ``DFA::nfa`` constructs a nondeterministic automaton. Deterministic automata can also be specified conveniently by regular expressions, see :ref:`sec:m:minimodel:reg`.
+:api:`Extensional constraints <TaskModelIntExt>` (also known as user-defined or ad-hoc constraints) provide constraints that are specified in *extension*. The extension can be defined by a finite automaton (of type :api:`DFA`) or a tuple set (of type :api:`TupleSet`). The ordinary automaton constructors require deterministic transitions; ``DFA::nfa`` constructs a nondeterministic automaton. Deterministic automata can also be specified conveniently by regular expressions, see :ref:`sec:m:minimodel:reg`.
 
 .. _modeling:m-integer:deterministic-finite-automata:
 

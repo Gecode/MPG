@@ -371,7 +371,7 @@ The ``worker_control`` option lets a caller adjust how many workers a ``DFS`` or
 .. mpg-code:: worker control
    :direct:
 
-``control.request(n)`` requests ``n`` workers, from zero to ``control.capacity()`` inclusive. Requests are thread-safe and can be made while another thread calls ``next()``. Changes take effect at search boundaries. When the count decreases, excess workers finish their current search action before parking. Increasing the count wakes parked workers. The call returns without waiting for the adjustment, so the engine may briefly use more workers than requested. Parked workers retain their search state and resources.
+``control.request(n)`` requests ``n`` workers, from zero to ``control.capacity()`` inclusive. Requests are thread-safe and can be made while another thread calls ``next()``. Each worker checks the request before it explores another node. When the count decreases, excess workers finish their current node before parking. Increasing the count wakes parked workers. The call returns without waiting for the adjustment, so the engine may briefly use more workers than requested. Parked workers retain their search state and resources.
 
 A zero request pauses search, even when the capacity is one. A positive request resumes it. While the engine is paused, ``next()`` may remain blocked until another thread resumes search. A :api:`Search::TimeStop` cannot wake a paused engine when its limit expires. Builds without thread support reject pausing and require controls to be used from a single thread.
 
@@ -438,11 +438,11 @@ model's existing branchers and strict-improvement ``constrain()`` function
 
 .. note::
 
-   These engines belong to the experimental Gecode 6.5.0 preview. Enable them
+   These engines are experimental. Enable them
    when configuring Gecode, using the CMake option
    ``GECODE_ENABLE_EXPERIMENTAL=ON`` or the Autoconf option
    ``--enable-experimental``. Availability is reported by
-   ``GECODE_HAS_EXPERIMENTAL``. The preview interfaces may change.
+   ``GECODE_HAS_EXPERIMENTAL``. Their interfaces may change.
 
 .. _sec:m:search:heuristic:guidance:
 
@@ -480,7 +480,7 @@ An optional third guidance argument is a rank callback, also returning a signed
 puzzle, rank :math:`h` favors boards close to the goal. Rank :math:`g+2h` puts
 more weight on remaining distance than on moves already made. Either can guide
 exploration while the admissible total bound :math:`g+h` still controls pruning.
-Keep callback arithmetic in range. Callbacks only read the supplied space;
+Keep callback arithmetic within the 64-bit range. Callbacks only read the supplied space;
 they must not post constraints or capture another space's local state.
 
 Set ``options.guidance = &guidance`` on a ``Search::Options`` object before
@@ -507,12 +507,12 @@ equal-bound spaces follow insertion order.
 
 This order selects among pending branching spaces. Generated solutions are
 returned immediately, so even A* can return a solution while another pending
-space can still lead to a better one. Continue requesting improvements rather
+space may still lead to a better one. Continue requesting improvements rather
 than treating the first result as optimal.
 
 Branching and exploration are separate choices. In ``fifteen-puzzle.cpp``,
 ``-branching manhattan`` tries slides in order of the resulting Manhattan
-distance, whereas ``-search astar`` selects exploration by the total bound.
+distance, whereas ``-search astar`` orders exploration by the total bound.
 The example accepts ``-search bab`` and ``-search cabs`` too, with both
 ``-model open`` and ``-model fixed``. Keep the scramble, seed, and move limit
 fixed when comparing these choices. Exhaustion proves a result only for paths
@@ -551,7 +551,7 @@ Widening beam search
 ~~~~~~~~~~~~~~~~~~~~
 
 Best-first exploration can retain many cloned spaces. :api:`CABS` (complete
-anytime beam search) limits the number of unresolved candidates kept in each
+anytime beam search) limits the number of unresolved candidates kept in the
 next layer. Each committed choice alternative advances one layer. CABS starts
 with beam width one, preferring lower rank when supplied, or the best objective
 bound otherwise. All generated solutions are considered, even if they would
@@ -563,20 +563,21 @@ doubles the width and restarts from the root, retaining the best solution. If
 every discarded bound excludes improvement, the pass can prove optimality
 without widening. A finite tree and unrestricted widening give completeness.
 
-Set ``Search::Options::max_width`` and ``Search::Options::frontier_limit`` to
+Construct the engine as ``CABS<T> engine(root,options)``. Set
+``Search::Options::max_width`` and ``Search::Options::frontier_limit`` to
 limit the maximum width and the number of pending frontier nodes; zero means
-unlimited for either option. Construct the engine as
-``CABS<T> engine(root,options)``. Widths grow as 1, 2, 4, and so on, so a
+unlimited for either option. Widths grow as 1, 2, 4, and so on, so a
 maximum of three permits widths one and two. If search must exceed a limit
-to continue, the engine reports ``stopped()``. Calling ``next()`` again does
-not lift these intrinsic limits. The frontier limit counts
+to continue, the engine reports ``stopped()``. Unlike an ordinary stop,
+calling ``next()`` again does not lift these limits. The frontier limit counts
 pending nodes in both layers, including selected parents, rather than bytes.
 In parallel search, an unfinished expansion reserves room for its parent and
 one unsubmitted successor when adding a candidate to the beam. The limit
 excludes the saved restart root, copies of the best solution, and returned
 solutions.
 
-The ``tsptw.cpp`` example offers a concrete comparison. Its model minimizes
+The ``tsptw.cpp`` example accepts ``-search bab``, ``-search astar``, and
+``-search cabs``. Its model minimizes
 total travel time for a tour visiting customers within their time windows
 and returning to the depot. The guidance uses the propagated minimum of the
 total travel-time variable as its bound. Waiting contributes to service times
@@ -590,7 +591,8 @@ second at no worse total objective. It must account for accumulated cost,
 residual constraints, and branching progress. A sufficient progress condition
 is that each completion can be replaced by one using no more choice commits.
 The relation must be transitive so that repeated replacements remain safe.
-Equivalent states can use the same predicate.
+The predicate may hold in both directions for equivalent states; CABS then
+keeps the candidate already in the beam.
 
 The optional ``dominance_key`` callback groups candidates before comparison.
 Potential dominators must have equal keys. Equal keys still require the
