@@ -95,7 +95,7 @@ Note that one has to include ``<gecode/driver.hh>`` for a model that uses the sc
 
 .. mpg-tip:: Linking against the driver
 
-   As discussed in :ref:`sec:m:started:run`, when you use the commandline driver on a platform (Linux and relatives) that requires to state all libraries to link against, you also have to link against the library for the commandline driver (that is, for Linux and relatives by adding ``-lgecodedriver`` to the compiler options on the commandline).
+   As discussed in :ref:`sec:m:started:run`, when you use the commandline driver on a platform (Linux and relatives) that requires to state all libraries to link against, you also have to link against the libraries for the commandline driver and the instance reader that it uses (that is, for Linux and relatives by adding ``-lgecodedriver -lgecodeinstance`` to the compiler options on the commandline).
 
 
 The class ``SendMostMoney`` defines an enumeration type with values ``MODEL_SINGLE`` (for a model where a single linear equation is posted for :math:`SEND+MOST=MONEY`) and ``MODEL_CARRY`` (for a model where several linear equations using carry variables are posted for :math:`SEND+MOST=MONEY`). The options object ``opt`` provides a member function ``model`` that returns an enumeration value and posts the constraints accordingly.

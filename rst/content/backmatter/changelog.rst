@@ -5,6 +5,15 @@
 Changelog
 =========
 
+.. _changelog:2026-10-30:
+
+2026-10-30
+----------
+
+Added Gecode's instance library, which the commandline driver uses, to the
+linking instructions in :ref:`sec:m:started:linux` and
+:ref:`tip:m:comfy:link-driver`.
+
 .. _changelog:2026-10-28:
 
 2026-10-28

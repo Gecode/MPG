@@ -396,6 +396,8 @@ Some linkers require the list of libraries to be sorted such that libraries appe
 
 #. ``-lgecodedriver``
 
+#. ``-lgecodeinstance``
+
 #. ``-lgecodegist``
 
 #. ``-lgecodesearch``,
