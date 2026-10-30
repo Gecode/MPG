@@ -184,6 +184,10 @@ The class :api:`SizeOptions` accepts an unsigned integer as the last value on th
 
 The class :api:`InstanceOptions` accepts a string as the last value on the commandline (of course, without an option). The value can be retrieved or set by member functions ``instance()``.
 
+The instance is either the name of an instance built into the script or the name of an instance file. A script that reads instance files passes a reader spec for its file format as the second constructor argument, as in ``InstanceOptions opt("SAT", spec)``. A reader spec is a short text that describes the layout of a textual format (see :api:`Reading instance files <TaskInstance>`). The member function ``builtin(i)`` returns true and stores the number in ``i`` if the instance is a decimal number of at most nine digits. The script decides whether a built-in instance with that number exists. The member function ``is_file()`` tests whether the instance names a readable file, and ``data()`` reads the file with the spec and returns the values as an :api:`Instance::Data` object. If the file cannot be read or does not match the spec, ``data()`` throws an exception of type :api:`Instance::Error`.
+
+Option objects constructed with a reader spec also accept the commandline options ``-spec`` and ``-param``. The option ``-spec`` names a file with a spec that replaces the script's own. The script may rely on the checks in its own spec, so the replacement must define the same data and perform the same checks. The option ``-param`` gives values to the spec's parameters as comma-separated ``name=value`` pairs, for example ``instance=3`` to select an instance in a file that contains several. The SAT, TSP, TSPTW, job shop, sudoku, and nonogram examples read their instance files in this way. The tool ``gecode-instance`` reads a file with a spec and prints a summary of the data, which helps when writing a spec for a new format.
+
 .. _modeling:m-driver:integer-propagation-level-options:
 
 .. mpg-paragraph:: Integer propagation level options.
@@ -240,7 +244,7 @@ The driver options can pass inspectors and comparators (see :ref:`sec:m:gist:ins
 Scripts
 -------
 
-Scripts (see :api:`Script classes <TaskDriverScript>`) are subclasses of ``Space`` that are designed to work together with option objects of class :api:`Options` and :api:`SizeOptions`.
+Scripts (see :api:`Script classes <TaskDriverScript>`) are subclasses of ``Space`` that are designed to work together with option objects of class :api:`Options`, :api:`SizeOptions`, and :api:`InstanceOptions`.
 
 In particular, the driver module defines scripts ``IntMinimizeScript``, ``IntMaximizeScript``, ``IntLexMinimizeScript``, ``IntLexMaximizeScript``, ``FloatMinimizeScript``, and ``FloatMaximizeScript`` that can be used for finding best solutions based on a virtual ``cost()`` function, see also :ref:`sec:m:comfy:cost` and :ref:`sec:m:minimodel:optimize`.
 

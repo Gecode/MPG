@@ -10,9 +10,11 @@ Changelog
 2026-10-30
 ----------
 
-Added Gecode's instance library, which the commandline driver uses, to the
-linking instructions in :ref:`sec:m:started:linux` and
-:ref:`tip:m:comfy:link-driver`.
+Documented how :api:`InstanceOptions` reads instance files with a reader
+spec, including the ``-spec`` and ``-param`` options, in
+:ref:`sec:m:driver:options`. Added Gecode's instance library, which the
+commandline driver uses, to the linking instructions in
+:ref:`sec:m:started:linux` and :ref:`tip:m:comfy:link-driver`.
 
 .. _changelog:2026-10-28:
 

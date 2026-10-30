@@ -138,7 +138,7 @@ The choice to use ``INT_VAL_MAX()`` is because most puzzles will have fewer mark
 More information
 ----------------
 
-The nonogram puzzle is also included as a Gecode example, see :api:`nonogram` . The example in particular features several grids to try the model on.
+The nonogram puzzle is also included as a Gecode example, see :api:`nonogram` . The example has several built-in grids to try the model on and also reads puzzles in the ``.non`` format exported by webpbn.com.
 
 Despite its simplicity, the program for solving nonograms works amazingly well. Extensive information on nonogram puzzles and a comparison of different nonogram solvers (including the model described in this chapter) is `Survey of Paint-by-Number Puzzle Solvers <http://webpbn.com/survey/>`__ .
 

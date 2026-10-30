@@ -295,6 +295,14 @@
       "title": "Gecode::Home",
       "url": "classGecode_1_1Home.html"
     },
+    "Instance::Data": {
+      "title": "Gecode::Instance::Data",
+      "url": "classGecode_1_1Instance_1_1Data.html"
+    },
+    "Instance::Error": {
+      "title": "Gecode::Instance::Error",
+      "url": "classGecode_1_1Instance_1_1Error.html"
+    },
     "InstanceOptions": {
       "title": "Gecode::InstanceOptions",
       "url": "classGecode_1_1InstanceOptions.html"
@@ -882,6 +890,10 @@
     "TaskFloatTrace": {
       "title": "TaskFloatTrace",
       "url": "group__TaskFloatTrace.html"
+    },
+    "TaskInstance": {
+      "title": "TaskInstance",
+      "url": "group__TaskInstance.html"
     },
     "TaskIntTrace": {
       "title": "TaskIntTrace",
