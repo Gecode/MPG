@@ -1,9 +1,9 @@
 # Preparing MPG for Gecode 6.5.0
 
 The manual now follows the local Gecode branch `feature/6.5.0-cleanups` at
-`01fc89ac9f33c722b5e515c9e5eb491c26d06aae` (checked on 2026-10-29), which
-rebases the cleanups onto the final open-search PR stack.
-This combines current main, open variable lists, experimental
+`bd6d8a86681c30c9122d288cc04f47b485b68e56` (checked on 2026-10-30), which
+rebases the cleanups onto the final open-search PR stack and adds the
+instance module. This combines current main, open variable lists, experimental
 heuristic search, and the release's scheduling and FlatZinc follow-ups.
 Model, Word/String variables, and the HTML redesign remain outside this release.
 The existing Space-based introduction and HTML theme remain the basis of
@@ -15,9 +15,13 @@ on 2026-10-23 checked the cleanup branch against that combined source.
 The 2026-10-26 follow-up used OpenCP `6ac85d496a`, OpenSearch `11e7c256be`,
 dependency updates through `f0baafb2cf`, and the 24 subsequent cleanup commits.
 The 2026-10-28 follow-up uses the reorganized cleanup branch, including its
-revised experimental search API. Gecode's build version is now 6.5.0 and its
-library ABI is 52. The manual remains the unreleased 6.5.0 edition. Repeat
-validation against the final tag before publication.
+revised experimental search API. The 2026-10-30 follow-up compares the
+trees of `01fc89ac9f` and `bd6d8a8668`, because the branch was rewritten in
+between. That change adds the instance module (#270), instance files in six
+examples, a travel-time table in TSPTW (#271), and the 6.5.0 changelog
+summary dated 2026-10-31. Gecode's build version is 6.5.0 and its library ABI
+is 52. The manual remains the unreleased 6.5.0 edition. Repeat validation
+against the final tag before publication.
 
 ## Integrated documentation
 
@@ -85,6 +89,25 @@ after its copyedits.
   and length subscriptions. The testing chapter introduces
   `Test::Int::OpenTest` and its bounded randomized growth histories alongside
   ordinary closed-list tests.
+- The instance module reads textual instance files with declarative reader
+  specs. The driver chapter has a new section on reading instance files with
+  `InstanceOptions`: the reader spec as second constructor argument,
+  `data()`, `is_file()` and `builtin()`, `Instance::Error`, the `-spec` and
+  `-param` options, files with several instances, the DIMACS spec from the
+  SAT example, and the `gecode-instance` tool. A display-only fragment
+  sketches a SAT script. All of it was checked against `gecode/driver.hh`,
+  `gecode/instance.hh` and the tool's help text. The full spec language is
+  left to the reference documentation, which the section links. The driver
+  library depends on the new instance library, so the linking instructions
+  add `-lgecodeinstance` after `-lgecodedriver`.
+- The SAT, TSP, TSPTW, job shop, sudoku, and nonogram examples now read
+  instance files. MPG excerpts no Gecode source; all its code artifacts are
+  its own, and it only links to these examples. The nonogram case study now
+  mentions the `.non` files that Gecode's example reads. The TSPTW dominance
+  key and predicate described in the search chapter are unchanged by the
+  travel-time table. The new `gecode/search.hh` notes on CABS comparisons
+  without a key and on per-child cloning agree with the chapter, and the
+  `ArgArray<double>` traits and parallel frontier change need no text.
 - The CMake build-guide link still resolves within the consolidated source
   documentation at `docs/cmake-build.md`. Build and release instructions now
   state the Doxygen 1.18.0 minimum for reference generation. Existing
@@ -129,33 +152,31 @@ after its copyedits.
 
 ## Current validation
 
-Validation on 2026-10-29 used a fresh Git archive of
-`01fc89ac9f33c722b5e515c9e5eb491c26d06aae`, the final local source on
+Validation on 2026-10-30 used a fresh clone of
+`bd6d8a86681c30c9122d288cc04f47b485b68e56`, the final local source on
 `feature/6.5.0-cleanups`, with Release libraries, experimental search, Gist,
 and the public test libraries enabled. The build reports Gecode 6.5.0 with
-library ABI 52. The 2026-10-28 validation of `49e69e12c6` was not reused for
-this input; its focused Gecode runs, example smoke checks, and visual review
-were not repeated.
+library ABI 52.
 
-- `make check-sources` passed for 552 artifacts, 1179 code projections,
+- `make check-sources` passed for 553 artifacts, 1180 code projections,
   and 42 SVG/PDF pairs.
-- `make check GECODE_ROOT=/tmp/mpg-650-final/gecode` passed the
-  tooling/platform and example checks: 632 passed, none failed, and
-  three interactive Gist runs were skipped. Both open-route branching orders
-  still enumerate exactly the expected five routes.
-- Doxygen 1.18.0 generated the matching reference without warnings. The
-  executable is at `~/.local/opt/doxygen-1.18.0/doxygen`. The regenerated
-  inventory is identical to the committed one, with 376 references.
+- `make check GECODE_ROOT=/tmp/mpg-650-bd6d/gecode` passed the
+  tooling/platform and example checks: 633 passed, none failed, and
+  three interactive Gist runs were skipped.
+- Doxygen 1.18.0 generated the matching reference. The executable is at
+  `~/.local/opt/doxygen-1.18.0/doxygen`. The regenerated inventory has 379
+  references; the three new ones are `Instance::Data`, `Instance::Error` and
+  the `TaskInstance` group.
 - `make release MPG_VERSION=6.5.0` with fresh `RST_BUILD` and `MPG_OUTPUT`
   repeated those checks and passed the strict HTML/PDF builds, local-link,
   search, and reference URL checks, and PDF metadata/text checks. Packaging
-  produced a local preview with 317 files and a 633-page PDF under
-  `/tmp/mpg-650-final/preview-output`. Build and check logs are in
-  `/tmp/mpg-650-final/`.
+  produced a local preview with 317 files and a 637-page PDF under
+  `/tmp/mpg-650-bd6d/int/preview-output`. Logs are in
+  `/tmp/mpg-650-bd6d/int/`.
 - The three Gist examples build against this Gist-enabled build and start
   their event loops on Qt's offscreen platform.
 
 The preview remains a local preparation artifact. Repeat this validation if
 the 6.5.0 tag points elsewhere. The attended Gist review remains for the
-owner: `/tmp/mpg-650-final/run-gist-review.sh` opens the three examples in
+owner: `/tmp/mpg-650-bd6d/run-gist-review.sh` opens the three examples in
 turn and says what each should show.
