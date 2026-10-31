@@ -238,6 +238,12 @@ div[class^="highlight-"] { margin: 1.5rem 0; }
 .mpg-code-fragment-link:link,
 .mpg-code-fragment-link:visited { color: inherit; }
 .mpg-code-equivalence { margin-inline-start: .25em; }
+.mpg-code-child-link:is(:link, :visited) {
+  color: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: .2em;
+}
+.mpg-code-child-link:is(:hover, :focus-visible) { text-decoration-style: solid; }
 .mpg-code-title + .highlight { margin-top: 0; }
 .literal-block-wrapper .code-block-caption {
   margin: 0;

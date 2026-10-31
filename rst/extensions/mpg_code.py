@@ -3,15 +3,20 @@
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 from pathlib import Path
 
 from docutils import nodes
 from docutils.parsers.rst import directives
 from docutils.statemachine import StringList
+from pygments.formatters.latex import escape_tex
 from sphinx import addnodes
 from sphinx.directives.code import CodeBlock
 from sphinx.errors import ExtensionError
+from sphinx.util import logging
+
+logger = logging.getLogger(__name__)
 
 
 class MpgCodeTitle(nodes.General, nodes.Element):
@@ -49,6 +54,54 @@ def visit_mpg_code_title_latex(translator, node: MpgCodeTitle) -> None:
 
 def depart_mpg_code_title_latex(translator, node: MpgCodeTitle) -> None:
     pass
+
+
+def _visit_literal_block(translator, node: nodes.literal_block, rewrite) -> None:
+    """Render a literal block with Sphinx, then rewrite its highlighted output."""
+    first = len(translator.body)
+    try:
+        type(translator).visit_literal_block(translator, node)
+    finally:
+        translator.body[first:] = [rewrite("".join(translator.body[first:]))]
+
+
+def _link_placeholders(node: nodes.literal_block, output: str, link) -> str:
+    """Make each resolved `// [child]` placeholder comment link to its fragment."""
+    for comment, anchor in node.get("mpg_child_links", []):
+        old, new = link(comment, anchor)
+        if old not in output:
+            logger.warning("cannot link MPG code placeholder %r", comment, location=node)
+        output = output.replace(old, new, 1)
+    return output
+
+
+def visit_literal_block_html(translator, node: nodes.literal_block) -> None:
+    def link(comment: str, anchor: str) -> tuple[str, str]:
+        text = html.escape(comment, quote=False)
+        return (
+            f">{text}</span>",
+            f'><a class="mpg-code-child-link" href="#{html.escape(anchor)}">{text}</a></span>',
+        )
+
+    _visit_literal_block(translator, node, lambda output: _link_placeholders(node, output, link))
+
+
+def visit_literal_block_latex(translator, node: nodes.literal_block) -> None:
+    def link(comment: str, anchor: str) -> tuple[str, str]:
+        text = escape_tex(comment, "PYG")
+        return f"{{{text}}}", f"{{\\hyperlink{{mpg-{anchor}}}{{{text}}}}}"
+
+    def rewrite(output: str) -> str:
+        output = _link_placeholders(node, output, link)
+        anchor = node.get("mpg_latex_target")
+        if anchor:
+            # Inside the first code line the target is in horizontal mode and
+            # cannot disturb the frame or the page breaking around it.
+            line = output.index("\n", output.index("\\begin{sphinxVerbatim")) + 1
+            output = f"{output[:line]}\\hypertarget{{mpg-{anchor}}}{{}}{output[line:]}"
+        return output
+
+    _visit_literal_block(translator, node, rewrite)
 
 
 def _digest(data: bytes) -> str:
@@ -130,16 +183,31 @@ def _link_pdf_downloads(app, doctree: nodes.document, docname: str) -> None:
 
 
 def _prepare_program_anchors(app, doctree: nodes.document, docname: str) -> None:
-    """Give numbered Programs and unnumbered fragments readable HTML targets."""
-    if app.builder.format != "html":
+    """Give Programs and fragments readable targets, and link child placeholders.
+
+    The LaTeX builder resolves the assembled book as one doctree, so placeholders
+    link across chapters there; an HTML placeholder links within its page.
+    """
+    if app.builder.format not in ("html", "latex"):
         return
+    html_output = app.builder.format == "html"
 
     claimed = {
         target_id
         for element in doctree.findall(nodes.Element)
         for target_id in element.get("ids", [])
     }
-    for container in doctree.findall(nodes.container):
+
+    def claim(base: str) -> str:
+        anchor = base
+        suffix = 2
+        while anchor in claimed:
+            anchor = f"{base}-{suffix}"
+            suffix += 1
+        claimed.add(anchor)
+        return anchor
+
+    for container in doctree.findall(nodes.container) if html_output else ():
         if not container.get("literal_block"):
             continue
         caption = next(
@@ -156,27 +224,40 @@ def _prepare_program_anchors(app, doctree: nodes.document, docname: str) -> None
             None,
         )
         if anchor is None:
-            base = nodes.make_id(f"program-{caption.astext()}") or "program"
-            anchor = base
-            suffix = 2
-            while anchor in claimed:
-                anchor = f"{base}-{suffix}"
-                suffix += 1
+            anchor = claim(nodes.make_id(f"program-{caption.astext()}") or "program")
             ids.append(anchor)
-            claimed.add(anchor)
 
         container["mpg_permalink_id"] = anchor
 
-    for title in doctree.findall(MpgCodeTitle):
-        base = nodes.make_id(f"fragment-{title['projection_key']}") or "fragment"
-        anchor = base
-        suffix = 2
-        while anchor in claimed:
-            anchor = f"{base}-{suffix}"
-            suffix += 1
+    # A placeholder targets its child's title, else its Program, else its code.
+    fragments: dict[str, str] = {}
+    for title in doctree.findall(MpgCodeTitle) if html_output else ():
+        anchor = claim(nodes.make_id(f"fragment-{title['projection_key']}") or "fragment")
         title["ids"].append(anchor)
         title["mpg_permalink_id"] = anchor
-        claimed.add(anchor)
+        fragments.setdefault(title["projection_key"], anchor)
+
+    blocks = list(doctree.findall(nodes.literal_block))
+    children = {child for block in blocks for _, child in block.get("mpg_child_placeholders", [])}
+    for block in blocks:
+        key = block.get("mpg_projection_key")
+        if key not in children or key in fragments:
+            continue
+        anchor = block.parent.get("mpg_permalink_id") if html_output else None
+        if anchor is None:
+            anchor = claim(nodes.make_id(f"fragment-{key}") or "fragment")
+            if html_output:
+                block["ids"].append(anchor)
+            else:
+                block["mpg_latex_target"] = anchor
+        fragments[key] = anchor
+
+    for block in blocks:
+        block["mpg_child_links"] = [
+            [comment, fragments[child]]
+            for comment, child in block.get("mpg_child_placeholders", [])
+            if child in fragments
+        ]
 
 
 class MpgCodeDirective(CodeBlock):
@@ -206,6 +287,7 @@ class MpgCodeDirective(CodeBlock):
         self.env.note_dependency(self.env.app.config.mpg_code_manifest_path)
 
         segments = projection.get("segments")
+        placeholders: list[list[str]] = []
         if segments is None:
             rendered = _checked_range(source, projection, key)
         else:
@@ -214,7 +296,10 @@ class MpgCodeDirective(CodeBlock):
                 if "source" in segment:
                     pieces.append(_checked_range(source, segment["source"], f"{key} segment {ordinal}"))
                 else:
-                    pieces.append(segment.get("text", ""))
+                    text = segment.get("text", "")
+                    pieces.append(text)
+                    if "child" in segment and text.strip().startswith("//"):
+                        placeholders.append([text.strip(), segment["child"]])
             rendered = "".join(pieces)
 
         download = "download" in self.options
@@ -234,6 +319,9 @@ class MpgCodeDirective(CodeBlock):
         self.options = options
         self.content = StringList(rendered.splitlines(), source=str(source))
         result = super().run()
+        for block in result[0].findall(nodes.literal_block):
+            block["mpg_projection_key"] = key
+            block["mpg_child_placeholders"] = placeholders
         if projection.get("title") and not direct and "caption" not in options:
             title_node = MpgCodeTitle()
             title_node["title"] = projection["title"]
@@ -262,6 +350,12 @@ def setup(app):
     app.connect("doctree-resolved", _link_pdf_downloads)
     app.connect("doctree-resolved", _prepare_program_anchors, priority=450)
     app.add_directive("mpg-code", MpgCodeDirective)
+    app.add_node(
+        nodes.literal_block,
+        override=True,
+        html=(visit_literal_block_html, None),
+        latex=(visit_literal_block_latex, None),
+    )
     app.add_node(
         MpgCodeTitle,
         html=(visit_mpg_code_title_html, depart_mpg_code_title_html),
