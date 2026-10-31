@@ -245,6 +245,10 @@ Scripts that solve benchmark instances can read them from files. The commandline
 
 An :api:`InstanceOptions` object created with a reader spec as second argument reads instance files. The last value on the commandline then names a file, and the member function ``data()`` reads it and returns the values as an object of class :api:`Instance::Data`. The file is read only once, so ``data()`` can be called both in ``main()``, to report errors before solving starts, and in the script's constructor. Errors in the file are reported by an exception of class :api:`Instance::Error`. The member function ``is_file()`` tests whether the value names a readable file, and ``builtin(i)`` tests whether it is the number ``i`` of an instance built into the script, so a script can support both. The option ``-spec`` reads files with the spec in another file instead. The script may rely on the checks in its own spec, so a replacement spec must define the same data and perform the same checks. The option ``-param`` gives a value to a parameter of the spec as ``name=value``. For several parameters, repeat the option or separate the pairs by commas, as in ``-param a=1,b=2``. :numref:`program:m:driver:instance-file-script` sketches a SAT solver reading DIMACS CNF files. The driver library requires the instance library (``gecodeinstance``), so scripts that link the driver also link the instance library.
 
+.. raw:: latex
+
+   \Needspace{12\baselineskip}
+
 .. mpg-code:: instance file script
    :caption: Reading an instance file in a script
    :name: program:m:driver:instance-file-script

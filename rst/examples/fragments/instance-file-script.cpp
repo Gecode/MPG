@@ -9,7 +9,8 @@
   public:
     Sat(const InstanceOptions& opt) : Script(opt) {
       Instance::Data d = opt.data();
-      x = BoolVarArray(*this, static_cast<int>(d.integer("vars")), 0, 1);
+      int n = static_cast<int>(d.integer("vars"));
+      x = BoolVarArray(*this, n, 0, 1);
       for (int c=0; c<d.size("clause"); c++) {
         IntArgs literals = d.ints("clause", {c});
         ...
