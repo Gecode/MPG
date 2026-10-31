@@ -1,7 +1,7 @@
   const char* dimacs = R"(format dimacs-cnf
   comment "c"
   line "p cnf {vars:int} {clauses:int}"
-  repeat clauses { list int clause until 0 }
+  repeat clauses { list clause: int until 0 }
   )";
 
   class Sat : public Script {

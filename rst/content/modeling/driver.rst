@@ -237,13 +237,13 @@ The driver options can pass inspectors and comparators (see :ref:`sec:m:gist:ins
 Reading instance files
 ----------------------
 
-Scripts that solve benchmark instances can read them from files. The commandline driver uses Gecode's instance reader for this: a short *reader spec* describes the layout of a textual format, and reading a file yields named values. A script supplies the spec for its format, typically as a string literal. The SAT, TSP, TSPTW, job shop, sudoku, and nonogram examples that come with Gecode contain specs for their formats.
+Scripts that solve benchmark instances can read them from files. The commandline driver uses Gecode's instance reader for this: a short *reader spec* describes the layout of a textual format, and reading a file yields named values. A script supplies the spec for its format, typically as a string literal. The SAT, TSP, TSPTW, job shop, sudoku, advanced sudoku, and nonogram examples that come with Gecode contain specs for their formats.
 
 .. _modeling:m-driver:instance-file-options:
 
 .. mpg-paragraph:: Instance file options.
 
-An :api:`InstanceOptions` object created with a reader spec as second argument reads instance files. The last value on the commandline then names a file, and the member function ``data()`` reads it and returns the values as an object of class :api:`Instance::Data`. The file is read only once, so ``data()`` can be called both in ``main()``, to report errors before solving starts, and in the script's constructor. Errors in the file are reported by an exception of class :api:`Instance::Error`. The member function ``is_file()`` tests whether the value names a readable file, and ``builtin(i)`` tests whether it is the number ``i`` of an instance built into the script, so a script can support both. The option ``-spec`` reads files with the spec in another file instead, and ``-param`` gives values to the parameters of a spec as ``name=value`` pairs separated by commas. :numref:`program:m:driver:instance-file-script` sketches a SAT solver reading DIMACS CNF files. The driver library requires the instance library (``gecodeinstance``), so scripts that link the driver also link the instance library.
+An :api:`InstanceOptions` object created with a reader spec as second argument reads instance files. The last value on the commandline then names a file, and the member function ``data()`` reads it and returns the values as an object of class :api:`Instance::Data`. The file is read only once, so ``data()`` can be called both in ``main()``, to report errors before solving starts, and in the script's constructor. Errors in the file are reported by an exception of class :api:`Instance::Error`. The member function ``is_file()`` tests whether the value names a readable file, and ``builtin(i)`` tests whether it is the number ``i`` of an instance built into the script, so a script can support both. The option ``-spec`` reads files with the spec in another file instead. The script may rely on the checks in its own spec, so a replacement spec must define the same data and perform the same checks. The option ``-param`` gives a value to a parameter of the spec as ``name=value``. For several parameters, repeat the option or separate the pairs by commas, as in ``-param a=1,b=2``. :numref:`program:m:driver:instance-file-script` sketches a SAT solver reading DIMACS CNF files. The driver library requires the instance library (``gecodeinstance``), so scripts that link the driver also link the instance library.
 
 .. mpg-code:: instance file script
    :caption: Reading an instance file in a script
@@ -269,10 +269,12 @@ A spec is a sequence of statements that read the input from top to bottom. The s
 
    comment "c"
    stop "%"
-   line "p cnf {vars:int} {clauses:int}"
+   line "p cnf {vars:0..gecode.int_max} {clauses:0..}"
    repeat clauses {
-     list int clause until 0
+     list clause: -vars..vars until 0
    }
+
+The header line captures two integers. Their types are ranges, so ``vars`` must be a valid Gecode integer and ``clauses`` must not be negative. Each clause is then a list of literals ended by ``0``, which is not stored. The range ``-vars..vars`` rejects a literal that names no variable, and the error message gives the place in the file. A type can also be written ``int``, ``float``, or ``word``, as in the sketch in :numref:`program:m:driver:instance-file-script`.
 
 The tool ``gecode-instance`` reads a file with a spec file (``-spec``) and prints a summary of the values or the values as MiniZinc data (``-dzn``), which helps when writing a spec. With ``-list`` it lists the instances in a file. The spec language is documented with the :api:`instance reader <TaskInstance>` in the reference documentation.
 

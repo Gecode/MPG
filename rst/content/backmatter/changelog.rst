@@ -5,6 +5,14 @@
 Changelog
 =========
 
+.. _changelog:2026-10-31:
+
+2026-10-31
+----------
+
+Updated :ref:`sec:m:driver:instance-files` for typed values and ranges in
+reader specs, repeated ``-param`` options, and the advanced sudoku example.
+
 .. _changelog:2026-10-30:
 
 2026-10-30

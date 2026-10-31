@@ -4879,11 +4879,11 @@
       "validation": "display-only"
     },
     {
-      "bytes": 828,
+      "bytes": 829,
       "id": "instance-file-script",
       "language": "cpp",
       "path": "rst/examples/fragments/instance-file-script.cpp",
-      "sha256": "68e6836fd22afde7fc8281c7616237974ebcad23fda247436b89b1aaee8ba003",
+      "sha256": "4eb5409ad810e4b02b2b87916eaf9862ddb1baa20bd83f84a5a403dc27115f27",
       "validation": "display-only"
     }
   ],
@@ -11456,11 +11456,11 @@
     },
     "instance file script": {
       "artifact": "rst/examples/fragments/instance-file-script.cpp",
-      "bytes": 828,
+      "bytes": 829,
       "end_line": 33,
       "kind": "snippet",
       "language": "cpp",
-      "sha256": "68e6836fd22afde7fc8281c7616237974ebcad23fda247436b89b1aaee8ba003",
+      "sha256": "4eb5409ad810e4b02b2b87916eaf9862ddb1baa20bd83f84a5a403dc27115f27",
       "start_line": 1
     },
     "int.hh": {
