@@ -1,3 +1,10 @@
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="brand/mpg-banner-dark.png">
+    <img src="brand/mpg-banner-light.png" alt="MPG, Modeling and Programming with Gecode" width="640">
+  </picture>
+</p>
+
 # Modeling and Programming with Gecode
 
 The manual is authored only in reStructuredText. `rst/content/` produces both
