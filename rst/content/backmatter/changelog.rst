@@ -5,6 +5,15 @@
 Changelog
 =========
 
+.. _changelog:2026-11-03:
+
+2026-11-03
+----------
+
+Added :ref:`sec:m:open:plan` to :ref:`chap:m:open`, with a delivery
+example whose states are created by a transition callback, and an overview
+of the chapter.
+
 .. _changelog:2026-10-31:
 
 2026-10-31

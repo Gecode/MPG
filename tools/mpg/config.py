@@ -8,6 +8,7 @@ DEFAULT_VERSION = "6.5.0"
 DEFAULT_YEAR = "2026"
 DEFAULT_MODELS = [
     "open-route",
+    "open-delivery",
     "send-more-money-de-mystified",
     "send-more-money-with-gist",
     "send-more-money-with-gist-inspection",
