@@ -25,6 +25,7 @@ from tools.mpg.gecode import resolve_gecode
 
 
 MODEL_EXPECTED = {
+    "open-delivery": r"^\t9 actions: to-charger charge charge charge to-workbench to-shelf pick-up to-workbench deliver$",
     "send-more-money-de-mystified": r"\{9, 5, 6, 7",
     "send-more-money": r"\{9, 5, 6, 7",
     "send-most-money-with-cost": r"\{9, 3, 4, 2",

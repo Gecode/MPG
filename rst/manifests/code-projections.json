@@ -4885,6 +4885,14 @@
       "path": "rst/examples/fragments/instance-file-script.cpp",
       "sha256": "f70f859785eb0dd9252a516cd50ac1851c4d0a6372932dd0875a14d6d8248e8e",
       "validation": "display-only"
+    },
+    {
+      "bytes": 6106,
+      "id": "open-delivery",
+      "language": "cpp",
+      "path": "rst/examples/src/open-delivery.cpp",
+      "sha256": "037ecdb1adcd956a4ca55614be41f3756a164de8cf1f72f58951d24e1e180638",
+      "validation": "compiled"
     }
   ],
   "projections": {
@@ -19909,6 +19917,42 @@
       "sha256": "7becd377f01ec8206ee3a6019663cb07a2d84d96f577689b6ee36291c129d70e",
       "start_line": 86,
       "title": "row constraints"
+    },
+    "open delivery": {
+      "artifact": "rst/examples/src/open-delivery.cpp",
+      "bytes": 6078,
+      "end_line": 183,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "863946be082695911bbdb028ac2aa2790bdb7afc116e0087c6eaae7f28afdd8b",
+      "start_line": 1
+    },
+    "open delivery model": {
+      "artifact": "rst/examples/src/open-delivery.cpp",
+      "bytes": 1076,
+      "end_line": 118,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "52f6b9f14507ea371b397036fec977ea8eb41bb6fdb00468eb490c431492f7b4",
+      "start_line": 91
+    },
+    "open delivery step": {
+      "artifact": "rst/examples/src/open-delivery.cpp",
+      "bytes": 741,
+      "end_line": 141,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "6a71334f056b12dddbb713233caec713bbe55723cc59763925b6f03dedbc2c1d",
+      "start_line": 120
+    },
+    "open delivery steps": {
+      "artifact": "rst/examples/src/open-delivery.cpp",
+      "bytes": 873,
+      "end_line": 78,
+      "kind": "snippet",
+      "language": "cpp",
+      "sha256": "643ddaac9c3048f3e9aeb96507b305c066807129e6b2309f3e5d720b92da8762",
+      "start_line": 56
     },
     "open route copy and output": {
       "artifact": "rst/examples/src/open-route.cpp",
