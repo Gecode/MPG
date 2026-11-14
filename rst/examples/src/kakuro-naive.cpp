@@ -123,7 +123,7 @@ public:
 };
 int main(int argc, char* argv[]) {
   Options opt("Kakuro");
-  opt.parse(argc,argv);
+  opt.parse_strict(argc,argv);
   Script::run<Kakuro,DFS,Options>(opt);
   return 0;
 }

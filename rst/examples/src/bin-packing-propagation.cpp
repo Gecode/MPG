@@ -138,7 +138,7 @@ public:
 int main(int argc, char* argv[]) {
   Options opt("BinPacking");
   opt.solutions(0);
-  opt.parse(argc,argv);
+  opt.parse_strict(argc,argv);
   IntMinimizeScript::run<BinPacking,BAB,Options>(opt);
   return 0;
 }

@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
             "carry", "use carry");
   opt.model(SendMostMoney::MODEL_SINGLE);
   opt.solutions(0);
-  opt.parse(argc,argv);
+  opt.parse_strict(argc,argv);
   // run script
   Script::run<SendMostMoney,BAB,Options>(opt);
   return 0;

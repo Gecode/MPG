@@ -5,6 +5,16 @@
 Changelog
 =========
 
+.. _changelog:2026-11-14:
+
+2026-11-14
+----------
+
+Documented strict parsing of commandline options in
+:ref:`sec:m:driver:options`; the example programs that accept only options
+use it. Revalidated the manual against Gecode's 6.6.0 build and regenerated
+the API inventory.
+
 .. _changelog:2026-11-03:
 
 2026-11-03

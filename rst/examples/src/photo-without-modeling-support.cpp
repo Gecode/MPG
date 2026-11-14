@@ -98,7 +98,7 @@ public:
 int main(int argc, char* argv[]) {
   Options opt("Photo");
   opt.solutions(0);
-  opt.parse(argc,argv);
+  opt.parse_strict(argc,argv);
   IntMinimizeScript::run<Photo,BAB,Options>(opt);
   return 0;
 }

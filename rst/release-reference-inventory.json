@@ -1,6 +1,6 @@
 {
-  "base_url": "/doc/6.5.0/reference/",
-  "gecode_version": "6.5.0",
+  "base_url": "/doc/6.6.0/reference/",
+  "gecode_version": "6.6.0",
   "generated_by": "Gecode release Doxygen tag",
   "objects": {
     "AStar": {

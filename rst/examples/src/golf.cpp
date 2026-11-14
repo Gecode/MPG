@@ -108,7 +108,7 @@ public:
 int
 main(int argc, char* argv[]) {
   GolfOptions opt;
-  opt.parse(argc,argv);
+  opt.parse_strict(argc,argv);
   Script::run<Golf,DFS,GolfOptions>(opt);
   return 0;
 }

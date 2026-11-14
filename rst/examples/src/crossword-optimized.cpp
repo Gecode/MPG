@@ -6505,7 +6505,7 @@ public:
 
 int main(int argc, char* argv[]) {
   Options opt("Crossword");
-  opt.parse(argc,argv);
+  opt.parse_strict(argc,argv);
   Script::run<Crossword,DFS,Options>(opt);
   return 0;
 }

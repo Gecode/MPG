@@ -50,9 +50,9 @@ remaining validation and publication work.
 
 ```sh
 make check-sources
-make docs MPG_VERSION=6.5.0
+make docs MPG_VERSION=6.6.0
 make check GECODE_ROOT=../gecode
-make release MPG_VERSION=6.5.0 GECODE_ROOT=../gecode
+make release MPG_VERSION=6.6.0 GECODE_ROOT=../gecode
 ```
 
 `make check-sources` checks current code selections and figure assets.
@@ -67,7 +67,7 @@ For a final release, build the matching Gecode tag first, generate its API
 inventory as described in `rst/RELEASE.md`, and use a fresh output location:
 
 ```sh
-make release MPG_VERSION=6.5.0 GECODE_ROOT=../gecode \
+make release MPG_VERSION=6.6.0 GECODE_ROOT=../gecode \
   RST_BUILD=/tmp/mpg-release-build MPG_OUTPUT=/tmp/mpg-release-output
 ```
 

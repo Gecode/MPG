@@ -33,43 +33,43 @@
       "validation": "compiled"
     },
     {
-      "bytes": 8938,
+      "bytes": 8945,
       "id": "bin-packing-branching",
       "language": "cpp",
       "path": "rst/examples/src/bin-packing-branching.cpp",
-      "sha256": "961b0e2f13235bc88a543d472dc445fa0888db2d65e8263f1debbb2e08fa9eab",
+      "sha256": "1ccc65430c856ee6b139a76dbf21e9dbe863465cd3523b4097109775746faa8b",
       "validation": "compiled"
     },
     {
-      "bytes": 4434,
+      "bytes": 4441,
       "id": "bin-packing-naive",
       "language": "cpp",
       "path": "rst/examples/src/bin-packing-naive.cpp",
-      "sha256": "7555501cfea2f164a26433f3f21fb4566f8a9018143bc0c87d81a2c22447ab1b",
+      "sha256": "452aa3edf5aec06f17ff6f55517637f58d43523da3b2a3110565934c3b254d5d",
       "validation": "compiled"
     },
     {
-      "bytes": 4114,
+      "bytes": 4121,
       "id": "bin-packing-propagation",
       "language": "cpp",
       "path": "rst/examples/src/bin-packing-propagation.cpp",
-      "sha256": "86605b349638303d46c94e9cdfcb93711ed91e2be1efe44673b80d9c5ac660f3",
+      "sha256": "9c1a6c6188cc1d17abda1d19104e9360e91a51238692ef4ea34f502a81e867bf",
       "validation": "compiled"
     },
     {
-      "bytes": 432123,
+      "bytes": 432130,
       "id": "crossword-optimized",
       "language": "cpp",
       "path": "rst/examples/src/crossword-optimized.cpp",
-      "sha256": "4db900c58ab8b6487ed11c79575792f9b37c9a36876f6439f9a434ba7303479e",
+      "sha256": "d5b17e840f941fa5ceaa6823235e4b1a0aa4ea1ab5ad253e7674b3c6d495a5ae",
       "validation": "compiled"
     },
     {
-      "bytes": 432299,
+      "bytes": 432306,
       "id": "crossword",
       "language": "cpp",
       "path": "rst/examples/src/crossword.cpp",
-      "sha256": "2bf9528bc5bbde26d1f028e2f5d837e48e3b7a137d0a616201578c6eb5401718",
+      "sha256": "9e6828c2350072807c7edb58642edd5bc0128f265003b209ec401f89c248596d",
       "validation": "compiled"
     },
     {
@@ -217,11 +217,11 @@
       "validation": "compiled"
     },
     {
-      "bytes": 3644,
+      "bytes": 3651,
       "id": "golf",
       "language": "cpp",
       "path": "rst/examples/src/golf.cpp",
-      "sha256": "d90b8997556bf8cb069f7f71f744afc5fcf4f705a77da42010fccf953893a11d",
+      "sha256": "e06331dadfde9d7d05aae4d16ff8bfe901a4e8b67e02167df5e756437d185607",
       "validation": "compiled"
     },
     {
@@ -257,19 +257,19 @@
       "validation": "compiled"
     },
     {
-      "bytes": 3989,
+      "bytes": 3996,
       "id": "kakuro-naive",
       "language": "cpp",
       "path": "rst/examples/src/kakuro-naive.cpp",
-      "sha256": "7b4f4d1570a00d950551385c4a4bff3ba51c8e0d85f207207c161217ce721ca0",
+      "sha256": "95ab0db6f96f196bd5bea777dafd8b5da7aa4fe0f28182319c065af29e846f4b",
       "validation": "compiled"
     },
     {
-      "bytes": 5026,
+      "bytes": 5033,
       "id": "kakuro",
       "language": "cpp",
       "path": "rst/examples/src/kakuro.cpp",
-      "sha256": "01fcf59e36a6f03fc1b1dec9302a4d133f9630154ea490cd5b01b685bda6453a",
+      "sha256": "400654fdd0560879464238538fedb53ed569c8b86d68e9e4558d7739a4ad6a7e",
       "validation": "compiled"
     },
     {
@@ -449,11 +449,11 @@
       "validation": "compiled"
     },
     {
-      "bytes": 3180,
+      "bytes": 3187,
       "id": "nonogram",
       "language": "cpp",
       "path": "rst/examples/src/nonogram.cpp",
-      "sha256": "d40edca866042fbff84ec1ce55d0d1ac025b5a9cd4c969698da8290222a15e0c",
+      "sha256": "19f8445ecb34330fdf368e39c166722eeeb4fb5b5689ca862f0e7a9a19bd5232",
       "validation": "compiled"
     },
     {
@@ -505,19 +505,19 @@
       "validation": "compiled"
     },
     {
-      "bytes": 3278,
+      "bytes": 3285,
       "id": "photo-without-modeling-support",
       "language": "cpp",
       "path": "rst/examples/src/photo-without-modeling-support.cpp",
-      "sha256": "0ed2bd34cf2bc455452673ab1555b5142c86395c9dd2bf8b065f0d825adbed11",
+      "sha256": "c2cdd532f8cbcf59b9da5bb1470a02147052f63ab7919c729fb4099f37e2c25a",
       "validation": "compiled"
     },
     {
-      "bytes": 3156,
+      "bytes": 3163,
       "id": "photo",
       "language": "cpp",
       "path": "rst/examples/src/photo.cpp",
-      "sha256": "f18efb6ebca4e8799f729cd40d840ce58371dd7bf3c46958deb6e02762a1a961",
+      "sha256": "27293ecae4775a673b7a26a81ce34362a48b223034a5ca78205fdb5836444485",
       "validation": "compiled"
     },
     {
@@ -593,11 +593,11 @@
       "validation": "compiled"
     },
     {
-      "bytes": 3223,
+      "bytes": 3230,
       "id": "send-most-money-with-driver",
       "language": "cpp",
       "path": "rst/examples/src/send-most-money-with-driver.cpp",
-      "sha256": "d6c5fb586ff737427c323ee5866a826db828e0b173db024b3d2ad9f561504119",
+      "sha256": "80f9822fb892019b48685b9bcfa62bee8967dff21347a38012540bc41fae1bb6",
       "validation": "compiled"
     },
     {
@@ -625,11 +625,11 @@
       "validation": "compiled"
     },
     {
-      "bytes": 3698,
+      "bytes": 3705,
       "id": "warehouses",
       "language": "cpp",
       "path": "rst/examples/src/warehouses.cpp",
-      "sha256": "530b7b483b7bdf8b32b3757d85c0bb695362236455057642481d97a40615fb7b",
+      "sha256": "fc90d65529d4709a50815c1f06bd10abd34136cdfac8a829723f44211262766f",
       "validation": "compiled"
     },
     {
@@ -4202,7 +4202,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-015.sh",
       "reason": "command transcript",
-      "sha256": "6fa3d1ea25c4daff2b2914678115e5dd297c18ea5eef0f994baa98d906afd25e",
+      "sha256": "a341de2de0b93b5b498b20924936ce72379dad6b79743e9ae2875a32bdf45eb8",
       "validation": "display-only"
     },
     {
@@ -4211,7 +4211,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-016.sh",
       "reason": "command transcript",
-      "sha256": "a161164b70f13879d6306a9908ee800b83157c0832ff208485f33fe1fb14983b",
+      "sha256": "70039d7f0bba2d0d02109339d36c45f8f16864287abf9a72a8da2d11e24a21a3",
       "validation": "display-only"
     },
     {
@@ -4265,7 +4265,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-022.sh",
       "reason": "command transcript",
-      "sha256": "ad9e2349bdafb74ca8cd5be3fd52260f54ebe4c96043e6d20655bcd4828ecf8a",
+      "sha256": "5b431a6c4c7a718e8b0329164a24a482aed18e38064ed232e2b63e110e89ec67",
       "validation": "display-only"
     },
     {
@@ -4274,7 +4274,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-023.sh",
       "reason": "command transcript",
-      "sha256": "227a36166092097e16fe00a9aef44b05202a253d91efb2178c866f9df15536d5",
+      "sha256": "47b6c061059ddf7ddc13e0a515c565679ba84e477611a56780889d62fb353872",
       "validation": "display-only"
     },
     {
@@ -4283,7 +4283,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-024.sh",
       "reason": "command transcript",
-      "sha256": "ed641d9d87b2a784470c33c3f2e6750ee7476d36d20af7d49572ee538f13a918",
+      "sha256": "c8e2595cc659c4880d4176ce2d2dd0d28ff42966ad82c36913f5b4228457750a",
       "validation": "display-only"
     },
     {
@@ -4292,7 +4292,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-025.sh",
       "reason": "command transcript",
-      "sha256": "0034b7190cbe049c26c8f55dc709c277f7e314dc46cbe3b523a703925fdf3b03",
+      "sha256": "10204722a4abb374715583c715ab33b693fd11f59ed96759355b1f34bb9c80e8",
       "validation": "display-only"
     },
     {
@@ -4301,7 +4301,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-026.sh",
       "reason": "command transcript",
-      "sha256": "192f8d4c428000ac05f363293d47f078328a95c71de28671329ec7e995d065ef",
+      "sha256": "823bb54b613ab1eb1c3ff801678d3b225614aec6c0eeb6551e737f202a3378b8",
       "validation": "display-only"
     },
     {
@@ -4310,7 +4310,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-027.sh",
       "reason": "command transcript",
-      "sha256": "8ada02d8fe04c1f7ac801159aee88c18185c414238db5e988dd9c3663fce08c2",
+      "sha256": "ced8d1492b53620cc907057bbeb7bcdf9001c414b1b2d287a114ba4bdf4be295",
       "validation": "display-only"
     },
     {
@@ -4319,7 +4319,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-028.sh",
       "reason": "command transcript",
-      "sha256": "25a036ea92fe7ae6044c0b9cd01dc65e5d899304664482adcc21a0cb93bc80b7",
+      "sha256": "9098b7536971d163bb6120c40840c0420aba8286e5e1f6b57468b661e06aa2ed",
       "validation": "display-only"
     },
     {
@@ -4328,7 +4328,7 @@
       "language": "console",
       "path": "rst/examples/fragments/snippets/m-started/cmd-029.sh",
       "reason": "command transcript",
-      "sha256": "79a77b00adc4e2b23017fabd33684fccbeefa71e6f96e571f2432e93a0c29db5",
+      "sha256": "957b2d273d12742e900c60ab71ba1b8c4c97b8c6d4a923531260d1ba772fc435",
       "validation": "display-only"
     },
     {
@@ -4831,11 +4831,11 @@
       "validation": "display-only"
     },
     {
-      "bytes": 4148,
+      "bytes": 4155,
       "id": "open-route",
       "language": "cpp",
       "path": "rst/examples/src/open-route.cpp",
-      "sha256": "42b0c495781b17857037e8b4a8c76f9bfef69f3ca6f9d400793f461c55a4dfe1",
+      "sha256": "69353073e74f2d01b3501b22ace0391fb4dc3928d3acb768cd087a5258d1655c",
       "validation": "compiled"
     },
     {
@@ -5597,7 +5597,7 @@
     },
     "bin packing branching": {
       "artifact": "rst/examples/src/bin-packing-branching.cpp",
-      "bytes": 7778,
+      "bytes": 7785,
       "end_line": 302,
       "kind": "skeleton",
       "language": "cpp",
@@ -5659,7 +5659,7 @@
           "text": "...\n"
         }
       ],
-      "sha256": "22254640d4093a57a0883349bfd6a729a8619b1ce221491c16f71230ed90b9a3",
+      "sha256": "4771570adabf310a51ca186b2ebee34c1ade828e81543e77be5752cfbef718a5",
       "start_line": 28,
       "title": "bin packing branching"
     },
@@ -5836,21 +5836,21 @@
     },
     "bin packing branching:anonymous#6": {
       "artifact": "rst/examples/src/bin-packing-branching.cpp",
-      "bytes": 177,
+      "bytes": 184,
       "end_line": 302,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 177,
+            "bytes": 184,
             "end_line": 302,
-            "sha256": "56cdec3535c753ba9e72b304ac0c99adf57d839cb55cee54b4f1efcf784bcfbe",
+            "sha256": "07a96da37f0445a0b60fed646a3d06f2ee5d68f00c51d3d070279051489ac804",
             "start_line": 296
           }
         }
       ],
-      "sha256": "56cdec3535c753ba9e72b304ac0c99adf57d839cb55cee54b4f1efcf784bcfbe",
+      "sha256": "07a96da37f0445a0b60fed646a3d06f2ee5d68f00c51d3d070279051489ac804",
       "start_line": 296
     },
     "bin packing branching:choice function": {
@@ -6083,7 +6083,7 @@
     },
     "bin packing naive": {
       "artifact": "rst/examples/src/bin-packing-naive.cpp",
-      "bytes": 3274,
+      "bytes": 3281,
       "end_line": 153,
       "kind": "skeleton",
       "language": "cpp",
@@ -6169,7 +6169,7 @@
           "text": "...\n"
         }
       ],
-      "sha256": "f04dd0a1197bb0738dd49c63c8bbc0137ff67a3c8aaa707b86925af3ab024e9b",
+      "sha256": "f80cb81454cfd43833aeae35a047227e9b3b15732f3c813e484cb649006d6cd4",
       "start_line": 28,
       "title": "bin packing naive"
     },
@@ -6213,21 +6213,21 @@
     },
     "bin packing naive:anonymous#3": {
       "artifact": "rst/examples/src/bin-packing-naive.cpp",
-      "bytes": 177,
+      "bytes": 184,
       "end_line": 153,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 177,
+            "bytes": 184,
             "end_line": 153,
-            "sha256": "56cdec3535c753ba9e72b304ac0c99adf57d839cb55cee54b4f1efcf784bcfbe",
+            "sha256": "07a96da37f0445a0b60fed646a3d06f2ee5d68f00c51d3d070279051489ac804",
             "start_line": 147
           }
         }
       ],
-      "sha256": "56cdec3535c753ba9e72b304ac0c99adf57d839cb55cee54b4f1efcf784bcfbe",
+      "sha256": "07a96da37f0445a0b60fed646a3d06f2ee5d68f00c51d3d070279051489ac804",
       "start_line": 147
     },
     "bin packing naive:branching": {
@@ -6476,7 +6476,7 @@
     },
     "bin packing propagation": {
       "artifact": "rst/examples/src/bin-packing-propagation.cpp",
-      "bytes": 2954,
+      "bytes": 2961,
       "end_line": 144,
       "kind": "skeleton",
       "language": "cpp",
@@ -6546,7 +6546,7 @@
           "text": "...\n"
         }
       ],
-      "sha256": "c760990f31dfdb344424e53a750d3c452ff6298c43c53591d2334d5c7f8b4604",
+      "sha256": "aa4d3d358d4faad74154d55bf1258d8ad284f98bbf50bc078fb9c8095f4c36d4",
       "start_line": 28,
       "title": "bin packing propagation"
     },
@@ -6647,21 +6647,21 @@
     },
     "bin packing propagation:anonymous#6": {
       "artifact": "rst/examples/src/bin-packing-propagation.cpp",
-      "bytes": 177,
+      "bytes": 184,
       "end_line": 144,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 177,
+            "bytes": 184,
             "end_line": 144,
-            "sha256": "56cdec3535c753ba9e72b304ac0c99adf57d839cb55cee54b4f1efcf784bcfbe",
+            "sha256": "07a96da37f0445a0b60fed646a3d06f2ee5d68f00c51d3d070279051489ac804",
             "start_line": 138
           }
         }
       ],
-      "sha256": "56cdec3535c753ba9e72b304ac0c99adf57d839cb55cee54b4f1efcf784bcfbe",
+      "sha256": "07a96da37f0445a0b60fed646a3d06f2ee5d68f00c51d3d070279051489ac804",
       "start_line": 138
     },
     "branch filter function sketch": {
@@ -6778,7 +6778,7 @@
     },
     "crossword": {
       "artifact": "rst/examples/src/crossword.cpp",
-      "bytes": 431139,
+      "bytes": 431146,
       "end_line": 7035,
       "kind": "skeleton",
       "language": "cpp",
@@ -6852,13 +6852,13 @@
           "text": "\n...\n"
         }
       ],
-      "sha256": "04d1371dd05dbc5504be28583d7ad98369891844a32f52592e4ad869a6bed145",
+      "sha256": "213b4e3cb3b0609877c2ad3a48818f7489a29c821fcf0f51efcfd44fad591cf7",
       "start_line": 28,
       "title": "crossword"
     },
     "crossword optimized": {
       "artifact": "rst/examples/src/crossword-optimized.cpp",
-      "bytes": 430963,
+      "bytes": 430970,
       "end_line": 7029,
       "kind": "skeleton",
       "language": "cpp",
@@ -6956,7 +6956,7 @@
           "text": "\n...\n"
         }
       ],
-      "sha256": "3b1573423ca79bc76d76362fe089b2d90399d576819eb161835184d17c12cc7f",
+      "sha256": "c16b710d69ad24110b956ffbc34cd60cf502b4a979a8c9dfe76a398bf3745dd2",
       "start_line": 28,
       "title": "crossword optimized"
     },
@@ -7076,21 +7076,21 @@
     },
     "crossword optimized:anonymous#7": {
       "artifact": "rst/examples/src/crossword-optimized.cpp",
-      "bytes": 24288,
+      "bytes": 24295,
       "end_line": 7029,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 24288,
+            "bytes": 24295,
             "end_line": 7029,
-            "sha256": "94dd83e98962c0442987891b53f5daf58603448cd9125e025583220080a412f6",
+            "sha256": "0c7439688666992e6217aa516f93f20274c293ae9842ed9a5fe91d4cd21437ad",
             "start_line": 6505
           }
         }
       ],
-      "sha256": "94dd83e98962c0442987891b53f5daf58603448cd9125e025583220080a412f6",
+      "sha256": "0c7439688666992e6217aa516f93f20274c293ae9842ed9a5fe91d4cd21437ad",
       "start_line": 6505
     },
     "crossword optimized:constrain letters": {
@@ -7249,21 +7249,21 @@
     },
     "crossword:anonymous#7": {
       "artifact": "rst/examples/src/crossword.cpp",
-      "bytes": 24288,
+      "bytes": 24295,
       "end_line": 7035,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 24288,
+            "bytes": 24295,
             "end_line": 7035,
-            "sha256": "94dd83e98962c0442987891b53f5daf58603448cd9125e025583220080a412f6",
+            "sha256": "0c7439688666992e6217aa516f93f20274c293ae9842ed9a5fe91d4cd21437ad",
             "start_line": 6511
           }
         }
       ],
-      "sha256": "94dd83e98962c0442987891b53f5daf58603448cd9125e025583220080a412f6",
+      "sha256": "0c7439688666992e6217aa516f93f20274c293ae9842ed9a5fe91d4cd21437ad",
       "start_line": 6511
     },
     "crossword:branching": {
@@ -10838,7 +10838,7 @@
     },
     "golf": {
       "artifact": "rst/examples/src/golf.cpp",
-      "bytes": 2501,
+      "bytes": 2508,
       "end_line": 114,
       "kind": "skeleton",
       "language": "cpp",
@@ -10912,7 +10912,7 @@
           "text": "\n...\n"
         }
       ],
-      "sha256": "e144a91fa7a754d4c793b543fcb3f61a7d283f40f90462c65b6a1cd7ae3c1c31",
+      "sha256": "5843ca19e089fa90f253168aa8a25ad5c550b5314e286efef8a81f44e66169d8",
       "start_line": 28,
       "title": "golf"
     },
@@ -10975,21 +10975,21 @@
     },
     "golf:anonymous#4": {
       "artifact": "rst/examples/src/golf.cpp",
-      "bytes": 135,
+      "bytes": 142,
       "end_line": 114,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 135,
+            "bytes": 142,
             "end_line": 114,
-            "sha256": "46a56d947a355969f5e10686b3bdfebacdbe89698432e97f0f9f0bc92767c4fc",
+            "sha256": "b267627fa2a3ae9ebf0af7e060629287447f68bfe29a95bf39af1d32dd463f29",
             "start_line": 107
           }
         }
       ],
-      "sha256": "46a56d947a355969f5e10686b3bdfebacdbe89698432e97f0f9f0bc92767c4fc",
+      "sha256": "b267627fa2a3ae9ebf0af7e060629287447f68bfe29a95bf39af1d32dd463f29",
       "start_line": 107
     },
     "golf:break group symmetry": {
@@ -15411,7 +15411,7 @@
     },
     "kakuro": {
       "artifact": "rst/examples/src/kakuro.cpp",
-      "bytes": 3783,
+      "bytes": 3790,
       "end_line": 173,
       "kind": "skeleton",
       "language": "cpp",
@@ -15493,13 +15493,13 @@
           "text": "...\n"
         }
       ],
-      "sha256": "63d693b3d73ba55373b8a77c6c427b8d5e0335b93740a0cdaef8f21ead91ca2f",
+      "sha256": "5ca2c2f8acc14477c4fab823c57c8aee79f7c8dd39a5be69598f9306fa4d4767",
       "start_line": 30,
       "title": "kakuro"
     },
     "kakuro naive": {
       "artifact": "rst/examples/src/kakuro-naive.cpp",
-      "bytes": 2829,
+      "bytes": 2836,
       "end_line": 129,
       "kind": "skeleton",
       "language": "cpp",
@@ -15581,7 +15581,7 @@
           "text": "...\n"
         }
       ],
-      "sha256": "db55055de3a37e6919886f62e68384a4bd9ebd81585de03a6cfe57ad08e66339",
+      "sha256": "0c11842f87b01acfe03b60dd555a08deffb70469476be80b4b116542f354b061",
       "start_line": 28,
       "title": "kakuro naive"
     },
@@ -15682,21 +15682,21 @@
     },
     "kakuro naive:anonymous#6": {
       "artifact": "rst/examples/src/kakuro-naive.cpp",
-      "bytes": 138,
+      "bytes": 145,
       "end_line": 129,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 138,
+            "bytes": 145,
             "end_line": 129,
-            "sha256": "fe0c987f001069a2fdc6cb90efab8893f268ab47d559b1bffbc490d88feceb9f",
+            "sha256": "0d8f159a383a226e44126d789cd25bd4e4d08ed1d6fe7969b73d21e86719e0c8",
             "start_line": 124
           }
         }
       ],
-      "sha256": "fe0c987f001069a2fdc6cb90efab8893f268ab47d559b1bffbc490d88feceb9f",
+      "sha256": "0d8f159a383a226e44126d789cd25bd4e4d08ed1d6fe7969b73d21e86719e0c8",
       "start_line": 124
     },
     "kakuro naive:board specification": {
@@ -15941,21 +15941,21 @@
     },
     "kakuro:anonymous#5": {
       "artifact": "rst/examples/src/kakuro.cpp",
-      "bytes": 138,
+      "bytes": 145,
       "end_line": 173,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 138,
+            "bytes": 145,
             "end_line": 173,
-            "sha256": "fe0c987f001069a2fdc6cb90efab8893f268ab47d559b1bffbc490d88feceb9f",
+            "sha256": "0d8f159a383a226e44126d789cd25bd4e4d08ed1d6fe7969b73d21e86719e0c8",
             "start_line": 168
           }
         }
       ],
-      "sha256": "fe0c987f001069a2fdc6cb90efab8893f268ab47d559b1bffbc490d88feceb9f",
+      "sha256": "0d8f159a383a226e44126d789cd25bd4e4d08ed1d6fe7969b73d21e86719e0c8",
       "start_line": 168
     },
     "kakuro:compute tuple set": {
@@ -19593,7 +19593,7 @@
     },
     "nonogram": {
       "artifact": "rst/examples/src/nonogram.cpp",
-      "bytes": 2017,
+      "bytes": 2024,
       "end_line": 120,
       "kind": "skeleton",
       "language": "cpp",
@@ -19675,7 +19675,7 @@
           }
         }
       ],
-      "sha256": "331cc00692aec7e21446ac59ff5cc8414d0c4bd95d61cb9d8d138cb2275988ad",
+      "sha256": "80ec443ebc83c6a56c5a82fe8136e7c021ccc4782183e450cb8999553ec797af",
       "start_line": 28,
       "title": "nonogram"
     },
@@ -19757,21 +19757,21 @@
     },
     "nonogram:anonymous#5": {
       "artifact": "rst/examples/src/nonogram.cpp",
-      "bytes": 125,
+      "bytes": 132,
       "end_line": 119,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 125,
+            "bytes": 132,
             "end_line": 119,
-            "sha256": "519d7ed4b66c69ac5d597dbf97558a436e069b12320aa44b81f8779ea7e1d9e8",
+            "sha256": "29b610e6bf0ee1ba60db252bcb451e2ffc07b40723648ac24f833063bcc3e12a",
             "start_line": 115
           }
         }
       ],
-      "sha256": "519d7ed4b66c69ac5d597dbf97558a436e069b12320aa44b81f8779ea7e1d9e8",
+      "sha256": "29b610e6bf0ee1ba60db252bcb451e2ffc07b40723648ac24f833063bcc3e12a",
       "start_line": 115
     },
     "nonogram:branching": {
@@ -20973,7 +20973,7 @@
     },
     "photo": {
       "artifact": "rst/examples/src/photo.cpp",
-      "bytes": 2013,
+      "bytes": 2020,
       "end_line": 102,
       "kind": "skeleton",
       "language": "cpp",
@@ -21031,13 +21031,13 @@
           "text": "...\n"
         }
       ],
-      "sha256": "2ae0b7b0f6ee47a215de6affc91592fcc92ceda2be3f1b64d542c8252687b84f",
+      "sha256": "a305cbfff0b81df3b512df89f82253fb03d0090c899e6f5929479ebc463efee4",
       "start_line": 28,
       "title": "photo"
     },
     "photo without modeling support": {
       "artifact": "rst/examples/src/photo-without-modeling-support.cpp",
-      "bytes": 2135,
+      "bytes": 2142,
       "end_line": 104,
       "kind": "skeleton",
       "language": "cpp",
@@ -21059,7 +21059,7 @@
           "text": "    ...\n"
         }
       ],
-      "sha256": "11ad0e9336513cdc4df5da249a649d9d3fa5230cd17e857d387e31ecc6aedfe9",
+      "sha256": "aa83bf115ace2e967ee077ce4d0bb79b21d754b6e5bb34274669a212f255a0a4",
       "start_line": 28,
       "title": "photo without modeling support"
     },
@@ -21084,21 +21084,21 @@
     },
     "photo without modeling support:anonymous#2": {
       "artifact": "rst/examples/src/photo-without-modeling-support.cpp",
-      "bytes": 895,
+      "bytes": 902,
       "end_line": 104,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 895,
+            "bytes": 902,
             "end_line": 104,
-            "sha256": "7897d8a8087fdd69a065d95143797ae57c3fcf9d8305c182f23f96de7f304f85",
+            "sha256": "88433ba51ff1762cf6d3649d8475b31b8a92782bf12e68b9c91874a4e34c5cc3",
             "start_line": 71
           }
         }
       ],
-      "sha256": "7897d8a8087fdd69a065d95143797ae57c3fcf9d8305c182f23f96de7f304f85",
+      "sha256": "88433ba51ff1762cf6d3649d8475b31b8a92782bf12e68b9c91874a4e34c5cc3",
       "start_line": 71
     },
     "photo:anonymous": {
@@ -21160,21 +21160,21 @@
     },
     "photo:anonymous#4": {
       "artifact": "rst/examples/src/photo.cpp",
-      "bytes": 167,
+      "bytes": 174,
       "end_line": 102,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 167,
+            "bytes": 174,
             "end_line": 102,
-            "sha256": "fd5b8efc8a47448e3f5a8fdf58be313f334ef945e16478d5c235f9f9a8bc9afd",
+            "sha256": "3d7ead629d3743fb74ab84b2c6e03e8d40456a0cc81f4289e7768a8b9db90d80",
             "start_line": 96
           }
         }
       ],
-      "sha256": "fd5b8efc8a47448e3f5a8fdf58be313f334ef945e16478d5c235f9f9a8bc9afd",
+      "sha256": "3d7ead629d3743fb74ab84b2c6e03e8d40456a0cc81f4289e7768a8b9db90d80",
       "start_line": 96
     },
     "photo:compute violations": {
@@ -22840,7 +22840,7 @@
     },
     "send most money with driver": {
       "artifact": "rst/examples/src/send-most-money-with-driver.cpp",
-      "bytes": 2063,
+      "bytes": 2070,
       "end_line": 101,
       "kind": "skeleton",
       "language": "cpp",
@@ -22942,7 +22942,7 @@
           }
         }
       ],
-      "sha256": "66b7a6ac4c0c65013d15bf543e975bc7e05170803f89d8d8abcf54e97bbd362d",
+      "sha256": "52c3990b99ce08c88c06926255da5453a923edcc24c17ef0ca1d17a40ef578fc",
       "start_line": 28,
       "title": "send most money with driver"
     },
@@ -23043,21 +23043,21 @@
     },
     "send most money with driver:commandline options": {
       "artifact": "rst/examples/src/send-most-money-with-driver.cpp",
-      "bytes": 295,
+      "bytes": 302,
       "end_line": 97,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 295,
+            "bytes": 302,
             "end_line": 97,
-            "sha256": "079a78a727e068fdbd42576a6bb26972dba45f070fe5a9eacc92f31136d92cfd",
+            "sha256": "ecee06bc1727740a5c54b072914b9c633daff2bb85325b0157b17701d51c3f08",
             "start_line": 90
           }
         }
       ],
-      "sha256": "079a78a727e068fdbd42576a6bb26972dba45f070fe5a9eacc92f31136d92cfd",
+      "sha256": "ecee06bc1727740a5c54b072914b9c633daff2bb85325b0157b17701d51c3f08",
       "start_line": 90,
       "title": "commandline options"
     },
@@ -30992,12 +30992,12 @@
           "source": {
             "bytes": 65,
             "end_line": 2,
-            "sha256": "25a036ea92fe7ae6044c0b9cd01dc65e5d899304664482adcc21a0cb93bc80b7",
+            "sha256": "9098b7536971d163bb6120c40840c0420aba8286e5e1f6b57468b661e06aa2ed",
             "start_line": 1
           }
         }
       ],
-      "sha256": "25a036ea92fe7ae6044c0b9cd01dc65e5d899304664482adcc21a0cb93bc80b7",
+      "sha256": "9098b7536971d163bb6120c40840c0420aba8286e5e1f6b57468b661e06aa2ed",
       "small": false,
       "start_line": 1
     },
@@ -31012,12 +31012,12 @@
           "source": {
             "bytes": 69,
             "end_line": 2,
-            "sha256": "79a77b00adc4e2b23017fabd33684fccbeefa71e6f96e571f2432e93a0c29db5",
+            "sha256": "957b2d273d12742e900c60ab71ba1b8c4c97b8c6d4a923531260d1ba772fc435",
             "start_line": 1
           }
         }
       ],
-      "sha256": "79a77b00adc4e2b23017fabd33684fccbeefa71e6f96e571f2432e93a0c29db5",
+      "sha256": "957b2d273d12742e900c60ab71ba1b8c4c97b8c6d4a923531260d1ba772fc435",
       "small": false,
       "start_line": 1
     },
@@ -31052,12 +31052,12 @@
           "source": {
             "bytes": 62,
             "end_line": 2,
-            "sha256": "6fa3d1ea25c4daff2b2914678115e5dd297c18ea5eef0f994baa98d906afd25e",
+            "sha256": "a341de2de0b93b5b498b20924936ce72379dad6b79743e9ae2875a32bdf45eb8",
             "start_line": 1
           }
         }
       ],
-      "sha256": "6fa3d1ea25c4daff2b2914678115e5dd297c18ea5eef0f994baa98d906afd25e",
+      "sha256": "a341de2de0b93b5b498b20924936ce72379dad6b79743e9ae2875a32bdf45eb8",
       "small": false,
       "start_line": 1
     },
@@ -31072,12 +31072,12 @@
           "source": {
             "bytes": 31,
             "end_line": 1,
-            "sha256": "a161164b70f13879d6306a9908ee800b83157c0832ff208485f33fe1fb14983b",
+            "sha256": "70039d7f0bba2d0d02109339d36c45f8f16864287abf9a72a8da2d11e24a21a3",
             "start_line": 1
           }
         }
       ],
-      "sha256": "a161164b70f13879d6306a9908ee800b83157c0832ff208485f33fe1fb14983b",
+      "sha256": "70039d7f0bba2d0d02109339d36c45f8f16864287abf9a72a8da2d11e24a21a3",
       "small": false,
       "start_line": 1
     },
@@ -31152,12 +31152,12 @@
           "source": {
             "bytes": 64,
             "end_line": 2,
-            "sha256": "227a36166092097e16fe00a9aef44b05202a253d91efb2178c866f9df15536d5",
+            "sha256": "47b6c061059ddf7ddc13e0a515c565679ba84e477611a56780889d62fb353872",
             "start_line": 1
           }
         }
       ],
-      "sha256": "227a36166092097e16fe00a9aef44b05202a253d91efb2178c866f9df15536d5",
+      "sha256": "47b6c061059ddf7ddc13e0a515c565679ba84e477611a56780889d62fb353872",
       "small": false,
       "start_line": 1
     },
@@ -31172,12 +31172,12 @@
           "source": {
             "bytes": 177,
             "end_line": 5,
-            "sha256": "ed641d9d87b2a784470c33c3f2e6750ee7476d36d20af7d49572ee538f13a918",
+            "sha256": "c8e2595cc659c4880d4176ce2d2dd0d28ff42966ad82c36913f5b4228457750a",
             "start_line": 1
           }
         }
       ],
-      "sha256": "ed641d9d87b2a784470c33c3f2e6750ee7476d36d20af7d49572ee538f13a918",
+      "sha256": "c8e2595cc659c4880d4176ce2d2dd0d28ff42966ad82c36913f5b4228457750a",
       "small": false,
       "start_line": 1
     },
@@ -31192,12 +31192,12 @@
           "source": {
             "bytes": 56,
             "end_line": 1,
-            "sha256": "0034b7190cbe049c26c8f55dc709c277f7e314dc46cbe3b523a703925fdf3b03",
+            "sha256": "10204722a4abb374715583c715ab33b693fd11f59ed96759355b1f34bb9c80e8",
             "start_line": 1
           }
         }
       ],
-      "sha256": "0034b7190cbe049c26c8f55dc709c277f7e314dc46cbe3b523a703925fdf3b03",
+      "sha256": "10204722a4abb374715583c715ab33b693fd11f59ed96759355b1f34bb9c80e8",
       "small": false,
       "start_line": 1
     },
@@ -31212,12 +31212,12 @@
           "source": {
             "bytes": 56,
             "end_line": 1,
-            "sha256": "192f8d4c428000ac05f363293d47f078328a95c71de28671329ec7e995d065ef",
+            "sha256": "823bb54b613ab1eb1c3ff801678d3b225614aec6c0eeb6551e737f202a3378b8",
             "start_line": 1
           }
         }
       ],
-      "sha256": "192f8d4c428000ac05f363293d47f078328a95c71de28671329ec7e995d065ef",
+      "sha256": "823bb54b613ab1eb1c3ff801678d3b225614aec6c0eeb6551e737f202a3378b8",
       "small": false,
       "start_line": 1
     },
@@ -31232,12 +31232,12 @@
           "source": {
             "bytes": 76,
             "end_line": 2,
-            "sha256": "8ada02d8fe04c1f7ac801159aee88c18185c414238db5e988dd9c3663fce08c2",
+            "sha256": "ced8d1492b53620cc907057bbeb7bcdf9001c414b1b2d287a114ba4bdf4be295",
             "start_line": 1
           }
         }
       ],
-      "sha256": "8ada02d8fe04c1f7ac801159aee88c18185c414238db5e988dd9c3663fce08c2",
+      "sha256": "ced8d1492b53620cc907057bbeb7bcdf9001c414b1b2d287a114ba4bdf4be295",
       "small": false,
       "start_line": 1
     },
@@ -31472,12 +31472,12 @@
           "source": {
             "bytes": 55,
             "end_line": 1,
-            "sha256": "ad9e2349bdafb74ca8cd5be3fd52260f54ebe4c96043e6d20655bcd4828ecf8a",
+            "sha256": "5b431a6c4c7a718e8b0329164a24a482aed18e38064ed232e2b63e110e89ec67",
             "start_line": 1
           }
         }
       ],
-      "sha256": "ad9e2349bdafb74ca8cd5be3fd52260f54ebe4c96043e6d20655bcd4828ecf8a",
+      "sha256": "5b431a6c4c7a718e8b0329164a24a482aed18e38064ed232e2b63e110e89ec67",
       "small": false,
       "start_line": 1
     },
@@ -32503,7 +32503,7 @@
     },
     "warehouses": {
       "artifact": "rst/examples/src/warehouses.cpp",
-      "bytes": 2538,
+      "bytes": 2545,
       "end_line": 120,
       "kind": "skeleton",
       "language": "cpp",
@@ -32613,7 +32613,7 @@
           "text": "\n...\n"
         }
       ],
-      "sha256": "2faaddcc77850986e33405f953691914faf7524f222f5a9ec0a05c625b40870f",
+      "sha256": "98798685e0231bcb05a5646b25179e7232d8b53a82c305a646203d1cc9ef1ecb",
       "start_line": 28,
       "title": "warehouses"
     },
@@ -32676,21 +32676,21 @@
     },
     "warehouses:anonymous#4": {
       "artifact": "rst/examples/src/warehouses.cpp",
-      "bytes": 178,
+      "bytes": 185,
       "end_line": 120,
       "kind": "fragment",
       "language": "cpp",
       "segments": [
         {
           "source": {
-            "bytes": 178,
+            "bytes": 185,
             "end_line": 120,
-            "sha256": "e77b9fb1cc0b3a7ec5d4593efcd9f963fd51b23867a0da49c5ed1cdbc28f6de8",
+            "sha256": "dfe0ff864ebef8a55a908156f886f5f06fa125a74c33ea09a42e56c2eb50bc29",
             "start_line": 113
           }
         }
       ],
-      "sha256": "e77b9fb1cc0b3a7ec5d4593efcd9f963fd51b23867a0da49c5ed1cdbc28f6de8",
+      "sha256": "dfe0ff864ebef8a55a908156f886f5f06fa125a74c33ea09a42e56c2eb50bc29",
       "start_line": 113
     },
     "warehouses:branching": {

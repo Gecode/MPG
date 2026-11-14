@@ -170,6 +170,12 @@ The values for ``-threads`` are interpreted as described in :ref:`sec:m:search:o
 
 Note that all commanline options can also be used with a starting double hyphen ``--`` instead of a single hyphen.
 
+.. _modeling:m-driver:parsing-options:
+
+.. mpg-paragraph:: Parsing options.
+
+The member function ``parse(argc,argv)`` reads options from ``argv`` and removes them, leaving the remaining arguments in ``argv``. It stops at the first argument that it does not recognise and leaves that argument in place without a message. A misspelled option therefore goes unnoticed, and the program runs with its default values. A program that uses an :api:`Options` object and accepts only options can call ``parse_strict(argc,argv)`` instead: it reports the first unrecognised argument, prints the help text, and stops the program with an error. The member function ``parse_permissive(argc,argv)`` is the same as ``parse(argc,argv)``. Strict parsing will become the default in a future major release, so a program that processes further arguments itself should call ``parse_permissive(argc,argv)``.
+
 .. _modeling:m-driver:invoking-help:
 
 .. mpg-paragraph:: Invoking help.

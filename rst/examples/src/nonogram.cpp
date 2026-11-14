@@ -114,7 +114,7 @@ public:
 int main(int argc, char* argv[]) {
   Options opt("Nonogram");
   opt.solutions(0);
-  opt.parse(argc,argv);
+  opt.parse_strict(argc,argv);
   Script::run<Nonogram,DFS,Options>(opt);
   return 0;
 }

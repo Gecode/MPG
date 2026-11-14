@@ -23,10 +23,10 @@ uv run --locked -- python rst/scripts/generate_reference_inventory.py \
   --source rst/content \
   --tag ../gecode/build/mpg-validation/doc/gecode-doc.tag \
   --html-root ../gecode/build/mpg-validation/doc/html \
-  --version 6.5.0 \
+  --version 6.6.0 \
   --output rst/release-reference-inventory.json
 
-make release MPG_VERSION=6.5.0 GECODE_ROOT=../gecode \
+make release MPG_VERSION=6.6.0 GECODE_ROOT=../gecode \
   RST_BUILD=/tmp/mpg-release-build MPG_OUTPUT=/tmp/mpg-release-output
 ```
 
@@ -51,10 +51,10 @@ published edition. Validate the completed MPG links against that retained tree.
 
 The example above writes:
 
-- `/tmp/mpg-release-output/releases/6.5.0/modeling/`: complete modeling-manual bundle.
-- `/tmp/mpg-release-output/pdf/MPG-6.5.0.pdf`: standalone PDF.
+- `/tmp/mpg-release-output/releases/6.6.0/modeling/`: complete modeling-manual bundle.
+- `/tmp/mpg-release-output/pdf/MPG-6.6.0.pdf`: standalone PDF.
 
-`release-manifest.json` specifies the mount `/doc/6.5.0/modeling/`, entry page,
+`release-manifest.json` specifies the mount `/doc/6.6.0/modeling/`, entry page,
 search index, redirects, and file sizes/hashes. The package contains complete
 HTML pages, local styles/scripts/fonts, exact source downloads, and the PDF.
 Internal build files are excluded. Packaging rejects unsupported versions,
